@@ -5,7 +5,7 @@ import useReveal from "../hooks/useReveal";
 import Particles from "../components/Particles";
 import Navbar from "../components/Navbar";
 import HeroSlider from "../components/HeroSlider";
-import CharCard from "../components/CharCard";
+import CharCarousel from "../components/CharCarousel";
 import DistrictCard from "../components/DistrictCard";
 import Footer from "../components/Footer";
 
@@ -94,97 +94,6 @@ function IntroSection({ isMobile }) {
   );
 }
 
-function CharactersSection({ isMobile }) {
-  const [tRef, tV] = useReveal(0.12);
-  const [gRef, gV] = useReveal(0.05);
-
-  const chars = [
-    { name: "서윤", agency: "APEX", role: "톱 아이돌", tagline: "영점, 그리고 정점.", color: C.charApex },
-    { name: "나하린", agency: "APEX", role: "치프 프로듀서", tagline: "안녕~. 네 이름 많이 들었어.", color: C.charNaha },
-    { name: "진시혁", agency: "APEX", role: "프로듀서", tagline: "탈락, 다음.", color: C.charJin },
-    { name: "에리카", agency: "Blue Moon", role: "프로듀서", tagline: "만만하게 보면 큰코다친다?", color: C.charEri },
-    { name: "이서하", agency: "Blue Moon", role: "싱어송라이터", tagline: "하아… 귀찮으니 빨리 끝내.", color: C.charSeo },
-    { name: "한소리", agency: "PRISM", role: "기획사 대표", tagline: "이게 마지막 기회야.", color: C.charHan },
-  ];
-
-  return (
-    <section
-      id="characters"
-      style={{
-        position: "relative",
-        padding: isMobile ? "64px 20px 56px" : "100px 48px 100px",
-        zIndex: 2,
-      }}
-    >
-      <div
-        ref={tRef}
-        style={{
-          textAlign: "center",
-          marginBottom: isMobile ? 30 : 52,
-          opacity: tV ? 1 : 0,
-          transform: tV ? "translateY(0)" : "translateY(24px)",
-          transition: "all 1s cubic-bezier(0.22,1,0.36,1)",
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "var(--f-display-en)",
-            fontSize: isMobile ? 9 : 10,
-            letterSpacing: "0.4em",
-            textTransform: "uppercase",
-            color: C.gold,
-            display: "block",
-            marginBottom: isMobile ? 10 : 16,
-          }}
-        >
-          Characters
-        </span>
-        <h2
-          style={{
-            fontFamily: "var(--f-display-kr)",
-            fontSize: isMobile
-              ? "clamp(22px,6vw,30px)"
-              : "clamp(28px,3.5vw,44px)",
-            fontWeight: 600,
-            color: C.white,
-            margin: 0,
-          }}
-        >
-          이 무대의 주인공들
-        </h2>
-        <div
-          style={{
-            width: tV ? 56 : 0,
-            height: 1,
-            margin: isMobile ? "14px auto 0" : "24px auto 0",
-            background: `linear-gradient(90deg, transparent, ${C.gold}, transparent)`,
-            transition: "width 1.2s cubic-bezier(0.22,1,0.36,1) 0.3s",
-          }}
-        />
-      </div>
-      <div
-        ref={gRef}
-        style={{
-          display: "grid",
-          gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(3, 1fr)",
-          gap: isMobile ? 10 : 18,
-          maxWidth: 900,
-          margin: "0 auto",
-        }}
-      >
-        {chars.map((c, i) => (
-          <CharCard
-            key={i}
-            {...c}
-            index={i}
-            visible={gV}
-            isMobile={isMobile}
-          />
-        ))}
-      </div>
-    </section>
-  );
-}
 
 function WorldSection({ isMobile }) {
   const [tRef, tV] = useReveal(0.12);
@@ -316,7 +225,7 @@ export default function Home() {
       <Navbar scrolled={scrolled} isMobile={isMobile} />
       <HeroSlider isMobile={isMobile} />
       <IntroSection isMobile={isMobile} />
-      <CharactersSection isMobile={isMobile} />
+      <CharCarousel isMobile={isMobile} />
       <WorldSection isMobile={isMobile} />
       <Footer isMobile={isMobile} />
     </div>
