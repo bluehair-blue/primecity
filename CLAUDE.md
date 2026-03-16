@@ -424,7 +424,7 @@ export const districts = [
 | Build command | `npm run build` |
 | Build output directory | `dist` |
 | Node.js version | 18+ |
-| Custom domain | bluehair.blue |
+| Custom domain | intro.bluehair.blue |
 
 ### SPA 라우팅 처리
 
