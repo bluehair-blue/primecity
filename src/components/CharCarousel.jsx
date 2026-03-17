@@ -30,18 +30,30 @@ function Thumbnail({ char, selected, onClick, index, isMobile }) {
         opacity: selected ? 1 : 0.5,
       }}
     >
-      {/* Placeholder initial — 이미지 에셋 완성 시 <img>로 교체 */}
-      <span
-        style={{
-          fontFamily: "var(--f-display-kr)",
-          fontSize: isMobile ? 14 : 16,
-          fontWeight: 600,
-          color: selected ? char.color : C.text35,
-          transition: "color 0.3s",
-        }}
-      >
-        {char.name[0]}
-      </span>
+      {char.thumbnail ? (
+        <img
+          src={char.thumbnail}
+          alt={char.name}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            borderRadius: "50%",
+          }}
+        />
+      ) : (
+        <span
+          style={{
+            fontFamily: "var(--f-display-kr)",
+            fontSize: isMobile ? 14 : 16,
+            fontWeight: 600,
+            color: selected ? char.color : C.text35,
+            transition: "color 0.3s",
+          }}
+        >
+          {char.name[0]}
+        </span>
+      )}
     </button>
   );
 }
@@ -180,31 +192,89 @@ export default function CharCarousel({ isMobile }) {
             transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
           }}
         >
-          {/* Image placeholder */}
+          {/* Character image */}
           <div
             style={{
               width: "100%",
-              aspectRatio: "3/4",
-              maxWidth: 300,
+              aspectRatio: "1/1",
+              maxWidth: 320,
               margin: "0 auto 24px",
-              background: C.bgCard,
-              border: `1px solid ${C.border06}`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
               position: "relative",
               overflow: "hidden",
             }}
           >
-            <span
-              style={{
-                color: C.text15,
-                fontSize: 10,
-                letterSpacing: "0.1em",
-              }}
-            >
-              CHARACTER IMAGE
-            </span>
+            {char.image ? (
+              <>
+                <img
+                  src={char.image}
+                  alt={char.name}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center 20%",
+                    display: "block",
+                  }}
+                />
+                {/* Bottom fade */}
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: "35%",
+                    background: `linear-gradient(to top, ${C.bgDeep}, transparent)`,
+                    pointerEvents: "none",
+                  }}
+                />
+                {/* Left/Right fade */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    width: "15%",
+                    background: `linear-gradient(to right, ${C.bgDeep}, transparent)`,
+                    pointerEvents: "none",
+                  }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    width: "15%",
+                    background: `linear-gradient(to left, ${C.bgDeep}, transparent)`,
+                    pointerEvents: "none",
+                  }}
+                />
+              </>
+            ) : (
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  background: C.bgCard,
+                  border: `1px solid ${C.border06}`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <span
+                  style={{
+                    color: C.text15,
+                    fontSize: 10,
+                    letterSpacing: "0.1em",
+                  }}
+                >
+                  CHARACTER IMAGE
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Info */}
@@ -564,82 +634,139 @@ export default function CharCarousel({ isMobile }) {
             alignItems: "center",
             justifyContent: "center",
             minHeight: 500,
+            overflow: "hidden",
           }}
         >
           <div
             style={{
               width: "100%",
-              maxWidth: 420,
-              aspectRatio: "2/3",
-              background: C.bgCard,
-              border: `1px solid ${C.border06}`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              maxWidth: 560,
+              aspectRatio: "1/1",
               position: "relative",
-              overflow: "hidden",
               opacity: fade ? 1 : 0,
               transform: fade ? "scale(1)" : "scale(0.97)",
               transition: "all 0.5s cubic-bezier(0.22,1,0.36,1)",
             }}
           >
-            {/* Accent glow */}
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                height: 3,
-                background: `linear-gradient(90deg, ${char.color}, transparent 70%)`,
-                opacity: 0.6,
-              }}
-            />
-
-            {/* Placeholder — 이미지 에셋 완성 시 교체 */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 8,
-              }}
-            >
-              <span
+            {char.image ? (
+              <img
+                src={char.image}
+                alt={char.name}
                 style={{
-                  fontFamily: "var(--f-display-kr)",
-                  fontSize: 48,
-                  color: char.color,
-                  opacity: 0.15,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center 20%",
+                  display: "block",
+                }}
+              />
+            ) : (
+              /* Placeholder — 이미지 에셋 미완성 캐릭터용 */
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  background: C.bgCard,
+                  border: `1px solid ${C.border06}`,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
                 }}
               >
-                {char.name}
-              </span>
-              <span
-                style={{
-                  fontFamily: "var(--f-body)",
-                  fontSize: 10,
-                  color: C.text15,
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Character Image
-              </span>
-            </div>
+                <span
+                  style={{
+                    fontFamily: "var(--f-display-kr)",
+                    fontSize: 48,
+                    color: char.color,
+                    opacity: 0.15,
+                  }}
+                >
+                  {char.name}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--f-body)",
+                    fontSize: 10,
+                    color: C.text15,
+                    letterSpacing: "0.15em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Character Image
+                </span>
+              </div>
+            )}
 
-            {/* 이미지 사용 시 아래 주석 해제:
-            <img
-              src={char.image}
-              alt={char.name}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "center top",
-              }}
-            />
-            */}
+            {/* Edge fade overlays — 경계를 배경과 자연스럽게 융합 */}
+            {char.image && (
+              <>
+                {/* Bottom fade */}
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: "35%",
+                    background: `linear-gradient(to top, ${C.bgDeep}, transparent)`,
+                    pointerEvents: "none",
+                  }}
+                />
+                {/* Left fade */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    width: "20%",
+                    background: `linear-gradient(to right, ${C.bgDeep}, transparent)`,
+                    pointerEvents: "none",
+                  }}
+                />
+                {/* Top fade */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: "15%",
+                    background: `linear-gradient(to bottom, ${C.bgDeep}, transparent)`,
+                    pointerEvents: "none",
+                  }}
+                />
+                {/* Right fade */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    width: "10%",
+                    background: `linear-gradient(to left, ${C.bgDeep}, transparent)`,
+                    pointerEvents: "none",
+                  }}
+                />
+                {/* Accent glow behind character */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "30%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: "60%",
+                    height: "60%",
+                    borderRadius: "50%",
+                    background: `radial-gradient(circle, ${char.color.replace(")", " / 0.08)")}, transparent 70%)`,
+                    pointerEvents: "none",
+                    filter: "blur(40px)",
+                  }}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>
