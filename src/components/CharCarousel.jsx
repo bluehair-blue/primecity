@@ -93,10 +93,20 @@ function InfoTag({ label, value, accent }) {
   );
 }
 
+const PAGE_SIZE = 6;
+
 export default function CharCarousel({ isMobile }) {
   const [idx, setIdx] = useState(0);
   const [fade, setFade] = useState(true);
   const char = characters[idx];
+
+  // Thumbnail pagination
+  const totalPages = Math.ceil(characters.length / PAGE_SIZE);
+  const currentPage = Math.floor(idx / PAGE_SIZE);
+  const pageChars = characters.slice(
+    currentPage * PAGE_SIZE,
+    currentPage * PAGE_SIZE + PAGE_SIZE
+  );
 
   function switchTo(i) {
     if (i === idx) return;
@@ -107,18 +117,24 @@ export default function CharCarousel({ isMobile }) {
     }, 250);
   }
 
-  function prev() {
-    switchTo(idx === 0 ? characters.length - 1 : idx - 1);
+  function prevPage() {
+    const newPage = currentPage === 0 ? totalPages - 1 : currentPage - 1;
+    switchTo(newPage * PAGE_SIZE);
   }
-  function next() {
-    switchTo(idx === characters.length - 1 ? 0 : idx + 1);
+  function nextPage() {
+    const newPage = currentPage === totalPages - 1 ? 0 : currentPage + 1;
+    switchTo(newPage * PAGE_SIZE);
   }
 
   // Keyboard navigation
   useEffect(() => {
     function onKey(e) {
-      if (e.key === "ArrowUp" || e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") {
+        switchTo(idx === 0 ? characters.length - 1 : idx - 1);
+      }
+      if (e.key === "ArrowRight") {
+        switchTo(idx === characters.length - 1 ? 0 : idx + 1);
+      }
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -538,15 +554,15 @@ export default function CharCarousel({ isMobile }) {
             flexShrink: 0,
           }}
         >
-          {/* Up arrow */}
+          {/* Page up arrow */}
           <button
-            onClick={prev}
-            aria-label="이전 캐릭터"
+            onClick={prevPage}
+            aria-label="이전 그룹"
             style={{
               background: "none",
-              border: `1px solid ${C.border10}`,
-              color: C.text35,
-              cursor: "pointer",
+              border: `1px solid ${totalPages > 1 ? C.border10 : C.border06}`,
+              color: totalPages > 1 ? C.text35 : C.text15,
+              cursor: totalPages > 1 ? "pointer" : "default",
               width: 36,
               height: 28,
               display: "flex",
@@ -555,33 +571,38 @@ export default function CharCarousel({ isMobile }) {
               fontSize: 14,
               transition: "all 0.3s",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.borderColor = C.gold)}
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.borderColor = C.border10)
-            }
+            onMouseEnter={(e) => {
+              if (totalPages > 1) e.currentTarget.style.borderColor = C.gold;
+            }}
+            onMouseLeave={(e) => {
+              if (totalPages > 1) e.currentTarget.style.borderColor = C.border10;
+            }}
           >
             ▲
           </button>
 
-          {characters.map((c, i) => (
-            <Thumbnail
-              key={c.id}
-              char={c}
-              selected={i === idx}
-              onClick={() => switchTo(i)}
-              index={i}
-            />
-          ))}
+          {pageChars.map((c) => {
+            const globalIdx = characters.indexOf(c);
+            return (
+              <Thumbnail
+                key={c.id}
+                char={c}
+                selected={globalIdx === idx}
+                onClick={() => switchTo(globalIdx)}
+                index={globalIdx}
+              />
+            );
+          })}
 
-          {/* Down arrow */}
+          {/* Page down arrow */}
           <button
-            onClick={next}
-            aria-label="다음 캐릭터"
+            onClick={nextPage}
+            aria-label="다음 그룹"
             style={{
               background: "none",
-              border: `1px solid ${C.border10}`,
-              color: C.text35,
-              cursor: "pointer",
+              border: `1px solid ${totalPages > 1 ? C.border10 : C.border06}`,
+              color: totalPages > 1 ? C.text35 : C.text15,
+              cursor: totalPages > 1 ? "pointer" : "default",
               width: 36,
               height: 28,
               display: "flex",
@@ -590,10 +611,12 @@ export default function CharCarousel({ isMobile }) {
               fontSize: 14,
               transition: "all 0.3s",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.borderColor = C.gold)}
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.borderColor = C.border10)
-            }
+            onMouseEnter={(e) => {
+              if (totalPages > 1) e.currentTarget.style.borderColor = C.gold;
+            }}
+            onMouseLeave={(e) => {
+              if (totalPages > 1) e.currentTarget.style.borderColor = C.border10;
+            }}
           >
             ▼
           </button>
@@ -681,7 +704,7 @@ export default function CharCarousel({ isMobile }) {
             style={{
               width: 120,
               height: 2,
-              background: `linear-gradient(90deg, ${char.color}, oklch(0.65 0.12 340), oklch(0.72 0.10 170), transparent)`,
+              background: `linear-gradient(90deg, ${char.color}, ${char.color.replace(")", " / 0.3)")}, transparent)`,
               margin: "8px 0 20px",
               transition: "background 0.4s",
             }}
