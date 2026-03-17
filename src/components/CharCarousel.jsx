@@ -364,9 +364,134 @@ export default function CharCarousel({ isMobile }) {
         zIndex: 2,
         padding: "100px 0",
         overflow: "hidden",
-        minHeight: 680,
+        minHeight: 720,
       }}
     >
+      {/* ── Character illustration (full section background, right-aligned) ── */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+          width: "65%",
+          height: "100%",
+          overflow: "hidden",
+          pointerEvents: "none",
+          opacity: fade ? 1 : 0,
+          transform: fade ? "scale(1) translateX(0)" : "scale(0.97) translateX(20px)",
+          transition: "all 0.6s cubic-bezier(0.22,1,0.36,1)",
+        }}
+      >
+        {char.image ? (
+          <img
+            src={char.image}
+            alt={char.name}
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-45%, -50%)",
+              height: "100%",
+              width: "auto",
+              maxWidth: "none",
+              objectFit: "contain",
+              display: "block",
+            }}
+          />
+        ) : (
+          /* Placeholder — 이미지 에셋 미완성 캐릭터용 */
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "var(--f-display-kr)",
+                fontSize: 72,
+                color: char.color,
+                opacity: 0.08,
+              }}
+            >
+              {char.name}
+            </span>
+            <span
+              style={{
+                fontFamily: "var(--f-body)",
+                fontSize: 10,
+                color: C.text15,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+              }}
+            >
+              Character Image
+            </span>
+          </div>
+        )}
+
+        {/* Edge fade overlays */}
+        {/* Bottom fade */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: "30%",
+            background: `linear-gradient(to top, ${C.bgDeep}, transparent)`,
+            pointerEvents: "none",
+          }}
+        />
+        {/* Left fade — blends illustration into text area */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            bottom: 0,
+            width: "35%",
+            background: `linear-gradient(to right, ${C.bgDeep}, transparent)`,
+            pointerEvents: "none",
+          }}
+        />
+        {/* Top fade */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "15%",
+            background: `linear-gradient(to bottom, ${C.bgDeep}, transparent)`,
+            pointerEvents: "none",
+          }}
+        />
+        {/* Accent glow */}
+        {char.image && (
+          <div
+            style={{
+              position: "absolute",
+              top: "40%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "50%",
+              height: "50%",
+              borderRadius: "50%",
+              background: `radial-gradient(circle, ${char.color.replace(")", " / 0.06)")}, transparent 70%)`,
+              pointerEvents: "none",
+              filter: "blur(60px)",
+            }}
+          />
+        )}
+      </div>
+
       {/* Background typography */}
       <div
         style={{
@@ -400,6 +525,7 @@ export default function CharCarousel({ isMobile }) {
           gap: 40,
           alignItems: "stretch",
           position: "relative",
+          zIndex: 1,
         }}
       >
         {/* ── Left: Thumbnail column ── */}
@@ -625,150 +751,7 @@ export default function CharCarousel({ isMobile }) {
           </Link>
         </div>
 
-        {/* ── Right: Character illustration ── */}
-        <div
-          style={{
-            flex: 1,
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            minHeight: 500,
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              width: "100%",
-              maxWidth: 560,
-              aspectRatio: "1/1",
-              position: "relative",
-              opacity: fade ? 1 : 0,
-              transform: fade ? "scale(1)" : "scale(0.97)",
-              transition: "all 0.5s cubic-bezier(0.22,1,0.36,1)",
-            }}
-          >
-            {char.image ? (
-              <img
-                src={char.image}
-                alt={char.name}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  objectPosition: "center 20%",
-                  display: "block",
-                }}
-              />
-            ) : (
-              /* Placeholder — 이미지 에셋 미완성 캐릭터용 */
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  background: C.bgCard,
-                  border: `1px solid ${C.border06}`,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 8,
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "var(--f-display-kr)",
-                    fontSize: 48,
-                    color: char.color,
-                    opacity: 0.15,
-                  }}
-                >
-                  {char.name}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--f-body)",
-                    fontSize: 10,
-                    color: C.text15,
-                    letterSpacing: "0.15em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Character Image
-                </span>
-              </div>
-            )}
-
-            {/* Edge fade overlays — 경계를 배경과 자연스럽게 융합 */}
-            {char.image && (
-              <>
-                {/* Bottom fade */}
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    height: "35%",
-                    background: `linear-gradient(to top, ${C.bgDeep}, transparent)`,
-                    pointerEvents: "none",
-                  }}
-                />
-                {/* Left fade */}
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    width: "20%",
-                    background: `linear-gradient(to right, ${C.bgDeep}, transparent)`,
-                    pointerEvents: "none",
-                  }}
-                />
-                {/* Top fade */}
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: "15%",
-                    background: `linear-gradient(to bottom, ${C.bgDeep}, transparent)`,
-                    pointerEvents: "none",
-                  }}
-                />
-                {/* Right fade */}
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    width: "10%",
-                    background: `linear-gradient(to left, ${C.bgDeep}, transparent)`,
-                    pointerEvents: "none",
-                  }}
-                />
-                {/* Accent glow behind character */}
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "30%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: "60%",
-                    height: "60%",
-                    borderRadius: "50%",
-                    background: `radial-gradient(circle, ${char.color.replace(")", " / 0.08)")}, transparent 70%)`,
-                    pointerEvents: "none",
-                    filter: "blur(40px)",
-                  }}
-                />
-              </>
-            )}
-          </div>
-        </div>
+        {/* Right side is now absolute-positioned at section level */}
       </div>
     </section>
   );
