@@ -1,17 +1,49 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import C from "../styles/tokens";
 
-const BG_URL = "https://img.bluehair.blue/ent/bg1.png";
+const BG_IMAGES = Array.from({ length: 9 }, (_, i) =>
+  `https://img.bluehair.blue/ent/bg${i + 3}.png`
+);
+const SLIDE_INTERVAL = 6000;
+const FADE_DURATION = 2000;
 
 export default function HeroSlider({ isMobile }) {
   const [uiReady, setUiReady] = useState(false);
-  const [imgLoaded, setImgLoaded] = useState(false);
-  const [imgError, setImgError] = useState(false);
+  const [current, setCurrent] = useState(0);
+  const [next, setNext] = useState(null);
+  const [loadedSet, setLoadedSet] = useState(new Set());
+  const [anyLoaded, setAnyLoaded] = useState(false);
+  const timerRef = useRef(null);
+
+  const markLoaded = useCallback((idx) => {
+    setLoadedSet((prev) => {
+      const s = new Set(prev);
+      s.add(idx);
+      return s;
+    });
+    setAnyLoaded(true);
+  }, []);
 
   useEffect(() => {
     const t = setTimeout(() => setUiReady(true), 300);
     return () => clearTimeout(t);
   }, []);
+
+  useEffect(() => {
+    if (!anyLoaded) return;
+    timerRef.current = setInterval(() => {
+      setCurrent((prev) => {
+        const nextIdx = (prev + 1) % BG_IMAGES.length;
+        setNext(nextIdx);
+        setTimeout(() => {
+          setCurrent(nextIdx);
+          setNext(null);
+        }, FADE_DURATION);
+        return prev;
+      });
+    }, SLIDE_INTERVAL);
+    return () => clearInterval(timerRef.current);
+  }, [anyLoaded]);
 
   const t = (delay) => `all 1s cubic-bezier(0.22,1,0.36,1) ${delay}s`;
 
@@ -30,31 +62,35 @@ export default function HeroSlider({ isMobile }) {
         overflow: "hidden",
       }}
     >
-      {/* ── Background Image ── */}
+      {/* ── Background Images (crossfade slider) ── */}
       <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage: !imgError ? `url(${BG_URL})` : "none",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            opacity: imgLoaded ? 0.35 : 0,
-            transition: "opacity 2s cubic-bezier(0.22,1,0.36,1) 0.2s",
-            filter: "brightness(0.6) saturate(0.8)",
-          }}
-        />
-        <img
-          src={BG_URL}
-          alt=""
-          crossOrigin="anonymous"
-          onLoad={() => setImgLoaded(true)}
-          onError={() => {
-            setImgError(true);
-            setImgLoaded(true);
-          }}
-          style={{ display: "none" }}
-        />
+        {BG_IMAGES.map((url, idx) => (
+          <div
+            key={url}
+            style={{
+              position: "absolute",
+              inset: 0,
+              backgroundImage: loadedSet.has(idx) ? `url(${url})` : "none",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              opacity: idx === current && anyLoaded ? 0.35
+                : idx === next && anyLoaded ? 0.35 : 0,
+              transition: `opacity ${FADE_DURATION}ms cubic-bezier(0.22,1,0.36,1)`,
+              filter: "brightness(0.6) saturate(0.8)",
+            }}
+          />
+        ))}
+        {/* Preload images */}
+        {BG_IMAGES.map((url, idx) => (
+          <img
+            key={`preload-${url}`}
+            src={url}
+            alt=""
+            crossOrigin="anonymous"
+            onLoad={() => markLoaded(idx)}
+            style={{ display: "none" }}
+          />
+        ))}
         {/* Fallback gradient */}
         <div
           style={{
@@ -66,7 +102,7 @@ export default function HeroSlider({ isMobile }) {
               oklch(0.12 0.02 260 / 0.4) 40%,
               ${C.bgDeep} 80%
             )`,
-            opacity: imgError || !imgLoaded ? 1 : 0,
+            opacity: !anyLoaded ? 1 : 0,
             transition: "opacity 2s ease",
             pointerEvents: "none",
           }}
