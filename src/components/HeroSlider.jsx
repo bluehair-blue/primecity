@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import C from "../styles/tokens";
 
 const BG_IMAGES = Array.from({ length: 9 }, (_, i) =>
@@ -12,11 +12,7 @@ export default function HeroSlider({ isMobile }) {
   const [loadedSet, setLoadedSet] = useState(new Set());
   const [anyLoaded, setAnyLoaded] = useState(false);
 
-  // Two-layer crossfade: bottom layer stays solid, top layer fades in over it
-  const [bottomIdx, setBottomIdx] = useState(0);
-  const [topIdx, setTopIdx] = useState(null);
-  const [topOpacity, setTopOpacity] = useState(0);
-  const timerRef = useRef(null);
+  const [currentIdx, setCurrentIdx] = useState(0);
 
   const markLoaded = useCallback((idx) => {
     setLoadedSet((prev) => {
@@ -34,27 +30,10 @@ export default function HeroSlider({ isMobile }) {
 
   useEffect(() => {
     if (!anyLoaded) return;
-    timerRef.current = setInterval(() => {
-      setBottomIdx((prev) => {
-        const next = (prev + 1) % BG_IMAGES.length;
-        setTopIdx(next);
-        setTopOpacity(0);
-        // Force reflow, then fade in top layer
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            setTopOpacity(1);
-          });
-        });
-        // After fade completes, promote top to bottom
-        setTimeout(() => {
-          setBottomIdx(next);
-          setTopIdx(null);
-          setTopOpacity(0);
-        }, FADE_MS + 50);
-        return prev;
-      });
+    const timer = setInterval(() => {
+      setCurrentIdx((prev) => (prev + 1) % BG_IMAGES.length);
     }, SLIDE_INTERVAL);
-    return () => clearInterval(timerRef.current);
+    return () => clearInterval(timer);
   }, [anyLoaded]);
 
   const t = (delay) => `all 1s cubic-bezier(0.22,1,0.36,1) ${delay}s`;
@@ -72,45 +51,28 @@ export default function HeroSlider({ isMobile }) {
         textAlign: "center",
         padding: isMobile ? "0 24px" : "0 48px",
         overflow: "hidden",
+        backgroundColor: C.bgDeep,
       }}
     >
-      {/* ── Background Images (two-layer crossfade) ── */}
+      {/* ── Background Images (Pure CSS Crossfade) ── */}
       <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-        {/* Bottom layer — always fully visible, no transition */}
-        {anyLoaded && (
-          <div
-            key={`bottom-${bottomIdx}`}
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage: loadedSet.has(bottomIdx)
-                ? `url(${BG_IMAGES[bottomIdx]})`
-                : "none",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              opacity: 0.35,
-              filter: "brightness(0.6) saturate(0.8)",
-            }}
-          />
-        )}
-        {/* Top layer — fades in over bottom, then gets promoted */}
-        {topIdx !== null && anyLoaded && (
-          <div
-            key={`top-${topIdx}`}
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage: loadedSet.has(topIdx)
-                ? `url(${BG_IMAGES[topIdx]})`
-                : "none",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              opacity: topOpacity * 0.35,
-              transition: `opacity ${FADE_MS}ms cubic-bezier(0.22,1,0.36,1)`,
-              filter: "brightness(0.6) saturate(0.8)",
-            }}
-          />
-        )}
+        {anyLoaded &&
+          BG_IMAGES.map((url, idx) => (
+            <div
+              key={`bg-${idx}`}
+              style={{
+                position: "absolute",
+                inset: 0,
+                backgroundImage: loadedSet.has(idx) ? `url(${url})` : "none",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                opacity: currentIdx === idx ? 0.35 : 0,
+                transition: `opacity ${FADE_MS}ms cubic-bezier(0.22,1,0.36,1)`,
+                filter: "brightness(0.6) saturate(0.8)",
+                willChange: "opacity",
+              }}
+            />
+          ))}
         {/* Preload images */}
         {BG_IMAGES.map((url, idx) => (
           <img
