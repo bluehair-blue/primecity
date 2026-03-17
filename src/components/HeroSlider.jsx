@@ -12,10 +12,10 @@ export default function HeroSlider({ isMobile }) {
   const [loadedSet, setLoadedSet] = useState(new Set());
   const [anyLoaded, setAnyLoaded] = useState(false);
 
-  // Two-layer crossfade: bottom layer stays solid, top layer fades in over it
-  const [bottomIdx, setBottomIdx] = useState(0);
-  const [topIdx, setTopIdx] = useState(null);
-  const [topOpacity, setTopOpacity] = useState(0);
+  // DOM refs for direct manipulation — bypasses React render cycle entirely
+  const bottomRef = useRef(null);
+  const topRef = useRef(null);
+  const currentIdx = useRef(0);
   const timerRef = useRef(null);
 
   const markLoaded = useCallback((idx) => {
@@ -32,27 +32,38 @@ export default function HeroSlider({ isMobile }) {
     return () => clearTimeout(t);
   }, []);
 
+  // Set initial bottom image once first image loads
+  useEffect(() => {
+    if (!anyLoaded || !bottomRef.current) return;
+    bottomRef.current.style.backgroundImage = `url(${BG_IMAGES[0]})`;
+  }, [anyLoaded]);
+
+  // Direct DOM crossfade — no React state changes during transitions
   useEffect(() => {
     if (!anyLoaded) return;
     timerRef.current = setInterval(() => {
-      setBottomIdx((prev) => {
-        const next = (prev + 1) % BG_IMAGES.length;
-        setTopIdx(next);
-        setTopOpacity(0);
-        // Force reflow, then fade in top layer
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            setTopOpacity(1);
-          });
-        });
-        // After fade completes, promote top to bottom
-        setTimeout(() => {
-          setBottomIdx(next);
-          setTopIdx(null);
-          setTopOpacity(0);
-        }, FADE_MS + 50);
-        return prev;
-      });
+      const nextIdx = (currentIdx.current + 1) % BG_IMAGES.length;
+      const topEl = topRef.current;
+      const bottomEl = bottomRef.current;
+      if (!topEl || !bottomEl) return;
+
+      // 1. Prepare top layer: set image, force opacity 0 with no transition
+      topEl.style.transition = "none";
+      topEl.style.backgroundImage = `url(${BG_IMAGES[nextIdx]})`;
+      topEl.style.opacity = "0";
+
+      // 2. Force reflow, then enable transition and fade in
+      topEl.offsetHeight;
+      topEl.style.transition = `opacity ${FADE_MS}ms cubic-bezier(0.22,1,0.36,1)`;
+      topEl.style.opacity = "0.35";
+
+      // 3. After fade completes, promote top to bottom (instant swap)
+      setTimeout(() => {
+        bottomEl.style.backgroundImage = `url(${BG_IMAGES[nextIdx]})`;
+        topEl.style.transition = "none";
+        topEl.style.opacity = "0";
+        currentIdx.current = nextIdx;
+      }, FADE_MS + 50);
     }, SLIDE_INTERVAL);
     return () => clearInterval(timerRef.current);
   }, [anyLoaded]);
@@ -74,43 +85,32 @@ export default function HeroSlider({ isMobile }) {
         overflow: "hidden",
       }}
     >
-      {/* ── Background Images (two-layer crossfade) ── */}
+      {/* ── Background Images (ref-based two-layer crossfade) ── */}
       <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-        {/* Bottom layer — always fully visible, no transition */}
-        {anyLoaded && (
-          <div
-            key={`bottom-${bottomIdx}`}
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage: loadedSet.has(bottomIdx)
-                ? `url(${BG_IMAGES[bottomIdx]})`
-                : "none",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              opacity: 0.35,
-              filter: "brightness(0.6) saturate(0.8)",
-            }}
-          />
-        )}
-        {/* Top layer — fades in over bottom, then gets promoted */}
-        {topIdx !== null && anyLoaded && (
-          <div
-            key={`top-${topIdx}`}
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage: loadedSet.has(topIdx)
-                ? `url(${BG_IMAGES[topIdx]})`
-                : "none",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              opacity: topOpacity * 0.35,
-              transition: `opacity ${FADE_MS}ms cubic-bezier(0.22,1,0.36,1)`,
-              filter: "brightness(0.6) saturate(0.8)",
-            }}
-          />
-        )}
+        {/* Bottom layer — always visible at fixed opacity, no CSS transition */}
+        <div
+          ref={bottomRef}
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: anyLoaded ? 0.35 : 0,
+            filter: "brightness(0.6) saturate(0.8)",
+          }}
+        />
+        {/* Top layer — fades in over bottom via direct DOM manipulation */}
+        <div
+          ref={topRef}
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: 0,
+            filter: "brightness(0.6) saturate(0.8)",
+          }}
+        />
         {/* Preload images */}
         {BG_IMAGES.map((url, idx) => (
           <img
