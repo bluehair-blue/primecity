@@ -1,16 +1,15 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import C from "../styles/tokens";
 
 const BG_IMAGES = Array.from({ length: 9 }, (_, i) =>
   `https://img.bluehair.blue/ent/bg${i + 3}.png`
 );
 const SLIDE_INTERVAL = 6000;
-const FADE_DURATION = 2000;
+const FADE_MS = 1200;
 
 export default function HeroSlider({ isMobile }) {
   const [uiReady, setUiReady] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [next, setNext] = useState(null);
   const [loadedSet, setLoadedSet] = useState(new Set());
   const [anyLoaded, setAnyLoaded] = useState(false);
   const timerRef = useRef(null);
@@ -32,15 +31,7 @@ export default function HeroSlider({ isMobile }) {
   useEffect(() => {
     if (!anyLoaded) return;
     timerRef.current = setInterval(() => {
-      setCurrent((prev) => {
-        const nextIdx = (prev + 1) % BG_IMAGES.length;
-        setNext(nextIdx);
-        setTimeout(() => {
-          setCurrent(nextIdx);
-          setNext(null);
-        }, FADE_DURATION);
-        return prev;
-      });
+      setCurrent((prev) => (prev + 1) % BG_IMAGES.length);
     }, SLIDE_INTERVAL);
     return () => clearInterval(timerRef.current);
   }, [anyLoaded]);
@@ -73,9 +64,8 @@ export default function HeroSlider({ isMobile }) {
               backgroundImage: loadedSet.has(idx) ? `url(${url})` : "none",
               backgroundSize: "cover",
               backgroundPosition: "center",
-              opacity: idx === current && anyLoaded ? 0.35
-                : idx === next && anyLoaded ? 0.35 : 0,
-              transition: `opacity ${FADE_DURATION}ms cubic-bezier(0.22,1,0.36,1)`,
+              opacity: idx === current && anyLoaded ? 0.35 : 0,
+              transition: `opacity ${FADE_MS}ms cubic-bezier(0.22,1,0.36,1)`,
               filter: "brightness(0.6) saturate(0.8)",
             }}
           />
