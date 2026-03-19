@@ -62,7 +62,7 @@ border10:  "oklch(0.76 0.12 80 / 0.10)"
 border06:  "oklch(0.76 0.12 80 / 0.06)"
 border05:  "oklch(0.76 0.12 80 / 0.05)"
 
-// ── Character Accent Colors ──
+// ── Character Accent Colors (기획사 소속) ──
 charApex:  "oklch(0.76 0.12 80)"     // 서윤 — APEX gold
 charNaha:  "oklch(0.72 0.10 310)"    // 나하린 — purple
 charJin:   "oklch(0.55 0.01 0)"      // 진시혁 — grey
@@ -70,11 +70,23 @@ charEri:   "oklch(0.72 0.10 170)"    // 에리카 — teal
 charSeo:   "oklch(0.70 0.10 240)"    // 이서하 — blue
 charHan:   "oklch(0.72 0.12 55)"     // 한소리 — warm orange
 
+// ── Character Accent Colors (Route 0 + 오디션 참가자) ──
+charHaram: "oklch(0.65 0.12 20)"     // 강하람 — red
+charGru:   "oklch(0.72 0.10 300)"    // 장그루 — lavender
+charMila:  "oklch(0.72 0.12 65)"     // 밀라 — orange
+charElla:  "oklch(0.65 0.12 15)"     // 엘라 — wine red
+charMimori:"oklch(0.72 0.10 220)"    // 미모리 — sky blue
+charSieun: "oklch(0.72 0.10 85)"     // 하시은 — amber
+charNia:   "oklch(0.65 0.10 200)"    // 니아 — navy-teal
+charRay:   "oklch(0.72 0.10 290)"    // 레이 — lavender
+charLapis: "oklch(0.60 0.12 260)"    // 라피스 — cobalt
+
 // ── District Accent Colors ──
 distCore:  "oklch(0.76 0.12 80)"     // 더 코어 — gold
 distMid:   "oklch(0.65 0.10 240)"    // 미들 링 — blue
 distHype:  "oklch(0.65 0.12 340)"    // 하입 로드 — pink
 distTer:   "oklch(0.65 0.10 140)"    // 테라스 — green
+distIndustrial: "oklch(0.60 0.08 220)" // 산업단지 — steel blue
 
 // ── Utility ──
 black:     "oklch(0.08 0.01 280)"    // 골드 위 텍스트용
@@ -117,7 +129,8 @@ primecity/
 │   │   ├── Navbar.jsx
 │   │   ├── Particles.jsx
 │   │   ├── HeroSlider.jsx   ← 배경 이미지 자동 슬라이드
-│   │   ├── CharCarousel.jsx ← 캐릭터 좌우 캐러셀
+│   │   ├── CharCarousel.jsx ← 캐릭터 캐러셀 (15명, 페이지네이션)
+│   │   ├── CityMap.jsx      ← 세계관 인터랙티브 맵 (이미지 레이어 + SVG 히트박스)
 │   │   ├── DistrictCard.jsx
 │   │   ├── CharCard.jsx
 │   │   └── Footer.jsx
@@ -213,94 +226,27 @@ primecity/
 
 ### 캐릭터 데이터 (src/data/characters.js)
 
-```js
-export const characters = [
-  {
-    id: "seoyun",
-    name: "서윤",
-    agency: "APEX Entertainment",
-    role: "톱 아이돌 겸 배우",
-    age: 20,
-    tagline: "영점, 그리고 정점.",
-    color: "oklch(0.76 0.12 80)",       // gold
-    image: "/assets/characters/seoyun.png",
-    detailPath: "/characters/seoyun",
-    signature: "금색 초커",
-    personality: "고데레 — 너무 높은 곳에 있어서 내려오는 법을 모름",
-    description: "은발 + 금안. 업계 정상에 선 아이돌이자 배우. '영점(零點)'이라는 칭호로 불리며, 서윤 이전과 이후로 업계가 나뉜다고 평가받는다. 진심으로 대해주는 사람을 갈망하지만 신뢰에 서툶.",
-  },
-  {
-    id: "naharin",
-    name: "나하린",
-    agency: "APEX Entertainment",
-    role: "치프 프로듀서 / 오디션 제작 총괄",
-    age: null,  // 나이 불명
-    tagline: "안녕~. 네 이름 많이 들었어.",
-    color: "oklch(0.72 0.10 310)",      // purple
-    image: "/assets/characters/naharin.png",
-    detailPath: "/characters/naharin",
-    signature: "낡은 손목시계 + 한쪽 이어폰",
-    personality: "장난기 + 변덕 + 예측불가",
-    description: "흑발 장발 + 은안. APEX 황금기를 만든 장본인. 겉은 장난기 넘치는 변덕쟁이이나, 프라임시티의 설계자라는 이면을 지님. 재능 있는 사람이 어디까지 가는지를 구경하는 게 가장 큰 즐거움.",
-  },
-  {
-    id: "jinshihyuk",
-    name: "진시혁",
-    agency: "APEX Entertainment",
-    role: "프로듀서 / 심사위원",
-    age: "20대",
-    tagline: "탈락, 다음.",
-    color: "oklch(0.55 0.01 0)",        // grey
-    image: "/assets/characters/jinshihyuk.png",
-    detailPath: "/characters/jinshihyuk",
-    signature: "볼펜 시퀀스 (돌리기→딸깍→머리넘기기)",
-    personality: "냉정 + 직설 + 합리주의",
-    description: "흑발 올백 + 흑안. APEX의 젊은 에이스. '약한 건 도태되어야 한다'는 철학을 가진 불편한 거울. 유저의 프로듀싱 판단을 정면으로 부정하는 메인 빌런.",
-  },
-  {
-    id: "erika",
-    name: "에리카",
-    agency: "Blue Moon Entertainment",
-    role: "프로듀서 / 심사위원",
-    age: "20대 중후반",
-    tagline: "만만하게 보면 큰코다친다? 흐흥~.",
-    color: "oklch(0.72 0.10 170)",      // teal
-    image: "/assets/characters/erika.png",
-    detailPath: "/characters/erika",
-    signature: "느슨한 넥타이",
-    personality: "아네데레 — 독설가 (내면은 따뜻함)",
-    description: "백-녹 투톤 단발 + 에메랄드 눈. Blue Moon 핵심 프로듀서. 원래는 다정하고 따뜻한 사람이나, 과거 첫 아티스트를 잃은 죄책감으로 독설이라는 방어막을 씌움.",
-  },
-  {
-    id: "leeseha",
-    name: "이서하",
-    agency: "Blue Moon Entertainment",
-    role: "싱어송라이터 겸 프로듀서",
-    age: 29,
-    tagline: "하아… 귀찮으니 빨리 끝내.",
-    color: "oklch(0.70 0.10 240)",      // blue
-    image: "/assets/characters/leeseha.png",
-    detailPath: "/characters/leeseha",
-    signature: "둥근 안경 + 다크서클",
-    personality: "다루데레 + 자기부정 + 귀차니즘",
-    description: "갈발 + 청안. 합법로리 체형. 작곡, 작사, 보컬, 프로듀싱 전부 업계 최상급이나, 자기 이름으로는 곡을 내지 않음. 하드디스크에 미발표곡이 수십, 수백 곡.",
-  },
-  {
-    id: "hansori",
-    name: "한소리",
-    agency: "PRISM Studio",
-    role: "기획사 대표",
-    age: "30대",
-    tagline: "이게 마지막 기회야.",
-    color: "oklch(0.72 0.12 55)",       // warm orange
-    image: "/assets/characters/hansori.png",
-    detailPath: "/characters/hansori",
-    signature: "실눈 + 다크서클 (이중 장치)",
-    personality: "능글능글 (내면은 절박함)",
-    description: "갈색 장발 + 실눈. 유저 소속 기획사 PRISM Studio의 대표. 재정난에 시달리며 이번 오디션이 마지막 기회. 모두 앞에서는 웃지만 유저 앞에서만 진짜 얼굴을 보인다.",
-  },
-];
-```
+총 15명. 상세 프로필은 `Characters` 파일 참조.
+
+| # | id | 이름 | 소속 | 역할 | accent 색상 |
+|---|---|---|---|---|---|
+| 1 | seoyun | 서윤 | APEX | 톱 아이돌 겸 배우 | gold |
+| 2 | naharin | 나하린 | APEX | 치프 프로듀서 / 오디션 제작 총괄 | purple |
+| 3 | jinshihyuk | 진시혁 | APEX | 프로듀서 / 심사위원 | grey |
+| 4 | erika | 에리카 | Blue Moon | 프로듀서 / 심사위원 | teal |
+| 5 | leeseha | 이서하 | Blue Moon | 싱어송라이터 겸 프로듀서 | blue |
+| 6 | hansori | 한소리 | PRISM | 기획사 대표 | warm orange |
+| 7 | kangharam | 강하람 | Route 0 | 연습생 → 데뷔 준비 중 | red |
+| 8 | janggru | 장그루 | 무소속 | 오디션 참가자 / 보컬·아이돌 지망 | lavender |
+| 9 | mila | 밀라 | 무소속 | 오디션 참가자 | orange |
+| 10 | ella | 엘라 | 무소속 | 오디션 참가자 | wine red |
+| 11 | mimori | 미모리 | 무소속 | 인플루언서·크리에이터 출신 / 오디션 참가자 | sky blue |
+| 12 | hasieun | 하시은 | 무소속 | 오디션 참가자 | amber |
+| 13 | nia | 니아 | 무소속 | 오디션 참가자 | navy-teal |
+| 14 | ray | 레이 | 무소속 | 오디션 참가자 | lavender |
+| 15 | lapis | 라피스 | 무소속 | 오디션 참가자 | cobalt |
+
+각 캐릭터 객체 필드: `id`, `name`, `agency`, `role`, `age`, `tagline`, `color`, `image`, `thumbnail`, `detailPath`, `signature`, `personality`, `description`, `brief`
 
 ### 구역 데이터 (src/data/districts.js)
 
@@ -357,9 +303,10 @@ export const districts = [
 
 | 에셋 유형 | CDN 경로 | 비고 |
 |---|---|---|
-| 도시 배경 | `https://img.bluehair.blue/ent/bg{N}.png` | N = 1~5 |
-| 캐릭터 | `https://img.bluehair.blue/ent/char/{id}.png` | 추후 확정 |
-| 맵 이미지 | `https://img.bluehair.blue/ent/map.png` | 추후 확정 |
+| 도시 배경 | `https://img.bluehair.blue/ent/bg{N}.png` | N = 1~9 |
+| 캐릭터 | `https://img.bluehair.blue/ent/char/{id}.png` | 서윤만 완료 (SY.png, SYthumbnail.png) |
+| 맵 베이스 | `https://img.bluehair.blue/ent/Citybase(1).png` | 전체 탑뷰 맵 |
+| 맵 구역 | `https://img.bluehair.blue/ent/{구역명}.png` | The Core, Middle Ring, Hype Road, Terrace, industrial complex |
 
 또는 `public/assets/` 로컬 경로도 사용 가능.
 
@@ -440,20 +387,22 @@ Cloudflare Pages에서 SPA 라우팅을 위해 `public/_redirects` 파일 필요
 ### 완료
 - [x] 사이트 구조 확정 (5섹션 + 캐릭터 상세 페이지)
 - [x] 디자인 시스템 (OKLCH 색상, 폰트, 톤)
-- [x] 콘텐츠 확정 (캐치프레이즈, 캐릭터 6명, 구역 4개)
+- [x] 콘텐츠 확정 (캐치프레이즈, 캐릭터 15명, 구역 4개 + 산업단지)
 - [x] 프로토타입 JSX (Claude.ai에서 제작)
-- [x] 배경 이미지 CDN 테스트 (bg1.png 업로드 완료)
-- [x] Vite 프로젝트 세팅 + 파일 분리 (15개 파일)
+- [x] 배경 이미지 CDN 테스트 (bg1~bg9 업로드 완료)
+- [x] Vite 프로젝트 세팅 + 파일 분리
 - [x] Cloudflare Workers & Pages 배포 + 도메인 연결 (intro.bluehair.blue)
 - [x] 캐릭터 캐러셀 (Endfield 레퍼런스 기반 — 썸네일 리스트 + 정보 + 일러스트)
+- [x] 캐릭터 캐러셀 15명 확장 + 모바일 페이지네이션
 - [x] 캐릭터 상세 페이지 기본 틀 (/characters/:name)
 - [x] 히어로 배경 슬라이더 (9장 자동 전환 + 순수 CSS 크로스페이드)
 - [x] wrangler.jsonc 배포 설정 수정 (assets.directory 추가)
+- [x] 세계관 인터랙티브 맵 (이미지 레이어 + SVG 히트박스, 5구역 hover/click)
+- [x] 도시 탑뷰 맵 이미지 CDN 업로드 (베이스맵 + 5개 구역 분리 PNG)
+- [x] CityMap 구역 hover 시 accent 색상 윤곽선 glow 효과
+- [x] CityMap 툴팁 맵 하단 고정 배치 (PC/모바일 통일)
 
 ### 구현 필요
-- [ ] 세계관 인터랙티브 맵 (탑뷰 + 구역 클릭 → 스크롤 이동)
-- [ ] 캐릭터 상세 페이지 콘텐츠 보강 (현재 기본 틀만 있음)
-- [ ] 캐릭터 이미지 에셋 제작 + 업로드 (캐러셀 플레이스홀더 교체)
-- [ ] 도시 배경 슬라이드 이미지 추가 제작 + 업로드
-- [ ] 도시 탑뷰 맵 이미지 제작 + 업로드
+- [ ] 캐릭터 상세 페이지 콘텐츠 보강 (현재 기본 틀만 있음, Characters 파일 기반)
+- [ ] 캐릭터 이미지 에셋 제작 + 업로드 (서윤만 완료, 나머지 14명 플레이스홀더)
 - [ ] 모바일 최종 검수
