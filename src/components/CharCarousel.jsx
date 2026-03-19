@@ -179,25 +179,69 @@ export default function CharCarousel({ isMobile }) {
           </h2>
         </div>
 
-        {/* Horizontal thumbnail row */}
+        {/* Horizontal thumbnail row with pagination */}
         <div
           style={{
             display: "flex",
             gap: 10,
             justifyContent: "center",
+            alignItems: "center",
             marginBottom: 24,
           }}
         >
-          {characters.map((c, i) => (
-            <Thumbnail
-              key={c.id}
-              char={c}
-              selected={i === idx}
-              onClick={() => switchTo(i)}
-              index={i}
-              isMobile
-            />
-          ))}
+          <button
+            onClick={prevPage}
+            aria-label="이전 그룹"
+            style={{
+              background: "none",
+              border: `1px solid ${totalPages > 1 ? C.border10 : C.border06}`,
+              color: totalPages > 1 ? C.text35 : C.text15,
+              cursor: totalPages > 1 ? "pointer" : "default",
+              width: 28,
+              height: 28,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 12,
+              flexShrink: 0,
+              borderRadius: "50%",
+            }}
+          >
+            ◀
+          </button>
+          {pageChars.map((c) => {
+            const globalIdx = characters.indexOf(c);
+            return (
+              <Thumbnail
+                key={c.id}
+                char={c}
+                selected={globalIdx === idx}
+                onClick={() => switchTo(globalIdx)}
+                index={globalIdx}
+                isMobile
+              />
+            );
+          })}
+          <button
+            onClick={nextPage}
+            aria-label="다음 그룹"
+            style={{
+              background: "none",
+              border: `1px solid ${totalPages > 1 ? C.border10 : C.border06}`,
+              color: totalPages > 1 ? C.text35 : C.text15,
+              cursor: totalPages > 1 ? "pointer" : "default",
+              width: 28,
+              height: 28,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 12,
+              flexShrink: 0,
+              borderRadius: "50%",
+            }}
+          >
+            ▶
+          </button>
         </div>
 
         {/* Character content */}
