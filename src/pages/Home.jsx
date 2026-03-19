@@ -7,6 +7,8 @@ import Navbar from "../components/Navbar";
 import HeroSlider from "../components/HeroSlider";
 import CharCarousel from "../components/CharCarousel";
 import DistrictCard from "../components/DistrictCard";
+import CityMap from "../components/CityMap";
+import { districts } from "../data/districts";
 import Footer from "../components/Footer";
 
 function IntroSection({ isMobile }) {
@@ -99,12 +101,12 @@ function WorldSection({ isMobile }) {
   const [tRef, tV] = useReveal(0.12);
   const [gRef, gV] = useReveal(0.05);
 
-  const districtData = [
-    { name: "더 코어", en: "The Core", tier: "정상 · 지배층", agency: "APEX Entertainment — 업계 1위", desc: "프라임 돔과 방송국 본사가 자리한 정점. 화려하지만 숨 막히는 긴장감이 감도는 곳.", accent: C.distCore },
-    { name: "미들 링", en: "Middle Ring", tier: "검증된 실력자", agency: "Blue Moon Entertainment — 업계 2위", desc: "스튜디오가 밀집한 실력의 구역. 실력으로 말하는 사람들이 모이는 곳.", accent: C.distMid },
-    { name: "하입 로드", en: "Hype Road", tier: "트렌드 최전선", agency: "PRISM Studio — 개성으로 승부", desc: "유행이 태어나고 죽는 곳. 라이브 클럽과 공유 스튜디오가 에너지를 뿜는 거리.", accent: C.distHype },
-    { name: "테라스", en: "Terrace", tier: "시작과 안주의 경계", agency: "Route 0 — 무한 가능성, 무한 불확실", desc: "처음 오는 사람에게는 희망. 밀려온 사람에게는 어중간한 안락함의 유혹.", accent: C.distTer },
-  ];
+  const districtAccents = {
+    core: C.distCore,
+    middle: C.distMid,
+    hype: C.distHype,
+    terrace: C.distTer,
+  };
 
   return (
     <section
@@ -177,6 +179,7 @@ function WorldSection({ isMobile }) {
           }}
         />
       </div>
+      <CityMap isMobile={isMobile} />
       <div
         ref={gRef}
         style={{
@@ -187,10 +190,16 @@ function WorldSection({ isMobile }) {
           margin: "0 auto",
         }}
       >
-        {districtData.map((d, i) => (
+        {districts.map((d, i) => (
           <DistrictCard
-            key={i}
-            {...d}
+            key={d.id}
+            id={`district-${d.id}`}
+            name={d.name}
+            en={d.en}
+            tier={d.tier}
+            agency={d.agency}
+            desc={d.desc}
+            accent={districtAccents[d.id]}
             index={i}
             visible={gV}
             isMobile={isMobile}
