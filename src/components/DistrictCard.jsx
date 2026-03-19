@@ -1,6 +1,7 @@
 import C from "../styles/tokens";
 
 export default function DistrictCard({
+  id,
   name,
   en,
   tier,
@@ -13,6 +14,7 @@ export default function DistrictCard({
 }) {
   return (
     <div
+      id={id}
       style={{
         position: "relative",
         padding: isMobile ? "24px 20px" : "36px 32px",
