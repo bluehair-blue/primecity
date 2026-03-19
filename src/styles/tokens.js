@@ -40,6 +40,7 @@ const C = {
   distMid:   "oklch(0.65 0.10 240)",
   distHype:  "oklch(0.65 0.12 340)",
   distTer:   "oklch(0.65 0.10 140)",
+  distIndustrial: "oklch(0.60 0.08 220)",
 
   // Utility
   black:     "oklch(0.08 0.01 280)",
