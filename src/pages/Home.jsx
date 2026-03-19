@@ -106,6 +106,7 @@ function WorldSection({ isMobile }) {
     middle: C.distMid,
     hype: C.distHype,
     terrace: C.distTer,
+    industrial: C.distIndustrial,
   };
 
   return (
