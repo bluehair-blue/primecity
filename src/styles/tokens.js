@@ -34,6 +34,15 @@ const C = {
   charEri:   "oklch(0.72 0.10 170)",
   charSeo:   "oklch(0.70 0.10 240)",
   charHan:   "oklch(0.72 0.12 55)",
+  charHaram: "oklch(0.65 0.12 20)",
+  charGru:   "oklch(0.72 0.10 300)",
+  charMila:  "oklch(0.72 0.12 65)",
+  charElla:  "oklch(0.65 0.12 15)",
+  charMimori:"oklch(0.72 0.10 220)",
+  charSieun: "oklch(0.72 0.10 85)",
+  charNia:   "oklch(0.65 0.10 200)",
+  charRay:   "oklch(0.72 0.10 290)",
+  charLapis: "oklch(0.60 0.12 260)",
 
   // District accent colors
   distCore:  "oklch(0.76 0.12 80)",
