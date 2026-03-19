@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import C from "../styles/tokens";
 import { districts } from "../data/districts";
 import useReveal from "../hooks/useReveal";
@@ -84,12 +84,10 @@ function industrialPolygon(vw, vh) {
 }
 
 /* ── Tooltip ── */
-function MapTooltip({ district, pos, isMobile, accent, hasCard }) {
+function MapTooltip({ district, isMobile, accent, hasCard }) {
   if (!district) return null;
 
-  const style = isMobile
-    ? { position: "relative", margin: "12px 0 0", zIndex: 20 }
-    : { position: "fixed", left: pos.x, top: pos.y, zIndex: 9999, maxWidth: 280, pointerEvents: "none" };
+  const style = { position: "relative", margin: "12px 0 0", zIndex: 20 };
 
   return (
     <div
@@ -180,7 +178,6 @@ export default function CityMap({ isMobile }) {
   const [mapRef, mapVisible] = useReveal(0.1);
   const [hovered, setHovered] = useState(null);
   const [tapped, setTapped] = useState(null);
-  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const [imgSize, setImgSize] = useState({ w: 1380, h: 752 });
   const containerRef = useRef(null);
 
@@ -195,17 +192,6 @@ export default function CityMap({ isMobile }) {
 
   /* 활성 구역에 DistrictCard가 있는지 (scroll 대상 존재 여부) */
   const hasCard = activeId && activeId !== "industrial";
-
-  const clampedPos = useCallback(() => {
-    if (isMobile || !activeId) return tooltipPos;
-    const tw = 280;
-    const th = 200;
-    let x = tooltipPos.x + 16;
-    let y = tooltipPos.y + 16;
-    if (x + tw > window.innerWidth - 8) x = tooltipPos.x - tw - 16;
-    if (y + th > window.innerHeight - 8) y = tooltipPos.y - th - 16;
-    return { x, y };
-  }, [tooltipPos, activeId, isMobile]);
 
   function handleImgLoad(e) {
     setImgSize({ w: e.target.naturalWidth, h: e.target.naturalHeight });
@@ -361,15 +347,8 @@ export default function CityMap({ isMobile }) {
                     fill="transparent"
                     pointerEvents="visibleFill"
                     style={{ cursor: "pointer" }}
-                    onMouseEnter={(e) => {
-                      if (isMobile) return;
-                      setHovered(zone.id);
-                      setTooltipPos({ x: e.clientX, y: e.clientY });
-                    }}
+                    onMouseEnter={() => !isMobile && setHovered(zone.id)}
                     onMouseLeave={() => !isMobile && setHovered(null)}
-                    onMouseMove={(e) =>
-                      !isMobile && setTooltipPos({ x: e.clientX, y: e.clientY })
-                    }
                     onClick={() => handleClick(zone.id)}
                   />
                 );
@@ -383,15 +362,8 @@ export default function CityMap({ isMobile }) {
                   fill="transparent"
                   pointerEvents="visibleFill"
                   style={{ cursor: "pointer" }}
-                  onMouseEnter={(e) => {
-                    if (isMobile) return;
-                    setHovered(zone.id);
-                    setTooltipPos({ x: e.clientX, y: e.clientY });
-                  }}
+                  onMouseEnter={() => !isMobile && setHovered(zone.id)}
                   onMouseLeave={() => !isMobile && setHovered(null)}
-                  onMouseMove={(e) =>
-                    !isMobile && setTooltipPos({ x: e.clientX, y: e.clientY })
-                  }
                   onClick={() => handleClick(zone.id)}
                 />
               );
@@ -404,7 +376,6 @@ export default function CityMap({ isMobile }) {
       {activeDistrict && (
         <MapTooltip
           district={activeDistrict}
-          pos={isMobile ? { x: 0, y: 0 } : clampedPos()}
           isMobile={isMobile}
           accent={ZONES.find((z) => z.id === activeId)?.accent}
           hasCard={hasCard}
