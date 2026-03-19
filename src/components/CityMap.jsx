@@ -88,7 +88,7 @@ function MapTooltip({ district, pos, isMobile, accent, hasCard }) {
   if (!district) return null;
 
   const style = isMobile
-    ? { position: "absolute", left: 16, right: 16, bottom: 12, zIndex: 20 }
+    ? { position: "relative", margin: "12px 0 0", zIndex: 20 }
     : { position: "fixed", left: pos.x, top: pos.y, zIndex: 9999, maxWidth: 280, pointerEvents: "none" };
 
   return (
@@ -326,7 +326,7 @@ export default function CityMap({ isMobile }) {
                     : "translateY(0) scale(1)",
                   transformOrigin: "center center",
                   filter: isActive
-                    ? "drop-shadow(0 16px 12px oklch(0 0 0 / 0.8))"
+                    ? `drop-shadow(0 16px 12px oklch(0 0 0 / 0.8)) drop-shadow(0 0 6px ${zone.accent}) drop-shadow(0 0 18px ${zone.accent})`
                     : "none",
                   transition: "all 0.5s cubic-bezier(0.22,1,0.36,1)",
                   pointerEvents: "none",
@@ -361,7 +361,11 @@ export default function CityMap({ isMobile }) {
                     fill="transparent"
                     pointerEvents="visibleFill"
                     style={{ cursor: "pointer" }}
-                    onMouseEnter={() => !isMobile && setHovered(zone.id)}
+                    onMouseEnter={(e) => {
+                      if (isMobile) return;
+                      setHovered(zone.id);
+                      setTooltipPos({ x: e.clientX, y: e.clientY });
+                    }}
                     onMouseLeave={() => !isMobile && setHovered(null)}
                     onMouseMove={(e) =>
                       !isMobile && setTooltipPos({ x: e.clientX, y: e.clientY })
@@ -379,7 +383,11 @@ export default function CityMap({ isMobile }) {
                   fill="transparent"
                   pointerEvents="visibleFill"
                   style={{ cursor: "pointer" }}
-                  onMouseEnter={() => !isMobile && setHovered(zone.id)}
+                  onMouseEnter={(e) => {
+                    if (isMobile) return;
+                    setHovered(zone.id);
+                    setTooltipPos({ x: e.clientX, y: e.clientY });
+                  }}
                   onMouseLeave={() => !isMobile && setHovered(null)}
                   onMouseMove={(e) =>
                     !isMobile && setTooltipPos({ x: e.clientX, y: e.clientY })
