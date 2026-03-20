@@ -110,7 +110,7 @@ export const characters = [
     age: 21,
     tagline: "오늘도 연습! 아자아자~!",
     color: "oklch(0.65 0.12 20)",
-    image: "https://www.canva.com/design/DAHEdhllMeI/R0LoICQPpApsjFTT8jqd8A/watch",
+    image: "https://www.canva.com/design/DAHEdhllMeI/R0LoICQPpApsjFTT8jqd8A/watch?embed",
     detailPath: "/characters/kangharam",
     signature: "손목 스크런치 + 숨긴 펜던트",
     personality: "무자각 여친계 — 열정 넘치는 밝음 (내면은 절박함)",

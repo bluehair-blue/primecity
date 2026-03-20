@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import C from "../styles/tokens";
 import { characters } from "../data/characters";
 
+function isCanvaEmbed(url) {
+  return url && url.includes("canva.com/design/");
+}
+
 function Thumbnail({ char, selected, onClick, index, isMobile }) {
   const size = isMobile ? 48 : 60;
   return (
@@ -265,17 +269,34 @@ export default function CharCarousel({ isMobile }) {
           >
             {char.image ? (
               <>
-                <img
-                  src={char.image}
-                  alt={char.name}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "center 20%",
-                    display: "block",
-                  }}
-                />
+                {isCanvaEmbed(char.image) ? (
+                  <iframe
+                    loading="lazy"
+                    src={char.image}
+                    allowFullScreen
+                    allow="fullscreen"
+                    style={{
+                      position: "absolute",
+                      width: "100%",
+                      height: "100%",
+                      top: 0,
+                      left: 0,
+                      border: "none",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={char.image}
+                    alt={char.name}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: "center 20%",
+                      display: "block",
+                    }}
+                  />
+                )}
                 {/* Bottom fade */}
                 <div
                   style={{
@@ -443,21 +464,39 @@ export default function CharCarousel({ isMobile }) {
         }}
       >
         {char.image ? (
-          <img
-            src={char.image}
-            alt={char.name}
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-45%, -50%)",
-              height: "100%",
-              width: "auto",
-              maxWidth: "none",
-              objectFit: "contain",
-              display: "block",
-            }}
-          />
+          isCanvaEmbed(char.image) ? (
+            <iframe
+              loading="lazy"
+              src={char.image}
+              allowFullScreen
+              allow="fullscreen"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                border: "none",
+                pointerEvents: "auto",
+              }}
+            />
+          ) : (
+            <img
+              src={char.image}
+              alt={char.name}
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-45%, -50%)",
+                height: "100%",
+                width: "auto",
+                maxWidth: "none",
+                objectFit: "contain",
+                display: "block",
+              }}
+            />
+          )
         ) : (
           /* Placeholder — 이미지 에셋 미완성 캐릭터용 */
           <div
