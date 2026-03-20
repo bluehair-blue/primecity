@@ -4,7 +4,7 @@ import C from "../styles/tokens";
 import { characters } from "../data/characters";
 
 function Thumbnail({ char, selected, onClick, index, isMobile }) {
-  const size = isMobile ? 48 : 60;
+  const size = isMobile ? 40 : 60;
   return (
     <button
       onClick={onClick}
@@ -93,7 +93,7 @@ function InfoTag({ label, value, accent }) {
   );
 }
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 5;
 
 export default function CharCarousel({ isMobile }) {
   const [idx, setIdx] = useState(0);
@@ -183,10 +183,12 @@ export default function CharCarousel({ isMobile }) {
         <div
           style={{
             display: "flex",
-            gap: 10,
+            gap: 6,
             justifyContent: "center",
             alignItems: "center",
             marginBottom: 24,
+            maxWidth: "100%",
+            padding: "0 12px",
           }}
         >
           <button
