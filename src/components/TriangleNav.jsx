@@ -42,152 +42,257 @@ const navItems = [
 ];
 
 /*
-  Desktop layout: 5 triangles tessellated in a row.
-  Odd index = upward triangle, even index = downward triangle (alternating).
-  They share edges so they tile perfectly.
+  Prism / shattered-glass mosaic layout.
+  Desktop: irregular triangular shards tessellated inside a rectangle, SVG-based.
+  Mobile: angular shard strips stacked vertically.
 
-  Mobile layout: stacked diagonal slashes (parallelogram strips).
+  The shard vertices are hand-tuned so every edge is shared — no gaps, no overlaps.
 */
 
-function DesktopTriangleNav({ visible }) {
-  const [hovered, setHovered] = useState(null);
+// Shared vertices for the prism mesh (on a 1000×440 canvas)
+const V = {
+  // Top edge
+  tl: [0, 0],
+  t1: [220, 0],
+  t2: [480, 0],
+  t3: [720, 0],
+  tr: [1000, 0],
+  // Interior points — offset irregularly for organic feel
+  m1: [140, 180],
+  m2: [360, 150],
+  m3: [540, 220],
+  m4: [750, 160],
+  m5: [500, 380],
+  // Bottom edge
+  bl: [0, 440],
+  b1: [260, 440],
+  b2: [520, 440],
+  b3: [780, 440],
+  br: [1000, 440],
+};
 
-  // Each triangle occupies a column in a grid.
-  // We use clip-path polygons for the triangular shapes.
-  // Row 1 (top): items 0,1,2 — alternating up/down triangles
-  // Row 2 (bottom): items 3,4 — alternating
+// Each shard: array of vertex keys forming a polygon, + index into navItems
+const shards = [
+  { keys: ["tl", "t1", "m2", "m1"], item: 0 },
+  { keys: ["t1", "t2", "m2"], item: 1 },
+  { keys: ["t2", "t3", "m4", "m3"], item: 2 },
+  { keys: ["t3", "tr", "br", "m4"], item: 3 },
+  { keys: ["tl", "m1", "bl"], item: -1 },       // decorative
+  { keys: ["m1", "m2", "m3", "m5", "b1", "bl"], item: -1 }, // decorative
+  { keys: ["m3", "m4", "br", "b3", "b2", "m5"], item: 4 },
+  { keys: ["bl", "b1", "m5", "b2", "b3", "br"], item: -1 }, // decorative
+];
 
-  // Simpler approach: a single SVG viewBox with tessellated triangles
-  const W = 1000;
-  const H = 400;
-  const cols = 5;
-  const colW = W / cols;
-
-  // Triangle definitions: each column gets a triangle
-  // Even cols: point up (top-center, bottom-left, bottom-right)
-  // Odd cols: point down (top-left, top-right, bottom-center)
-  function getTrianglePath(i) {
-    const x = i * colW;
-    if (i % 2 === 0) {
-      // point up
-      return `${x + colW / 2},20 ${x + colW},${H - 20} ${x},${H - 20}`;
-    }
-    // point down
-    return `${x},20 ${x + colW},20 ${x + colW / 2},${H - 20}`;
+function centroid(keys) {
+  let sx = 0, sy = 0;
+  for (const k of keys) {
+    sx += V[k][0];
+    sy += V[k][1];
   }
+  return [sx / keys.length, sy / keys.length];
+}
+
+function DesktopPrismNav() {
+  const [hovered, setHovered] = useState(null);
 
   return (
     <div style={{ maxWidth: 960, margin: "0 auto", position: "relative" }}>
       <svg
-        viewBox={`0 0 ${W} ${H}`}
+        viewBox="0 0 1000 440"
         style={{ width: "100%", height: "auto", display: "block" }}
+        preserveAspectRatio="xMidYMid meet"
       >
-        {navItems.map((item, i) => {
-          const isHov = hovered === i;
-          const points = getTrianglePath(i);
+        {/* Decorative crack lines — all edges */}
+        {shards.map((s, i) => {
+          const pts = s.keys.map((k) => V[k].join(",")).join(" ");
           return (
-            <g
-              key={item.id}
-              onMouseEnter={() => setHovered(i)}
-              onMouseLeave={() => setHovered(null)}
-              style={{ cursor: "pointer" }}
-            >
-              <Link to={item.path}>
-                {/* Background fill */}
-                <polygon
-                  points={points}
-                  fill={isHov ? item.accent : "transparent"}
-                  fillOpacity={isHov ? 0.15 : 0}
-                  stroke={isHov ? item.accent : C.border10}
-                  strokeWidth={isHov ? 2 : 1}
-                  style={{
-                    transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
-                    filter: isHov
-                      ? `drop-shadow(0 0 18px ${item.accent})`
-                      : "none",
-                  }}
-                />
-                {/* Label — centered in triangle */}
-                <text
-                  x={i * colW + colW / 2}
-                  y={i % 2 === 0 ? H * 0.58 : H * 0.42}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fill={isHov ? item.accent : C.text35}
-                  fontFamily="var(--f-display-kr)"
-                  fontSize={isHov ? 28 : 26}
-                  fontWeight="600"
-                  style={{
-                    transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
-                    pointerEvents: "none",
-                  }}
-                >
-                  {item.label}
-                </text>
-                {/* English sub-label */}
-                <text
-                  x={i * colW + colW / 2}
-                  y={(i % 2 === 0 ? H * 0.58 : H * 0.42) + 30}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fill={isHov ? item.accent : C.text15}
-                  fontFamily="var(--f-display-en)"
-                  fontSize={11}
-                  letterSpacing="0.15em"
-                  style={{
-                    transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
-                    pointerEvents: "none",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {item.en}
-                </text>
-              </Link>
-            </g>
+            <polygon
+              key={`bg-${i}`}
+              points={pts}
+              fill="none"
+              stroke={C.border06}
+              strokeWidth={1}
+            />
           );
         })}
+
+        {/* Interactive shards */}
+        {shards
+          .filter((s) => s.item >= 0)
+          .map((s) => {
+            const item = navItems[s.item];
+            const isHov = hovered === s.item;
+            const pts = s.keys.map((k) => V[k].join(",")).join(" ");
+            const [cx, cy] = centroid(s.keys);
+
+            return (
+              <g
+                key={item.id}
+                onMouseEnter={() => setHovered(s.item)}
+                onMouseLeave={() => setHovered(null)}
+                style={{ cursor: "pointer" }}
+              >
+                <Link to={item.path}>
+                  {/* Shard fill */}
+                  <polygon
+                    points={pts}
+                    fill={isHov ? item.accent : C.bgDeep}
+                    fillOpacity={isHov ? 0.18 : 0.4}
+                    stroke={isHov ? item.accent : C.border10}
+                    strokeWidth={isHov ? 1.5 : 0.8}
+                    strokeLinejoin="bevel"
+                    style={{
+                      transition: "all 0.5s cubic-bezier(0.22,1,0.36,1)",
+                      filter: isHov
+                        ? `drop-shadow(0 0 24px ${item.accent})`
+                        : "none",
+                    }}
+                  />
+                  {/* Refraction line — subtle inner glow on hover */}
+                  {isHov && (
+                    <polygon
+                      points={pts}
+                      fill="none"
+                      stroke={item.accent}
+                      strokeWidth={0.5}
+                      strokeOpacity={0.3}
+                      strokeDasharray="6 4"
+                      style={{ pointerEvents: "none" }}
+                    />
+                  )}
+                  {/* Korean label */}
+                  <text
+                    x={cx}
+                    y={cy - 10}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fill={isHov ? item.accent : C.text35}
+                    fontFamily="var(--f-display-kr)"
+                    fontSize={isHov ? 26 : 24}
+                    fontWeight="600"
+                    style={{
+                      transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
+                      pointerEvents: "none",
+                    }}
+                  >
+                    {item.label}
+                  </text>
+                  {/* English sub-label */}
+                  <text
+                    x={cx}
+                    y={cy + 18}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fill={isHov ? item.accent : C.text15}
+                    fontFamily="var(--f-display-en)"
+                    fontSize={10}
+                    letterSpacing="0.15em"
+                    style={{
+                      transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
+                      pointerEvents: "none",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {item.en}
+                  </text>
+                </Link>
+              </g>
+            );
+          })}
+
+        {/* Decorative shard numbers on empty shards */}
+        {shards
+          .filter((s) => s.item < 0)
+          .map((s, i) => {
+            const [cx, cy] = centroid(s.keys);
+            return (
+              <text
+                key={`deco-${i}`}
+                x={cx}
+                y={cy}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fill={C.text15}
+                fontFamily="var(--f-display-en)"
+                fontSize={8}
+                letterSpacing="0.2em"
+                opacity={0.4}
+                style={{ pointerEvents: "none" }}
+              >
+                PRIME CITY
+              </text>
+            );
+          })}
       </svg>
     </div>
   );
 }
 
-function MobileTriangleNav({ visible }) {
+function MobilePrismNav() {
   const [hovered, setHovered] = useState(null);
 
+  // Irregular angular clips for each item — like shattered glass shards
+  const clips = [
+    "polygon(0% 0%, 100% 3%, 100% 92%, 0% 100%)",
+    "polygon(0% 6%, 100% 0%, 100% 100%, 0% 90%)",
+    "polygon(0% 0%, 100% 8%, 100% 95%, 0% 100%)",
+    "polygon(0% 5%, 100% 0%, 100% 100%, 0% 92%)",
+    "polygon(0% 0%, 100% 6%, 100% 100%, 0% 100%)",
+  ];
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 0,
+        padding: "0 4px",
+      }}
+    >
       {navItems.map((item, i) => {
         const isHov = hovered === i;
-        // Diagonal slash: parallelogram via clip-path
-        const clipEven = "polygon(0 0, 100% 12%, 100% 100%, 0 88%)";
-        const clipOdd = "polygon(0 12%, 100% 0, 100% 88%, 0 100%)";
         return (
           <Link
             key={item.id}
             to={item.path}
             onTouchStart={() => setHovered(i)}
-            onTouchEnd={() => setHovered(null)}
+            onTouchEnd={() => setTimeout(() => setHovered(null), 300)}
             onMouseEnter={() => setHovered(i)}
             onMouseLeave={() => setHovered(null)}
             style={{
               textDecoration: "none",
               display: "block",
               position: "relative",
-              padding: "28px 24px",
-              clipPath: i % 2 === 0 ? clipEven : clipOdd,
-              marginTop: i > 0 ? -12 : 0,
+              padding: "24px 20px",
+              clipPath: clips[i],
+              marginTop: i > 0 ? -8 : 0,
               background: isHov
-                ? `linear-gradient(135deg, ${item.accent.replace(")", " / 0.12)")}, transparent)`
+                ? `linear-gradient(${120 + i * 30}deg, ${item.accent.replace(")", " / 0.14)")}, transparent 70%)`
                 : C.bgCard,
-              border: "none",
               transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
             }}
           >
+            {/* Diagonal accent line */}
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: isHov
+                  ? `linear-gradient(${135 + i * 15}deg, ${item.accent.replace(")", " / 0.06)")}, transparent 40%)`
+                  : "none",
+                pointerEvents: "none",
+                transition: "all 0.4s",
+              }}
+            />
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
+                position: "relative",
               }}
             >
               <div>
@@ -208,7 +313,7 @@ function MobileTriangleNav({ visible }) {
                 <span
                   style={{
                     fontFamily: "var(--f-display-kr)",
-                    fontSize: 18,
+                    fontSize: 17,
                     fontWeight: 600,
                     color: isHov ? item.accent : C.text45,
                     transition: "color 0.3s",
@@ -219,10 +324,12 @@ function MobileTriangleNav({ visible }) {
               </div>
               <span
                 style={{
-                  fontSize: 16,
+                  fontFamily: "var(--f-display-en)",
+                  fontSize: 14,
                   color: isHov ? item.accent : C.text15,
-                  transition: "all 0.3s",
+                  transition: "all 0.3s cubic-bezier(0.22,1,0.36,1)",
                   transform: isHov ? "translateX(4px)" : "translateX(0)",
+                  opacity: isHov ? 1 : 0.5,
                 }}
               >
                 →
@@ -245,7 +352,7 @@ export default function TriangleNav({ isMobile }) {
       style={{
         position: "relative",
         zIndex: 2,
-        padding: isMobile ? "48px 20px 56px" : "80px 48px 100px",
+        padding: isMobile ? "48px 16px 56px" : "80px 48px 100px",
       }}
     >
       {/* Section header */}
@@ -302,11 +409,7 @@ export default function TriangleNav({ isMobile }) {
           transition: "all 0.8s cubic-bezier(0.22,1,0.36,1) 0.2s",
         }}
       >
-        {isMobile ? (
-          <MobileTriangleNav visible={visible} />
-        ) : (
-          <DesktopTriangleNav visible={visible} />
-        )}
+        {isMobile ? <MobilePrismNav /> : <DesktopPrismNav />}
       </div>
     </section>
   );
