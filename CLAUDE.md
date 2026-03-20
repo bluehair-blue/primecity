@@ -120,19 +120,19 @@ https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&fami
 ```
 primecity/
 ├── public/
-│   └── assets/
-│       ├── bg/              ← 도시 배경 슬라이드 (bg1.png ~ bg5.png)
-│       ├── characters/      ← 캐릭터 이미지 (세로형 2:3)
-│       └── map/             ← 세계관 탑뷰 맵
+│   ├── favicon.svg
+│   └── icons.svg
 ├── src/
 │   ├── components/
 │   │   ├── Navbar.jsx
 │   │   ├── Particles.jsx
-│   │   ├── HeroSlider.jsx   ← 배경 이미지 자동 슬라이드
+│   │   ├── HeroSlider.jsx   ← 배경 이미지 자동 슬라이드 (CDN bg3~bg11, 9장)
 │   │   ├── CharCarousel.jsx ← 캐릭터 캐러셀 (15명, 페이지네이션)
 │   │   ├── CityMap.jsx      ← 세계관 인터랙티브 맵 (이미지 레이어 + SVG 히트박스)
-│   │   ├── DistrictCard.jsx
-│   │   ├── CharCard.jsx
+│   │   ├── GameModes.jsx    ← 게임 모드 탭 UI (오디션/자유활동/프로듀서)
+│   │   ├── TriangleNav.jsx  ← 프리즘 모자이크 네비게이션 (하위 페이지 5종 링크)
+│   │   ├── DistrictCard.jsx ← 구역 상세 카드 (미사용 — Home.jsx 통합 예정)
+│   │   ├── CharCard.jsx     ← 캐릭터 카드 (미사용 — CharCarousel로 대체)
 │   │   └── Footer.jsx
 │   ├── pages/
 │   │   ├── Home.jsx         ← 메인 랜딩 (전체 섹션 조합)
@@ -140,8 +140,9 @@ primecity/
 │   ├── styles/
 │   │   └── tokens.js        ← OKLCH 색상 토큰 export
 │   ├── data/
-│   │   ├── characters.js    ← 캐릭터 데이터 배열
-│   │   └── districts.js     ← 구역 데이터 배열
+│   │   ├── characters.js    ← 캐릭터 데이터 배열 (15명)
+│   │   ├── districts.js     ← 구역 데이터 배열 (4구역)
+│   │   └── gamemodes.js     ← 게임 모드 데이터 (3모드)
 │   ├── hooks/
 │   │   ├── useIsMobile.js
 │   │   └── useReveal.js
@@ -157,41 +158,54 @@ primecity/
 ## 사이트 구조 (섹션 흐름)
 
 ```
-[1] 히어로
-    - 도시 배경 4~5장 자동 슬라이드 (풀스크린)
-    - fade/crossfade 전환
-    - 이미지 위에 그라디언트 오버레이 + 비네팅
+[1] 히어로 (HeroSlider)
+    - CDN 배경 9장 자동 슬라이드 (bg3~bg11, 풀스크린)
+    - 순수 CSS 크로스페이드 전환 (6초 간격)
+    - 그라디언트 오버레이 + 비네팅 + 오빗 링 애니메이션
+    - CTA: "플레이 시작" + "세계관 보기"
         ↓ 스크롤
-[2] 소개
+[2] 소개 (IntroSection — Home.jsx 내 인라인)
     - 캐치프레이즈 + 간략 소개
     - 스크롤 트리거 애니메이션 (fade-in, slide-up)
         ↓ 스크롤
-[3] 캐릭터 갤러리
-    - 좌우 스와이프 캐러셀 (한 명씩)
-    - 왼쪽: 이름, 신체정보(키, 컵 수 등), 간단 소개, 상세 페이지 링크
-    - 오른쪽: 캐릭터 이미지
-    - 양쪽 화살표 또는 드래그로 전환
+[3] 캐릭터 갤러리 (CharCarousel)
+    - 15명 캐릭터 캐러셀
+    - 데스크톱: 썸네일 리스트 + 정보 패널 + 일러스트 (Endfield 레퍼런스)
+    - 모바일: 세로 스택 + 5명씩 페이지네이션 (3페이지)
+    - 키보드 네비게이션 (좌우 화살표)
         ↓ 스크롤
-[4] 세계관
-    - 탑뷰 도시 이미지 (인터랙티브 맵)
-    - 각 구역에 클릭 가능한 마커/화살표
-    - 클릭 시 해당 구역 상세 설명으로 스크롤 이동
+[4] 세계관 (CityMap)
+    - 탑뷰 도시 이미지 (인터랙티브 맵, 5구역)
+    - SVG 히트박스 + 구역별 이미지 오버레이
+    - hover/tap 시 accent 윤곽선 glow + 하단 고정 툴팁
+    - 클릭 시 해당 구역 상세로 스크롤
         ↓
-[4-sub] 구역 상세
+[4-sub] 구역 상세 (DistrictCard — 미통합)
     - 더 코어 / 미들 링 / 하입 로드 / 테라스
-    - 각 구역이 스크롤 도착점 (id anchor)
-        ↓
-[5] 푸터
+    - DistrictCard 컴포넌트 존재하나 Home.jsx에 아직 미배치
+        ↓ 스크롤
+[5] 게임 모드 (GameModes)
+    - 탭 셀렉터: 오디션 / 자유활동 / 프로듀서
+    - 각 모드별 설명 + 상세 페이지 링크 (미구현)
+        ↓ 스크롤
+[6] 더 알아보기 (TriangleNav — 프리즘 모자이크)
+    - 데스크톱: 불규칙 다각형 SVG 모자이크 (5개 클릭 + 3개 장식)
+    - 모바일: 각진 clip-path 스트립 스택
+    - 하위 페이지 5종 링크 (미구현)
+        ↓ 스크롤
+[7] 푸터 (Footer)
     - 로고 + © 2026 bluehair.blue
 
-[별도 페이지] /characters/:name
+[별도 페이지] /characters/:name (CharDetail)
     - 캐릭터별 상세 소개 페이지
-    - URL 라우팅 (react-router-dom)
+    - 기본 틀 완성, 콘텐츠 보강 필요
 ```
 
 ---
 
 ## 라우팅
+
+### 구현 완료
 
 ```jsx
 // App.jsx
@@ -200,6 +214,19 @@ primecity/
   <Route path="/characters/:name" element={<CharDetail />} />
 </Routes>
 ```
+
+### 구현 필요 (컴포넌트에서 참조하지만 라우트/페이지 미생성)
+
+| 경로 | 출처 | 설명 |
+|---|---|---|
+| `/svg` | TriangleNav | SVG 소개 페이지 |
+| `/gallery` | TriangleNav | 아트 갤러리 페이지 |
+| `/updates` | TriangleNav | 업데이트 로그 페이지 |
+| `/contact` | TriangleNav | 문의 창구 페이지 |
+| `/works` | TriangleNav | 작가의 다른 작품 페이지 |
+| `/modes/audition` | GameModes | 오디션 모드 상세 |
+| `/modes/freeplay` | GameModes | 자유활동 모드 상세 |
+| `/modes/producer` | GameModes | 프로듀서 모드 상세 |
 
 ---
 
@@ -375,34 +402,96 @@ export const districts = [
 
 ### SPA 라우팅 처리
 
-Cloudflare Pages에서 SPA 라우팅을 위해 `public/_redirects` 파일 필요:
+`wrangler.jsonc`의 assets 설정으로 SPA 라우팅 자동 처리:
+```jsonc
+{
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}
 ```
-/*  /index.html  200
-```
+별도 `public/_redirects` 파일 불필요. 모든 404가 `index.html`로 fallback되어 React Router가 클라이언트에서 처리.
 
 ---
 
 ## 현재 상태 및 남은 작업
 
 ### 완료
-- [x] 사이트 구조 확정 (5섹션 + 캐릭터 상세 페이지)
-- [x] 디자인 시스템 (OKLCH 색상, 폰트, 톤)
-- [x] 콘텐츠 확정 (캐치프레이즈, 캐릭터 15명, 구역 4개 + 산업단지)
-- [x] 프로토타입 JSX (Claude.ai에서 제작)
-- [x] 배경 이미지 CDN 테스트 (bg1~bg9 업로드 완료)
-- [x] Vite 프로젝트 세팅 + 파일 분리
+
+#### 기반 구축
+- [x] 사이트 구조 확정 (7섹션 + 캐릭터 상세 페이지)
+- [x] 디자인 시스템 (OKLCH 색상 토큰, 폰트, 다크+골드 톤)
+- [x] 콘텐츠 확정 (캐치프레이즈, 캐릭터 15명, 구역 4개 + 산업단지, 게임모드 3개)
+- [x] Vite + React 프로젝트 세팅 + 파일 분리
 - [x] Cloudflare Workers & Pages 배포 + 도메인 연결 (intro.bluehair.blue)
-- [x] 캐릭터 캐러셀 (Endfield 레퍼런스 기반 — 썸네일 리스트 + 정보 + 일러스트)
-- [x] 캐릭터 캐러셀 15명 확장 + 모바일 페이지네이션
+- [x] wrangler.jsonc SPA 라우팅 설정 (not_found_handling)
+
+#### 메인 페이지 섹션
+- [x] 히어로 배경 슬라이더 (CDN bg3~bg11, 9장 자동 전환 + 순수 CSS 크로스페이드)
+- [x] 소개 섹션 (캐치프레이즈 + 스크롤 트리거 애니메이션)
+- [x] 캐릭터 캐러셀 (Endfield 레퍼런스 — 썸네일 리스트 + 정보 + 일러스트, 15명 + 모바일 페이지네이션)
+- [x] 세계관 인터랙티브 맵 (이미지 레이어 + SVG 히트박스, 5구역 hover/click + glow + 하단 툴팁)
+- [x] 게임 모드 섹션 (오디션/자유활동/프로듀서 탭 UI)
+- [x] TriangleNav 프리즘 모자이크 네비게이션 (데스크톱 SVG 모자이크 + 모바일 각진 스트립)
+- [x] 파티클 배경 (Canvas API, 모바일 수량 감소)
+
+#### 데이터 & 에셋
+- [x] 캐릭터 데이터 15명 완성 (characters.js)
+- [x] 구역 데이터 4개 (districts.js) + 산업단지 (CityMap 내 정의)
+- [x] 게임 모드 데이터 3개 (gamemodes.js)
+- [x] 배경 이미지 CDN 업로드 (bg3~bg11)
+- [x] 도시 탑뷰 맵 CDN 업로드 (베이스맵 + 5개 구역 분리 PNG)
+- [x] 캐릭터 이미지: 서윤 (SY.png, SYthumbnail.png) + 강하람 (KHR.svg)
+
+#### 별도 페이지
 - [x] 캐릭터 상세 페이지 기본 틀 (/characters/:name)
-- [x] 히어로 배경 슬라이더 (9장 자동 전환 + 순수 CSS 크로스페이드)
-- [x] wrangler.jsonc 배포 설정 수정 (assets.directory 추가)
-- [x] 세계관 인터랙티브 맵 (이미지 레이어 + SVG 히트박스, 5구역 hover/click)
-- [x] 도시 탑뷰 맵 이미지 CDN 업로드 (베이스맵 + 5개 구역 분리 PNG)
-- [x] CityMap 구역 hover 시 accent 색상 윤곽선 glow 효과
-- [x] CityMap 툴팁 맵 하단 고정 배치 (PC/모바일 통일)
+
+---
 
 ### 구현 필요
-- [ ] 캐릭터 상세 페이지 콘텐츠 보강 (현재 기본 틀만 있음, Characters 파일 기반)
-- [ ] 캐릭터 이미지 에셋 제작 + 업로드 (서윤만 완료, 나머지 14명 플레이스홀더)
-- [ ] 모바일 최종 검수
+
+#### 우선순위 높음 — 하위 페이지
+- [ ] 하위 페이지 5종 신규 생성 + App.jsx 라우트 등록
+  - `/svg` — SVG 소개
+  - `/gallery` — 아트 갤러리
+  - `/updates` — 업데이트 로그
+  - `/contact` — 문의 창구
+  - `/works` — 작가의 다른 작품
+- [ ] 게임 모드 상세 페이지 3종
+  - `/modes/audition` — 오디션 모드
+  - `/modes/freeplay` — 자유활동 모드
+  - `/modes/producer` — 프로듀서 모드
+
+#### 우선순위 중간 — 콘텐츠 보강
+- [ ] 캐릭터 상세 페이지 콘텐츠 보강 (현재 기본 틀만, Characters 파일 기반으로 확장)
+- [ ] DistrictCard를 Home.jsx CityMap 아래에 통합 (구역 상세 카드 4개)
+- [ ] 캐릭터 이미지 에셋 제작 + CDN 업로드 (2/15 완료, 13명 플레이스홀더)
+
+#### 우선순위 낮음 — 품질 관리
+- [ ] 모바일 최종 검수 (전 페이지)
+- [ ] 미사용 컴포넌트 정리 (CharCard.jsx 등)
+
+---
+
+## 향후 개선 아이디어
+
+> 현재 핵심 기능 완성 후 고려할 수 있는 개선 방향들.
+
+### UX / 인터랙션
+- **페이지 전환 애니메이션** — View Transitions API 또는 Framer Motion 활용, 하위 페이지 진입 시 시네마틱 전환
+- **캐릭터 관계도** — 인맥/소속 기반 그래프 시각화 (SVG 또는 D3.js)
+- **캐릭터 필터/검색** — 소속사·역할별 필터링, 검색 기능
+- **사운드 디자인** — BGM 토글 버튼 + 호버/클릭 효과음 (Web Audio API)
+
+### 기술 / 성능
+- **이미지 최적화** — lazy loading, WebP/AVIF 포맷 변환, srcset 반응형 이미지
+- **코드 스플리팅** — React.lazy + Suspense로 하위 페이지 동적 임포트
+- **SEO** — react-helmet-async로 페이지별 메타태그 + OG 이미지 동적 생성
+- **접근성(a11y)** — 키보드 네비게이션 강화, aria-label, 고대비 모드, 스크린 리더 지원
+
+### 콘텐츠 확장
+- **i18n 다국어** — 한/영/일 지원 (react-i18next)
+- **에덴챗 연동** — 챗봇 위젯 임베드 프리뷰 또는 데모 대화
+- **타임라인/연대기** — 프라임시티 세계관 역사 타임라인 시각화
+- **팬 아트 갤러리** — 커뮤니티 투고 기능 (Cloudflare R2 + Workers)
