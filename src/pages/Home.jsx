@@ -6,9 +6,9 @@ import Particles from "../components/Particles";
 import Navbar from "../components/Navbar";
 import HeroSlider from "../components/HeroSlider";
 import CharCarousel from "../components/CharCarousel";
-import DistrictCard from "../components/DistrictCard";
 import CityMap from "../components/CityMap";
-import { districts } from "../data/districts";
+import GameModes from "../components/GameModes";
+import TriangleNav from "../components/TriangleNav";
 import Footer from "../components/Footer";
 
 function IntroSection({ isMobile }) {
@@ -99,15 +99,6 @@ function IntroSection({ isMobile }) {
 
 function WorldSection({ isMobile }) {
   const [tRef, tV] = useReveal(0.12);
-  const [gRef, gV] = useReveal(0.05);
-
-  const districtAccents = {
-    core: C.distCore,
-    middle: C.distMid,
-    hype: C.distHype,
-    terrace: C.distTer,
-    industrial: C.distIndustrial,
-  };
 
   return (
     <section
@@ -181,32 +172,6 @@ function WorldSection({ isMobile }) {
         />
       </div>
       <CityMap isMobile={isMobile} />
-      <div
-        ref={gRef}
-        style={{
-          display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
-          gap: isMobile ? 12 : 18,
-          maxWidth: 960,
-          margin: "0 auto",
-        }}
-      >
-        {districts.map((d, i) => (
-          <DistrictCard
-            key={d.id}
-            id={`district-${d.id}`}
-            name={d.name}
-            en={d.en}
-            tier={d.tier}
-            agency={d.agency}
-            desc={d.desc}
-            accent={districtAccents[d.id]}
-            index={i}
-            visible={gV}
-            isMobile={isMobile}
-          />
-        ))}
-      </div>
     </section>
   );
 }
@@ -237,6 +202,8 @@ export default function Home() {
       <IntroSection isMobile={isMobile} />
       <CharCarousel isMobile={isMobile} />
       <WorldSection isMobile={isMobile} />
+      <GameModes isMobile={isMobile} />
+      <TriangleNav isMobile={isMobile} />
       <Footer isMobile={isMobile} />
     </div>
   );

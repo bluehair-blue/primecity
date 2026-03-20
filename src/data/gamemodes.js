@@ -1,0 +1,32 @@
+export const gamemodes = [
+  {
+    id: "audition",
+    name: "오디션",
+    en: "Audition",
+    tagline: "증명하라. 세계가 당신을 알게 된다.",
+    desc: "프라임시티 최대 규모의 서바이벌 오디션에 참가하여 정상을 향해 올라가는 메인 스토리. 연습, 미션, 무대, 심사를 거치며 캐릭터들과 관계를 쌓고 자신만의 아이돌을 만들어간다.",
+    accent: "oklch(0.76 0.12 80)",
+    icon: "🎤",
+    detailPath: "/modes/audition",
+  },
+  {
+    id: "freeplay",
+    name: "프리플레이",
+    en: "Free Play",
+    tagline: "무대 밖에도 이야기는 계속된다.",
+    desc: "오디션 밖에서 프라임시티를 자유롭게 탐색하는 모드. 캐릭터들과의 일상적인 교류, 숨겨진 장소 발견, 사이드 스토리를 즐길 수 있다.",
+    accent: "oklch(0.65 0.10 240)",
+    icon: "🌆",
+    detailPath: "/modes/freeplay",
+  },
+  {
+    id: "producer",
+    name: "프로듀서",
+    en: "Producer",
+    tagline: "재능을 발굴하고, 스타를 만들어라.",
+    desc: "직접 프로듀서가 되어 아이돌을 육성하고 전략적으로 성장시키는 모드. 스케줄 관리, 곡 선택, 이미지 메이킹 등 기획사 운영의 모든 것.",
+    accent: "oklch(0.72 0.10 310)",
+    icon: "🎬",
+    detailPath: "/modes/producer",
+  },
+];
