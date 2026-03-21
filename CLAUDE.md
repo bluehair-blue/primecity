@@ -129,13 +129,13 @@ primecity/
 │   │   ├── PageLayout.jsx  ← 공통 페이지 레이아웃 (Navbar + Particles + Footer)
 │   │   ├── HeroSlider.jsx  ← 배경 이미지 자동 슬라이드 (CDN bg3~bg11, 9장)
 │   │   ├── CharCarousel.jsx ← 캐릭터 캐러셀 (15명, 페이지네이션)
-│   │   ├── CityMap.jsx     ← 세계관 인터랙티브 맵 (이미지 레이어 + SVG 히트박스)
-│   │   ├── DistrictCard.jsx ← 구역 상세 카드 (Home.jsx CityMap 아래에 통합)
+│   │   ├── CityMap.jsx     ← 세계관 인터랙티브 맵 (hover→glow, click→구역 상세 페이지)
+│   │   ├── DistrictCard.jsx ← 구역 카드 컴포넌트 (DistrictDetail에서 재사용 가능)
 │   │   ├── GameModes.jsx   ← 게임 모드 탭 UI + 상세 페이지 링크
 │   │   ├── TriangleNav.jsx ← 프리즘 모자이크 네비게이션 (하위 페이지 5종 링크)
 │   │   └── Footer.jsx
 │   ├── pages/
-│   │   ├── Home.jsx        ← 메인 랜딩 (전체 섹션 조합 + DistrictCard 통합)
+│   │   ├── Home.jsx        ← 메인 랜딩 (전체 섹션 조합)
 │   │   ├── CharDetail.jsx  ← /characters/:name (캐릭터 상세, 이미지+네비 보강)
 │   │   ├── SvgIntro.jsx    ← /svg (세계관 비주얼 가이드)
 │   │   ├── Gallery.jsx     ← /gallery (아트 갤러리, 라이트박스)
@@ -144,7 +144,8 @@ primecity/
 │   │   ├── Works.jsx       ← /works (작가의 다른 작품)
 │   │   ├── ModeAudition.jsx ← /modes/audition (오디션 모드 상세)
 │   │   ├── ModeFreeplay.jsx ← /modes/freeplay (자유활동 모드 상세)
-│   │   └── ModeProducer.jsx ← /modes/producer (프로듀서 모드 상세)
+│   │   ├── ModeProducer.jsx ← /modes/producer (프로듀서 모드 상세)
+│   │   └── DistrictDetail.jsx ← /districts/:id (구역 상세)
 │   ├── styles/
 │   │   └── tokens.js       ← OKLCH 색상 토큰 export
 │   ├── data/
@@ -154,7 +155,7 @@ primecity/
 │   ├── hooks/
 │   │   ├── useIsMobile.js
 │   │   └── useReveal.js
-│   ├── App.jsx             ← React Router 설정 (10개 라우트)
+│   ├── App.jsx             ← React Router 설정 (11개 라우트)
 │   └── main.jsx            ← 엔트리포인트
 ├── docs/
 │   ├── Main_Prompt.txt             ← 챗봇 메인 프롬프트
@@ -197,11 +198,12 @@ primecity/
     - 모바일: 세로 스택 + 5명씩 페이지네이션 (3페이지)
     - 키보드 네비게이션 (좌우 화살표)
         ↓ 스크롤
-[4] 세계관 (CityMap + DistrictCard)
+[4] 세계관 (CityMap → DistrictDetail)
     - 탑뷰 도시 이미지 (인터랙티브 맵, 5구역)
     - SVG 히트박스 + 구역별 이미지 오버레이
-    - hover/tap 시 accent 윤곽선 glow + 하단 고정 툴팁
-    - CityMap 아래 DistrictCard 4개 그리드 (2×2 데스크톱 / 1열 모바일)
+    - hover 시 즉각적 glow (0.15s) + 밝은 glowColor + 하단 툴팁
+    - 클릭 시 /districts/:id 구역 상세 페이지로 이동
+    - 모바일: 1탭=툴팁, 2탭=상세 페이지 이동
         ↓ 스크롤
 [5] 게임 모드 (GameModes)
     - 탭 셀렉터: 오디션 / 자유활동 / 프로듀서
@@ -220,7 +222,7 @@ primecity/
 
 ## 라우팅
 
-### 전체 라우트 (10개, 모두 구현 완료)
+### 전체 라우트 (11개, 모두 구현 완료)
 
 ```jsx
 // App.jsx
@@ -235,6 +237,7 @@ primecity/
   <Route path="/modes/audition" element={<ModeAudition />} />
   <Route path="/modes/freeplay" element={<ModeFreeplay />} />
   <Route path="/modes/producer" element={<ModeProducer />} />
+  <Route path="/districts/:id" element={<DistrictDetail />} />
 </Routes>
 ```
 
@@ -460,7 +463,8 @@ export const districts = [
 - [x] 소개 섹션 (캐치프레이즈 + 스크롤 트리거 애니메이션)
 - [x] 캐릭터 캐러셀 (Endfield 레퍼런스 — 썸네일 리스트 + 정보 + 일러스트, 15명 + 모바일 페이지네이션)
 - [x] 세계관 인터랙티브 맵 (이미지 레이어 + SVG 히트박스, 5구역 hover/click + glow + 하단 툴팁)
-- [x] DistrictCard 4개 CityMap 아래 통합 (2×2 그리드, 스크롤 트리거)
+- [x] CityMap 클릭 → 구역 상세 페이지 이동 (DistrictDetail.jsx, 5구역)
+- [x] CityMap hover glow 속도 개선 (0.5s → 0.15s) + 밝은 glowColor 적용
 - [x] 게임 모드 섹션 (오디션/자유활동/프로듀서 탭 UI + 상세 페이지 링크)
 - [x] TriangleNav 프리즘 모자이크 네비게이션 (데스크톱 SVG 모자이크 + 모바일 각진 스트립)
 - [x] 파티클 배경 (Canvas API, 모바일 수량 감소)

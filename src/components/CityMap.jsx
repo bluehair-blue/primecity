@@ -21,6 +21,7 @@ const ZONES = [
     id: "core",
     src: "https://img.bluehair.blue/ent/The%20Core.png",
     accent: C.distCore,
+    glowColor: "oklch(0.85 0.16 80 / 0.6)",
     innerR: 0, outerR: 0.18,
     type: "ring",
   },
@@ -28,6 +29,7 @@ const ZONES = [
     id: "middle",
     src: "https://img.bluehair.blue/ent/Middle%20Ring.png",
     accent: C.distMid,
+    glowColor: "oklch(0.75 0.14 240 / 0.6)",
     innerR: 0.18, outerR: 0.30,
     type: "ring",
   },
@@ -35,6 +37,7 @@ const ZONES = [
     id: "hype",
     src: "https://img.bluehair.blue/ent/Hype%20Road.png",
     accent: C.distHype,
+    glowColor: "oklch(0.78 0.16 340 / 0.6)",
     innerR: 0.30, outerR: 0.42,
     type: "ring",
   },
@@ -42,6 +45,7 @@ const ZONES = [
     id: "terrace",
     src: "https://img.bluehair.blue/ent/Terrace.png",
     accent: C.distTer,
+    glowColor: "oklch(0.78 0.14 140 / 0.6)",
     innerR: 0.42, outerR: 0.60,
     type: "ring",
   },
@@ -49,6 +53,7 @@ const ZONES = [
     id: "industrial",
     src: "https://img.bluehair.blue/ent/industrial%20complex.png",
     accent: C.distIndustrial,
+    glowColor: "oklch(0.72 0.12 220 / 0.6)",
     type: "polygon",
   },
 ];
@@ -288,7 +293,7 @@ export default function CityMap({ isMobile }) {
               filter: activeId
                 ? "brightness(0.3) saturate(0.5)"
                 : "brightness(1) saturate(1)",
-              transition: "filter 0.5s cubic-bezier(0.22,1,0.36,1)",
+              transition: "filter 0.2s ease-out",
             }}
           />
 
@@ -313,11 +318,11 @@ export default function CityMap({ isMobile }) {
                     : "translateY(0) scale(1)",
                   transformOrigin: "center center",
                   filter: isActive
-                    ? `drop-shadow(0 16px 12px oklch(0 0 0 / 0.8)) drop-shadow(0 0 6px ${zone.accent}) drop-shadow(0 0 18px ${zone.accent})`
-                    : "none",
-                  transition: "all 0.5s cubic-bezier(0.22,1,0.36,1)",
+                    ? `drop-shadow(0 12px 10px oklch(0 0 0 / 0.7)) drop-shadow(0 0 10px ${zone.glowColor}) drop-shadow(0 0 28px ${zone.glowColor})`
+                    : "drop-shadow(0 0 0 transparent)",
+                  transition: "opacity 0.15s ease-out, transform 0.2s ease-out, filter 0.15s ease-out",
                   pointerEvents: "none",
-                  willChange: "transform, opacity",
+                  willChange: "transform, opacity, filter",
                 }}
               />
             );
