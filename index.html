@@ -8,6 +8,16 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600&family=Crimson+Pro:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
+    <style>
+      @keyframes charScanline {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100vh); }
+      }
+      @keyframes charGlowPulse {
+        0%, 100% { opacity: 0.04; transform: translate(-50%, -50%) scale(1); }
+        50% { opacity: 0.1; transform: translate(-50%, -50%) scale(1.15); }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

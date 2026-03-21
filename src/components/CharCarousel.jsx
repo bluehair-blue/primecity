@@ -1,7 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import C from "../styles/tokens";
 import { characters } from "../data/characters";
+
+/* oklch 색상에 투명도를 안전하게 적용 */
+function alpha(color, pct) {
+  return `color-mix(in oklch, ${color} ${Math.round(pct * 100)}%, transparent)`;
+}
 
 function Thumbnail({ char, selected, onClick, index, isMobile }) {
   const size = isMobile ? 40 : 60;
@@ -17,7 +22,7 @@ function Thumbnail({ char, selected, onClick, index, isMobile }) {
           ? `2px solid ${char.color}`
           : `1px solid ${C.border10}`,
         background: selected
-          ? `${char.color}`.replace(")", " / 0.12)")
+          ? alpha(char.color, 0.12)
           : C.bgCard,
         cursor: "pointer",
         padding: 0,
@@ -25,7 +30,7 @@ function Thumbnail({ char, selected, onClick, index, isMobile }) {
         alignItems: "center",
         justifyContent: "center",
         transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
-        boxShadow: selected ? `0 0 16px ${char.color}`.replace(")", " / 0.25)") : "none",
+        boxShadow: selected ? `0 0 16px ${alpha(char.color, 0.25)}` : "none",
         flexShrink: 0,
         opacity: selected ? 1 : 0.5,
       }}
@@ -98,6 +103,7 @@ const PAGE_SIZE = 5;
 export default function CharCarousel({ isMobile }) {
   const [idx, setIdx] = useState(0);
   const [fade, setFade] = useState(true);
+  const timeoutRef = useRef(null);
   const char = characters[idx];
 
   // Thumbnail pagination
@@ -110,8 +116,9 @@ export default function CharCarousel({ isMobile }) {
 
   function switchTo(i) {
     if (i === idx) return;
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setFade(false);
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       setIdx(i);
       setFade(true);
     }, 250);
@@ -126,6 +133,13 @@ export default function CharCarousel({ isMobile }) {
     switchTo(newPage * PAGE_SIZE);
   }
 
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
   // Keyboard navigation
   useEffect(() => {
     function onKey(e) {
@@ -138,10 +152,20 @@ export default function CharCarousel({ isMobile }) {
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  });
+  }, [idx]);
 
-  if (isMobile) {
-    return (
+  const carouselProps = {
+    idx, fade, char, switchTo, prevPage, nextPage,
+    pageChars, totalPages, currentPage,
+  };
+
+  return isMobile
+    ? <MobileCarousel {...carouselProps} />
+    : <DesktopCarousel {...carouselProps} />;
+}
+
+function MobileCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageChars, totalPages }) {
+  return (
       <section
         id="characters"
         style={{
@@ -414,12 +438,12 @@ export default function CharCarousel({ isMobile }) {
           </div>
         </div>
       </section>
-    );
-  }
+  );
+}
 
-  // ── Desktop Layout ──
-  const accentFaint = char.color.replace(")", " / 0.06)");
-  const accentMid = char.color.replace(")", " / 0.15)");
+function DesktopCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageChars, totalPages }) {
+  const accentFaint = alpha(char.color, 0.06);
+  const accentMid = alpha(char.color, 0.15);
 
   return (
     <section
@@ -432,18 +456,6 @@ export default function CharCarousel({ isMobile }) {
         minHeight: 720,
       }}
     >
-      {/* Keyframe injection */}
-      <style>{`
-        @keyframes charScanline {
-          0% { transform: translateY(-100%); }
-          100% { transform: translateY(100vh); }
-        }
-        @keyframes charGlowPulse {
-          0%, 100% { opacity: 0.04; transform: translate(-50%, -50%) scale(1); }
-          50% { opacity: 0.1; transform: translate(-50%, -50%) scale(1.15); }
-        }
-      `}</style>
-
       {/* ── Character illustration (expanded, overlaps text) ── */}
       <div
         style={{
@@ -533,9 +545,9 @@ export default function CharCarousel({ isMobile }) {
               left: 0,
               right: 0,
               height: 1,
-              background: `linear-gradient(90deg, transparent 10%, ${char.color.replace(")", " / 0.3)")}, transparent 90%)`,
+              background: `linear-gradient(90deg, transparent 10%, ${alpha(char.color, 0.3)}, transparent 90%)`,
               animation: "charScanline 4s linear infinite",
-              boxShadow: `0 0 20px 4px ${char.color.replace(")", " / 0.12)")}`,
+              boxShadow: `0 0 20px 4px ${alpha(char.color, 0.12)}`,
             }}
           />
         </div>
@@ -560,9 +572,9 @@ export default function CharCarousel({ isMobile }) {
         )}
 
         {/* ── Corner frame decorations ── */}
-        <div style={{ position: "absolute", top: 24, right: 24, width: 28, height: 28, borderTop: `2px solid ${char.color.replace(")", " / 0.4)")}`, borderRight: `2px solid ${char.color.replace(")", " / 0.4)")}`, pointerEvents: "none", transition: "border-color 0.4s" }} />
-        <div style={{ position: "absolute", bottom: 24, right: 24, width: 28, height: 28, borderBottom: `2px solid ${char.color.replace(")", " / 0.4)")}`, borderRight: `2px solid ${char.color.replace(")", " / 0.4)")}`, pointerEvents: "none", transition: "border-color 0.4s" }} />
-        <div style={{ position: "absolute", top: 24, right: 24, width: 5, height: 5, background: char.color.replace(")", " / 0.5)"), pointerEvents: "none", transition: "background 0.4s" }} />
+        <div style={{ position: "absolute", top: 24, right: 24, width: 28, height: 28, borderTop: `2px solid ${alpha(char.color, 0.4)}`, borderRight: `2px solid ${alpha(char.color, 0.4)}`, pointerEvents: "none", transition: "border-color 0.4s" }} />
+        <div style={{ position: "absolute", bottom: 24, right: 24, width: 28, height: 28, borderBottom: `2px solid ${alpha(char.color, 0.4)}`, borderRight: `2px solid ${alpha(char.color, 0.4)}`, pointerEvents: "none", transition: "border-color 0.4s" }} />
+        <div style={{ position: "absolute", top: 24, right: 24, width: 5, height: 5, background: alpha(char.color, 0.5), pointerEvents: "none", transition: "background 0.4s" }} />
       </div>
 
       {/* Background typography */}
@@ -777,7 +789,7 @@ export default function CharCarousel({ isMobile }) {
             style={{
               width: 120,
               height: 2,
-              background: `linear-gradient(90deg, ${char.color}, ${char.color.replace(")", " / 0.3)")}, transparent)`,
+              background: `linear-gradient(90deg, ${char.color}, ${alpha(char.color, 0.3)}, transparent)`,
               margin: "8px 0 20px",
               transition: "background 0.4s",
               boxShadow: `0 0 8px ${accentMid}`,
