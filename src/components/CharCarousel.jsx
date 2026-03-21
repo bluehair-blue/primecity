@@ -418,6 +418,9 @@ export default function CharCarousel({ isMobile }) {
   }
 
   // ── Desktop Layout ──
+  const accentFaint = char.color.replace(")", " / 0.06)");
+  const accentMid = char.color.replace(")", " / 0.15)");
+
   return (
     <section
       id="characters"
@@ -429,13 +432,25 @@ export default function CharCarousel({ isMobile }) {
         minHeight: 720,
       }}
     >
-      {/* ── Character illustration (full section background, right-aligned) ── */}
+      {/* Keyframe injection */}
+      <style>{`
+        @keyframes charScanline {
+          0% { transform: translateY(-100%); }
+          100% { transform: translateY(100vh); }
+        }
+        @keyframes charGlowPulse {
+          0%, 100% { opacity: 0.04; transform: translate(-50%, -50%) scale(1); }
+          50% { opacity: 0.1; transform: translate(-50%, -50%) scale(1.15); }
+        }
+      `}</style>
+
+      {/* ── Character illustration (expanded, overlaps text) ── */}
       <div
         style={{
           position: "absolute",
           top: 0,
           right: 0,
-          width: "65%",
+          width: "85%",
           height: "100%",
           overflow: "hidden",
           pointerEvents: "none",
@@ -451,9 +466,9 @@ export default function CharCarousel({ isMobile }) {
             style={{
               position: "absolute",
               top: "50%",
-              left: "50%",
+              left: "55%",
               transform: "translate(-45%, -50%)",
-              height: "100%",
+              height: "105%",
               width: "auto",
               maxWidth: "none",
               objectFit: "contain",
@@ -461,7 +476,6 @@ export default function CharCarousel({ isMobile }) {
             }}
           />
         ) : (
-          /* Placeholder — 이미지 에셋 미완성 캐릭터용 */
           <div
             style={{
               position: "absolute",
@@ -498,60 +512,57 @@ export default function CharCarousel({ isMobile }) {
           </div>
         )}
 
-        {/* Edge fade overlays */}
-        {/* Bottom fade */}
+        {/* ── 4-edge fade (vignette) ── */}
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "35%", background: `linear-gradient(to top, ${C.bgDeep}, transparent)`, pointerEvents: "none" }} />
+        <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: "40%", background: `linear-gradient(to right, ${C.bgDeep}, transparent)`, pointerEvents: "none" }} />
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "18%", background: `linear-gradient(to bottom, ${C.bgDeep}, transparent)`, pointerEvents: "none" }} />
+        <div style={{ position: "absolute", top: 0, right: 0, bottom: 0, width: "15%", background: `linear-gradient(to left, ${C.bgDeep}, transparent)`, pointerEvents: "none" }} />
+
+        {/* ── Scanline effect ── */}
         <div
           style={{
             position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: "30%",
-            background: `linear-gradient(to top, ${C.bgDeep}, transparent)`,
+            inset: 0,
+            overflow: "hidden",
             pointerEvents: "none",
           }}
-        />
-        {/* Left fade — blends illustration into text area */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            bottom: 0,
-            width: "35%",
-            background: `linear-gradient(to right, ${C.bgDeep}, transparent)`,
-            pointerEvents: "none",
-          }}
-        />
-        {/* Top fade */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: "15%",
-            background: `linear-gradient(to bottom, ${C.bgDeep}, transparent)`,
-            pointerEvents: "none",
-          }}
-        />
-        {/* Accent glow */}
+        >
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              height: 1,
+              background: `linear-gradient(90deg, transparent 10%, ${char.color.replace(")", " / 0.3)")}, transparent 90%)`,
+              animation: "charScanline 4s linear infinite",
+              boxShadow: `0 0 20px 4px ${char.color.replace(")", " / 0.12)")}`,
+            }}
+          />
+        </div>
+
+        {/* ── Accent glow pulse ── */}
         {char.image && (
           <div
             style={{
               position: "absolute",
-              top: "40%",
-              left: "50%",
+              top: "45%",
+              left: "55%",
               transform: "translate(-50%, -50%)",
-              width: "50%",
-              height: "50%",
+              width: "60%",
+              height: "60%",
               borderRadius: "50%",
-              background: `radial-gradient(circle, ${char.color.replace(")", " / 0.06)")}, transparent 70%)`,
+              background: `radial-gradient(circle, ${accentFaint}, transparent 70%)`,
               pointerEvents: "none",
               filter: "blur(60px)",
+              animation: "charGlowPulse 5s ease-in-out infinite",
             }}
           />
         )}
+
+        {/* ── Corner frame decorations ── */}
+        <div style={{ position: "absolute", top: 24, right: 24, width: 28, height: 28, borderTop: `2px solid ${char.color.replace(")", " / 0.4)")}`, borderRight: `2px solid ${char.color.replace(")", " / 0.4)")}`, pointerEvents: "none", transition: "border-color 0.4s" }} />
+        <div style={{ position: "absolute", bottom: 24, right: 24, width: 28, height: 28, borderBottom: `2px solid ${char.color.replace(")", " / 0.4)")}`, borderRight: `2px solid ${char.color.replace(")", " / 0.4)")}`, pointerEvents: "none", transition: "border-color 0.4s" }} />
+        <div style={{ position: "absolute", top: 24, right: 24, width: 5, height: 5, background: char.color.replace(")", " / 0.5)"), pointerEvents: "none", transition: "background 0.4s" }} />
       </div>
 
       {/* Background typography */}
@@ -587,7 +598,7 @@ export default function CharCarousel({ isMobile }) {
           gap: 40,
           alignItems: "stretch",
           position: "relative",
-          zIndex: 1,
+          zIndex: 2,
         }}
       >
         {/* ── Left: Thumbnail column ── */}
@@ -600,7 +611,6 @@ export default function CharCarousel({ isMobile }) {
             flexShrink: 0,
           }}
         >
-          {/* Page up arrow */}
           <button
             onClick={prevPage}
             aria-label="이전 그룹"
@@ -640,7 +650,6 @@ export default function CharCarousel({ isMobile }) {
             );
           })}
 
-          {/* Page down arrow */}
           <button
             onClick={nextPage}
             aria-label="다음 그룹"
@@ -668,7 +677,7 @@ export default function CharCarousel({ isMobile }) {
           </button>
         </div>
 
-        {/* ── Center: Character info ── */}
+        {/* ── Center: Character info (overlaps illustration) ── */}
         <div
           style={{
             flex: 1,
@@ -676,11 +685,26 @@ export default function CharCarousel({ isMobile }) {
             flexDirection: "column",
             justifyContent: "center",
             maxWidth: 480,
+            position: "relative",
             opacity: fade ? 1 : 0,
             transform: fade ? "translateX(0)" : "translateX(-16px)",
             transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
           }}
         >
+          {/* Readability gradient behind text */}
+          <div
+            style={{
+              position: "absolute",
+              top: -40,
+              left: -40,
+              bottom: -40,
+              width: "140%",
+              background: `linear-gradient(to right, ${C.bgDeep} 20%, oklch(0.08 0.01 280 / 0.7) 60%, transparent 100%)`,
+              pointerEvents: "none",
+              zIndex: -1,
+            }}
+          />
+
           {/* Section label + counter */}
           <div
             style={{
@@ -697,6 +721,7 @@ export default function CharCarousel({ isMobile }) {
                 letterSpacing: "0.4em",
                 textTransform: "uppercase",
                 color: C.gold,
+                textShadow: "0 0 12px oklch(0 0 0 / 0.8)",
               }}
             >
               Characters
@@ -707,6 +732,7 @@ export default function CharCarousel({ isMobile }) {
                 fontSize: 11,
                 color: C.text25,
                 letterSpacing: "0.1em",
+                textShadow: "0 0 8px oklch(0 0 0 / 0.6)",
               }}
             >
               {idx + 1} / {characters.length}
@@ -722,6 +748,7 @@ export default function CharCarousel({ isMobile }) {
               color: C.white,
               margin: "0 0 6px",
               lineHeight: 1.2,
+              textShadow: "0 2px 16px oklch(0 0 0 / 0.7), 0 0 4px oklch(0 0 0 / 0.5)",
             }}
           >
             <span
@@ -753,6 +780,7 @@ export default function CharCarousel({ isMobile }) {
               background: `linear-gradient(90deg, ${char.color}, ${char.color.replace(")", " / 0.3)")}, transparent)`,
               margin: "8px 0 20px",
               transition: "background 0.4s",
+              boxShadow: `0 0 8px ${accentMid}`,
             }}
           />
 
@@ -779,6 +807,7 @@ export default function CharCarousel({ isMobile }) {
               lineHeight: 1.7,
               margin: "0 0 20px",
               wordBreak: "keep-all",
+              textShadow: "0 0 12px oklch(0 0 0 / 0.7)",
             }}
           >
             &ldquo;{char.tagline}&rdquo;
@@ -790,10 +819,11 @@ export default function CharCarousel({ isMobile }) {
               fontFamily: "var(--f-body)",
               fontSize: 13,
               lineHeight: 1.9,
-              color: C.text35,
+              color: C.text45,
               fontWeight: 300,
               wordBreak: "keep-all",
               margin: "0 0 24px",
+              textShadow: "0 0 8px oklch(0 0 0 / 0.6)",
             }}
           >
             {char.brief}
@@ -812,6 +842,7 @@ export default function CharCarousel({ isMobile }) {
               alignItems: "center",
               gap: 6,
               transition: "opacity 0.3s",
+              textShadow: "0 0 8px oklch(0 0 0 / 0.5)",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
@@ -819,8 +850,6 @@ export default function CharCarousel({ isMobile }) {
             자세히 보기 &rarr;
           </Link>
         </div>
-
-        {/* Right side is now absolute-positioned at section level */}
       </div>
     </section>
   );
