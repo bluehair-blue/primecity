@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import C from "../styles/tokens";
 import useReveal from "../hooks/useReveal";
 import { gamemodes } from "../data/gamemodes";
@@ -168,21 +169,23 @@ export default function GameModes({ isMobile }) {
           {mode.desc}
         </p>
 
-        {/* Detail link placeholder */}
-        <span
+        {/* Detail link */}
+        <Link
+          to={mode.detailPath}
           style={{
             fontFamily: "var(--f-display-en)",
             fontSize: isMobile ? 10 : 11,
             letterSpacing: "0.2em",
             textTransform: "uppercase",
-            color: C.text25,
-            borderBottom: `1px solid ${C.border10}`,
+            color: mode.accent,
+            borderBottom: `1px solid ${mode.accent}`,
             paddingBottom: 4,
-            cursor: "default",
+            textDecoration: "none",
+            transition: "opacity 0.3s",
           }}
         >
-          Coming Soon
-        </span>
+          자세히 보기 →
+        </Link>
       </div>
     </section>
   );

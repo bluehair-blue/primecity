@@ -7,6 +7,8 @@ import Navbar from "../components/Navbar";
 import HeroSlider from "../components/HeroSlider";
 import CharCarousel from "../components/CharCarousel";
 import CityMap from "../components/CityMap";
+import DistrictCard from "../components/DistrictCard";
+import { districts } from "../data/districts";
 import GameModes from "../components/GameModes";
 import TriangleNav from "../components/TriangleNav";
 import Footer from "../components/Footer";
@@ -172,7 +174,39 @@ function WorldSection({ isMobile }) {
         />
       </div>
       <CityMap isMobile={isMobile} />
+
+      {/* District detail cards */}
+      <DistrictCards isMobile={isMobile} />
     </section>
+  );
+}
+
+function DistrictCards({ isMobile }) {
+  const [ref, v] = useReveal(0.1);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        display: "grid",
+        gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+        gap: isMobile ? 12 : 16,
+        marginTop: isMobile ? 32 : 48,
+        maxWidth: 900,
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}
+    >
+      {districts.map((d, i) => (
+        <DistrictCard
+          key={d.id}
+          {...d}
+          index={i}
+          visible={v}
+          isMobile={isMobile}
+        />
+      ))}
+    </div>
   );
 }
 
