@@ -40,6 +40,7 @@ export default function HeroSlider({ isMobile }) {
 
   return (
     <section
+      id="hero"
       style={{
         position: "relative",
         height: "100vh",
