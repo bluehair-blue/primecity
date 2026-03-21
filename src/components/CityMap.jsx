@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import C from "../styles/tokens";
 import { districts } from "../data/districts";
 import useReveal from "../hooks/useReveal";
@@ -155,7 +156,7 @@ function MapTooltip({ district, isMobile, accent, hasCard }) {
       >
         {district.desc}
       </p>
-      {isMobile && hasCard && (
+      {isMobile && (
         <span
           style={{
             display: "inline-block",
@@ -166,7 +167,7 @@ function MapTooltip({ district, isMobile, accent, hasCard }) {
             letterSpacing: "0.04em",
           }}
         >
-          한번 더 탭하여 자세히 보기 ▸
+          한번 더 탭하여 상세 페이지로 이동 ▸
         </span>
       )}
     </div>
@@ -197,22 +198,22 @@ export default function CityMap({ isMobile }) {
     setImgSize({ w: e.target.naturalWidth, h: e.target.naturalHeight });
   }
 
-  function scrollToDistrict(id) {
-    if (id === "industrial") return;
-    const el = document.getElementById(`district-${id}`);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  const navigate = useNavigate();
+
+  function navigateToDistrict(id) {
+    navigate(`/districts/${id}`);
   }
 
   function handleClick(id) {
     if (isMobile) {
       if (tapped === id) {
-        scrollToDistrict(id);
+        navigateToDistrict(id);
         setTapped(null);
       } else {
         setTapped(id);
       }
     } else {
-      scrollToDistrict(id);
+      navigateToDistrict(id);
     }
   }
 

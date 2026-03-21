@@ -9,6 +9,7 @@ import Works from "./pages/Works";
 import ModeAudition from "./pages/ModeAudition";
 import ModeFreeplay from "./pages/ModeFreeplay";
 import ModeProducer from "./pages/ModeProducer";
+import DistrictDetail from "./pages/DistrictDetail";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/modes/audition" element={<ModeAudition />} />
         <Route path="/modes/freeplay" element={<ModeFreeplay />} />
         <Route path="/modes/producer" element={<ModeProducer />} />
+        <Route path="/districts/:id" element={<DistrictDetail />} />
       </Routes>
     </BrowserRouter>
   );
