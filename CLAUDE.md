@@ -133,6 +133,7 @@ primecity/
 │   │   ├── DistrictCard.jsx ← 구역 카드 컴포넌트 (DistrictDetail에서 재사용 가능)
 │   │   ├── GameModes.jsx   ← 게임 모드 탭 UI + 상세 페이지 링크
 │   │   ├── TriangleNav.jsx ← 프리즘 모자이크 네비게이션 (하위 페이지 5종 링크)
+│   │   ├── ScrollNav.jsx  ← 스크롤 섹션 네비게이션 (PC: 라벨+바, 모바일: 도트)
 │   │   └── Footer.jsx
 │   ├── pages/
 │   │   ├── Home.jsx        ← 메인 랜딩 (전체 섹션 조합)
@@ -152,6 +153,8 @@ primecity/
 │   │   ├── characters.js   ← 캐릭터 데이터 배열 (15명)
 │   │   ├── districts.js    ← 구역 데이터 배열 (4구역)
 │   │   └── gamemodes.js    ← 게임 모드 데이터 (3모드)
+│   ├── utils/
+│   │   └── cdn.js          ← CDN URL 유틸 (cdnUrl + ASSET_VERSION 캐시 버스팅)
 │   ├── hooks/
 │   │   ├── useIsMobile.js
 │   │   └── useReveal.js
@@ -167,7 +170,9 @@ primecity/
 │   ├── 연예계 챗봇 로어북.txt        ← 로어북
 │   └── 마크다운 프롬프트 작성 가이드라인.txt
 ├── assets/
-│   └── backgrounds/                 ← 배경 이미지 에셋
+│   └── backgrounds/                 ← 배경 이미지 에셋 (로컬)
+├── public/
+│   ├── _headers                     ← Cloudflare Pages 캐시 헤더
 ├── .claude/
 │   └── skills/
 │       ├── new-page/SKILL.md       ← 새 페이지 생성 스킬 (/new-page)
@@ -339,16 +344,24 @@ export const districts = [
 
 ## 이미지 에셋
 
+### CDN 캐시 버스팅
+
+모든 CDN 이미지 URL은 `src/utils/cdn.js`의 `cdnUrl()` 함수를 통해 생성.
+이미지 갱신 시 `ASSET_VERSION` 상수를 올리면 `?v=N` 쿼리가 변경되어 브라우저+CDN 캐시 자동 무효화.
+
+```js
+import { cdnUrl } from "../utils/cdn";
+cdnUrl("SY.png")  // → "https://img.bluehair.blue/ent/SY.png?v=1"
+```
+
 ### CDN 경로 규칙
 
 | 에셋 유형 | CDN 경로 | 비고 |
 |---|---|---|
-| 도시 배경 | `https://img.bluehair.blue/ent/bg{N}.png` | N = 1~9 |
-| 캐릭터 | `https://img.bluehair.blue/ent/char/{id}.png` | 서윤만 완료 (SY.png, SYthumbnail.png) |
-| 맵 베이스 | `https://img.bluehair.blue/ent/Citybase(1).png` | 전체 탑뷰 맵 |
-| 맵 구역 | `https://img.bluehair.blue/ent/{구역명}.png` | The Core, Middle Ring, Hype Road, Terrace, industrial complex |
-
-또는 `public/assets/` 로컬 경로도 사용 가능.
+| 도시 배경 | `cdnUrl("bg{N}.png")` | N = 3~11 |
+| 캐릭터 | `cdnUrl("{id}.png")` | 서윤(SY), 강하람(KHR) 완료 |
+| 맵 베이스 | `cdnUrl("Citybase(1).png")` | 전체 탑뷰 맵 |
+| 맵 구역 | `cdnUrl("{구역명}.png")` | The Core, Middle Ring, Hype Road, Terrace, industrial complex |
 
 ### 해상도 기준
 
@@ -431,6 +444,17 @@ export const districts = [
 ```
 별도 `public/_redirects` 파일 불필요. 모든 404가 `index.html`로 fallback되어 React Router가 클라이언트에서 처리.
 
+### 캐싱 최적화
+
+Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers`로 제어:
+
+| 에셋 유형 | Cache-Control | 비고 |
+|---|---|---|
+| HTML (`/`, `/index.html`) | `max-age=0, must-revalidate` | 항상 최신 확인, CDN에 5분 캐시 |
+| JS/CSS (`/assets/*`) | `max-age=1년, immutable` | Vite 해시 파일명으로 자동 버스팅 |
+| SVG (`/*.svg`) | `max-age=1일, stale-while-revalidate=7일` | 중기 캐시 |
+| CDN 이미지 (`img.bluehair.blue`) | `cdnUrl()` 쿼리 파라미터로 버스팅 | `ASSET_VERSION` 변경 시 갱신 |
+
 ---
 
 ## Claude Code Skills
@@ -469,6 +493,7 @@ export const districts = [
 - [x] TriangleNav 프리즘 모자이크 네비게이션 (데스크톱 SVG 모자이크 + 모바일 각진 스트립)
 - [x] 파티클 배경 (Canvas API, 모바일 수량 감소)
 - [x] 공통 PageLayout 컴포넌트 (하위 페이지 공유)
+- [x] ScrollNav 스크롤 목차 (PC: 오른쪽 라벨+바, 모바일: 도트, 현재 섹션 자동 감지)
 
 #### 하위 페이지 (TriangleNav 링크)
 - [x] `/svg` — 세계관 비주얼 가이드 (SvgIntro.jsx)
@@ -499,6 +524,8 @@ export const districts = [
 - [x] 미사용 CharCard.jsx 삭제
 - [x] flatted 보안 취약점 수정 (overrides >=3.4.2)
 - [x] Claude Code Skills 2개 생성 (new-page, deploy-preview)
+- [x] CDN 캐시 버스팅 유틸 (cdnUrl + ASSET_VERSION)
+- [x] Cloudflare Pages 캐시 헤더 (_headers: HTML must-revalidate, JS/CSS immutable)
 
 ---
 
@@ -525,13 +552,17 @@ export const districts = [
 - **사운드 디자인** — BGM 토글 버튼 + 호버/클릭 효과음 (Web Audio API)
 
 ### 기술 / 성능
-- **이미지 최적화** — lazy loading, WebP/AVIF 포맷 변환, srcset 반응형 이미지
+- **이미지 최적화** — WebP/AVIF 포맷 변환, srcset 반응형 이미지, Cloudflare Image Resizing 활용
 - **코드 스플리팅** — React.lazy + Suspense로 하위 페이지 동적 임포트
 - **SEO** — react-helmet-async로 페이지별 메타태그 + OG 이미지 동적 생성
 - **접근성(a11y)** — 키보드 네비게이션 강화, aria-label, 고대비 모드, 스크린 리더 지원
+- **404 페이지** — 존재하지 않는 경로 접근 시 커스텀 404 (현재 빈 페이지)
+- **로딩 상태** — 페이지 전환 시 스켈레톤/스피너 (Suspense fallback)
 
 ### 콘텐츠 확장
 - **i18n 다국어** — 한/영/일 지원 (react-i18next)
 - **에덴챗 연동** — 챗봇 위젯 임베드 프리뷰 또는 데모 대화
 - **타임라인/연대기** — 프라임시티 세계관 역사 타임라인 시각화
 - **팬 아트 갤러리** — 커뮤니티 투고 기능 (Cloudflare R2 + Workers)
+- **구역 상세 콘텐츠 확장** — DistrictDetail 페이지에 구역별 배경 이미지, 명소 소개, 주민 생활 등 추가
+- **캐릭터 관계망** — 캐릭터 상세 페이지에서 관계 캐릭터 간 양방향 링크 + 관계 설명
