@@ -126,29 +126,52 @@ primecity/
 │   ├── components/
 │   │   ├── Navbar.jsx
 │   │   ├── Particles.jsx
-│   │   ├── HeroSlider.jsx   ← 배경 이미지 자동 슬라이드 (CDN bg3~bg11, 9장)
+│   │   ├── PageLayout.jsx  ← 공통 페이지 레이아웃 (Navbar + Particles + Footer)
+│   │   ├── HeroSlider.jsx  ← 배경 이미지 자동 슬라이드 (CDN bg3~bg11, 9장)
 │   │   ├── CharCarousel.jsx ← 캐릭터 캐러셀 (15명, 페이지네이션)
-│   │   ├── CityMap.jsx      ← 세계관 인터랙티브 맵 (이미지 레이어 + SVG 히트박스)
-│   │   ├── GameModes.jsx    ← 게임 모드 탭 UI (오디션/자유활동/프로듀서)
-│   │   ├── TriangleNav.jsx  ← 프리즘 모자이크 네비게이션 (하위 페이지 5종 링크)
-│   │   ├── DistrictCard.jsx ← 구역 상세 카드 (미사용 — Home.jsx 통합 예정)
-│   │   ├── CharCard.jsx     ← 캐릭터 카드 (미사용 — CharCarousel로 대체)
+│   │   ├── CityMap.jsx     ← 세계관 인터랙티브 맵 (이미지 레이어 + SVG 히트박스)
+│   │   ├── DistrictCard.jsx ← 구역 상세 카드 (Home.jsx CityMap 아래에 통합)
+│   │   ├── GameModes.jsx   ← 게임 모드 탭 UI + 상세 페이지 링크
+│   │   ├── TriangleNav.jsx ← 프리즘 모자이크 네비게이션 (하위 페이지 5종 링크)
 │   │   └── Footer.jsx
 │   ├── pages/
-│   │   ├── Home.jsx         ← 메인 랜딩 (전체 섹션 조합)
-│   │   └── CharDetail.jsx   ← /characters/:name (캐릭터 상세)
+│   │   ├── Home.jsx        ← 메인 랜딩 (전체 섹션 조합 + DistrictCard 통합)
+│   │   ├── CharDetail.jsx  ← /characters/:name (캐릭터 상세, 이미지+네비 보강)
+│   │   ├── SvgIntro.jsx    ← /svg (세계관 비주얼 가이드)
+│   │   ├── Gallery.jsx     ← /gallery (아트 갤러리, 라이트박스)
+│   │   ├── Updates.jsx     ← /updates (업데이트 로그, 타임라인)
+│   │   ├── Contact.jsx     ← /contact (문의 창구)
+│   │   ├── Works.jsx       ← /works (작가의 다른 작품)
+│   │   ├── ModeAudition.jsx ← /modes/audition (오디션 모드 상세)
+│   │   ├── ModeFreeplay.jsx ← /modes/freeplay (자유활동 모드 상세)
+│   │   └── ModeProducer.jsx ← /modes/producer (프로듀서 모드 상세)
 │   ├── styles/
-│   │   └── tokens.js        ← OKLCH 색상 토큰 export
+│   │   └── tokens.js       ← OKLCH 색상 토큰 export
 │   ├── data/
-│   │   ├── characters.js    ← 캐릭터 데이터 배열 (15명)
-│   │   ├── districts.js     ← 구역 데이터 배열 (4구역)
-│   │   └── gamemodes.js     ← 게임 모드 데이터 (3모드)
+│   │   ├── characters.js   ← 캐릭터 데이터 배열 (15명)
+│   │   ├── districts.js    ← 구역 데이터 배열 (4구역)
+│   │   └── gamemodes.js    ← 게임 모드 데이터 (3모드)
 │   ├── hooks/
 │   │   ├── useIsMobile.js
 │   │   └── useReveal.js
-│   ├── App.jsx              ← React Router 설정
-│   └── main.jsx             ← 엔트리포인트
-├── CLAUDE.md                ← 이 파일
+│   ├── App.jsx             ← React Router 설정 (10개 라우트)
+│   └── main.jsx            ← 엔트리포인트
+├── docs/
+│   ├── Main_Prompt.txt             ← 챗봇 메인 프롬프트
+│   ├── 캐릭터 프로필.md             ← 캐릭터 상세 프로필 (15명)
+│   ├── 세계관.txt                   ← 세계관 설정
+│   ├── 프라임시티 세계관.txt         ← 세계관 상세
+│   ├── 오디션.txt                   ← 오디션 시스템 설계
+│   ├── 모드 시스템 예시.txt          ← 모드 시스템 참고
+│   ├── 연예계 챗봇 로어북.txt        ← 로어북
+│   └── 마크다운 프롬프트 작성 가이드라인.txt
+├── assets/
+│   └── backgrounds/                 ← 배경 이미지 에셋
+├── .claude/
+│   └── skills/
+│       ├── new-page/SKILL.md       ← 새 페이지 생성 스킬 (/new-page)
+│       └── deploy-preview/SKILL.md ← 빌드+배포 스킬 (/deploy-preview)
+├── CLAUDE.md               ← 이 파일
 ├── package.json
 └── vite.config.js
 ```
@@ -174,59 +197,46 @@ primecity/
     - 모바일: 세로 스택 + 5명씩 페이지네이션 (3페이지)
     - 키보드 네비게이션 (좌우 화살표)
         ↓ 스크롤
-[4] 세계관 (CityMap)
+[4] 세계관 (CityMap + DistrictCard)
     - 탑뷰 도시 이미지 (인터랙티브 맵, 5구역)
     - SVG 히트박스 + 구역별 이미지 오버레이
     - hover/tap 시 accent 윤곽선 glow + 하단 고정 툴팁
-    - 클릭 시 해당 구역 상세로 스크롤
-        ↓
-[4-sub] 구역 상세 (DistrictCard — 미통합)
-    - 더 코어 / 미들 링 / 하입 로드 / 테라스
-    - DistrictCard 컴포넌트 존재하나 Home.jsx에 아직 미배치
+    - CityMap 아래 DistrictCard 4개 그리드 (2×2 데스크톱 / 1열 모바일)
         ↓ 스크롤
 [5] 게임 모드 (GameModes)
     - 탭 셀렉터: 오디션 / 자유활동 / 프로듀서
-    - 각 모드별 설명 + 상세 페이지 링크 (미구현)
+    - 각 모드별 설명 + "자세히 보기 →" 링크 → 상세 페이지
         ↓ 스크롤
 [6] 더 알아보기 (TriangleNav — 프리즘 모자이크)
     - 데스크톱: 불규칙 다각형 SVG 모자이크 (5개 클릭 + 3개 장식)
     - 모바일: 각진 clip-path 스트립 스택
-    - 하위 페이지 5종 링크 (미구현)
+    - 하위 페이지 5종 링크 → 각 페이지로 이동
         ↓ 스크롤
 [7] 푸터 (Footer)
     - 로고 + © 2026 bluehair.blue
-
-[별도 페이지] /characters/:name (CharDetail)
-    - 캐릭터별 상세 소개 페이지
-    - 기본 틀 완성, 콘텐츠 보강 필요
 ```
 
 ---
 
 ## 라우팅
 
-### 구현 완료
+### 전체 라우트 (10개, 모두 구현 완료)
 
 ```jsx
 // App.jsx
 <Routes>
   <Route path="/" element={<Home />} />
   <Route path="/characters/:name" element={<CharDetail />} />
+  <Route path="/svg" element={<SvgIntro />} />
+  <Route path="/gallery" element={<Gallery />} />
+  <Route path="/updates" element={<Updates />} />
+  <Route path="/contact" element={<Contact />} />
+  <Route path="/works" element={<Works />} />
+  <Route path="/modes/audition" element={<ModeAudition />} />
+  <Route path="/modes/freeplay" element={<ModeFreeplay />} />
+  <Route path="/modes/producer" element={<ModeProducer />} />
 </Routes>
 ```
-
-### 구현 필요 (컴포넌트에서 참조하지만 라우트/페이지 미생성)
-
-| 경로 | 출처 | 설명 |
-|---|---|---|
-| `/svg` | TriangleNav | SVG 소개 페이지 |
-| `/gallery` | TriangleNav | 아트 갤러리 페이지 |
-| `/updates` | TriangleNav | 업데이트 로그 페이지 |
-| `/contact` | TriangleNav | 문의 창구 페이지 |
-| `/works` | TriangleNav | 작가의 다른 작품 페이지 |
-| `/modes/audition` | GameModes | 오디션 모드 상세 |
-| `/modes/freeplay` | GameModes | 자유활동 모드 상세 |
-| `/modes/producer` | GameModes | 프로듀서 모드 상세 |
 
 ---
 
@@ -253,7 +263,7 @@ primecity/
 
 ### 캐릭터 데이터 (src/data/characters.js)
 
-총 15명. 상세 프로필은 `Characters` 파일 참조.
+총 15명. 상세 프로필은 `docs/캐릭터 프로필.md` 참조.
 
 | # | id | 이름 | 소속 | 역할 | accent 색상 |
 |---|---|---|---|---|---|
@@ -375,6 +385,11 @@ export const districts = [
 - 전환 이징: `cubic-bezier(0.22, 1, 0.36, 1)` 통일
 - 파티클: Canvas API, 모바일에서 수량 감소 (120 → 40)
 
+### 새 페이지 추가 시
+- `src/components/PageLayout.jsx`을 레이아웃으로 사용 (Navbar + Particles + Footer 자동 포함)
+- render props 패턴: `{({ isMobile }) => ( ... )}` 으로 isMobile 수신
+- `/new-page` 스킬로 자동 생성 가능
+
 ---
 
 ## 세계관 요약 (콘텐츠 참고용)
@@ -415,26 +430,58 @@ export const districts = [
 
 ---
 
+## Claude Code Skills
+
+프로젝트 전용 스킬 (`.claude/skills/`에 위치, Git 추적됨):
+
+| 스킬 | 호출 | 설명 |
+|---|---|---|
+| `/new-page` | 사용자 + Claude | 새 페이지 생성 + App.jsx 라우트 등록 + 빌드 검증 |
+| `/deploy-preview` | 사용자 전용 | `npm run build` + `wrangler deploy` 원커맨드 |
+
+---
+
 ## 현재 상태 및 남은 작업
 
 ### 완료
 
 #### 기반 구축
-- [x] 사이트 구조 확정 (7섹션 + 캐릭터 상세 페이지)
+- [x] 사이트 구조 확정 (7섹션 + 하위 페이지 10개)
 - [x] 디자인 시스템 (OKLCH 색상 토큰, 폰트, 다크+골드 톤)
 - [x] 콘텐츠 확정 (캐치프레이즈, 캐릭터 15명, 구역 4개 + 산업단지, 게임모드 3개)
 - [x] Vite + React 프로젝트 세팅 + 파일 분리
 - [x] Cloudflare Workers & Pages 배포 + 도메인 연결 (intro.bluehair.blue)
 - [x] wrangler.jsonc SPA 라우팅 설정 (not_found_handling)
+- [x] GitHub repo 구성 (JaCha00/primecity)
+- [x] 기획 문서 docs/ 폴더 정리 (프롬프트, 세계관, 캐릭터 프로필 등)
 
 #### 메인 페이지 섹션
 - [x] 히어로 배경 슬라이더 (CDN bg3~bg11, 9장 자동 전환 + 순수 CSS 크로스페이드)
 - [x] 소개 섹션 (캐치프레이즈 + 스크롤 트리거 애니메이션)
 - [x] 캐릭터 캐러셀 (Endfield 레퍼런스 — 썸네일 리스트 + 정보 + 일러스트, 15명 + 모바일 페이지네이션)
 - [x] 세계관 인터랙티브 맵 (이미지 레이어 + SVG 히트박스, 5구역 hover/click + glow + 하단 툴팁)
-- [x] 게임 모드 섹션 (오디션/자유활동/프로듀서 탭 UI)
+- [x] DistrictCard 4개 CityMap 아래 통합 (2×2 그리드, 스크롤 트리거)
+- [x] 게임 모드 섹션 (오디션/자유활동/프로듀서 탭 UI + 상세 페이지 링크)
 - [x] TriangleNav 프리즘 모자이크 네비게이션 (데스크톱 SVG 모자이크 + 모바일 각진 스트립)
 - [x] 파티클 배경 (Canvas API, 모바일 수량 감소)
+- [x] 공통 PageLayout 컴포넌트 (하위 페이지 공유)
+
+#### 하위 페이지 (TriangleNav 링크)
+- [x] `/svg` — 세계관 비주얼 가이드 (SvgIntro.jsx)
+- [x] `/gallery` — 아트 갤러리 + 라이트박스 (Gallery.jsx)
+- [x] `/updates` — 업데이트 로그 타임라인 (Updates.jsx)
+- [x] `/contact` — 문의 창구 (Contact.jsx)
+- [x] `/works` — 작가의 다른 작품 (Works.jsx)
+
+#### 게임 모드 상세 페이지
+- [x] `/modes/audition` — 오디션 4라운드 상세 (ModeAudition.jsx)
+- [x] `/modes/freeplay` — 자유활동 모드 소개 (ModeFreeplay.jsx)
+- [x] `/modes/producer` — 프로듀서 모드 소개 (ModeProducer.jsx)
+
+#### 캐릭터 상세 페이지
+- [x] 기본 틀 + 이미지 로딩/폴백 + brief 섹션
+- [x] 같은 소속 캐릭터 네비게이션 (Same Agency)
+- [x] 이전/다음 캐릭터 링크
 
 #### 데이터 & 에셋
 - [x] 캐릭터 데이터 15명 완성 (characters.js)
@@ -444,33 +491,22 @@ export const districts = [
 - [x] 도시 탑뷰 맵 CDN 업로드 (베이스맵 + 5개 구역 분리 PNG)
 - [x] 캐릭터 이미지: 서윤 (SY.png, SYthumbnail.png) + 강하람 (KHR.svg)
 
-#### 별도 페이지
-- [x] 캐릭터 상세 페이지 기본 틀 (/characters/:name)
+#### 코드 정리
+- [x] 미사용 CharCard.jsx 삭제
+- [x] flatted 보안 취약점 수정 (overrides >=3.4.2)
+- [x] Claude Code Skills 2개 생성 (new-page, deploy-preview)
 
 ---
 
 ### 구현 필요
 
-#### 우선순위 높음 — 하위 페이지
-- [ ] 하위 페이지 5종 신규 생성 + App.jsx 라우트 등록
-  - `/svg` — SVG 소개
-  - `/gallery` — 아트 갤러리
-  - `/updates` — 업데이트 로그
-  - `/contact` — 문의 창구
-  - `/works` — 작가의 다른 작품
-- [ ] 게임 모드 상세 페이지 3종
-  - `/modes/audition` — 오디션 모드
-  - `/modes/freeplay` — 자유활동 모드
-  - `/modes/producer` — 프로듀서 모드
-
 #### 우선순위 중간 — 콘텐츠 보강
-- [ ] 캐릭터 상세 페이지 콘텐츠 보강 (현재 기본 틀만, Characters 파일 기반으로 확장)
-- [ ] DistrictCard를 Home.jsx CityMap 아래에 통합 (구역 상세 카드 4개)
 - [ ] 캐릭터 이미지 에셋 제작 + CDN 업로드 (2/15 완료, 13명 플레이스홀더)
+- [ ] Gallery 페이지에 캐릭터 일러스트 추가 (현재 배경 이미지만)
+- [ ] Works 페이지에 추가 작품 등록 (현재 프라임시티만)
 
 #### 우선순위 낮음 — 품질 관리
 - [ ] 모바일 최종 검수 (전 페이지)
-- [ ] 미사용 컴포넌트 정리 (CharCard.jsx 등)
 
 ---
 
