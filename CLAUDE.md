@@ -488,7 +488,10 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [x] 캐릭터 캐러셀 (Endfield 레퍼런스 — 썸네일 리스트 + 정보 + 일러스트, 15명 + 모바일 페이지네이션)
 - [x] 세계관 인터랙티브 맵 (이미지 레이어 + SVG 히트박스, 5구역 hover/click + glow + 하단 툴팁)
 - [x] CityMap 클릭 → 구역 상세 페이지 이동 (DistrictDetail.jsx, 5구역)
-- [x] CityMap hover glow 속도 개선 (0.5s → 0.15s) + 밝은 glowColor 적용
+- [x] CityMap hover glow 즉각 반응 (불빛 0.05s + 모션 0.4s 분리, 순색 glowColor, brightness 1.1)
+- [x] CityMap 등장 애니메이션 중 pointer-events 차단 (hover 히트테스트 버그 수정)
+- [x] CityMap 데스크톱 커서 추적 툴팁 (DOM 직접 조작, absolute + 상대좌표, 리렌더 없음)
+- [x] 구역 소개 텍스트(lore) 사이버펑크 톤으로 리뉴얼 (5구역)
 - [x] 게임 모드 섹션 (오디션/자유활동/프로듀서 탭 UI + 상세 페이지 링크)
 - [x] TriangleNav 프리즘 모자이크 네비게이션 (데스크톱 SVG 모자이크 + 모바일 각진 스트립)
 - [x] 파티클 배경 (Canvas API, 모바일 수량 감소)
@@ -518,7 +521,7 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [x] 게임 모드 데이터 3개 (gamemodes.js)
 - [x] 배경 이미지 CDN 업로드 (bg3~bg11)
 - [x] 도시 탑뷰 맵 CDN 업로드 (베이스맵 + 5개 구역 분리 PNG)
-- [x] 캐릭터 이미지: 서윤 (SY.png, SYthumbnail.png) + 강하람 (KHR.svg)
+- [x] 캐릭터 이미지: 서윤, 나하린, 이서하, 강하람 (4/15 CDN 업로드 완료)
 
 #### 코드 정리
 - [x] 미사용 CharCard.jsx 삭제
@@ -526,13 +529,14 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [x] Claude Code Skills 2개 생성 (new-page, deploy-preview)
 - [x] CDN 캐시 버스팅 유틸 (cdnUrl + ASSET_VERSION)
 - [x] Cloudflare Pages 캐시 헤더 (_headers: HTML must-revalidate, JS/CSS immutable)
+- [x] CharCarousel 코드 품질 개선 (useEffect deps, setTimeout race condition, color-mix, 컴포넌트 분리, 전역 keyframes)
 
 ---
 
 ### 구현 필요
 
 #### 우선순위 중간 — 콘텐츠 보강
-- [ ] 캐릭터 이미지 에셋 제작 + CDN 업로드 (2/15 완료, 13명 플레이스홀더)
+- [ ] 캐릭터 이미지 에셋 제작 + CDN 업로드 (4/15 완료, 11명 플레이스홀더)
 - [ ] Gallery 페이지에 캐릭터 일러스트 추가 (현재 배경 이미지만)
 - [ ] Works 페이지에 추가 작품 등록 (현재 프라임시티만)
 
