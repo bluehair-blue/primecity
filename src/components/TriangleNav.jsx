@@ -41,29 +41,18 @@ const navItems = [
   },
 ];
 
-/*
-  Prism / shattered-glass mosaic layout.
-  Desktop: irregular triangular shards tessellated inside a rectangle, SVG-based.
-  Mobile: angular shard strips stacked vertically.
-
-  The shard vertices are hand-tuned so every edge is shared — no gaps, no overlaps.
-*/
-
 // Shared vertices for the prism mesh (on a 1000×440 canvas)
 const V = {
-  // Top edge
   tl: [0, 0],
   t1: [220, 0],
   t2: [480, 0],
   t3: [720, 0],
   tr: [1000, 0],
-  // Interior points — offset irregularly for organic feel
   m1: [140, 180],
   m2: [360, 150],
   m3: [540, 220],
   m4: [750, 160],
   m5: [500, 380],
-  // Bottom edge
   bl: [0, 440],
   b1: [260, 440],
   b2: [520, 440],
@@ -71,16 +60,15 @@ const V = {
   br: [1000, 440],
 };
 
-// Each shard: array of vertex keys forming a polygon, + index into navItems
 const shards = [
   { keys: ["tl", "t1", "m2", "m1"], item: 0 },
   { keys: ["t1", "t2", "m2"], item: 1 },
   { keys: ["t2", "t3", "m4", "m3"], item: 2 },
   { keys: ["t3", "tr", "br", "m4"], item: 3 },
-  { keys: ["tl", "m1", "bl"], item: -1 },       // decorative
-  { keys: ["m1", "m2", "m3", "m5", "b1", "bl"], item: -1 }, // decorative
+  { keys: ["tl", "m1", "bl"], item: -1 },
+  { keys: ["m1", "m2", "m3", "m5", "b1", "bl"], item: -1 },
   { keys: ["m3", "m4", "br", "b3", "b2", "m5"], item: 4 },
-  { keys: ["bl", "b1", "m5", "b2", "b3", "br"], item: -1 }, // decorative
+  { keys: ["bl", "b1", "m5", "b2", "b3", "br"], item: -1 },
 ];
 
 function centroid(keys) {
@@ -92,6 +80,10 @@ function centroid(keys) {
   return [sx / keys.length, sy / keys.length];
 }
 
+function alpha(color, pct) {
+  return `color-mix(in oklch, ${color} ${Math.round(pct * 100)}%, transparent)`;
+}
+
 function DesktopPrismNav() {
   const [hovered, setHovered] = useState(null);
 
@@ -99,24 +91,57 @@ function DesktopPrismNav() {
     <div style={{ maxWidth: 960, margin: "0 auto", position: "relative" }}>
       <svg
         viewBox="0 0 1000 440"
-        style={{ width: "100%", height: "auto", display: "block" }}
+        style={{ width: "100%", height: "auto", display: "block", overflow: "visible" }}
         preserveAspectRatio="xMidYMid meet"
       >
-        {/* Decorative crack lines — all edges */}
+        {/* ── SVG Defs: filters & gradients ── */}
+        <defs>
+          <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="12" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+
+          <filter id="text-glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="4" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+
+          <linearGradient id="glass-base" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor={C.border10} />
+            <stop offset="100%" stopColor={C.bgDeep} />
+          </linearGradient>
+
+          {navItems.map((item, i) => (
+            <linearGradient
+              key={`hover-grad-${i}`}
+              id={`hover-grad-${i}`}
+              x1="0%"
+              y1="100%"
+              x2="100%"
+              y2="0%"
+            >
+              <stop offset="0%" stopColor={C.bgDeep} />
+              <stop offset="100%" stopColor={alpha(item.accent, 0.3)} />
+            </linearGradient>
+          ))}
+        </defs>
+
+        {/* ── Background glass shards ── */}
         {shards.map((s, i) => {
           const pts = s.keys.map((k) => V[k].join(",")).join(" ");
           return (
             <polygon
               key={`bg-${i}`}
               points={pts}
-              fill="none"
+              fill="url(#glass-base)"
+              fillOpacity={0.3}
               stroke={C.border06}
               strokeWidth={1}
             />
           );
         })}
 
-        {/* Interactive shards */}
+        {/* ── Interactive shards ── */}
         {shards
           .filter((s) => s.item >= 0)
           .map((s) => {
@@ -133,43 +158,46 @@ function DesktopPrismNav() {
                 style={{ cursor: "pointer" }}
               >
                 <Link to={item.path}>
-                  {/* Shard fill */}
+                  {/* Glass facet */}
                   <polygon
                     points={pts}
-                    fill={isHov ? item.accent : C.bgDeep}
-                    fillOpacity={isHov ? 0.18 : 0.4}
+                    fill={isHov ? `url(#hover-grad-${s.item})` : "transparent"}
                     stroke={isHov ? item.accent : C.border10}
-                    strokeWidth={isHov ? 1.5 : 0.8}
-                    strokeLinejoin="bevel"
+                    strokeWidth={isHov ? 2 : 1}
+                    strokeLinejoin="round"
                     style={{
-                      transition: "all 0.5s cubic-bezier(0.22,1,0.36,1)",
-                      filter: isHov
-                        ? `drop-shadow(0 0 24px ${item.accent})`
-                        : "none",
+                      transition: "all 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
+                      filter: isHov ? "url(#neon-glow)" : "none",
+                      transformOrigin: `${cx}px ${cy}px`,
+                      transform: isHov ? "scale(1.015)" : "scale(1)",
                     }}
                   />
-                  {/* Refraction line — subtle inner glow on hover */}
-                  {isHov && (
-                    <polygon
-                      points={pts}
-                      fill="none"
-                      stroke={item.accent}
-                      strokeWidth={0.5}
-                      strokeOpacity={0.3}
-                      strokeDasharray="6 4"
-                      style={{ pointerEvents: "none" }}
-                    />
-                  )}
+
+                  {/* Inner highlight — glass edge refraction */}
+                  <polygon
+                    points={pts}
+                    fill="none"
+                    stroke={C.white}
+                    strokeWidth={1}
+                    strokeOpacity={isHov ? 0.35 : 0}
+                    style={{
+                      pointerEvents: "none",
+                      transition: "stroke-opacity 0.4s",
+                    }}
+                    transform="translate(1, 1)"
+                  />
+
                   {/* Korean label */}
                   <text
                     x={cx}
-                    y={cy - 10}
+                    y={cy - 12}
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    fill={isHov ? item.accent : C.text35}
+                    fill={isHov ? C.white : C.text55}
                     fontFamily="var(--f-display-kr)"
                     fontSize={isHov ? 26 : 24}
-                    fontWeight="600"
+                    fontWeight="700"
+                    filter={isHov ? "url(#text-glow)" : undefined}
                     style={{
                       transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
                       pointerEvents: "none",
@@ -177,18 +205,19 @@ function DesktopPrismNav() {
                   >
                     {item.label}
                   </text>
+
                   {/* English sub-label */}
                   <text
                     x={cx}
-                    y={cy + 18}
+                    y={cy + 16}
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    fill={isHov ? item.accent : C.text15}
+                    fill={isHov ? item.accent : C.text25}
                     fontFamily="var(--f-display-en)"
-                    fontSize={10}
-                    letterSpacing="0.15em"
+                    fontSize={11}
+                    letterSpacing="0.2em"
                     style={{
-                      transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
+                      transition: "all 0.4s",
                       pointerEvents: "none",
                       textTransform: "uppercase",
                     }}
@@ -200,7 +229,7 @@ function DesktopPrismNav() {
             );
           })}
 
-        {/* Decorative shard numbers on empty shards */}
+        {/* ── Decorative text on empty shards ── */}
         {shards
           .filter((s) => s.item < 0)
           .map((s, i) => {
@@ -231,7 +260,6 @@ function DesktopPrismNav() {
 function MobilePrismNav() {
   const [hovered, setHovered] = useState(null);
 
-  // Irregular angular clips for each item — like shattered glass shards
   const clips = [
     "polygon(0% 0%, 100% 3%, 100% 92%, 0% 100%)",
     "polygon(0% 6%, 100% 0%, 100% 100%, 0% 90%)",
@@ -263,16 +291,33 @@ function MobilePrismNav() {
               textDecoration: "none",
               display: "block",
               position: "relative",
-              padding: "24px 20px",
+              padding: "28px 24px",
               clipPath: clips[i],
-              marginTop: i > 0 ? -8 : 0,
+              marginTop: i > 0 ? -10 : 0,
               background: isHov
-                ? `linear-gradient(${120 + i * 30}deg, ${item.accent.replace(")", " / 0.14)")}, transparent 70%)`
-                : C.bgCard,
+                ? `linear-gradient(${120 + i * 30}deg, ${alpha(item.accent, 0.25)}, oklch(0 0 0 / 0.5) 80%)`
+                : "oklch(0 0 0 / 0.6)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
               transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
+              zIndex: isHov ? 10 : i,
+              willChange: "transform",
             }}
           >
-            {/* Diagonal accent line */}
+            {/* Glass edge highlight */}
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: 1,
+                background: `linear-gradient(90deg, transparent, ${isHov ? item.accent : C.border10}, transparent)`,
+                opacity: 0.8,
+                pointerEvents: "none",
+              }}
+            />
+            {/* Diagonal accent glow */}
             <div
               style={{
                 position: "absolute",
@@ -281,7 +326,7 @@ function MobilePrismNav() {
                 right: 0,
                 bottom: 0,
                 background: isHov
-                  ? `linear-gradient(${135 + i * 15}deg, ${item.accent.replace(")", " / 0.06)")}, transparent 40%)`
+                  ? `linear-gradient(${135 + i * 15}deg, ${alpha(item.accent, 0.06)}, transparent 40%)`
                   : "none",
                 pointerEvents: "none",
                 transition: "all 0.4s",
@@ -355,7 +400,6 @@ export default function TriangleNav({ isMobile }) {
         padding: isMobile ? "48px 16px 56px" : "80px 48px 100px",
       }}
     >
-      {/* Section header */}
       <div
         style={{
           textAlign: "center",
