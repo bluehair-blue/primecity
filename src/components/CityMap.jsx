@@ -328,8 +328,11 @@ export default function CityMap({ isMobile }) {
               zIndex: 10,
             }}
             onMouseMove={(e) => {
-              if (!isMobile && tooltipRef.current) {
-                tooltipRef.current.style.transform = `translate3d(${e.clientX + 20}px, ${e.clientY - 20}px, 0)`;
+              if (!isMobile && tooltipRef.current && containerRef.current) {
+                const rect = containerRef.current.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                tooltipRef.current.style.transform = `translate3d(${x + 20}px, ${y + 20}px, 0)`;
               }
             }}
           >
@@ -377,7 +380,7 @@ export default function CityMap({ isMobile }) {
         <div
           ref={tooltipRef}
           style={{
-            position: "fixed",
+            position: "absolute",
             top: 0,
             left: 0,
             zIndex: 9999,
