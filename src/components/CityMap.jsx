@@ -7,9 +7,6 @@ import { cdnUrl } from "../utils/cdn";
 
 const BASE_SRC = cdnUrl("Citybase(1).png");
 
-/* ── Zone definitions ──
-   districts.js에 없는 industrial은 여기서 직접 정의.
-   hitbox: 타원 링은 ringPath로, industrial은 polygon 좌표로. */
 const CENTER_X = 0.50;
 const CENTER_Y = 0.47;
 const RATIO = 0.54;
@@ -19,7 +16,7 @@ const ZONES = [
     id: "core",
     src: cdnUrl("The%20Core.png"),
     accent: C.distCore,
-    glowColor: "oklch(0.85 0.16 80 / 0.6)",
+    glowColor: "oklch(0.85 0.16 80)",
     innerR: 0, outerR: 0.18,
     type: "ring",
   },
@@ -27,7 +24,7 @@ const ZONES = [
     id: "middle",
     src: cdnUrl("Middle%20Ring.png"),
     accent: C.distMid,
-    glowColor: "oklch(0.75 0.14 240 / 0.6)",
+    glowColor: "oklch(0.75 0.14 240)",
     innerR: 0.18, outerR: 0.30,
     type: "ring",
   },
@@ -35,7 +32,7 @@ const ZONES = [
     id: "hype",
     src: cdnUrl("Hype%20Road.png"),
     accent: C.distHype,
-    glowColor: "oklch(0.78 0.16 340 / 0.6)",
+    glowColor: "oklch(0.78 0.16 340)",
     innerR: 0.30, outerR: 0.42,
     type: "ring",
   },
@@ -43,7 +40,7 @@ const ZONES = [
     id: "terrace",
     src: cdnUrl("Terrace.png"),
     accent: C.distTer,
-    glowColor: "oklch(0.78 0.14 140 / 0.6)",
+    glowColor: "oklch(0.78 0.14 140)",
     innerR: 0.42, outerR: 0.60,
     type: "ring",
   },
@@ -51,19 +48,18 @@ const ZONES = [
     id: "industrial",
     src: cdnUrl("industrial%20complex.png"),
     accent: C.distIndustrial,
-    glowColor: "oklch(0.72 0.12 220 / 0.6)",
+    glowColor: "oklch(0.72 0.12 220)",
     type: "polygon",
   },
 ];
 
-/* 산업단지 전용 데이터 (districts.js에 없음) */
 const INDUSTRIAL_INFO = {
   id: "industrial",
   name: "산업단지",
   en: "Industrial Complex",
   tier: "물류와 생산의 심장부",
   agency: "",
-  desc: "프라임시티를 지탱하는 물류와 생산의 중심지. 항만 시설과 물류 센터가 밀집한 구역.",
+  desc: "눈부신 무대 뒤편, 거대한 도시를 물리적으로 지탱하는 숨겨진 핏줄. 철골과 물류 라인 속에 육중한 생존의 리듬이 흐른다.",
 };
 
 /* ── SVG 타원형 링 경로 (히트박스용) ── */
@@ -78,7 +74,6 @@ function ringPath(cx, cy, rInner, rOuter, ratio) {
   return `${outer} ${inner}`;
 }
 
-/* 산업단지 히트박스 polygon (좌하단 항만 영역, vw 기준 비율 좌표) */
 function industrialPolygon(vw, vh) {
   const pts = [
     [0.00, 0.42], [0.18, 0.42], [0.30, 0.55],
@@ -87,26 +82,10 @@ function industrialPolygon(vw, vh) {
   return pts.map(([x, y]) => `${x * vw},${y * vh}`).join(" ");
 }
 
-/* ── Tooltip ── */
-function MapTooltip({ district, isMobile, accent, hasCard }) {
-  if (!district) return null;
-
-  const style = { position: "relative", margin: "12px 0 0", zIndex: 20 };
-
+/* ── Tooltip content (shared between mobile fixed and desktop floating) ── */
+function TooltipContent({ district, accent, isMobile }) {
   return (
-    <div
-      style={{
-        ...style,
-        background: C.bgOverlay,
-        border: `1px solid ${accent}`,
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        padding: isMobile ? "14px 16px" : "16px 20px",
-        transition: "opacity 0.2s, transform 0.2s",
-        boxShadow: `0 8px 32px oklch(0 0 0 / 0.5), 0 0 16px oklch(0 0 0 / 0.25)`,
-        borderRadius: 4,
-      }}
-    >
+    <>
       <span
         style={{
           fontFamily: "var(--f-display-en)",
@@ -173,7 +152,7 @@ function MapTooltip({ district, isMobile, accent, hasCard }) {
           한번 더 탭하여 상세 페이지로 이동 ▸
         </span>
       )}
-    </div>
+    </>
   );
 }
 
@@ -184,18 +163,17 @@ export default function CityMap({ isMobile }) {
   const [tapped, setTapped] = useState(null);
   const [imgSize, setImgSize] = useState({ w: 1380, h: 752 });
   const containerRef = useRef(null);
+  const tooltipRef = useRef(null);
 
   const activeId = isMobile ? tapped : hovered;
 
-  /* 활성 구역 데이터 (districts.js 또는 industrial 전용) */
   const activeDistrict = activeId
     ? activeId === "industrial"
       ? INDUSTRIAL_INFO
       : districts.find((d) => d.id === activeId)
     : null;
 
-  /* 활성 구역에 DistrictCard가 있는지 (scroll 대상 존재 여부) */
-  const hasCard = activeId && activeId !== "industrial";
+  const activeAccent = ZONES.find((z) => z.id === activeId)?.accent || C.distIndustrial;
 
   function handleImgLoad(e) {
     setImgSize({ w: e.target.naturalWidth, h: e.target.naturalHeight });
@@ -218,6 +196,18 @@ export default function CityMap({ isMobile }) {
     } else {
       navigateToDistrict(id);
     }
+  }
+
+  function handleZoneEnter(id) {
+    if (isMobile) return;
+    setHovered(id);
+    if (tooltipRef.current) tooltipRef.current.style.opacity = "1";
+  }
+
+  function handleZoneLeave() {
+    if (isMobile) return;
+    setHovered(null);
+    if (tooltipRef.current) tooltipRef.current.style.opacity = "0";
   }
 
   /* Dismiss mobile tooltip on outside tap */
@@ -251,6 +241,7 @@ export default function CityMap({ isMobile }) {
         opacity: mapVisible ? 1 : 0,
         transform: mapVisible ? "translateY(0)" : "translateY(24px)",
         transition: "all 1s cubic-bezier(0.22,1,0.36,1)",
+        pointerEvents: mapVisible ? "auto" : "none",
       }}
     >
       {/* Sci-fi 프레임 장식 */}
@@ -278,7 +269,7 @@ export default function CityMap({ isMobile }) {
             border: `1px solid ${C.border10}`,
           }}
         >
-          {/* 1) 베이스맵 — 활성 시 dim */}
+          {/* 1) 베이스맵 */}
           <img
             src={BASE_SRC}
             alt="프라임시티 탑뷰 맵"
@@ -291,11 +282,11 @@ export default function CityMap({ isMobile }) {
               filter: activeId
                 ? "brightness(0.3) saturate(0.5)"
                 : "brightness(1) saturate(1)",
-              transition: "filter 0.2s ease-out",
+              transition: "filter 0.15s ease-out",
             }}
           />
 
-          {/* 2) 구역 이미지 레이어 — 활성 시 떠오름 */}
+          {/* 2) 구역 이미지 레이어 */}
           {ZONES.map((zone) => {
             const isActive = activeId === zone.id;
             return (
@@ -311,22 +302,21 @@ export default function CityMap({ isMobile }) {
                   height: "100%",
                   objectFit: "fill",
                   opacity: isActive ? 1 : 0,
-                  transform: isActive
-                    ? "translateY(-12px) scale(1.025)"
-                    : "translateY(0) scale(1)",
+                  transform: isActive ? "translateY(-14px)" : "translateY(0)",
                   transformOrigin: "center center",
                   filter: isActive
-                    ? `drop-shadow(0 12px 10px oklch(0 0 0 / 0.7)) drop-shadow(0 0 10px ${zone.glowColor}) drop-shadow(0 0 28px ${zone.glowColor})`
-                    : "drop-shadow(0 0 0 transparent)",
-                  transition: "opacity 0.15s ease-out, transform 0.2s ease-out, filter 0.15s ease-out",
+                    ? `brightness(1.1) drop-shadow(0 20px 12px oklch(0 0 0 / 0.9)) drop-shadow(0 0 6px ${zone.glowColor}) drop-shadow(0 0 24px ${zone.glowColor})`
+                    : "brightness(1) drop-shadow(0 0 0 transparent)",
+                  transition: "opacity 0.05s ease, filter 0.05s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
                   pointerEvents: "none",
                   willChange: "transform, opacity, filter",
+                  zIndex: isActive ? 5 : 1,
                 }}
               />
             );
           })}
 
-          {/* 3) SVG 히트박스 — 투명, 이벤트 캡처 전용 */}
+          {/* 3) SVG 히트박스 */}
           <svg
             viewBox={`0 0 ${vw} ${vh}`}
             style={{
@@ -335,6 +325,12 @@ export default function CityMap({ isMobile }) {
               width: "100%",
               height: "100%",
               touchAction: "manipulation",
+              zIndex: 10,
+            }}
+            onMouseMove={(e) => {
+              if (!isMobile && tooltipRef.current) {
+                tooltipRef.current.style.transform = `translate3d(${e.clientX + 20}px, ${e.clientY - 20}px, 0)`;
+              }
             }}
           >
             {ZONES.map((zone) => {
@@ -351,8 +347,8 @@ export default function CityMap({ isMobile }) {
                     fill="transparent"
                     pointerEvents="visibleFill"
                     style={{ cursor: "pointer" }}
-                    onMouseEnter={() => !isMobile && setHovered(zone.id)}
-                    onMouseLeave={() => !isMobile && setHovered(null)}
+                    onMouseEnter={() => handleZoneEnter(zone.id)}
+                    onMouseLeave={handleZoneLeave}
                     onClick={() => handleClick(zone.id)}
                   />
                 );
@@ -366,8 +362,8 @@ export default function CityMap({ isMobile }) {
                   fill="transparent"
                   pointerEvents="visibleFill"
                   style={{ cursor: "pointer" }}
-                  onMouseEnter={() => !isMobile && setHovered(zone.id)}
-                  onMouseLeave={() => !isMobile && setHovered(null)}
+                  onMouseEnter={() => handleZoneEnter(zone.id)}
+                  onMouseLeave={handleZoneLeave}
                   onClick={() => handleClick(zone.id)}
                 />
               );
@@ -376,17 +372,64 @@ export default function CityMap({ isMobile }) {
         </div>
       </div>
 
-      {/* 4) 툴팁 */}
-      {activeDistrict && (
-        <MapTooltip
-          district={activeDistrict}
-          isMobile={isMobile}
-          accent={ZONES.find((z) => z.id === activeId)?.accent}
-          hasCard={hasCard}
-        />
+      {/* 4) 데스크톱 커서 추적 툴팁 */}
+      {!isMobile && (
+        <div
+          ref={tooltipRef}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            zIndex: 9999,
+            pointerEvents: "none",
+            opacity: 0,
+            willChange: "transform, opacity",
+            transition: "opacity 0.15s ease-out",
+            background: C.bgOverlay,
+            border: `1px solid ${activeAccent}`,
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            padding: "20px 24px",
+            boxShadow: `0 8px 32px oklch(0 0 0 / 0.6)`,
+            borderRadius: 4,
+            maxWidth: 320,
+          }}
+        >
+          {activeDistrict && (
+            <TooltipContent
+              district={activeDistrict}
+              accent={activeAccent}
+              isMobile={false}
+            />
+          )}
+        </div>
       )}
 
-      {/* 5) 모바일 안내 */}
+      {/* 5) 모바일 하단 고정 툴팁 */}
+      {isMobile && activeDistrict && (
+        <div
+          style={{
+            position: "relative",
+            margin: "12px 0 0",
+            zIndex: 20,
+            background: C.bgOverlay,
+            border: `1px solid ${activeAccent}`,
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            padding: "14px 16px",
+            boxShadow: `0 8px 32px oklch(0 0 0 / 0.5)`,
+            borderRadius: 4,
+          }}
+        >
+          <TooltipContent
+            district={activeDistrict}
+            accent={activeAccent}
+            isMobile
+          />
+        </div>
+      )}
+
+      {/* 6) 모바일 안내 */}
       {isMobile && !tapped && (
         <div
           style={{
