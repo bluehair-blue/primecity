@@ -81,8 +81,8 @@ export default function HeroSlider({ isMobile }) {
             key={`preload-${url}`}
             src={url}
             alt=""
-            crossOrigin="anonymous"
             onLoad={() => markLoaded(idx)}
+            onError={() => markLoaded(idx)}
             style={{ display: "none" }}
           />
         ))}
