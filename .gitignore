@@ -8,3 +8,12 @@ dist/
 !.dev.vars.example
 .env*
 !.env.example
+
+# Large binary assets (use CDN instead)
+캐릭터 이미지/
+캐릭터 이미지.zip
+배경/
+
+# Backups & external plugins
+backup_local/
+everything-claude-code/
