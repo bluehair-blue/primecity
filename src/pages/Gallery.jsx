@@ -3,17 +3,18 @@ import { Link } from "react-router-dom";
 import C from "../styles/tokens";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
+import { cdnUrl } from "../utils/cdn";
 
 const galleryItems = [
-  { src: "https://img.bluehair.blue/ent/bg3.png", caption: "프라임시티 전경 I" },
-  { src: "https://img.bluehair.blue/ent/bg4.png", caption: "프라임시티 전경 II" },
-  { src: "https://img.bluehair.blue/ent/bg5.png", caption: "프라임시티 전경 III" },
-  { src: "https://img.bluehair.blue/ent/bg6.png", caption: "더 코어" },
-  { src: "https://img.bluehair.blue/ent/bg7.png", caption: "미들 링" },
-  { src: "https://img.bluehair.blue/ent/bg8.png", caption: "하입 로드" },
-  { src: "https://img.bluehair.blue/ent/bg9.png", caption: "테라스" },
-  { src: "https://img.bluehair.blue/ent/bg10.png", caption: "야경" },
-  { src: "https://img.bluehair.blue/ent/bg11.png", caption: "스카이라인" },
+  { src: cdnUrl("bg3.png"), caption: "프라임시티 전경 I" },
+  { src: cdnUrl("bg4.png"), caption: "프라임시티 전경 II" },
+  { src: cdnUrl("bg5.png"), caption: "프라임시티 전경 III" },
+  { src: cdnUrl("bg6.png"), caption: "더 코어" },
+  { src: cdnUrl("bg7.png"), caption: "미들 링" },
+  { src: cdnUrl("bg8.png"), caption: "하입 로드" },
+  { src: cdnUrl("bg9.png"), caption: "테라스" },
+  { src: cdnUrl("bg10.png"), caption: "야경" },
+  { src: cdnUrl("bg11.png"), caption: "스카이라인" },
 ];
 
 export default function Gallery() {

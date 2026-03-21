@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import C from "../styles/tokens";
+import { cdnUrl } from "../utils/cdn";
 
 const BG_IMAGES = Array.from({ length: 9 }, (_, i) =>
-  `https://img.bluehair.blue/ent/bg${i + 3}.png`
+  cdnUrl(`bg${i + 3}.png`)
 );
 const SLIDE_INTERVAL = 6000;
 const FADE_MS = 1200;

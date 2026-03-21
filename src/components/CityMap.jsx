@@ -3,11 +3,9 @@ import { useNavigate } from "react-router-dom";
 import C from "../styles/tokens";
 import { districts } from "../data/districts";
 import useReveal from "../hooks/useReveal";
+import { cdnUrl } from "../utils/cdn";
 
-/* ── Map image assets ──
-   모든 구역 이미지는 베이스맵과 동일 캔버스 크기(투명 PNG).
-   재export 후 CDN URL 업데이트 필요.                          */
-const BASE_SRC = "https://img.bluehair.blue/ent/Citybase(1).png";
+const BASE_SRC = cdnUrl("Citybase(1).png");
 
 /* ── Zone definitions ──
    districts.js에 없는 industrial은 여기서 직접 정의.
@@ -19,7 +17,7 @@ const RATIO = 0.54;
 const ZONES = [
   {
     id: "core",
-    src: "https://img.bluehair.blue/ent/The%20Core.png",
+    src: cdnUrl("The%20Core.png"),
     accent: C.distCore,
     glowColor: "oklch(0.85 0.16 80 / 0.6)",
     innerR: 0, outerR: 0.18,
@@ -27,7 +25,7 @@ const ZONES = [
   },
   {
     id: "middle",
-    src: "https://img.bluehair.blue/ent/Middle%20Ring.png",
+    src: cdnUrl("Middle%20Ring.png"),
     accent: C.distMid,
     glowColor: "oklch(0.75 0.14 240 / 0.6)",
     innerR: 0.18, outerR: 0.30,
@@ -35,7 +33,7 @@ const ZONES = [
   },
   {
     id: "hype",
-    src: "https://img.bluehair.blue/ent/Hype%20Road.png",
+    src: cdnUrl("Hype%20Road.png"),
     accent: C.distHype,
     glowColor: "oklch(0.78 0.16 340 / 0.6)",
     innerR: 0.30, outerR: 0.42,
@@ -43,7 +41,7 @@ const ZONES = [
   },
   {
     id: "terrace",
-    src: "https://img.bluehair.blue/ent/Terrace.png",
+    src: cdnUrl("Terrace.png"),
     accent: C.distTer,
     glowColor: "oklch(0.78 0.14 140 / 0.6)",
     innerR: 0.42, outerR: 0.60,
@@ -51,7 +49,7 @@ const ZONES = [
   },
   {
     id: "industrial",
-    src: "https://img.bluehair.blue/ent/industrial%20complex.png",
+    src: cdnUrl("industrial%20complex.png"),
     accent: C.distIndustrial,
     glowColor: "oklch(0.72 0.12 220 / 0.6)",
     type: "polygon",

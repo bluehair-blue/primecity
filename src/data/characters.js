@@ -1,3 +1,5 @@
+import { cdnUrl } from "../utils/cdn";
+
 export const characters = [
   {
     id: "seoyun",
@@ -7,8 +9,8 @@ export const characters = [
     age: 20,
     tagline: "영점, 그리고 정점.",
     color: "oklch(0.76 0.12 80)",
-    image: "https://img.bluehair.blue/ent/SY.png",
-    thumbnail: "https://img.bluehair.blue/ent/SYthumbnail.png",
+    image: cdnUrl("SY.png"),
+    thumbnail: cdnUrl("SYthumbnail.png"),
     detailPath: "/characters/seoyun",
     signature: "금색 초커",
     personality: "고데레 — 너무 높은 곳에 있어서 내려오는 법을 모름",
@@ -110,7 +112,7 @@ export const characters = [
     age: 21,
     tagline: "오늘도 연습! 아자아자~!",
     color: "oklch(0.65 0.12 20)",
-    image: "https://img.bluehair.blue/ent/KHR.svg",
+    image: cdnUrl("KHR.svg"),
     detailPath: "/characters/kangharam",
     signature: "손목 스크런치 + 숨긴 펜던트",
     personality: "무자각 여친계 — 열정 넘치는 밝음 (내면은 절박함)",
