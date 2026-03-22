@@ -375,6 +375,8 @@ cdnExprUrl("SY", "happy") → https://img.bluehair.blue/ent/SY/happy.webp?v=1
 - **포맷**: WebP (갤러리/챗봇 에셋은 WebP 사용, 사이트 배경·스탠딩 이미지는 PNG 유지)
 - **cdnId 매핑**: SY(서윤), NHR(나하린), JSH(진시혁), ERK(에리카), LSH(이서하), HSR(한소리), KHR(강하람), JGR(장그루), MIL(밀라), ELA(엘라), MMR(미모리), HSE(하시은), NIA(니아), RAY(레이), LPS(라피스)
 - **유틸**: `src/utils/cdn.js`의 `cdnExprUrl()`, `EXPRESSION_KEYS`, `EXPRESSION_LABELS`
+- **전체 상황코드 DB**: `src/data/gallery.js`에 정의 (감정 9 + 일상 9 + NSFW 56 = 74코드/캐릭터)
+- **챗봇 프롬프트 원본**: `docs/이미지 출력 규칙(수정).txt`
 
 ### 해상도 기준
 
@@ -560,15 +562,24 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 
 ---
 
-### 구현 필요
+#### Gallery 페이지 (Phase 3 완료)
+- [x] Gallery 메이슨리 레이아웃 (CSS columns, 데스크톱 3열 / 모바일 2열)
+- [x] Gallery 카테고리 필터 (대분류: 전체/도시/캐릭터, 하위 태그: 감정표현, 일상, 컨셉아트, NSFW)
+- [x] Gallery 캐릭터 필터 — 소속사 아코디언 UI (`?character={id}` 쿼리 파라미터 연동)
+- [x] Gallery 라이트박스 강화 (이전/다음 화살표, 터치 스와이프, 이미지 설명+태그, 키보드 ←→ESC, 카운터)
+- [x] Gallery NSFW 토글 (기본 숨김 → R18 경고 모달 → 확인 후 표시, 세션 내 유지)
+- [x] gallery.js 전체 상황코드 DB (감정 9 + 일상 9 + NSFW 56 = 캐릭터당 74코드 × 15명)
+- [x] gallery.js cdnExprUrl 버그 수정 (char.id.toUpperCase() → char.cdnId)
+- [x] 전체 15명 캐릭터 포함 (이미지 미업로드 시 imgErrors로 자동 숨김)
 
-#### 우선순위 높음 — Phase 3: Gallery 전면 재설계
-- [ ] Gallery 메이슨리 레이아웃 (CSS columns, 데스크톱 3열 / 모바일 2열)
-- [ ] Gallery 카테고리 필터 (대분류: 도시/캐릭터, 하위 태그: 감정표현, 일상, 컨셉아트)
-- [ ] Gallery 캐릭터 필터 (`?character={id}` 쿼리 파라미터 — CharDetail에서 리다이렉트)
-- [ ] Gallery 라이트박스 강화 (이전/다음 화살표, 터치 스와이프, 이미지 설명, 키보드 ← → ESC)
-- [ ] Gallery NSFW 토글 (기본 숨김 → R18 경고 모달 → 확인 후 표시, 영역 분리, 세션 내 유지)
-- [ ] gallery.js 데이터 파일 신규 (src, caption, category, tags, isNsfw, characterId)
+#### Navbar 개선
+- [x] 갤러리(/gallery), 문의(/contact), 더 알아보기(#explore) 링크 추가
+- [x] 하위 페이지에서 앵커 링크 작동 (useNavigate → 홈 이동 후 scrollIntoView)
+- [x] 로고 클릭 → Link to="/" (SPA 라우팅)
+
+---
+
+### 구현 필요
 
 #### 우선순위 중간 — 콘텐츠 보강
 - [ ] 캐릭터 이미지 에셋 제작 + CDN 업로드 (4/15 완료, 11명 플레이스홀더)
