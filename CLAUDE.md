@@ -124,7 +124,7 @@ primecity/
 │   └── icons.svg
 ├── src/
 │   ├── components/
-│   │   ├── Navbar.jsx
+│   │   ├── Navbar.jsx      ← 소개, 캐릭터, 세계관, 갤러리, 더 알아보기, 문의, 플레이
 │   │   ├── Particles.jsx
 │   │   ├── PageLayout.jsx  ← 공통 페이지 레이아웃 (Navbar + Particles + Footer)
 │   │   ├── HeroSlider.jsx  ← 배경 이미지 자동 슬라이드 (CDN bg3~bg11, 9장)
@@ -137,9 +137,9 @@ primecity/
 │   │   └── Footer.jsx
 │   ├── pages/
 │   │   ├── Home.jsx        ← 메인 랜딩 (전체 섹션 조합)
-│   │   ├── CharDetail.jsx  ← /characters/:name (캐릭터 상세, 이미지+네비 보강)
+│   │   ├── CharDetail.jsx  ← /characters/:name (시네마틱 인트로 + HUD + 프로필 + 미리보기)
 │   │   ├── SvgIntro.jsx    ← /svg (세계관 비주얼 가이드)
-│   │   ├── Gallery.jsx     ← /gallery (아트 갤러리, 라이트박스)
+│   │   ├── Gallery.jsx     ← /gallery (메이슨리 + 소속사 아코디언 필터 + 라이트박스 + NSFW)
 │   │   ├── Updates.jsx     ← /updates (업데이트 로그, 타임라인)
 │   │   ├── Contact.jsx     ← /contact (문의 창구)
 │   │   ├── Works.jsx       ← /works (작가의 다른 작품)
@@ -150,11 +150,12 @@ primecity/
 │   ├── styles/
 │   │   └── tokens.js       ← OKLCH 색상 토큰 export
 │   ├── data/
-│   │   ├── characters.js   ← 캐릭터 데이터 배열 (15명)
+│   │   ├── characters.js   ← 캐릭터 데이터 배열 (15명, cdnId/job/background/taste/goal/expressions 포함)
+│   │   ├── gallery.js      ← 갤러리 아이템 데이터 (도시9 + 캐릭터당 74코드 × 15명, NSFW 포함)
 │   │   ├── districts.js    ← 구역 데이터 배열 (4구역)
 │   │   └── gamemodes.js    ← 게임 모드 데이터 (3모드)
 │   ├── utils/
-│   │   └── cdn.js          ← CDN URL 유틸 (cdnUrl + ASSET_VERSION 캐시 버스팅)
+│   │   └── cdn.js          ← CDN URL 유틸 (cdnUrl, cdnExprUrl, EXPRESSION_KEYS/LABELS)
 │   ├── hooks/
 │   │   ├── useIsMobile.js
 │   │   └── useReveal.js
@@ -168,7 +169,15 @@ primecity/
 │   ├── 오디션.txt                   ← 오디션 시스템 설계
 │   ├── 모드 시스템 예시.txt          ← 모드 시스템 참고
 │   ├── 연예계 챗봇 로어북.txt        ← 로어북
-│   └── 마크다운 프롬프트 작성 가이드라인.txt
+│   ├── 마크다운 프롬프트 작성 가이드라인.txt
+│   ├── 이미지 출력 규칙(수정).txt    ← 챗봇 이미지 출력 상황코드 DB (gallery.js 원본)
+│   ├── 에셋목록_정제.txt            ← NAI 에셋 프롬프트 원본 (Female/Male Part)
+│   ├── NAIS_Preset_감정_*.json     ← NAI 프리셋 (감정 에셋)
+│   ├── NAIS_Preset_감정2_generated.json  ← 생성된 프리셋 (감정 8종)
+│   ├── NAIS_Preset_일상_generated.json   ← 생성된 프리셋 (일상 9종)
+│   ├── NAIS_Preset_상황_generated.json   ← 생성된 프리셋 (NSFW 41종)
+│   ├── NAIS_Preset_착의_generated.json   ← 생성된 프리셋 (착의 16종)
+│   └── nais2-backup-*.json         ← NAI 전체 백업 (캐릭터 프롬프트 포함)
 ├── assets/
 │   └── backgrounds/                 ← 배경 이미지 에셋 (로컬)
 ├── public/
@@ -208,7 +217,7 @@ primecity/
     - SVG 히트박스 + 구역별 이미지 오버레이
     - hover 시 즉각적 glow (0.15s) + 밝은 glowColor + 하단 툴팁
     - 클릭 시 /districts/:id 구역 상세 페이지로 이동
-    - 모바일: 1탭=툴팁, 2탭=상세 페이지 이동
+    - 모바일: 1탭=툴팁 + "자세히 보기 →" 버튼으로 상세 페이지 이동
         ↓ 스크롤
 [5] 게임 모드 (GameModes)
     - 탭 셀렉터: 오디션 / 자유활동 / 프로듀서
@@ -360,7 +369,7 @@ cdnUrl("SY.png")  // → "https://img.bluehair.blue/ent/SY.png?v=1"
 |---|---|---|
 | 도시 배경 | `cdnUrl("bg{N}.png")` | N = 3~11 |
 | 캐릭터 | `cdnUrl("{cdnId}.png")` | 서윤(SY), 나하린(NHR), 이서하(LSH), 강하람(KHR) 완료 |
-| 캐릭터 표정 | `cdnExprUrl("{cdnId}", "{expression}")` | 경로: `ent/{cdnId}/{expression}.png` |
+| 캐릭터 표정/상황 | `cdnExprUrl("{cdnId}", "{code}")` | 경로: `ent/{cdnId}/{code}.webp` |
 | 맵 베이스 | `cdnUrl("Citybase(1).png")` | 전체 탑뷰 맵 |
 | 맵 구역 | `cdnUrl("{구역명}.png")` | The Core, Middle Ring, Hype Road, Terrace, industrial complex |
 
@@ -446,6 +455,10 @@ cdnExprUrl("SY", "happy") → https://img.bluehair.blue/ent/SY/happy.webp?v=1
 | Build output directory | `dist` |
 | Node.js version | 18+ |
 | Custom domain | intro.bluehair.blue |
+| GitHub repo | JaCha00/primecity |
+| **배포 방법** | **`git push origin main` → Cloudflare 자동 빌드+배포** |
+
+> **중요**: `npm run deploy` (wrangler CLI)는 API 토큰 설정 필요. 비대화형 환경에서는 git push 방식 사용.
 
 ### SPA 라우팅 처리
 
@@ -482,6 +495,7 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 | `/new-page` | 사용자 + Claude | 새 페이지 생성 + App.jsx 라우트 등록 + 빌드 검증 |
 | `/deploy-preview` | 사용자 전용 | `npm run build` + `wrangler deploy` 원커맨드 |
 | `frontend-design` | Claude 전용 | 프론트엔드 디자인 가이드라인 (자동 참조) |
+| `project-patterns` | Claude 전용 | git 히스토리 기반 개발 패턴 (커밋 컨벤션, 파일 공변 등) |
 
 ---
 
@@ -577,13 +591,25 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [x] 하위 페이지에서 앵커 링크 작동 (useNavigate → 홈 이동 후 scrollIntoView)
 - [x] 로고 클릭 → Link to="/" (SPA 라우팅)
 
+#### CityMap 모바일 개선
+- [x] 더블탭 네비게이션 → 싱글탭 툴팁 + "자세히 보기 →" 버튼으로 변경
+
+#### 챗봇 에셋 프리셋 (docs/)
+- [x] NAI 프리셋 JSON 생성 (74개 scene: 감정 8 + 일상 9 + NSFW 41 + 착의 16)
+- [x] 4개 파일로 분리 (감정2, 일상, 상황(NSFW), 착의)
+- [x] nais2-backup에 9명 캐릭터 탈의 프롬프트 추가 (한소리~레이)
+- [x] 프롬프트 구조: 배경→구도→Male Part→행위→여성 신체→부가→표정
+
 ---
 
 ### 구현 필요
 
-#### 우선순위 중간 — 콘텐츠 보강
+#### 우선순위 높음 — 에셋 제작
 - [ ] 캐릭터 이미지 에셋 제작 + CDN 업로드 (4/15 완료, 11명 플레이스홀더)
+- [ ] 캐릭터 표정/상황 WebP 에셋 생성 (NAI 프리셋 사용) + CDN 업로드
 - [ ] CharDetail 히어로 전용 와이드 에셋 검토 (현재 2:3 세로형 이미지를 풀스크린에 사용 중)
+
+#### 우선순위 중간 — 콘텐츠 보강
 - [ ] Works 페이지에 추가 작품 등록 (현재 프라임시티만)
 
 #### 우선순위 낮음 — 품질 관리
