@@ -4,6 +4,7 @@ import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
 import { districts } from "../data/districts";
 import { characters } from "../data/characters";
+import Seo from "../components/Seo";
 
 const INDUSTRIAL_INFO = {
   id: "industrial",
@@ -51,6 +52,7 @@ export default function DistrictDetail() {
 
         return (
           <div style={{ maxWidth: 700, margin: "0 auto" }}>
+            <Seo title={dist.name} description={`${dist.name}(${dist.en}) — ${dist.tier}. 프라임시티 구역 상세 안내.`} path={`/districts/${id}`} />
             <Link
               to="/"
               style={{

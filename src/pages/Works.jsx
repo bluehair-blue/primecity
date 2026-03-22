@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import C from "../styles/tokens";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
+import Seo from "../components/Seo";
 
 const works = [
   {
@@ -21,6 +22,7 @@ export default function Works() {
 
         return (
           <div style={{ maxWidth: 640, margin: "0 auto" }}>
+            <Seo title="작가의 작품" description="프라임시티 작가의 다른 작품 소개." path="/works" />
             <Link
               to="/"
               style={{

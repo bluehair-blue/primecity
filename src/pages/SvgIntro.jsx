@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import C from "../styles/tokens";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
+import Seo from "../components/Seo";
 
 function SvgShowcase({ isMobile }) {
   const [ref, v] = useReveal(0.12);
@@ -103,6 +104,7 @@ export default function SvgIntro() {
     <PageLayout>
       {({ isMobile }) => (
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
+          <Seo title="세계관" description="프라임시티의 구조, 기획사, 오디션 시스템을 한눈에 살펴보는 비주얼 가이드." path="/svg" />
           <Link
             to="/"
             style={{

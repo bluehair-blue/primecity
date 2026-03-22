@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import C from "../styles/tokens";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
+import Seo from "../components/Seo";
 
 const updates = [
   {
@@ -148,6 +149,7 @@ export default function Updates() {
     <PageLayout>
       {({ isMobile }) => (
         <div style={{ maxWidth: 640, margin: "0 auto" }}>
+          <Seo title="업데이트" description="프라임시티 업데이트 로그 — 개발 진행 상황과 변경 이력." path="/updates" />
           <Link
             to="/"
             style={{

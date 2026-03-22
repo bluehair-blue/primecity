@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import C from "../styles/tokens";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
+import Seo from "../components/Seo";
 
 const features = [
   {
@@ -38,6 +39,7 @@ export default function ModeFreeplay() {
 
         return (
           <div style={{ maxWidth: 700, margin: "0 auto" }}>
+            <Seo title="자유활동 모드" description="프라임시티 자유활동 모드 — 오디션 밖에서 도시를 탐색하고 캐릭터들과 교류하는 모드." path="/modes/freeplay" />
             <Link
               to="/"
               style={{

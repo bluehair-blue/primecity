@@ -8,6 +8,7 @@ import { cdnExprUrl, EXPRESSION_LABELS } from "../utils/cdn";
 import Navbar from "../components/Navbar";
 import Particles from "../components/Particles";
 import Footer from "../components/Footer";
+import Seo from "../components/Seo";
 
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
@@ -122,6 +123,7 @@ export default function CharDetail() {
 
   return (
     <div style={{ background: C.bgDeep, color: C.white, minHeight: "100vh", position: "relative", overflowX: "hidden" }}>
+      <Seo title={char.name} description={`${char.name} — ${char.role}. 프라임시티 캐릭터 상세 프로필.`} path={`/characters/${name}`} />
       <Particles isMobile={isMobile} />
       <Navbar scrolled={scrolled} isMobile={isMobile} />
 
