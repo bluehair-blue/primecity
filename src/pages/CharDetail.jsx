@@ -140,6 +140,7 @@ export default function CharDetail() {
           position: "absolute", top: isMobile ? "12%" : "18%", left: 0,
           display: "flex", width: "200%",
           animation: "bgMarquee 80s linear infinite",
+          willChange: "transform",
         }}>
           {[1, 2].map((k) => (
             <div key={k} style={{
@@ -160,6 +161,7 @@ export default function CharDetail() {
           position: "absolute", top: isMobile ? "55%" : "60%", left: 0,
           display: "flex", width: "200%",
           animation: "bgMarqueeReverse 100s linear infinite",
+          willChange: "transform",
         }}>
           {[1, 2].map((k) => (
             <div key={k} style={{
