@@ -529,12 +529,19 @@ export default function CharDetail() {
         </div>
       </section>
 
-      {/* ══════════ Expression Gallery ══════════ */}
+      {/* ══════════ Concept Art & Expressions Preview ══════════ */}
       {char.expressions && char.expressions.length > 0 && (
         <section ref={exprRef} style={{ position: "relative", zIndex: 2, padding: isMobile ? "48px 24px" : "64px 64px", maxWidth: 1100, margin: "0 auto", opacity: exprV ? 1 : 0, transform: exprV ? "translateY(0)" : "translateY(30px)", transition: `all 0.8s ${EASE}` }}>
-          <h3 style={{ fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase", color: C.goldText, marginBottom: isMobile ? 20 : 28 }}>Expressions</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: isMobile ? 8 : 14 }}>
-            {char.expressions.map((key) => {
+          <h3 style={{ fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase", color: C.goldText, marginBottom: 6 }}>
+            Concept Art &amp; Expressions
+          </h3>
+          <p style={{ fontFamily: "var(--f-body)", fontSize: 12, color: C.text35, margin: `0 0 ${isMobile ? 20 : 28}px` }}>
+            미리보기 · 전체 에셋은 갤러리에서 확인하세요
+          </p>
+
+          {/* Preview grid — show first 4 expressions only */}
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: isMobile ? 8 : 14 }}>
+            {char.expressions.slice(0, 4).map((key) => {
               const exprSrc = cdnExprUrl(char.cdnId, key);
               const hasError = exprErrors[key];
               return (
@@ -555,6 +562,36 @@ export default function CharDetail() {
                 </div>
               );
             })}
+          </div>
+
+          {/* View all in Gallery button */}
+          <div style={{ marginTop: isMobile ? 20 : 28, textAlign: "center" }}>
+            <Link
+              to={`/gallery?character=${char.id}`}
+              style={{
+                display: "inline-block",
+                padding: isMobile ? "12px 28px" : "14px 36px",
+                fontFamily: "var(--f-display-en)",
+                fontSize: 11,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: char.color,
+                textDecoration: "none",
+                border: `1px solid ${`color-mix(in oklch, ${char.color} 30%, transparent)`}`,
+                background: C.bgCard,
+                transition: `border-color 0.3s ${EASE}, box-shadow 0.3s ${EASE}`,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = char.color;
+                e.currentTarget.style.boxShadow = `0 0 20px ${`color-mix(in oklch, ${char.color} 15%, transparent)`}`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = `color-mix(in oklch, ${char.color} 30%, transparent)`;
+                e.currentTarget.style.boxShadow = "none";
+              }}
+            >
+              View All in Gallery &rarr;
+            </Link>
           </div>
         </section>
       )}
