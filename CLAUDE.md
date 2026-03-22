@@ -535,9 +535,20 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 
 ### 구현 필요
 
+#### 우선순위 높음 — 하위 페이지 디자인 리뉴얼 (Seed: seed_95e8a46401c7)
+- [ ] CharDetail 풀스크린 스플래시 인트로 (캐릭터 이미지 → 이름/태그라인 애니메이션 → 스크롤 전환)
+- [ ] CharDetail 패럴랙스 스크롤 섹션 분리
+- [ ] CharDetail 표정 에셋 갤러리 (9종: contempt, troubled, neutral, surprised, shy, smirk, sad, happy, angry)
+- [ ] CharDetail 새 데이터 필드 (job, background, taste, goal) — 15명 전원 입력 (docs/캐릭터 프로필.md 기반)
+- [ ] 표정 에셋 CDN 경로 규칙 정의: `cdnUrl("ID/표정.png")` (구조만, 이미지 미업로드)
+- [ ] Gallery 메이슨리 레이아웃
+- [ ] Gallery 카테고리 필터 (대분류: 도시/캐릭터, 하위 태그: 감정표현, 일상, NSFW, 컨셉아트)
+- [ ] Gallery 라이트박스 강화 (이전/다음, 스와이프, 이미지 설명)
+- [ ] Gallery NSFW 토글 (기본 숨김 → R18 경고문 → 확인 후 표시, 영역 분리)
+- [ ] 모바일 시네마틱 효과 동등 수준 + 성능 최적화
+
 #### 우선순위 중간 — 콘텐츠 보강
 - [ ] 캐릭터 이미지 에셋 제작 + CDN 업로드 (4/15 완료, 11명 플레이스홀더)
-- [ ] Gallery 페이지에 캐릭터 일러스트 추가 (현재 배경 이미지만)
 - [ ] Works 페이지에 추가 작품 등록 (현재 프라임시티만)
 
 #### 우선순위 낮음 — 품질 관리
