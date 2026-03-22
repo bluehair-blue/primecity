@@ -359,9 +359,21 @@ cdnUrl("SY.png")  // → "https://img.bluehair.blue/ent/SY.png?v=1"
 | 에셋 유형 | CDN 경로 | 비고 |
 |---|---|---|
 | 도시 배경 | `cdnUrl("bg{N}.png")` | N = 3~11 |
-| 캐릭터 | `cdnUrl("{id}.png")` | 서윤(SY), 강하람(KHR) 완료 |
+| 캐릭터 | `cdnUrl("{cdnId}.png")` | 서윤(SY), 나하린(NHR), 이서하(LSH), 강하람(KHR) 완료 |
+| 캐릭터 표정 | `cdnExprUrl("{cdnId}", "{expression}")` | 경로: `ent/{cdnId}/{expression}.png` |
 | 맵 베이스 | `cdnUrl("Citybase(1).png")` | 전체 탑뷰 맵 |
 | 맵 구역 | `cdnUrl("{구역명}.png")` | The Core, Middle Ring, Hype Road, Terrace, industrial complex |
+
+### 표정 에셋 경로 상세
+
+```
+cdnExprUrl("SY", "happy") → https://img.bluehair.blue/ent/SY/happy.png?v=1
+```
+
+- **폴더 구조**: `ent/{cdnId}/` (캐릭터별 폴더)
+- **파일명**: `{expression}.png` (9종: contempt, troubled, neutral, surprised, shy, smirk, sad, happy, angry)
+- **cdnId 매핑**: SY(서윤), NHR(나하린), JSH(진시혁), ERK(에리카), LSH(이서하), HSR(한소리), KHR(강하람), JGR(장그루), MIL(밀라), ELA(엘라), MMR(미모리), HSE(하시은), NIA(니아), RAY(레이), LPS(라피스)
+- **유틸**: `src/utils/cdn.js`의 `cdnExprUrl()`, `EXPRESSION_KEYS`, `EXPRESSION_LABELS`
 
 ### 해상도 기준
 
