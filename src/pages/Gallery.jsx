@@ -105,8 +105,18 @@ export default function Gallery() {
     }
   }
 
-  // Characters with images for filter chips
-  const filterChars = characters.filter((c) => c.image && !c.image.includes("/assets/"));
+  // Agency groups for accordion
+  const [openAgencies, setOpenAgencies] = useState({});
+  function toggleAgency(agency) {
+    setOpenAgencies((prev) => ({ ...prev, [agency]: !prev[agency] }));
+  }
+  const agencyGroups = [
+    { name: "APEX Entertainment", short: "APEX" },
+    { name: "Blue Moon Entertainment", short: "Blue Moon" },
+    { name: "PRISM Studio", short: "PRISM" },
+    { name: "Route 0", short: "Route 0" },
+    { name: "무소속", short: "무소속" },
+  ];
 
   // Category tabs
   const tabs = [
@@ -186,38 +196,74 @@ export default function Gallery() {
                 </button>
               </div>
 
-              {/* Character chips (when CHARACTER category) */}
+              {/* Character filter — agency accordion */}
               {category === CATEGORIES.CHARACTER && (
-                <div style={{ display: "flex", gap: 6, justifyContent: "center", flexWrap: "wrap", marginBottom: 12 }}>
-                  <button
-                    onClick={() => updateCharFilter(null)}
-                    style={{
-                      padding: "6px 14px", fontSize: 11, fontFamily: "var(--f-body)",
-                      color: !charFilter ? C.gold : C.text45,
-                      background: !charFilter ? `color-mix(in oklch, ${C.gold} 10%, transparent)` : "transparent",
-                      border: `1px solid ${!charFilter ? C.gold : C.border06}`,
-                      cursor: "pointer", transition: `all 0.3s ${EASE}`,
-                    }}
-                  >
-                    전체 캐릭터
-                  </button>
-                  {filterChars.map((c) => (
+                <div style={{ marginBottom: 12 }}>
+                  {/* "All characters" reset button */}
+                  <div style={{ display: "flex", justifyContent: "center", marginBottom: 10 }}>
                     <button
-                      key={c.id}
-                      onClick={() => updateCharFilter(c.id)}
+                      onClick={() => updateCharFilter(null)}
                       style={{
                         padding: "6px 14px", fontSize: 11, fontFamily: "var(--f-body)",
-                        color: charFilter === c.id ? c.color : C.text45,
-                        background: charFilter === c.id ? `color-mix(in oklch, ${c.color} 10%, transparent)` : "transparent",
-                        border: `1px solid ${charFilter === c.id ? c.color : C.border06}`,
+                        color: !charFilter ? C.gold : C.text45,
+                        background: !charFilter ? `color-mix(in oklch, ${C.gold} 10%, transparent)` : "transparent",
+                        border: `1px solid ${!charFilter ? C.gold : C.border06}`,
                         cursor: "pointer", transition: `all 0.3s ${EASE}`,
-                        display: "flex", alignItems: "center", gap: 6,
                       }}
                     >
-                      <span style={{ width: 6, height: 6, borderRadius: "50%", background: c.color, flexShrink: 0 }} />
-                      {c.name}
+                      전체 캐릭터
                     </button>
-                  ))}
+                  </div>
+                  {/* Agency accordion groups */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6, maxWidth: 600, margin: "0 auto" }}>
+                    {agencyGroups.map((ag) => {
+                      const members = characters.filter((c) => c.agency === ag.name);
+                      if (members.length === 0) return null;
+                      const isOpen = openAgencies[ag.name];
+                      const hasActive = members.some((c) => c.id === charFilter);
+                      return (
+                        <div key={ag.name}>
+                          <button
+                            onClick={() => toggleAgency(ag.name)}
+                            style={{
+                              width: "100%", padding: "8px 14px",
+                              display: "flex", alignItems: "center", justifyContent: "space-between",
+                              fontFamily: "var(--f-display-en)", fontSize: 11, letterSpacing: "0.15em",
+                              textTransform: "uppercase",
+                              color: hasActive ? C.gold : C.text45,
+                              background: C.bgCard,
+                              border: `1px solid ${hasActive ? C.goldText : C.border06}`,
+                              cursor: "pointer", transition: `all 0.3s ${EASE}`,
+                            }}
+                          >
+                            <span>{ag.short} <span style={{ fontFamily: "var(--f-body)", fontSize: 10, color: C.text25, letterSpacing: 0, textTransform: "none" }}>({members.length})</span></span>
+                            <span style={{ fontSize: 10, color: C.text35, transform: isOpen ? "rotate(180deg)" : "rotate(0)", transition: `transform 0.3s ${EASE}` }}>▾</span>
+                          </button>
+                          {isOpen && (
+                            <div style={{ display: "flex", gap: 6, flexWrap: "wrap", padding: "8px 0 4px 12px" }}>
+                              {members.map((c) => (
+                                <button
+                                  key={c.id}
+                                  onClick={() => updateCharFilter(c.id)}
+                                  style={{
+                                    padding: "5px 12px", fontSize: 11, fontFamily: "var(--f-body)",
+                                    color: charFilter === c.id ? c.color : C.text45,
+                                    background: charFilter === c.id ? `color-mix(in oklch, ${c.color} 10%, transparent)` : "transparent",
+                                    border: `1px solid ${charFilter === c.id ? c.color : C.border06}`,
+                                    cursor: "pointer", transition: `all 0.3s ${EASE}`,
+                                    display: "flex", alignItems: "center", gap: 6,
+                                  }}
+                                >
+                                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: c.color, flexShrink: 0 }} />
+                                  {c.name}
+                                </button>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
 

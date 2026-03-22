@@ -43,9 +43,8 @@ function generateExpressionItems(char) {
   }));
 }
 
-// 이미지가 있는 캐릭터만 갤러리에 표정 아이템 생성
-const charsWithImages = characters.filter((c) => c.image && !c.image.includes("/assets/"));
-const characterExpressionItems = charsWithImages.flatMap(generateExpressionItems);
+// 전체 캐릭터 표정 아이템 생성 (이미지 미업로드 시 Gallery에서 imgErrors로 처리)
+const characterExpressionItems = characters.flatMap(generateExpressionItems);
 
 // ── Combined gallery data ──
 export const galleryItems = [...cityItems, ...characterExpressionItems];

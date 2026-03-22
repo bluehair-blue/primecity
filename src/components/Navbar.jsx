@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import C from "../styles/tokens";
 
 export default function Navbar({ scrolled, isMobile }) {
@@ -15,7 +16,39 @@ export default function Navbar({ scrolled, isMobile }) {
     { label: "소개", href: "#intro" },
     { label: "캐릭터", href: "#characters" },
     { label: "세계관", href: "#world" },
+    { label: "갤러리", href: "/gallery", route: true },
+    { label: "더 알아보기", href: "#explore" },
+    { label: "문의", href: "/contact", route: true },
   ];
+
+  function renderLink(l, style, onClick) {
+    if (l.route) {
+      return (
+        <Link
+          key={l.href}
+          to={l.href}
+          onClick={onClick}
+          style={style}
+          onMouseEnter={(e) => (e.currentTarget.style.color = C.gold)}
+          onMouseLeave={(e) => (e.currentTarget.style.color = style.color)}
+        >
+          {l.label}
+        </Link>
+      );
+    }
+    return (
+      <a
+        key={l.href}
+        href={l.href}
+        onClick={onClick}
+        style={style}
+        onMouseEnter={(e) => (e.target.style.color = C.gold)}
+        onMouseLeave={(e) => (e.target.style.color = style.color)}
+      >
+        {l.label}
+      </a>
+    );
+  }
 
   return (
     <>
@@ -74,24 +107,16 @@ export default function Navbar({ scrolled, isMobile }) {
         </a>
 
         {!isMobile && (
-          <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                style={{
-                  color: C.text45,
-                  fontSize: 13,
-                  letterSpacing: "0.08em",
-                  textDecoration: "none",
-                  transition: "color 0.3s",
-                }}
-                onMouseEnter={(e) => (e.target.style.color = C.gold)}
-                onMouseLeave={(e) => (e.target.style.color = C.text45)}
-              >
-                {l.label}
-              </a>
-            ))}
+          <div style={{ display: "flex", gap: 28, alignItems: "center" }}>
+            {links.map((l) =>
+              renderLink(l, {
+                color: C.text45,
+                fontSize: 13,
+                letterSpacing: "0.08em",
+                textDecoration: "none",
+                transition: "color 0.3s",
+              })
+            )}
             <button
               style={{
                 padding: "7px 22px",
@@ -174,12 +199,10 @@ export default function Navbar({ scrolled, isMobile }) {
             transition: "opacity 0.4s cubic-bezier(0.22,1,0.36,1)",
           }}
         >
-          {links.map((l, i) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              style={{
+          {links.map((l, i) =>
+            renderLink(
+              l,
+              {
                 color: C.text70,
                 fontSize: 17,
                 letterSpacing: "0.2em",
@@ -188,11 +211,10 @@ export default function Navbar({ scrolled, isMobile }) {
                 opacity: open ? 1 : 0,
                 transform: open ? "translateY(0)" : "translateY(16px)",
                 transition: `all 0.5s cubic-bezier(0.22,1,0.36,1) ${0.1 + i * 0.07}s`,
-              }}
-            >
-              {l.label}
-            </a>
-          ))}
+              },
+              () => setOpen(false)
+            )
+          )}
           <div
             style={{ width: 36, height: 1, background: C.goldText }}
           />
