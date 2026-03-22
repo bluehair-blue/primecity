@@ -162,7 +162,7 @@ primecity/
 │   └── main.jsx            ← 엔트리포인트
 ├── docs/
 │   ├── Main_Prompt.txt             ← 챗봇 메인 프롬프트
-│   ├── 캐릭터 프로필.md             ← 캐릭터 상세 프로필 (15명)
+│   ├── 캐릭터 프로필.txt            ← 캐릭터 상세 프로필 (15명)
 │   ├── 세계관.txt                   ← 세계관 설정
 │   ├── 프라임시티 세계관.txt         ← 세계관 상세
 │   ├── 오디션.txt                   ← 오디션 시스템 설계
@@ -465,6 +465,7 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 |---|---|---|
 | `/new-page` | 사용자 + Claude | 새 페이지 생성 + App.jsx 라우트 등록 + 빌드 검증 |
 | `/deploy-preview` | 사용자 전용 | `npm run build` + `wrangler deploy` 원커맨드 |
+| `frontend-design` | Claude 전용 | 프론트엔드 디자인 가이드라인 (자동 참조) |
 
 ---
 
@@ -539,8 +540,8 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [ ] CharDetail 풀스크린 스플래시 인트로 (캐릭터 이미지 → 이름/태그라인 애니메이션 → 스크롤 전환)
 - [ ] CharDetail 패럴랙스 스크롤 섹션 분리
 - [ ] CharDetail 표정 에셋 갤러리 (9종: contempt, troubled, neutral, surprised, shy, smirk, sad, happy, angry)
-- [ ] CharDetail 새 데이터 필드 (job, background, taste, goal) — 15명 전원 입력 (docs/캐릭터 프로필.md 기반)
-- [ ] 표정 에셋 CDN 경로 규칙 정의: `cdnUrl("ID/표정.png")` (구조만, 이미지 미업로드)
+- [x] CharDetail 새 데이터 필드 (job, background, taste, goal) — 15명 전원 입력 (docs/캐릭터 프로필.txt 기반)
+- [x] 표정 에셋 CDN 경로 규칙 정의: `cdnUrl("ID/표정.png")` (구조만, 이미지 미업로드)
 - [ ] Gallery 메이슨리 레이아웃
 - [ ] Gallery 카테고리 필터 (대분류: 도시/캐릭터, 하위 태그: 감정표현, 일상, NSFW, 컨셉아트)
 - [ ] Gallery 라이트박스 강화 (이전/다음, 스와이프, 이미지 설명)
@@ -581,3 +582,50 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - **팬 아트 갤러리** — 커뮤니티 투고 기능 (Cloudflare R2 + Workers)
 - **구역 상세 콘텐츠 확장** — DistrictDetail 페이지에 구역별 배경 이미지, 명소 소개, 주민 생활 등 추가
 - **캐릭터 관계망** — 캐릭터 상세 페이지에서 관계 캐릭터 간 양방향 링크 + 관계 설명
+
+<!-- ooo:START -->
+<!-- ooo:VERSION:0.25.0 -->
+# Ouroboros — Specification-First AI Development
+
+> Before telling AI what to build, define what should be built.
+> As Socrates asked 2,500 years ago — "What do you truly know?"
+> Ouroboros turns that question into an evolutionary AI workflow engine.
+
+Most AI coding fails at the input, not the output. Ouroboros fixes this by
+**exposing hidden assumptions before any code is written**.
+
+1. **Socratic Clarity** — Question until ambiguity <= 0.2
+2. **Ontological Precision** — Solve the root problem, not symptoms
+3. **Evolutionary Loops** — Each evaluation cycle feeds back into better specs
+
+```
+Interview → Seed → Execute → Evaluate
+    ↑                           ↓
+    └─── Evolutionary Loop ─────┘
+```
+
+## ooo Commands
+
+Each command loads its agent/MCP on-demand. Details in each skill file.
+
+| Command | Loads |
+|---------|-------|
+| `ooo` | — |
+| `ooo interview` | `ouroboros:socratic-interviewer` |
+| `ooo seed` | `ouroboros:seed-architect` |
+| `ooo run` | MCP required |
+| `ooo evolve` | MCP: `evolve_step` |
+| `ooo evaluate` | `ouroboros:evaluator` |
+| `ooo unstuck` | `ouroboros:{persona}` |
+| `ooo status` | MCP: `session_status` |
+| `ooo setup` | — |
+| `ooo help` | — |
+
+## Agents
+
+Loaded on-demand — not preloaded.
+
+**Core**: socratic-interviewer, ontologist, seed-architect, evaluator,
+wonder, reflect, advocate, contrarian, judge
+**Support**: hacker, simplifier, researcher, architect
+<!-- ooo:END -->
