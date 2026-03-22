@@ -291,7 +291,7 @@ primecity/
 | 14 | ray | 레이 | 무소속 | 오디션 참가자 | lavender |
 | 15 | lapis | 라피스 | 무소속 | 오디션 참가자 | cobalt |
 
-각 캐릭터 객체 필드: `id`, `name`, `agency`, `role`, `age`, `tagline`, `color`, `image`, `thumbnail`, `detailPath`, `signature`, `personality`, `description`, `brief`
+각 캐릭터 객체 필드: `id`, `cdnId`, `name`, `agency`, `role`, `age`, `tagline`, `color`, `image`, `thumbnail`, `detailPath`, `signature`, `personality`, `description`, `brief`, `job`, `background`, `taste`, `goal`, `expressions`
 
 ### 구역 데이터 (src/data/districts.js)
 
@@ -511,10 +511,22 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [x] `/modes/freeplay` — 자유활동 모드 소개 (ModeFreeplay.jsx)
 - [x] `/modes/producer` — 프로듀서 모드 소개 (ModeProducer.jsx)
 
-#### 캐릭터 상세 페이지
+#### 캐릭터 상세 페이지 (Phase 2 완료)
 - [x] 기본 틀 + 이미지 로딩/폴백 + brief 섹션
 - [x] 같은 소속 캐릭터 네비게이션 (Same Agency)
 - [x] 이전/다음 캐릭터 링크
+- [x] 시네마틱 Phase 전환 (Phase 1: 홀로그램 스폰 → Phase 2: 프로필 카드 록온)
+- [x] 2-Image Crossfade (contain 전신 홀로그램 → cover 크롭 카드, blur 포커스 록온)
+- [x] 고스트 에코 실루엣 (시안+accent 좌우 분리 → 중앙 머지, mix-blend-mode: screen)
+- [x] SVG HUD 오버레이 (스캔라인 스윕, 크로스헤어, stroke-dashoffset 코너 브라켓)
+- [x] 홀로그램 링 2개 (반대 방향 회전, Phase 1 등장 → Phase 2 페이드)
+- [x] 마우스 틸팅 3D 효과 (데스크톱 전용, ±3도 perspective)
+- [x] 글리치 스폰 애니메이션 (clip-path 기반 0.5초)
+- [x] 프로필 필드 borderLeft 그리기 애니메이션 (scaleY 0→1 HUD 효과)
+- [x] 다이나믹 사이버펑크 배경 (세로 데이터 그리드 + 듀얼 마키 + 고스트 워터마크)
+- [x] Concept Art & Expressions 미리보기 (4장) + "View All in Gallery →" 리다이렉트
+- [x] 성능 최적화 (top/left→transform, willChange, GPU 가속)
+- [x] cdnId 필드 15명 추가 (표정 CDN 경로용)
 
 #### 데이터 & 에셋
 - [x] 캐릭터 데이터 15명 완성 (characters.js)
@@ -536,24 +548,22 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 
 ### 구현 필요
 
-#### 우선순위 높음 — 하위 페이지 디자인 리뉴얼 (Seed: seed_95e8a46401c7)
-- [ ] CharDetail 풀스크린 스플래시 인트로 (캐릭터 이미지 → 이름/태그라인 애니메이션 → 스크롤 전환)
-- [ ] CharDetail 패럴랙스 스크롤 섹션 분리
-- [ ] CharDetail 표정 에셋 갤러리 (9종: contempt, troubled, neutral, surprised, shy, smirk, sad, happy, angry)
-- [x] CharDetail 새 데이터 필드 (job, background, taste, goal) — 15명 전원 입력 (docs/캐릭터 프로필.txt 기반)
-- [x] 표정 에셋 CDN 경로 규칙 정의: `cdnUrl("ID/표정.png")` (구조만, 이미지 미업로드)
-- [ ] Gallery 메이슨리 레이아웃
-- [ ] Gallery 카테고리 필터 (대분류: 도시/캐릭터, 하위 태그: 감정표현, 일상, NSFW, 컨셉아트)
-- [ ] Gallery 라이트박스 강화 (이전/다음, 스와이프, 이미지 설명)
-- [ ] Gallery NSFW 토글 (기본 숨김 → R18 경고문 → 확인 후 표시, 영역 분리)
-- [ ] 모바일 시네마틱 효과 동등 수준 + 성능 최적화
+#### 우선순위 높음 — Phase 3: Gallery 전면 재설계
+- [ ] Gallery 메이슨리 레이아웃 (CSS columns, 데스크톱 3열 / 모바일 2열)
+- [ ] Gallery 카테고리 필터 (대분류: 도시/캐릭터, 하위 태그: 감정표현, 일상, 컨셉아트)
+- [ ] Gallery 캐릭터 필터 (`?character={id}` 쿼리 파라미터 — CharDetail에서 리다이렉트)
+- [ ] Gallery 라이트박스 강화 (이전/다음 화살표, 터치 스와이프, 이미지 설명, 키보드 ← → ESC)
+- [ ] Gallery NSFW 토글 (기본 숨김 → R18 경고 모달 → 확인 후 표시, 영역 분리, 세션 내 유지)
+- [ ] gallery.js 데이터 파일 신규 (src, caption, category, tags, isNsfw, characterId)
 
 #### 우선순위 중간 — 콘텐츠 보강
 - [ ] 캐릭터 이미지 에셋 제작 + CDN 업로드 (4/15 완료, 11명 플레이스홀더)
+- [ ] CharDetail 히어로 전용 와이드 에셋 검토 (현재 2:3 세로형 이미지를 풀스크린에 사용 중)
 - [ ] Works 페이지에 추가 작품 등록 (현재 프라임시티만)
 
 #### 우선순위 낮음 — 품질 관리
-- [ ] 모바일 최종 검수 (전 페이지)
+- [ ] 모바일 시네마틱 효과 최종 검수 + 성능 최적화 (전 페이지)
+- [ ] CharDetail 그래픽 가속 off 환경 성능 테스트
 
 ---
 
