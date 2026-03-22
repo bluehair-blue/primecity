@@ -235,48 +235,76 @@ export default function CharDetail() {
               marginTop: "-70%", marginLeft: "-70%",
             }} />
 
-            {/* Image container with tilt */}
+            {/* Image container with tilt + 2-image crossfade */}
             <div
               ref={imgRef}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
               style={{
                 width: "100%", height: "100%",
-                background: C.bgCard,
+                background: phase === 2 ? C.bgCard : "transparent",
                 border: `1px solid ${phase === 2 ? C.border06 : "transparent"}`,
                 overflow: "hidden", position: "relative",
                 opacity: uiReady ? 1 : 0,
                 transform: `scale(${phase === 2 ? 1 : 1.05}) perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-                transition: `opacity 0.8s ${EASE} 0.1s, transform 0.6s ${EASE}, border-color 0.6s ${EASE}`,
+                transition: `background 0.8s ${EASE}, border-color 0.8s ${EASE}, opacity 0.8s ${EASE} 0.1s, transform 0.6s ${EASE}`,
                 willChange: "transform",
               }}
             >
               {hasImage ? (
                 <>
+                  {/* Hologram mode (Phase 1): full character, no crop */}
+                  <img
+                    src={char.image} alt={`${char.name} hologram`}
+                    style={{
+                      position: "absolute", inset: 0,
+                      width: "100%", height: "100%",
+                      objectFit: "contain",
+                      opacity: phase === 2 ? 0 : 1,
+                      transform: phase === 2 ? "scale(0.9)" : "scale(1)",
+                      transition: `opacity 0.8s ${EASE}, transform 0.8s ${EASE}`,
+                      filter: `drop-shadow(0 0 16px ${`color-mix(in oklch, ${char.color} 50%, transparent)`})`,
+                    }}
+                  />
+                  {/* Profile card mode (Phase 2): cropped to fill */}
                   <img
                     src={char.image} alt={char.name}
                     onError={() => setImgError(true)}
                     style={{
-                      width: "100%", height: "100%", objectFit: "cover",
+                      position: "absolute", inset: 0,
+                      width: "100%", height: "100%",
+                      objectFit: "cover",
+                      opacity: phase === 2 ? 1 : 0,
+                      transform: phase === 2 ? "scale(1)" : "scale(1.1)",
+                      transition: `opacity 0.8s ${EASE} 0.2s, transform 0.8s ${EASE} 0.2s`,
                       animation: !glitchDone && uiReady ? "charGlitch 0.5s ease-out forwards" : "none",
                     }}
                   />
-                  {/* Vignette — fades out in phase 2 */}
+                  {/* Vignette — Phase 2 only */}
                   <div style={{
                     position: "absolute", inset: 0,
                     background: `radial-gradient(ellipse at center, transparent 40%, ${C.bgDeep} 100%)`,
-                    opacity: phase === 2 ? 0 : 0.5,
+                    opacity: phase === 2 ? 0.6 : 0,
                     transition: `opacity 1s ${EASE}`,
                     pointerEvents: "none",
                   }} />
-                  {/* Accent frame border — fades in phase 2 */}
-                  <div style={{
-                    position: "absolute", inset: 4,
-                    border: `1px solid ${`color-mix(in oklch, ${char.color} 25%, transparent)`}`,
-                    opacity: phase === 2 ? 0.5 : 0,
-                    transition: `opacity 0.8s ${EASE} 0.5s`,
-                    pointerEvents: "none",
-                  }} />
+                  {/* HUD corner brackets — Phase 2 lock-on */}
+                  {[
+                    { top: 8, left: 8, borderTop: `1px solid`, borderLeft: `1px solid` },
+                    { top: 8, right: 8, borderTop: `1px solid`, borderRight: `1px solid` },
+                    { bottom: 8, left: 8, borderBottom: `1px solid`, borderLeft: `1px solid` },
+                    { bottom: 8, right: 8, borderBottom: `1px solid`, borderRight: `1px solid` },
+                  ].map((pos, i) => (
+                    <div key={i} style={{
+                      position: "absolute", ...pos,
+                      width: 16, height: 16,
+                      borderColor: `color-mix(in oklch, ${char.color} 40%, transparent)`,
+                      opacity: phase === 2 ? 1 : 0,
+                      transform: phase === 2 ? "scale(1)" : "scale(1.3)",
+                      transition: `opacity 0.6s ${EASE} 0.5s, transform 0.6s ${EASE} 0.5s`,
+                      pointerEvents: "none",
+                    }} />
+                  ))}
                 </>
               ) : (
                 <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, background: `radial-gradient(ellipse at 50% 30%, ${char.color}, ${C.bgDeep})` }}>
