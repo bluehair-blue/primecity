@@ -32,7 +32,7 @@ const cityItems = [
 // 이미지가 CDN에 업로드되면 자동으로 표시됩니다.
 function generateExpressionItems(char) {
   return EXPRESSION_KEYS.map((key) => ({
-    src: cdnExprUrl(char.id.toUpperCase(), key),
+    src: cdnExprUrl(char.cdnId, key),
     caption: `${char.name} — ${key}`,
     category: CATEGORIES.CHARACTER,
     tags: [CHARACTER_TAGS.EXPRESSION],
