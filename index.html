@@ -25,6 +25,23 @@
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
       }
+      @keyframes holoRingSpin {
+        from { transform: rotateX(70deg) rotateZ(0deg); }
+        to { transform: rotateX(70deg) rotateZ(360deg); }
+      }
+      @keyframes holoRingSpinReverse {
+        from { transform: rotateX(70deg) rotateZ(360deg); }
+        to { transform: rotateX(70deg) rotateZ(0deg); }
+      }
+      @keyframes charGlitch {
+        0% { opacity: 0; clip-path: inset(0 0 100% 0); }
+        10% { opacity: 1; clip-path: inset(0 0 60% 0); }
+        20% { opacity: 0.6; clip-path: inset(20% 0 40% 0); }
+        30% { opacity: 1; clip-path: inset(0 0 20% 0); }
+        50% { opacity: 0.8; clip-path: inset(10% 0 0 0); }
+        70% { opacity: 1; clip-path: inset(0); }
+        100% { opacity: 1; clip-path: inset(0); }
+      }
     </style>
   </head>
   <body>
