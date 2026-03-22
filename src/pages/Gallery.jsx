@@ -131,6 +131,7 @@ export default function Gallery() {
     { key: CHARACTER_TAGS.EXPRESSION, label: "감정표현" },
     { key: CHARACTER_TAGS.DAILY, label: "일상" },
     { key: CHARACTER_TAGS.CONCEPT, label: "컨셉아트" },
+    ...(nsfwEnabled ? [{ key: CHARACTER_TAGS.NSFW, label: "NSFW" }] : []),
   ];
 
   return (
