@@ -83,7 +83,7 @@ function industrialPolygon(vw, vh) {
 }
 
 /* ── Tooltip content (shared between mobile fixed and desktop floating) ── */
-function TooltipContent({ district, accent, isMobile }) {
+function TooltipContent({ district, accent, isMobile, onNavigate }) {
   return (
     <>
       <span
@@ -138,19 +138,25 @@ function TooltipContent({ district, accent, isMobile }) {
       >
         {district.desc}
       </p>
-      {isMobile && (
-        <span
+      {isMobile && onNavigate && (
+        <button
+          onClick={onNavigate}
           style={{
             display: "inline-block",
             marginTop: 12,
+            padding: "8px 18px",
             fontFamily: "var(--f-body)",
             fontSize: 11,
             color: accent,
-            letterSpacing: "0.04em",
+            letterSpacing: "0.06em",
+            background: "transparent",
+            border: `1px solid ${accent}`,
+            cursor: "pointer",
+            transition: "all 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         >
-          한번 더 탭하여 상세 페이지로 이동 ▸
-        </span>
+          자세히 보기 →
+        </button>
       )}
     </>
   );
@@ -187,12 +193,7 @@ export default function CityMap({ isMobile }) {
 
   function handleClick(id) {
     if (isMobile) {
-      if (tapped === id) {
-        navigateToDistrict(id);
-        setTapped(null);
-      } else {
-        setTapped(id);
-      }
+      setTapped(tapped === id ? null : id);
     } else {
       navigateToDistrict(id);
     }
@@ -428,6 +429,7 @@ export default function CityMap({ isMobile }) {
             district={activeDistrict}
             accent={activeAccent}
             isMobile
+            onNavigate={() => navigateToDistrict(activeId)}
           />
         </div>
       )}
@@ -448,7 +450,7 @@ export default function CityMap({ isMobile }) {
             pointerEvents: "none",
           }}
         >
-          구역을 탭하여 자세히 보기
+          구역을 탭하세요
         </div>
       )}
     </div>
