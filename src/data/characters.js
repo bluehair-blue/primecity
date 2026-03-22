@@ -3,6 +3,7 @@ import { cdnUrl, EXPRESSION_KEYS } from "../utils/cdn";
 export const characters = [
   {
     id: "seoyun",
+    cdnId: "SY",
     name: "서윤",
     agency: "APEX Entertainment",
     role: "톱 아이돌 겸 배우",
@@ -26,6 +27,7 @@ export const characters = [
   },
   {
     id: "naharin",
+    cdnId: "NHR",
     name: "나하린",
     agency: "APEX Entertainment",
     role: "치프 프로듀서 / 오디션 제작 총괄",
@@ -49,6 +51,7 @@ export const characters = [
   },
   {
     id: "jinshihyuk",
+    cdnId: "JSH",
     name: "진시혁",
     agency: "APEX Entertainment",
     role: "프로듀서 / 심사위원",
@@ -71,6 +74,7 @@ export const characters = [
   },
   {
     id: "erika",
+    cdnId: "ERK",
     name: "에리카",
     agency: "Blue Moon Entertainment",
     role: "프로듀서 / 심사위원",
@@ -93,6 +97,7 @@ export const characters = [
   },
   {
     id: "leeseha",
+    cdnId: "LSH",
     name: "이서하",
     agency: "Blue Moon Entertainment",
     role: "싱어송라이터 겸 프로듀서",
@@ -116,6 +121,7 @@ export const characters = [
   },
   {
     id: "hansori",
+    cdnId: "HSR",
     name: "한소리",
     agency: "PRISM Studio",
     role: "기획사 대표",
@@ -138,6 +144,7 @@ export const characters = [
   },
   {
     id: "kangharam",
+    cdnId: "KHR",
     name: "강하람",
     agency: "Route 0",
     role: "연습생 → 데뷔 준비 중",
@@ -161,6 +168,7 @@ export const characters = [
   },
   {
     id: "janggru",
+    cdnId: "JGR",
     name: "장그루",
     agency: "무소속",
     role: "오디션 참가자 / 보컬·아이돌 지망",
@@ -183,6 +191,7 @@ export const characters = [
   },
   {
     id: "mila",
+    cdnId: "MIL",
     name: "밀라",
     agency: "무소속",
     role: "오디션 참가자",
@@ -205,6 +214,7 @@ export const characters = [
   },
   {
     id: "ella",
+    cdnId: "ELA",
     name: "엘라",
     agency: "무소속",
     role: "오디션 참가자",
@@ -227,6 +237,7 @@ export const characters = [
   },
   {
     id: "mimori",
+    cdnId: "MMR",
     name: "미모리",
     agency: "무소속",
     role: "인플루언서·크리에이터 출신 / 오디션 참가자",
@@ -249,6 +260,7 @@ export const characters = [
   },
   {
     id: "hasieun",
+    cdnId: "HSE",
     name: "하시은",
     agency: "무소속",
     role: "오디션 참가자",
@@ -271,6 +283,7 @@ export const characters = [
   },
   {
     id: "nia",
+    cdnId: "NIA",
     name: "니아",
     agency: "무소속",
     role: "오디션 참가자",
@@ -293,6 +306,7 @@ export const characters = [
   },
   {
     id: "ray",
+    cdnId: "RAY",
     name: "레이",
     agency: "무소속",
     role: "오디션 참가자",
@@ -315,6 +329,7 @@ export const characters = [
   },
   {
     id: "lapis",
+    cdnId: "LPS",
     name: "라피스",
     agency: "무소속",
     role: "오디션 참가자",
