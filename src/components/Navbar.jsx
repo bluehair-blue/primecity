@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import C from "../styles/tokens";
 
 export default function Navbar({ scrolled, isMobile }) {
@@ -13,13 +13,35 @@ export default function Navbar({ scrolled, isMobile }) {
   }, [open]);
 
   const links = [
-    { label: "소개", href: "#intro" },
-    { label: "캐릭터", href: "#characters" },
-    { label: "세계관", href: "#world" },
+    { label: "소개", href: "/#intro" },
+    { label: "캐릭터", href: "/#characters" },
+    { label: "세계관", href: "/#world" },
     { label: "갤러리", href: "/gallery", route: true },
-    { label: "더 알아보기", href: "#explore" },
+    { label: "더 알아보기", href: "/#explore" },
     { label: "문의", href: "/contact", route: true },
   ];
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  function handleAnchorClick(e, href, extraOnClick) {
+    e.preventDefault();
+    const hash = href.replace("/", "");
+    if (extraOnClick) extraOnClick();
+
+    if (location.pathname === "/") {
+      // Already on home — just scroll
+      const el = document.querySelector(hash);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Navigate to home, then scroll after mount
+      navigate("/");
+      setTimeout(() => {
+        const el = document.querySelector(hash);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  }
 
   function renderLink(l, style, onClick) {
     if (l.route) {
@@ -40,7 +62,7 @@ export default function Navbar({ scrolled, isMobile }) {
       <a
         key={l.href}
         href={l.href}
-        onClick={onClick}
+        onClick={(e) => handleAnchorClick(e, l.href, onClick)}
         style={style}
         onMouseEnter={(e) => (e.target.style.color = C.gold)}
         onMouseLeave={(e) => (e.target.style.color = style.color)}
@@ -74,8 +96,8 @@ export default function Navbar({ scrolled, isMobile }) {
           fontFamily: "var(--f-body)",
         }}
       >
-        <a
-          href="#"
+        <Link
+          to="/"
           style={{
             display: "flex",
             alignItems: "center",
@@ -104,7 +126,7 @@ export default function Navbar({ scrolled, isMobile }) {
           >
             Prime City
           </span>
-        </a>
+        </Link>
 
         {!isMobile && (
           <div style={{ display: "flex", gap: 28, alignItems: "center" }}>
