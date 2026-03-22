@@ -367,11 +367,12 @@ cdnUrl("SY.png")  // → "https://img.bluehair.blue/ent/SY.png?v=1"
 ### 표정 에셋 경로 상세
 
 ```
-cdnExprUrl("SY", "happy") → https://img.bluehair.blue/ent/SY/happy.png?v=1
+cdnExprUrl("SY", "happy") → https://img.bluehair.blue/ent/SY/happy.webp?v=1
 ```
 
 - **폴더 구조**: `ent/{cdnId}/` (캐릭터별 폴더)
-- **파일명**: `{expression}.png` (9종: contempt, troubled, neutral, surprised, shy, smirk, sad, happy, angry)
+- **파일명**: `{expression}.webp` (9종: contempt, troubled, neutral, surprised, shy, smirk, sad, happy, angry)
+- **포맷**: WebP (갤러리/챗봇 에셋은 WebP 사용, 사이트 배경·스탠딩 이미지는 PNG 유지)
 - **cdnId 매핑**: SY(서윤), NHR(나하린), JSH(진시혁), ERK(에리카), LSH(이서하), HSR(한소리), KHR(강하람), JGR(장그루), MIL(밀라), ELA(엘라), MMR(미모리), HSE(하시은), NIA(니아), RAY(레이), LPS(라피스)
 - **유틸**: `src/utils/cdn.js`의 `cdnExprUrl()`, `EXPRESSION_KEYS`, `EXPRESSION_LABELS`
 
@@ -380,7 +381,8 @@ cdnExprUrl("SY", "happy") → https://img.bluehair.blue/ent/SY/happy.png?v=1
 | 에셋 | 해상도 | 비율 | 포맷 |
 |---|---|---|---|
 | 도시 배경 (히어로 슬라이드) | 1920×800 또는 1536×640 | ~2.4:1 | PNG |
-| 캐릭터 (갤러리) | 800×1200 | 2:3 세로형 | PNG (투명 배경 권장) |
+| 캐릭터 스탠딩 (사이트) | 800×1200 | 2:3 세로형 | PNG (투명 배경 권장) |
+| 캐릭터 표정 (갤러리/챗봇) | 자유 | 자유 | **WebP** |
 | 도시 탑뷰 맵 (세계관) | 1920×1080 | 16:9 | PNG |
 
 ---

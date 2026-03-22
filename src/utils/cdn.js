@@ -9,9 +9,9 @@ export function cdnUrl(path) {
   return `${CDN_BASE}/${path}?v=${ASSET_VERSION}`;
 }
 
-// 표정 에셋 경로: cdnExprUrl("SY", "happy") → ".../SY/happy.png?v=1"
+// 표정 에셋 경로: cdnExprUrl("SY", "happy") → ".../SY/happy.webp?v=1"
 export function cdnExprUrl(charId, expression) {
-  return `${CDN_BASE}/${charId}/${expression}.png?v=${ASSET_VERSION}`;
+  return `${CDN_BASE}/${charId}/${expression}.webp?v=${ASSET_VERSION}`;
 }
 
 // 추후 확장 가능 (Expandable — add new keys as assets are created)
