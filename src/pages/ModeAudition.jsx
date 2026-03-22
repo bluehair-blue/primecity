@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import C from "../styles/tokens";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
+import Seo from "../components/Seo";
 
 const rounds = [
   {
@@ -128,6 +129,7 @@ export default function ModeAudition() {
     <PageLayout>
       {({ isMobile }) => (
         <div style={{ maxWidth: 700, margin: "0 auto" }}>
+          <Seo title="오디션 모드" description="프라임시티 오디션 모드 — 8명의 참가자, 4라운드 서바이벌 무대 상세 안내." path="/modes/audition" />
           <Link
             to="/"
             style={{

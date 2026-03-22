@@ -6,6 +6,7 @@ import PageLayout from "../components/PageLayout";
 import { galleryItems, CATEGORIES, CHARACTER_TAGS } from "../data/gallery";
 import { characters } from "../data/characters";
 import { EXPRESSION_LABELS } from "../utils/cdn";
+import Seo from "../components/Seo";
 
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
@@ -141,6 +142,7 @@ export default function Gallery() {
 
         return (
           <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+            <Seo title="갤러리" description="프라임시티 아트 갤러리 — 도시 배경, 캐릭터 일러스트, 컨셉아트 모음." path="/gallery" />
             {/* Back link */}
             <Link to="/" style={{ color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em" }}>
               &larr; PRIME CITY

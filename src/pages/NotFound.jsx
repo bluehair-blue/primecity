@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import C from "../styles/tokens";
 import PageLayout from "../components/PageLayout";
+import Seo from "../components/Seo";
 
 export default function NotFound() {
   return (
@@ -17,6 +18,7 @@ export default function NotFound() {
             gap: isMobile ? 16 : 24,
           }}
         >
+          <Seo title="404" description="페이지를 찾을 수 없습니다." />
           {/* Glitch 404 */}
           <div style={{ position: "relative" }}>
             <span

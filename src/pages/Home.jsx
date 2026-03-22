@@ -11,6 +11,7 @@ import GameModes from "../components/GameModes";
 import TriangleNav from "../components/TriangleNav";
 import Footer from "../components/Footer";
 import ScrollNav from "../components/ScrollNav";
+import Seo from "../components/Seo";
 
 function IntroSection({ isMobile }) {
   const [ref, v] = useReveal(0.15);
@@ -197,6 +198,7 @@ export default function Home() {
         overflowX: "hidden",
       }}
     >
+      <Seo path="/" />
       <Particles isMobile={isMobile} />
       <Navbar scrolled={scrolled} isMobile={isMobile} />
       <ScrollNav isMobile={isMobile} />

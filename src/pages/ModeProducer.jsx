@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import C from "../styles/tokens";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
+import Seo from "../components/Seo";
 
 const aspects = [
   {
@@ -44,6 +45,7 @@ export default function ModeProducer() {
 
         return (
           <div style={{ maxWidth: 800, margin: "0 auto" }}>
+            <Seo title="프로듀서 모드" description="프라임시티 프로듀서 모드 — 아이돌 육성과 기획사 운영을 경험하는 모드." path="/modes/producer" />
             <Link
               to="/"
               style={{
