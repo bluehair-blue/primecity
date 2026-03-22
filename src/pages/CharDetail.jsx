@@ -235,7 +235,7 @@ export default function CharDetail() {
               marginTop: "-70%", marginLeft: "-70%",
             }} />
 
-            {/* Image container with tilt + 2-image crossfade */}
+            {/* Image container: Ghost Echo + SVG HUD Lock-on */}
             <div
               ref={imgRef}
               onMouseMove={handleMouseMove}
@@ -253,58 +253,104 @@ export default function CharDetail() {
             >
               {hasImage ? (
                 <>
-                  {/* Hologram mode (Phase 1): full character, no crop */}
+                  {/* Ghost echo left (cyan silhouette) */}
+                  <img
+                    src={char.image} alt=""
+                    style={{
+                      position: "absolute", inset: 0, width: "100%", height: "100%",
+                      objectFit: "contain", pointerEvents: "none", mixBlendMode: "screen",
+                      filter: `drop-shadow(0 0 12px oklch(0.7 0.15 200)) brightness(1.2)`,
+                      opacity: phase === 2 ? 0 : 0.6,
+                      transform: phase === 2 ? "scale(0.9) translateX(0)" : "scale(1) translateX(-12%)",
+                      transition: `all 0.9s ${EASE}`,
+                    }}
+                  />
+                  {/* Ghost echo right (character accent silhouette) */}
+                  <img
+                    src={char.image} alt=""
+                    style={{
+                      position: "absolute", inset: 0, width: "100%", height: "100%",
+                      objectFit: "contain", pointerEvents: "none", mixBlendMode: "screen",
+                      filter: `drop-shadow(0 0 12px ${char.color}) brightness(1.2)`,
+                      opacity: phase === 2 ? 0 : 0.6,
+                      transform: phase === 2 ? "scale(0.9) translateX(0)" : "scale(1) translateX(12%)",
+                      transition: `all 0.9s ${EASE}`,
+                    }}
+                  />
+                  {/* Central hologram (Phase 1) */}
                   <img
                     src={char.image} alt={`${char.name} hologram`}
                     style={{
-                      position: "absolute", inset: 0,
-                      width: "100%", height: "100%",
-                      objectFit: "contain",
+                      position: "absolute", inset: 0, width: "100%", height: "100%",
+                      objectFit: "contain", pointerEvents: "none",
+                      filter: `drop-shadow(0 0 20px ${`color-mix(in oklch, ${char.color} 50%, transparent)`})`,
                       opacity: phase === 2 ? 0 : 1,
-                      transform: phase === 2 ? "scale(0.9)" : "scale(1)",
-                      transition: `opacity 0.8s ${EASE}, transform 0.8s ${EASE}`,
-                      filter: `drop-shadow(0 0 16px ${`color-mix(in oklch, ${char.color} 50%, transparent)`})`,
+                      transform: phase === 2 ? "scale(0.95)" : "scale(1)",
+                      transition: `all 0.8s ${EASE}`,
                     }}
                   />
-                  {/* Profile card mode (Phase 2): cropped to fill */}
+                  {/* Profile card (Phase 2): focus lock-on with blur clear */}
                   <img
                     src={char.image} alt={char.name}
                     onError={() => setImgError(true)}
                     style={{
-                      position: "absolute", inset: 0,
-                      width: "100%", height: "100%",
+                      position: "absolute", inset: 0, width: "100%", height: "100%",
                       objectFit: "cover",
                       opacity: phase === 2 ? 1 : 0,
+                      filter: phase === 2 ? "blur(0px) brightness(1)" : "blur(8px) brightness(1.5)",
                       transform: phase === 2 ? "scale(1)" : "scale(1.1)",
-                      transition: `opacity 0.8s ${EASE} 0.2s, transform 0.8s ${EASE} 0.2s`,
+                      transition: `opacity 0.8s ${EASE} 0.1s, filter 0.8s ${EASE} 0.1s, transform 0.8s ${EASE} 0.1s`,
                       animation: !glitchDone && uiReady ? "charGlitch 0.5s ease-out forwards" : "none",
                     }}
                   />
                   {/* Vignette — Phase 2 only */}
                   <div style={{
                     position: "absolute", inset: 0,
-                    background: `radial-gradient(ellipse at center, transparent 40%, ${C.bgDeep} 100%)`,
-                    opacity: phase === 2 ? 0.6 : 0,
+                    background: `radial-gradient(ellipse at center, transparent 30%, ${C.bgDeep} 100%)`,
+                    opacity: phase === 2 ? 0.5 : 0,
                     transition: `opacity 1s ${EASE}`,
                     pointerEvents: "none",
                   }} />
-                  {/* HUD corner brackets — Phase 2 lock-on */}
-                  {[
-                    { top: 8, left: 8, borderTop: `1px solid`, borderLeft: `1px solid` },
-                    { top: 8, right: 8, borderTop: `1px solid`, borderRight: `1px solid` },
-                    { bottom: 8, left: 8, borderBottom: `1px solid`, borderLeft: `1px solid` },
-                    { bottom: 8, right: 8, borderBottom: `1px solid`, borderRight: `1px solid` },
-                  ].map((pos, i) => (
-                    <div key={i} style={{
-                      position: "absolute", ...pos,
-                      width: 16, height: 16,
-                      borderColor: `color-mix(in oklch, ${char.color} 40%, transparent)`,
+                  {/* SVG HUD overlay: scan line + crosshair + corner brackets */}
+                  <svg
+                    viewBox="0 0 100 100" preserveAspectRatio="none"
+                    style={{
+                      position: "absolute", inset: 0, width: "100%", height: "100%",
+                      pointerEvents: "none", zIndex: 5,
                       opacity: phase === 2 ? 1 : 0,
-                      transform: phase === 2 ? "scale(1)" : "scale(1.3)",
-                      transition: `opacity 0.6s ${EASE} 0.5s, transform 0.6s ${EASE} 0.5s`,
-                      pointerEvents: "none",
-                    }} />
-                  ))}
+                      transition: `opacity 0.4s ${EASE} 0.2s`,
+                    }}
+                  >
+                    {/* Scan line sweep */}
+                    <line x1="0" y1="0" x2="100" y2="0"
+                      stroke={char.color} strokeWidth="0.8" opacity={phase === 2 ? 0 : 0.8}
+                      style={{
+                        transform: phase === 2 ? "translateY(100px)" : "translateY(0)",
+                        transition: phase === 2 ? "transform 1.2s linear 0.2s, opacity 0.2s ease 1.2s" : "none",
+                      }}
+                    />
+                    {/* Crosshair lines */}
+                    <line x1="50" y1="0" x2="50" y2="100"
+                      stroke={`color-mix(in oklch, ${C.white} 20%, transparent)`} strokeWidth="0.3" strokeDasharray="2 2"
+                      style={{ transformOrigin: "center", transform: phase === 2 ? "scaleY(1)" : "scaleY(0)", transition: `transform 1s ${EASE} 0.4s` }}
+                    />
+                    <line x1="0" y1="50" x2="100" y2="50"
+                      stroke={`color-mix(in oklch, ${C.white} 20%, transparent)`} strokeWidth="0.3" strokeDasharray="2 2"
+                      style={{ transformOrigin: "center", transform: phase === 2 ? "scaleX(1)" : "scaleX(0)", transition: `transform 1s ${EASE} 0.4s` }}
+                    />
+                    {/* Corner brackets (stroke-dashoffset draw) */}
+                    {[
+                      "M 0 15 L 0 0 L 15 0",
+                      "M 85 0 L 100 0 L 100 15",
+                      "M 100 85 L 100 100 L 85 100",
+                      "M 15 100 L 0 100 L 0 85",
+                    ].map((d, i) => (
+                      <path key={i} d={d} fill="none" stroke={char.color} strokeWidth="0.8"
+                        strokeDasharray="30" strokeDashoffset={phase === 2 ? 0 : 30}
+                        style={{ transition: `stroke-dashoffset 0.8s ${EASE} 0.5s` }}
+                      />
+                    ))}
+                  </svg>
                 </>
               ) : (
                 <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, background: `radial-gradient(ellipse at 50% 30%, ${char.color}, ${C.bgDeep})` }}>
