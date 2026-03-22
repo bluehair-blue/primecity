@@ -25,6 +25,14 @@
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
       }
+      @keyframes bgMarquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+      @keyframes bgMarqueeReverse {
+        0% { transform: translateX(-50%); }
+        100% { transform: translateX(0); }
+      }
       @keyframes holoRingSpin {
         from { transform: rotateX(70deg) rotateZ(0deg); }
         to { transform: rotateX(70deg) rotateZ(360deg); }

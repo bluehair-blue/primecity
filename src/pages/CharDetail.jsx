@@ -125,6 +125,75 @@ export default function CharDetail() {
       <Particles isMobile={isMobile} />
       <Navbar scrolled={scrolled} isMobile={isMobile} />
 
+      {/* ══════════ Dynamic Cyberpunk Background ══════════ */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none", overflow: "hidden" }}>
+        {/* Vertical data grid */}
+        <div style={{
+          position: "absolute", inset: 0,
+          background: `repeating-linear-gradient(90deg, transparent, transparent calc(10% - 1px), ${`color-mix(in oklch, ${char.color} 4%, transparent)`} 10%)`,
+          maskImage: "linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)",
+        }} />
+
+        {/* Marquee line 1 — agency + archive data */}
+        <div style={{
+          position: "absolute", top: isMobile ? "12%" : "18%", left: 0,
+          display: "flex", width: "200%",
+          animation: "bgMarquee 80s linear infinite",
+        }}>
+          {[1, 2].map((k) => (
+            <div key={k} style={{
+              flex: "0 0 50%",
+              fontFamily: "var(--f-display-en)",
+              fontSize: isMobile ? "clamp(80px, 20vw, 120px)" : "clamp(160px, 18vw, 280px)",
+              fontWeight: 900, color: char.color, opacity: 0.03,
+              whiteSpace: "nowrap", textTransform: "uppercase",
+              letterSpacing: "0.05em", lineHeight: 0.8,
+            }}>
+              PRIME CITY ARCHIVE // {char.agency} // DATA ID: {char.cdnId} //&nbsp;
+            </div>
+          ))}
+        </div>
+
+        {/* Marquee line 2 — reverse direction, tagline */}
+        <div style={{
+          position: "absolute", top: isMobile ? "55%" : "60%", left: 0,
+          display: "flex", width: "200%",
+          animation: "bgMarqueeReverse 100s linear infinite",
+        }}>
+          {[1, 2].map((k) => (
+            <div key={k} style={{
+              flex: "0 0 50%",
+              fontFamily: "var(--f-display-kr)",
+              fontSize: isMobile ? "clamp(60px, 16vw, 90px)" : "clamp(120px, 14vw, 200px)",
+              fontWeight: 700, color: char.color, opacity: 0.02,
+              whiteSpace: "nowrap", lineHeight: 0.9,
+            }}>
+              {char.tagline} — {char.name} — {char.role} —&nbsp;
+            </div>
+          ))}
+        </div>
+
+        {/* Ghost watermark (large faded character portrait) */}
+        {hasImage && (
+          <img
+            src={char.image} alt=""
+            style={{
+              position: "absolute",
+              right: isMobile ? "-40%" : "-10%",
+              bottom: "-10%",
+              height: "120vh",
+              objectFit: "contain",
+              opacity: 0.035,
+              filter: "grayscale(100%) contrast(150%)",
+              mixBlendMode: "screen",
+              transform: phase === 2 ? "translateX(0)" : "translateX(5%)",
+              transition: `transform 2s ${EASE}`,
+            }}
+          />
+        )}
+      </div>
+
       {/* ══════════ Unified Hero + Profile ══════════ */}
       <section
         style={{
