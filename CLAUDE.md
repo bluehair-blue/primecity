@@ -138,7 +138,7 @@ primecity/
 │   ├── pages/
 │   │   ├── Home.jsx        ← 메인 랜딩 (전체 섹션 조합)
 │   │   ├── CharDetail.jsx  ← /characters/:name (시네마틱 인트로 + HUD + 프로필 + 미리보기)
-│   │   ├── SvgIntro.jsx    ← /svg (세계관 비주얼 가이드)
+│   │   ├── SvgIntro.jsx    ← /svg (동적 SVG 템플릿 갤러리, 6종)
 │   │   ├── Gallery.jsx     ← /gallery (메이슨리 + 소속사 아코디언 필터 + 라이트박스 + NSFW)
 │   │   ├── Updates.jsx     ← /updates (업데이트 로그, 타임라인)
 │   │   ├── Contact.jsx     ← /contact (문의 창구)
@@ -152,6 +152,7 @@ primecity/
 │   ├── data/
 │   │   ├── characters.js   ← 캐릭터 데이터 배열 (15명, cdnId/job/background/taste/goal/expressions 포함)
 │   │   ├── gallery.js      ← 갤러리 아이템 데이터 (도시9 + 캐릭터당 74코드 × 15명, NSFW 포함)
+│   │   ├── svgTemplates.js  ← SVG 템플릿 정의 (6종: SNS/트윗/라이브/메신저/뉴스/차트)
 │   │   ├── districts.js    ← 구역 데이터 배열 (4구역)
 │   │   └── gamemodes.js    ← 게임 모드 데이터 (3모드)
 │   ├── utils/
@@ -159,7 +160,7 @@ primecity/
 │   ├── hooks/
 │   │   ├── useIsMobile.js
 │   │   └── useReveal.js
-│   ├── App.jsx             ← React Router 설정 (11개 라우트)
+│   ├── App.jsx             ← React Router 설정 (11개 라우트, lazy + Suspense)
 │   └── main.jsx            ← 엔트리포인트
 ├── docs/
 │   ├── Main_Prompt.txt             ← 챗봇 메인 프롬프트
@@ -186,6 +187,7 @@ primecity/
 │   └── skills/
 │       ├── new-page/SKILL.md       ← 새 페이지 생성 스킬 (/new-page)
 │       └── deploy-preview/SKILL.md ← 빌드+배포 스킬 (/deploy-preview)
+├── workers/                         ← Cloudflare Worker 참조 파일 (6종, 별도 배포)
 ├── CLAUDE.md               ← 이 파일
 ├── package.json
 └── vite.config.js
@@ -591,6 +593,12 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [x] 하위 페이지에서 앵커 링크 작동 (useNavigate → 홈 이동 후 scrollIntoView)
 - [x] 로고 클릭 → Link to="/" (SPA 라우팅)
 
+#### SVG 템플릿 갤러리 (/svg 교체)
+- [x] svgTemplates.js 데이터 파일 (6종: SNS 포스트, 트윗, 라이브 방송, 메신저, 뉴스 속보, 음원 차트)
+- [x] SvgIntro.jsx → SVG 갤러리로 전면 교체 (카테고리 필터 + 상세 모달 3탭)
+- [x] Worker 참조 파일 6개 (workers/ 디렉토리, 별도 배포)
+- [x] App.jsx lazy + Suspense + NotFound 404 페이지 (다른 세션에서 추가된 리팩토링 통합)
+
 #### CityMap 모바일 개선
 - [x] 더블탭 네비게이션 → 싱글탭 툴팁 + "자세히 보기 →" 버튼으로 변경
 
@@ -630,11 +638,11 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 
 ### 기술 / 성능
 - **이미지 최적화** — WebP/AVIF 포맷 변환, srcset 반응형 이미지, Cloudflare Image Resizing 활용
-- **코드 스플리팅** — React.lazy + Suspense로 하위 페이지 동적 임포트
-- **SEO** — react-helmet-async로 페이지별 메타태그 + OG 이미지 동적 생성
+- ~~**코드 스플리팅** — React.lazy + Suspense로 하위 페이지 동적 임포트~~ ✅ 구현됨
+- ~~**SEO** — react-helmet-async로 페이지별 메타태그 + OG 이미지 동적 생성~~ ✅ 구현됨 (Seo 컴포넌트)
 - **접근성(a11y)** — 키보드 네비게이션 강화, aria-label, 고대비 모드, 스크린 리더 지원
-- **404 페이지** — 존재하지 않는 경로 접근 시 커스텀 404 (현재 빈 페이지)
-- **로딩 상태** — 페이지 전환 시 스켈레톤/스피너 (Suspense fallback)
+- ~~**404 페이지** — 존재하지 않는 경로 접근 시 커스텀 404~~ ✅ 구현됨 (NotFound.jsx)
+- ~~**로딩 상태** — 페이지 전환 시 스켈레톤/스피너 (Suspense fallback)~~ ✅ 구현됨 (App.jsx Fallback)
 
 ### 콘텐츠 확장
 - **i18n 다국어** — 한/영/일 지원 (react-i18next)
