@@ -13,7 +13,6 @@ const ModeAudition = lazy(() => import("./pages/ModeAudition"));
 const ModeFreeplay = lazy(() => import("./pages/ModeFreeplay"));
 const ModeProducer = lazy(() => import("./pages/ModeProducer"));
 const DistrictDetail = lazy(() => import("./pages/DistrictDetail"));
-const SvgGallery = lazy(() => import("./pages/SvgGallery"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 function Fallback() {
@@ -58,7 +57,6 @@ export default function App() {
           <Route path="/modes/freeplay" element={<ModeFreeplay />} />
           <Route path="/modes/producer" element={<ModeProducer />} />
           <Route path="/districts/:id" element={<DistrictDetail />} />
-          <Route path="/svg-gallery" element={<SvgGallery />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
