@@ -1,4 +1,4 @@
-import { cdnUrl, cdnExprUrl, EXPRESSION_KEYS } from "../utils/cdn";
+import { cdnUrl, cdnExprUrl, EXPRESSION_KEYS, SCENE_CODE_MAP } from "../utils/cdn";
 import { characters } from "./characters";
 
 // ── Gallery Categories ──
@@ -116,6 +116,7 @@ function generateCharItems(char) {
     items.push({
       src: cdnExprUrl(char.cdnId, key),
       caption: `${char.name} — ${key}`,
+      sceneNum: SCENE_CODE_MAP[key],
       category: CATEGORIES.CHARACTER,
       tags: [CHARACTER_TAGS.EXPRESSION],
       isNsfw: false,
@@ -129,6 +130,7 @@ function generateCharItems(char) {
     items.push({
       src: cdnExprUrl(char.cdnId, code),
       caption: `${char.name} — ${label}`,
+      sceneNum: SCENE_CODE_MAP[code],
       category: CATEGORIES.CHARACTER,
       tags: [CHARACTER_TAGS.DAILY],
       isNsfw: false,
@@ -142,6 +144,7 @@ function generateCharItems(char) {
     items.push({
       src: cdnExprUrl(char.cdnId, code),
       caption: `${char.name} — ${label}`,
+      sceneNum: SCENE_CODE_MAP[code],
       category: CATEGORIES.CHARACTER,
       tags: [CHARACTER_TAGS.NSFW],
       isNsfw: true,

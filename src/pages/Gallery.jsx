@@ -352,6 +352,7 @@ export default function Gallery() {
                       background: `linear-gradient(transparent, ${C.bgDeep})`,
                     }}>
                       <span style={{ fontFamily: "var(--f-body)", fontSize: 11, color: C.text55 }}>
+                        {item.sceneNum != null && <span style={{ fontFamily: "monospace", fontSize: 9, color: C.text25, marginRight: 6 }}>#{item.sceneNum}</span>}
                         {item.caption}
                       </span>
                       {item.tags && item.tags.length > 0 && (
@@ -451,6 +452,7 @@ export default function Gallery() {
                   {/* Info panel */}
                   <div style={{ marginTop: 12, textAlign: "center" }}>
                     <p style={{ fontFamily: "var(--f-body)", fontSize: 13, color: C.text55, margin: "0 0 4px" }}>
+                      {filtered[lightboxIdx].sceneNum != null && <span style={{ fontFamily: "monospace", fontSize: 11, color: C.text25, marginRight: 8 }}>#{filtered[lightboxIdx].sceneNum}</span>}
                       {filtered[lightboxIdx].caption}
                     </p>
                     {filtered[lightboxIdx].tags && filtered[lightboxIdx].tags.length > 0 && (
