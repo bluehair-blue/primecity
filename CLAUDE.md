@@ -371,22 +371,25 @@ cdnUrl("SY.png")  // → "https://img.bluehair.blue/ent/SY.png?v=1"
 |---|---|---|
 | 도시 배경 | `cdnUrl("bg{N}.png")` | N = 3~11 |
 | 캐릭터 | `cdnUrl("{cdnId}.png")` | 서윤(SY), 나하린(NHR), 이서하(LSH), 강하람(KHR) 완료 |
-| 캐릭터 표정/상황 | `cdnExprUrl("{cdnId}", "{code}")` | 경로: `ent/{cdnId}/{code}.webp` |
+| 캐릭터 표정/상황 | `cdnExprUrl("{cdnId}", "{code}")` | 경로: `ent/{cdnId}/{숫자}.webp` (SCENE_CODE_MAP 자동 변환) |
 | 맵 베이스 | `cdnUrl("Citybase(1).png")` | 전체 탑뷰 맵 |
 | 맵 구역 | `cdnUrl("{구역명}.png")` | The Core, Middle Ring, Hype Road, Terrace, industrial complex |
 
 ### 표정 에셋 경로 상세
 
 ```
-cdnExprUrl("SY", "happy") → https://img.bluehair.blue/ent/SY/happy.webp?v=1
+cdnExprUrl("SY", "happy") → https://img.bluehair.blue/ent/SY/3.webp?v=1
 ```
 
 - **폴더 구조**: `ent/{cdnId}/` (캐릭터별 폴더)
-- **파일명**: `{expression}.webp` (9종: contempt, troubled, neutral, surprised, shy, smirk, sad, happy, angry)
+- **파일명**: `{숫자}.webp` — 영문 코드가 `SCENE_CODE_MAP`을 통해 숫자로 자동 변환
+- **숫자 매핑 규칙**: 감정(1-8), neutral(9, 사이트전용), 일상(10-18), 비삽입(20-42), 삽입(50-67), 착의침실(70-78), 착의화장실(80-86)
 - **포맷**: WebP (갤러리/챗봇 에셋은 WebP 사용, 사이트 배경·스탠딩 이미지는 PNG 유지)
 - **cdnId 매핑**: SY(서윤), NHR(나하린), JSH(진시혁), ERK(에리카), LSH(이서하), HSR(한소리), KHR(강하람), JGR(장그루), MIL(밀라), ELA(엘라), MMR(미모리), HSE(하시은), NIA(니아), RAY(레이), LPS(라피스)
-- **유틸**: `src/utils/cdn.js`의 `cdnExprUrl()`, `EXPRESSION_KEYS`, `EXPRESSION_LABELS`
+- **유틸**: `src/utils/cdn.js`의 `cdnExprUrl()`, `SCENE_CODE_MAP`, `EXPRESSION_KEYS`, `EXPRESSION_LABELS`
 - **전체 상황코드 DB**: `src/data/gallery.js`에 정의 (감정 9 + 일상 9 + NSFW 56 = 74코드/캐릭터)
+- **챗봇 프롬프트 원본**: `docs/이미지 출력 규칙(수정).txt`
+- **챗봇 메인 프롬프트**: `docs/연예계 챗봇 메인 프롬프트.txt` (숫자 기반 상황코드 DB 포함)
 - **챗봇 프롬프트 원본**: `docs/이미지 출력 규칙(수정).txt`
 
 ### 해상도 기준
@@ -608,13 +611,25 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [x] nais2-backup에 9명 캐릭터 탈의 프롬프트 추가 (한소리~레이)
 - [x] 프롬프트 구조: 배경→구도→Male Part→행위→여성 신체→부가→표정
 
+#### CDN 파일명 숫자 코드 전환
+- [x] SCENE_CODE_MAP 도입 (74개 영문→숫자 매핑, cdn.js)
+- [x] cdnExprUrl 자동 변환 (happy→3.webp, doggystyle-sex→53.webp)
+- [x] gallery.js 아이템에 sceneNum 필드 추가
+- [x] Gallery.jsx에 #번호 배지 표시 (그리드 + 라이트박스)
+
+#### 배경 밝기 최적화
+- [x] HeroSlider 모바일 밝기 개선 (opacity 0.35→0.5, brightness 0.6→0.7, 비네팅 0.7→0.5)
+- [x] HeroSlider 데스크톱 밝기 개선 (opacity 0.35→0.45, brightness 0.6→0.65, 비네팅 0.7→0.6)
+- [x] CharDetail 비네팅 감소 (모바일 0.3/50%, 데스크톱 0.4/40%)
+- [x] Home.jsx 섹션 구분선 + 장식 라인 추가
+
 ---
 
 ### 구현 필요
 
 #### 우선순위 높음 — 에셋 제작
 - [ ] 캐릭터 이미지 에셋 제작 + CDN 업로드 (4/15 완료, 11명 플레이스홀더)
-- [ ] 캐릭터 표정/상황 WebP 에셋 생성 (NAI 프리셋 사용) + CDN 업로드
+- [ ] 캐릭터 표정/상황 WebP 에셋 생성 (NAI 프리셋 사용) + CDN 업로드 (파일명: {숫자}.webp)
 - [ ] CharDetail 히어로 전용 와이드 에셋 검토 (현재 2:3 세로형 이미지를 풀스크린에 사용 중)
 
 #### 우선순위 중간 — 콘텐츠 보강
