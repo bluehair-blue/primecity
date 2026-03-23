@@ -379,8 +379,8 @@ export default function CharDetail() {
                   {/* Vignette — Phase 2 only, lighter on mobile */}
                   <div style={{
                     position: "absolute", inset: 0,
-                    background: `radial-gradient(ellipse at center, transparent ${isMobile ? "50%" : "30%"}, ${C.bgDeep} 100%)`,
-                    opacity: phase === 2 ? (isMobile ? 0.3 : 0.5) : 0,
+                    background: `radial-gradient(ellipse at center, transparent ${isMobile ? "50%" : "40%"}, ${C.bgDeep} 100%)`,
+                    opacity: phase === 2 ? (isMobile ? 0.3 : 0.4) : 0,
                     transition: `opacity 1s ${EASE}`,
                     pointerEvents: "none",
                   }} />
