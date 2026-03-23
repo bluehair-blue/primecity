@@ -68,9 +68,9 @@ export default function HeroSlider({ isMobile }) {
                 backgroundImage: loadedSet.has(idx) ? `url(${url})` : "none",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                opacity: currentIdx === idx ? 0.35 : 0,
+                opacity: currentIdx === idx ? (isMobile ? 0.5 : 0.35) : 0,
                 transition: `opacity ${FADE_MS}ms cubic-bezier(0.22,1,0.36,1)`,
-                filter: "brightness(0.6) saturate(0.8)",
+                filter: isMobile ? "brightness(0.7) saturate(0.85)" : "brightness(0.6) saturate(0.8)",
                 willChange: "opacity",
               }}
             />
@@ -107,13 +107,9 @@ export default function HeroSlider({ isMobile }) {
           style={{
             position: "absolute",
             inset: 0,
-            background: `linear-gradient(
-              180deg,
-              oklch(0.08 0.01 280 / 0.3) 0%,
-              oklch(0.08 0.01 280 / 0.15) 30%,
-              oklch(0.08 0.01 280 / 0.5) 70%,
-              ${C.bgDeep} 100%
-            )`,
+            background: isMobile
+              ? `linear-gradient(180deg, oklch(0.08 0.01 280 / 0.15) 0%, oklch(0.08 0.01 280 / 0.05) 30%, oklch(0.08 0.01 280 / 0.35) 70%, ${C.bgDeep} 100%)`
+              : `linear-gradient(180deg, oklch(0.08 0.01 280 / 0.3) 0%, oklch(0.08 0.01 280 / 0.15) 30%, oklch(0.08 0.01 280 / 0.5) 70%, ${C.bgDeep} 100%)`,
           }}
         />
         {/* Vignette */}
@@ -121,8 +117,9 @@ export default function HeroSlider({ isMobile }) {
           style={{
             position: "absolute",
             inset: 0,
-            background:
-              "radial-gradient(ellipse at center, transparent 30%, oklch(0.08 0.01 280 / 0.7) 100%)",
+            background: isMobile
+              ? "radial-gradient(ellipse at center, transparent 40%, oklch(0.08 0.01 280 / 0.5) 100%)"
+              : "radial-gradient(ellipse at center, transparent 30%, oklch(0.08 0.01 280 / 0.7) 100%)",
           }}
         />
       </div>

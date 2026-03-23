@@ -376,11 +376,11 @@ export default function CharDetail() {
                       animation: !glitchDone && uiReady ? "charGlitch 0.5s ease-out forwards" : "none",
                     }}
                   />
-                  {/* Vignette — Phase 2 only */}
+                  {/* Vignette — Phase 2 only, lighter on mobile */}
                   <div style={{
                     position: "absolute", inset: 0,
-                    background: `radial-gradient(ellipse at center, transparent 30%, ${C.bgDeep} 100%)`,
-                    opacity: phase === 2 ? 0.5 : 0,
+                    background: `radial-gradient(ellipse at center, transparent ${isMobile ? "50%" : "30%"}, ${C.bgDeep} 100%)`,
+                    opacity: phase === 2 ? (isMobile ? 0.3 : 0.5) : 0,
                     transition: `opacity 1s ${EASE}`,
                     pointerEvents: "none",
                   }} />

@@ -13,6 +13,18 @@ import Footer from "../components/Footer";
 import ScrollNav from "../components/ScrollNav";
 import Seo from "../components/Seo";
 
+function DecoLine({ isMobile, color, top, rotate }) {
+  return (
+    <div style={{
+      position: "absolute", top, left: "50%",
+      width: isMobile ? 160 : 300, height: 1,
+      background: `linear-gradient(90deg, transparent, ${color || C.goldDim}, transparent)`,
+      transform: `translateX(-50%) rotate(${rotate || 0}deg)`,
+      opacity: 0.15, pointerEvents: "none",
+    }} />
+  );
+}
+
 function IntroSection({ isMobile }) {
   const [ref, v] = useReveal(0.15);
   return (
@@ -29,6 +41,9 @@ function IntroSection({ isMobile }) {
         textAlign: "center",
       }}
     >
+      {/* Decorative accent lines */}
+      <DecoLine isMobile={isMobile} top={isMobile ? 16 : 24} rotate={-2} />
+      <DecoLine isMobile={isMobile} top={isMobile ? 24 : 36} rotate={1} color={C.border10} />
       <span
         style={{
           fontFamily: "var(--f-display-en)",
@@ -98,6 +113,20 @@ function IntroSection({ isMobile }) {
   );
 }
 
+
+function SectionDivider({ isMobile }) {
+  return (
+    <div style={{
+      position: "relative", zIndex: 2,
+      display: "flex", alignItems: "center", justifyContent: "center",
+      padding: isMobile ? "20px 0" : "36px 0",
+    }}>
+      <div style={{ width: 4, height: 4, borderRadius: "50%", background: C.goldDim }} />
+      <div style={{ width: isMobile ? 80 : 140, height: 1, background: `linear-gradient(90deg, ${C.goldDim}, transparent)`, marginLeft: 8 }} />
+      <div style={{ width: isMobile ? 80 : 140, height: 1, background: `linear-gradient(270deg, ${C.goldDim}, transparent)`, marginRight: 8, order: -1 }} />
+    </div>
+  );
+}
 
 function WorldSection({ isMobile }) {
   const [tRef, tV] = useReveal(0.12);
@@ -204,9 +233,13 @@ export default function Home() {
       <ScrollNav isMobile={isMobile} />
       <HeroSlider isMobile={isMobile} />
       <IntroSection isMobile={isMobile} />
+      <SectionDivider isMobile={isMobile} />
       <CharCarousel isMobile={isMobile} />
+      <SectionDivider isMobile={isMobile} />
       <WorldSection isMobile={isMobile} />
+      <SectionDivider isMobile={isMobile} />
       <GameModes isMobile={isMobile} />
+      <SectionDivider isMobile={isMobile} />
       <TriangleNav isMobile={isMobile} />
       <Footer isMobile={isMobile} />
     </div>
