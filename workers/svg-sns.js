@@ -1,6 +1,12 @@
-// Reference: SNS Post SVG Worker
-// Deploy separately to Cloudflare Workers
-// Usage: ![](https://svg-sns.your-worker.dev/?username=seoyun_official&caption=오늘의 무대를 마치며.&likes=31,204&comments=2,891&time=방금&location=The Core)
+// SYNC: Keep in sync with src/data/svgTemplates.js
+function safeImageUrl(url) {
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    if (u.protocol === "http:" || u.protocol === "https:") return url;
+  } catch (e) {}
+  return null;
+}
 
 function generateSnsPost(p) {
   const username = p.username || "seoyun_official";
@@ -9,22 +15,51 @@ function generateSnsPost(p) {
   const comments = p.comments || "1,204";
   const time = p.time || "2시간 전";
   const location = p.location || "The Core, Prime City";
+  const avatarUrl = safeImageUrl(p.avatar);
+  const imageUrl = safeImageUrl(p.image);
+
+  const avatarSvg = avatarUrl
+    ? `<defs><clipPath id="avatar-clip"><circle cx="24" cy="24" r="18"/></clipPath></defs>
+    <image href="${avatarUrl}" x="6" y="6" width="36" height="36" clip-path="url(#avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
+    : `<circle cx="24" cy="24" r="18" fill="#2a2a4a" stroke="#c9a84c" stroke-width="2"/>
+    <text x="24" y="28" text-anchor="middle" fill="#c9a84c" font-size="14" font-weight="bold" font-family="sans-serif">${username[0].toUpperCase()}</text>`;
+
+  const imageSvg = imageUrl
+    ? `<image href="${imageUrl}" x="0" y="60" width="400" height="300" preserveAspectRatio="xMidYMid slice"/>`
+    : `<rect x="0" y="60" width="400" height="300" fill="#12122a"/>
+  <text x="200" y="215" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">IMAGE</text>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520">
-  <defs><clipPath id="avatar-clip"><circle cx="24" cy="24" r="18"/></clipPath></defs>
   <rect width="400" height="520" rx="12" fill="#1a1a2e"/>
   <!-- Header -->
   <g transform="translate(16, 12)">
-    <circle cx="24" cy="24" r="18" fill="#2a2a4a" stroke="#c9a84c" stroke-width="2"/>
-    <text x="24" y="28" text-anchor="middle" fill="#c9a84c" font-size="14" font-weight="bold" font-family="sans-serif">${username[0].toUpperCase()}</text>
+    ${avatarSvg}
     <text x="52" y="22" fill="#e8e8e8" font-size="13" font-weight="600" font-family="sans-serif">${username}</text>
     <text x="52" y="38" fill="#888" font-size="10" font-family="sans-serif">${location}</text>
     <circle cx="${52 + username.length * 7 + 8}" cy="18" r="5" fill="#4a9eff"/>
     <text x="${52 + username.length * 7 + 5}" y="22" fill="#fff" font-size="8" font-family="sans-serif">✓</text>
   </g>
   <!-- Image area -->
-  <rect x="0" y="60" width="400" height="300" fill="#12122a"/>
-  <text x="200" y="215" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">📷 IMAGE</text>
+  ${imageSvg}
+  <!-- Floating hearts animation -->
+  <g transform="translate(20, 340)">
+    <text font-size="12" fill="#e03e3e">♥
+      <animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="0s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="-5 -60" dur="3s" begin="0s" repeatCount="indefinite"/>
+    </text>
+  </g>
+  <g transform="translate(35, 350)">
+    <text font-size="10" fill="#e03e3e">♥
+      <animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="0.8s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="5 -70" dur="3s" begin="0.8s" repeatCount="indefinite"/>
+    </text>
+  </g>
+  <g transform="translate(12, 330)">
+    <text font-size="14" fill="#e03e3e">♥
+      <animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="1.6s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="-8 -50" dur="3s" begin="1.6s" repeatCount="indefinite"/>
+    </text>
+  </g>
   <!-- Actions -->
   <g transform="translate(16, 376)">
     <text x="0" y="0" fill="#e8e8e8" font-size="18">♡</text>

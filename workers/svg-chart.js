@@ -1,6 +1,12 @@
-// Reference: Music Chart SVG Worker
-// Deploy separately to Cloudflare Workers
-// Usage: ![](https://svg-chart.your-worker.dev/?chart=PRIME CHART&time=2026.03.22 20:00 기준&song1=Zero Point&artist1=서윤&change1=—&song2=Midnight Signal&artist2=이서하&change2=▲2)
+// SYNC: Keep in sync with src/data/svgTemplates.js
+function safeImageUrl(url) {
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    if (u.protocol === "http:" || u.protocol === "https:") return url;
+  } catch (e) {}
+  return null;
+}
 
 function generateChart(p) {
   const chart = p.chart || "PRIME CHART";
@@ -26,7 +32,10 @@ function generateChart(p) {
     const changeColor = s.change.includes("▲") || s.change === "NEW" ? "#4caf50" : s.change.includes("▼") ? "#e03e3e" : "#888";
     return `
     <g transform="translate(0, ${y})">
-      ${isFirst ? `<rect x="16" y="-12" width="368" height="60" rx="8" fill="#1a1a0a" stroke="#c9a84c" stroke-width="0.5"/>` : ""}
+      ${isFirst ? `<rect x="16" y="-12" width="368" height="60" rx="8" fill="#1a1a0a" stroke="#c9a84c" stroke-width="0.5">
+        <animate attributeName="stroke-opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+        <animate attributeName="stroke-width" values="0.5;1.5;0.5" dur="2s" repeatCount="indefinite"/>
+      </rect>` : ""}
       <text x="36" y="18" text-anchor="middle" fill="${isFirst ? "#c9a84c" : "#888"}" font-size="${isFirst ? 24 : 18}" font-weight="700" font-family="sans-serif">${s.rank}</text>
       <text x="68" y="12" fill="#e8e8e8" font-size="14" font-weight="${isFirst ? 700 : 500}" font-family="sans-serif">${s.song}</text>
       <text x="68" y="32" fill="#888" font-size="11" font-family="sans-serif">${s.artist}</text>

@@ -1,14 +1,25 @@
-// Reference: Breaking News SVG Worker
-// Deploy separately to Cloudflare Workers
-// Usage: ![](https://svg-news.your-worker.dev/?channel=PRIME NEWS&headline=APEX 엔터, 신인 오디션 최종 라운드 돌입&sub=나하린 프로듀서 직접 심사&reporter=김기자&time=LIVE 오후 8:00&ticker=프라임시티 엔터테인먼트 지수 사상 최고치)
+// SYNC: Keep in sync with src/data/svgTemplates.js
+function safeImageUrl(url) {
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    if (u.protocol === "http:" || u.protocol === "https:") return url;
+  } catch (e) {}
+  return null;
+}
 
 function generateNews(p) {
   const channel = p.channel || "PRIME NEWS";
-  const headline = p.headline || "APEX 엔터, 신인 오디션 최종 라운드 돌입";
-  const sub = p.sub || "나하린 프로듀서 직접 심사... 역대 최대 규모 시청자 기록";
+  const headline = p.headline || "APEX 엔터 신인 오디션 최종 라운드 돌입";
+  const sub = p.sub || "나하린 프로듀서 직접 심사";
   const reporter = p.reporter || "김기자";
   const time = p.time || "LIVE 오후 8:00";
-  const ticker = p.ticker || "프라임시티 엔터테인먼트 지수 사상 최고치 경신 ▲ APEX 주가 +12.4% ▲ 더 코어 부동산 가격 급등";
+  const ticker = p.ticker || "프라임시티 엔터테인먼트 지수 사상 최고치 경신";
+  const imageUrl = safeImageUrl(p.image);
+
+  const newsImageSvg = imageUrl
+    ? `<image href="${imageUrl}" x="300" y="84" width="180" height="140" preserveAspectRatio="xMidYMid slice"/>`
+    : "";
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 280">
   <rect width="500" height="280" rx="8" fill="#0a0a1a"/>
@@ -20,9 +31,13 @@ function generateNews(p) {
   </rect>
   <text x="165" y="24" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">LIVE</text>
   <text x="440" y="26" fill="#888" font-size="11" font-family="sans-serif">${time}</text>
-  <!-- Breaking banner -->
-  <rect x="0" y="44" width="500" height="32" fill="#c62828"/>
+  <!-- Breaking banner (flash animation) -->
+  <rect x="0" y="44" width="500" height="32" fill="#c62828">
+    <animate attributeName="opacity" values="1;0.7;1" dur="1.5s" repeatCount="indefinite"/>
+  </rect>
   <text x="16" y="65" fill="#fff" font-size="13" font-weight="700" font-family="sans-serif">⚡ 속보 BREAKING</text>
+  <!-- News image -->
+  ${newsImageSvg}
   <!-- Headline -->
   <text x="16" y="108" fill="#e8e8e8" font-size="18" font-weight="700" font-family="sans-serif">${headline.substring(0, 30)}</text>
   ${headline.length > 30 ? `<text x="16" y="132" fill="#e8e8e8" font-size="18" font-weight="700" font-family="sans-serif">${headline.substring(30, 60)}</text>` : ""}
