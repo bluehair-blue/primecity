@@ -492,13 +492,30 @@ export const svgTemplates = [
     });
   },
 };`,
-    promptExample: `⚠️ URL 작성 규칙:
-- 공백 → %20
-- 특수문자: ? → %3F, & → %26, # → %23, , → %2C
-- <, >, 괄호 사용 금지
-- 한국어는 그대로 사용 가능 (브라우저 자동 인코딩)
+    promptExample: `■ SNS 포스트 SVG 출력 프롬프트
 
-이미지 출력 시 SNS 포스트 형태로 표시:
+【라벨 설명】
+- username: 게시자의 SNS 아이디 (영문)
+- caption: 게시글 본문 (캐릭터의 현재 상황/감정에 맞는 한 줄)
+- likes: 좋아요 수 (콤마 포함 시 %2C로 인코딩)
+- comments: 댓글 수
+- time: 게시 시점 (예: 방금, 1시간%20전)
+- location: 게시 장소 (구역명 등)
+- avatar: 프로필 이미지 URL (선택)
+- image: 게시물 이미지 URL (선택)
+
+【출력 위치】
+캐릭터가 SNS 게시물을 올리거나, 다른 캐릭터의 SNS를 확인하는 장면에서
+나레이션 하단에 출력.
+
+【URL 규칙】
+공백 → %20 / 콤마 → %2C / 물음표 → %3F
+<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.
+
+【양식】
+![](https://insta.bluehair.blue/ent/?username={아이디}&caption={본문}&likes={좋아요수}&comments={댓글수}&time={시간}&location={장소})
+
+【예시】
 ![](https://insta.bluehair.blue/ent/?username=seoyun_official&caption=프라임시티의%20밤은%20끝나지%20않는다.&likes=24%2C891&comments=1%2C204&time=2시간%20전&location=The%20Core%2C%20Prime%20City)`,
   },
   {
@@ -534,14 +551,30 @@ export const svgTemplates = [
     });
   },
 };`,
-    promptExample: `⚠️ URL 작성 규칙:
-- 공백 → %20
-- 특수문자: ? → %3F, & → %26, # → %23, , → %2C
-- <, >, 괄호 사용 금지
-- 한국어는 그대로 사용 가능 (브라우저 자동 인코딩)
+    promptExample: `■ 트윗 SVG 출력 프롬프트
 
-트윗 형태로 캐릭터의 SNS 활동을 표시:
-![](https://twit.bluehair.blue/ent/?name=나하린&handle=@naharin_apex&content=재능%20있는%20사람이%20어디까지%20가는지...%20그걸%20구경하는%20게%20제일%20재밌지%20않아%3F&retweets=3%2C847&likes=18%2C291&time=오후%2011:42)`,
+【라벨 설명】
+- name: 트윗 작성자 이름 (캐릭터 본명)
+- handle: @핸들 (영문, 캐릭터 설정에 맞게)
+- content: 트윗 본문 (캐릭터의 말투와 성격 반영)
+- retweets: 리포스트 수
+- likes: 좋아요 수
+- time: 게시 시간
+- avatar: 프로필 이미지 URL (선택)
+
+【출력 위치】
+캐릭터의 SNS 발언이 화제가 되거나, 트윗을 확인하는 장면에서
+나레이션 상단 또는 대사 직전에 출력.
+
+【URL 규칙】
+공백 → %20 / 콤마 → %2C / 물음표 → %3F
+<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.
+
+【양식】
+![](https://twit.bluehair.blue/ent/?name={이름}&handle={핸들}&content={본문}&retweets={리포수}&likes={좋아요수}&time={시간})
+
+【예시】
+![](https://twit.bluehair.blue/ent/?name=나하린&handle=@naharin_apex&content=재능%20있는%20사람이%20어디까지%20가는지...%20구경하는%20게%20제일%20재밌지%20않아%3F&retweets=3%2C847&likes=18%2C291&time=오후%2011:42)`,
   },
   {
     id: "livestream",
@@ -578,13 +611,29 @@ export const svgTemplates = [
     });
   },
 };`,
-    promptExample: `⚠️ URL 작성 규칙:
-- 공백 → %20
-- 특수문자: ? → %3F, & → %26, # → %23, , → %2C
-- <, >, 괄호 사용 금지
-- 한국어는 그대로 사용 가능 (브라우저 자동 인코딩)
+    promptExample: `■ 라이브 방송 SVG 출력 프롬프트
 
-라이브 방송 화면 형태로 출력:
+【라벨 설명】
+- streamer: 방송하는 캐릭터 이름
+- title: 방송 제목 (캐릭터가 설정한 제목)
+- viewers: 실시간 시청자 수
+- category: 방송 카테고리 (음악, 토크, 연습 등)
+- chat1~chat3: 실시간 채팅 메시지 3개 (시청자 반응)
+- avatar: 스트리머 프로필 이미지 URL (선택)
+- image: 방송 프리뷰/썸네일 이미지 URL (선택)
+
+【출력 위치】
+캐릭터가 라이브 방송을 시작하거나 시청하는 장면에서
+장면 전환 직후, 나레이션 최상단에 출력.
+
+【URL 규칙】
+공백 → %20 / 콤마 → %2C / 물음표 → %3F
+<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.
+
+【양식】
+![](https://live.bluehair.blue/ent/?streamer={이름}&title={방송제목}&viewers={시청자수}&category={카테고리}&chat1={채팅1}&chat2={채팅2}&chat3={채팅3})
+
+【예시】
 ![](https://live.bluehair.blue/ent/?streamer=강하람&title=데뷔%20연습%20라이브!%20오늘%20열심히%20해볼게요&viewers=12%2C847&category=음악&chat1=화이팅!!!&chat2=목소리%20너무%20좋다&chat3=앵콜%20앵콜!!!)`,
   },
   {
@@ -620,13 +669,27 @@ export const svgTemplates = [
     });
   },
 };`,
-    promptExample: `⚠️ URL 작성 규칙:
-- 공백 → %20
-- 특수문자: ? → %3F, & → %26, # → %23, , → %2C
-- <, >, 괄호 사용 금지
-- 한국어는 그대로 사용 가능 (브라우저 자동 인코딩)
+    promptExample: `■ 메신저 SVG 출력 프롬프트
 
-메신저 대화 형태로 출력:
+【라벨 설명】
+- contact: 대화 상대 캐릭터 이름
+- msg1, msg2: 상대방이 보낸 메시지 2개 (캐릭터 말투 반영)
+- reply1, reply2: 유저의 답장 2개
+- time: 대화 시각
+- avatar: 상대방 프로필 이미지 URL (선택)
+
+【출력 위치】
+캐릭터와 메시지를 주고받는 장면에서
+대사 블록 사이 또는 나레이션 하단에 출력.
+
+【URL 규칙】
+공백 → %20 / 콤마 → %2C / 물음표 → %3F
+<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.
+
+【양식】
+![](https://talk.bluehair.blue/ent/?contact={이름}&msg1={메시지1}&msg2={메시지2}&reply1={답장1}&reply2={답장2}&time={시각})
+
+【예시】
 ![](https://talk.bluehair.blue/ent/?contact=이서하&msg1=내일%20스튜디오%20올%20수%20있어&msg2=새%20곡%20작업하려고%20하는데&reply1=네!%20몇%20시에%20갈까요&reply2=기대돼요&time=오후%209:15)`,
   },
   {
@@ -662,13 +725,29 @@ export const svgTemplates = [
     });
   },
 };`,
-    promptExample: `⚠️ URL 작성 규칙:
-- 공백 → %20
-- 특수문자: ? → %3F, & → %26, # → %23, , → %2C
-- <, >, 괄호 사용 금지
-- 한국어는 그대로 사용 가능 (브라우저 자동 인코딩)
+    promptExample: `■ 뉴스 속보 SVG 출력 프롬프트
 
-뉴스 속보 형태로 출력:
+【라벨 설명】
+- channel: 뉴스 채널명 (예: PRIME NEWS)
+- headline: 메인 헤드라인 (사건의 핵심)
+- sub: 부제/보충 설명 (한 줄)
+- reporter: 기자명
+- time: 방송 시각 (LIVE 포함 가능)
+- ticker: 하단 스크롤 자막 (관련 속보 요약)
+- image: 뉴스 이미지 URL (선택)
+
+【출력 위치】
+방송 뉴스가 나오는 장면, 긴급 속보가 전달되는 장면에서
+장면 전환 직후 최상단에 출력.
+
+【URL 규칙】
+공백 → %20 / 콤마 → %2C / 물음표 → %3F
+<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.
+
+【양식】
+![](https://news.bluehair.blue/ent/?channel={채널명}&headline={헤드라인}&sub={부제}&reporter={기자명}&time={시각}&ticker={자막})
+
+【예시】
 ![](https://news.bluehair.blue/ent/?channel=PRIME%20NEWS&headline=APEX%20엔터%20신인%20오디션%20최종%20라운드%20돌입&sub=나하린%20프로듀서%20직접%20심사&reporter=김기자&time=LIVE%20오후%208:00&ticker=프라임시티%20엔터테인먼트%20지수%20사상%20최고치%20경신)`,
   },
   {
@@ -702,13 +781,27 @@ export const svgTemplates = [
     });
   },
 };`,
-    promptExample: `⚠️ URL 작성 규칙:
-- 공백 → %20
-- 특수문자: ? → %3F, & → %26, # → %23, , → %2C
-- <, >, 괄호 사용 금지
-- 한국어는 그대로 사용 가능 (브라우저 자동 인코딩)
+    promptExample: `■ 음원 차트 SVG 출력 프롬프트
 
-음원 차트 형태로 출력:
+【라벨 설명】
+- chart: 차트명 (예: PRIME CHART)
+- song1~song5: 1위~5위 곡명
+- artist1~artist5: 각 곡의 아티스트명
+- change1~change5: 순위 변동 (▲숫자, ▼숫자, —, NEW)
+- time: 차트 기준 시각
+
+【출력 위치】
+음원 차트 순위가 발표되거나, 캐릭터의 곡이 차트에 진입하는 장면에서
+나레이션 하단 또는 장면 전환 시 출력.
+
+【URL 규칙】
+공백 → %20 / 콤마 → %2C / 물음표 → %3F
+<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.
+
+【양식】
+![](https://chart.bluehair.blue/ent/?chart={차트명}&song1={곡명1}&artist1={아티스트1}&change1={변동1}&song2={곡명2}&artist2={아티스트2}&change2={변동2}&...&time={기준시각})
+
+【예시】
 ![](https://chart.bluehair.blue/ent/?chart=PRIME%20CHART&song1=Zero%20Point&artist1=서윤&change1=—&song2=Midnight%20Signal&artist2=이서하&change2=▲2&song3=불꽃처럼&artist3=강하람&change3=NEW&song4=Masquerade&artist4=엘라&change4=▼1&song5=자유낙하&artist5=밀라&change5=▲5&time=2026.03.22%2020:00%20기준)`,
   },
   {
@@ -743,13 +836,28 @@ export const svgTemplates = [
     });
   },
 };`,
-    promptExample: `⚠️ URL 작성 규칙:
-- 공백 → %20
-- 특수문자: ? → %3F, & → %26, # → %23, , → %2C
-- <, >, 괄호 사용 금지
-- 한국어는 그대로 사용 가능 (브라우저 자동 인코딩)
+    promptExample: `■ 커뮤니티 게시판 SVG 출력 프롬프트
 
-커뮤니티 게시판 형태로 출력:
+【라벨 설명】
+- board: 게시판 이름
+- post1~post5: 게시글 제목 5개
+- author1~author5: 각 게시글 작성자 닉네임
+- views1~views5: 각 게시글 조회수
+- votes1~votes5: 각 게시글 추천수
+- page: 현재 페이지 번호
+
+【출력 위치】
+온라인 커뮤니티 반응이 묘사되는 장면, 캐릭터가 인터넷 여론을 확인하는 장면에서
+나레이션 중간 또는 하단에 출력.
+
+【URL 규칙】
+공백 → %20 / 콤마 → %2C / 물음표 → %3F
+<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.
+
+【양식】
+![](https://community.bluehair.blue/ent/?board={게시판명}&post1={제목1}&author1={작성자1}&views1={조회수1}&votes1={추천수1}&...&page={페이지})
+
+【예시】
 ![](https://community.bluehair.blue/ent/?board=프라임시티%20갤러리&post1=서윤%20신곡%20뮤비%20떴다&author1=ㅇㅇ&views1=2847&votes1=142&post2=오디션%203라운드%20결과%20예측&author2=갤주&views2=1523&votes2=89&post3=강하람%20라이브%20방송%20캡쳐&author3=ㅇㅇ&views3=987&votes3=56&post4=이서하%20작곡%20목록%20정리&author4=음갤러&views4=3241&votes4=201&post5=엘라%20직캠%20모음&author5=ㅇㅇ&views5=1876&votes5=94&page=1)`,
   },
 ];
