@@ -499,7 +499,7 @@ export const svgTemplates = [
 - 한국어는 그대로 사용 가능 (브라우저 자동 인코딩)
 
 이미지 출력 시 SNS 포스트 형태로 표시:
-![](https://svg-sns.your-worker.dev/?username=seoyun_official&caption=프라임시티의%20밤은%20끝나지%20않는다.&likes=24%2C891&comments=1%2C204&time=2시간%20전&location=The%20Core%2C%20Prime%20City)`,
+![](https://insta.bluehair.blue/ent/?username=seoyun_official&caption=프라임시티의%20밤은%20끝나지%20않는다.&likes=24%2C891&comments=1%2C204&time=2시간%20전&location=The%20Core%2C%20Prime%20City)`,
   },
   {
     id: "tweet",
@@ -541,7 +541,7 @@ export const svgTemplates = [
 - 한국어는 그대로 사용 가능 (브라우저 자동 인코딩)
 
 트윗 형태로 캐릭터의 SNS 활동을 표시:
-![](https://svg-tweet.your-worker.dev/?name=나하린&handle=@naharin_apex&content=재능%20있는%20사람이%20어디까지%20가는지...%20그걸%20구경하는%20게%20제일%20재밌지%20않아%3F&retweets=3%2C847&likes=18%2C291&time=오후%2011:42)`,
+![](https://twit.bluehair.blue/ent/?name=나하린&handle=@naharin_apex&content=재능%20있는%20사람이%20어디까지%20가는지...%20그걸%20구경하는%20게%20제일%20재밌지%20않아%3F&retweets=3%2C847&likes=18%2C291&time=오후%2011:42)`,
   },
   {
     id: "livestream",
@@ -585,7 +585,7 @@ export const svgTemplates = [
 - 한국어는 그대로 사용 가능 (브라우저 자동 인코딩)
 
 라이브 방송 화면 형태로 출력:
-![](https://svg-livestream.your-worker.dev/?streamer=강하람&title=데뷔%20연습%20라이브!%20오늘%20열심히%20해볼게요&viewers=12%2C847&category=음악&chat1=화이팅!!!&chat2=목소리%20너무%20좋다&chat3=앵콜%20앵콜!!!)`,
+![](https://live.bluehair.blue/ent/?streamer=강하람&title=데뷔%20연습%20라이브!%20오늘%20열심히%20해볼게요&viewers=12%2C847&category=음악&chat1=화이팅!!!&chat2=목소리%20너무%20좋다&chat3=앵콜%20앵콜!!!)`,
   },
   {
     id: "messenger",
@@ -627,7 +627,7 @@ export const svgTemplates = [
 - 한국어는 그대로 사용 가능 (브라우저 자동 인코딩)
 
 메신저 대화 형태로 출력:
-![](https://svg-messenger.your-worker.dev/?contact=이서하&msg1=내일%20스튜디오%20올%20수%20있어&msg2=새%20곡%20작업하려고%20하는데&reply1=네!%20몇%20시에%20갈까요&reply2=기대돼요&time=오후%209:15)`,
+![](https://talk.bluehair.blue/ent/?contact=이서하&msg1=내일%20스튜디오%20올%20수%20있어&msg2=새%20곡%20작업하려고%20하는데&reply1=네!%20몇%20시에%20갈까요&reply2=기대돼요&time=오후%209:15)`,
   },
   {
     id: "news",
@@ -669,7 +669,7 @@ export const svgTemplates = [
 - 한국어는 그대로 사용 가능 (브라우저 자동 인코딩)
 
 뉴스 속보 형태로 출력:
-![](https://svg-news.your-worker.dev/?channel=PRIME%20NEWS&headline=APEX%20엔터%20신인%20오디션%20최종%20라운드%20돌입&sub=나하린%20프로듀서%20직접%20심사&reporter=김기자&time=LIVE%20오후%208:00&ticker=프라임시티%20엔터테인먼트%20지수%20사상%20최고치%20경신)`,
+![](https://news.bluehair.blue/ent/?channel=PRIME%20NEWS&headline=APEX%20엔터%20신인%20오디션%20최종%20라운드%20돌입&sub=나하린%20프로듀서%20직접%20심사&reporter=김기자&time=LIVE%20오후%208:00&ticker=프라임시티%20엔터테인먼트%20지수%20사상%20최고치%20경신)`,
   },
   {
     id: "chart",
@@ -709,7 +709,7 @@ export const svgTemplates = [
 - 한국어는 그대로 사용 가능 (브라우저 자동 인코딩)
 
 음원 차트 형태로 출력:
-![](https://svg-chart.your-worker.dev/?chart=PRIME%20CHART&song1=Zero%20Point&artist1=서윤&change1=—&song2=Midnight%20Signal&artist2=이서하&change2=▲2&song3=불꽃처럼&artist3=강하람&change3=NEW&song4=Masquerade&artist4=엘라&change4=▼1&song5=자유낙하&artist5=밀라&change5=▲5&time=2026.03.22%2020:00%20기준)`,
+![](https://chart.bluehair.blue/ent/?chart=PRIME%20CHART&song1=Zero%20Point&artist1=서윤&change1=—&song2=Midnight%20Signal&artist2=이서하&change2=▲2&song3=불꽃처럼&artist3=강하람&change3=NEW&song4=Masquerade&artist4=엘라&change4=▼1&song5=자유낙하&artist5=밀라&change5=▲5&time=2026.03.22%2020:00%20기준)`,
   },
   {
     id: "community",
@@ -750,6 +750,6 @@ export const svgTemplates = [
 - 한국어는 그대로 사용 가능 (브라우저 자동 인코딩)
 
 커뮤니티 게시판 형태로 출력:
-![](https://svg-community.your-worker.dev/?board=프라임시티%20갤러리&post1=서윤%20신곡%20뮤비%20떴다&author1=ㅇㅇ&views1=2847&votes1=142&post2=오디션%203라운드%20결과%20예측&author2=갤주&views2=1523&votes2=89&post3=강하람%20라이브%20방송%20캡쳐&author3=ㅇㅇ&views3=987&votes3=56&post4=이서하%20작곡%20목록%20정리&author4=음갤러&views4=3241&votes4=201&post5=엘라%20직캠%20모음&author5=ㅇㅇ&views5=1876&votes5=94&page=1)`,
+![](https://community.bluehair.blue/ent/?board=프라임시티%20갤러리&post1=서윤%20신곡%20뮤비%20떴다&author1=ㅇㅇ&views1=2847&votes1=142&post2=오디션%203라운드%20결과%20예측&author2=갤주&views2=1523&votes2=89&post3=강하람%20라이브%20방송%20캡쳐&author3=ㅇㅇ&views3=987&votes3=56&post4=이서하%20작곡%20목록%20정리&author4=음갤러&views4=3241&votes4=201&post5=엘라%20직캠%20모음&author5=ㅇㅇ&views5=1876&votes5=94&page=1)`,
   },
 ];
