@@ -8,6 +8,18 @@ export const TEMPLATE_CATEGORIES = {
   UTILITY: "유틸리티",
 };
 
+// ── CDN asset mapping: char code → image URLs ──
+const SVG_CDN = "https://img.bluehair.blue/ent";
+function charAssets(code) {
+  if (!code) return {};
+  return {
+    avatar: `${SVG_CDN}/${code}/svg/avatar.webp`,
+    post:   `${SVG_CDN}/${code}/svg/post.webp`,
+    stream: `${SVG_CDN}/${code}/svg/stream.webp`,
+    news:   `${SVG_CDN}/${code}/svg/news.webp`,
+  };
+}
+
 // ── Safe image URL helper ──
 function safeImageUrl(url) {
   if (!url) return null;
@@ -26,8 +38,9 @@ function generateSnsPost(p) {
   const comments = p.comments || "1,204";
   const time = p.time || "2시간 전";
   const location = p.location || "The Core, Prime City";
-  const avatarUrl = safeImageUrl(p.avatar);
-  const imageUrl = safeImageUrl(p.image);
+  const assets = charAssets(p.char);
+  const avatarUrl = safeImageUrl(p.avatar) || safeImageUrl(assets.avatar);
+  const imageUrl = safeImageUrl(p.image) || safeImageUrl(assets.post);
 
   const avatarSvg = avatarUrl
     ? `<defs><clipPath id="avatar-clip"><circle cx="24" cy="24" r="18"/></clipPath></defs>
@@ -101,7 +114,8 @@ function generateTweet(p) {
   const retweets = p.retweets || "3,847";
   const likes = p.likes || "18,291";
   const time = p.time || "오후 11:42";
-  const avatarUrl = safeImageUrl(p.avatar);
+  const assets = charAssets(p.char);
+  const avatarUrl = safeImageUrl(p.avatar) || safeImageUrl(assets.avatar);
 
   // Word wrap content
   const maxCharsPerLine = 32;
@@ -156,8 +170,9 @@ function generateLivestream(p) {
   const chat1 = p.chat1 || "화이팅!!!";
   const chat2 = p.chat2 || "목소리 너무 좋다";
   const chat3 = p.chat3 || "앵콜 앵콜!!!";
-  const avatarUrl = safeImageUrl(p.avatar);
-  const imageUrl = safeImageUrl(p.image);
+  const assets = charAssets(p.char);
+  const avatarUrl = safeImageUrl(p.avatar) || safeImageUrl(assets.avatar);
+  const imageUrl = safeImageUrl(p.image) || safeImageUrl(assets.stream);
 
   const avatarSvg = avatarUrl
     ? `<defs><clipPath id="ls-avatar-clip"><circle cx="18" cy="18" r="18"/></clipPath></defs>
@@ -245,7 +260,8 @@ function generateMessenger(p) {
   const reply1 = p.reply1 || "네! 몇 시에 갈까요";
   const reply2 = p.reply2 || "기대돼요";
   const time = p.time || "오후 9:15";
-  const avatarUrl = safeImageUrl(p.avatar);
+  const assets = charAssets(p.char);
+  const avatarUrl = safeImageUrl(p.avatar) || safeImageUrl(assets.avatar);
 
   const avatarSvg = avatarUrl
     ? `<defs><clipPath id="msg-avatar-clip"><circle cx="56" cy="28" r="16"/></clipPath></defs>
@@ -308,7 +324,8 @@ function generateNews(p) {
   const reporter = p.reporter || "김기자";
   const time = p.time || "LIVE 오후 8:00";
   const ticker = p.ticker || "프라임시티 엔터테인먼트 지수 사상 최고치 경신";
-  const imageUrl = safeImageUrl(p.image);
+  const assets = charAssets(p.char);
+  const imageUrl = safeImageUrl(p.image) || safeImageUrl(assets.news);
 
   const newsImageSvg = imageUrl
     ? `<image href="${imageUrl}" x="300" y="84" width="180" height="140" preserveAspectRatio="xMidYMid slice"/>`
@@ -472,8 +489,7 @@ export const svgTemplates = [
       { name: "comments", desc: "댓글 수", example: "1,204" },
       { name: "time", desc: "게시 시간", example: "2시간 전" },
       { name: "location", desc: "위치", example: "The Core, Prime City" },
-      { name: "avatar", desc: "프로필 이미지 URL", example: "https://example.com/avatar.png" },
-      { name: "image", desc: "게시물 이미지 URL", example: "https://example.com/post.png" },
+      { name: "char", desc: "캐릭터코드 → 아바타/이미지 자동", example: "SY" },
     ],
     sampleParams: {},
     generate: generateSnsPost,
@@ -501,8 +517,9 @@ export const svgTemplates = [
 - comments: 댓글 수
 - time: 게시 시점 (예: 방금, 1시간%20전)
 - location: 게시 장소 (구역명 등)
-- avatar: 프로필 이미지 URL (선택)
-- image: 게시물 이미지 URL (선택)
+- char: 캐릭터코드 (SY, NHR 등) → 아바타/이미지 자동 매핑
+- avatar: 프로필 이미지 직접 지정 (선택, char보다 우선)
+- image: 게시물 이미지 직접 지정 (선택, char보다 우선)
 
 【출력 위치】
 캐릭터가 SNS 게시물을 올리거나, 다른 캐릭터의 SNS를 확인하는 장면에서
@@ -513,10 +530,10 @@ export const svgTemplates = [
 <, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.
 
 【양식】
-![](https://insta.bluehair.blue/ent/?username={아이디}&caption={본문}&likes={좋아요수}&comments={댓글수}&time={시간}&location={장소})
+![](https://insta.bluehair.blue/ent/?char={캐릭터코드}&username={아이디}&caption={본문}&likes={좋아요수}&comments={댓글수}&time={시간}&location={장소})
 
 【예시】
-![](https://insta.bluehair.blue/ent/?username=seoyun_official&caption=프라임시티의%20밤은%20끝나지%20않는다.&likes=24%2C891&comments=1%2C204&time=2시간%20전&location=The%20Core%2C%20Prime%20City)`,
+![](https://insta.bluehair.blue/ent/?char=SY&username=seoyun_official&caption=프라임시티의%20밤은%20끝나지%20않는다.&likes=24%2C891&comments=1%2C204&time=2시간%20전&location=The%20Core%2C%20Prime%20City)`,
   },
   {
     id: "tweet",
@@ -532,7 +549,7 @@ export const svgTemplates = [
       { name: "retweets", desc: "리포스트 수", example: "3,847" },
       { name: "likes", desc: "좋아요 수", example: "18,291" },
       { name: "time", desc: "게시 시간", example: "오후 11:42" },
-      { name: "avatar", desc: "프로필 이미지 URL", example: "https://example.com/avatar.png" },
+      { name: "char", desc: "캐릭터코드 → 아바타 자동", example: "NHR" },
     ],
     sampleParams: {},
     generate: generateTweet,
@@ -560,7 +577,8 @@ export const svgTemplates = [
 - retweets: 리포스트 수
 - likes: 좋아요 수
 - time: 게시 시간
-- avatar: 프로필 이미지 URL (선택)
+- char: 캐릭터코드 (SY, NHR 등) → 아바타 자동 매핑
+- avatar: 프로필 이미지 직접 지정 (선택, char보다 우선)
 
 【출력 위치】
 캐릭터의 SNS 발언이 화제가 되거나, 트윗을 확인하는 장면에서
@@ -571,10 +589,10 @@ export const svgTemplates = [
 <, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.
 
 【양식】
-![](https://twit.bluehair.blue/ent/?name={이름}&handle={핸들}&content={본문}&retweets={리포수}&likes={좋아요수}&time={시간})
+![](https://twit.bluehair.blue/ent/?char={캐릭터코드}&name={이름}&handle={핸들}&content={본문}&retweets={리포수}&likes={좋아요수}&time={시간})
 
 【예시】
-![](https://twit.bluehair.blue/ent/?name=나하린&handle=@naharin_apex&content=재능%20있는%20사람이%20어디까지%20가는지...%20구경하는%20게%20제일%20재밌지%20않아%3F&retweets=3%2C847&likes=18%2C291&time=오후%2011:42)`,
+![](https://twit.bluehair.blue/ent/?char=NHR&name=나하린&handle=@naharin_apex&content=재능%20있는%20사람이%20어디까지%20가는지...%20구경하는%20게%20제일%20재밌지%20않아%3F&retweets=3%2C847&likes=18%2C291&time=오후%2011:42)`,
   },
   {
     id: "livestream",
@@ -591,8 +609,7 @@ export const svgTemplates = [
       { name: "chat1", desc: "채팅 메시지 1", example: "화이팅!!!" },
       { name: "chat2", desc: "채팅 메시지 2", example: "목소리 너무 좋다" },
       { name: "chat3", desc: "채팅 메시지 3", example: "앵콜 앵콜!!!" },
-      { name: "avatar", desc: "스트리머 프로필 이미지 URL", example: "https://example.com/avatar.png" },
-      { name: "image", desc: "방송 미리보기 이미지 URL", example: "https://example.com/stream.png" },
+      { name: "char", desc: "캐릭터코드 → 아바타/프리뷰 자동", example: "KHR" },
     ],
     sampleParams: {},
     generate: generateLivestream,
@@ -631,10 +648,10 @@ export const svgTemplates = [
 <, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.
 
 【양식】
-![](https://live.bluehair.blue/ent/?streamer={이름}&title={방송제목}&viewers={시청자수}&category={카테고리}&chat1={채팅1}&chat2={채팅2}&chat3={채팅3})
+![](https://live.bluehair.blue/ent/?char={캐릭터코드}&streamer={이름}&title={방송제목}&viewers={시청자수}&category={카테고리}&chat1={채팅1}&chat2={채팅2}&chat3={채팅3})
 
 【예시】
-![](https://live.bluehair.blue/ent/?streamer=강하람&title=데뷔%20연습%20라이브!%20오늘%20열심히%20해볼게요&viewers=12%2C847&category=음악&chat1=화이팅!!!&chat2=목소리%20너무%20좋다&chat3=앵콜%20앵콜!!!)`,
+![](https://live.bluehair.blue/ent/?char=KHR&streamer=강하람&title=데뷔%20연습%20라이브!%20오늘%20열심히%20해볼게요&viewers=12%2C847&category=음악&chat1=화이팅!!!&chat2=목소리%20너무%20좋다&chat3=앵콜%20앵콜!!!)`,
   },
   {
     id: "messenger",
@@ -650,7 +667,7 @@ export const svgTemplates = [
       { name: "reply1", desc: "내 답장 1", example: "네! 몇 시에 갈까요" },
       { name: "reply2", desc: "내 답장 2", example: "기대돼요" },
       { name: "time", desc: "시간", example: "오후 9:15" },
-      { name: "avatar", desc: "상대방 프로필 이미지 URL", example: "https://example.com/avatar.png" },
+      { name: "char", desc: "캐릭터코드 → 아바타 자동", example: "LSH" },
     ],
     sampleParams: {},
     generate: generateMessenger,
@@ -687,10 +704,10 @@ export const svgTemplates = [
 <, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.
 
 【양식】
-![](https://talk.bluehair.blue/ent/?contact={이름}&msg1={메시지1}&msg2={메시지2}&reply1={답장1}&reply2={답장2}&time={시각})
+![](https://talk.bluehair.blue/ent/?char={캐릭터코드}&contact={이름}&msg1={메시지1}&msg2={메시지2}&reply1={답장1}&reply2={답장2}&time={시각})
 
 【예시】
-![](https://talk.bluehair.blue/ent/?contact=이서하&msg1=내일%20스튜디오%20올%20수%20있어&msg2=새%20곡%20작업하려고%20하는데&reply1=네!%20몇%20시에%20갈까요&reply2=기대돼요&time=오후%209:15)`,
+![](https://talk.bluehair.blue/ent/?char=LSH&contact=이서하&msg1=내일%20스튜디오%20올%20수%20있어&msg2=새%20곡%20작업하려고%20하는데&reply1=네!%20몇%20시에%20갈까요&reply2=기대돼요&time=오후%209:15)`,
   },
   {
     id: "news",
@@ -706,7 +723,7 @@ export const svgTemplates = [
       { name: "reporter", desc: "기자명", example: "김기자" },
       { name: "time", desc: "방송 시간", example: "LIVE 오후 8:00" },
       { name: "ticker", desc: "하단 티커 텍스트", example: "프라임시티 엔터테인먼트 지수 사상 최고치 경신" },
-      { name: "image", desc: "뉴스 이미지 URL", example: "https://example.com/news.png" },
+      { name: "char", desc: "캐릭터코드 → 뉴스 이미지 자동", example: "SY" },
     ],
     sampleParams: {},
     generate: generateNews,
@@ -734,7 +751,8 @@ export const svgTemplates = [
 - reporter: 기자명
 - time: 방송 시각 (LIVE 포함 가능)
 - ticker: 하단 스크롤 자막 (관련 속보 요약)
-- image: 뉴스 이미지 URL (선택)
+- char: 캐릭터코드 (SY, NHR 등) → 뉴스 이미지 자동 매핑
+- image: 뉴스 이미지 직접 지정 (선택, char보다 우선)
 
 【출력 위치】
 방송 뉴스가 나오는 장면, 긴급 속보가 전달되는 장면에서
@@ -745,10 +763,10 @@ export const svgTemplates = [
 <, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.
 
 【양식】
-![](https://news.bluehair.blue/ent/?channel={채널명}&headline={헤드라인}&sub={부제}&reporter={기자명}&time={시각}&ticker={자막})
+![](https://news.bluehair.blue/ent/?char={캐릭터코드}&channel={채널명}&headline={헤드라인}&sub={부제}&reporter={기자명}&time={시각}&ticker={자막})
 
 【예시】
-![](https://news.bluehair.blue/ent/?channel=PRIME%20NEWS&headline=APEX%20엔터%20신인%20오디션%20최종%20라운드%20돌입&sub=나하린%20프로듀서%20직접%20심사&reporter=김기자&time=LIVE%20오후%208:00&ticker=프라임시티%20엔터테인먼트%20지수%20사상%20최고치%20경신)`,
+![](https://news.bluehair.blue/ent/?char=SY&channel=PRIME%20NEWS&headline=APEX%20엔터%20신인%20오디션%20최종%20라운드%20돌입&sub=나하린%20프로듀서%20직접%20심사&reporter=김기자&time=LIVE%20오후%208:00&ticker=프라임시티%20엔터테인먼트%20지수%20사상%20최고치%20경신)`,
   },
   {
     id: "chart",
