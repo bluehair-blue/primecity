@@ -138,7 +138,7 @@ primecity/
 │   ├── pages/
 │   │   ├── Home.jsx        ← 메인 랜딩 (전체 섹션 조합)
 │   │   ├── CharDetail.jsx  ← /characters/:name (시네마틱 인트로 + HUD + 프로필 + 미리보기)
-│   │   ├── SvgIntro.jsx    ← /svg (동적 SVG 템플릿 갤러리, 6종)
+│   │   ├── SvgIntro.jsx    ← /svg (동적 SVG 템플릿 갤러리, 7종)
 │   │   ├── Gallery.jsx     ← /gallery (메이슨리 + 소속사 아코디언 필터 + 라이트박스 + NSFW)
 │   │   ├── Updates.jsx     ← /updates (업데이트 로그, 타임라인)
 │   │   ├── Contact.jsx     ← /contact (문의 창구)
@@ -152,11 +152,11 @@ primecity/
 │   ├── data/
 │   │   ├── characters.js   ← 캐릭터 데이터 배열 (15명, cdnId/job/background/taste/goal/expressions 포함)
 │   │   ├── gallery.js      ← 갤러리 아이템 데이터 (도시9 + 캐릭터당 74코드 × 15명, NSFW 포함)
-│   │   ├── svgTemplates.js  ← SVG 템플릿 정의 (6종: SNS/트윗/라이브/메신저/뉴스/차트)
+│   │   ├── svgTemplates.js  ← SVG 템플릿 정의 (7종: SNS/트윗/라이브/메신저/뉴스/차트/커뮤니티)
 │   │   ├── districts.js    ← 구역 데이터 배열 (4구역)
 │   │   └── gamemodes.js    ← 게임 모드 데이터 (3모드)
 │   ├── utils/
-│   │   └── cdn.js          ← CDN URL 유틸 (cdnUrl, cdnExprUrl, EXPRESSION_KEYS/LABELS)
+│   │   └── cdn.js          ← CDN URL 유틸 (cdnUrl, cdnExprUrl, SCENE_CODE_MAP, EXPRESSION_KEYS/LABELS)
 │   ├── hooks/
 │   │   ├── useIsMobile.js
 │   │   └── useReveal.js
@@ -602,6 +602,17 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [x] Worker 참조 파일 6개 (workers/ 디렉토리, 별도 배포)
 - [x] App.jsx lazy + Suspense + NotFound 404 페이지 (다른 세션에서 추가된 리팩토링 통합)
 
+#### SVG 템플릿 오버홀
+- [x] 모바일 모달 닫기 버튼 위치 수정 (top:64, 44x44 터치 영역)
+- [x] popstate 핸들러 (뒤로가기 시 모달 닫기, 홈 이탈 방지)
+- [x] 커뮤니티 보드 신규 템플릿 추가 (DCInside 스타일, 7종째)
+- [x] 전 템플릿 동적 애니메이션 (하트/채팅스크롤/타이핑점/배너플래시/골드글로우/스위프)
+- [x] 외부 이미지 지원 (char 파라미터 → CDN 자동 매핑, safeImageUrl 보안)
+- [x] promptExample 프로덕션 프롬프트로 교체 (라벨설명/출력위치/양식/예시 구분)
+- [x] URL 인코딩 규칙 명시 (%20, %2C, %3F, 금지문자)
+- [x] Cloudflare Workers 7개 배포 완료 (svg-insta/twit/live/talk/news/chart/community)
+- [x] 운영 도메인 설정: `{종류}.bluehair.blue/ent/` (7개 라우트)
+
 #### CityMap 모바일 개선
 - [x] 더블탭 네비게이션 → 싱글탭 툴팁 + "자세히 보기 →" 버튼으로 변경
 
@@ -630,9 +641,16 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 #### 우선순위 높음 — 에셋 제작
 - [ ] 캐릭터 이미지 에셋 제작 + CDN 업로드 (4/15 완료, 11명 플레이스홀더)
 - [ ] 캐릭터 표정/상황 WebP 에셋 생성 (NAI 프리셋 사용) + CDN 업로드 (파일명: {숫자}.webp)
+- [ ] SVG 전용 에셋 제작 + CDN 업로드 (경로: `ent/{cdnId}/svg/{type}.webp`)
+  - avatar.webp (1:1 정사각, 프로필) × 15명
+  - post.webp (4:3 가로, SNS 게시물) × 필요 캐릭터
+  - stream.webp (5:3 가로, 방송 프리뷰) × 필요 캐릭터
+  - news.webp (16:9 가로, 뉴스 이미지) × 필요 캐릭터
 - [ ] CharDetail 히어로 전용 와이드 에셋 검토 (현재 2:3 세로형 이미지를 풀스크린에 사용 중)
 
-#### 우선순위 중간 — 콘텐츠 보강
+#### 우선순위 중간 — 코드 동기화
+- [ ] Workers 7개에 charAssets() 함수 동기화 + 재배포
+- [ ] 챗봇 메인 프롬프트에 SVG 출력 규칙 통합 (docs/연예계 챗봇 메인 프롬프트.txt)
 - [ ] Works 페이지에 추가 작품 등록 (현재 프라임시티만)
 
 #### 우선순위 낮음 — 품질 관리
