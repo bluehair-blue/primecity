@@ -265,7 +265,10 @@ export default function HeroSlider({ isMobile }) {
           zIndex: 2,
         }}
       >
-        <button
+        <a
+          href="https://www.eden-chat.com/works/35e68463-aba5-488e-ac42-1ea15234df1f"
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
             padding: isMobile ? "13px 0" : "13px 38px",
             width: isMobile ? "100%" : "auto",
@@ -280,10 +283,13 @@ export default function HeroSlider({ isMobile }) {
             fontFamily: "var(--f-body)",
             boxShadow: `0 0 28px ${C.goldGlow}`,
             transition: "all 0.4s",
+            textDecoration: "none",
+            textAlign: "center",
+            display: "inline-block",
           }}
         >
           플레이 시작
-        </button>
+        </a>
         <a
           href="#world"
           style={{ width: isMobile ? "100%" : "auto", textDecoration: "none" }}
