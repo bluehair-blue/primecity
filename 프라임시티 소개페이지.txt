@@ -89,6 +89,38 @@
 <div class="gl"></div>
 <p class="ds">자동화가 모든 것을 대체한 근미래. 사람이 자신의 가치를 증명할 수 있는 무대는 단 하나 — 엔터테인먼트.<br><br>프라임시티는 그 정점에 있다. 이곳에 입성한다는 것 자체가, 업계에서 인정받았다는 의미.</p>
 </section>
+<section class="sc" id="images" style="padding-top:16px;">
+<span class="lb">Image System</span>
+<h2 class="tt" style="font-size:clamp(16px,4vw,22px);">대화 속 자동 이미지 출력</h2>
+<div class="gl"></div>
+<p class="ds" style="margin-bottom:16px;">챗봇이 상황·감정을 분석하여 대사 직전에 이미지를 자동 출력합니다.<br>15명 × 74장 = 총 1,110장.</p>
+<div style="text-align:left;max-width:480px;margin:0 auto;">
+<div style="font-family:monospace;font-size:11px;color:oklch(1.0 0 0/0.5);padding:8px 12px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(0.76 0.12 80/0.08);margin-bottom:12px;overflow-x:auto;white-space:nowrap;">img.bluehair.blue/ent/<span style="color:oklch(0.76 0.12 80);">{코드}</span>/<span style="color:oklch(0.76 0.12 80);">{번호}</span>.webp</div>
+<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;">
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">SY 서윤</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">NHR 나하린</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">JSH 진시혁</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">ERK 에리카</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">LSH 이서하</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">HSR 한소리</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">KHR 강하람</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">JGR 장그루</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">MIL 밀라</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">ELA 엘라</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">MMR 미모리</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">HSE 하시은</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">NIA 니아</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">RAY 레이</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">LPS 라피스</span>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+<div style="padding:6px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:11px;color:oklch(1.0 0 0/0.6);">감정</div><div style="font-family:monospace;font-size:10px;color:oklch(0.76 0.12 80);">1–8 <span style="color:oklch(1.0 0 0/0.25);">· 8장</span></div></div>
+<div style="padding:6px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:11px;color:oklch(1.0 0 0/0.6);">일상</div><div style="font-family:monospace;font-size:10px;color:oklch(0.65 0.10 240);">10–18 <span style="color:oklch(1.0 0 0/0.25);">· 9장</span></div></div>
+<div style="padding:6px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:11px;color:oklch(1.0 0 0/0.6);">NSFW</div><div style="font-family:monospace;font-size:10px;color:oklch(0.65 0.12 340);">20–67 <span style="color:oklch(1.0 0 0/0.25);">· 41장</span></div></div>
+<div style="padding:6px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:11px;color:oklch(1.0 0 0/0.6);">착의</div><div style="font-family:monospace;font-size:10px;color:oklch(0.72 0.10 170);">70–86 <span style="color:oklch(1.0 0 0/0.25);">· 16장</span></div></div>
+</div>
+</div>
+</section>
 </div>
 <div class="sp"><div class="sd"></div></div>
 <div class="w">

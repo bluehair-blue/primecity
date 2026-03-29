@@ -10,6 +10,117 @@ import Seo from "../components/Seo";
 
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
+const CHAR_CODES = [
+  { code: "SY", name: "서윤" }, { code: "NHR", name: "나하린" },
+  { code: "JSH", name: "진시혁" }, { code: "ERK", name: "에리카" },
+  { code: "LSH", name: "이서하" }, { code: "HSR", name: "한소리" },
+  { code: "KHR", name: "강하람" }, { code: "JGR", name: "장그루" },
+  { code: "MIL", name: "밀라" }, { code: "ELA", name: "엘라" },
+  { code: "MMR", name: "미모리" }, { code: "HSE", name: "하시은" },
+  { code: "NIA", name: "니아" }, { code: "RAY", name: "레이" },
+  { code: "LPS", name: "라피스" },
+];
+
+const SCENE_CATEGORIES = [
+  { label: "감정", en: "Emotion", range: "1–8", count: 8, accent: C.gold },
+  { label: "일상", en: "Daily", range: "10–18", count: 9, accent: C.distMid },
+  { label: "NSFW", en: "Non-insertion", range: "20–42", count: 23, accent: C.distHype },
+  { label: "NSFW", en: "Insertion", range: "50–67", count: 18, accent: C.distHype },
+  { label: "착의", en: "Clothed", range: "70–86", count: 16, accent: C.charEri },
+];
+
+function ImageSystemInfo({ isMobile }) {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <div style={{ margin: isMobile ? "20px 0 28px" : "28px 0 40px" }}>
+      <button
+        onClick={() => setExpanded(!expanded)}
+        style={{
+          display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+          width: "100%", padding: "10px 0",
+          fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.2em",
+          textTransform: "uppercase", color: C.text25,
+          background: "transparent", border: "none", cursor: "pointer",
+          transition: `color 0.3s ${EASE}`,
+        }}
+        onMouseEnter={(e) => { e.currentTarget.style.color = C.gold; }}
+        onMouseLeave={(e) => { e.currentTarget.style.color = C.text25; }}
+      >
+        Image System {expanded ? "▾" : "▸"}
+      </button>
+
+      {expanded && (
+        <div style={{
+          padding: isMobile ? "16px 14px" : "24px 28px",
+          background: C.bgCard, border: `1px solid ${C.border06}`,
+          animation: "fadeSlideDown 0.3s ease",
+        }}>
+          <style>{`@keyframes fadeSlideDown { from { opacity:0; transform:translateY(-8px) } to { opacity:1; transform:translateY(0) } }`}</style>
+
+          {/* URL format */}
+          <div style={{ marginBottom: 16 }}>
+            <span style={{ fontFamily: "var(--f-display-en)", fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: C.gold }}>
+              CDN Path
+            </span>
+            <pre style={{
+              fontFamily: "monospace", fontSize: isMobile ? 10 : 12,
+              color: C.text55, margin: "6px 0 0", padding: "8px 12px",
+              background: C.bgDeep, border: `1px solid ${C.border05}`,
+              overflowX: "auto", whiteSpace: "pre",
+            }}>
+              img.bluehair.blue/ent/<span style={{ color: C.gold }}>{"{"}</span>캐릭터코드<span style={{ color: C.gold }}>{"}"}</span>/<span style={{ color: C.gold }}>{"{"}</span>상황코드<span style={{ color: C.gold }}>{"}"}</span>.webp
+            </pre>
+          </div>
+
+          {/* Character codes */}
+          <div style={{ marginBottom: 16 }}>
+            <span style={{ fontFamily: "var(--f-display-en)", fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: C.gold }}>
+              Character Codes — 15
+            </span>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 8 }}>
+              {CHAR_CODES.map((c) => (
+                <span key={c.code} style={{
+                  fontSize: 10, padding: "3px 8px",
+                  background: C.bgDeep, border: `1px solid ${C.border05}`,
+                  color: C.text45, fontFamily: "var(--f-body)",
+                }}>
+                  <span style={{ fontFamily: "monospace", color: C.text55 }}>{c.code}</span>
+                  <span style={{ color: C.text25, margin: "0 4px" }}>·</span>
+                  {c.name}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Scene code categories */}
+          <div>
+            <span style={{ fontFamily: "var(--f-display-en)", fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: C.gold }}>
+              Scene Codes — 74 per character
+            </span>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 8, marginTop: 8 }}>
+              {SCENE_CATEGORIES.map((sc) => (
+                <div key={sc.range} style={{
+                  padding: "8px 12px",
+                  background: C.bgDeep, border: `1px solid ${C.border05}`,
+                }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                    <span style={{ fontFamily: "var(--f-body)", fontSize: 12, fontWeight: 500, color: C.white }}>{sc.label}</span>
+                    <span style={{ fontFamily: "monospace", fontSize: 10, color: sc.accent }}>{sc.range}</span>
+                  </div>
+                  <div style={{ fontFamily: "var(--f-display-en)", fontSize: 9, color: C.text25, marginTop: 2 }}>
+                    {sc.en} · {sc.count}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Gallery() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [category, setCategory] = useState(CATEGORIES.ALL);
@@ -156,8 +267,15 @@ export default function Gallery() {
               <h1 style={{ fontFamily: "var(--f-display-kr)", fontSize: isMobile ? "clamp(24px,6vw,32px)" : "clamp(30px,3.5vw,44px)", fontWeight: 700, color: C.white, margin: 0 }}>
                 아트 갤러리
               </h1>
-              <div style={{ width: 56, height: 1, margin: isMobile ? "20px auto 28px" : "28px auto 40px", background: `linear-gradient(90deg, transparent, ${C.gold}, transparent)` }} />
+              <p style={{ fontFamily: "var(--f-body)", fontSize: 12, color: C.text35, margin: "8px auto 0", maxWidth: 480, lineHeight: 1.7, fontWeight: 300, wordBreak: "keep-all" }}>
+                챗봇이 대화 중 상황·감정을 분석하여 자동으로 출력하는 이미지 컬렉션.
+                <br />15명 × 74장 = 총 1,110장.
+              </p>
+              <div style={{ width: 56, height: 1, margin: isMobile ? "20px auto 0" : "28px auto 0", background: `linear-gradient(90deg, transparent, ${C.gold}, transparent)` }} />
             </div>
+
+            {/* ══════════ Image System Info ══════════ */}
+            <ImageSystemInfo isMobile={isMobile} />
 
             {/* ══════════ Filter Bar ══════════ */}
             <div style={{ marginBottom: isMobile ? 24 : 36 }}>
