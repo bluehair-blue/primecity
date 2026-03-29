@@ -487,6 +487,32 @@ cdnExprUrl("SY", "happy") → https://img.bluehair.blue/ent/SY/3.webp?v=1
 
 > **중요**: `npm run deploy` (wrangler CLI)는 API 토큰 설정 필요. 비대화형 환경에서는 git push 방식 사용.
 
+### SVG Worker 배포 (8개)
+
+프로젝트 루트의 `wrangler.jsonc`가 Pages 설정이므로, Worker 개별 배포 시 전용 config 필요:
+```bash
+# workers/ 디렉토리에 임시 wrangler.toml 생성 후 배포
+cd workers
+cat > wrangler.toml << 'EOF'
+name = "svg-tablet"
+main = "svg-tablet.js"
+compatibility_date = "2024-01-01"
+EOF
+npx wrangler deploy --config wrangler.toml
+rm wrangler.toml
+```
+
+| Worker | 파일 | 도메인 |
+|---|---|---|
+| svg-insta | svg-sns.js | insta.bluehair.blue/ent/ |
+| svg-twit | svg-tweet.js | twit.bluehair.blue/ent/ |
+| svg-live | svg-livestream.js | live.bluehair.blue/ent/ |
+| svg-talk | svg-messenger.js | talk.bluehair.blue/ent/ |
+| svg-news | svg-news.js | news.bluehair.blue/ent/ |
+| svg-chart | svg-chart.js | chart.bluehair.blue/ent/ |
+| svg-community | svg-community.js | community.bluehair.blue/ent/ |
+| svg-tablet | svg-tablet.js | tablet.bluehair.blue/ent/ |
+
 ### SPA 라우팅 처리
 
 `wrangler.jsonc`의 assets 설정으로 SPA 라우팅 자동 처리:
@@ -733,14 +759,33 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
   - news.webp (16:9 가로, 뉴스 이미지) × 필요 캐릭터
 - [ ] CharDetail 히어로 전용 와이드 에셋 검토 (현재 2:3 세로형 이미지를 풀스크린에 사용 중)
 
-#### 직업군 모드 + SVG 업데이트 (이번 세션 완료)
+#### 직업군 모드 + SVG + 이미지 시스템 업데이트
 - [x] gamemodes.js 확장: mainModes(3) + careerModes(5) 분리 export
 - [x] GameModes.jsx UI 개편: 메인 탭(3) + 직업군 카드 그리드(5) 이중 구조
 - [x] 직업군 상세 페이지 5개 생성 (ModeManager/ModeTrainee/ModeComposer/ModeActor/ModeInfluencer)
 - [x] App.jsx 라우트 5개 추가 (총 16개)
 - [x] 챗봇 소개 HTML에 직업군 모드 5개 + 시작 명령어(!모드명) 반영
-- [x] SVG CDN 양식 점검 완료: 8개 Worker 정상, charAssets() 클라이언트 전용으로 동기화 불필요 확인, promptExample URL 일치 확인
-- [x] 태블릿 템플릿은 svgTemplates.js에 이미 포함 → SvgIntro에서 자동 표시
+- [x] 챗봇 소개 HTML에 Image System 섹션 추가 (CDN 경로 + 15 캐릭터코드 + 상황코드 4카테고리 그리드)
+- [x] 프라임시티 소개페이지.txt git 추적 시작
+- [x] SVG CDN 양식 점검 완료: 8개 Worker 정상, charAssets() 클라이언트 전용, promptExample URL 일치
+- [x] 태블릿 템플릿 svgTemplates.js에 포함 → SvgIntro 자동 표시
+
+#### 오디션 모드 웹툰
+- [x] ModeAudition.jsx에 시작 웹툰 섹션 추가 (audition1~6.webp, ~54,000px)
+- [x] 접기/펼치기 UI (프리뷰 400px + 페이드 오버레이 + "웹툰 전체 보기" 버튼)
+- [x] 6장 전체 lazy loading, "접기" 시 스크롤 복귀
+
+#### Gallery 이미지 시스템 안내
+- [x] Gallery.jsx 히어로에 "Image System" 토글 패널 추가
+- [x] CDN 경로 구조, 캐릭터코드 15개 태그, 상황코드 5카테고리 그리드
+
+#### 태블릿 SVG 확장 + 피드백 적용
+- [x] 태블릿 SVG viewBox 880→1331px 확장 (모드 + 이미지 시스템 수용)
+- [x] 모드 섹션: 2열 그리드 (Main Story 3 + Career Modes 5, 아이콘/이름/설명/trigger)
+- [x] IMAGE OUTPUT SYSTEM 섹션: CDN 경로, 소속사별 캐릭터코드 그룹핑, 비율 Scene Bar
+- [x] 피드백 적용: 최소 폰트 8.5px, modeCell 40px, 섹션 좌측 accent bar 5개, scene bar 18px+라벨 위 배치, 우측 정렬 가이드(R=370), 코너 브라켓 0.35
+- [x] svgTemplates.js ↔ Worker 동기화 완료
+- [x] Cloudflare Worker 재배포 (전용 wrangler.toml 방식, `tablet.bluehair.blue/ent/` 정상 확인)
 
 #### 우선순위 중간 — 코드 동기화 + 챗봇
 - [ ] 챗봇 메인 프롬프트에 SVG 출력 규칙 통합 (docs/연예계 챗봇 메인 프롬프트.txt)
