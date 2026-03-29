@@ -131,14 +131,14 @@ primecity/
 │   │   ├── CharCarousel.jsx ← 캐릭터 캐러셀 (15명, 페이지네이션)
 │   │   ├── CityMap.jsx     ← 세계관 인터랙티브 맵 (hover→glow, click→구역 상세 페이지)
 │   │   ├── DistrictCard.jsx ← 구역 카드 컴포넌트 (DistrictDetail에서 재사용 가능)
-│   │   ├── GameModes.jsx   ← 게임 모드 탭 UI + 상세 페이지 링크
+│   │   ├── GameModes.jsx   ← 게임 모드 이중 UI (메인 탭 3 + 직업군 카드 그리드 5)
 │   │   ├── TriangleNav.jsx ← 프리즘 모자이크 네비게이션 (하위 페이지 5종 링크)
 │   │   ├── ScrollNav.jsx  ← 스크롤 섹션 네비게이션 (PC: 라벨+바, 모바일: 도트)
 │   │   └── Footer.jsx
 │   ├── pages/
 │   │   ├── Home.jsx        ← 메인 랜딩 (전체 섹션 조합)
 │   │   ├── CharDetail.jsx  ← /characters/:name (시네마틱 인트로 + HUD + 프로필 + 미리보기)
-│   │   ├── SvgIntro.jsx    ← /svg (동적 SVG 템플릿 갤러리, 7종)
+│   │   ├── SvgIntro.jsx    ← /svg (동적 SVG 템플릿 갤러리, 8종)
 │   │   ├── Gallery.jsx     ← /gallery (메이슨리 + 소속사 아코디언 필터 + 라이트박스 + NSFW)
 │   │   ├── Updates.jsx     ← /updates (업데이트 로그, 타임라인)
 │   │   ├── Contact.jsx     ← /contact (문의 창구)
@@ -165,7 +165,7 @@ primecity/
 │   ├── hooks/
 │   │   ├── useIsMobile.js
 │   │   └── useReveal.js
-│   ├── App.jsx             ← React Router 설정 (11개 라우트, lazy + Suspense)
+│   ├── App.jsx             ← React Router 설정 (16개 라우트, lazy + Suspense)
 │   └── main.jsx            ← 엔트리포인트
 ├── docs/
 │   ├── Main_Prompt.txt             ← 챗봇 메인 프롬프트
@@ -238,8 +238,9 @@ primecity/
     - 모바일: 1탭=툴팁 + "자세히 보기 →" 버튼으로 상세 페이지 이동
         ↓ 스크롤
 [5] 게임 모드 (GameModes)
-    - 탭 셀렉터: 오디션 / 자유활동 / 프로듀서
-    - 각 모드별 설명 + "자세히 보기 →" 링크 → 상세 페이지
+    - 메인 스토리 탭 셀렉터: 오디션 / 자유활동 / 프로듀서
+    - 직업군 모드 카드 그리드: 매니저 / 연습생 / 작곡가 / 배우 / 인플루언서
+    - 각 모드별 설명 + "자세히 보기 →" 링크 → 상세 페이지 (8개)
         ↓ 스크롤
 [6] 더 알아보기 (TriangleNav — 프리즘 모자이크)
     - 데스크톱: 불규칙 다각형 SVG 모자이크 (5개 클릭 + 3개 장식)
@@ -549,7 +550,7 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [x] CityMap 등장 애니메이션 중 pointer-events 차단 (hover 히트테스트 버그 수정)
 - [x] CityMap 데스크톱 커서 추적 툴팁 (DOM 직접 조작, absolute + 상대좌표, 리렌더 없음)
 - [x] 구역 소개 텍스트(lore) 사이버펑크 톤으로 리뉴얼 (5구역)
-- [x] 게임 모드 섹션 (오디션/자유활동/프로듀서 탭 UI + 상세 페이지 링크)
+- [x] 게임 모드 섹션 (메인 3탭 + 직업군 5카드 이중 UI + 8개 상세 페이지 링크)
 - [x] TriangleNav 프리즘 모자이크 네비게이션 (데스크톱 SVG 모자이크 + 모바일 각진 스트립)
 - [x] 파티클 배경 (Canvas API, 모바일 수량 감소)
 - [x] 공통 PageLayout 컴포넌트 (하위 페이지 공유)
@@ -562,10 +563,15 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [x] `/contact` — 문의 창구 (Contact.jsx)
 - [x] `/works` — 작가의 다른 작품 (Works.jsx)
 
-#### 게임 모드 상세 페이지
+#### 게임 모드 상세 페이지 (메인 3 + 직업군 5 = 8개)
 - [x] `/modes/audition` — 오디션 4라운드 상세 (ModeAudition.jsx)
 - [x] `/modes/freeplay` — 자유활동 모드 소개 (ModeFreeplay.jsx)
 - [x] `/modes/producer` — 프로듀서 모드 소개 (ModeProducer.jsx)
+- [x] `/modes/manager` — 매니저 모드 (ModeManager.jsx, A/B분기 + 데일리 루프 + 이벤트)
+- [x] `/modes/trainee` — 연습생 모드 (ModeTrainee.jsx, 실력바/평가/데뷔 게이지)
+- [x] `/modes/composer` — 작곡가 모드 (ModeComposer.jsx, 곡작업→매칭→발매→차트)
+- [x] `/modes/actor` — 배우 모드 (ModeActor.jsx, 캐스팅→촬영→방영)
+- [x] `/modes/influencer` — 인플루언서 모드 (ModeInfluencer.jsx, 콘텐츠/팔로워/브랜드딜)
 
 #### 캐릭터 상세 페이지 (Phase 2 완료)
 - [x] 기본 틀 + 이미지 로딩/폴백 + brief 섹션
@@ -587,7 +593,7 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 #### 데이터 & 에셋
 - [x] 캐릭터 데이터 15명 완성 (characters.js)
 - [x] 구역 데이터 4개 (districts.js) + 산업단지 (CityMap 내 정의)
-- [x] 게임 모드 데이터 3개 (gamemodes.js)
+- [x] 게임 모드 데이터 8개 (gamemodes.js — mainModes 3 + careerModes 5)
 - [x] 배경 이미지 CDN 업로드 (bg3~bg11)
 - [x] 도시 탑뷰 맵 CDN 업로드 (베이스맵 + 5개 구역 분리 PNG)
 - [x] 캐릭터 이미지: 서윤, 나하린, 이서하, 강하람 (4/15 CDN 업로드 완료)
