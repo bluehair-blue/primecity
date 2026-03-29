@@ -35,16 +35,109 @@ function generateTablet(p) {
     </g>`;
   }).join("");
 
-  // Mode commands
-  const modeRows = `
-    <text x="66" y="716" fill="#c9a84c" font-size="11" font-weight="700" font-family="monospace">!오디션모드</text>
-    <text x="220" y="716" fill="#e8e8e8" font-size="10" font-family="sans-serif">PPP 오디션 개막 (메인 스토리)</text>
-    <text x="66" y="738" fill="#888" font-size="9.5" font-family="monospace">!오디션참가</text>
-    <text x="220" y="738" fill="#666" font-size="8.5" font-family="sans-serif">참가자 시점으로 전환</text>
-    <line x1="60" y1="750" x2="350" y2="750" stroke="#222" stroke-width="0.5" stroke-dasharray="2,3"/>
-    <text x="66" y="768" fill="#888" font-size="9.5" font-family="monospace">!(직업군)</text>
-    <text x="150" y="768" fill="#666" font-size="8.5" font-family="sans-serif">매니저 · 배우 · 연습생 · 인플루언서 · 작곡가</text>
-    <text x="66" y="784" fill="#555" font-size="8" font-family="sans-serif">예: !매니저모드, !배우모드, !작곡가모드 ...</text>`;
+  // ── Mode section: 2-column compact grid ──
+  const mainModes = [
+    { icon: "🎤", name: "오디션", trigger: "메인 스토리", desc: "PPP 서바이벌 오디션", accent: "#c9a84c" },
+    { icon: "🌆", name: "프리플레이", trigger: "자유 탐색", desc: "도시 탐색 · 사이드 스토리", accent: "#7ba0d4" },
+    { icon: "🎬", name: "프로듀서", trigger: "아이돌 육성", desc: "스케줄 · 곡 · 이미지 메이킹", accent: "#b07ad4" },
+  ];
+  const careerModes = [
+    { icon: "📋", name: "매니저", trigger: "!매니저모드", desc: "스케줄 · 위기 · 관계 관리", accent: "#d4a84c" },
+    { icon: "✿", name: "연습생", trigger: "!연습생모드", desc: "훈련 · 평가 · 데뷔 게이지", accent: "#6db87a" },
+    { icon: "∂", name: "작곡가", trigger: "!작곡가모드", desc: "작곡 → 매칭 → 발매 → 차트", accent: "#7ba0d4" },
+    { icon: "▷", name: "배우", trigger: "!배우모드", desc: "캐스팅 → 촬영 → 방영", accent: "#d46b8a" },
+    { icon: "◐", name: "인플루언서", trigger: "!인플루언서모드", desc: "콘텐츠 · 바이럴 · 브랜드딜", accent: "#6bacd4" },
+  ];
+
+  function modeCell(m, x, y, colW) {
+    return `
+    <g>
+      <rect x="${x}" y="${y}" width="${colW}" height="36" rx="4" fill="#141428" stroke="#222" stroke-width="0.5"/>
+      <text x="${x + 10}" y="${y + 16}" font-size="12" font-family="sans-serif">${m.icon}</text>
+      <text x="${x + 28}" y="${y + 14}" fill="${m.accent}" font-size="10" font-weight="700" font-family="sans-serif">${m.name}</text>
+      <text x="${x + 28}" y="${y + 26}" fill="#666" font-size="7.5" font-family="sans-serif">${m.desc}</text>
+      <text x="${x + colW - 8}" y="${y + 14}" text-anchor="end" fill="#444" font-size="7" font-family="monospace">${m.trigger}</text>
+    </g>`;
+  }
+
+  const colW = 152;
+  const gapX = 6;
+  const modeStartY = 700;
+
+  // Main story label + 3 items (single column, wider)
+  const mainLabel = `<text x="50" y="${modeStartY}" fill="#666" font-size="8" font-weight="600" font-family="sans-serif" letter-spacing="1.5">MAIN STORY</text>`;
+  const mainCells = mainModes.map((m, i) => {
+    const row = Math.floor(i / 2);
+    const col = i % 2;
+    return modeCell(m, 50 + col * (colW + gapX), modeStartY + 8 + row * 42, colW);
+  }).join("");
+
+  // Career label + 5 items (2-column grid)
+  const careerY = modeStartY + 8 + Math.ceil(mainModes.length / 2) * 42 + 12;
+  const careerLabel = `<text x="50" y="${careerY}" fill="#666" font-size="8" font-weight="600" font-family="sans-serif" letter-spacing="1.5">CAREER MODES — 채팅에서 전환</text>`;
+  const careerCells = careerModes.map((m, i) => {
+    const row = Math.floor(i / 2);
+    const col = i % 2;
+    return modeCell(m, 50 + col * (colW + gapX), careerY + 8 + row * 42, colW);
+  }).join("");
+
+  const modeEndY = careerY + 8 + Math.ceil(careerModes.length / 2) * 42 + 4;
+
+  // ── Image Output System section ──
+  const imgY = modeEndY + 16;
+  const charCodes = [
+    "SY 서윤", "NHR 나하린", "JSH 진시혁", "ERK 에리카", "LSH 이서하",
+    "HSR 한소리", "KHR 강하람", "JGR 장그루", "MIL 밀라", "ELA 엘라",
+    "MMR 미모리", "HSE 하시은", "NIA 니아", "RAY 레이", "LPS 라피스",
+  ];
+  const sceneCats = [
+    { label: "감정", range: "1–8", n: 8, color: "#c9a84c" },
+    { label: "일상", range: "10–18", n: 9, color: "#7ba0d4" },
+    { label: "NSFW", range: "20–67", n: 41, color: "#d46b8a" },
+    { label: "착의", range: "70–86", n: 16, color: "#6bacd4" },
+  ];
+
+  // Character code tags (5 per row, 3 rows)
+  const charTags = charCodes.map((c, i) => {
+    const row = Math.floor(i / 5);
+    const col = i % 5;
+    const tx = 50 + col * 62;
+    const ty = imgY + 50 + row * 16;
+    return `<text x="${tx}" y="${ty}" fill="#555" font-size="7" font-family="monospace">${c}</text>`;
+  }).join("");
+
+  // Scene category bars
+  const sceneBarY = imgY + 50 + 3 * 16 + 10;
+  const totalScenes = 74;
+  const barW = 260;
+  let barOffset = 0;
+  const sceneBars = sceneCats.map((sc) => {
+    const w = (sc.n / totalScenes) * barW;
+    const x = 50 + barOffset;
+    barOffset += w;
+    return `
+      <rect x="${x}" y="${sceneBarY}" width="${w}" height="14" fill="${sc.color}" opacity="0.25"/>
+      <text x="${x + w / 2}" y="${sceneBarY + 10}" text-anchor="middle" fill="${sc.color}" font-size="6.5" font-weight="600" font-family="sans-serif">${sc.label} ${sc.range}</text>`;
+  }).join("");
+
+  const imageSection = `
+    <line x1="50" y1="${imgY - 6}" x2="370" y2="${imgY - 6}" stroke="#222" stroke-width="0.5"/>
+    <text x="50" y="${imgY + 10}" fill="#888" font-size="9" font-weight="600" font-family="sans-serif" letter-spacing="2">IMAGE OUTPUT SYSTEM</text>
+    <rect x="50" y="${imgY + 15}" width="60" height="1.5" fill="#c9a84c" opacity="0.4"/>
+    <text x="50" y="${imgY + 34}" fill="#666" font-size="8" font-family="sans-serif">CDN: img.bluehair.blue/ent/</text>
+    <text x="218" y="${imgY + 34}" fill="#c9a84c" font-size="8" font-family="monospace">{code}/{num}</text>
+    <text x="295" y="${imgY + 34}" fill="#666" font-size="8" font-family="monospace">.webp</text>
+    <text x="340" y="${imgY + 34}" fill="#444" font-size="7.5" font-family="sans-serif">15명 × 74 = 1,110장</text>
+    ${charTags}
+    ${sceneBars}
+    <text x="${50 + barW + 8}" y="${sceneBarY + 10}" fill="#555" font-size="7" font-family="sans-serif">74 / char</text>`;
+
+  // ── Dynamic bottom positions ──
+  const warnY = sceneBarY + 28;
+  const copyY = warnY + 50;
+  const totalH = copyY + 28;
+  const innerH = totalH - 28;
+  const screenH = totalH - 40;
 
   function judgeCard(name, agencyName, role, y, delay, isUser) {
     const badge = isUser ? "YOU" : "";
@@ -63,7 +156,7 @@ function generateTablet(p) {
     </g>`;
   }
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 880">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 ${totalH}">
   <defs>
     <linearGradient id="tablet-bg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#1a1a2e"/>
@@ -80,7 +173,7 @@ function generateTablet(p) {
       <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
     </linearGradient>
     <clipPath id="screen-clip">
-      <rect x="20" y="20" width="380" height="840" rx="8"/>
+      <rect x="20" y="20" width="380" height="${screenH}" rx="8"/>
     </clipPath>
     <filter id="glow">
       <feGaussianBlur stdDeviation="3" result="blur"/>
@@ -89,14 +182,14 @@ function generateTablet(p) {
   </defs>
 
   <!-- Tablet frame -->
-  <rect width="420" height="880" rx="24" fill="#111" stroke="#2a2a3a" stroke-width="1.5"/>
-  <rect x="14" y="14" width="392" height="852" rx="12" fill="url(#tablet-bg)"/>
+  <rect width="420" height="${totalH}" rx="24" fill="#111" stroke="#2a2a3a" stroke-width="1.5"/>
+  <rect x="14" y="14" width="392" height="${innerH}" rx="12" fill="url(#tablet-bg)"/>
 
   <g clip-path="url(#screen-clip)">
 
     <!-- Scan line -->
     <rect x="20" y="-100" width="380" height="100" fill="url(#scanline)">
-      <animateTransform attributeName="transform" type="translate" from="0 -100" to="0 980" dur="6s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" from="0 -100" to="0 ${totalH + 100}" dur="8s" repeatCount="indefinite"/>
     </rect>
 
     <!-- Status bar -->
@@ -162,32 +255,38 @@ function generateTablet(p) {
     <!-- Divider -->
     <line x1="50" y1="672" x2="370" y2="672" stroke="#222" stroke-width="0.5"/>
 
-    <!-- Mode commands -->
+    <!-- Mode commands — 2-column compact grid -->
     <text x="50" y="692" fill="#888" font-size="9" font-weight="600" font-family="sans-serif" letter-spacing="2">AVAILABLE MODES</text>
     <rect x="50" y="697" width="50" height="1.5" fill="#c9a84c" opacity="0.4"/>
-    ${modeRows}
+    ${mainLabel}
+    ${mainCells}
+    ${careerLabel}
+    ${careerCells}
+
+    <!-- Image output system -->
+    ${imageSection}
 
     <!-- Warning -->
-    <rect x="50" y="826" width="320" height="36" rx="6" fill="#1a1028" stroke="#c9a84c" stroke-width="0.5" opacity="0.6"/>
-    <text x="210" y="842" text-anchor="middle" fill="#c9a84c" font-size="9" font-weight="600" font-family="sans-serif" opacity="0.8">⚠ 본 문서는 심사위원 전용 브리핑입니다</text>
-    <text x="210" y="856" text-anchor="middle" fill="#666" font-size="8" font-family="sans-serif">무단 유출 시 프라임시티 방송위원회 규정에 의거하여 제재됩니다</text>
+    <rect x="50" y="${warnY}" width="320" height="36" rx="6" fill="#1a1028" stroke="#c9a84c" stroke-width="0.5" opacity="0.6"/>
+    <text x="210" y="${warnY + 14}" text-anchor="middle" fill="#c9a84c" font-size="9" font-weight="600" font-family="sans-serif" opacity="0.8">⚠ 본 문서는 심사위원 전용 브리핑입니다</text>
+    <text x="210" y="${warnY + 28}" text-anchor="middle" fill="#666" font-size="8" font-family="sans-serif">무단 유출 시 프라임시티 방송위원회 규정에 의거하여 제재됩니다</text>
 
     <!-- Copyright -->
-    <text x="210" y="878" text-anchor="middle" fill="#444" font-size="7.5" font-family="sans-serif">© PPP Operating Committee · Prime City Broadcasting Authority</text>
+    <text x="210" y="${copyY}" text-anchor="middle" fill="#444" font-size="7.5" font-family="sans-serif">© PPP Operating Committee · Prime City Broadcasting Authority</text>
 
     <!-- Corner brackets -->
     <path d="M30,30 L30,50 M30,30 L50,30" stroke="#c9a84c" stroke-width="0.8" opacity="0.25" fill="none"/>
     <path d="M390,30 L390,50 M390,30 L370,30" stroke="#c9a84c" stroke-width="0.8" opacity="0.25" fill="none"/>
-    <path d="M30,850 L30,830 M30,850 L50,850" stroke="#c9a84c" stroke-width="0.8" opacity="0.25" fill="none"/>
-    <path d="M390,850 L390,830 M390,850 L370,850" stroke="#c9a84c" stroke-width="0.8" opacity="0.25" fill="none"/>
+    <path d="M30,${screenH + 10} L30,${screenH - 10} M30,${screenH + 10} L50,${screenH + 10}" stroke="#c9a84c" stroke-width="0.8" opacity="0.25" fill="none"/>
+    <path d="M390,${screenH + 10} L390,${screenH - 10} M390,${screenH + 10} L370,${screenH + 10}" stroke="#c9a84c" stroke-width="0.8" opacity="0.25" fill="none"/>
 
   </g>
 
   <!-- Home indicator -->
-  <rect x="170" y="866" width="80" height="4" rx="2" fill="#333"/>
+  <rect x="170" y="${totalH - 14}" width="80" height="4" rx="2" fill="#333"/>
 
   <!-- Outer glow -->
-  <rect width="420" height="880" rx="24" fill="none" stroke="#c9a84c" stroke-width="0.5" opacity="0.1"/>
+  <rect width="420" height="${totalH}" rx="24" fill="none" stroke="#c9a84c" stroke-width="0.5" opacity="0.1"/>
 </svg>`;
 }
 
