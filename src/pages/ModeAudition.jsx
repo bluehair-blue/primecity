@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import C from "../styles/tokens";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
 import Seo from "../components/Seo";
+import { cdnUrl } from "../utils/cdn";
 
 const rounds = [
   {
@@ -34,6 +36,143 @@ const rounds = [
     result: "최종 결과 확정",
   },
 ];
+
+const WEBTOON_PAGES = [1, 2, 3, 4, 5, 6];
+
+function WebtoonSection({ isMobile }) {
+  const [open, setOpen] = useState(false);
+  const [refWt, vWt] = useReveal(0.1);
+
+  return (
+    <div
+      ref={refWt}
+      style={{
+        marginBottom: isMobile ? 40 : 56,
+        opacity: vWt ? 1 : 0,
+        transform: vWt ? "translateY(0)" : "translateY(20px)",
+        transition: "all 0.8s cubic-bezier(0.22,1,0.36,1)",
+      }}
+    >
+      {/* Section label */}
+      <div style={{ textAlign: "center", marginBottom: isMobile ? 16 : 24 }}>
+        <span
+          style={{
+            fontFamily: "var(--f-display-en)",
+            fontSize: 9,
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: C.goldText,
+          }}
+        >
+          Opening Webtoon
+        </span>
+        <h3
+          style={{
+            fontFamily: "var(--f-display-kr)",
+            fontSize: isMobile ? 16 : 18,
+            fontWeight: 600,
+            color: C.white,
+            margin: "6px 0 0",
+          }}
+        >
+          시작 웹툰
+        </h3>
+      </div>
+
+      {!open ? (
+        /* Collapsed: preview + expand button */
+        <div style={{ position: "relative" }}>
+          <div
+            style={{
+              maxHeight: 400,
+              overflow: "hidden",
+              border: `1px solid ${C.border06}`,
+            }}
+          >
+            <img
+              src={cdnUrl("audition1.webp")}
+              alt="오디션 오프닝 웹툰"
+              style={{ width: "100%", display: "block" }}
+            />
+          </div>
+          {/* Fade overlay */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: 160,
+              background: `linear-gradient(transparent, ${C.bgDeep})`,
+              pointerEvents: "none",
+            }}
+          />
+          <div style={{ textAlign: "center", marginTop: -40, position: "relative", zIndex: 1 }}>
+            <button
+              onClick={() => setOpen(true)}
+              style={{
+                fontFamily: "var(--f-body)",
+                fontSize: 13,
+                fontWeight: 500,
+                color: C.gold,
+                background: C.bgCard,
+                border: `1px solid ${C.goldMuted}`,
+                padding: "10px 32px",
+                cursor: "pointer",
+                transition: "all 0.3s cubic-bezier(0.22,1,0.36,1)",
+                letterSpacing: "0.04em",
+              }}
+            >
+              웹툰 전체 보기
+            </button>
+          </div>
+        </div>
+      ) : (
+        /* Expanded: all pages, seamless */
+        <div>
+          <div
+            style={{
+              border: `1px solid ${C.border06}`,
+              overflow: "hidden",
+              lineHeight: 0,
+            }}
+          >
+            {WEBTOON_PAGES.map((n) => (
+              <img
+                key={n}
+                src={cdnUrl(`audition${n}.webp`)}
+                alt={`오디션 오프닝 ${n}/6`}
+                loading="lazy"
+                style={{ width: "100%", display: "block" }}
+              />
+            ))}
+          </div>
+          <div style={{ textAlign: "center", marginTop: 16 }}>
+            <button
+              onClick={() => {
+                setOpen(false);
+                document.getElementById("webtoon-top")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              style={{
+                fontFamily: "var(--f-body)",
+                fontSize: 12,
+                color: C.text35,
+                background: "transparent",
+                border: `1px solid ${C.border06}`,
+                padding: "8px 24px",
+                cursor: "pointer",
+                transition: "all 0.3s",
+              }}
+            >
+              접기
+            </button>
+          </div>
+        </div>
+      )}
+      <div id="webtoon-top" />
+    </div>
+  );
+}
 
 function RoundCard({ round, index, isMobile }) {
   const [ref, v] = useReveal(0.15);
@@ -198,6 +337,9 @@ export default function ModeAudition() {
               }}
             />
           </div>
+
+          {/* ═══ Opening Webtoon ═══ */}
+          <WebtoonSection isMobile={isMobile} />
 
           {/* Round progression */}
           <div
