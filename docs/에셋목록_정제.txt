@@ -1,0 +1,787 @@
+======================================================================
+NAI Asset Prompt List (Refined v2)
+======================================================================
+// NOTES:
+// - Tag order per Rule 8: Background & Viewpoint → Pose & Body → Action → Expression
+// - Weights minimized. Only used where NAI needs help (e.g., 0.6::pregnant::).
+// - Male tags: "boy, black hair, hair over eyes" for visible male scenes.
+//              "pov, large penis" for POV scenes where only penis is visible.
+// - target#/source#/mutual# preserved as-is (Rule 2).
+// - [!] = Composition warning (Rule 7)
+// - Title spaces replaced with hyphens.
+
+
+======================================================================
+EMOTION ASSETS
+======================================================================
+// All emotion assets share this base format:
+// "white background, straight on, upper body, portrait, face focus, standing, [expression tags]"
+// [!] Upper body + face focus: do NOT add any lower body tags.
+
+
+#Angry (화남)
+----------------------------------------
+[Female Part]
+white background, straight on, upper body, portrait, face focus, standing, angry
+
+[Male Part]
+(none)
+
+
+#Contempt (경멸)
+----------------------------------------
+[Female Part]
+white background, straight on, upper body, portrait, face focus, standing, arms crossed, cold face, disdainful, abhorrent, shaded face
+
+[Male Part]
+(none)
+
+// "cold face", "disdainful", "abhorrent" — non-standard Danbooru tags, but user-confirmed for intended look.
+// "shaded face" — creates shadow-over-eyes effect. Not standard, but effective in NAI.
+
+
+#Happy (웃음)
+----------------------------------------
+[Female Part]
+white background, straight on, upper body, portrait, face focus, standing, happy, smile, open mouth
+
+[Male Part]
+(none)
+
+
+#Sad (슬픈)
+----------------------------------------
+[Female Part]
+white background, straight on, upper body, portrait, face focus, standing, sad, crying
+
+[Male Part]
+(none)
+
+
+#Shy (부끄러운)
+----------------------------------------
+[Female Part]
+white background, straight on, upper body, portrait, face focus, standing, blush, embarrassed
+
+[Male Part]
+(none)
+
+
+#Smirk (비웃음)
+----------------------------------------
+[Female Part]
+white background, straight on, upper body, portrait, face focus, standing, smirk, smug, half-closed eyes
+
+[Male Part]
+(none)
+
+// NEW ENTRY. "smirk" and "smug" are valid Danbooru tags.
+// "half-closed eyes" adds the condescending look.
+
+
+#Surprised (놀람)
+----------------------------------------
+[Female Part]
+white background, straight on, upper body, portrait, face focus, standing, blush, surprised, open mouth
+
+[Male Part]
+(none)
+
+
+#Troubled (곤란한)
+----------------------------------------
+[Female Part]
+white background, straight on, upper body, portrait, face focus, standing, worried, frown, sweatdrop
+
+[Male Part]
+(none)
+
+// NEW ENTRY. "worried", "frown", "sweatdrop" — all valid Danbooru tags.
+
+
+======================================================================
+SITUATION ASSETS
+======================================================================
+
+
+#Normal-Chat (일반대화)
+----------------------------------------
+[Female Part]
+white background, straight on, standing, smile
+
+[Male Part]
+(none)
+
+
+#Undressing-Seduction (옷벗으며_유혹)
+----------------------------------------
+[Female Part]
+straight on, nsfw, shirt pull, spread legs, nipples, blush, embarrassed, smile, tongue out
+
+[Male Part]
+(none)
+
+// "top pull" → "shirt pull" (valid: shirt_pull)
+// "tongue out" (valid: tongue_out)
+// [!] If intended as upper body only, remove "spread legs".
+
+
+#Drinking (술마시는)
+----------------------------------------
+[Female Part]
+bar, sitting, leaning to the side, holding cup, blush, drunk
+
+[Male Part]
+(none)
+
+// "holding beer" → "holding cup" (or "beer mug" for specificity)
+
+
+#Dining-Chat (식사하며대화)
+----------------------------------------
+[Female Part]
+cafe, from side, sitting, table, food, holding fork, smile, blush, open mouth
+
+[Male Part]
+(none)
+
+// "against pasta on dish on table" → "table, food"
+// Add "pasta" if specific dish matters.
+
+
+#Cafe-Chat (카페에서대화)
+----------------------------------------
+[Female Part]
+cafe, from side, sitting, table, cake, holding cup, smile, blush, open mouth
+
+[Male Part]
+(none)
+
+
+#Cinema-Chat (영화관에서대화)
+----------------------------------------
+[Female Part]
+movie theater, from side, sitting, holding popcorn, smile, blush
+
+[Male Part]
+(none)
+
+
+#Christmas-Date (데이트하며대화)
+----------------------------------------
+[Female Part]
+night, city lights, christmas tree, standing, holding shopping bag, smile, blush
+
+[Male Part]
+(none)
+
+
+#Wedding (결혼)
+----------------------------------------
+[Female Part]
+wedding, indoors, wedding dress, bridal veil, holding bouquet, happy
+
+[Male Part]
+(none)
+
+
+#Pregnant (임신)
+----------------------------------------
+[Female Part]
+0.6::pregnant::
+
+[Male Part]
+(none)
+
+// Low weight (0.6) to keep the effect subtle as requested.
+
+
+======================================================================
+INTIMATE ASSETS (Non-penetrative)
+======================================================================
+
+
+#Cunnilingus (커닐링구스)
+----------------------------------------
+[Female Part]
+female focus, wet body, torogao, blush, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes, cunnilingus
+
+// "torogao" — valid Danbooru tag (melting pleasure face).
+
+
+#Kiss (키스)
+----------------------------------------
+[Female Part]
+mutual# kiss
+
+[Male Part]
+mutual# kiss
+
+
+#Nude-Kiss (탈의키스)
+----------------------------------------
+[Female Part]
+nude, mutual# kiss
+
+[Male Part]
+mutual# kiss
+
+
+#Breast-Grope (가슴만져짐)
+----------------------------------------
+[Female Part]
+target# grabbing another's breast
+
+[Male Part]
+source# grabbing another's breast
+
+
+#Breast-Sucking (가슴빨기)
+----------------------------------------
+[Female Part]
+target# breast sucking
+
+[Male Part]
+source# breast sucking
+
+// "licking breast" → "breast sucking" (valid: breast_sucking)
+
+
+#Fingering (핑거링)
+----------------------------------------
+[Female Part]
+pussy, pussy juice, target# fingering
+
+[Male Part]
+source# fingering
+
+
+#Fingering-Climax (핑거링절정)
+----------------------------------------
+[Female Part]
+pussy, pussy juice, target# fingering, target# hug from behind, orgasm, ahegao
+
+[Male Part]
+source# fingering, source# hug from behind
+
+
+#Ass-Spanking (엉덩이스팽킹)
+----------------------------------------
+[Female Part]
+from behind, doggystyle, ass focus, back, pussy, pussy juice, spanked, motion lines, crying, tears, biting own lip
+
+[Male Part]
+pov, spanking, motion lines
+
+
+#Ass-Grabbing (엉덩이잡기)
+----------------------------------------
+[Female Part]
+from behind, doggystyle, ass focus, back, pussy, pussy juice, target# grabbing another's ass, target# spread ass, anal
+
+[Male Part]
+pov, source# grabbing another's ass, source# spread ass
+
+
+#Paizuri (파이즈리)
+----------------------------------------
+[Female Part]
+paizuri, clothed paizuri, naizuri
+
+[Male Part]
+pov, large penis, precum
+
+// [!] Upper body / close-up shot. No lower body tags.
+// "naizuri" overlaps with "clothed paizuri" — keep both for reinforcement.
+
+
+#Paizuri-Cum (파이즈리사정)
+----------------------------------------
+[Female Part]
+paizuri, clothed paizuri, naizuri, cum on breasts, facial, one eye closed
+
+[Male Part]
+pov, large penis, cum
+
+
+#Fellatio-POV (펠라치오)
+----------------------------------------
+[Female Part]
+close-up, face focus, fellatio, saliva trail
+
+[Male Part]
+pov, large penis
+
+
+#Fellatio-Climax-POV (펠라치오절정)
+----------------------------------------
+[Female Part]
+close-up, face focus, fellatio, saliva trail, cum in mouth, facial, one eye closed, target# grabbing another's hair
+
+[Male Part]
+pov, large penis, cum, source# grabbing another's hair
+
+
+#Fellatio-3rd-Person (펠라치오_3인칭)
+----------------------------------------
+[Female Part]
+bedroom, from side, kneeling, fellatio, saliva trail, blush
+
+[Male Part]
+boy, black hair, hair over eyes, standing
+
+// NEW ENTRY. Third-person angle version of fellatio.
+
+
+#Fellatio-Climax-3rd-Person (펠라치오절정_3인칭)
+----------------------------------------
+[Female Part]
+bedroom, from side, kneeling, fellatio, saliva trail, cum in mouth, facial, one eye closed, target# grabbing another's hair
+
+[Male Part]
+boy, black hair, hair over eyes, standing, source# grabbing another's hair
+
+// NEW ENTRY.
+
+
+#Deepthroat (딥쓰롯)
+----------------------------------------
+[Female Part]
+bedroom, from side, close-up, deepthroat, wet body, trembling, blush, crying with eyes open
+
+[Male Part]
+boy, black hair, hair over eyes, head grab
+
+// "head grab" (valid: head_grab)
+// [!] "from side" + "close-up" — no full body tags.
+
+
+#Deepthroat-Climax (딥쓰롯절정)
+----------------------------------------
+[Female Part]
+close-up, deepthroat, fellatio, cum in mouth, facial, trembling, target# grabbing another's hair
+
+[Male Part]
+pov, large penis, cum, source# grabbing another's hair
+
+
+#Handjob (대딸)
+----------------------------------------
+[Female Part]
+upper body, close-up, source# handjob, motion lines
+
+[Male Part]
+pov, large penis, target# handjob, precum
+
+// [!] "upper body" — no lower body tags.
+
+
+#Handjob-Cum (대딸사정)
+----------------------------------------
+[Female Part]
+upper body, close-up, source# handjob, motion lines, cum on body, facial, blush
+
+[Male Part]
+pov, large penis, target# handjob, cum
+
+
+#Rimjob (림잡)
+----------------------------------------
+[Female Part]
+bedroom, from side, female focus, kneeling, anilingus, reverse paizuri, wet body, tongue out, saliva, blush, motion lines
+
+[Male Part]
+boy, all fours, ass up, hetero
+
+// Scene: Male in OTL position (all fours, face down). Only lower body visible.
+//        Female behind him: licking anus (anilingus) + paizuri on hanging penis (reverse paizuri).
+// "black hair, hair over eyes" omitted — male's face/upper body not visible in this composition.
+// For small-breasted characters: replace "reverse paizuri" with "naizuri".
+
+
+#Rimjob-Cum (림잡사정)
+----------------------------------------
+[Female Part]
+bedroom, from side, female focus, kneeling, anilingus, reverse paizuri, wet body, tongue out, saliva, cum, overflow, blush, heart-shaped pupils, ahegao, surprised
+
+[Male Part]
+boy, all fours, ass up, hetero
+
+// Same composition notes as #Rimjob above.
+// For small-breasted characters: replace "reverse paizuri" with "naizuri".
+
+
+#Footjob (풋잡)
+----------------------------------------
+[Female Part]
+bedroom, pov, footjob, trembling, precum, blush, open mouth
+
+[Male Part]
+(none)
+
+// Male part empty — tested and works well in NAI without it.
+
+
+#Footjob-Cum (풋잡사정)
+----------------------------------------
+[Female Part]
+bedroom, straight on, footjob, trembling, cum, overflow, cum on breasts, blush, open mouth
+
+[Male Part]
+(none)
+
+
+======================================================================
+SEX ASSETS (Bedroom)
+======================================================================
+
+
+#Nude-Conversation (탈의상태대화)
+----------------------------------------
+[Female Part]
+bedroom, white bed, sitting on bed, nsfw, covering breasts, covering crotch, wet body, blush
+
+[Male Part]
+(none)
+
+
+#Missionary-Sex (정상위섹스)
+----------------------------------------
+[Female Part]
+bedroom, missionary, wet body, sex, penis, trembling, blush
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Missionary-Climax (정상위절정)
+----------------------------------------
+[Female Part]
+bedroom, from above, missionary, wet body, sex, penis, cum in pussy, overflow, trembling, heart-shaped pupils, ahegao, tongue out, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Doggystyle-Sex (후배위섹스)
+----------------------------------------
+[Female Part]
+bedroom, from side, doggystyle, wet body, sex, penis, trembling, blush, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Doggystyle-Climax (후배위절정)
+----------------------------------------
+[Female Part]
+bedroom, from side, doggystyle, wet body, sex, penis, cum in pussy, overflow, trembling, heart-shaped pupils, ahegao, tongue out, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes, source# grabbing another's hair
+
+
+#Cowgirl-Sex (기승위섹스)
+----------------------------------------
+[Female Part]
+bedroom, from front, girl on top, cowgirl position, arms up, arms behind head, arched back, wet body, sex, penis, trembling, blush, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Cowgirl-Climax (기승위절정)
+----------------------------------------
+[Female Part]
+bedroom, from front, girl on top, cowgirl position, arms up, arms behind head, arched back, wet body, sex, penis, cum in pussy, overflow, trembling, heart-shaped pupils, ahegao, tongue out, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Spooning-Sex (측위섹스)
+----------------------------------------
+[Female Part]
+bedroom, from side, lying, on side, spooning, leg lift, female focus, wet body, sex, penis, blush, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Spooning-Climax (측위절정)
+----------------------------------------
+[Female Part]
+bedroom, from side, lying, on side, spooning, leg lift, female focus, wet body, sex, penis, cum in pussy, overflow, trembling, heart-shaped pupils, ahegao, tongue out, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Full-Nelson (들박풀넬슨)
+----------------------------------------
+[Female Part]
+bedroom, from below, standing, spread legs, leg grab, reverse suspended congress, female focus, wet body, sex, penis, blush, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Full-Nelson-Climax (들박풀넬슨절정)
+----------------------------------------
+[Female Part]
+bedroom, from below, standing, spread legs, leg grab, reverse suspended congress, female focus, wet body, sex, penis, cum in pussy, overflow, trembling, heart-shaped pupils, ahegao, tongue out, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Anal-Sex (애널섹스)
+----------------------------------------
+[Female Part]
+bedroom, on bed, lying, from behind, doggystyle, ass focus, back, completely nude, anal, penis, pussy, pussy juice, motion lines, trembling, blush, open mouth, embarrassed
+
+[Male Part]
+boy, black hair, hair over eyes, grabbing another's ass
+
+// "male pov" removed — male character visible.
+// "backboobs" removed — not a standard tag. If breasts-from-behind intended, add "sideboob".
+
+
+#Anal-Sex-Cum (애널섹스사정)
+----------------------------------------
+[Female Part]
+bedroom, on bed, lying, from behind, doggystyle, ass focus, back, completely nude, anal, penis, pussy, pussy juice, motion lines, trembling, cum in ass, overflow, blush, ahegao, tongue out
+
+[Male Part]
+boy, black hair, hair over eyes, grabbing another's ass, source# grabbing another's hair
+
+
+#After-Sex (섹스후절정)
+----------------------------------------
+[Female Part]
+bedroom, from above, lying, on back, spread legs, spooning, after sex, afterglow, wet body, cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, smile, open mouth
+
+[Male Part]
+(none)
+
+
+#Facial-Cum (얼굴에사정)
+----------------------------------------
+[Female Part]
+bedroom, from above, close-up, wet body, cum on face, cum on hair, overflow, trembling, heart-shaped pupils, ahegao, crying with eyes open, tongue out, open mouth
+
+[Male Part]
+pov, large penis
+
+// POV close-up: only penis + female face visible.
+
+
+#Pregnant-Sex (임신섹스)
+----------------------------------------
+[Female Part]
+bedroom, from side, lying, on side, spooning, leg lift, female focus, 0.6::pregnant::, wet body, sex, penis, lactation, blush, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Pregnant-Sex-Cum (임신섹스사정)
+----------------------------------------
+[Female Part]
+bedroom, from side, lying, on side, spooning, leg lift, female focus, 0.6::pregnant::, wet body, sex, penis, cum in pussy, overflow, lactation, trembling, heart-shaped pupils, ahegao, tongue out, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Pregnant-After-Sex (임신섹스후절정)
+----------------------------------------
+[Female Part]
+bedroom, from above, lying, on back, spread legs, spooning, 0.6::pregnant::, after sex, afterglow, wet body, lactation, cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, smile, open mouth
+
+[Male Part]
+(none)
+
+
+======================================================================
+CLOTHED SEX ASSETS (Bedroom)
+======================================================================
+
+
+#Clothed-Missionary-Sex-Bedroom (착의정상위섹스)
+----------------------------------------
+[Female Part]
+bedroom, missionary, clothed sex, wet body, sex, penis, trembling, blush
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Clothed-Missionary-Climax-Bedroom (착의정상위절정)
+----------------------------------------
+[Female Part]
+bedroom, from above, missionary, clothed sex, wet body, sex, penis, cum in pussy, overflow, trembling, heart-shaped pupils, ahegao, double v, tongue out, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Clothed-Full-Nelson-Bedroom (착의들박풀넬슨)
+----------------------------------------
+[Female Part]
+bedroom, from below, standing, spread legs, leg grab, reverse suspended congress, female focus, clothed sex, wet body, sex, penis, blush, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Clothed-Full-Nelson-Climax-Bedroom (착의들박풀넬슨절정)
+----------------------------------------
+[Female Part]
+bedroom, from below, standing, spread legs, leg grab, reverse suspended congress, female focus, clothed sex, wet body, sex, penis, cum in pussy, overflow, trembling, heart-shaped pupils, ahegao, double v, tongue out, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Clothed-Cowgirl-Sex (착의기승위섹스)
+----------------------------------------
+[Female Part]
+bedroom, from front, girl on top, cowgirl position, arched back, clothed sex, wet body, sex, penis, trembling, blush, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Clothed-Cowgirl-Climax (착의기승위절정)
+----------------------------------------
+[Female Part]
+bedroom, from front, girl on top, cowgirl position, arched back, clothed sex, wet body, sex, penis, cum in pussy, overflow, trembling, heart-shaped pupils, ahegao, double v, tongue out, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Clothed-Fellatio-Bedroom (착의펠라치오)
+----------------------------------------
+[Female Part]
+bedroom, from above, close-up, clothed sex, wet body, fellatio, trembling, blush, crying with eyes open, open mouth
+
+[Male Part]
+pov, large penis
+
+// Male POV — "from above" is the POV angle.
+
+
+#Clothed-Fellatio-Climax-Bedroom (착의펠라치오절정)
+----------------------------------------
+[Female Part]
+bedroom, from above, close-up, clothed sex, wet body, fellatio, cum on face, cum in mouth, overflow, trembling, heart-shaped pupils, ahegao, double v, crying with eyes open
+
+[Male Part]
+pov, large penis, cum
+
+// Removed "from side" — conflicts with "from above" POV angle.
+
+
+#Clothed-After-Sex-Bedroom (착의섹스후절정)
+----------------------------------------
+[Female Part]
+bedroom, from above, lying, spread legs, spooning, clothed sex, after sex, afterglow, wet body, cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, double v, smile, open mouth
+
+[Male Part]
+(none)
+
+
+======================================================================
+CLOTHED SEX ASSETS (Toilet)
+======================================================================
+
+
+#Clothed-Doggystyle-Sex-Toilet (착의후배위섹스_화장실)
+----------------------------------------
+[Female Part]
+bathroom stall, toilet, from side, doggystyle, clothed sex, wet body, sex, penis, trembling, blush, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Clothed-Doggystyle-Climax-Toilet (착의후배위절정_화장실)
+----------------------------------------
+[Female Part]
+bathroom stall, toilet, from side, doggystyle, clothed sex, wet body, sex, penis, cum in pussy, overflow, trembling, heart-shaped pupils, ahegao, tongue out, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes, chokehold
+
+
+#Clothed-Full-Nelson-Toilet (착의들박풀넬슨_화장실)
+----------------------------------------
+[Female Part]
+bathroom stall, toilet, from below, standing, spread legs, leg grab, reverse suspended congress, female focus, clothed sex, wet body, sex, penis, blush, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Clothed-Full-Nelson-Climax-Toilet (착의들박풀넬슨절정_화장실)
+----------------------------------------
+[Female Part]
+bathroom stall, toilet, from below, standing, spread legs, leg grab, reverse suspended congress, female focus, clothed sex, wet body, sex, penis, cum in pussy, overflow, trembling, heart-shaped pupils, ahegao, double v, tongue out, open mouth
+
+[Male Part]
+boy, black hair, hair over eyes
+
+
+#Clothed-Fellatio-Toilet (착의펠라치오_화장실)
+----------------------------------------
+[Female Part]
+bathroom stall, toilet, from above, close-up, clothed sex, wet body, fellatio, trembling, blush, crying with eyes open, open mouth
+
+[Male Part]
+pov, large penis
+
+
+#Clothed-Fellatio-Climax-Toilet (착의펠라치오절정_화장실)
+----------------------------------------
+[Female Part]
+bathroom stall, toilet, from above, close-up, clothed sex, wet body, fellatio, cum on face, cum in mouth, overflow, trembling, heart-shaped pupils, ahegao, double v, crying with eyes open
+
+[Male Part]
+pov, large penis, cum
+
+
+#Clothed-After-Sex-Toilet (착의섹스후절정_화장실)
+----------------------------------------
+[Female Part]
+bathroom stall, toilet, from above, lying, spread legs, spooning, clothed sex, after sex, afterglow, wet body, cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, double v, smile, open mouth
+
+[Male Part]
+pov, large penis
+
+
+======================================================================
+// END OF ASSET LIST
+======================================================================
+//
+// CHANGELOG v2:
+// - Emotion assets: unified format "white background, straight on, upper body, portrait, face focus, standing, [expression]"
+// - Added #Smirk (비웃음) and #Troubled (곤란한) emotion entries.
+// - 웃음 renamed from "Smug-Laugh" to "Happy".
+// - Contempt: restored user-specified tags (cold face, disdainful, abhorrent, shaded face).
+// - All title spaces → hyphens.
+// - Male parts recategorized:
+//     Visible male (sex positions): "boy, black hair, hair over eyes"
+//     POV (penis-only scenes): "pov, large penis"
+// - Fellatio: added 3rd-person versions (#Fellatio-3rd-Person, #Fellatio-Climax-3rd-Person).
+// - Rimjob: updated to OTL male position, added naizuri note for small breasts.
+// - Pregnant entries: "0.6::pregnant::" weight applied.
+// - Facial Cum: changed to POV + close-up.
+// - Clothed Fellatio: "from side" removed, kept "from above" as POV angle.
+// - Hair-related tags: standardized to "source#/target# grabbing another's hair".
+// - All [Q] markers resolved per user feedback.
+//

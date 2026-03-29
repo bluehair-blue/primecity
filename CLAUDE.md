@@ -146,15 +146,20 @@ primecity/
 │   │   ├── ModeAudition.jsx ← /modes/audition (오디션 모드 상세)
 │   │   ├── ModeFreeplay.jsx ← /modes/freeplay (자유활동 모드 상세)
 │   │   ├── ModeProducer.jsx ← /modes/producer (프로듀서 모드 상세)
+│   │   ├── ModeManager.jsx  ← /modes/manager (매니저 모드 상세)
+│   │   ├── ModeTrainee.jsx  ← /modes/trainee (연습생 모드 상세)
+│   │   ├── ModeComposer.jsx ← /modes/composer (작곡가 모드 상세)
+│   │   ├── ModeActor.jsx    ← /modes/actor (배우 모드 상세)
+│   │   ├── ModeInfluencer.jsx ← /modes/influencer (인플루언서 모드 상세)
 │   │   └── DistrictDetail.jsx ← /districts/:id (구역 상세)
 │   ├── styles/
 │   │   └── tokens.js       ← OKLCH 색상 토큰 export
 │   ├── data/
 │   │   ├── characters.js   ← 캐릭터 데이터 배열 (15명, cdnId/job/background/taste/goal/expressions 포함)
 │   │   ├── gallery.js      ← 갤러리 아이템 데이터 (도시9 + 캐릭터당 74코드 × 15명, NSFW 포함)
-│   │   ├── svgTemplates.js  ← SVG 템플릿 정의 (7종: SNS/트윗/라이브/메신저/뉴스/차트/커뮤니티)
+│   │   ├── svgTemplates.js  ← SVG 템플릿 정의 (8종: SNS/트윗/라이브/메신저/뉴스/차트/커뮤니티/태블릿)
 │   │   ├── districts.js    ← 구역 데이터 배열 (4구역)
-│   │   └── gamemodes.js    ← 게임 모드 데이터 (3모드)
+│   │   └── gamemodes.js    ← 게임 모드 데이터 (메인3 + 직업군5 = 8모드, mainModes/careerModes export)
 │   ├── utils/
 │   │   └── cdn.js          ← CDN URL 유틸 (cdnUrl, cdnExprUrl, SCENE_CODE_MAP, EXPRESSION_KEYS/LABELS)
 │   ├── hooks/
@@ -175,12 +180,13 @@ primecity/
 │   ├── 웹툰 시작상황(텍스트).txt      ← 오프닝 시퀀스 콘티 (컷 1~17)
 │   ├── 마크다운 프롬프트 작성 가이드라인.txt
 │   ├── 로어북_캐릭터/               ← Phase 1 산출물: 캐릭터별 로어북 16개 (한국어)
-│   ├── 로어북_모드/                 ← Phase 4-1 산출물: 모드 로어북 3개 (한국어)
+│   ├── 로어북_모드/                 ← Phase 4 산출물: 모드 로어북 8개 (한국어: 오프닝/참가/선택지/매니저/연습생/작곡가/배우/인플루언서)
 │   ├── 연예계_메인_프롬프트_EN.json   ← Phase 2: 메인 프롬프트 영문 JSON
 │   ├── 연예계_로어북_오디션_EN.json   ← Phase 2: 오디션 로어북 8개 영문 JSON
 │   ├── 연예계_로어북_캐릭터_EN.json   ← Phase 2: 캐릭터 로어북 14명 영문 JSON
 │   ├── 연예계_로어북_나하린_EN.json   ← Phase 2: 🔒나하린 4층위 영문 JSON
 │   ├── 연예계_로어북_세계관이면_EN.json ← Phase 2: 🔒세계관 이면 영문 JSON
+│   ├── 연예계_로어북_모드_EN.json      ← Phase 4-3: 모드 8개 영문 JSON (직업군5+오프닝+참가+선택지)
 │   ├── 이미지 출력 규칙(수정).txt    ← 챗봇 이미지 출력 상황코드 DB (gallery.js 원본)
 │   ├── 에셋목록_정제.txt            ← NAI 에셋 프롬프트 원본 (Female/Male Part)
 │   ├── NAIS_Preset_감정_*.json     ← NAI 프리셋 (감정 에셋)
@@ -197,7 +203,7 @@ primecity/
 │   └── skills/
 │       ├── new-page/SKILL.md       ← 새 페이지 생성 스킬 (/new-page)
 │       └── deploy-preview/SKILL.md ← 빌드+배포 스킬 (/deploy-preview)
-├── workers/                         ← Cloudflare Worker 참조 파일 (6종, 별도 배포)
+├── workers/                         ← Cloudflare Worker 참조 파일 (8종, 별도 배포: svg-sns/twit/live/talk/news/chart/community/tablet)
 ├── CLAUDE.md               ← 이 파일
 ├── package.json
 └── vite.config.js
@@ -248,7 +254,7 @@ primecity/
 
 ## 라우팅
 
-### 전체 라우트 (11개, 모두 구현 완료)
+### 전체 라우트 (16개, 모두 구현 완료)
 
 ```jsx
 // App.jsx
@@ -263,6 +269,11 @@ primecity/
   <Route path="/modes/audition" element={<ModeAudition />} />
   <Route path="/modes/freeplay" element={<ModeFreeplay />} />
   <Route path="/modes/producer" element={<ModeProducer />} />
+  <Route path="/modes/manager" element={<ModeManager />} />
+  <Route path="/modes/trainee" element={<ModeTrainee />} />
+  <Route path="/modes/composer" element={<ModeComposer />} />
+  <Route path="/modes/actor" element={<ModeActor />} />
+  <Route path="/modes/influencer" element={<ModeInfluencer />} />
   <Route path="/districts/:id" element={<DistrictDetail />} />
 </Routes>
 ```
@@ -622,6 +633,9 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [x] URL 인코딩 규칙 명시 (%20, %2C, %3F, 금지문자)
 - [x] Cloudflare Workers 7개 배포 완료 (svg-insta/twit/live/talk/news/chart/community)
 - [x] 운영 도메인 설정: `{종류}.bluehair.blue/ent/` (7개 라우트)
+- [x] 태블릿 브리핑 SVG 신규 (8종째) — PPP 초대장 UI (심사위원/라운드/모드 안내/카피라이트)
+- [x] Cloudflare Worker 배포 (svg-tablet → `tablet.bluehair.blue/ent/`)
+- [x] svgTemplates.js 8개 템플릿 체계 완성
 
 #### CityMap 모바일 개선
 - [x] 더블탭 네비게이션 → 싱글탭 툴팁 + "자세히 보기 →" 버튼으로 변경
@@ -660,10 +674,24 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [x] 🔒나하린 4층위 로어북 (스포일러 격리, 절대금지사항 5개)
 - [x] 🔒세계관 이면 로어북 (구조적 레일, 복선 가이드)
 
-#### 챗봇 프롬프트 Phase 4-1: 오디션 보조 모드
-- [x] 오디션 오프닝 시퀀스 (Beat 1~7, 한소리 첫 대면 → 태블릿 핸드오프)
+#### 챗봇 프롬프트 Phase 4-1: 오디션 보조 모드 (한국어)
+- [x] 오디션 오프닝 시퀀스 (Beat 1~7, 코믹 export 기반 개편 — 통화장면/커피/PPP설명/적자장부/초대장)
 - [x] !오디션참가 모드 (참가자 시점, 시점 전환)
 - [x] !선택지 애드온 모드 (토글 ON/OFF, 서사적 분기 선택지)
+
+#### 챗봇 프롬프트 Phase 4-2: 직업군 모드 로어북 (한국어)
+- [x] !매니저모드 (A/B 분기, 아티스트별 특색, 스케줄/위기/관계 루프)
+- [x] !연습생모드 (Route 0, 실력바/평가등급/데뷔게이지)
+- [x] !작곡가모드 (Blue Moon, 곡작업→매칭→발매→차트)
+- [x] !배우모드 (캐스팅→촬영→방영, 연기력/인지도)
+- [x] !인플루언서모드 (하입로드, 팔로워/트렌드/브랜드딜)
+
+#### 챗봇 프롬프트 Phase 4-3: 모드 영문화
+- [x] 직업군 모드 5개 영문 JSON (연예계_로어북_모드_EN.json, id 0~4)
+- [x] 오디션 오프닝 시퀀스 영문 JSON (id 5, Beat 1~7 코믹 기반)
+- [x] !오디션참가 영문 JSON (id 6, 시점 전환/탈락 처리)
+- [x] !선택지 애드온 영문 JSON (id 7, 토글/중첩 규칙)
+- [x] 한글 고유명사 유지 (컨디션/평판/호감도/후배님/능글능글/까칠하지만/천재일우/라스트 댄스 등)
 
 #### 챗봇 프롬프트 Phase 3: SVG 커스텀 도메인
 - [x] 7개 서브도메인 DNS AAAA 레코드 등록 (news/insta/twit/live/talk/chart/community)
@@ -679,6 +707,12 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [x] 한글 고유명사 유지 (고데레/아네데레/다루데레/무자각 여친계/감초/언더독/변수/짠꿉공 등)
 - [x] 약 1000토큰 절약 확인
 
+#### 챗봇 프롬프트: 코믹 export 반영
+- [x] 오디션 오프닝 로어북 코믹 기반 전면 개편 (통화장면/커피취향/PPP명칭/적자장부/초대장)
+- [x] 한소리 한국어 로어북 보강 (커피취향 기억, 적자 메모 습관, PPP 심사위원 독단 배정)
+- [x] 한소리 영문 로어북 동기화 (inner/dialogue 코믹 대사 추가)
+- [x] PPP 약자 gamemodes.js 반영
+
 ---
 
 ### 구현 필요
@@ -693,13 +727,18 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
   - news.webp (16:9 가로, 뉴스 이미지) × 필요 캐릭터
 - [ ] CharDetail 히어로 전용 와이드 에셋 검토 (현재 2:3 세로형 이미지를 풀스크린에 사용 중)
 
+#### 직업군 모드 + SVG 업데이트 (이번 세션 완료)
+- [x] gamemodes.js 확장: mainModes(3) + careerModes(5) 분리 export
+- [x] GameModes.jsx UI 개편: 메인 탭(3) + 직업군 카드 그리드(5) 이중 구조
+- [x] 직업군 상세 페이지 5개 생성 (ModeManager/ModeTrainee/ModeComposer/ModeActor/ModeInfluencer)
+- [x] App.jsx 라우트 5개 추가 (총 16개)
+- [x] 챗봇 소개 HTML에 직업군 모드 5개 + 시작 명령어(!모드명) 반영
+- [x] SVG CDN 양식 점검 완료: 8개 Worker 정상, charAssets() 클라이언트 전용으로 동기화 불필요 확인, promptExample URL 일치 확인
+- [x] 태블릿 템플릿은 svgTemplates.js에 이미 포함 → SvgIntro에서 자동 표시
+
 #### 우선순위 중간 — 코드 동기화 + 챗봇
-- [ ] Workers 7개에 charAssets() 함수 동기화 + 재배포
 - [ ] 챗봇 메인 프롬프트에 SVG 출력 규칙 통합 (docs/연예계 챗봇 메인 프롬프트.txt)
 - [ ] Works 페이지에 추가 작품 등록 (현재 프라임시티만)
-- [ ] Phase 4-2: 매니저 모드 로어북 (!매니저모드)
-- [ ] Phase 4-3: 기타 직업군 모드 (연습생/작곡가/배우/인플루언서, 간략 설계)
-- [ ] Phase 4-4: 소개 사이트에 모드 목록 + 시작 명령어 반영
 - [ ] Phase 5: 프롬프트 품질 개선 (자가점검/감정잔여/복선스케줄러)
 - [ ] 에덴챗 플랫폼 테스트 (로어북 동시 활성 성능, 상태창 렌더링)
 

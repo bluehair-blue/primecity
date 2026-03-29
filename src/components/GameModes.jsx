@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import C from "../styles/tokens";
 import useReveal from "../hooks/useReveal";
-import { gamemodes } from "../data/gamemodes";
+import { mainModes, careerModes } from "../data/gamemodes";
 
 export default function GameModes({ isMobile }) {
   const [ref, visible] = useReveal(0.12);
   const [activeIdx, setActiveIdx] = useState(0);
-  const mode = gamemodes[activeIdx];
+  const mode = mainModes[activeIdx];
+
+  const [refCareer, vCareer] = useReveal(0.12);
 
   return (
     <section
@@ -66,6 +68,28 @@ export default function GameModes({ isMobile }) {
         />
       </div>
 
+      {/* ═══ Main Story Modes ═══ */}
+      <div
+        style={{
+          textAlign: "center",
+          marginBottom: isMobile ? 8 : 12,
+          opacity: visible ? 1 : 0,
+          transition: "opacity 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s",
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--f-display-en)",
+            fontSize: 9,
+            letterSpacing: "0.3em",
+            textTransform: "uppercase",
+            color: C.text25,
+          }}
+        >
+          Main Story
+        </span>
+      </div>
+
       {/* Tab buttons */}
       <div
         style={{
@@ -78,7 +102,7 @@ export default function GameModes({ isMobile }) {
           transition: "all 0.8s cubic-bezier(0.22,1,0.36,1) 0.15s",
         }}
       >
-        {gamemodes.map((m, i) => {
+        {mainModes.map((m, i) => {
           const active = i === activeIdx;
           return (
             <button
@@ -115,7 +139,6 @@ export default function GameModes({ isMobile }) {
           transition: "all 0.5s cubic-bezier(0.22,1,0.36,1)",
         }}
       >
-        {/* Icon */}
         <div
           style={{
             fontSize: isMobile ? 40 : 56,
@@ -124,8 +147,6 @@ export default function GameModes({ isMobile }) {
         >
           {mode.icon}
         </div>
-
-        {/* English label */}
         <span
           style={{
             fontFamily: "var(--f-display-en)",
@@ -139,8 +160,6 @@ export default function GameModes({ isMobile }) {
         >
           {mode.en}
         </span>
-
-        {/* Tagline */}
         <h3
           style={{
             fontFamily: "var(--f-display-kr)",
@@ -153,8 +172,6 @@ export default function GameModes({ isMobile }) {
         >
           {mode.tagline}
         </h3>
-
-        {/* Description */}
         <p
           style={{
             fontFamily: "var(--f-body)",
@@ -168,8 +185,6 @@ export default function GameModes({ isMobile }) {
         >
           {mode.desc}
         </p>
-
-        {/* Detail link */}
         <Link
           to={mode.detailPath}
           style={{
@@ -186,6 +201,211 @@ export default function GameModes({ isMobile }) {
         >
           자세히 보기 →
         </Link>
+      </div>
+
+      {/* ═══ Career Modes (직업군) ═══ */}
+      <div
+        ref={refCareer}
+        style={{
+          marginTop: isMobile ? 56 : 80,
+          maxWidth: 900,
+          marginLeft: "auto",
+          marginRight: "auto",
+        }}
+      >
+        {/* Sub-header */}
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: isMobile ? 24 : 36,
+            opacity: vCareer ? 1 : 0,
+            transform: vCareer ? "translateY(0)" : "translateY(20px)",
+            transition: "all 0.8s cubic-bezier(0.22,1,0.36,1)",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "var(--f-display-en)",
+              fontSize: 9,
+              letterSpacing: "0.3em",
+              textTransform: "uppercase",
+              color: C.gold,
+              display: "block",
+              marginBottom: 8,
+            }}
+          >
+            Career Modes
+          </span>
+          <h3
+            style={{
+              fontFamily: "var(--f-display-kr)",
+              fontSize: isMobile ? 18 : 22,
+              fontWeight: 600,
+              color: C.white,
+              margin: 0,
+            }}
+          >
+            직업군 모드
+          </h3>
+          <p
+            style={{
+              fontFamily: "var(--f-body)",
+              fontSize: 12,
+              color: C.text35,
+              margin: "8px 0 0",
+              fontWeight: 300,
+            }}
+          >
+            프라임시티에서 또 다른 커리어를 시작하세요.
+          </p>
+        </div>
+
+        {/* Career cards grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
+            gap: isMobile ? 12 : 16,
+          }}
+        >
+          {careerModes.map((cm, i) => (
+            <Link
+              key={cm.id}
+              to={cm.detailPath}
+              style={{
+                textDecoration: "none",
+                padding: isMobile ? "20px 18px" : "24px 22px",
+                background: C.bgCard,
+                border: `1px solid ${C.border06}`,
+                position: "relative",
+                overflow: "hidden",
+                opacity: vCareer ? 1 : 0,
+                transform: vCareer ? "translateY(0)" : "translateY(20px)",
+                transition: `all 0.7s cubic-bezier(0.22,1,0.36,1) ${i * 0.06}s`,
+                display: "block",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = cm.accent;
+                e.currentTarget.style.transform = "translateY(-3px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = C.border06;
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              {/* Top accent line */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: 2,
+                  background: `linear-gradient(90deg, ${cm.accent}, transparent 70%)`,
+                  opacity: 0.6,
+                }}
+              />
+
+              {/* Icon + title row */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  marginBottom: 10,
+                }}
+              >
+                <span style={{ fontSize: 22 }}>{cm.icon}</span>
+                <div>
+                  <span
+                    style={{
+                      fontFamily: "var(--f-display-en)",
+                      fontSize: 9,
+                      letterSpacing: "0.2em",
+                      textTransform: "uppercase",
+                      color: cm.accent,
+                      display: "block",
+                    }}
+                  >
+                    {cm.en}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "var(--f-display-kr)",
+                      fontSize: isMobile ? 15 : 16,
+                      fontWeight: 600,
+                      color: C.white,
+                    }}
+                  >
+                    {cm.name}
+                  </span>
+                </div>
+              </div>
+
+              {/* Tagline */}
+              <p
+                style={{
+                  fontFamily: "var(--f-body)",
+                  fontSize: 12,
+                  color: C.text45,
+                  margin: "0 0 10px",
+                  lineHeight: 1.6,
+                  fontWeight: 300,
+                  wordBreak: "keep-all",
+                }}
+              >
+                {cm.tagline}
+              </p>
+
+              {/* Location + key character */}
+              <div
+                style={{
+                  display: "flex",
+                  gap: 8,
+                  flexWrap: "wrap",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 10,
+                    padding: "2px 8px",
+                    background: C.bgDeep,
+                    border: `1px solid ${C.border05}`,
+                    color: C.text25,
+                    fontFamily: "var(--f-body)",
+                  }}
+                >
+                  {cm.location}
+                </span>
+                <span
+                  style={{
+                    fontSize: 10,
+                    padding: "2px 8px",
+                    background: C.bgDeep,
+                    border: `1px solid ${C.border05}`,
+                    color: C.text25,
+                    fontFamily: "var(--f-body)",
+                  }}
+                >
+                  {cm.keyChar}
+                </span>
+              </div>
+
+              {/* Trigger command */}
+              <div
+                style={{
+                  marginTop: 10,
+                  fontFamily: "monospace",
+                  fontSize: 10,
+                  color: cm.accent,
+                  opacity: 0.7,
+                }}
+              >
+                {cm.trigger}
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );

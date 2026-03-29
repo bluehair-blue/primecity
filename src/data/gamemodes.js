@@ -1,10 +1,11 @@
-export const gamemodes = [
+// ── Main story modes ──
+export const mainModes = [
   {
     id: "audition",
     name: "오디션",
     en: "Produce · Prime · Priority",
     tagline: "증명하라. 세계가 당신을 알게 된다.",
-    desc: "프로듀스 · 프라임 · 프라이오리티 — 프라임시티 최대 규모의 서바이벌 오디션. 스테이지 부문(아이돌, 가수, 댄서, 싱어송라이터)에서 정상을 향해 올라가는 메인 스토리. 연습, 미션, 무대, 심사를 거치며 캐릭터들과 관계를 쌓고 자신만의 아티스트를 만들어간다.",
+    desc: "프로듀스 · 프라임 · 프라이오리티(PPP) — 프라임시티 최대 규모의 서바이벌 오디션. 스테이지 부문(아이돌, 가수, 댄서, 싱어송라이터)에서 정상을 향해 올라가는 메인 스토리. 연습, 미션, 무대, 심사를 거치며 캐릭터들과 관계를 쌓고 자신만의 아티스트를 만들어간다.",
     accent: "oklch(0.76 0.12 80)",
     icon: "🎤",
     detailPath: "/modes/audition",
@@ -30,3 +31,75 @@ export const gamemodes = [
     detailPath: "/modes/producer",
   },
 ];
+
+// ── Career (직업군) modes ──
+export const careerModes = [
+  {
+    id: "manager",
+    name: "매니저",
+    en: "Manager",
+    trigger: "!매니저모드",
+    tagline: "스케줄 뒤에서 스타를 만드는 사람.",
+    desc: "아티스트의 전담 매니저가 되어 스케줄 관리, 위기 대응, 관계 관리를 수행한다. A분기(매니저 시점)와 B분기(아티스트 시점) 선택 가능.",
+    accent: "oklch(0.72 0.12 55)",
+    icon: "📋",
+    detailPath: "/modes/manager",
+    location: "소속사 배정",
+    keyChar: "서윤 · 강하람 · 한소리",
+  },
+  {
+    id: "trainee",
+    name: "연습생",
+    en: "Trainee",
+    trigger: "!연습생모드",
+    tagline: "데뷔라는 이름의 먼 약속.",
+    desc: "Route 0 소속 연습생으로 일상 훈련, 주간 평가, 데뷔 게이지를 쌓아간다. 강하람과 함께 연습실에서 시작하는 성장 서사.",
+    accent: "oklch(0.65 0.10 140)",
+    icon: "✿",
+    detailPath: "/modes/trainee",
+    location: "테라스 · Route 0",
+    keyChar: "강하람 · 한소리 · 이서하",
+  },
+  {
+    id: "composer",
+    name: "작곡가",
+    en: "Composer",
+    trigger: "!작곡가모드",
+    tagline: "멜로디 하나로 세계를 뒤흔들어라.",
+    desc: "Blue Moon 소속 또는 프리랜서 작곡가로 곡 작업 → 아티스트 매칭 → 발매 → 차트 퍼포먼스의 루프를 반복한다.",
+    accent: "oklch(0.65 0.10 240)",
+    icon: "∂",
+    detailPath: "/modes/composer",
+    location: "미들 링 · Blue Moon",
+    keyChar: "이서하 · 에리카 · 서윤",
+  },
+  {
+    id: "actor",
+    name: "배우",
+    en: "Actor",
+    trigger: "!배우모드",
+    tagline: "카메라가 돌아간다. 증명할 시간.",
+    desc: "신인 배우로 캐스팅 → 촬영 → 방영/개봉의 커리어를 쌓아간다. 연기력과 인지도 시스템으로 성장을 체감한다.",
+    accent: "oklch(0.65 0.12 340)",
+    icon: "▷",
+    detailPath: "/modes/actor",
+    location: "PRISM Studio",
+    keyChar: "서윤 · 엘라 · 한소리",
+  },
+  {
+    id: "influencer",
+    name: "인플루언서",
+    en: "Influencer",
+    trigger: "!인플루언서모드",
+    tagline: "팔로워가 곧 무대다.",
+    desc: "하입 로드 기반 인플루언서/크리에이터로 콘텐츠 기획, 바이럴, 브랜드 딜을 관리한다. 미모리가 핵심 커넥션.",
+    accent: "oklch(0.72 0.10 220)",
+    icon: "◐",
+    detailPath: "/modes/influencer",
+    location: "하입 로드",
+    keyChar: "미모리 · 한소리 · 엘라",
+  },
+];
+
+// ── Combined export for backward compatibility ──
+export const gamemodes = [...mainModes, ...careerModes];
