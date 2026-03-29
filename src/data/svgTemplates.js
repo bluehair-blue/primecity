@@ -60,8 +60,8 @@ function generateSnsPost(p) {
     ${avatarSvg}
     <text x="52" y="22" fill="#e8e8e8" font-size="13" font-weight="600" font-family="sans-serif">${username}</text>
     <text x="52" y="38" fill="#888" font-size="10" font-family="sans-serif">${location}</text>
-    <circle cx="${52 + username.length * 7 + 8}" cy="18" r="5" fill="#4a9eff"/>
-    <text x="${52 + username.length * 7 + 5}" y="22" fill="#fff" font-size="8" font-family="sans-serif">✓</text>
+    <circle cx="${52 + username.length * 8 + 10}" cy="18" r="5" fill="#4a9eff"/>
+    <text x="${52 + username.length * 8 + 7}" y="22" fill="#fff" font-size="8" font-family="sans-serif">✓</text>
   </g>
   <!-- Image area -->
   ${imageSvg}
@@ -142,8 +142,8 @@ function generateTweet(p) {
   ${avatarSvg}
   <!-- Name + handle -->
   <text x="70" y="34" fill="#e8e8e8" font-size="14" font-weight="700" font-family="sans-serif">${name}</text>
-  <circle cx="${70 + name.length * 11 + 8}" cy="30" r="5" fill="#4a9eff"/>
-  <text x="${70 + name.length * 11 + 5}" y="34" fill="#fff" font-size="7" font-family="sans-serif">✓</text>
+  <circle cx="${70 + name.length * 14 + 10}" cy="30" r="5" fill="#4a9eff"/>
+  <text x="${70 + name.length * 14 + 7}" y="34" fill="#fff" font-size="7" font-family="sans-serif">✓</text>
   <text x="70" y="50" fill="#8899a6" font-size="12" font-family="sans-serif">${handle}</text>
   <!-- Content -->
   ${lines.map((line, i) => `<text x="20" y="${80 + i * 22}" fill="#e8e8e8" font-size="15" font-family="sans-serif">${line}</text>`).join("\n  ")}
@@ -276,7 +276,7 @@ function generateMessenger(p) {
   <text x="16" y="32" fill="#888" font-size="16" font-family="sans-serif">←</text>
   ${avatarSvg}
   <text x="82" y="24" fill="#e8e8e8" font-size="14" font-weight="600" font-family="sans-serif">${contact}</text>
-  <circle cx="${82 + contact.length * 10 + 8}" cy="20" r="4" fill="#4caf50"/>
+  <circle cx="${82 + contact.length * 14 + 10}" cy="20" r="4" fill="#4caf50"/>
   <text x="82" y="40" fill="#4caf50" font-size="10" font-family="sans-serif">온라인</text>
   <!-- Messages -->
   <g transform="translate(0, 80)">
@@ -340,7 +340,7 @@ function generateNews(p) {
     <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
   </rect>
   <text x="165" y="24" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">LIVE</text>
-  <text x="440" y="26" fill="#888" font-size="11" font-family="sans-serif">${time}</text>
+  <text x="484" y="26" text-anchor="end" fill="#888" font-size="11" font-family="sans-serif">${time}</text>
   <!-- Breaking banner (flash animation) -->
   <rect x="0" y="44" width="500" height="32" fill="#c62828">
     <animate attributeName="opacity" values="1;0.7;1" dur="1.5s" repeatCount="indefinite"/>
