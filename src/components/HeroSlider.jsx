@@ -169,7 +169,7 @@ export default function HeroSlider({ isMobile }) {
           zIndex: 2,
         }}
       >
-        Entertainment Simulation
+        Produce · Prism · Priority
       </p>
 
       {/* ── Title ── */}
