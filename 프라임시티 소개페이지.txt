@@ -1,75 +1,97 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:oklch(0.08 0.01 265);--bg-card:oklch(0.12 0.005 265/0.4);--gold:oklch(0.76 0.12 80);--gold-dim:oklch(0.76 0.12 80/0.15);--blue:oklch(0.62 0.20 252);--blue-dim:oklch(0.62 0.20 252/0.15);--txt:oklch(1.0 0 0);--txt-sub:oklch(1.0 0 0/0.45);--txt-dim:oklch(1.0 0 0/0.25);--bdr:oklch(0.76 0.12 80/0.08)}
 .w{padding:0 24px}
 .sc{padding:36px 0;text-align:center}
-.lb{font-family:serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:oklch(0.76 0.12 80);display:block;margin-bottom:12px}
-.tt{font-family:serif;font-size:clamp(20px,5vw,32px);font-weight:600;line-height:1.4;word-break:keep-all;color:oklch(1.0 0 0)}
-.gl{width:56px;height:1px;margin:16px auto;background:linear-gradient(90deg,transparent,oklch(0.76 0.12 80),transparent)}
-.ds{font-size:13px;line-height:1.9;color:oklch(1.0 0 0/0.45);font-weight:300;word-break:keep-all;max-width:520px;margin:0 auto}
+.lb{font-family:serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px}
+.tt{font-family:serif;font-size:clamp(20px,5vw,32px);font-weight:600;line-height:1.4;word-break:keep-all;color:var(--txt)}
+.gl{width:56px;height:1px;margin:16px auto;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.ds{font-size:13px;line-height:1.9;color:var(--txt-sub);font-weight:300;word-break:keep-all;max-width:520px;margin:0 auto}
 .sp{display:flex;align-items:center;justify-content:center;padding:20px 24px}
 .sp::before,.sp::after{content:'';flex:1;max-width:100px;height:1px}
-.sp::before{background:linear-gradient(270deg,oklch(0.76 0.12 80/0.15),transparent);margin-right:8px}
-.sp::after{background:linear-gradient(90deg,oklch(0.76 0.12 80/0.15),transparent);margin-left:8px}
-.sd{width:4px;height:4px;border-radius:50%;background:oklch(0.76 0.12 80/0.15);flex-shrink:0}
-.ag{font-family:serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:oklch(1.0 0 0/0.3);padding:18px 0 8px;border-bottom:1px solid oklch(0.76 0.12 80/0.08);display:flex;align-items:center;gap:8px}
-.ag::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,oklch(0.76 0.12 80/0.08),transparent)}
+.sp::before{background:linear-gradient(270deg,var(--blue-dim),transparent);margin-right:8px}
+.sp::after{background:linear-gradient(90deg,var(--blue-dim),transparent);margin-left:8px}
+.sd{width:4px;height:4px;border-radius:50%;background:var(--blue-dim);flex-shrink:0}
+/* Folding sections */
+.fold{border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);margin:4px 0}
+.fold-s{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;cursor:pointer;list-style:none;transition:background 0.3s}
+.fold-s:hover{background:oklch(1.0 0 0/0.02)}
+.fold-s::-webkit-details-marker{display:none}
+.fold-s::marker{display:none;content:''}
+.fold-t{font-family:serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold)}
+.fold-i{font-size:9px;color:var(--txt-dim);transition:0.3s}
+details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
+/* Character list */
+.ag{font-family:serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:oklch(1.0 0 0/0.3);padding:18px 0 8px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:8px}
+.ag::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--bdr),transparent)}
 .chd{border-bottom:1px solid oklch(0.76 0.12 80/0.06)}
-.chs{display:flex;gap:12px;padding:12px 0;text-align:left;cursor:pointer;list-style:none;border-radius:6px;transition:background 0.2s}
+.chs{display:flex;gap:12px;padding:12px 0;text-align:left;cursor:pointer;list-style:none;transition:background 0.2s}
 .chs:hover{background:oklch(1.0 0 0/0.03)}
 .chs::-webkit-details-marker{display:none}
 .chs::marker{display:none;content:''}
 .ap{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:serif;font-weight:700;font-size:16px;flex-shrink:0;color:oklch(1.0 0 0/0.85)}
-.ai{width:44px;height:44px;border-radius:50%;flex-shrink:0;background-size:cover;background-position:center top;border:2px solid oklch(0.76 0.12 80/0.2)}
-.cn{font-family:serif;font-size:15px;font-weight:600;color:oklch(1.0 0 0)}
-.cr{font-size:11px;font-weight:300;color:oklch(1.0 0 0/0.35);margin-left:6px}
-.ct{font-family:serif;font-size:12px;color:oklch(1.0 0 0/0.5);font-style:italic;margin:3px 0;line-height:1.5;word-break:keep-all}
-.chx{padding:16px;display:flex;gap:16px;background:oklch(1.0 0 0/0.03);border-radius:8px;margin-bottom:8px}
-.pi{width:140px;height:180px;flex-shrink:0;background-size:cover;background-position:center top;background-repeat:no-repeat;border-radius:6px;border:1px solid oklch(0.76 0.12 80/0.2)}
-.pf{flex:1;font-size:14px;color:oklch(1.0 0 0/0.5);line-height:1.7;word-break:keep-all;text-align:left;display:flex;flex-direction:column;gap:6px}
-.pf b{display:block;color:oklch(0.76 0.12 80);font-size:11px;font-weight:400;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:2px}
-.dst{padding:14px 0;border-bottom:1px solid oklch(0.76 0.12 80/0.06);text-align:left;display:flex;gap:12px;align-items:flex-start}
+.ai{width:44px;height:44px;border-radius:50%;flex-shrink:0;background-size:cover;background-position:center top;border:2px solid oklch(1.0 0 0/0.1);transition:border-color 0.3s}
+.chd[open] .ai{border-color:var(--gold)}
+.cn{font-family:serif;font-size:15px;font-weight:600;color:var(--txt)}
+.cr{font-size:11px;font-weight:300;color:var(--txt-sub);margin-left:6px}
+.ct{font-family:serif;font-size:12px;color:var(--gold);font-style:italic;margin:3px 0;line-height:1.5;word-break:keep-all;opacity:0.7}
+.chx{padding:16px;display:flex;gap:16px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.05);border-radius:8px;margin-bottom:8px;position:relative;overflow:hidden}
+.chx::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,var(--blue) 3px,var(--blue) 4px);opacity:0.015;pointer-events:none}
+.pi{width:140px;height:180px;flex-shrink:0;background-size:cover;background-position:center top;border-radius:6px;border:1px solid oklch(1.0 0 0/0.1);box-shadow:0 8px 24px oklch(0 0 0/0.3)}
+.pf{flex:1;font-size:13px;color:oklch(1.0 0 0/0.5);line-height:1.7;word-break:keep-all;text-align:left;display:flex;flex-direction:column;gap:8px}
+.pf b{display:block;color:var(--gold);font-size:10px;font-weight:400;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:2px;border-left:2px solid var(--gold);padding-left:8px}
+/* Districts & Modes */
+.dst{padding:14px 0;border-bottom:1px solid var(--bdr);text-align:left;display:flex;gap:12px;align-items:flex-start}
 .da{width:44px;height:44px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:serif;font-weight:700;font-size:14px;flex-shrink:0;color:oklch(1.0 0 0/0.7);border:1px solid oklch(1.0 0 0/0.1)}
-.mdc{padding:14px 0;border-bottom:1px solid oklch(0.76 0.12 80/0.06);text-align:left}
-.cb{border:1px solid oklch(0.76 0.12 80/0.10);padding:32px 20px;background:oklch(0.10 0.008 280/0.6);text-align:center}
-.bp{padding:11px 28px;background:linear-gradient(135deg,oklch(0.76 0.12 80),oklch(0.65 0.12 75));border:none;color:oklch(0.08 0.01 280);font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;font-family:sans-serif;box-shadow:0 0 20px oklch(0.76 0.12 80/0.2);display:inline-block}
-.bs{padding:11px 28px;background:transparent;border:1px solid oklch(1.0 0 0/0.15);color:oklch(1.0 0 0/0.45);font-size:11px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;font-family:sans-serif;display:inline-block}
-.ft{padding:24px;border-top:1px solid oklch(0.76 0.12 80/0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-.fh{width:12px;height:12px;background:linear-gradient(135deg,oklch(0.76 0.12 80),oklch(0.55 0.12 80));clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)}
+.mdc{padding:14px 0;border-bottom:1px solid var(--bdr);text-align:left}
+.cb{border:1px solid var(--blue-dim);padding:32px 20px;background:oklch(0.10 0.008 265/0.6);text-align:center}
+.bp{padding:11px 28px;background:linear-gradient(135deg,var(--gold),oklch(0.65 0.12 75));border:none;color:var(--bg);font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;font-family:sans-serif;box-shadow:0 0 20px oklch(0.76 0.12 80/0.2);display:inline-block;text-decoration:none}
+.bs{padding:11px 28px;background:transparent;border:1px solid var(--blue);color:var(--blue);font-size:11px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;font-family:sans-serif;display:inline-block;text-decoration:none;transition:background 0.3s}
+.bs:hover{background:var(--blue-dim)}
+.ft{padding:24px;border-top:1px solid var(--bdr);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fh{width:12px;height:12px;background:linear-gradient(135deg,var(--gold),oklch(0.55 0.12 80));clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)}
 .bg{background-size:cover;background-position:center;opacity:0.4}
-.hero{position:relative;min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:64px 24px 48px;overflow:hidden;background:oklch(0.08 0.01 280)}
+/* Hero */
+.hero{position:relative;min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:64px 24px 48px;overflow:hidden;background:var(--bg)}
 .hbg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0.35;filter:brightness(0.65) saturate(0.85)}
-.hgr{position:absolute;inset:0;background:linear-gradient(180deg,oklch(0.08 0.01 280/0.3) 0%,oklch(0.08 0.01 280/0.05) 30%,oklch(0.08 0.01 280/0.5) 70%,oklch(0.08 0.01 280) 100%)}
-.hvi{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 25%,oklch(0.08 0.01 280/0.7) 100%)}
-.hor{position:absolute;top:50%;left:50%;width:min(320px,70vw);height:min(320px,70vw);border-radius:50%;border:1px solid oklch(0.76 0.12 80/0.05);transform:translate(-50%,-50%);animation:spin 80s linear infinite;pointer-events:none}
-.hod{position:absolute;top:-3px;left:50%;width:5px;height:5px;border-radius:50%;background:oklch(0.76 0.12 80);box-shadow:0 0 10px oklch(0.76 0.12 80/0.2)}
+.hgr{position:absolute;inset:0;background:linear-gradient(180deg,oklch(0.08 0.01 265/0.3) 0%,oklch(0.08 0.01 265/0.05) 30%,oklch(0.08 0.01 265/0.5) 70%,var(--bg) 100%)}
+.hvi{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 25%,oklch(0.08 0.01 265/0.5) 70%,oklch(0.12 0.06 252/0.4) 100%)}
+.hor{position:absolute;top:50%;left:50%;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%)}
+.hor.g{width:min(320px,70vw);height:min(320px,70vw);border:1px solid oklch(0.76 0.12 80/0.05);animation:spin 80s linear infinite}
+.hor.b{width:min(400px,88vw);height:min(400px,88vw);border:1px solid oklch(0.62 0.20 252/0.06);animation:spin 120s linear infinite reverse}
+.hod{position:absolute;top:-3px;left:50%;width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px oklch(0.76 0.12 80/0.2)}
+.hod.bl{background:var(--blue);box-shadow:0 0 8px oklch(0.62 0.20 252/0.25);top:auto;bottom:-2px;width:4px;height:4px}
 .hin{position:relative;z-index:2}
-.hlb{font-family:serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:oklch(0.76 0.12 80);margin-bottom:14px;opacity:0;transform:translateY(10px);animation:fu .8s cubic-bezier(.22,1,.36,1) .3s forwards}
-.htl{font-family:serif;font-size:clamp(36px,9vw,64px);font-weight:700;line-height:1.1;color:oklch(1.0 0 0);text-shadow:0 0 40px oklch(0.76 0.12 80/0.2);opacity:0;transform:translateY(10px);animation:fu .8s cubic-bezier(.22,1,.36,1) .5s forwards}
+.hlb{font-family:serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;opacity:0;transform:translateY(10px);animation:fu .8s cubic-bezier(.22,1,.36,1) .3s forwards}
+.htl{font-family:serif;font-size:clamp(36px,9vw,64px);font-weight:700;line-height:1.1;color:var(--txt);text-shadow:0 0 40px oklch(0.76 0.12 80/0.2);opacity:0;transform:translateY(10px);animation:fu .8s cubic-bezier(.22,1,.36,1) .5s forwards}
 .hen{display:block;font-family:serif;font-size:clamp(10px,2.5vw,14px);font-weight:300;letter-spacing:.5em;color:oklch(1.0 0 0/0.25);margin-top:8px;text-transform:uppercase;text-shadow:none}
-.hdv{width:0;height:1px;margin:24px auto;background:linear-gradient(90deg,transparent,oklch(0.76 0.12 80),transparent);animation:ew 1.2s cubic-bezier(.22,1,.36,1) .8s forwards}
+.hdv{width:0;height:1px;margin:24px auto;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:ew 1.2s cubic-bezier(.22,1,.36,1) .8s forwards}
 .hca{font-family:serif;font-size:14px;line-height:1.9;color:oklch(1.0 0 0/0.55);max-width:400px;word-break:keep-all;opacity:0;transform:translateY(10px);animation:fu .8s cubic-bezier(.22,1,.36,1) 1s forwards}
-.hca .g{color:oklch(0.76 0.12 80);font-weight:500}
+.hca .g{color:var(--gold);font-weight:500}
 .hct{margin-top:28px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;opacity:0;transform:translateY(10px);animation:fu .8s cubic-bezier(.22,1,.36,1) 1.2s forwards}
 @keyframes fu{to{opacity:1;transform:translateY(0)}}
 @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
 @keyframes ew{to{width:56px}}
 @media(max-width:480px){.hero{min-height:320px;padding:52px 20px 40px}.hct{flex-direction:column;align-items:center}.bp,.bs{width:180px;text-align:center}.sc{padding:28px 0}.ap,.ai{width:38px;height:38px;font-size:13px}.da{width:38px;height:38px;font-size:12px}.cn{font-size:14px}.chx{flex-direction:column;align-items:center;text-align:center}.pi{width:100%;max-width:200px;height:260px}.pf{text-align:left}.bg{height:60px!important}}
 </style>
-<div style="max-width:720px;margin:0 auto;background:oklch(0.08 0.01 280);border:1px solid oklch(0.76 0.12 80/0.10);border-radius:12px;overflow:hidden;font-family:sans-serif;color:oklch(1.0 0 0);line-height:1.6;">
-<div style="background:oklch(0.10 0.01 280);border-bottom:1px solid oklch(0.76 0.12 80/0.08);padding:9px 15px;display:flex;align-items:center;">
+<div style="max-width:720px;margin:0 auto;background:var(--bg);border:1px solid oklch(1.0 0 0/0.08);border-radius:12px;overflow:hidden;font-family:sans-serif;color:var(--txt);line-height:1.6;">
+<!-- System bar -->
+<div style="background:oklch(0.10 0.01 265);border-bottom:1px solid var(--bdr);padding:9px 15px;display:flex;align-items:center;">
 <div style="display:flex;gap:6px;margin-right:12px;">
 <div style="width:8px;height:8px;border-radius:50%;background:oklch(0.76 0.12 80/0.4);"></div>
-<div style="width:8px;height:8px;border-radius:50%;background:oklch(0.76 0.12 80/0.25);"></div>
-<div style="width:8px;height:8px;border-radius:50%;background:oklch(0.76 0.12 80/0.12);"></div>
+<div style="width:8px;height:8px;border-radius:50%;background:oklch(0.62 0.20 252/0.3);"></div>
+<div style="width:8px;height:8px;border-radius:50%;background:oklch(1.0 0 0/0.12);"></div>
 </div>
-<span style="flex:1;text-align:center;font-family:serif;font-size:9px;letter-spacing:3px;color:oklch(0.76 0.12 80/0.35);text-transform:uppercase;">PRIME CITY</span>
+<span style="flex:1;text-align:center;font-family:serif;font-size:9px;letter-spacing:3px;color:var(--gold);opacity:0.35;text-transform:uppercase;">PRIME CITY</span>
 <div style="width:56px;"></div>
 </div>
+<!-- Hero -->
 <div class="hero">
 <div class="hbg" style="background-image:url('https://img.bluehair.blue/ent/bg5.webp?v=2');"></div>
 <div class="hgr"></div>
 <div class="hvi"></div>
-<div class="hor"><div class="hod"></div></div>
+<div class="hor g"><div class="hod"></div></div>
+<div class="hor b"><div class="hod bl"></div></div>
 <div class="hin">
 <p class="hlb">Produce · Prism · Priority</p>
 <h1 class="htl">프라임시티<span class="hen">Prime City</span></h1>
@@ -82,6 +104,7 @@
 </div>
 </div>
 <div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg3.webp?v=2');"></div>
+<!-- About -->
 <div class="w">
 <section class="sc" id="about">
 <span class="lb">About</span>
@@ -89,383 +112,188 @@
 <div class="gl"></div>
 <p class="ds">자동화가 모든 것을 대체한 근미래. 사람이 자신의 가치를 증명할 수 있는 무대는 단 하나 — 엔터테인먼트.<br><br>프라임시티는 그 정점에 있다. 이곳에 입성한다는 것 자체가, 업계에서 인정받았다는 의미.</p>
 </section>
-<section class="sc" id="images" style="padding-top:16px;">
-<span class="lb">Image System</span>
-<h2 class="tt" style="font-size:clamp(16px,4vw,22px);">대화 속 자동 이미지 출력</h2>
-<div class="gl"></div>
-<p class="ds" style="margin-bottom:16px;">챗봇이 상황·감정을 분석하여 대사 직전에 이미지를 자동 출력합니다.<br>15명 × 74장 = 총 1,110장.</p>
-<div style="text-align:left;max-width:480px;margin:0 auto;">
-<div style="font-family:monospace;font-size:11px;color:oklch(1.0 0 0/0.5);padding:8px 12px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(0.76 0.12 80/0.08);margin-bottom:12px;overflow-x:auto;white-space:nowrap;">img.bluehair.blue/ent/<span style="color:oklch(0.76 0.12 80);">{코드}</span>/<span style="color:oklch(0.76 0.12 80);">{번호}</span>.webp</div>
+</div>
+<!-- Image System (blue accent) -->
+<details class="fold">
+<summary class="fold-s">
+<span class="fold-t" style="color:var(--blue);">Image System</span>
+<span class="fold-i">▼</span>
+</summary>
+<div style="padding:0 24px 20px;">
+<p class="ds" style="margin:0 0 14px;text-align:left;">챗봇이 상황·감정을 분석하여 대사 직전에 이미지를 자동 출력합니다. 15명 × 74장 = 총 1,110장.</p>
+<div style="font-family:monospace;font-size:11px;color:var(--blue);padding:8px 12px;background:oklch(0.12 0.02 252/0.2);border:1px solid oklch(0.62 0.20 252/0.15);margin-bottom:12px;overflow-x:auto;white-space:nowrap;">img.bluehair.blue/ent/<span style="color:var(--gold);">{코드}</span>/<span style="color:var(--gold);">{번호}</span>.webp</div>
 <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;">
-<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">SY 서윤</span>
-<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">NHR 나하린</span>
-<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">JSH 진시혁</span>
-<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">ERK 에리카</span>
-<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">LSH 이서하</span>
-<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">HSR 한소리</span>
-<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">KHR 강하람</span>
-<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">JGR 장그루</span>
-<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">MIL 밀라</span>
-<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">ELA 엘라</span>
-<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">MMR 미모리</span>
-<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">HSE 하시은</span>
-<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">NIA 니아</span>
-<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">RAY 레이</span>
-<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:oklch(1.0 0 0/0.35);font-family:monospace;">LPS 라피스</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--txt-dim);font-family:monospace;">SY 서윤</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--txt-dim);font-family:monospace;">NHR 나하린</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--txt-dim);font-family:monospace;">JSH 진시혁</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--txt-dim);font-family:monospace;">ERK 에리카</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--txt-dim);font-family:monospace;">LSH 이서하</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--txt-dim);font-family:monospace;">HSR 한소리</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--txt-dim);font-family:monospace;">KHR 강하람</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--txt-dim);font-family:monospace;">JGR 장그루</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--txt-dim);font-family:monospace;">MIL 밀라</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--txt-dim);font-family:monospace;">ELA 엘라</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--txt-dim);font-family:monospace;">MMR 미모리</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--txt-dim);font-family:monospace;">HSE 하시은</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--txt-dim);font-family:monospace;">NIA 니아</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--txt-dim);font-family:monospace;">RAY 레이</span>
+<span style="font-size:9px;padding:2px 6px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--txt-dim);font-family:monospace;">LPS 라피스</span>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-<div style="padding:6px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:11px;color:oklch(1.0 0 0/0.6);">감정</div><div style="font-family:monospace;font-size:10px;color:oklch(0.76 0.12 80);">1–8 <span style="color:oklch(1.0 0 0/0.25);">· 8장</span></div></div>
-<div style="padding:6px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:11px;color:oklch(1.0 0 0/0.6);">일상</div><div style="font-family:monospace;font-size:10px;color:oklch(0.65 0.10 240);">10–18 <span style="color:oklch(1.0 0 0/0.25);">· 9장</span></div></div>
-<div style="padding:6px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:11px;color:oklch(1.0 0 0/0.6);">NSFW</div><div style="font-family:monospace;font-size:10px;color:oklch(0.65 0.12 340);">20–67 <span style="color:oklch(1.0 0 0/0.25);">· 41장</span></div></div>
-<div style="padding:6px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:11px;color:oklch(1.0 0 0/0.6);">착의</div><div style="font-family:monospace;font-size:10px;color:oklch(0.72 0.10 170);">70–86 <span style="color:oklch(1.0 0 0/0.25);">· 16장</span></div></div>
+<div style="padding:6px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:11px;color:oklch(1.0 0 0/0.6);">감정</div><div style="font-family:monospace;font-size:10px;color:var(--gold);">1–8 <span style="color:var(--txt-dim);">· 8장</span></div></div>
+<div style="padding:6px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:11px;color:oklch(1.0 0 0/0.6);">일상</div><div style="font-family:monospace;font-size:10px;color:var(--blue);">10–18 <span style="color:var(--txt-dim);">· 9장</span></div></div>
+<div style="padding:6px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:11px;color:oklch(1.0 0 0/0.6);">NSFW</div><div style="font-family:monospace;font-size:10px;color:oklch(0.65 0.12 340);">20–67 <span style="color:var(--txt-dim);">· 41장</span></div></div>
+<div style="padding:6px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:11px;color:oklch(1.0 0 0/0.6);">착의</div><div style="font-family:monospace;font-size:10px;color:oklch(0.72 0.10 170);">70–86 <span style="color:var(--txt-dim);">· 16장</span></div></div>
 </div>
 </div>
-</section>
-</div>
+</details>
 <div class="sp"><div class="sd"></div></div>
+<!-- Characters (always open) -->
 <div class="w">
 <section class="sc" id="characters">
 <span class="lb">Characters</span>
 <h2 class="tt">프라임시티의 인물들</h2>
 <div class="gl"></div>
-<p style="font-size:12px;color:oklch(1.0 0 0/0.3);margin-top:6px;font-weight:300;">탭하여 프로필을 확인하세요.</p>
+<p style="font-size:12px;color:var(--txt-dim);margin-top:6px;font-weight:300;">탭하여 프로필을 확인하세요.</p>
 <div style="margin-top:20px;">
 <div class="ag">APEX Entertainment</div>
-<details class="chd">
-<summary class="chs">
+<details class="chd"><summary class="chs">
 <div class="ai" style="background-image:url('https://img.bluehair.blue/ent/SYthumbnail.webp?v=2');border-color:oklch(0.76 0.12 80/0.3);"></div>
 <div><div><span class="cn">서윤</span><span class="cr">톱 아이돌 겸 배우</span></div><div class="ct">"영점, 그리고 정점."</div></div>
-</summary>
-<div class="chx">
+</summary><div class="chx">
 <div class="pi" style="background-image:url('https://img.bluehair.blue/ent/SY/profile.webp?v=2');"></div>
 <div class="pf">
 <div><b>성격</b> 고데레 — 너무 높은 곳에 있어서 내려오는 법을 모름</div>
 <div><b>배경</b> 어린 나이에 데뷔해 사람 서윤으로 살아본 적이 없다. 업계 정상에 섰지만, 정작 자기 자신은 영(零).</div>
 <div><b>목표</b> 진심으로 자신을 대해주는 사람을 만나는 것.</div>
-</div>
-</div>
-</details>
-<details class="chd">
-<summary class="chs">
+</div></div></details>
+<details class="chd"><summary class="chs">
 <div class="ai" style="background-image:url('https://img.bluehair.blue/ent/NHRthumbnail.webp?v=2');border-color:oklch(0.72 0.10 310/0.3);"></div>
 <div><div><span class="cn">나하린</span><span class="cr">치프 프로듀서</span></div><div class="ct">"안녕~. 네 이름 많이 들었어. 잘 부탁해? 후후."</div></div>
-</summary>
-<div class="chx">
+</summary><div class="chx">
 <div class="pi" style="background-image:url('https://img.bluehair.blue/ent/NHR/profile.webp?v=2');"></div>
 <div class="pf">
 <div><b>성격</b> 장난기 + 변덕 + 예측불가</div>
 <div><b>배경</b> APEX의 황금기를 만든 장본인. 외모는 20대 중반이나 경력과 위치가 어울리지 않는 미스터리한 존재.</div>
 <div><b>목표</b> 자신이 설계한 무대 위에서 벌어지는 드라마를 관찰하는 것.</div>
-</div>
-</div>
-</details>
-<details class="chd">
-<summary class="chs">
+</div></div></details>
+<details class="chd"><summary class="chs">
 <div class="ap" style="background:oklch(0.55 0.01 0);">진</div>
 <div><div><span class="cn">진시혁</span><span class="cr">프로듀서 / 심사위원</span></div><div class="ct">"탈락, 다음."</div></div>
-</summary>
-<div class="chx">
-<div class="pf">
+</summary><div class="chx"><div class="pf">
 <div><b>성격</b> 냉정 + 직설 + 합리주의</div>
 <div><b>배경</b> APEX의 젊은 에이스로, 나하린의 후계자로 여겨진다. 결과로 자신의 판단을 증명하는 타입.</div>
 <div><b>목표</b> 더 빠르고 직접적인 방법으로 정점에 이르는 것.</div>
-</div>
-</div>
-</details>
+</div></div></details>
 <div class="ag">Blue Moon Entertainment</div>
-<details class="chd">
-<summary class="chs">
+<details class="chd"><summary class="chs">
 <div class="ap" style="background:oklch(0.72 0.10 170);">에</div>
 <div><div><span class="cn">에리카</span><span class="cr">프로듀서 / 심사위원</span></div><div class="ct">"만만하게 보면 큰코다친다? 흐흥~."</div></div>
-</summary>
-<div class="chx">
-<div class="pf">
+</summary><div class="chx"><div class="pf">
 <div><b>성격</b> 아네데레 — 독설가 (내면은 따뜻함)</div>
 <div><b>배경</b> 원래는 따뜻한 사람이었으나, 처음 담당한 아티스트를 잃은 트라우마로 독설이라는 방어막을 형성.</div>
 <div><b>목표</b> 과거의 실패를 보상하고, 다시 누군가를 이끌 자격을 얻는 것.</div>
-</div>
-</div>
-</details>
-<details class="chd">
-<summary class="chs">
+</div></div></details>
+<details class="chd"><summary class="chs">
 <div class="ai" style="background-image:url('https://img.bluehair.blue/ent/LSHthumbnail.webp?v=2');border-color:oklch(0.70 0.10 240/0.3);"></div>
 <div><div><span class="cn">이서하</span><span class="cr">싱어송라이터 겸 프로듀서</span></div><div class="ct">"하아... 또? 귀찮으니 빨리 끝내."</div></div>
-</summary>
-<div class="chx">
+</summary><div class="chx">
 <div class="pi" style="background-image:url('https://img.bluehair.blue/ent/LSH/profile.webp?v=2');"></div>
 <div class="pf">
 <div><b>성격</b> 다루데레 + 자기부정 + 귀차니즘</div>
 <div><b>배경</b> 모든 분야에서 업계 최상급이나, 자기 이름으로 곡을 발표했다가 외면당한 과거. 이후 가명으로만 작업.</div>
 <div><b>목표</b> 자신의 음악을 자신의 이름으로 세상에 내놓는 것.</div>
-</div>
-</div>
-</details>
+</div></div></details>
 <div class="ag">PRISM Studio</div>
-<details class="chd">
-<summary class="chs">
+<details class="chd"><summary class="chs">
 <div class="ap" style="background:oklch(0.72 0.12 55);">한</div>
 <div><div><span class="cn">한소리</span><span class="cr">기획사 대표</span></div><div class="ct">"잘 들어. 이게 마지막 기회야."</div></div>
-</summary>
-<div class="chx">
-<div class="pf">
+</summary><div class="chx"><div class="pf">
 <div><b>성격</b> 능글능글 (내면은 절박함)</div>
 <div><b>배경</b> 업계 경험과 감각을 갖춘 능력자이나, 자본과 인맥의 벽에 부딪혀 현실의 어려움을 뼈저리게 배움. 현재 기획사는 재정난 중.</div>
 <div><b>목표</b> 이번 오디션으로 기획사를 살리는 것.</div>
-</div>
-</div>
-</details>
+</div></div></details>
 <div class="ag">Route 0</div>
-<details class="chd">
-<summary class="chs">
+<details class="chd"><summary class="chs">
 <div class="ai" style="background-image:url('https://img.bluehair.blue/ent/KHRthumbnail.webp?v=2');border-color:oklch(0.65 0.12 20/0.3);"></div>
 <div><div><span class="cn">강하람</span><span class="cr">연습생</span></div><div class="ct">"오늘도 연습! 아자아자~!"</div></div>
-</summary>
-<div class="chx">
+</summary><div class="chx">
 <div class="pi" style="background-image:url('https://img.bluehair.blue/ent/KHR/profile.webp?v=2');"></div>
 <div class="pf">
 <div><b>성격</b> 무자각 여친계 — 열정 넘치는 밝음 (내면은 절박함)</div>
 <div><b>배경</b> 부모님을 일찍 잃고 여동생과 단둘이 살아간다. 아르바이트와 연습을 병행하며 데뷔를 준비 중.</div>
 <div><b>목표</b> 데뷔를 통한 경제적 독립. 여동생을 부양하는 것.</div>
-</div>
-</div>
-</details>
+</div></div></details>
 <div class="ag">Audition Contestants</div>
-<details class="chd">
-<summary class="chs">
-<div class="ap" style="background:oklch(0.72 0.10 300);">그</div>
-<div><div><span class="cn">장그루</span><span class="cr">보컬·아이돌 지망</span></div><div class="ct">"이번엔 안 되면 그만둘 거예요."</div></div>
-</summary>
-<div class="chx">
-<div class="pf">
-<div><b>성격</b> 담담함 + 단단함 (내면: 간절함)</div>
-<div><b>배경</b> 유저와 같은 동네 출신으로 함께 연예계를 꿈꾸던 사이. 한 번 탈락한 경험이 있는 재도전형.</div>
-<div><b>목표</b> 자신의 감정과 전문성 사이의 균형을 찾는 것.</div>
-</div>
-</div>
-</details>
-<details class="chd">
-<summary class="chs">
-<div class="ap" style="background:oklch(0.72 0.12 65);">밀</div>
-<div><div><span class="cn">밀라</span><span class="cr">오디션 참가자</span></div><div class="ct">"그냥 좋아서."</div></div>
-</summary>
-<div class="chx">
-<div class="pf">
-<div><b>성격</b> 자유로운 영혼 — 음악이 본능</div>
-<div><b>배경</b> 프라임시티 외부에서 온 야생형 천재. 음악이 본능처럼 나오는 자유로운 영혼.</div>
-<div><b>목표</b> 음악으로 자신의 가치를 증명하는 것.</div>
-</div>
-</div>
-</details>
-<details class="chd">
-<summary class="chs">
-<div class="ap" style="background:oklch(0.65 0.12 15);">엘</div>
-<div><div><span class="cn">엘라</span><span class="cr">오디션 참가자</span></div><div class="ct">"얼굴값이라는 편견, 부숴줄게."</div></div>
-</summary>
-<div class="chx">
-<div class="pf">
-<div><b>성격</b> 여유로운 관능미 (내면: 자존심 + 상처)</div>
-<div><b>배경</b> 비주얼과 실력을 모두 갖췄지만, 항상 외모로만 평가받아온 상처가 있다.</div>
-<div><b>목표</b> 외모 편견을 부수고 실력으로 인정받는 것.</div>
-</div>
-</div>
-</details>
-<details class="chd">
-<summary class="chs">
-<div class="ap" style="background:oklch(0.72 0.10 220);">미</div>
-<div><div><span class="cn">미모리</span><span class="cr">인플루언서 출신</span></div><div class="ct">"보여주는 게 좋으니까~!"</div></div>
-</summary>
-<div class="chx">
-<div class="pf">
-<div><b>성격</b> 천연 관종 + 센스 — 선은 지킴</div>
-<div><b>배경</b> 주목받는 게 자연스러운 인플루언서 출신. 실력도 갖추고 있어 무시 못 한다.</div>
-<div><b>목표</b> 자신의 개성을 콘텐츠로 표현하며 화제를 만드는 것.</div>
-</div>
-</div>
-</details>
-<details class="chd">
-<summary class="chs">
-<div class="ap" style="background:oklch(0.72 0.10 85);">시</div>
-<div><div><span class="cn">하시은</span><span class="cr">오디션 참가자</span></div><div class="ct">"세상 모든 것엔 배울 점이 있거든요!"</div></div>
-</summary>
-<div class="chx">
-<div class="pf">
-<div><b>성격</b> 성실한 우등생 — 안정형 육각형</div>
-<div><b>배경</b> 모든 면에서 평균 이상이지만 특출난 한 가지가 없다. 기본기가 탄탄하여 매 라운드 꾸준히 통과.</div>
-<div><b>목표</b> 꾸준함과 기본기만으로 끝까지 갈 수 있는지 증명하는 것.</div>
-</div>
-</div>
-</details>
-<details class="chd">
-<summary class="chs">
-<div class="ap" style="background:oklch(0.65 0.10 200);">니</div>
-<div><div><span class="cn">니아</span><span class="cr">오디션 참가자</span></div><div class="ct">"이런 내가 뭐가 좋다고..."</div></div>
-</summary>
-<div class="chx">
-<div class="pf">
-<div><b>성격</b> 성장형 — 늦된 출발, 흡수력 폭발</div>
-<div><b>배경</b> 부유층 귀족 출신으로 온실 속에서 자라다가 집안의 기대를 버리고 도망쳐 나왔다.</div>
-<div><b>목표</b> 온실을 벗어나 세상 속에서 스스로 증명하는 것.</div>
-</div>
-</div>
-</details>
-<details class="chd">
-<summary class="chs">
-<div class="ap" style="background:oklch(0.72 0.10 290);">레</div>
-<div><div><span class="cn">레이</span><span class="cr">오디션 참가자</span></div><div class="ct">"내 무대를 내 실력으로 봐달라."</div></div>
-</summary>
-<div class="chx">
-<div class="pf">
-<div><b>성격</b> 꺾이지 않는 밝음 — 한계를 받아들인 단단함</div>
-<div><b>배경</b> 한쪽 다리가 의족인 언더독. 조건이 최악이지만 꺾이지 않는 강인한 사람.</div>
-<div><b>목표</b> 실력만으로 평가받는 공정한 아티스트가 되는 것.</div>
-</div>
-</div>
-</details>
-<details class="chd" style="border-bottom:none;">
-<summary class="chs">
-<div class="ap" style="background:oklch(0.60 0.12 260);">라</div>
-<div><div><span class="cn">라피스</span><span class="cr">오디션 참가자</span></div><div class="ct">"다양한 게 나의 개성이지~"</div></div>
-</summary>
-<div class="chx">
-<div class="pf">
-<div><b>성격</b> 쿨하고 여유로운 예측불가형</div>
-<div><b>배경</b> 매 라운드마다 다른 스타일. 다재다능하지만 '나만의 것'이 없다는 것을 자각하기 시작.</div>
-<div><b>목표</b> 다양한 매력 속에서 자신의 정체성을 찾는 것.</div>
-</div>
-</div>
-</details>
+<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.72 0.10 300);">그</div><div><div><span class="cn">장그루</span><span class="cr">보컬·아이돌 지망</span></div><div class="ct">"이번엔 안 되면 그만둘 거예요."</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 담담함 + 단단함 (내면: 간절함)</div><div><b>배경</b> 유저와 같은 동네 출신으로 함께 연예계를 꿈꾸던 사이. 한 번 탈락한 경험이 있는 재도전형.</div><div><b>목표</b> 자신의 감정과 전문성 사이의 균형을 찾는 것.</div></div></div></details>
+<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.72 0.12 65);">밀</div><div><div><span class="cn">밀라</span><span class="cr">오디션 참가자</span></div><div class="ct">"그냥 좋아서."</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 자유로운 영혼 — 음악이 본능</div><div><b>배경</b> 프라임시티 외부에서 온 야생형 천재. 음악이 본능처럼 나오는 자유로운 영혼.</div><div><b>목표</b> 음악으로 자신의 가치를 증명하는 것.</div></div></div></details>
+<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.65 0.12 15);">엘</div><div><div><span class="cn">엘라</span><span class="cr">오디션 참가자</span></div><div class="ct">"얼굴값이라는 편견, 부숴줄게."</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 여유로운 관능미 (내면: 자존심 + 상처)</div><div><b>배경</b> 비주얼과 실력을 모두 갖췄지만, 항상 외모로만 평가받아온 상처가 있다.</div><div><b>목표</b> 외모 편견을 부수고 실력으로 인정받는 것.</div></div></div></details>
+<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.72 0.10 220);">미</div><div><div><span class="cn">미모리</span><span class="cr">인플루언서 출신</span></div><div class="ct">"보여주는 게 좋으니까~!"</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 천연 관종 + 센스 — 선은 지킴</div><div><b>배경</b> 주목받는 게 자연스러운 인플루언서 출신. 실력도 갖추고 있어 무시 못 한다.</div><div><b>목표</b> 자신의 개성을 콘텐츠로 표현하며 화제를 만드는 것.</div></div></div></details>
+<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.72 0.10 85);">시</div><div><div><span class="cn">하시은</span><span class="cr">오디션 참가자</span></div><div class="ct">"세상 모든 것엔 배울 점이 있거든요!"</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 성실한 우등생 — 안정형 육각형</div><div><b>배경</b> 모든 면에서 평균 이상이지만 특출난 한 가지가 없다. 기본기가 탄탄하여 매 라운드 꾸준히 통과.</div><div><b>목표</b> 꾸준함과 기본기만으로 끝까지 갈 수 있는지 증명하는 것.</div></div></div></details>
+<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.65 0.10 200);">니</div><div><div><span class="cn">니아</span><span class="cr">오디션 참가자</span></div><div class="ct">"이런 내가 뭐가 좋다고..."</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 성장형 — 늦된 출발, 흡수력 폭발</div><div><b>배경</b> 부유층 귀족 출신으로 온실 속에서 자라다가 집안의 기대를 버리고 도망쳐 나왔다.</div><div><b>목표</b> 온실을 벗어나 세상 속에서 스스로 증명하는 것.</div></div></div></details>
+<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.72 0.10 290);">레</div><div><div><span class="cn">레이</span><span class="cr">오디션 참가자</span></div><div class="ct">"내 무대를 내 실력으로 봐달라."</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 꺾이지 않는 밝음 — 한계를 받아들인 단단함</div><div><b>배경</b> 한쪽 다리가 의족인 언더독. 조건이 최악이지만 꺾이지 않는 강인한 사람.</div><div><b>목표</b> 실력만으로 평가받는 공정한 아티스트가 되는 것.</div></div></div></details>
+<details class="chd" style="border-bottom:none;"><summary class="chs"><div class="ap" style="background:oklch(0.60 0.12 260);">라</div><div><div><span class="cn">라피스</span><span class="cr">오디션 참가자</span></div><div class="ct">"다양한 게 나의 개성이지~"</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 쿨하고 여유로운 예측불가형</div><div><b>배경</b> 매 라운드마다 다른 스타일. 다재다능하지만 '나만의 것'이 없다는 것을 자각하기 시작.</div><div><b>목표</b> 다양한 매력 속에서 자신의 정체성을 찾는 것.</div></div></div></details>
 </div>
 </section>
 </div>
 <div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg7.webp?v=2');"></div>
 <div class="sp"><div class="sd"></div></div>
-<div class="w">
-<section class="sc" id="world">
-<span class="lb">World Building</span>
-<h2 class="tt">프라임시티의 구역들</h2>
-<div class="gl"></div>
-<p style="font-size:12px;color:oklch(1.0 0 0/0.3);margin-top:6px;font-weight:300;">중심부일수록 자원과 기회가 집중되는 동심원 구조.</p>
-<div style="margin-top:20px;text-align:left;">
-<div class="dst">
-<div class="da" style="background:oklch(0.76 0.12 80/0.15);color:oklch(0.76 0.12 80);">C</div>
-<div>
-<div style="font-family:serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:oklch(0.76 0.12 80);">정상 · 지배층</div>
-<div style="font-family:serif;font-size:16px;font-weight:600;margin:3px 0;color:oklch(1.0 0 0);">더 코어 <span style="font-size:11px;color:oklch(1.0 0 0/0.25);letter-spacing:.1em;">The Core</span></div>
-<div style="font-size:11px;color:oklch(1.0 0 0/0.35);margin-bottom:5px;">APEX Entertainment — 업계 1위</div>
-<div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.7;word-break:keep-all;">프라임 돔과 초거대 방송국이 군림하는 도시의 절대적 심장부.</div>
-<div style="font-size:10px;color:oklch(1.0 0 0/0.25);margin-top:5px;">서윤 · 나하린 · 진시혁</div>
+<!-- World (folding) -->
+<details class="fold" id="world">
+<summary class="fold-s">
+<span class="fold-t">World Building · 구역</span>
+<span class="fold-i">▼</span>
+</summary>
+<div style="padding:0 24px 20px;">
+<p style="font-size:12px;color:var(--txt-dim);margin-bottom:16px;font-weight:300;">중심부일수록 자원과 기회가 집중되는 동심원 구조.</p>
+<div class="dst"><div class="da" style="background:oklch(0.76 0.12 80/0.15);color:oklch(0.76 0.12 80);">C</div><div><div style="font-family:serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:oklch(0.76 0.12 80);">정상 · 지배층</div><div style="font-family:serif;font-size:16px;font-weight:600;margin:3px 0;color:var(--txt);">더 코어 <span style="font-size:11px;color:var(--txt-dim);letter-spacing:.1em;">The Core</span></div><div style="font-size:11px;color:var(--txt-sub);margin-bottom:5px;">APEX Entertainment — 업계 1위</div><div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.7;word-break:keep-all;">프라임 돔과 초거대 방송국이 군림하는 도시의 절대적 심장부.</div><div style="font-size:10px;color:var(--txt-dim);margin-top:5px;">서윤 · 나하린 · 진시혁</div></div></div>
+<div class="dst"><div class="da" style="background:oklch(0.65 0.10 240/0.15);color:oklch(0.65 0.10 240);">M</div><div><div style="font-family:serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:oklch(0.65 0.10 240);">검증된 실력자</div><div style="font-family:serif;font-size:16px;font-weight:600;margin:3px 0;color:var(--txt);">미들 링 <span style="font-size:11px;color:var(--txt-dim);letter-spacing:.1em;">Middle Ring</span></div><div style="font-size:11px;color:var(--txt-sub);margin-bottom:5px;">Blue Moon Entertainment — 업계 2위</div><div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.7;word-break:keep-all;">스튜디오와 기획사가 밀집한 실력의 전쟁터.</div><div style="font-size:10px;color:var(--txt-dim);margin-top:5px;">이서하 · 에리카</div></div></div>
+<div class="dst"><div class="da" style="background:oklch(0.65 0.12 340/0.15);color:oklch(0.65 0.12 340);">H</div><div><div style="font-family:serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:oklch(0.65 0.12 340);">트렌드 최전선</div><div style="font-family:serif;font-size:16px;font-weight:600;margin:3px 0;color:var(--txt);">하입 로드 <span style="font-size:11px;color:var(--txt-dim);letter-spacing:.1em;">Hype Road</span></div><div style="font-size:11px;color:var(--txt-sub);margin-bottom:5px;">PRISM Studio — 개성으로 승부</div><div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.7;word-break:keep-all;">언더그라운드 클럽과 스트리트 문화가 살아 숨 쉬는 진원지.</div><div style="font-size:10px;color:var(--txt-dim);margin-top:5px;">한소리 · 유저(플레이어)</div></div></div>
+<div class="dst" style="border-bottom:none;"><div class="da" style="background:oklch(0.65 0.10 140/0.15);color:oklch(0.65 0.10 140);">T</div><div><div style="font-family:serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:oklch(0.65 0.10 140);">시작과 안주의 경계</div><div style="font-family:serif;font-size:16px;font-weight:600;margin:3px 0;color:var(--txt);">테라스 <span style="font-size:11px;color:var(--txt-dim);letter-spacing:.1em;">Terrace</span></div><div style="font-size:11px;color:var(--txt-sub);margin-bottom:5px;">Route 0 — 무한 가능성, 무한 불확실</div><div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.7;word-break:keep-all;">중심부를 동경하며 모여든 이들의 출발지이자, 밀려난 이들의 안식처.</div><div style="font-size:10px;color:var(--txt-dim);margin-top:5px;">강하람</div></div></div>
 </div>
-</div>
-<div class="dst">
-<div class="da" style="background:oklch(0.65 0.10 240/0.15);color:oklch(0.65 0.10 240);">M</div>
-<div>
-<div style="font-family:serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:oklch(0.65 0.10 240);">검증된 실력자</div>
-<div style="font-family:serif;font-size:16px;font-weight:600;margin:3px 0;color:oklch(1.0 0 0);">미들 링 <span style="font-size:11px;color:oklch(1.0 0 0/0.25);letter-spacing:.1em;">Middle Ring</span></div>
-<div style="font-size:11px;color:oklch(1.0 0 0/0.35);margin-bottom:5px;">Blue Moon Entertainment — 업계 2위</div>
-<div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.7;word-break:keep-all;">스튜디오와 기획사가 밀집한 실력의 전쟁터.</div>
-<div style="font-size:10px;color:oklch(1.0 0 0/0.25);margin-top:5px;">이서하 · 에리카</div>
-</div>
-</div>
-<div class="dst">
-<div class="da" style="background:oklch(0.65 0.12 340/0.15);color:oklch(0.65 0.12 340);">H</div>
-<div>
-<div style="font-family:serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:oklch(0.65 0.12 340);">트렌드 최전선</div>
-<div style="font-family:serif;font-size:16px;font-weight:600;margin:3px 0;color:oklch(1.0 0 0);">하입 로드 <span style="font-size:11px;color:oklch(1.0 0 0/0.25);letter-spacing:.1em;">Hype Road</span></div>
-<div style="font-size:11px;color:oklch(1.0 0 0/0.35);margin-bottom:5px;">PRISM Studio — 개성으로 승부</div>
-<div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.7;word-break:keep-all;">언더그라운드 클럽과 스트리트 문화가 살아 숨 쉬는 진원지.</div>
-<div style="font-size:10px;color:oklch(1.0 0 0/0.25);margin-top:5px;">한소리 · 유저(플레이어)</div>
-</div>
-</div>
-<div class="dst" style="border-bottom:none;">
-<div class="da" style="background:oklch(0.65 0.10 140/0.15);color:oklch(0.65 0.10 140);">T</div>
-<div>
-<div style="font-family:serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:oklch(0.65 0.10 140);">시작과 안주의 경계</div>
-<div style="font-family:serif;font-size:16px;font-weight:600;margin:3px 0;color:oklch(1.0 0 0);">테라스 <span style="font-size:11px;color:oklch(1.0 0 0/0.25);letter-spacing:.1em;">Terrace</span></div>
-<div style="font-size:11px;color:oklch(1.0 0 0/0.35);margin-bottom:5px;">Route 0 — 무한 가능성, 무한 불확실</div>
-<div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.7;word-break:keep-all;">중심부를 동경하며 모여든 이들의 출발지이자, 밀려난 이들의 안식처.</div>
-<div style="font-size:10px;color:oklch(1.0 0 0/0.25);margin-top:5px;">강하람</div>
-</div>
-</div>
-</div>
-</section>
-</div>
-<div class="sp"><div class="sd"></div></div>
-<div class="w">
-<section class="sc" id="modes">
-<span class="lb">Game Modes</span>
-<h2 class="tt">당신의 무대를 선택하세요</h2>
-<div class="gl"></div>
-<div style="margin-top:20px;text-align:left;">
+</details>
+<!-- Modes (folding) -->
+<details class="fold">
+<summary class="fold-s">
+<span class="fold-t">Game Modes · 모드</span>
+<span class="fold-i">▼</span>
+</summary>
+<div style="padding:0 24px 20px;">
 <div class="mdc">
-<div style="font-family:serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.76 0.12 80);margin-bottom:5px;">Produce · Prime · Priority</div>
-<div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:oklch(1.0 0 0);">증명하라. 세계가 당신을 알게 된다.</div>
-<div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.8;word-break:keep-all;">프로듀스 · 프라임 · 프라이오리티 — 스테이지 부문. 아이돌, 가수, 댄서, 싱어송라이터를 위한 서바이벌 오디션.</div>
+<div style="font-family:serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;">Produce · Prime · Priority</div>
+<div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:var(--txt);">증명하라. 세계가 당신을 알게 된다.</div>
+<div style="font-size:12px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">프로듀스 · 프라임 · 프라이오리티 — 스테이지 부문. 아이돌, 가수, 댄서, 싱어송라이터를 위한 서바이벌 오디션.</div>
 </div>
 <div class="mdc">
 <div style="font-family:serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.65 0.10 240);margin-bottom:5px;">Free Play</div>
-<div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:oklch(1.0 0 0);">무대 밖에도 이야기는 계속된다.</div>
-<div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.8;word-break:keep-all;">프라임시티를 자유롭게 탐색. 캐릭터들과의 일상, 숨겨진 장소, 사이드 스토리.</div>
+<div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:var(--txt);">무대 밖에도 이야기는 계속된다.</div>
+<div style="font-size:12px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">프라임시티를 자유롭게 탐색. 캐릭터들과의 일상, 숨겨진 장소, 사이드 스토리.</div>
 </div>
 <div class="mdc">
 <div style="font-family:serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.72 0.10 310);margin-bottom:5px;">Producer</div>
-<div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:oklch(1.0 0 0);">재능을 발굴하고, 스타를 만들어라.</div>
-<div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.8;word-break:keep-all;">직접 프로듀서가 되어 아이돌을 육성. 스케줄 관리, 곡 선택, 이미지 메이킹.</div>
+<div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:var(--txt);">재능을 발굴하고, 스타를 만들어라.</div>
+<div style="font-size:12px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">직접 프로듀서가 되어 아이돌을 육성. 스케줄 관리, 곡 선택, 이미지 메이킹.</div>
 </div>
-</div>
-<div style="margin-top:24px;">
+<div style="margin-top:16px;">
 <div class="ag">Career Modes · 직업군 모드</div>
-<p style="font-size:11px;color:oklch(1.0 0 0/0.3);margin:8px 0 14px;font-weight:300;word-break:keep-all;">채팅에서 명령어를 입력하여 전환할 수 있습니다.</p>
-<div class="mdc">
-<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
-<div style="font-family:serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.72 0.12 55);">Manager</div>
-<span style="font-family:monospace;font-size:10px;color:oklch(0.72 0.12 55);padding:1px 6px;border:1px solid oklch(0.72 0.12 55/0.3);background:oklch(0.72 0.12 55/0.08);">!매니저모드</span>
-</div>
-<div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:oklch(1.0 0 0);">스케줄 뒤에서 스타를 만드는 사람.</div>
-<div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.8;word-break:keep-all;">아티스트 전담 매니저. 스케줄 관리, 위기 대응, 관계 관리. A/B 분기 선택.</div>
-</div>
-<div class="mdc">
-<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
-<div style="font-family:serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.65 0.10 140);">Trainee</div>
-<span style="font-family:monospace;font-size:10px;color:oklch(0.65 0.10 140);padding:1px 6px;border:1px solid oklch(0.65 0.10 140/0.3);background:oklch(0.65 0.10 140/0.08);">!연습생모드</span>
-</div>
-<div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:oklch(1.0 0 0);">데뷔라는 이름의 먼 약속.</div>
-<div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.8;word-break:keep-all;">Route 0 연습생. 일상 훈련, 주간 평가, 데뷔 게이지. 강하람과 함께 시작.</div>
-</div>
-<div class="mdc">
-<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
-<div style="font-family:serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.65 0.10 240);">Composer</div>
-<span style="font-family:monospace;font-size:10px;color:oklch(0.65 0.10 240);padding:1px 6px;border:1px solid oklch(0.65 0.10 240/0.3);background:oklch(0.65 0.10 240/0.08);">!작곡가모드</span>
-</div>
-<div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:oklch(1.0 0 0);">멜로디 하나로 세계를 뒤흔들어라.</div>
-<div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.8;word-break:keep-all;">Blue Moon 소속/프리랜서 작곡가. 곡 작업 → 매칭 → 발매 → 차트.</div>
-</div>
-<div class="mdc">
-<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
-<div style="font-family:serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.65 0.12 340);">Actor</div>
-<span style="font-family:monospace;font-size:10px;color:oklch(0.65 0.12 340);padding:1px 6px;border:1px solid oklch(0.65 0.12 340/0.3);background:oklch(0.65 0.12 340/0.08);">!배우모드</span>
-</div>
-<div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:oklch(1.0 0 0);">카메라가 돌아간다. 증명할 시간.</div>
-<div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.8;word-break:keep-all;">신인 배우. 캐스팅 → 촬영 → 방영. 연기력과 인지도 시스템.</div>
-</div>
-<div class="mdc" style="border-bottom:none;">
-<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
-<div style="font-family:serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.72 0.10 220);">Influencer</div>
-<span style="font-family:monospace;font-size:10px;color:oklch(0.72 0.10 220);padding:1px 6px;border:1px solid oklch(0.72 0.10 220/0.3);background:oklch(0.72 0.10 220/0.08);">!인플루언서모드</span>
-</div>
-<div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:oklch(1.0 0 0);">팔로워가 곧 무대다.</div>
-<div style="font-size:12px;color:oklch(1.0 0 0/0.4);line-height:1.8;word-break:keep-all;">하입 로드 인플루언서. 콘텐츠 기획, 바이럴, 브랜드 딜. 미모리가 핵심.</div>
+<p style="font-size:11px;color:var(--txt-dim);margin:8px 0 14px;font-weight:300;word-break:keep-all;">채팅에서 명령어를 입력하여 전환할 수 있습니다.</p>
+<div class="mdc"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><div style="font-family:serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.72 0.12 55);">Manager</div><span style="font-family:monospace;font-size:10px;color:var(--blue);padding:1px 6px;border:1px solid oklch(0.62 0.20 252/0.3);background:var(--blue-dim);">!매니저모드</span></div><div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:var(--txt);">스케줄 뒤에서 스타를 만드는 사람.</div><div style="font-size:12px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">아티스트 전담 매니저. 스케줄 관리, 위기 대응, 관계 관리. A/B 분기 선택.</div></div>
+<div class="mdc"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><div style="font-family:serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.65 0.10 140);">Trainee</div><span style="font-family:monospace;font-size:10px;color:var(--blue);padding:1px 6px;border:1px solid oklch(0.62 0.20 252/0.3);background:var(--blue-dim);">!연습생모드</span></div><div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:var(--txt);">데뷔라는 이름의 먼 약속.</div><div style="font-size:12px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">Route 0 연습생. 일상 훈련, 주간 평가, 데뷔 게이지. 강하람과 함께 시작.</div></div>
+<div class="mdc"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><div style="font-family:serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.65 0.10 240);">Composer</div><span style="font-family:monospace;font-size:10px;color:var(--blue);padding:1px 6px;border:1px solid oklch(0.62 0.20 252/0.3);background:var(--blue-dim);">!작곡가모드</span></div><div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:var(--txt);">멜로디 하나로 세계를 뒤흔들어라.</div><div style="font-size:12px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">Blue Moon 소속/프리랜서 작곡가. 곡 작업 → 매칭 → 발매 → 차트.</div></div>
+<div class="mdc"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><div style="font-family:serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.65 0.12 340);">Actor</div><span style="font-family:monospace;font-size:10px;color:var(--blue);padding:1px 6px;border:1px solid oklch(0.62 0.20 252/0.3);background:var(--blue-dim);">!배우모드</span></div><div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:var(--txt);">카메라가 돌아간다. 증명할 시간.</div><div style="font-size:12px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">신인 배우. 캐스팅 → 촬영 → 방영. 연기력과 인지도 시스템.</div></div>
+<div class="mdc" style="border-bottom:none;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><div style="font-family:serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.72 0.10 220);">Influencer</div><span style="font-family:monospace;font-size:10px;color:var(--blue);padding:1px 6px;border:1px solid oklch(0.62 0.20 252/0.3);background:var(--blue-dim);">!인플루언서모드</span></div><div style="font-family:serif;font-size:15px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:var(--txt);">팔로워가 곧 무대다.</div><div style="font-size:12px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">하입 로드 인플루언서. 콘텐츠 기획, 바이럴, 브랜드 딜. 미모리가 핵심.</div></div>
 </div>
 </div>
-</section>
-</div>
+</details>
 <div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg9.webp?v=2');"></div>
+<!-- CTA -->
 <div class="w">
 <div style="text-align:center;padding:36px 0;">
 <div class="cb">
 <span class="lb">Begin Your Story</span>
 <h2 class="tt" style="font-size:clamp(18px,4vw,26px);">당신의 무대는 여기서 시작된다.</h2>
 <div class="gl"></div>
-<p style="font-size:13px;color:oklch(1.0 0 0/0.4);line-height:1.8;max-width:400px;margin:0 auto 24px;font-weight:300;word-break:keep-all;">프라임시티에서 당신만의 이야기를 만들어보세요.<br>채팅에서 <span style="font-family:monospace;color:oklch(0.76 0.12 80);">!모드명</span>을 입력하면 직업군 모드로 전환됩니다.</p>
+<p style="font-size:13px;color:var(--txt-sub);line-height:1.8;max-width:400px;margin:0 auto 24px;font-weight:300;word-break:keep-all;">프라임시티에서 당신만의 이야기를 만들어보세요.<br>채팅에서 <span style="font-family:monospace;color:var(--blue);">!모드명</span>을 입력하면 직업군 모드로 전환됩니다.</p>
 <a href="https://intro.bluehair.blue" target="_blank" rel="noopener" class="bp">더 자세히</a>
 </div>
 </div>
