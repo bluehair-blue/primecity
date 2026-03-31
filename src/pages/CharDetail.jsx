@@ -174,7 +174,7 @@ export default function CharDetail() {
               fontWeight: 700, color: char.color, opacity: 0.02,
               whiteSpace: "nowrap", lineHeight: 0.9,
             }}>
-              {char.tagline} — {char.name} — {char.role} —&nbsp;
+              {char.name} — {char.agency} — {char.role} —&nbsp;
             </div>
           ))}
         </div>
