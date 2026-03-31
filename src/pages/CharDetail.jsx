@@ -96,6 +96,7 @@ export default function CharDetail() {
   }
 
   const hasImage = char.image && !imgError;
+  const profileSrc = char.profile || char.image; // Phase 2 uses profile if available
   const t = (delay) => `all 1s ${EASE} ${delay}s`;
 
   const profileFields = [
@@ -364,7 +365,7 @@ export default function CharDetail() {
                   />
                   {/* Profile card (Phase 2): focus lock-on with blur clear */}
                   <img
-                    src={char.image} alt={char.name}
+                    src={profileSrc} alt={char.name}
                     onError={() => setImgError(true)}
                     style={{
                       position: "absolute", inset: 0, width: "100%", height: "100%",

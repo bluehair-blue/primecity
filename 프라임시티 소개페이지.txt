@@ -137,7 +137,7 @@
 <div><div><span class="cn">서윤</span><span class="cr">톱 아이돌 겸 배우</span></div><div class="ct">"영점, 그리고 정점."</div></div>
 </summary>
 <div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/SY.webp?v=2');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/SY/profile.webp?v=2');"></div>
 <div class="pf">
 <div><b>성격</b> 고데레 — 너무 높은 곳에 있어서 내려오는 법을 모름</div>
 <div><b>배경</b> 어린 나이에 데뷔해 사람 서윤으로 살아본 적이 없다. 업계 정상에 섰지만, 정작 자기 자신은 영(零).</div>
@@ -151,7 +151,7 @@
 <div><div><span class="cn">나하린</span><span class="cr">치프 프로듀서</span></div><div class="ct">"안녕~. 네 이름 많이 들었어. 잘 부탁해? 후후."</div></div>
 </summary>
 <div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/NHR.webp?v=2');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/NHR/profile.webp?v=2');"></div>
 <div class="pf">
 <div><b>성격</b> 장난기 + 변덕 + 예측불가</div>
 <div><b>배경</b> APEX의 황금기를 만든 장본인. 외모는 20대 중반이나 경력과 위치가 어울리지 않는 미스터리한 존재.</div>
@@ -192,7 +192,7 @@
 <div><div><span class="cn">이서하</span><span class="cr">싱어송라이터 겸 프로듀서</span></div><div class="ct">"하아... 또? 귀찮으니 빨리 끝내."</div></div>
 </summary>
 <div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/LSH.webp?v=2');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/LSH/profile.webp?v=2');"></div>
 <div class="pf">
 <div><b>성격</b> 다루데레 + 자기부정 + 귀차니즘</div>
 <div><b>배경</b> 모든 분야에서 업계 최상급이나, 자기 이름으로 곡을 발표했다가 외면당한 과거. 이후 가명으로만 작업.</div>
@@ -221,7 +221,7 @@
 <div><div><span class="cn">강하람</span><span class="cr">연습생</span></div><div class="ct">"오늘도 연습! 아자아자~!"</div></div>
 </summary>
 <div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/KHR.svg?v=2');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/KHR/profile.webp?v=2');"></div>
 <div class="pf">
 <div><b>성격</b> 무자각 여친계 — 열정 넘치는 밝음 (내면은 절박함)</div>
 <div><b>배경</b> 부모님을 일찍 잃고 여동생과 단둘이 살아간다. 아르바이트와 연습을 병행하며 데뷔를 준비 중.</div>
