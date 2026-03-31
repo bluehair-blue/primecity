@@ -11,7 +11,7 @@ const globalStyles = `
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { overflow-x: hidden; background: oklch(0.08 0.01 280); }
+  body { overflow-x: hidden; background: oklch(0.08 0.01 265); }
 
   @keyframes spin {
     from { transform: translate(-50%,-50%) rotate(0deg); }
@@ -22,10 +22,10 @@ const globalStyles = `
     50%      { opacity: 0.7; transform: scaleY(1.2); }
   }
 
-  ::selection { background: oklch(0.76 0.12 80 / 0.2); color: oklch(1.0 0 0); }
+  ::selection { background: oklch(0.62 0.20 252 / 0.2); color: oklch(1.0 0 0); }
   ::-webkit-scrollbar { width: 3px; }
-  ::-webkit-scrollbar-track { background: oklch(0.08 0.01 280); }
-  ::-webkit-scrollbar-thumb { background: oklch(0.76 0.12 80 / 0.2); border-radius: 2px; }
+  ::-webkit-scrollbar-track { background: oklch(0.08 0.01 265); }
+  ::-webkit-scrollbar-thumb { background: oklch(0.62 0.20 252 / 0.25); border-radius: 2px; }
 
   @media (hover: none) { button:active { opacity: 0.85; } }
 `;

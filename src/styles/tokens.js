@@ -1,16 +1,23 @@
 // ─── OKLCH Color Tokens ─────────────────────────────────────────
 const C = {
-  // Backgrounds
-  bgDeep:    "oklch(0.08 0.01 280)",
-  bgCard:    "oklch(0.12 0.005 280 / 0.4)",
-  bgOverlay: "oklch(0.06 0.01 280 / 0.92)",
+  // Backgrounds (hue 265: cool navy shift)
+  bgDeep:    "oklch(0.08 0.01 265)",
+  bgCard:    "oklch(0.12 0.005 265 / 0.4)",
+  bgOverlay: "oklch(0.06 0.01 265 / 0.92)",
 
-  // Gold / Amber (primary accent)
+  // Gold / Amber (primary accent — brand, labels, titles)
   gold:      "oklch(0.76 0.12 80)",
   goldMuted: "oklch(0.76 0.12 80 / 0.4)",
   goldDim:   "oklch(0.76 0.12 80 / 0.15)",
   goldGlow:  "oklch(0.76 0.12 80 / 0.2)",
   goldText:  "oklch(0.76 0.12 80 / 0.35)",
+
+  // Electric Blue (secondary accent — system, interactive, atmosphere)
+  primeBlue:      "oklch(0.62 0.20 252)",
+  primeBlueMuted: "oklch(0.62 0.20 252 / 0.4)",
+  primeBlueDim:   "oklch(0.62 0.20 252 / 0.15)",
+  primeBlueGlow:  "oklch(0.62 0.20 252 / 0.25)",
+  blueDeep:       "oklch(0.18 0.06 255)",
 
   // White / Text
   white:     "oklch(1.0 0 0)",
@@ -22,7 +29,7 @@ const C = {
   text25:    "oklch(1.0 0 0 / 0.25)",
   text15:    "oklch(1.0 0 0 / 0.15)",
 
-  // Border
+  // Border (gold-based, unchanged)
   border10:  "oklch(0.76 0.12 80 / 0.10)",
   border06:  "oklch(0.76 0.12 80 / 0.06)",
   border05:  "oklch(0.76 0.12 80 / 0.05)",
@@ -52,7 +59,7 @@ const C = {
   distIndustrial: "oklch(0.60 0.08 220)",
 
   // Utility
-  black:     "oklch(0.08 0.01 280)",
+  black:     "oklch(0.08 0.01 265)",
 };
 
 export default C;

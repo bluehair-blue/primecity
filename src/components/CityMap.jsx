@@ -317,6 +317,42 @@ export default function CityMap({ isMobile }) {
             );
           })}
 
+          {/* 2.5) Holographic blue grid underlay */}
+          <svg
+            viewBox={`0 0 ${vw} ${vh}`}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              zIndex: 3,
+              pointerEvents: "none",
+              opacity: activeId ? 0.12 : 0.04,
+              transition: "opacity 0.4s ease",
+            }}
+          >
+            <defs>
+              <pattern
+                id="holo-grid"
+                width={isMobile ? vw / 10 : vw / 20}
+                height={isMobile ? vh / 6 : vh / 12}
+                patternUnits="userSpaceOnUse"
+              >
+                <line x1="0" y1="0" x2={isMobile ? vw / 10 : vw / 20} y2="0" stroke="oklch(0.62 0.20 252 / 0.3)" strokeWidth="0.5" />
+                <line x1="0" y1="0" x2="0" y2={isMobile ? vh / 6 : vh / 12} stroke="oklch(0.62 0.20 252 / 0.3)" strokeWidth="0.5" />
+                <animateTransform
+                  attributeName="patternTransform"
+                  type="translate"
+                  from="0 0"
+                  to={`${isMobile ? vw / 10 : vw / 20} ${isMobile ? vh / 6 : vh / 12}`}
+                  dur="12s"
+                  repeatCount="indefinite"
+                />
+              </pattern>
+            </defs>
+            <rect width={vw} height={vh} fill="url(#holo-grid)" />
+          </svg>
+
           {/* 3) SVG 히트박스 */}
           <svg
             viewBox={`0 0 ${vw} ${vh}`}

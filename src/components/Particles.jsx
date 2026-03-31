@@ -12,7 +12,7 @@ export default function Particles({ isMobile }) {
     let h = (canvas.height =
       document.documentElement.scrollHeight || window.innerHeight * 5);
     const N = isMobile ? 35 : 80;
-    const ps = Array.from({ length: N }, () => ({
+    const ps = Array.from({ length: N }, (_, i) => ({
       x: Math.random() * w,
       y: Math.random() * h,
       r: Math.random() * 1.4 + 0.2,
@@ -20,6 +20,7 @@ export default function Particles({ isMobile }) {
       dy: (Math.random() - 0.5) * 0.1 - 0.06,
       o: Math.random() * 0.45 + 0.08,
       p: Math.random() * Math.PI * 2,
+      blue: i >= Math.floor(N * 0.7),
     }));
 
     function draw() {
@@ -35,7 +36,9 @@ export default function Particles({ isMobile }) {
         if (p.y > h) p.y = 0;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `oklch(0.76 0.12 80 / ${a})`;
+        ctx.fillStyle = p.blue
+          ? `oklch(0.62 0.20 252 / ${a})`
+          : `oklch(0.76 0.12 80 / ${a})`;
         ctx.fill();
       }
       anim.current = requestAnimationFrame(draw);

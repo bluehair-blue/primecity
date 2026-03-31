@@ -108,8 +108,8 @@ export default function HeroSlider({ isMobile }) {
             position: "absolute",
             inset: 0,
             background: isMobile
-              ? `linear-gradient(180deg, oklch(0.08 0.01 280 / 0.15) 0%, oklch(0.08 0.01 280 / 0.05) 30%, oklch(0.08 0.01 280 / 0.35) 70%, ${C.bgDeep} 100%)`
-              : `linear-gradient(180deg, oklch(0.08 0.01 280 / 0.2) 0%, oklch(0.08 0.01 280 / 0.1) 30%, oklch(0.08 0.01 280 / 0.4) 70%, ${C.bgDeep} 100%)`,
+              ? `linear-gradient(180deg, oklch(0.08 0.01 265 / 0.15) 0%, oklch(0.08 0.01 265 / 0.05) 30%, oklch(0.08 0.01 265 / 0.35) 70%, ${C.bgDeep} 100%)`
+              : `linear-gradient(180deg, oklch(0.08 0.01 265 / 0.2) 0%, oklch(0.08 0.01 265 / 0.1) 30%, oklch(0.08 0.01 265 / 0.4) 70%, ${C.bgDeep} 100%)`,
           }}
         />
         {/* Vignette */}
@@ -118,8 +118,8 @@ export default function HeroSlider({ isMobile }) {
             position: "absolute",
             inset: 0,
             background: isMobile
-              ? "radial-gradient(ellipse at center, transparent 40%, oklch(0.08 0.01 280 / 0.5) 100%)"
-              : "radial-gradient(ellipse at center, transparent 35%, oklch(0.08 0.01 280 / 0.6) 100%)",
+              ? "radial-gradient(ellipse at center, transparent 40%, oklch(0.08 0.01 265 / 0.35) 70%, oklch(0.12 0.06 252 / 0.4) 100%)"
+              : "radial-gradient(ellipse at center, transparent 35%, oklch(0.08 0.01 265 / 0.4) 70%, oklch(0.12 0.06 252 / 0.5) 100%)",
           }}
         />
       </div>
@@ -149,6 +149,35 @@ export default function HeroSlider({ isMobile }) {
             borderRadius: "50%",
             background: C.gold,
             boxShadow: `0 0 10px ${C.goldGlow}`,
+          }}
+        />
+      </div>
+
+      {/* ── Blue orbit ring (larger, reverse) ── */}
+      <div
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          width: isMobile ? 280 : 540,
+          height: isMobile ? 280 : 540,
+          borderRadius: "50%",
+          border: `1px solid ${C.primeBlueDim}`,
+          animation: "spin 120s linear infinite reverse",
+          pointerEvents: "none",
+          transform: "translate(-50%,-50%)",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: -2,
+            left: "50%",
+            width: 4,
+            height: 4,
+            borderRadius: "50%",
+            background: C.primeBlue,
+            boxShadow: `0 0 8px ${C.primeBlueGlow}`,
           }}
         />
       </div>

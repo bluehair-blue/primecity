@@ -51,7 +51,7 @@ export default function Navbar({ scrolled, isMobile }) {
           to={l.href}
           onClick={onClick}
           style={style}
-          onMouseEnter={(e) => (e.currentTarget.style.color = C.gold)}
+          onMouseEnter={(e) => (e.currentTarget.style.color = C.primeBlue)}
           onMouseLeave={(e) => (e.currentTarget.style.color = style.color)}
         >
           {l.label}
@@ -64,7 +64,7 @@ export default function Navbar({ scrolled, isMobile }) {
         href={l.href}
         onClick={(e) => handleAnchorClick(e, l.href, onClick)}
         style={style}
-        onMouseEnter={(e) => (e.target.style.color = C.gold)}
+        onMouseEnter={(e) => (e.target.style.color = C.primeBlue)}
         onMouseLeave={(e) => (e.target.style.color = style.color)}
       >
         {l.label}
@@ -153,7 +153,7 @@ export default function Navbar({ scrolled, isMobile }) {
                 fontWeight: 500,
                 transition: "all 0.3s",
               }}
-              onMouseEnter={(e) => (e.target.style.background = C.goldDim)}
+              onMouseEnter={(e) => (e.target.style.background = C.primeBlueDim)}
               onMouseLeave={(e) =>
                 (e.target.style.background = "transparent")
               }

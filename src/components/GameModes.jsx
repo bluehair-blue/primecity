@@ -285,11 +285,13 @@ export default function GameModes({ isMobile }) {
                 display: "block",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = cm.accent;
+                e.currentTarget.style.borderColor = C.primeBlue;
+                e.currentTarget.style.boxShadow = `0 0 16px ${C.primeBlueGlow}`;
                 e.currentTarget.style.transform = "translateY(-3px)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = C.border06;
+                e.currentTarget.style.boxShadow = "none";
                 e.currentTarget.style.transform = "translateY(0)";
               }}
             >

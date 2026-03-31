@@ -121,9 +121,9 @@ function SectionDivider({ isMobile }) {
       display: "flex", alignItems: "center", justifyContent: "center",
       padding: isMobile ? "20px 0" : "36px 0",
     }}>
-      <div style={{ width: 4, height: 4, borderRadius: "50%", background: C.goldDim }} />
-      <div style={{ width: isMobile ? 80 : 140, height: 1, background: `linear-gradient(90deg, ${C.goldDim}, transparent)`, marginLeft: 8 }} />
-      <div style={{ width: isMobile ? 80 : 140, height: 1, background: `linear-gradient(270deg, ${C.goldDim}, transparent)`, marginRight: 8, order: -1 }} />
+      <div style={{ width: 4, height: 4, borderRadius: "50%", background: C.primeBlueDim }} />
+      <div style={{ width: isMobile ? 80 : 140, height: 1, background: `linear-gradient(90deg, ${C.primeBlueDim}, transparent)`, marginLeft: 8 }} />
+      <div style={{ width: isMobile ? 80 : 140, height: 1, background: `linear-gradient(270deg, ${C.primeBlueDim}, transparent)`, marginRight: 8, order: -1 }} />
     </div>
   );
 }

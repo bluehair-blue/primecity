@@ -135,7 +135,7 @@ function DesktopPrismNav() {
               points={pts}
               fill="url(#glass-base)"
               fillOpacity={0.3}
-              stroke={C.border06}
+              stroke="oklch(0.62 0.20 252 / 0.05)"
               strokeWidth={1}
             />
           );
@@ -162,7 +162,7 @@ function DesktopPrismNav() {
                   <polygon
                     points={pts}
                     fill={isHov ? `url(#hover-grad-${s.item})` : "transparent"}
-                    stroke={isHov ? item.accent : C.border10}
+                    stroke={isHov ? item.accent : "oklch(0.62 0.20 252 / 0.12)"}
                     strokeWidth={isHov ? 2 : 1}
                     strokeLinejoin="round"
                     style={{
@@ -185,6 +185,20 @@ function DesktopPrismNav() {
                       transition: "stroke-opacity 0.4s",
                     }}
                     transform="translate(1, 1)"
+                  />
+
+                  {/* Chromatic aberration — blue offset (prism light refraction) */}
+                  <polygon
+                    points={pts}
+                    fill="none"
+                    stroke={C.primeBlue}
+                    strokeWidth={0.5}
+                    strokeOpacity={isHov ? 0.4 : 0}
+                    style={{
+                      pointerEvents: "none",
+                      transition: "stroke-opacity 0.4s",
+                    }}
+                    transform="translate(-1.5, 0.5)"
                   />
 
                   {/* Korean label */}

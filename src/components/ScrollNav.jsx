@@ -77,12 +77,12 @@ export default function ScrollNav({ isMobile }) {
                 height: isActive ? 10 : 6,
                 borderRadius: "50%",
                 border: "none",
-                background: isActive ? C.gold : C.text25,
+                background: isActive ? C.primeBlue : C.text25,
                 cursor: "pointer",
                 padding: 0,
                 transition: "all 0.25s ease-out",
                 boxShadow: isActive
-                  ? `0 0 8px oklch(0.76 0.12 80 / 0.5)`
+                  ? `0 0 8px oklch(0.62 0.20 252 / 0.5)`
                   : "none",
               }}
             />
@@ -131,7 +131,7 @@ export default function ScrollNav({ isMobile }) {
                 fontSize: 9,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: isActive ? C.gold : C.text25,
+                color: isActive ? C.primeBlue : C.text25,
                 opacity: isActive ? 1 : 0.7,
                 transform: isActive ? "translateX(0)" : "translateX(4px)",
                 transition: "all 0.2s ease-out",
@@ -143,11 +143,11 @@ export default function ScrollNav({ isMobile }) {
               style={{
                 width: isActive ? 20 : 12,
                 height: 1.5,
-                background: isActive ? C.gold : C.text15,
+                background: isActive ? C.primeBlue : C.text15,
                 borderRadius: 1,
                 transition: "all 0.2s ease-out",
                 boxShadow: isActive
-                  ? `0 0 6px oklch(0.76 0.12 80 / 0.4)`
+                  ? `0 0 6px oklch(0.62 0.20 252 / 0.4)`
                   : "none",
               }}
             />
