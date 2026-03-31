@@ -154,7 +154,7 @@ export default function CharDetail() {
               whiteSpace: "nowrap", textTransform: "uppercase",
               letterSpacing: "0.05em", lineHeight: 0.8,
             }}>
-              PRIME CITY ARCHIVE // {char.agency} // DATA ID: {char.cdnId} //&nbsp;
+              {char.name} // {char.agency} // PRIME CITY ARCHIVE // DATA ID: {char.cdnId} //&nbsp;
             </div>
           ))}
         </div>
