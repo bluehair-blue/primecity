@@ -138,17 +138,18 @@ export default function CharDetail() {
           WebkitMaskImage: "linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)",
         }} />
 
-        {/* Floating name — bounces within viewport */}
+        {/* Floating name — right-aligned, slow drift */}
         <div style={{
-          position: "absolute", top: isMobile ? "20%" : "28%", left: 0, right: 0,
+          position: "absolute", top: isMobile ? "22%" : "30%", left: 0, right: 0,
           overflow: "hidden", pointerEvents: "none",
         }}>
           <div style={{
             fontFamily: "var(--f-display-kr)",
             fontSize: isMobile ? "clamp(80px, 22vw, 120px)" : "clamp(160px, 18vw, 280px)",
-            fontWeight: 900, color: char.color, opacity: 0.04,
+            fontWeight: 900, color: char.color, opacity: 0.045,
             whiteSpace: "nowrap", lineHeight: 0.8,
-            animation: "nameFloat 20s ease-in-out infinite",
+            textAlign: "right",
+            animation: "nameFloat 25s ease-in-out infinite",
             willChange: "transform",
           }}>
             {char.name}
@@ -156,14 +157,14 @@ export default function CharDetail() {
         </div>
         <style>{`
           @keyframes nameFloat {
-            0%, 100% { transform: translateX(-10%); }
-            50% { transform: translateX(calc(100vw - 100%)); }
+            0%, 100% { transform: translateX(5%); }
+            50% { transform: translateX(-15%); }
           }
         `}</style>
 
-        {/* Marquee line 1 — agency + archive data */}
+        {/* Marquee line 1 — archive data (blurred for depth) */}
         <div style={{
-          position: "absolute", top: isMobile ? "12%" : "18%", left: 0,
+          position: "absolute", top: isMobile ? "12%" : "16%", left: 0,
           display: "flex", width: "200%",
           animation: "bgMarquee 80s linear infinite",
           willChange: "transform",
@@ -172,19 +173,20 @@ export default function CharDetail() {
             <div key={k} style={{
               flex: "0 0 50%",
               fontFamily: "var(--f-display-en)",
-              fontSize: isMobile ? "clamp(40px, 10vw, 60px)" : "clamp(80px, 8vw, 120px)",
+              fontSize: isMobile ? "clamp(36px, 9vw, 50px)" : "clamp(70px, 7vw, 100px)",
               fontWeight: 900, color: char.color, opacity: 0.025,
               whiteSpace: "nowrap", textTransform: "uppercase",
-              letterSpacing: "0.05em", lineHeight: 0.8,
+              letterSpacing: "0.08em", lineHeight: 0.8,
+              filter: "blur(1px)",
             }}>
-              {char.agency} // PRIME CITY ARCHIVE // DATA ID: {char.cdnId} // {char.role} //&nbsp;
+              {char.agency} ◆ PRIME CITY ARCHIVE ◆ DATA ID: {char.cdnId} ◆ {char.role} ◆&nbsp;
             </div>
           ))}
         </div>
 
-        {/* Marquee line 2 — reverse direction */}
+        {/* Marquee line 2 — reverse, deeper blur */}
         <div style={{
-          position: "absolute", top: isMobile ? "55%" : "60%", left: 0,
+          position: "absolute", top: isMobile ? "58%" : "62%", left: 0,
           display: "flex", width: "200%",
           animation: "bgMarqueeReverse 100s linear infinite",
           willChange: "transform",
@@ -193,12 +195,13 @@ export default function CharDetail() {
             <div key={k} style={{
               flex: "0 0 50%",
               fontFamily: "var(--f-display-en)",
-              fontSize: isMobile ? "clamp(40px, 10vw, 60px)" : "clamp(80px, 8vw, 120px)",
-              fontWeight: 900, color: char.color, opacity: 0.02,
+              fontSize: isMobile ? "clamp(36px, 9vw, 50px)" : "clamp(70px, 7vw, 100px)",
+              fontWeight: 900, color: char.color, opacity: 0.018,
               whiteSpace: "nowrap", textTransform: "uppercase",
-              letterSpacing: "0.05em", lineHeight: 0.9,
+              letterSpacing: "0.08em", lineHeight: 0.9,
+              filter: "blur(1.5px)",
             }}>
-              {char.agency} // SECTOR: {char.cdnId} // CLASSIFICATION: CONFIDENTIAL //&nbsp;
+              SECTOR: {char.cdnId} ◆ CLASSIFICATION: CONFIDENTIAL ◆ PRIME CITY ◆&nbsp;
             </div>
           ))}
         </div>
