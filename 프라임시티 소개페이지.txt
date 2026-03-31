@@ -180,7 +180,9 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <details class="chd"><summary class="chs">
 <div class="ap" style="background:oklch(0.55 0.01 0);">진</div>
 <div><div><span class="cn">진시혁</span><span class="cr">프로듀서 / 심사위원</span></div><div class="ct">"탈락, 다음."</div></div>
-</summary><div class="chx"><div class="pf">
+</summary><div class="chx">
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/JSH/profile.webp?v=2');"></div>
+<div class="pf">
 <div><b>성격</b> 냉정 + 직설 + 합리주의</div>
 <div><b>배경</b> APEX의 젊은 에이스로, 나하린의 후계자로 여겨진다. 결과로 자신의 판단을 증명하는 타입.</div>
 <div><b>목표</b> 더 빠르고 직접적인 방법으로 정점에 이르는 것.</div>
@@ -189,7 +191,9 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <details class="chd"><summary class="chs">
 <div class="ap" style="background:oklch(0.72 0.10 170);">에</div>
 <div><div><span class="cn">에리카</span><span class="cr">프로듀서 / 심사위원</span></div><div class="ct">"만만하게 보면 큰코다친다? 흐흥~."</div></div>
-</summary><div class="chx"><div class="pf">
+</summary><div class="chx">
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/ERK/profile.webp?v=2');"></div>
+<div class="pf">
 <div><b>성격</b> 아네데레 — 독설가 (내면은 따뜻함)</div>
 <div><b>배경</b> 원래는 따뜻한 사람이었으나, 처음 담당한 아티스트를 잃은 트라우마로 독설이라는 방어막을 형성.</div>
 <div><b>목표</b> 과거의 실패를 보상하고, 다시 누군가를 이끌 자격을 얻는 것.</div>
@@ -208,7 +212,9 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <details class="chd"><summary class="chs">
 <div class="ap" style="background:oklch(0.72 0.12 55);">한</div>
 <div><div><span class="cn">한소리</span><span class="cr">기획사 대표</span></div><div class="ct">"잘 들어. 이게 마지막 기회야."</div></div>
-</summary><div class="chx"><div class="pf">
+</summary><div class="chx">
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/HSR/profile.webp?v=2');"></div>
+<div class="pf">
 <div><b>성격</b> 능글능글 (내면은 절박함)</div>
 <div><b>배경</b> 업계 경험과 감각을 갖춘 능력자이나, 자본과 인맥의 벽에 부딪혀 현실의 어려움을 뼈저리게 배움. 현재 기획사는 재정난 중.</div>
 <div><b>목표</b> 이번 오디션으로 기획사를 살리는 것.</div>
@@ -225,14 +231,30 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div><b>목표</b> 데뷔를 통한 경제적 독립. 여동생을 부양하는 것.</div>
 </div></div></details>
 <div class="ag">Audition Contestants</div>
-<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.72 0.10 300);">그</div><div><div><span class="cn">장그루</span><span class="cr">보컬·아이돌 지망</span></div><div class="ct">"이번엔 안 되면 그만둘 거예요."</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 담담함 + 단단함 (내면: 간절함)</div><div><b>배경</b> 유저와 같은 동네 출신으로 함께 연예계를 꿈꾸던 사이. 한 번 탈락한 경험이 있는 재도전형.</div><div><b>목표</b> 자신의 감정과 전문성 사이의 균형을 찾는 것.</div></div></div></details>
-<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.72 0.12 65);">밀</div><div><div><span class="cn">밀라</span><span class="cr">오디션 참가자</span></div><div class="ct">"그냥 좋아서."</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 자유로운 영혼 — 음악이 본능</div><div><b>배경</b> 프라임시티 외부에서 온 야생형 천재. 음악이 본능처럼 나오는 자유로운 영혼.</div><div><b>목표</b> 음악으로 자신의 가치를 증명하는 것.</div></div></div></details>
-<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.65 0.12 15);">엘</div><div><div><span class="cn">엘라</span><span class="cr">오디션 참가자</span></div><div class="ct">"얼굴값이라는 편견, 부숴줄게."</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 여유로운 관능미 (내면: 자존심 + 상처)</div><div><b>배경</b> 비주얼과 실력을 모두 갖췄지만, 항상 외모로만 평가받아온 상처가 있다.</div><div><b>목표</b> 외모 편견을 부수고 실력으로 인정받는 것.</div></div></div></details>
-<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.72 0.10 220);">미</div><div><div><span class="cn">미모리</span><span class="cr">인플루언서 출신</span></div><div class="ct">"보여주는 게 좋으니까~!"</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 천연 관종 + 센스 — 선은 지킴</div><div><b>배경</b> 주목받는 게 자연스러운 인플루언서 출신. 실력도 갖추고 있어 무시 못 한다.</div><div><b>목표</b> 자신의 개성을 콘텐츠로 표현하며 화제를 만드는 것.</div></div></div></details>
-<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.72 0.10 85);">시</div><div><div><span class="cn">하시은</span><span class="cr">오디션 참가자</span></div><div class="ct">"세상 모든 것엔 배울 점이 있거든요!"</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 성실한 우등생 — 안정형 육각형</div><div><b>배경</b> 모든 면에서 평균 이상이지만 특출난 한 가지가 없다. 기본기가 탄탄하여 매 라운드 꾸준히 통과.</div><div><b>목표</b> 꾸준함과 기본기만으로 끝까지 갈 수 있는지 증명하는 것.</div></div></div></details>
-<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.65 0.10 200);">니</div><div><div><span class="cn">니아</span><span class="cr">오디션 참가자</span></div><div class="ct">"이런 내가 뭐가 좋다고..."</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 성장형 — 늦된 출발, 흡수력 폭발</div><div><b>배경</b> 부유층 귀족 출신으로 온실 속에서 자라다가 집안의 기대를 버리고 도망쳐 나왔다.</div><div><b>목표</b> 온실을 벗어나 세상 속에서 스스로 증명하는 것.</div></div></div></details>
-<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.72 0.10 290);">레</div><div><div><span class="cn">레이</span><span class="cr">오디션 참가자</span></div><div class="ct">"내 무대를 내 실력으로 봐달라."</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 꺾이지 않는 밝음 — 한계를 받아들인 단단함</div><div><b>배경</b> 한쪽 다리가 의족인 언더독. 조건이 최악이지만 꺾이지 않는 강인한 사람.</div><div><b>목표</b> 실력만으로 평가받는 공정한 아티스트가 되는 것.</div></div></div></details>
-<details class="chd" style="border-bottom:none;"><summary class="chs"><div class="ap" style="background:oklch(0.60 0.12 260);">라</div><div><div><span class="cn">라피스</span><span class="cr">오디션 참가자</span></div><div class="ct">"다양한 게 나의 개성이지~"</div></div></summary><div class="chx"><div class="pf"><div><b>성격</b> 쿨하고 여유로운 예측불가형</div><div><b>배경</b> 매 라운드마다 다른 스타일. 다재다능하지만 '나만의 것'이 없다는 것을 자각하기 시작.</div><div><b>목표</b> 다양한 매력 속에서 자신의 정체성을 찾는 것.</div></div></div></details>
+<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.72 0.10 300);">그</div><div><div><span class="cn">장그루</span><span class="cr">보컬·아이돌 지망</span></div><div class="ct">"이번엔 안 되면 그만둘 거예요."</div></div></summary><div class="chx">
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/JGR/profile.webp?v=2');"></div>
+<div class="pf"><div><b>성격</b> 담담함 + 단단함 (내면: 간절함)</div><div><b>배경</b> 유저와 같은 동네 출신으로 함께 연예계를 꿈꾸던 사이. 한 번 탈락한 경험이 있는 재도전형.</div><div><b>목표</b> 자신의 감정과 전문성 사이의 균형을 찾는 것.</div></div></div></details>
+<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.72 0.12 65);">밀</div><div><div><span class="cn">밀라</span><span class="cr">오디션 참가자</span></div><div class="ct">"그냥 좋아서."</div></div></summary><div class="chx">
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/MIL/profile.webp?v=2');"></div>
+<div class="pf"><div><b>성격</b> 자유로운 영혼 — 음악이 본능</div><div><b>배경</b> 프라임시티 외부에서 온 야생형 천재. 음악이 본능처럼 나오는 자유로운 영혼.</div><div><b>목표</b> 음악으로 자신의 가치를 증명하는 것.</div></div></div></details>
+<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.65 0.12 15);">엘</div><div><div><span class="cn">엘라</span><span class="cr">오디션 참가자</span></div><div class="ct">"얼굴값이라는 편견, 부숴줄게."</div></div></summary><div class="chx">
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/ELA/profile.webp?v=2');"></div>
+<div class="pf"><div><b>성격</b> 여유로운 관능미 (내면: 자존심 + 상처)</div><div><b>배경</b> 비주얼과 실력을 모두 갖췄지만, 항상 외모로만 평가받아온 상처가 있다.</div><div><b>목표</b> 외모 편견을 부수고 실력으로 인정받는 것.</div></div></div></details>
+<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.72 0.10 220);">미</div><div><div><span class="cn">미모리</span><span class="cr">인플루언서 출신</span></div><div class="ct">"보여주는 게 좋으니까~!"</div></div></summary><div class="chx">
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/MMR/profile.webp?v=2');"></div>
+<div class="pf"><div><b>성격</b> 천연 관종 + 센스 — 선은 지킴</div><div><b>배경</b> 주목받는 게 자연스러운 인플루언서 출신. 실력도 갖추고 있어 무시 못 한다.</div><div><b>목표</b> 자신의 개성을 콘텐츠로 표현하며 화제를 만드는 것.</div></div></div></details>
+<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.72 0.10 85);">시</div><div><div><span class="cn">하시은</span><span class="cr">오디션 참가자</span></div><div class="ct">"세상 모든 것엔 배울 점이 있거든요!"</div></div></summary><div class="chx">
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/HSE/profile.webp?v=2');"></div>
+<div class="pf"><div><b>성격</b> 성실한 우등생 — 안정형 육각형</div><div><b>배경</b> 모든 면에서 평균 이상이지만 특출난 한 가지가 없다. 기본기가 탄탄하여 매 라운드 꾸준히 통과.</div><div><b>목표</b> 꾸준함과 기본기만으로 끝까지 갈 수 있는지 증명하는 것.</div></div></div></details>
+<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.65 0.10 200);">니</div><div><div><span class="cn">니아</span><span class="cr">오디션 참가자</span></div><div class="ct">"이런 내가 뭐가 좋다고..."</div></div></summary><div class="chx">
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/NIA/profile.webp?v=2');"></div>
+<div class="pf"><div><b>성격</b> 성장형 — 늦된 출발, 흡수력 폭발</div><div><b>배경</b> 부유층 귀족 출신으로 온실 속에서 자라다가 집안의 기대를 버리고 도망쳐 나왔다.</div><div><b>목표</b> 온실을 벗어나 세상 속에서 스스로 증명하는 것.</div></div></div></details>
+<details class="chd"><summary class="chs"><div class="ap" style="background:oklch(0.72 0.10 290);">레</div><div><div><span class="cn">레이</span><span class="cr">오디션 참가자</span></div><div class="ct">"내 무대를 내 실력으로 봐달라."</div></div></summary><div class="chx">
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/RAY/profile.webp?v=2');"></div>
+<div class="pf"><div><b>성격</b> 꺾이지 않는 밝음 — 한계를 받아들인 단단함</div><div><b>배경</b> 한쪽 다리가 의족인 언더독. 조건이 최악이지만 꺾이지 않는 강인한 사람.</div><div><b>목표</b> 실력만으로 평가받는 공정한 아티스트가 되는 것.</div></div></div></details>
+<details class="chd" style="border-bottom:none;"><summary class="chs"><div class="ap" style="background:oklch(0.60 0.12 260);">라</div><div><div><span class="cn">라피스</span><span class="cr">오디션 참가자</span></div><div class="ct">"다양한 게 나의 개성이지~"</div></div></summary><div class="chx">
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/LPS/profile.webp?v=2');"></div>
+<div class="pf"><div><b>성격</b> 쿨하고 여유로운 예측불가형</div><div><b>배경</b> 매 라운드마다 다른 스타일. 다재다능하지만 '나만의 것'이 없다는 것을 자각하기 시작.</div><div><b>목표</b> 다양한 매력 속에서 자신의 정체성을 찾는 것.</div></div></div></details>
 </div>
 </section>
 </div>
