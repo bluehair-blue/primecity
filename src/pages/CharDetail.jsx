@@ -147,8 +147,9 @@ export default function CharDetail() {
             fontFamily: "var(--f-display-kr)",
             fontSize: isMobile ? "clamp(80px, 22vw, 120px)" : "clamp(160px, 18vw, 280px)",
             fontWeight: 900, color: char.color, opacity: 0.045,
-            whiteSpace: "nowrap", lineHeight: 0.8,
+            whiteSpace: "nowrap", lineHeight: 1,
             textAlign: "right",
+            paddingBottom: "0.1em",
             animation: "nameFloat 25s ease-in-out infinite",
             willChange: "transform",
           }}>
