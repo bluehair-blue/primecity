@@ -138,6 +138,29 @@ export default function CharDetail() {
           WebkitMaskImage: "linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)",
         }} />
 
+        {/* Floating name — bounces within viewport */}
+        <div style={{
+          position: "absolute", top: isMobile ? "20%" : "28%", left: 0, right: 0,
+          overflow: "hidden", pointerEvents: "none",
+        }}>
+          <div style={{
+            fontFamily: "var(--f-display-kr)",
+            fontSize: isMobile ? "clamp(80px, 22vw, 120px)" : "clamp(160px, 18vw, 280px)",
+            fontWeight: 900, color: char.color, opacity: 0.04,
+            whiteSpace: "nowrap", lineHeight: 0.8,
+            animation: "nameFloat 20s ease-in-out infinite",
+            willChange: "transform",
+          }}>
+            {char.name}
+          </div>
+        </div>
+        <style>{`
+          @keyframes nameFloat {
+            0%, 100% { transform: translateX(-10%); }
+            50% { transform: translateX(calc(100vw - 100%)); }
+          }
+        `}</style>
+
         {/* Marquee line 1 — agency + archive data */}
         <div style={{
           position: "absolute", top: isMobile ? "12%" : "18%", left: 0,
@@ -149,17 +172,17 @@ export default function CharDetail() {
             <div key={k} style={{
               flex: "0 0 50%",
               fontFamily: "var(--f-display-en)",
-              fontSize: isMobile ? "clamp(80px, 20vw, 120px)" : "clamp(160px, 18vw, 280px)",
-              fontWeight: 900, color: char.color, opacity: 0.03,
+              fontSize: isMobile ? "clamp(40px, 10vw, 60px)" : "clamp(80px, 8vw, 120px)",
+              fontWeight: 900, color: char.color, opacity: 0.025,
               whiteSpace: "nowrap", textTransform: "uppercase",
               letterSpacing: "0.05em", lineHeight: 0.8,
             }}>
-              {char.name} // {char.agency} // PRIME CITY ARCHIVE // DATA ID: {char.cdnId} //&nbsp;
+              {char.agency} // PRIME CITY ARCHIVE // DATA ID: {char.cdnId} // {char.role} //&nbsp;
             </div>
           ))}
         </div>
 
-        {/* Marquee line 2 — reverse direction, tagline */}
+        {/* Marquee line 2 — reverse direction */}
         <div style={{
           position: "absolute", top: isMobile ? "55%" : "60%", left: 0,
           display: "flex", width: "200%",
@@ -169,12 +192,13 @@ export default function CharDetail() {
           {[1, 2].map((k) => (
             <div key={k} style={{
               flex: "0 0 50%",
-              fontFamily: "var(--f-display-kr)",
-              fontSize: isMobile ? "clamp(60px, 16vw, 90px)" : "clamp(120px, 14vw, 200px)",
-              fontWeight: 700, color: char.color, opacity: 0.02,
-              whiteSpace: "nowrap", lineHeight: 0.9,
+              fontFamily: "var(--f-display-en)",
+              fontSize: isMobile ? "clamp(40px, 10vw, 60px)" : "clamp(80px, 8vw, 120px)",
+              fontWeight: 900, color: char.color, opacity: 0.02,
+              whiteSpace: "nowrap", textTransform: "uppercase",
+              letterSpacing: "0.05em", lineHeight: 0.9,
             }}>
-              {char.name} — {char.agency} — {char.role} —&nbsp;
+              {char.agency} // SECTOR: {char.cdnId} // CLASSIFICATION: CONFIDENTIAL //&nbsp;
             </div>
           ))}
         </div>
