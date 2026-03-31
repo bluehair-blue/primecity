@@ -96,15 +96,15 @@ const NSFW_CODES = [
 
 // ── City background items ──
 const cityItems = [
-  { src: cdnUrl("bg3.png"), caption: "프라임시티 전경 I", category: CATEGORIES.CITY, tags: [], isNsfw: false },
-  { src: cdnUrl("bg4.png"), caption: "프라임시티 전경 II", category: CATEGORIES.CITY, tags: [], isNsfw: false },
-  { src: cdnUrl("bg5.png"), caption: "프라임시티 전경 III", category: CATEGORIES.CITY, tags: [], isNsfw: false },
-  { src: cdnUrl("bg6.png"), caption: "더 코어", category: CATEGORIES.CITY, tags: [], isNsfw: false },
-  { src: cdnUrl("bg7.png"), caption: "미들 링", category: CATEGORIES.CITY, tags: [], isNsfw: false },
-  { src: cdnUrl("bg8.png"), caption: "하입 로드", category: CATEGORIES.CITY, tags: [], isNsfw: false },
-  { src: cdnUrl("bg9.png"), caption: "테라스", category: CATEGORIES.CITY, tags: [], isNsfw: false },
-  { src: cdnUrl("bg10.png"), caption: "야경", category: CATEGORIES.CITY, tags: [], isNsfw: false },
-  { src: cdnUrl("bg11.png"), caption: "스카이라인", category: CATEGORIES.CITY, tags: [], isNsfw: false },
+  { src: cdnUrl("bg3.webp"), caption: "프라임시티 전경 I", category: CATEGORIES.CITY, tags: [], isNsfw: false },
+  { src: cdnUrl("bg4.webp"), caption: "프라임시티 전경 II", category: CATEGORIES.CITY, tags: [], isNsfw: false },
+  { src: cdnUrl("bg5.webp"), caption: "프라임시티 전경 III", category: CATEGORIES.CITY, tags: [], isNsfw: false },
+  { src: cdnUrl("bg6.webp"), caption: "더 코어", category: CATEGORIES.CITY, tags: [], isNsfw: false },
+  { src: cdnUrl("bg7.webp"), caption: "미들 링", category: CATEGORIES.CITY, tags: [], isNsfw: false },
+  { src: cdnUrl("bg8.webp"), caption: "하입 로드", category: CATEGORIES.CITY, tags: [], isNsfw: false },
+  { src: cdnUrl("bg9.webp"), caption: "테라스", category: CATEGORIES.CITY, tags: [], isNsfw: false },
+  { src: cdnUrl("bg10.webp"), caption: "야경", category: CATEGORIES.CITY, tags: [], isNsfw: false },
+  { src: cdnUrl("bg11.webp"), caption: "스카이라인", category: CATEGORIES.CITY, tags: [], isNsfw: false },
 ];
 
 // ── Character items generator ──

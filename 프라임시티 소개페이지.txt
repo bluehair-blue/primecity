@@ -66,7 +66,7 @@
 <div style="width:56px;"></div>
 </div>
 <div class="hero">
-<div class="hbg" style="background-image:url('https://img.bluehair.blue/ent/bg5.png?v=1');"></div>
+<div class="hbg" style="background-image:url('https://img.bluehair.blue/ent/bg5.webp?v=2');"></div>
 <div class="hgr"></div>
 <div class="hvi"></div>
 <div class="hor"><div class="hod"></div></div>
@@ -81,7 +81,7 @@
 </div>
 </div>
 </div>
-<div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg3.png?v=1');"></div>
+<div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg3.webp?v=2');"></div>
 <div class="w">
 <section class="sc" id="about">
 <span class="lb">About</span>
@@ -133,11 +133,11 @@
 <div class="ag">APEX Entertainment</div>
 <details class="chd">
 <summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/SYthumbnail.png?v=1');border-color:oklch(0.76 0.12 80/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/SYthumbnail.webp?v=2');border-color:oklch(0.76 0.12 80/0.3);"></div>
 <div><div><span class="cn">서윤</span><span class="cr">톱 아이돌 겸 배우</span></div><div class="ct">"영점, 그리고 정점."</div></div>
 </summary>
 <div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/SY.png?v=1');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/SY.webp?v=2');"></div>
 <div class="pf">
 <div><b>성격</b> 고데레 — 너무 높은 곳에 있어서 내려오는 법을 모름</div>
 <div><b>배경</b> 어린 나이에 데뷔해 사람 서윤으로 살아본 적이 없다. 업계 정상에 섰지만, 정작 자기 자신은 영(零).</div>
@@ -147,11 +147,11 @@
 </details>
 <details class="chd">
 <summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/NHRthumbnail.png?v=1');border-color:oklch(0.72 0.10 310/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/NHRthumbnail.webp?v=2');border-color:oklch(0.72 0.10 310/0.3);"></div>
 <div><div><span class="cn">나하린</span><span class="cr">치프 프로듀서</span></div><div class="ct">"안녕~. 네 이름 많이 들었어. 잘 부탁해? 후후."</div></div>
 </summary>
 <div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/NHR.png?v=1');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/NHR.webp?v=2');"></div>
 <div class="pf">
 <div><b>성격</b> 장난기 + 변덕 + 예측불가</div>
 <div><b>배경</b> APEX의 황금기를 만든 장본인. 외모는 20대 중반이나 경력과 위치가 어울리지 않는 미스터리한 존재.</div>
@@ -188,11 +188,11 @@
 </details>
 <details class="chd">
 <summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/LSHthumbnail.png?v=1');border-color:oklch(0.70 0.10 240/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/LSHthumbnail.webp?v=2');border-color:oklch(0.70 0.10 240/0.3);"></div>
 <div><div><span class="cn">이서하</span><span class="cr">싱어송라이터 겸 프로듀서</span></div><div class="ct">"하아... 또? 귀찮으니 빨리 끝내."</div></div>
 </summary>
 <div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/LSH.png?v=1');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/LSH.webp?v=2');"></div>
 <div class="pf">
 <div><b>성격</b> 다루데레 + 자기부정 + 귀차니즘</div>
 <div><b>배경</b> 모든 분야에서 업계 최상급이나, 자기 이름으로 곡을 발표했다가 외면당한 과거. 이후 가명으로만 작업.</div>
@@ -217,11 +217,11 @@
 <div class="ag">Route 0</div>
 <details class="chd">
 <summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/KHRthumbnail.png?v=1');border-color:oklch(0.65 0.12 20/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/KHRthumbnail.webp?v=2');border-color:oklch(0.65 0.12 20/0.3);"></div>
 <div><div><span class="cn">강하람</span><span class="cr">연습생</span></div><div class="ct">"오늘도 연습! 아자아자~!"</div></div>
 </summary>
 <div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/KHR.svg?v=1');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/KHR.svg?v=2');"></div>
 <div class="pf">
 <div><b>성격</b> 무자각 여친계 — 열정 넘치는 밝음 (내면은 절박함)</div>
 <div><b>배경</b> 부모님을 일찍 잃고 여동생과 단둘이 살아간다. 아르바이트와 연습을 병행하며 데뷔를 준비 중.</div>
@@ -337,7 +337,7 @@
 </div>
 </section>
 </div>
-<div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg7.png?v=1');"></div>
+<div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg7.webp?v=2');"></div>
 <div class="sp"><div class="sd"></div></div>
 <div class="w">
 <section class="sc" id="world">
@@ -458,7 +458,7 @@
 </div>
 </section>
 </div>
-<div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg9.png?v=1');"></div>
+<div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg9.webp?v=2');"></div>
 <div class="w">
 <div style="text-align:center;padding:36px 0;">
 <div class="cb">

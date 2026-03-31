@@ -3,7 +3,7 @@ import C from "../styles/tokens";
 import { cdnUrl } from "../utils/cdn";
 
 const BG_IMAGES = Array.from({ length: 9 }, (_, i) =>
-  cdnUrl(`bg${i + 3}.png`)
+  cdnUrl(`bg${i + 3}.webp`)
 );
 const SLIDE_INTERVAL = 6000;
 const FADE_MS = 1200;
