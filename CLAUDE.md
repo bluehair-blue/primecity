@@ -204,6 +204,11 @@ primecity/
 │       ├── new-page/SKILL.md       ← 새 페이지 생성 스킬 (/new-page)
 │       └── deploy-preview/SKILL.md ← 빌드+배포 스킬 (/deploy-preview)
 ├── workers/                         ← Cloudflare Worker 참조 파일 (8종, 별도 배포: svg-sns/twit/live/talk/news/chart/community/tablet)
+├── tools/
+│   ├── extract_config.py    ← NAIS2 백업에서 캐릭터/장면 프롬프트 추출
+│   ├── asset_generator.py   ← NAI API 자동 이미지 생성 (배치, 진행추적, 재시도)
+│   └── asset_config.json    ← 15캐릭터 × 81장면 프롬프트 DB
+├── auto_censor.py           ← 자동 성기 검열 (수평 라인 밀도 + contour 바 검열)
 ├── CLAUDE.md               ← 이 파일
 ├── package.json
 └── vite.config.js
@@ -749,15 +754,16 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 
 ### 구현 필요
 
-#### 우선순위 높음 — 에셋 제작
-- [ ] 캐릭터 이미지 에셋 제작 + CDN 업로드 (4/15 완료, 11명 플레이스홀더)
-- [ ] 캐릭터 표정/상황 WebP 에셋 생성 (NAI 프리셋 사용) + CDN 업로드 (파일명: {숫자}.webp)
-- [ ] SVG 전용 에셋 제작 + CDN 업로드 (경로: `ent/{cdnId}/svg/{type}.webp`)
-  - avatar.webp (1:1 정사각, 프로필) × 15명
-  - post.webp (4:3 가로, SNS 게시물) × 필요 캐릭터
-  - stream.webp (5:3 가로, 방송 프리뷰) × 필요 캐릭터
-  - news.webp (16:9 가로, 뉴스 이미지) × 필요 캐릭터
-- [ ] CharDetail 히어로 전용 와이드 에셋 검토 (현재 2:3 세로형 이미지를 풀스크린에 사용 중)
+#### 에셋 자동화 파이프라인 (완료)
+- [x] NAI API 자동화 스크립트 (tools/asset_generator.py) — V4 프롬프트, Female/Male 분리, 진행 추적
+- [x] 캐릭터×장면 프롬프트 config (tools/asset_config.json) — 15명 × 75장면 + 6특수
+- [x] 전체 장면 이미지 생성 완료: 15명 × 75장 = **1,125장** (WebP, 실패 0)
+- [x] 특수 에셋 생성: 15명 × 6종 = **90장** (avatar/post/stream/news/keyvisual/thumbnail)
+- [x] R2 일괄 업로드: **1,235장+** (장면 + 특수 + profile + 배경 + 맵)
+- [x] PNG→WebP CDN 전환: 21장 변환 업로드, ASSET_VERSION 1→2
+- [x] CDN 참조 전면 WebP화 (characters.js, gallery.js, CityMap, HeroSlider, 소개HTML)
+- [x] profile 이미지 15명 추가 (characters.js profile 필드 + CharDetail Phase 2 + 소개HTML)
+- [x] 자동 검열 스크립트 (auto_censor.py) — 수평 라인 밀도 + contour X축, 바 검열, uv 메타데이터
 
 #### 직업군 모드 + SVG + 이미지 시스템 업데이트
 - [x] gamemodes.js 확장: mainModes(3) + careerModes(5) 분리 export
@@ -787,11 +793,59 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [x] svgTemplates.js ↔ Worker 동기화 완료
 - [x] Cloudflare Worker 재배포 (전용 wrangler.toml 방식, `tablet.bluehair.blue/ent/` 정상 확인)
 
-#### 우선순위 중간 — 코드 동기화 + 챗봇
-- [ ] 챗봇 메인 프롬프트에 SVG 출력 규칙 통합 (docs/연예계 챗봇 메인 프롬프트.txt)
+#### Gold & Azure Dualism 디자인 (완료)
+- [x] tokens.js: primeBlue 5토큰 추가, 배경 hue 280→265
+- [x] Particles: 골드:블루 7:3 혼합
+- [x] HeroSlider: 비네팅 블루 틴트 + 블루 오빗 링 (540px, 역회전)
+- [x] TriangleNav: 프리즘 블루 틴트 + 색수차 효과 (hover 시 블루 오프셋)
+- [x] CityMap: 홀로그래픽 블루 그리드 (SVG pattern, 애니메이션 drift)
+- [x] 호버 상태: Navbar/ScrollNav/GameModes → primeBlue
+- [x] 섹션 디바이더: 블루 틴트
+- [x] main.jsx: selection/scrollbar → 블루
+
+#### 구역 상세 페이지 오버홀 (완료)
+- [x] districts.js 확장: bgImage, vibe, landmarks(3/구역), lore(2-3단락), quote
+- [x] DistrictDetail.jsx 전면 재설계: 히어로(배경+비네팅+인용구) → 개요(vibe뱃지) → 랜드마크 → 로어(스크롤 트리거) → 캐릭터(썸네일+대사) → 네비
+- [x] 산업단지 데이터 districts.js로 통합
+- [x] 로어 콘텐츠 작성 (사이버펑크 톤, 스포일러 없음)
+
+#### 챗봇 소개 HTML 오버홀 (완료)
+- [x] CSS 변수 시스템 (9개 var, 79곳 참조)
+- [x] 세계관/모드 → `<details>` 접기 UX
+- [x] Image System → 접기 + 블루 악센트
+- [x] 골드+블루 이중 오빗 링
+- [x] 프로필 이미지 15명 전원 적용
+- [x] 문의 링크 (arca.live, confirm 대화상자)
+
+#### 챗봇 프롬프트 압축 (완료)
+- [x] 전체 84KB → 56KB (33% 절감)
+- [x] 메인 프롬프트 37%, 모드 로어북 48%, 오디션 39%, 나하린 31%, 세계관 35%, 캐릭터 17%
+- [x] !오디션참가 → 오디션 로어북 perspective 필드로 통합
+- [x] 모드 switch 프로토콜 제거, 캐릭터 영문 네임태그 제거
+- [x] 캐릭터 매력 포인트 추가 (갭모에 시드, 행동 디테일, 서사 암시)
+
+#### 보안 수정 (완료)
+- [x] SVG Worker 8개 XSS 취약점 수정 (escapeXml 101곳 적용)
+- [x] 보안 헤더 추가 (CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy)
+- [x] 8개 Worker 전부 재배포
+
+#### CharDetail 개선 (완료)
+- [x] 배경 마키 시그니처 대사 → 이름+소속+역할로 변경
+- [x] 이름 독립 레이어 (우측 정렬, 좌우 drift 25s)
+- [x] 마키 라인 blur(1~1.5px) + ◆ 구분자 (홀로그래픽 데이터 레이어)
+
+#### 기타 완료
+- [x] 커뮤니티 SVG 오버홀 (10개 기본글, 공지, 댓글수, 동적 높이)
+- [x] 문의 → arca.live 리다이렉트 + 확인 모달
+- [x] Dependabot 취약점 dismiss (picomatch 4.0.4 이미 적용)
+- [x] Updates.jsx 2026.03.30 항목 추가
+- [x] 에덴챗 로어북 삽입 가이드 작성 (docs/에덴챗_로어북_삽입_가이드.md)
+
+#### 우선순위 중간 — 남은 작업
 - [ ] Works 페이지에 추가 작품 등록 (현재 프라임시티만)
 - [ ] Phase 5: 프롬프트 품질 개선 (자가점검/감정잔여/복선스케줄러)
 - [ ] 에덴챗 플랫폼 테스트 (로어북 동시 활성 성능, 상태창 렌더링)
+- [ ] NSFW 이미지 검열 배치 실행 (auto_censor.py → 검열된 이미지 R2 재업로드)
 
 #### 우선순위 낮음 — 품질 관리
 - [ ] 모바일 시네마틱 효과 최종 검수 + 성능 최적화 (전 페이지)
@@ -810,7 +864,7 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - **사운드 디자인** — BGM 토글 버튼 + 호버/클릭 효과음 (Web Audio API)
 
 ### 기술 / 성능
-- **이미지 최적화** — WebP/AVIF 포맷 변환, srcset 반응형 이미지, Cloudflare Image Resizing 활용
+- ~~**이미지 최적화** — WebP/AVIF 포맷 변환~~ ✅ 전면 WebP 전환 완료 (PNG→WebP, ASSET_VERSION 2)
 - ~~**코드 스플리팅** — React.lazy + Suspense로 하위 페이지 동적 임포트~~ ✅ 구현됨
 - ~~**SEO** — react-helmet-async로 페이지별 메타태그 + OG 이미지 동적 생성~~ ✅ 구현됨 (Seo 컴포넌트)
 - **접근성(a11y)** — 키보드 네비게이션 강화, aria-label, 고대비 모드, 스크린 리더 지원
@@ -822,7 +876,7 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - **에덴챗 연동** — 챗봇 위젯 임베드 프리뷰 또는 데모 대화
 - **타임라인/연대기** — 프라임시티 세계관 역사 타임라인 시각화
 - **팬 아트 갤러리** — 커뮤니티 투고 기능 (Cloudflare R2 + Workers)
-- **구역 상세 콘텐츠 확장** — DistrictDetail 페이지에 구역별 배경 이미지, 명소 소개, 주민 생활 등 추가
+- ~~**구역 상세 콘텐츠 확장** — DistrictDetail 페이지에 구역별 배경 이미지, 명소 소개~~ ✅ 히어로+랜드마크+로어 구현
 - **캐릭터 관계망** — 캐릭터 상세 페이지에서 관계 캐릭터 간 양방향 링크 + 관계 설명
 
 <!-- ooo:START -->
