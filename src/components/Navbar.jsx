@@ -4,6 +4,7 @@ import C from "../styles/tokens";
 
 export default function Navbar({ scrolled, isMobile }) {
   const [open, setOpen] = useState(false);
+  const [extConfirm, setExtConfirm] = useState(null);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -18,7 +19,7 @@ export default function Navbar({ scrolled, isMobile }) {
     { label: "세계관", href: "/#world" },
     { label: "갤러리", href: "/gallery", route: true },
     { label: "더 알아보기", href: "/#explore" },
-    { label: "문의", href: "/contact", route: true },
+    { label: "문의", href: "https://arca.live/b/lapislazuli", external: true },
   ];
 
   const navigate = useNavigate();
@@ -44,6 +45,24 @@ export default function Navbar({ scrolled, isMobile }) {
   }
 
   function renderLink(l, style, onClick) {
+    if (l.external) {
+      return (
+        <a
+          key={l.href}
+          href={l.href}
+          style={style}
+          onClick={(e) => {
+            e.preventDefault();
+            if (onClick) onClick();
+            setExtConfirm(l.href);
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = C.primeBlue)}
+          onMouseLeave={(e) => (e.currentTarget.style.color = style.color)}
+        >
+          {l.label}
+        </a>
+      );
+    }
     if (l.route) {
       return (
         <Link
@@ -261,6 +280,65 @@ export default function Navbar({ scrolled, isMobile }) {
           >
             플레이
           </button>
+        </div>
+      )}
+      {/* External link confirmation modal */}
+      {extConfirm && (
+        <div
+          onClick={() => setExtConfirm(null)}
+          style={{
+            position: "fixed", inset: 0, zIndex: 9999,
+            background: C.bgOverlay,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: 24,
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: C.bgDeep,
+              border: `1px solid ${C.border10}`,
+              padding: isMobile ? "28px 24px" : "36px 40px",
+              maxWidth: 380, width: "100%", textAlign: "center",
+            }}
+          >
+            <p style={{
+              fontFamily: "var(--f-body)", fontSize: 14,
+              color: C.text70, lineHeight: 1.7, marginBottom: 24,
+              wordBreak: "keep-all",
+            }}>
+              아카라이브 제작자 채널로 이동합니다.
+            </p>
+            <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
+              <button
+                onClick={() => {
+                  window.open(extConfirm, "_blank", "noopener");
+                  setExtConfirm(null);
+                }}
+                style={{
+                  padding: "10px 28px",
+                  background: `linear-gradient(135deg, ${C.gold}, oklch(0.65 0.12 75))`,
+                  border: "none", color: C.black,
+                  fontSize: 12, fontWeight: 600, letterSpacing: "0.1em",
+                  cursor: "pointer", fontFamily: "var(--f-body)",
+                }}
+              >
+                예
+              </button>
+              <button
+                onClick={() => setExtConfirm(null)}
+                style={{
+                  padding: "10px 28px",
+                  background: "transparent",
+                  border: `1px solid ${C.border10}`,
+                  color: C.text45, fontSize: 12, cursor: "pointer",
+                  fontFamily: "var(--f-body)",
+                }}
+              >
+                아니오
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </>
