@@ -317,6 +317,9 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div class="gl"></div>
 <p style="font-size:13px;color:var(--txt-sub);line-height:1.8;max-width:400px;margin:0 auto 24px;font-weight:300;word-break:keep-all;">프라임시티에서 당신만의 이야기를 만들어보세요.<br>채팅에서 <span style="font-family:monospace;color:var(--blue);">!모드명</span>을 입력하면 직업군 모드로 전환됩니다.</p>
 <a href="https://intro.bluehair.blue" target="_blank" rel="noopener" class="bp">더 자세히</a>
+<div style="margin-top:16px;">
+<a href="https://arca.live/b/lapislazuli" target="_blank" rel="noopener" onclick="if(!confirm('아카라이브 제작자 채널로 이동합니다.'))return false;" style="font-size:11px;color:var(--txt-sub);text-decoration:none;border-bottom:1px solid var(--blue-dim);padding-bottom:2px;transition:color 0.3s;">문의 · 피드백</a>
+</div>
 </div>
 </div>
 <footer class="ft">
