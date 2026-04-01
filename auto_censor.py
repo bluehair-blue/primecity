@@ -1,4 +1,12 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#     "opencv-python-headless",
+#     "numpy",
+#     "pillow",
+# ]
+# ///
 """
 auto_censor.py — 수평 라인 밀도 기반 성기 검열
 ================================================
