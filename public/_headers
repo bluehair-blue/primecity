@@ -1,5 +1,13 @@
-# ─── Cloudflare Pages Cache Headers ───
-# Cache Reserve + Tiered Cache Topology 활성 환경 최적화
+# ─── Cloudflare Pages Headers ───
+# Security + Cache optimization
+
+# Security headers (all pages)
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://img.bluehair.blue https://*.bluehair.blue data:; connect-src 'self' https://*.bluehair.blue; frame-ancestors 'none'
 
 # HTML (SPA shell) — 항상 최신 확인, CDN에 짧게 캐시
 /

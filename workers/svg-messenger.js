@@ -1,3 +1,6 @@
+function escapeXml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
 // SYNC: Keep in sync with src/data/svgTemplates.js
 function safeImageUrl(url) {
   if (!url) return null;
@@ -19,7 +22,7 @@ function generateMessenger(p) {
 
   const avatarSvg = avatarUrl
     ? `<defs><clipPath id="msg-avatar-clip"><circle cx="56" cy="28" r="16"/></clipPath></defs>
-    <image href="${avatarUrl}" x="40" y="12" width="32" height="32" clip-path="url(#msg-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
+    <image href="${escapeXml(avatarUrl)}" x="40" y="12" width="32" height="32" clip-path="url(#msg-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
     : `<circle cx="56" cy="28" r="16" fill="#2a2a4a" stroke="#6ab0f3" stroke-width="1.5"/>
     <text x="56" y="33" text-anchor="middle" fill="#6ab0f3" font-size="12" font-weight="bold" font-family="sans-serif">${contact[0]}</text>`;
 
@@ -28,26 +31,26 @@ function generateMessenger(p) {
   <!-- Top bar -->
   <rect x="0" y="0" width="400" height="56" rx="12 12 0 0" fill="#12122a"/>
   <text x="16" y="32" fill="#888" font-size="16" font-family="sans-serif">←</text>
-  ${avatarSvg}
-  <text x="82" y="24" fill="#e8e8e8" font-size="14" font-weight="600" font-family="sans-serif">${contact}</text>
+  ${escapeXml(avatarSvg)}
+  <text x="82" y="24" fill="#e8e8e8" font-size="14" font-weight="600" font-family="sans-serif">${escapeXml(contact)}</text>
   <circle cx="${82 + contact.length * 10 + 8}" cy="20" r="4" fill="#4caf50"/>
   <text x="82" y="40" fill="#4caf50" font-size="10" font-family="sans-serif">온라인</text>
   <!-- Messages -->
   <g transform="translate(0, 80)">
     <!-- Incoming msg 1 -->
     <rect x="16" y="0" width="${Math.min(msg1.length * 11 + 24, 260)}" height="34" rx="16" fill="#2a2a4a"/>
-    <text x="28" y="22" fill="#e8e8e8" font-size="13" font-family="sans-serif">${msg1}</text>
+    <text x="28" y="22" fill="#e8e8e8" font-size="13" font-family="sans-serif">${escapeXml(msg1)}</text>
     <!-- Incoming msg 2 -->
     <rect x="16" y="44" width="${Math.min(msg2.length * 11 + 24, 260)}" height="34" rx="16" fill="#2a2a4a"/>
-    <text x="28" y="66" fill="#e8e8e8" font-size="13" font-family="sans-serif">${msg2}</text>
+    <text x="28" y="66" fill="#e8e8e8" font-size="13" font-family="sans-serif">${escapeXml(msg2)}</text>
     <!-- Time -->
-    <text x="200" y="102" text-anchor="middle" fill="#555" font-size="10" font-family="sans-serif">${time}</text>
+    <text x="200" y="102" text-anchor="middle" fill="#555" font-size="10" font-family="sans-serif">${escapeXml(time)}</text>
     <!-- Outgoing reply 1 -->
     <rect x="${400 - Math.min(reply1.length * 11 + 24, 260) - 16}" y="116" width="${Math.min(reply1.length * 11 + 24, 260)}" height="34" rx="16" fill="#3a5a8a"/>
-    <text x="${400 - Math.min(reply1.length * 11 + 24, 260) - 16 + 12}" y="138" fill="#e8e8e8" font-size="13" font-family="sans-serif">${reply1}</text>
+    <text x="${400 - Math.min(reply1.length * 11 + 24, 260) - 16 + 12}" y="138" fill="#e8e8e8" font-size="13" font-family="sans-serif">${escapeXml(reply1)}</text>
     <!-- Outgoing reply 2 -->
     <rect x="${400 - Math.min(reply2.length * 11 + 24, 260) - 16}" y="160" width="${Math.min(reply2.length * 11 + 24, 260)}" height="34" rx="16" fill="#3a5a8a"/>
-    <text x="${400 - Math.min(reply2.length * 11 + 24, 260) - 16 + 12}" y="182" fill="#e8e8e8" font-size="13" font-family="sans-serif">${reply2}</text>
+    <text x="${400 - Math.min(reply2.length * 11 + 24, 260) - 16 + 12}" y="182" fill="#e8e8e8" font-size="13" font-family="sans-serif">${escapeXml(reply2)}</text>
   </g>
   <!-- Typing indicator -->
   <g transform="translate(28, 290)">

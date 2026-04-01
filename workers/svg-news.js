@@ -1,3 +1,6 @@
+function escapeXml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
 // SYNC: Keep in sync with src/data/svgTemplates.js
 function safeImageUrl(url) {
   if (!url) return null;
@@ -18,39 +21,39 @@ function generateNews(p) {
   const imageUrl = safeImageUrl(p.image);
 
   const newsImageSvg = imageUrl
-    ? `<image href="${imageUrl}" x="300" y="84" width="180" height="140" preserveAspectRatio="xMidYMid slice"/>`
+    ? `<image href="${escapeXml(imageUrl)}" x="300" y="84" width="180" height="140" preserveAspectRatio="xMidYMid slice"/>`
     : "";
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 280">
   <rect width="500" height="280" rx="8" fill="#0a0a1a"/>
   <!-- Channel bar -->
   <rect x="0" y="0" width="500" height="40" fill="#1a1a2e"/>
-  <text x="16" y="26" fill="#c9a84c" font-size="14" font-weight="700" font-family="sans-serif">${channel}</text>
+  <text x="16" y="26" fill="#c9a84c" font-size="14" font-weight="700" font-family="sans-serif">${escapeXml(channel)}</text>
   <rect x="140" y="10" width="50" height="20" rx="3" fill="#e03e3e">
     <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
   </rect>
   <text x="165" y="24" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">LIVE</text>
-  <text x="440" y="26" fill="#888" font-size="11" font-family="sans-serif">${time}</text>
+  <text x="440" y="26" fill="#888" font-size="11" font-family="sans-serif">${escapeXml(time)}</text>
   <!-- Breaking banner (flash animation) -->
   <rect x="0" y="44" width="500" height="32" fill="#c62828">
     <animate attributeName="opacity" values="1;0.7;1" dur="1.5s" repeatCount="indefinite"/>
   </rect>
   <text x="16" y="65" fill="#fff" font-size="13" font-weight="700" font-family="sans-serif">⚡ 속보 BREAKING</text>
   <!-- News image -->
-  ${newsImageSvg}
+  ${escapeXml(newsImageSvg)}
   <!-- Headline -->
   <text x="16" y="108" fill="#e8e8e8" font-size="18" font-weight="700" font-family="sans-serif">${headline.substring(0, 30)}</text>
   ${headline.length > 30 ? `<text x="16" y="132" fill="#e8e8e8" font-size="18" font-weight="700" font-family="sans-serif">${headline.substring(30, 60)}</text>` : ""}
   <!-- Sub -->
   <text x="16" y="${headline.length > 30 ? 158 : 134}" fill="#aaa" font-size="13" font-family="sans-serif">${sub.substring(0, 42)}</text>
   <!-- Reporter -->
-  <text x="16" y="${headline.length > 30 ? 186 : 162}" fill="#888" font-size="11" font-family="sans-serif">${reporter} 기자</text>
+  <text x="16" y="${headline.length > 30 ? 186 : 162}" fill="#888" font-size="11" font-family="sans-serif">${escapeXml(reporter)} 기자</text>
   <!-- Ticker bar -->
   <rect x="0" y="240" width="500" height="40" fill="#12122a"/>
   <clipPath id="ticker-clip"><rect x="0" y="240" width="500" height="40"/></clipPath>
   <g clip-path="url(#ticker-clip)">
     <text y="264" fill="#c9a84c" font-size="12" font-family="sans-serif">
-      <tspan>${ticker}</tspan>
+      <tspan>${escapeXml(ticker)}</tspan>
       <animateTransform attributeName="transform" type="translate" from="500 0" to="-1200 0" dur="20s" repeatCount="indefinite"/>
     </text>
   </g>

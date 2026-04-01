@@ -1,3 +1,6 @@
+function escapeXml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
 // SYNC: Keep in sync with src/data/svgTemplates.js
 function safeImageUrl(url) {
   if (!url) return null;
@@ -21,12 +24,12 @@ function generateLivestream(p) {
 
   const avatarSvg = avatarUrl
     ? `<defs><clipPath id="ls-avatar-clip"><circle cx="18" cy="18" r="18"/></clipPath></defs>
-    <image href="${avatarUrl}" x="0" y="0" width="36" height="36" clip-path="url(#ls-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
+    <image href="${escapeXml(avatarUrl)}" x="0" y="0" width="36" height="36" clip-path="url(#ls-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
     : `<circle cx="18" cy="18" r="18" fill="#2a2a4a" stroke="#c9a84c" stroke-width="2"/>
     <text x="18" y="23" text-anchor="middle" fill="#c9a84c" font-size="14" font-weight="bold" font-family="sans-serif">${streamer[0]}</text>`;
 
   const streamImageSvg = imageUrl
-    ? `<image href="${imageUrl}" x="0" y="0" width="400" height="240" clip-path="url(#stream-clip)" preserveAspectRatio="xMidYMid slice"/>
+    ? `<image href="${escapeXml(imageUrl)}" x="0" y="0" width="400" height="240" clip-path="url(#stream-clip)" preserveAspectRatio="xMidYMid slice"/>
   <defs><clipPath id="stream-clip"><rect x="0" y="0" width="400" height="240" rx="12"/></clipPath></defs>`
     : `<rect x="0" y="0" width="400" height="240" rx="12 12 0 0" fill="#18182a"/>
   <text x="200" y="125" text-anchor="middle" fill="#444" font-size="14" font-family="sans-serif">LIVE STREAM</text>`;
@@ -34,7 +37,7 @@ function generateLivestream(p) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480">
   <rect width="400" height="480" rx="12" fill="#0e0e1a"/>
   <!-- Stream preview area -->
-  ${streamImageSvg}
+  ${escapeXml(streamImageSvg)}
   <!-- LIVE badge (animated) -->
   <rect x="12" y="12" width="50" height="22" rx="4" fill="#e03e3e">
     <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
@@ -42,12 +45,12 @@ function generateLivestream(p) {
   <text x="37" y="27" text-anchor="middle" fill="#fff" font-size="11" font-weight="700" font-family="sans-serif">LIVE</text>
   <!-- Viewers -->
   <rect x="70" y="12" width="80" height="22" rx="4" fill="rgba(0,0,0,0.6)"/>
-  <text x="110" y="27" text-anchor="middle" fill="#e8e8e8" font-size="11" font-family="sans-serif">👁 ${viewers}</text>
+  <text x="110" y="27" text-anchor="middle" fill="#e8e8e8" font-size="11" font-family="sans-serif">👁 ${escapeXml(viewers)}</text>
   <!-- Streamer info -->
   <g transform="translate(16, 254)">
-    ${avatarSvg}
-    <text x="46" y="16" fill="#e8e8e8" font-size="14" font-weight="600" font-family="sans-serif">${streamer}</text>
-    <text x="46" y="32" fill="#888" font-size="10" font-family="sans-serif">${category}</text>
+    ${escapeXml(avatarSvg)}
+    <text x="46" y="16" fill="#e8e8e8" font-size="14" font-weight="600" font-family="sans-serif">${escapeXml(streamer)}</text>
+    <text x="46" y="32" fill="#888" font-size="10" font-family="sans-serif">${escapeXml(category)}</text>
   </g>
   <!-- Title -->
   <text x="16" y="310" fill="#ccc" font-size="12" font-family="sans-serif">${title.substring(0, 45)}</text>
@@ -63,28 +66,28 @@ function generateLivestream(p) {
       <animateTransform attributeName="transform" type="translate" from="0 0" to="0 -90" dur="8s" repeatCount="indefinite"/>
       <g transform="translate(16, 345)">
         <text x="0" y="0" fill="#4a9eff" font-size="11" font-family="sans-serif">유저1</text>
-        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${chat1}</text>
+        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${escapeXml(chat1)}</text>
       </g>
       <g transform="translate(16, 375)">
         <text x="0" y="0" fill="#e0a040" font-size="11" font-family="sans-serif">유저2</text>
-        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${chat2}</text>
+        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${escapeXml(chat2)}</text>
       </g>
       <g transform="translate(16, 405)">
         <text x="0" y="0" fill="#40c060" font-size="11" font-family="sans-serif">유저3</text>
-        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${chat3}</text>
+        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${escapeXml(chat3)}</text>
       </g>
       <!-- Duplicated for seamless loop -->
       <g transform="translate(16, 435)">
         <text x="0" y="0" fill="#4a9eff" font-size="11" font-family="sans-serif">유저1</text>
-        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${chat1}</text>
+        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${escapeXml(chat1)}</text>
       </g>
       <g transform="translate(16, 465)">
         <text x="0" y="0" fill="#e0a040" font-size="11" font-family="sans-serif">유저2</text>
-        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${chat2}</text>
+        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${escapeXml(chat2)}</text>
       </g>
       <g transform="translate(16, 495)">
         <text x="0" y="0" fill="#40c060" font-size="11" font-family="sans-serif">유저3</text>
-        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${chat3}</text>
+        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${escapeXml(chat3)}</text>
       </g>
     </g>
   </g>

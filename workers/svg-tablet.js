@@ -1,3 +1,6 @@
+function escapeXml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
 // SYNC: Keep in sync with src/data/svgTemplates.js
 function generateTablet(p) {
   const user = p.user || "{{user}}";
@@ -22,7 +25,7 @@ function generateTablet(p) {
   function sectionHeader(label, y) {
     return `
     <rect x="${L - 6}" y="${y - 10}" width="3" height="14" rx="1" fill="#c9a84c" opacity="0.5"/>
-    <text x="${L}" y="${y}" fill="#888" font-size="9" font-weight="600" font-family="sans-serif" letter-spacing="2">${label}</text>
+    <text x="${L}" y="${y}" fill="#888" font-size="9" font-weight="600" font-family="sans-serif" letter-spacing="2">${escapeXml(label)}</text>
     <rect x="${L}" y="${y + 5}" width="50" height="1.5" fill="#c9a84c" opacity="0.4"/>`;
   }
 
@@ -39,9 +42,9 @@ function generateTablet(p) {
     return `
     <g>
       <rect x="${L}" y="${y}" width="32" height="22" rx="4" fill="#c9a84c" opacity="0.15"/>
-      <text x="${L + 16}" y="${y + 15}" text-anchor="middle" fill="#c9a84c" font-size="10" font-weight="700" font-family="sans-serif">${r.tag}</text>
-      <text x="${L + 42}" y="${y + 10}" fill="#e8e8e8" font-size="11" font-weight="600" font-family="sans-serif">${r.name}</text>
-      <text x="${L + 42}" y="${y + 22}" fill="#888" font-size="8.5" font-family="sans-serif">${r.desc}</text>
+      <text x="${L + 16}" y="${y + 15}" text-anchor="middle" fill="#c9a84c" font-size="10" font-weight="700" font-family="sans-serif">${escapeXml(r.tag)}</text>
+      <text x="${L + 42}" y="${y + 10}" fill="#e8e8e8" font-size="11" font-weight="600" font-family="sans-serif">${escapeXml(r.name)}</text>
+      <text x="${L + 42}" y="${y + 22}" fill="#888" font-size="8.5" font-family="sans-serif">${escapeXml(r.desc)}</text>
       <rect x="${L}" y="${y + 28}" width="0" height="1" fill="#c9a84c" opacity="0.3">
         <animate attributeName="width" from="0" to="${contentW}" dur="0.8s" begin="${barDelay}" fill="freeze"/>
       </rect>
@@ -68,10 +71,10 @@ function generateTablet(p) {
     return `
     <g>
       <rect x="${x}" y="${y}" width="${colW}" height="40" rx="4" fill="#141428" stroke="#2a2a3a" stroke-width="0.5"/>
-      <text x="${x + 10}" y="${y + 24}" font-size="14" font-family="sans-serif">${m.icon}</text>
-      <text x="${x + 32}" y="${y + 16}" fill="${m.accent}" font-size="10" font-weight="700" font-family="sans-serif">${m.name}</text>
-      <text x="${x + 32}" y="${y + 30}" fill="#777" font-size="8.5" font-family="sans-serif">${m.desc}</text>
-      <text x="${x + colW - 8}" y="${y + 14}" text-anchor="end" fill="#444" font-size="7" font-family="monospace" opacity="0.8">${m.trigger}</text>
+      <text x="${x + 10}" y="${y + 24}" font-size="14" font-family="sans-serif">${escapeXml(m.icon)}</text>
+      <text x="${x + 32}" y="${y + 16}" fill="${escapeXml(m.accent)}" font-size="10" font-weight="700" font-family="sans-serif">${escapeXml(m.name)}</text>
+      <text x="${x + 32}" y="${y + 30}" fill="#777" font-size="8.5" font-family="sans-serif">${escapeXml(m.desc)}</text>
+      <text x="${x + colW - 8}" y="${y + 14}" text-anchor="end" fill="#444" font-size="7" font-family="monospace" opacity="0.8">${escapeXml(m.trigger)}</text>
     </g>`;
   }
 
@@ -107,7 +110,7 @@ function generateTablet(p) {
 
   let charTagsY = imgY + 48;
   const charTags = charGroups.map((g) => {
-    const labelSvg = `<text x="${L}" y="${charTagsY}" fill="#555" font-size="7" font-weight="600" font-family="sans-serif" letter-spacing="1">${g.agency}</text>`;
+    const labelSvg = `<text x="${L}" y="${charTagsY}" fill="#555" font-size="7" font-weight="600" font-family="sans-serif" letter-spacing="1">${escapeXml(g.agency)}</text>`;
     charTagsY += 14;
     const rows = [];
     for (let i = 0; i < g.chars.length; i++) {
@@ -134,9 +137,9 @@ function generateTablet(p) {
     const x = L + barOffset;
     barOffset += w;
     return `
-      <text x="${x + w / 2}" y="${sceneBarY}" text-anchor="middle" fill="${sc.color}" font-size="7" font-weight="600" font-family="sans-serif">${sc.label}</text>
-      <rect x="${x}" y="${sceneBarY + 4}" width="${w}" height="18" fill="${sc.color}" opacity="0.2"/>
-      <rect x="${x}" y="${sceneBarY + 4}" width="${w}" height="18" fill="none" stroke="${sc.color}" stroke-width="0.5" opacity="0.3"/>`;
+      <text x="${x + w / 2}" y="${sceneBarY}" text-anchor="middle" fill="${escapeXml(sc.color)}" font-size="7" font-weight="600" font-family="sans-serif">${escapeXml(sc.label)}</text>
+      <rect x="${x}" y="${sceneBarY + 4}" width="${w}" height="18" fill="${escapeXml(sc.color)}" opacity="0.2"/>
+      <rect x="${x}" y="${sceneBarY + 4}" width="${w}" height="18" fill="none" stroke="${escapeXml(sc.color)}" stroke-width="0.5" opacity="0.3"/>`;
   }).join("");
 
   const imageSection = `
@@ -146,8 +149,8 @@ function generateTablet(p) {
     <text x="${L + 168}" y="${imgY + 32}" fill="#c9a84c" font-size="9" font-family="monospace" font-weight="600">{code}/{num}</text>
     <text x="${L + 250}" y="${imgY + 32}" fill="#666" font-size="9" font-family="monospace">.webp</text>
     <text x="${R}" y="${imgY + 32}" text-anchor="end" fill="#555" font-size="8.5" font-family="sans-serif">15명 × 74 = 1,110장</text>
-    ${charTags}
-    ${sceneBars}
+    ${escapeXml(charTags)}
+    ${escapeXml(sceneBars)}
     <text x="${L + barW + 8}" y="${sceneBarY + 16}" fill="#555" font-size="8" font-family="sans-serif">74/char</text>`;
 
   // ── Dynamic bottom positions ──
@@ -166,10 +169,10 @@ function generateTablet(p) {
       <animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="${delay}s" fill="freeze"/>
       <rect x="${L}" y="${y}" width="${contentW}" height="44" rx="6" fill="#141428" stroke="${borderColor}" stroke-width="${isUser ? 1.5 : 0.5}"/>
       ${isUser ? `<rect x="${L}" y="${y}" width="${contentW}" height="44" rx="6" fill="#c9a84c" opacity="0.05"/>` : ""}
-      <text x="${L + 16}" y="${y + 18}" fill="${nameColor}" font-size="13" font-weight="700" font-family="sans-serif">${name}</text>
+      <text x="${L + 16}" y="${y + 18}" fill="${nameColor}" font-size="13" font-weight="700" font-family="sans-serif">${escapeXml(name)}</text>
       ${badge ? `<rect x="${L + 16 + name.length * 13 + 6}" y="${y + 6}" width="30" height="16" rx="3" fill="#c9a84c"/>
-      <text x="${L + 16 + name.length * 13 + 21}" y="${y + 18}" text-anchor="middle" fill="#0e0e1a" font-size="8" font-weight="700" font-family="sans-serif">${badge}</text>` : ""}
-      <text x="${L + 16}" y="${y + 34}" fill="#888" font-size="9" font-family="sans-serif">${agencyName} · ${role}</text>
+      <text x="${L + 16 + name.length * 13 + 21}" y="${y + 18}" text-anchor="middle" fill="#0e0e1a" font-size="8" font-weight="700" font-family="sans-serif">${escapeXml(badge)}</text>` : ""}
+      <text x="${L + 16}" y="${y + 34}" fill="#888" font-size="9" font-family="sans-serif">${escapeXml(agencyName)} · ${escapeXml(role)}</text>
       <rect x="${R - 6}" y="${y + 12}" width="8" height="8" rx="4" fill="${isUser ? "#c9a84c" : "#555"}" opacity="${isUser ? 1 : 0.5}"/>
     </g>`;
   }
@@ -236,7 +239,7 @@ function generateTablet(p) {
     <!-- Info grid -->
     <g>
       <text x="${L}" y="236" fill="#666" font-size="9" font-family="sans-serif">부문</text>
-      <text x="130" y="236" fill="#e8e8e8" font-size="11" font-weight="600" font-family="sans-serif">${division}</text>
+      <text x="130" y="236" fill="#e8e8e8" font-size="11" font-weight="600" font-family="sans-serif">${escapeXml(division)}</text>
       <text x="230" y="236" fill="#666" font-size="9" font-family="sans-serif">참가자</text>
       <text x="290" y="236" fill="#e8e8e8" font-size="11" font-weight="600" font-family="sans-serif">8명</text>
     </g>
@@ -266,20 +269,20 @@ function generateTablet(p) {
 
     <!-- Rounds -->
     ${sectionHeader("ROUND STRUCTURE", 516)}
-    ${roundRows}
+    ${escapeXml(roundRows)}
 
     <!-- Divider -->
     <line x1="${L}" y1="672" x2="${R}" y2="672" stroke="#222" stroke-width="0.5"/>
 
     <!-- Mode commands — 2-column compact grid -->
     ${sectionHeader("AVAILABLE MODES", 692)}
-    ${mainLabel}
-    ${mainCells}
-    ${careerLabel}
-    ${careerCells}
+    ${escapeXml(mainLabel)}
+    ${escapeXml(mainCells)}
+    ${escapeXml(careerLabel)}
+    ${escapeXml(careerCells)}
 
     <!-- Image output system -->
-    ${imageSection}
+    ${escapeXml(imageSection)}
 
     <!-- Warning -->
     <rect x="${L}" y="${warnY}" width="${contentW}" height="36" rx="6" fill="#1a1028" stroke="#c9a84c" stroke-width="0.5" opacity="0.6"/>

@@ -1,3 +1,6 @@
+function escapeXml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
 // SYNC: Keep in sync with src/data/svgTemplates.js
 function safeImageUrl(url) {
   if (!url) return null;
@@ -22,8 +25,8 @@ function generateChart(p) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480">
   <rect width="400" height="480" rx="12" fill="#0e0e1a"/>
   <!-- Header -->
-  <text x="200" y="36" text-anchor="middle" fill="#c9a84c" font-size="16" font-weight="700" font-family="sans-serif">${chart}</text>
-  <text x="200" y="56" text-anchor="middle" fill="#666" font-size="10" font-family="sans-serif">${time}</text>
+  <text x="200" y="36" text-anchor="middle" fill="#c9a84c" font-size="16" font-weight="700" font-family="sans-serif">${escapeXml(chart)}</text>
+  <text x="200" y="56" text-anchor="middle" fill="#666" font-size="10" font-family="sans-serif">${escapeXml(time)}</text>
   <line x1="40" y1="70" x2="360" y2="70" stroke="#222" stroke-width="1"/>
   <!-- Chart rows -->
   ${songs.map((s, i) => {
@@ -36,10 +39,10 @@ function generateChart(p) {
         <animate attributeName="stroke-opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
         <animate attributeName="stroke-width" values="0.5;1.5;0.5" dur="2s" repeatCount="indefinite"/>
       </rect>` : ""}
-      <text x="36" y="18" text-anchor="middle" fill="${isFirst ? "#c9a84c" : "#888"}" font-size="${isFirst ? 24 : 18}" font-weight="700" font-family="sans-serif">${s.rank}</text>
-      <text x="68" y="12" fill="#e8e8e8" font-size="14" font-weight="${isFirst ? 700 : 500}" font-family="sans-serif">${s.song}</text>
-      <text x="68" y="32" fill="#888" font-size="11" font-family="sans-serif">${s.artist}</text>
-      <text x="360" y="18" text-anchor="end" fill="${changeColor}" font-size="12" font-weight="600" font-family="sans-serif">${s.change}</text>
+      <text x="36" y="18" text-anchor="middle" fill="${isFirst ? "#c9a84c" : "#888"}" font-size="${isFirst ? 24 : 18}" font-weight="700" font-family="sans-serif">${escapeXml(s.rank)}</text>
+      <text x="68" y="12" fill="#e8e8e8" font-size="14" font-weight="${isFirst ? 700 : 500}" font-family="sans-serif">${escapeXml(s.song)}</text>
+      <text x="68" y="32" fill="#888" font-size="11" font-family="sans-serif">${escapeXml(s.artist)}</text>
+      <text x="360" y="18" text-anchor="end" fill="${escapeXml(changeColor)}" font-size="12" font-weight="600" font-family="sans-serif">${escapeXml(s.change)}</text>
     </g>`;
   }).join("")}
   <rect width="400" height="480" rx="12" fill="none" stroke="#222" stroke-width="1"/>

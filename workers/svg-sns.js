@@ -1,3 +1,6 @@
+function escapeXml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
 // SYNC: Keep in sync with src/data/svgTemplates.js
 function safeImageUrl(url) {
   if (!url) return null;
@@ -20,12 +23,12 @@ function generateSnsPost(p) {
 
   const avatarSvg = avatarUrl
     ? `<defs><clipPath id="avatar-clip"><circle cx="24" cy="24" r="18"/></clipPath></defs>
-    <image href="${avatarUrl}" x="6" y="6" width="36" height="36" clip-path="url(#avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
+    <image href="${escapeXml(avatarUrl)}" x="6" y="6" width="36" height="36" clip-path="url(#avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
     : `<circle cx="24" cy="24" r="18" fill="#2a2a4a" stroke="#c9a84c" stroke-width="2"/>
     <text x="24" y="28" text-anchor="middle" fill="#c9a84c" font-size="14" font-weight="bold" font-family="sans-serif">${username[0].toUpperCase()}</text>`;
 
   const imageSvg = imageUrl
-    ? `<image href="${imageUrl}" x="0" y="60" width="400" height="300" preserveAspectRatio="xMidYMid slice"/>`
+    ? `<image href="${escapeXml(imageUrl)}" x="0" y="60" width="400" height="300" preserveAspectRatio="xMidYMid slice"/>`
     : `<rect x="0" y="60" width="400" height="300" fill="#12122a"/>
   <text x="200" y="215" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">IMAGE</text>`;
 
@@ -33,14 +36,14 @@ function generateSnsPost(p) {
   <rect width="400" height="520" rx="12" fill="#1a1a2e"/>
   <!-- Header -->
   <g transform="translate(16, 12)">
-    ${avatarSvg}
-    <text x="52" y="22" fill="#e8e8e8" font-size="13" font-weight="600" font-family="sans-serif">${username}</text>
-    <text x="52" y="38" fill="#888" font-size="10" font-family="sans-serif">${location}</text>
+    ${escapeXml(avatarSvg)}
+    <text x="52" y="22" fill="#e8e8e8" font-size="13" font-weight="600" font-family="sans-serif">${escapeXml(username)}</text>
+    <text x="52" y="38" fill="#888" font-size="10" font-family="sans-serif">${escapeXml(location)}</text>
     <circle cx="${52 + username.length * 7 + 8}" cy="18" r="5" fill="#4a9eff"/>
     <text x="${52 + username.length * 7 + 5}" y="22" fill="#fff" font-size="8" font-family="sans-serif">✓</text>
   </g>
   <!-- Image area -->
-  ${imageSvg}
+  ${escapeXml(imageSvg)}
   <!-- Floating hearts animation -->
   <g transform="translate(20, 340)">
     <text font-size="12" fill="#e03e3e">♥
@@ -67,16 +70,16 @@ function generateSnsPost(p) {
     <text x="60" y="0" fill="#e8e8e8" font-size="18">↗</text>
   </g>
   <!-- Likes -->
-  <text x="16" y="402" fill="#e8e8e8" font-size="12" font-weight="600" font-family="sans-serif">좋아요 ${likes}개</text>
+  <text x="16" y="402" fill="#e8e8e8" font-size="12" font-weight="600" font-family="sans-serif">좋아요 ${escapeXml(likes)}개</text>
   <!-- Caption -->
   <text x="16" y="424" fill="#e8e8e8" font-size="12" font-family="sans-serif">
-    <tspan font-weight="600">${username}</tspan>
-    <tspan dx="6" fill="#ccc">${caption}</tspan>
+    <tspan font-weight="600">${escapeXml(username)}</tspan>
+    <tspan dx="6" fill="#ccc">${escapeXml(caption)}</tspan>
   </text>
   <!-- Comments -->
-  <text x="16" y="448" fill="#888" font-size="11" font-family="sans-serif">댓글 ${comments}개 모두 보기</text>
+  <text x="16" y="448" fill="#888" font-size="11" font-family="sans-serif">댓글 ${escapeXml(comments)}개 모두 보기</text>
   <!-- Time -->
-  <text x="16" y="470" fill="#666" font-size="10" font-family="sans-serif">${time}</text>
+  <text x="16" y="470" fill="#666" font-size="10" font-family="sans-serif">${escapeXml(time)}</text>
   <!-- Border -->
   <rect width="400" height="520" rx="12" fill="none" stroke="#333" stroke-width="1"/>
 </svg>`;
