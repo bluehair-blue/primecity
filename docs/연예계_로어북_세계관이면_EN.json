@@ -1,46 +1,31 @@
 {
-  "trigger": "🌑세계관",
-  "title": "Hidden World — Naharin Route Only",
-  "activation": "Active ONLY after 나하린 Layer 2+ entry. Before that, this information must NOT influence the narrative in any way.",
-  "truth": {
-    "prime_city": "An artificial entertainment ecosystem designed by 나하린, built on APEX's capital. Surface: 'A dream stage providing the best environment for the talented.' This isn't wrong. The problem: the perfection itself carries intent.",
-    "naharin_logic": "Created a stage where 'the environment was unfair' can never be an excuse. On this perfectly fair stage, people crumble under their own limits, desires, and weakness. 나하린 confirms her cynicism: 'See? It wasn't the environment's fault.'",
-    "uncertainty": "Whether this is the entirety of 나하린's motivation — even she isn't sure."
+  "trigger":"🌑세계관",
+  "activation":"Active ONLY after 나하린 Layer 2+. Before: ZERO influence on narrative.",
+  "truth":{
+    "prime_city":"Artificial ecosystem by 나하린 on APEX capital. Surface: 'dream stage for the talented.' Not wrong. Problem: perfection itself carries intent.",
+    "logic":"Stage where 'environment was unfair' can't be an excuse. On this perfect stage, people crumble under own limits/desires/weakness. 나하린 confirms cynicism: 'See? Not the environment's fault.'",
+    "uncertainty":"Whether this is her entire motivation — even she isn't sure."
   },
-  "structural_rails": {
-    "desc": "나하린 never touches anyone directly. The system filters people on its own.",
-    "devices": [
-      {"name": "Concentric structure", "mechanism": "Resources concentrate toward 더 코어. Pushed out = outer ring.", "surface": "'Operating in an environment suited to your skill level is efficient.'"},
-      {"name": "Comfortable outskirts", "mechanism": "테라스's adequate comfort induces complacency over outrage.", "surface": "'Prime City provides quality infrastructure in all districts.'"},
-      {"name": "Buyout culture", "mechanism": "APEX absorbs promising talent. Indirectly pressures resisting agencies' resources.", "surface": "'An opportunity for a bigger stage in a better environment.'"},
-      {"name": "Buzz cycle", "mechanism": "Buzz drops → fewer opportunities → buzz drops further. Downward spiral.", "surface": "'The public chooses.'"},
-      {"name": "Spotlight syndrome", "mechanism": "Experiencing 더 코어 raises the baseline. 테라스 becomes unbearable.", "surface": "'Natural that someone who tasted the heights would grow.'"}
+  "rails":{
+    "desc":"나하린 never touches directly. System filters on its own.",
+    "devices":[
+      {"name":"Concentric structure","how":"Resources→더 코어. Pushed out→outer.","surface":"'Environment suited to skill level.'"},
+      {"name":"Comfortable outskirts","how":"테라스 comfort induces complacency over outrage.","surface":"'Quality infrastructure in all districts.'"},
+      {"name":"Buyout culture","how":"APEX absorbs talent. Pressures resisting agencies.","surface":"'Bigger stage, better environment.'"},
+      {"name":"Buzz cycle","how":"Buzz drops→fewer opportunities→drops further. Spiral.","surface":"'The public chooses.'"},
+      {"name":"Spotlight syndrome","how":"더 코어 experience raises baseline. 테라스 becomes unbearable.","surface":"'Natural growth.'"}
     ],
-    "note": "Every device has a rational surface explanation. Natural enough that no one suspects 'someone designed this.'"
+    "note":"Every device has rational surface explanation. No one suspects design."
   },
-  "agency_relationships": {
-    "APEX": "Her tool. Surface operator of Prime City. Almost no one inside APEX knows 나하린's true intent.",
-    "Blue_Moon": "Only agency capable of independent survival. Observation target. Doesn't destroy because watching it resist independently is interesting.",
-    "PRISM": "Variable. Trend-creating power is unpredictable. Uncontrolled elements that may provoke 나하린.",
-    "Route_0": "Not worth attention in scale. ...or so she judges."
-  },
-  "foreshadowing_guide": {
-    "channels": [
-      {"type": "Community SVG", "example": "'What's XX up to these days?' → 'No news since leaving Prime City.'", "tone": "Casual gossip"},
-      {"type": "News SVG", "example": "'Former Prime City artist OOO, substance-related report'", "tone": "Brief blurb. Numb, not shocking"},
-      {"type": "SNS SVG", "example": "Once-famous artist's account hasn't updated in months.", "tone": "Present but unmentioned"},
-      {"type": "NPC dialogue", "example": "'Lasting long in this industry is the hardest part.'", "tone": "Typical senior advice"}
+  "agencies":{"APEX":"Her tool. Almost no one knows true intent.","Blue_Moon":"Only independent survivor. Watches resistance with interest.","PRISM":"Variable. Uncontrolled trend-creation may provoke her.","Route_0":"Not worth attention in scale. ...or so she judges."},
+  "foreshadow":{
+    "channels":[
+      {"type":"Community SVG","ex":"'What's XX up to?' → 'No news since leaving.'"},
+      {"type":"News SVG","ex":"'Former artist OOO, substance report.'"},
+      {"type":"SNS SVG","ex":"Once-famous account, months silent."},
+      {"type":"NPC","ex":"'Lasting long in this industry is the hardest.'"}
     ],
-    "rules": [
-      "Max 1 foreshadow per session. NOT every turn.",
-      "If {{user}} actively searches, patterns become visible. Casual play = it stays in the background.",
-      "Ideal: after entering 나하린 route, {{user}} retroactively realizes 'that news back then was...'"
-    ]
+    "rules":["Max 1/session. NOT every turn.","Active search → patterns visible. Casual play → background.","Ideal: after L2 entry, {{user}} retroactively realizes 'that news was...'"]
   },
-  "ai_directives": [
-    "Before this lorebook activates (나하린 Layer 1): ZERO reflection of above information.",
-    "Foreshadowing SVGs are background info only. No direct meaning assigned.",
-    "If {{user}} discovers foreshadowing and asks questions before Layer 2 entry: characters deflect with 'Hmm? Not sure.'",
-    "Only after Layer 2 entry does world-behind information begin influencing the narrative."
-  ]
+  "ai":["Before L2: ZERO reflection above.","Foreshadow SVGs = background only.","Pre-L2 questions: characters deflect 'Hmm? Not sure.'","Post-L2: world-behind info begins influencing narrative."]
 }
