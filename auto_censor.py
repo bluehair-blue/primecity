@@ -21,9 +21,11 @@ NAI 애니메이션 이미지에서 성기(pussy/penis/pubic hair)만 검출하�
 """
 
 import argparse
+import logging
 import sys
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
+from typing import Optional
 
 import cv2
 import numpy as np
@@ -33,6 +35,21 @@ try:
     HAS_PIL = True
 except ImportError:
     HAS_PIL = False
+
+# ═══════════════════════════════════════════════════════════════
+#  Logging
+# ═══════════════════════════════════════════════════════════════
+
+LOG_PATH = Path(__file__).parent / "censor.log"
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler(LOG_PATH, encoding="utf-8"),
+        logging.StreamHandler(sys.stdout),
+    ],
+)
+log = logging.getLogger("censor")
 
 # ═══════════════════════════════════════════════════════════════
 #  Constants
@@ -77,7 +94,14 @@ def save_image(img, path):
 #  Core: Line Density Scan → Bar Censor
 # ═══════════════════════════════════════════════════════════════
 
-def find_genital_region(image, scan_top_ratio=0.4, density_threshold=5.0, gap_tolerance=20, pad_y=15, pad_x=30):
+def find_genital_region(
+    image: np.ndarray,
+    scan_top_ratio: float = 0.4,
+    density_threshold: float = 5.0,
+    gap_tolerance: int = 20,
+    pad_y: int = 15,
+    pad_x: int = 30,
+) -> Optional[tuple[int, int, int, int]]:
     """
     하단 영역에서 핑크 밀도가 높은 수평 라인 클러스터를 찾아
     성기 영역의 (x1, y1, x2, y2)를 반환합니다.
@@ -106,7 +130,7 @@ def find_genital_region(image, scan_top_ratio=0.4, density_threshold=5.0, gap_to
         return None
 
     # Cluster contiguous rows (allow small gaps)
-    clusters = []
+    clusters: list[list[int]] = []
     current = [peak_rows[0]]
     for i in range(1, len(peak_rows)):
         if peak_rows[i] - peak_rows[i - 1] <= gap_tolerance:
@@ -117,30 +141,40 @@ def find_genital_region(image, scan_top_ratio=0.4, density_threshold=5.0, gap_to
     clusters.append(current)
 
     # Pick the cluster with highest total density
-    best = max(clusters, key=lambda c: np.sum(row_density[c]))
+    best = max(clusters, key=lambda c: float(np.sum(row_density[c])))
 
     # Y range (absolute coordinates)
-    y1 = best[0] + start_y - pad_y
-    y2 = best[-1] + start_y + pad_y
-    y1 = max(0, y1)
-    y2 = min(h, y2)
+    y1 = max(0, best[0] + start_y - pad_y)
+    y2 = min(h, best[-1] + start_y + pad_y)
 
-    # X range: find horizontal extent of pink pixels within this Y range
+    # X range: contour-based bounding box (tighter than min/max columns)
     region_mask = mask[y1:y2, :]
-    col_has_pink = np.any(region_mask > 0, axis=0)
-    pink_cols = np.where(col_has_pink)[0]
+    contours, _ = cv2.findContours(region_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-    if len(pink_cols) == 0:
-        # Fallback: full width bar
-        x1, x2 = 0, w
+    if contours:
+        # Pick largest contour by area
+        largest = max(contours, key=cv2.contourArea)
+        rx, ry, rw, rh = cv2.boundingRect(largest)
+        x1 = max(0, rx - pad_x)
+        x2 = min(w, rx + rw + pad_x)
     else:
-        x1 = max(0, pink_cols[0] - pad_x)
-        x2 = min(w, pink_cols[-1] + pad_x)
+        # Fallback: column-wise scan
+        col_has_pink = np.any(region_mask > 0, axis=0)
+        pink_cols = np.where(col_has_pink)[0]
+        if len(pink_cols) > 0:
+            x1 = max(0, pink_cols[0] - pad_x)
+            x2 = min(w, pink_cols[-1] + pad_x)
+        else:
+            x1, x2 = 0, w
 
     return (x1, y1, x2, y2)
 
 
-def apply_bar_censor(image, region, color=(0, 0, 0)):
+def apply_bar_censor(
+    image: np.ndarray,
+    region: tuple[int, int, int, int],
+    color: tuple[int, int, int] = (0, 0, 0),
+) -> np.ndarray:
     """바운딩 영역에 단색 바 검열 적용."""
     result = image.copy()
     x1, y1, x2, y2 = region
@@ -148,22 +182,22 @@ def apply_bar_censor(image, region, color=(0, 0, 0)):
     return result
 
 
-def save_preview(image, mask_info, path):
+def save_preview(
+    image: np.ndarray,
+    mask_info: Optional[tuple[int, int, int, int]],
+    path: str,
+) -> None:
     """디버그 미리보기: 원본 + 검출 영역 표시."""
     preview = image.copy()
     if mask_info:
         x1, y1, x2, y2 = mask_info
-        # Red rectangle for detected region
         cv2.rectangle(preview, (x1, y1), (x2, y2), (0, 0, 255), 2)
         label = f"CENSOR {x2-x1}x{y2-y1}"
         cv2.putText(preview, label, (x1, y1 - 8), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
-    # Scan boundary line
     h = image.shape[0]
     scan_y = int(h * 0.4)
     cv2.line(preview, (0, scan_y), (image.shape[1], scan_y), (0, 255, 255), 1)
     cv2.putText(preview, "scan start", (5, scan_y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 255, 255), 1)
-
-    # Save as jpg (always works)
     cv2.imwrite(str(path), preview)
 
 
@@ -171,14 +205,19 @@ def save_preview(image, mask_info, path):
 #  Single & Batch Processing
 # ═══════════════════════════════════════════════════════════════
 
-def process_single(input_path, output_path=None, threshold=5.0, color=(0, 0, 0),
-                   preview=False, verbose=True):
+def process_single(
+    input_path: str,
+    output_path: Optional[str] = None,
+    threshold: float = 5.0,
+    color: tuple[int, int, int] = (0, 0, 0),
+    preview: bool = False,
+    verbose: bool = True,
+) -> dict:
     """단일 이미지 처리."""
     input_path = str(input_path)
     image = load_image(input_path)
     if image is None:
-        if verbose:
-            print(f"  [ERROR] Cannot load: {input_path}")
+        log.error(f"Cannot load: {input_path}")
         return {"path": input_path, "success": False}
 
     if output_path is None:
@@ -191,26 +230,29 @@ def process_single(input_path, output_path=None, threshold=5.0, color=(0, 0, 0),
         x1, y1, x2, y2 = region
         result = apply_bar_censor(image, region, color)
         save_image(result, output_path)
-        bar_w, bar_h = x2 - x1, y2 - y1
         if verbose:
-            print(f"  {Path(input_path).name} → bar {bar_w}x{bar_h} at y={y1}-{y2}")
+            log.info(f"  {Path(input_path).name} → bar {x2-x1}x{y2-y1} at y={y1}-{y2}")
     else:
         save_image(image, output_path)
         if verbose:
-            print(f"  {Path(input_path).name} → no detection")
+            log.info(f"  {Path(input_path).name} → no detection")
 
     if preview:
         preview_path = str(Path(output_path).parent / f"{Path(output_path).stem}_preview.jpg")
         save_preview(image, region, preview_path)
         if verbose:
-            print(f"    preview → {Path(preview_path).name}")
+            log.info(f"    preview → {Path(preview_path).name}")
 
     return {"path": input_path, "success": True, "detected": region is not None}
 
 
-def _worker(args):
+def _worker(args: tuple) -> dict:
     path, out, threshold, color = args
-    return process_single(path, out, threshold, color, preview=False, verbose=False)
+    try:
+        return process_single(path, out, threshold, color, preview=False, verbose=False)
+    except Exception as e:
+        log.error(f"Worker failed: {path} — {e}")
+        return {"path": path, "success": False, "error": str(e)}
 
 
 def process_batch(char_codes, scene_nums, threshold=5.0, color=(0, 0, 0),
@@ -224,14 +266,14 @@ def process_batch(char_codes, scene_nums, threshold=5.0, color=(0, 0, 0),
                 tasks.append((str(src), str(src), threshold, color))
 
     if verbose:
-        print(f"[INFO] {len(tasks)} images ({len(char_codes)} chars)")
+        log.info(f"{len(tasks)} images ({len(char_codes)} chars)")
 
     # Preview first N for visual check
     if preview_first > 0:
-        print(f"[INFO] Previewing first {min(preview_first, len(tasks))} images...")
+        log.info(f"Previewing first {min(preview_first, len(tasks))} images...")
         for t in tasks[:preview_first]:
             process_single(t[0], t[1], threshold, color, preview=True, verbose=True)
-        print(f"[INFO] Check preview files. Continue with full batch? (remaining will overwrite originals)")
+        log.info("Check preview files. Continue with full batch? (remaining will overwrite originals)")
         return
 
     results = []
@@ -244,8 +286,9 @@ def process_batch(char_codes, scene_nums, threshold=5.0, color=(0, 0, 0),
             results.append(r)
 
     detected = sum(1 for r in results if r.get("detected"))
+    failed = sum(1 for r in results if not r.get("success"))
     if verbose:
-        print(f"[DONE] {len(results)} processed, {detected} censored")
+        log.info(f"Done. {len(results)} processed, {detected} censored, {failed} failed")
 
 
 # ═══════════════════════════════════════════════════════════════
