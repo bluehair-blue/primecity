@@ -208,7 +208,10 @@ primecity/
 │   ├── extract_config.py    ← NAIS2 백업에서 캐릭터/장면 프롬프트 추출
 │   ├── asset_generator.py   ← NAI API 자동 이미지 생성 (배치, 진행추적, 재시도)
 │   └── asset_config.json    ← 15캐릭터 × 81장면 프롬프트 DB
-├── auto_censor.py           ← 자동 성기 검열 (수평 라인 밀도 + contour 바 검열)
+├── auto_censor.py           ← 자동 성기 검열 (YOLO ntd11 세그멘테이션 + 형태 복원)
+├── tools_dist/              ← 배포용 스크립트 (토큰/상태/모델 제외, README 포함)
+├── models/
+│   └── ntd11_v5.pt          ← YOLO 애니 NSFW 세그멘테이션 모델 (20MB, gitignore)
 ├── CLAUDE.md               ← 이 파일
 ├── package.json
 └── vite.config.js
@@ -763,7 +766,11 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [x] PNG→WebP CDN 전환: 21장 변환 업로드, ASSET_VERSION 1→2
 - [x] CDN 참조 전면 WebP화 (characters.js, gallery.js, CityMap, HeroSlider, 소개HTML)
 - [x] profile 이미지 15명 추가 (characters.js profile 필드 + CharDetail Phase 2 + 소개HTML)
-- [x] 자동 검열 스크립트 (auto_censor.py) — 수평 라인 밀도 + contour X축, 바 검열, uv 메타데이터
+- [x] 자동 검열 스크립트 (auto_censor.py) — YOLO(ntd11 v5) + 형태 복원 파이프라인, uv 메타데이터
+- [x] 검열 진화: 수평밀도 바 → 핑크 contour → NudeNet(실패) → ntd11 YOLO-seg + geodesic → 형태 복원 최종
+- [x] ntd11 v5 모델 (YOLOv11s-seg, 애니 전용, pussy/penis/anus 세그멘테이션)
+- [x] 검열 파이프라인: ROI 제한 → CLOSE → flood fill → best component → convex hull → opening
+- [x] 배포용 tools_dist/ 폴더 (토큰/상태/로그/모델 제외, README 포함)
 
 #### 직업군 모드 + SVG + 이미지 시스템 업데이트
 - [x] gamemodes.js 확장: mainModes(3) + careerModes(5) 분리 export
@@ -845,7 +852,8 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 - [ ] Works 페이지에 추가 작품 등록 (현재 프라임시티만)
 - [ ] Phase 5: 프롬프트 품질 개선 (자가점검/감정잔여/복선스케줄러)
 - [ ] 에덴챗 플랫폼 테스트 (로어북 동시 활성 성능, 상태창 렌더링)
-- [ ] NSFW 이미지 검열 배치 실행 (auto_censor.py → 검열된 이미지 R2 재업로드)
+- [ ] NSFW 이미지 검열 배치 실행 (auto_censor.py --batch-all → 검열 이미지 R2 재업로드)
+- [ ] 검열 모델 한계 보완: pussy/anus 미감지율 개선 (파인튜닝 또는 CV fallback 선택적 복원)
 
 #### 우선순위 낮음 — 품질 관리
 - [ ] 모바일 시네마틱 효과 최종 검수 + 성능 최적화 (전 페이지)
