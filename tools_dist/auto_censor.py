@@ -1,0 +1,465 @@
+#!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#     "opencv-python-headless",
+#     "numpy",
+#     "pillow",
+#     "ultralytics",
+# ]
+# ///
+"""
+auto_censor.py — YOLO 세그멘테이션 + 형태 복원 기반 성기 검열
+==============================================================
+ntd11 v5 (YOLOv11s-seg) 모델로 pussy/penis/anus를 감지한 뒤,
+ROI 제한 → closing → flood fill → best component → contour fill
+파이프라인으로 깔끔한 검열 마스크를 생성합니다.
+
+원칙:
+  - pussy/penis/anus만 검열. nipples/testicles 무시.
+  - 성기 미감지 → 원본 유지 (재저장 안 함 = 품질 열화 0)
+  - edge-driven 확장 대신 "이미 찾은 마스크를 복원"하는 접근
+
+사용법:
+  python auto_censor.py KHR/64.webp --preview
+  python auto_censor.py --batch-all
+  python auto_censor.py --batch SY --style mosaic
+"""
+
+import argparse
+import logging
+import sys
+import tempfile
+from pathlib import Path
+from typing import Optional
+
+import cv2
+import numpy as np
+
+try:
+    from PIL import Image as PILImage
+    HAS_PIL = True
+except ImportError:
+    HAS_PIL = False
+
+try:
+    from ultralytics import YOLO
+    HAS_YOLO = True
+except ImportError:
+    HAS_YOLO = False
+
+LOG_PATH = Path(__file__).parent / "censor.log"
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler(LOG_PATH, encoding="utf-8"),
+        logging.StreamHandler(sys.stdout),
+    ],
+)
+log = logging.getLogger("censor")
+
+BASE_DIR = Path(__file__).parent / "캐릭터 이미지"
+MODEL_PATH = Path(__file__).parent / "models" / "ntd11_v5.pt"
+NSFW_SCENES = list(range(20, 43)) + list(range(50, 68)) + list(range(70, 79)) + list(range(80, 87))
+ALL_CHARS = ["SY", "NHR", "JSH", "ERK", "LSH", "HSR", "KHR",
+             "JGR", "MIL", "ELA", "MMR", "HSE", "NIA", "RAY", "LPS"]
+
+TARGET_CLASSES = {"pussy", "penis", "anus"}
+
+
+# ═══════════════════════════════════════════════════════════════
+#  Image I/O
+# ═══════════════════════════════════════════════════════════════
+
+def load_image(path: str) -> Optional[np.ndarray]:
+    img = cv2.imread(str(path), cv2.IMREAD_COLOR)
+    if img is None and HAS_PIL:
+        pil = PILImage.open(str(path)).convert("RGB")
+        img = cv2.cvtColor(np.array(pil), cv2.COLOR_RGB2BGR)
+    return img
+
+
+def save_image(img: np.ndarray, path: str) -> None:
+    path = str(path)
+    if path.lower().endswith(".webp") and HAS_PIL:
+        rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        PILImage.fromarray(rgb).save(path, "WEBP", quality=92)
+    else:
+        cv2.imwrite(path, img)
+
+
+# ═══════════════════════════════════════════════════════════════
+#  Mask Refinement Helpers
+# ═══════════════════════════════════════════════════════════════
+
+def expand_bbox(x1: int, y1: int, x2: int, y2: int, w: int, h: int, pad_ratio: float = 0.04):
+    """Expand bbox by pad_ratio of its larger dimension."""
+    bw = x2 - x1
+    bh = y2 - y1
+    pad = int(max(bw, bh) * pad_ratio)
+    return max(0, x1 - pad), max(0, y1 - pad), min(w, x2 + pad), min(h, y2 + pad)
+
+
+def flood_fill_holes(mask: np.ndarray) -> np.ndarray:
+    """Fill internal holes of a binary mask using flood fill from corner."""
+    if mask is None or mask.size == 0:
+        return mask
+    work = mask.copy()
+    h, w = work.shape
+    flood_mask = np.zeros((h + 2, w + 2), dtype=np.uint8)
+    cv2.floodFill(work, flood_mask, (0, 0), 255)
+    holes = cv2.bitwise_not(work)
+    return cv2.bitwise_or(mask, holes)
+
+
+def keep_best_component(mask: np.ndarray, target_center: Optional[tuple] = None, min_area: int = 0) -> np.ndarray:
+    """Keep the most relevant connected component (area - distance penalty)."""
+    binary = (mask > 0).astype(np.uint8)
+    n, labels, stats, centroids = cv2.connectedComponentsWithStats(binary, connectivity=8)
+
+    if n <= 1:
+        return (binary * 255).astype(np.uint8)
+
+    best_label = None
+    best_score = -1e18
+
+    for label in range(1, n):
+        area = int(stats[label, cv2.CC_STAT_AREA])
+        if area < min_area:
+            continue
+        score = float(area)
+        if target_center is not None:
+            cx, cy = centroids[label]
+            dist = ((cx - target_center[0]) ** 2 + (cy - target_center[1]) ** 2) ** 0.5
+            score -= dist * 2.0
+        if score > best_score:
+            best_score = score
+            best_label = label
+
+    if best_label is None:
+        return np.zeros_like(mask)
+    return np.where(labels == best_label, 255, 0).astype(np.uint8)
+
+
+def fill_from_contour(mask: np.ndarray, use_hull: bool = True) -> np.ndarray:
+    """Rebuild clean outer contour and fill it solid."""
+    cnts, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    if not cnts:
+        return np.zeros_like(mask)
+    cnt = max(cnts, key=cv2.contourArea)
+    canvas = np.zeros_like(mask)
+    outer = cv2.convexHull(cnt) if use_hull else cnt
+    cv2.drawContours(canvas, [outer], -1, 255, cv2.FILLED)
+    return canvas
+
+
+def refine_segmentation_mask(
+    seg_mask: np.ndarray,
+    image_shape: tuple,
+    bbox_xyxy: list,
+    cls_name: str,
+    seg_thr: float = 0.5,
+) -> np.ndarray:
+    """
+    Refine one YOLO segmentation mask into stable censorship mask.
+
+    Pipeline:
+      1. Threshold seg mask
+      2. Limit to expanded ROI around bbox
+      3. Force crop if exceeds class-specific max size
+      4. Close gaps
+      5. Fill internal holes (flood fill)
+      6. Keep best connected component near bbox center
+      7. Rebuild contour (convex hull) and fill solid
+      8. Light opening for small spikes
+      9. Final flood fill after opening
+    """
+    h, w = image_shape[:2]
+    x1, y1, x2, y2 = map(int, bbox_xyxy)
+    base_dim = max(h, w)
+
+    # 1. Threshold
+    seg_resized = cv2.resize(seg_mask, (w, h), interpolation=cv2.INTER_LINEAR)
+    temp = np.zeros((h, w), dtype=np.uint8)
+    temp[seg_resized > seg_thr] = 255
+
+    if not np.any(temp):
+        return temp
+
+    # 2. ROI restriction
+    rx1, ry1, rx2, ry2 = expand_bbox(x1, y1, x2, y2, w, h, pad_ratio=0.05)
+    roi_mask = np.zeros_like(temp)
+    roi_mask[ry1:ry2, rx1:rx2] = 255
+    temp = cv2.bitwise_and(temp, roi_mask)
+
+    # 3. Force crop if model merged too much
+    expected = {
+        "penis": (int(w * 0.18), int(h * 0.58)),
+        "pussy": (int(w * 0.12), int(h * 0.16)),
+        "anus":  (int(w * 0.08), int(h * 0.12)),
+    }
+    max_cw, max_ch = expected.get(cls_name, (int(w * 0.18), int(h * 0.58)))
+    bw, bh = x2 - x1, y2 - y1
+    crop_w = min(max(bw, 1), max_cw)
+    crop_h = min(max(bh, 1), max_ch)
+    cx, cy = (x1 + x2) // 2, (y1 + y2) // 2
+    cx1 = max(0, cx - crop_w // 2)
+    cy1 = max(0, cy - crop_h // 2)
+    cx2 = min(w, cx1 + crop_w)
+    cy2 = min(h, cy1 + crop_h)
+    crop_mask = np.zeros_like(temp)
+    crop_mask[cy1:cy2, cx1:cx2] = 255
+    temp = cv2.bitwise_and(temp, crop_mask)
+
+    if not np.any(temp):
+        return temp
+
+    # Dynamic kernel sizes
+    close_sz = max(3, int(base_dim * 0.008)) | 1
+    open_sz = max(3, int(base_dim * 0.004)) | 1
+    k_close = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (close_sz, close_sz))
+    k_open = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (open_sz, open_sz))
+
+    # 4. Close boundary gaps
+    temp = cv2.morphologyEx(temp, cv2.MORPH_CLOSE, k_close, iterations=1)
+
+    # 5. Fill internal holes
+    temp = flood_fill_holes(temp)
+
+    # 6. Keep best component near bbox center
+    temp = keep_best_component(
+        temp,
+        target_center=((x1 + x2) / 2.0, (y1 + y2) / 2.0),
+        min_area=max(8, int(bw * bh * 0.01)),
+    )
+
+    if not np.any(temp):
+        return temp
+
+    # 7. Rebuild solid outer contour (convex hull)
+    temp = fill_from_contour(temp, use_hull=True)
+
+    # 8. Light opening for tiny spikes
+    temp = cv2.morphologyEx(temp, cv2.MORPH_OPEN, k_open, iterations=1)
+
+    # 9. Final fill after opening
+    temp = flood_fill_holes(temp)
+
+    return temp
+
+
+# ═══════════════════════════════════════════════════════════════
+#  YOLO Detection
+# ═══════════════════════════════════════════════════════════════
+
+_model_cache = {}
+
+def get_model() -> Optional["YOLO"]:
+    if not HAS_YOLO or not MODEL_PATH.exists():
+        return None
+    if "m" not in _model_cache:
+        _model_cache["m"] = YOLO(str(MODEL_PATH))
+    return _model_cache["m"]
+
+
+def yolo_detect(image: np.ndarray, conf: float = 0.5) -> tuple[np.ndarray, list[dict]]:
+    """YOLO genital detection with robust mask refinement."""
+    model = get_model()
+    if model is None:
+        return np.zeros(image.shape[:2], dtype=np.uint8), []
+
+    h, w = image.shape[:2]
+
+    tmp = Path(tempfile.gettempdir()) / "censor_yolo.jpg"
+    PILImage.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB)).save(str(tmp), "JPEG", quality=95)
+    results = model(str(tmp), verbose=False, conf=conf, imgsz=1024)
+    tmp.unlink(missing_ok=True)
+
+    r = results[0]
+    final_mask = np.zeros((h, w), dtype=np.uint8)
+    detections = []
+
+    if r.boxes is None or len(r.boxes) == 0:
+        return final_mask, detections
+
+    for i, box in enumerate(r.boxes):
+        cls_name = model.names[int(box.cls[0])]
+        conf_val = float(box.conf[0])
+
+        if cls_name not in TARGET_CLASSES:
+            continue
+
+        detections.append({"class": cls_name, "conf": conf_val})
+
+        if r.masks is not None and i < len(r.masks):
+            seg = r.masks[i].data[0].cpu().numpy()
+            refined = refine_segmentation_mask(
+                seg_mask=seg,
+                image_shape=image.shape,
+                bbox_xyxy=box.xyxy[0].tolist(),
+                cls_name=cls_name,
+                seg_thr=0.5,
+            )
+            final_mask = cv2.bitwise_or(final_mask, refined)
+        else:
+            x1, y1, x2, y2 = map(int, box.xyxy[0].tolist())
+            rx1, ry1, rx2, ry2 = expand_bbox(x1, y1, x2, y2, w, h, pad_ratio=0.03)
+            cv2.rectangle(final_mask, (rx1, ry1), (rx2, ry2), 255, cv2.FILLED)
+
+    return final_mask, detections
+
+
+# ═══════════════════════════════════════════════════════════════
+#  Apply Censor
+# ═══════════════════════════════════════════════════════════════
+
+def apply_censor(
+    image: np.ndarray,
+    mask: np.ndarray,
+    style: str = "solid",
+    color: tuple[int, int, int] = (0, 0, 0),
+) -> np.ndarray:
+    result = image.copy()
+    h, w = image.shape[:2]
+    if style == "mosaic":
+        ratio = 0.04
+        small = cv2.resize(result, (0, 0), fx=ratio, fy=ratio, interpolation=cv2.INTER_LINEAR)
+        pixelated = cv2.resize(small, (w, h), interpolation=cv2.INTER_NEAREST)
+        np.copyto(result, pixelated, where=(mask[:, :, None] > 0))
+    else:
+        result[mask > 0] = color
+    return result
+
+
+# ═══════════════════════════════════════════════════════════════
+#  Processing
+# ═══════════════════════════════════════════════════════════════
+
+def process_single(
+    input_path: str,
+    output_path: Optional[str] = None,
+    yolo_conf: float = 0.5,
+    style: str = "solid",
+    color: tuple[int, int, int] = (0, 0, 0),
+    preview: bool = False,
+    verbose: bool = True,
+) -> dict:
+    input_path = str(input_path)
+    image = load_image(input_path)
+    if image is None:
+        log.error(f"Cannot load: {input_path}")
+        return {"path": input_path, "success": False}
+
+    if output_path is None:
+        p = Path(input_path)
+        output_path = str(p.parent / f"{p.stem}_censored{p.suffix}")
+
+    mask, detections = yolo_detect(image, conf=yolo_conf)
+    total_px = int(np.sum(mask > 0))
+
+    if total_px == 0:
+        if verbose:
+            log.info(f"  {Path(input_path).name} → clean (skip)")
+        return {"path": input_path, "success": True, "detected": False}
+
+    result = apply_censor(image, mask, style, color)
+    save_image(result, output_path)
+
+    det_str = ", ".join(f"{d['class']}({d['conf']:.2f})" for d in detections)
+    if verbose:
+        log.info(f"  {Path(input_path).name} → {total_px:,}px² [{det_str}] ({style})")
+
+    if preview:
+        pp = str(Path(output_path).parent / f"{Path(output_path).stem}_preview.jpg")
+        prev = image.copy()
+        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        cv2.drawContours(prev, contours, -1, (0, 255, 0), 2)
+        for d in detections:
+            cv2.putText(prev, f"{d['class']}:{d['conf']:.2f}", (10, 30),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+        cv2.imwrite(pp, prev)
+        if verbose:
+            log.info(f"    preview → {Path(pp).name}")
+
+    return {"path": input_path, "success": True, "detected": True, "pixels": total_px}
+
+
+def _worker(args: tuple) -> dict:
+    path, out, conf, style, color = args
+    try:
+        return process_single(path, out, conf, style, color, verbose=False)
+    except Exception as e:
+        log.error(f"Worker failed: {path} — {e}")
+        return {"path": path, "success": False}
+
+
+def process_batch(char_codes, scene_nums, yolo_conf=0.5, style="solid", color=(0,0,0),
+                  preview_first=0, verbose=True):
+    tasks = []
+    for code in char_codes:
+        for num in scene_nums:
+            src = BASE_DIR / code / f"{num}.webp"
+            if src.exists():
+                tasks.append((str(src), str(src), yolo_conf, style, color))
+
+    if verbose:
+        log.info(f"{len(tasks)} images, conf={yolo_conf}, style={style}")
+
+    if preview_first > 0:
+        for t in tasks[:preview_first]:
+            process_single(t[0], t[1], yolo_conf, style, color, preview=True)
+        log.info(f"Previewed {min(preview_first, len(tasks))}.")
+        return
+
+    results = [_worker(t) for t in tasks]
+
+    detected = sum(1 for r in results if r.get("detected"))
+    skipped = sum(1 for r in results if r.get("success") and not r.get("detected"))
+    failed = sum(1 for r in results if not r.get("success"))
+    if verbose:
+        log.info(f"Done. {detected} censored, {skipped} clean, {failed} failed")
+
+
+def parse_scene_range(s):
+    nums = []
+    for part in s.split(","):
+        if "-" in part:
+            a, b = part.split("-", 1)
+            nums.extend(range(int(a), int(b) + 1))
+        else:
+            nums.append(int(part))
+    return sorted(set(nums))
+
+
+def main():
+    parser = argparse.ArgumentParser(description="YOLO 세그멘테이션 + 형태 복원 기반 성기 검열")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("input", nargs="?")
+    group.add_argument("--batch", metavar="CHARS")
+    group.add_argument("--batch-all", action="store_true")
+
+    parser.add_argument("--scenes", default="20-42,50-67,70-78,80-86")
+    parser.add_argument("--yolo-conf", type=float, default=0.5)
+    parser.add_argument("--style", choices=["solid", "mosaic"], default="solid")
+    parser.add_argument("--color", nargs=3, type=int, default=[0,0,0], metavar=("B","G","R"))
+    parser.add_argument("--preview", action="store_true")
+    parser.add_argument("--preview-first", type=int, default=0)
+    parser.add_argument("-o", "--output")
+
+    args = parser.parse_args()
+    color = tuple(args.color)
+
+    if args.batch_all:
+        process_batch(ALL_CHARS, parse_scene_range(args.scenes), args.yolo_conf, args.style, color, args.preview_first)
+    elif args.batch:
+        chars = [c.strip().upper() for c in args.batch.split(",")]
+        process_batch(chars, parse_scene_range(args.scenes), args.yolo_conf, args.style, color, args.preview_first)
+    elif args.input:
+        process_single(args.input, args.output, args.yolo_conf, args.style, color, args.preview)
+    else:
+        parser.print_help()
+
+
+if __name__ == "__main__":
+    main()
