@@ -88,5 +88,5 @@ YOLO 감지 (pussy/penis/anus)
 
 ## 라이선스
 
-스크립트: MIT
+스크립트: All copirights reserved
 ntd11 모델: Civitai 이용약관 참조

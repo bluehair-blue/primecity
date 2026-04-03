@@ -1,0 +1,57 @@
+
+
+
+테스트 이미지(`input_file_7.jpeg`)에서 검열 영역이 턱과 목(초커)까지 거대하게 덮어버린 원인은 바로 추가하셨던 **`cv2.convexHull` (볼록 선체) 알고리즘** 때문입니다.
+
+### 🔍 원인 분석
+1. **Convex Hull의 부작용:** `convexHull`은 점들을 모두 포함하는 '가장 바깥쪽의 볼록한 다각형'을 만듭니다. (마치 핀들을 꽂아두고 고무줄을 팽팽하게 씌운 것과 같습니다.) 
+마스크가 팽창하다가 성기와 아주 가까이 있는 '초커의 검은선'에 살짝 닿게 되었는데, `convexHull`이 초커 끝부분과 성기 아랫부분을 직선으로 이어버리면서 그 사이에 있던 턱과 목 전체가 검열 영역으로 덮여버린 것입니다.
+2. **과도한 확장 반경:** 마스크의 최대 확장 허용치(`base_dim * 0.05`, 즉 화면의 5%)가 너무 넓게 잡혀 있어, 선화에 틈이 있을 경우 초커나 머리카락 등 주변의 다른 선화까지 뻗어나가기 너무 쉬운 상태입니다.
+
+### 💡 해결 방안
+**Convex Hull을 제거**하고, 오직 순수하게 외곽선 내부의 '구멍(Holes)'만 채우도록 로직을 변경해야 합니다. 또한 YOLO 마스크가 이미 꽤 정확하므로 **최대 확장 거리를 대폭 줄여야(5% → 1.5%)** 다른 선화로 전염되는 것을 막을 수 있습니다.
+
+`input_file_6.py`의 `yolo_detect` 함수 하단부(Geodesic dilation 부분)를 아래 코드로 교체해 주세요.
+
+```python
+            # ── Geodesic dilation: expand seed mask until hitting lineart ──
+            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            edges = cv2.Canny(gray, 40, 120)
+            k_edge = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+            edges_thick = cv2.dilate(edges, k_edge, iterations=1)
+            allowed = cv2.bitwise_not(edges_thick)
+
+            # [개선 1] 마스크 최대 확장 거리를 5%에서 1.5%로 대폭 축소 (안전띠 역할)
+            # YOLO 마스크가 이미 형태를 잘 잡고 있으므로, 선화까지 닿기 위한 최소한의 팽창만 허용
+            max_iters = max(5, int(base_dim * 0.015))
+            
+            k_expand = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
+            expanded = temp.copy()
+            for _ in range(max_iters):
+                nxt = cv2.dilate(expanded, k_expand, iterations=1)
+                nxt = cv2.bitwise_and(nxt, allowed)
+                if np.array_equal(expanded, nxt):
+                    break
+                expanded = nxt
+
+            # [개선 2] Convex Hull 제거 -> 순수 External Contour 내부 채우기로 '김가루'만 해결
+            exp_cnts, _ = cv2.findContours(expanded, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            if exp_cnts:
+                solid = np.zeros_like(expanded)
+                # 외곽선 데이터(exp_cnts)를 그대로 사용하여 내부 빈 공간만 칠함
+                # (다른 물체까지 직선으로 이어버리는 다각형 변형을 원천 차단)
+                cv2.drawContours(solid, exp_cnts, -1, 255, cv2.FILLED)
+                expanded = solid
+
+            # Final smooth
+            fin_sz = max(3, int(base_dim * 0.003)) | 1
+            k_fin = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (fin_sz, fin_sz))
+            temp = cv2.dilate(expanded, k_fin, iterations=1)
+            temp = cv2.GaussianBlur(temp, (fin_sz, fin_sz), 0)
+            _, temp = cv2.threshold(temp, 127, 255, cv2.THRESH_BINARY)
+
+            mask = cv2.bitwise_or(mask, temp)
+```
+
+### 작동 변화
+이 수정을 거치면 **초커나 머리카락 등 주변부로 크게 뻗어나가는 덩어리 현상이 완전히 사라집니다.** 마스크가 내부의 비어있는 부분(김가루)만 완벽하게 채운 뒤, 성기의 실제 곡선을 따라서만 정밀하게 멈추게 됩니다.

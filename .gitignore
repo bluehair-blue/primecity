@@ -18,3 +18,27 @@ dist/
 # Backups & external plugins
 backup_local/
 everything-claude-code/
+
+# Tools sensitive/temp files
+tools/.nai_token
+tools/generation_state.json
+tools/generation.log
+tools/parsed_scenes.json
+tools/__pycache__/
+tools/censor.log
+tools/_run_*.sh
+
+# Models (large binary, download separately)
+models/
+
+# Playwright cache
+.playwright-mcp/
+
+# Research docs (generated, not source)
+research.md
+**/research_sub.md
+
+# Misc temp
+*.bak
+docs/ntd11_feedback_reference.zip
+docs/ntd11_refactoring_feedback.html

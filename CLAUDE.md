@@ -35,62 +35,44 @@
 모든 색상은 `oklch()` 함수로 정의. `src/styles/tokens.js`에서 관리.
 
 ```js
-// ── Backgrounds ──
-bgDeep:    "oklch(0.08 0.01 280)"          // 최심부 배경 (body)
-bgCard:    "oklch(0.12 0.005 280 / 0.4)"   // 카드 배경
-bgOverlay: "oklch(0.06 0.01 280 / 0.92)"   // 오버레이, 모바일 메뉴
+// ── Backgrounds (hue 265: cool navy) ──
+bgDeep:    "oklch(0.08 0.01 265)"
+bgCard:    "oklch(0.12 0.005 265 / 0.4)"
+bgOverlay: "oklch(0.06 0.01 265 / 0.92)"
 
-// ── Gold / Amber (Primary Accent) ──
-gold:      "oklch(0.76 0.12 80)"            // 메인 골드
-goldMuted: "oklch(0.76 0.12 80 / 0.4)"     // 반투명 골드
-goldDim:   "oklch(0.76 0.12 80 / 0.15)"    // 아주 연한 골드
-goldGlow:  "oklch(0.76 0.12 80 / 0.2)"     // 글로우/쉐도우용
-goldText:  "oklch(0.76 0.12 80 / 0.35)"    // 골드 텍스트 연하게
+// ── Gold / Amber (Primary — brand, labels, titles) ──
+gold:      "oklch(0.76 0.12 80)"
+goldMuted: "oklch(0.76 0.12 80 / 0.4)"
+goldDim:   "oklch(0.76 0.12 80 / 0.15)"
+goldGlow:  "oklch(0.76 0.12 80 / 0.2)"
+goldText:  "oklch(0.76 0.12 80 / 0.35)"
+
+// ── Electric Blue (Secondary — system, interactive, atmosphere) ──
+primeBlue:      "oklch(0.62 0.20 252)"
+primeBlueMuted: "oklch(0.62 0.20 252 / 0.4)"
+primeBlueDim:   "oklch(0.62 0.20 252 / 0.15)"
+primeBlueGlow:  "oklch(0.62 0.20 252 / 0.25)"
+blueDeep:       "oklch(0.18 0.06 255)"
 
 // ── White / Text ──
-white:     "oklch(1.0 0 0)"
-text90:    "oklch(1.0 0 0 / 0.9)"
-text70:    "oklch(1.0 0 0 / 0.7)"
-text55:    "oklch(1.0 0 0 / 0.55)"
-text45:    "oklch(1.0 0 0 / 0.45)"
-text35:    "oklch(1.0 0 0 / 0.35)"
-text25:    "oklch(1.0 0 0 / 0.25)"
-text15:    "oklch(1.0 0 0 / 0.15)"
+white ~ text15: "oklch(1.0 0 0 / {0.9~0.15})"
 
 // ── Border ──
-border10:  "oklch(0.76 0.12 80 / 0.10)"
-border06:  "oklch(0.76 0.12 80 / 0.06)"
-border05:  "oklch(0.76 0.12 80 / 0.05)"
+border10/06/05: "oklch(0.76 0.12 80 / {0.10~0.05})"
 
-// ── Character Accent Colors (기획사 소속) ──
-charApex:  "oklch(0.76 0.12 80)"     // 서윤 — APEX gold
-charNaha:  "oklch(0.72 0.10 310)"    // 나하린 — purple
-charJin:   "oklch(0.55 0.01 0)"      // 진시혁 — grey
-charEri:   "oklch(0.72 0.10 170)"    // 에리카 — teal
-charSeo:   "oklch(0.70 0.10 240)"    // 이서하 — blue
-charHan:   "oklch(0.72 0.12 55)"     // 한소리 — warm orange
+// ── Character Accent (15명, hue별 개성) ──
+// charApex(80) charNaha(310) charJin(0) charEri(170) charSeo(240) charHan(55)
+// charHaram(20) charGru(300) charMila(65) charElla(15) charMimori(220)
+// charSieun(85) charNia(200) charRay(290) charLapis(260)
 
-// ── Character Accent Colors (Route 0 + 오디션 참가자) ──
-charHaram: "oklch(0.65 0.12 20)"     // 강하람 — red
-charGru:   "oklch(0.72 0.10 300)"    // 장그루 — lavender
-charMila:  "oklch(0.72 0.12 65)"     // 밀라 — orange
-charElla:  "oklch(0.65 0.12 15)"     // 엘라 — wine red
-charMimori:"oklch(0.72 0.10 220)"    // 미모리 — sky blue
-charSieun: "oklch(0.72 0.10 85)"     // 하시은 — amber
-charNia:   "oklch(0.65 0.10 200)"    // 니아 — navy-teal
-charRay:   "oklch(0.72 0.10 290)"    // 레이 — lavender
-charLapis: "oklch(0.60 0.12 260)"    // 라피스 — cobalt
-
-// ── District Accent Colors ──
-distCore:  "oklch(0.76 0.12 80)"     // 더 코어 — gold
-distMid:   "oklch(0.65 0.10 240)"    // 미들 링 — blue
-distHype:  "oklch(0.65 0.12 340)"    // 하입 로드 — pink
-distTer:   "oklch(0.65 0.10 140)"    // 테라스 — green
-distIndustrial: "oklch(0.60 0.08 220)" // 산업단지 — steel blue
+// ── District Accent (5구역) ──
+// distCore(80/gold) distMid(240/blue) distHype(340/pink) distTer(140/green) distIndustrial(220/steel)
 
 // ── Utility ──
-black:     "oklch(0.08 0.01 280)"    // 골드 위 텍스트용
+black:     "oklch(0.08 0.01 265)"
 ```
+
+> **Gold & Azure Dualism**: Gold(hue 80) = 브랜드/라벨, Blue(hue 252) = 시스템/인터랙티브/분위기
 
 ### 폰트
 
@@ -117,104 +99,40 @@ https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&fami
 
 ## 파일 구조
 
+> 각 폴더의 상세 분석은 해당 폴더 내 `research_sub.md` 참조. 전체 종합은 루트 `research.md` 참조.
+
 ```
-primecity/
-├── public/
-│   ├── favicon.svg
-│   └── icons.svg
-├── src/
-│   ├── components/
-│   │   ├── Navbar.jsx      ← 소개, 캐릭터, 세계관, 갤러리, 더 알아보기, 문의, 플레이
-│   │   ├── Particles.jsx
-│   │   ├── PageLayout.jsx  ← 공통 페이지 레이아웃 (Navbar + Particles + Footer)
-│   │   ├── HeroSlider.jsx  ← 배경 이미지 자동 슬라이드 (CDN bg3~bg11, 9장)
-│   │   ├── CharCarousel.jsx ← 캐릭터 캐러셀 (15명, 페이지네이션)
-│   │   ├── CityMap.jsx     ← 세계관 인터랙티브 맵 (hover→glow, click→구역 상세 페이지)
-│   │   ├── DistrictCard.jsx ← 구역 카드 컴포넌트 (DistrictDetail에서 재사용 가능)
-│   │   ├── GameModes.jsx   ← 게임 모드 이중 UI (메인 탭 3 + 직업군 카드 그리드 5)
-│   │   ├── TriangleNav.jsx ← 프리즘 모자이크 네비게이션 (하위 페이지 5종 링크)
-│   │   ├── ScrollNav.jsx  ← 스크롤 섹션 네비게이션 (PC: 라벨+바, 모바일: 도트)
-│   │   └── Footer.jsx
-│   ├── pages/
-│   │   ├── Home.jsx        ← 메인 랜딩 (전체 섹션 조합)
-│   │   ├── CharDetail.jsx  ← /characters/:name (시네마틱 인트로 + HUD + 프로필 + 미리보기)
-│   │   ├── SvgIntro.jsx    ← /svg (동적 SVG 템플릿 갤러리, 8종)
-│   │   ├── Gallery.jsx     ← /gallery (메이슨리 + 소속사 아코디언 필터 + 라이트박스 + NSFW)
-│   │   ├── Updates.jsx     ← /updates (업데이트 로그, 타임라인)
-│   │   ├── Contact.jsx     ← /contact (문의 창구)
-│   │   ├── Works.jsx       ← /works (작가의 다른 작품)
-│   │   ├── ModeAudition.jsx ← /modes/audition (오디션 모드 상세)
-│   │   ├── ModeFreeplay.jsx ← /modes/freeplay (자유활동 모드 상세)
-│   │   ├── ModeProducer.jsx ← /modes/producer (프로듀서 모드 상세)
-│   │   ├── ModeManager.jsx  ← /modes/manager (매니저 모드 상세)
-│   │   ├── ModeTrainee.jsx  ← /modes/trainee (연습생 모드 상세)
-│   │   ├── ModeComposer.jsx ← /modes/composer (작곡가 모드 상세)
-│   │   ├── ModeActor.jsx    ← /modes/actor (배우 모드 상세)
-│   │   ├── ModeInfluencer.jsx ← /modes/influencer (인플루언서 모드 상세)
-│   │   └── DistrictDetail.jsx ← /districts/:id (구역 상세)
-│   ├── styles/
-│   │   └── tokens.js       ← OKLCH 색상 토큰 export
-│   ├── data/
-│   │   ├── characters.js   ← 캐릭터 데이터 배열 (15명, cdnId/job/background/taste/goal/expressions 포함)
-│   │   ├── gallery.js      ← 갤러리 아이템 데이터 (도시9 + 캐릭터당 74코드 × 15명, NSFW 포함)
-│   │   ├── svgTemplates.js  ← SVG 템플릿 정의 (8종: SNS/트윗/라이브/메신저/뉴스/차트/커뮤니티/태블릿)
-│   │   ├── districts.js    ← 구역 데이터 배열 (4구역)
-│   │   └── gamemodes.js    ← 게임 모드 데이터 (메인3 + 직업군5 = 8모드, mainModes/careerModes export)
-│   ├── utils/
-│   │   └── cdn.js          ← CDN URL 유틸 (cdnUrl, cdnExprUrl, SCENE_CODE_MAP, EXPRESSION_KEYS/LABELS)
-│   ├── hooks/
-│   │   ├── useIsMobile.js
-│   │   └── useReveal.js
-│   ├── App.jsx             ← React Router 설정 (16개 라우트, lazy + Suspense)
-│   └── main.jsx            ← 엔트리포인트
-├── docs/
-│   ├── Main_Prompt.txt             ← 챗봇 메인 프롬프트
-│   ├── 캐릭터 프로필.txt            ← 캐릭터 상세 프로필 (15명)
-│   ├── 세계관.txt                   ← 세계관 설정
-│   ├── 프라임시티 세계관.txt         ← 세계관 상세
-│   ├── 오디션.txt                   ← 오디션 시스템 설계
-│   ├── 모드 시스템 예시.txt          ← 모드 시스템 참고
-│   ├── 연예계 챗봇 로어북.txt        ← 로어북
-│   ├── 연예계 챗봇 로어북 (오디션).txt ← 오디션 로어북 (8개, 한국어 원본)
-│   ├── CLI_에이전트_작업_지시문.txt    ← 챗봇 제작 단계별 작업 계획 (Phase 1~5)
-│   ├── 웹툰 시작상황(텍스트).txt      ← 오프닝 시퀀스 콘티 (컷 1~17)
-│   ├── 마크다운 프롬프트 작성 가이드라인.txt
-│   ├── 로어북_캐릭터/               ← Phase 1 산출물: 캐릭터별 로어북 16개 (한국어)
-│   ├── 로어북_모드/                 ← Phase 4 산출물: 모드 로어북 8개 (한국어: 오프닝/참가/선택지/매니저/연습생/작곡가/배우/인플루언서)
-│   ├── 연예계_메인_프롬프트_EN.json   ← Phase 2: 메인 프롬프트 영문 JSON
-│   ├── 연예계_로어북_오디션_EN.json   ← Phase 2: 오디션 로어북 8개 영문 JSON
-│   ├── 연예계_로어북_캐릭터_EN.json   ← Phase 2: 캐릭터 로어북 14명 영문 JSON
-│   ├── 연예계_로어북_나하린_EN.json   ← Phase 2: 🔒나하린 4층위 영문 JSON
-│   ├── 연예계_로어북_세계관이면_EN.json ← Phase 2: 🔒세계관 이면 영문 JSON
-│   ├── 연예계_로어북_모드_EN.json      ← Phase 4-3: 모드 8개 영문 JSON (직업군5+오프닝+참가+선택지)
-│   ├── 이미지 출력 규칙(수정).txt    ← 챗봇 이미지 출력 상황코드 DB (gallery.js 원본)
-│   ├── 에셋목록_정제.txt            ← NAI 에셋 프롬프트 원본 (Female/Male Part)
-│   ├── NAIS_Preset_감정_*.json     ← NAI 프리셋 (감정 에셋)
-│   ├── NAIS_Preset_감정2_generated.json  ← 생성된 프리셋 (감정 8종)
-│   ├── NAIS_Preset_일상_generated.json   ← 생성된 프리셋 (일상 9종)
-│   ├── NAIS_Preset_상황_generated.json   ← 생성된 프리셋 (NSFW 41종)
-│   ├── NAIS_Preset_착의_generated.json   ← 생성된 프리셋 (착의 16종)
-│   └── nais2-backup-*.json         ← NAI 전체 백업 (캐릭터 프롬프트 포함)
-├── assets/
-│   └── backgrounds/                 ← 배경 이미지 에셋 (로컬)
-├── public/
-│   ├── _headers                     ← Cloudflare Pages 캐시 헤더
-├── .claude/
-│   └── skills/
-│       ├── new-page/SKILL.md       ← 새 페이지 생성 스킬 (/new-page)
-│       └── deploy-preview/SKILL.md ← 빌드+배포 스킬 (/deploy-preview)
-├── workers/                         ← Cloudflare Worker 참조 파일 (8종, 별도 배포: svg-sns/twit/live/talk/news/chart/community/tablet)
-├── tools/
-│   ├── extract_config.py    ← NAIS2 백업에서 캐릭터/장면 프롬프트 추출
-│   ├── asset_generator.py   ← NAI API 자동 이미지 생성 (배치, 진행추적, 재시도)
-│   └── asset_config.json    ← 15캐릭터 × 81장면 프롬프트 DB
-├── auto_censor.py           ← 자동 성기 검열 (YOLO ntd11 세그멘테이션 + 형태 복원)
-├── tools_dist/              ← 배포용 스크립트 (토큰/상태/모델 제외, README 포함)
-├── models/
-│   └── ntd11_v5.pt          ← YOLO 애니 NSFW 세그멘테이션 모델 (20MB, gitignore)
-├── CLAUDE.md               ← 이 파일
-├── package.json
-└── vite.config.js
+연예계/ (프로젝트 루트)
+├── src/                             ← React 소스 (41파일, 9,820줄)
+│   ├── components/ (14)             ← UI 컴포넌트
+│   ├── pages/ (16+NotFound)         ← 라우트 페이지
+│   ├── data/ (5)                    ← characters, districts, gallery, gamemodes, svgTemplates
+│   ├── styles/tokens.js             ← OKLCH 색상 토큰
+│   ├── utils/cdn.js                 ← CDN URL + 74개 상황코드 매핑
+│   ├── hooks/ (2)                   ← useIsMobile, useReveal
+│   ├── App.jsx                      ← React Router (16라우트 + 404, lazy+Suspense)
+│   └── main.jsx                     ← 엔트리포인트 (HelmetProvider, 전역 스타일)
+├── public/                          ← favicon.svg, icons.svg, _headers (보안+캐시)
+├── docs/                            ← 기획 문서 + 영문 JSON 로어북 6개 + NAI 프리셋 + 챗봇 소개 HTML
+│   ├── *_EN.json (6)                ← 에덴챗 삽입용 최종 산출물 (55.6KB)
+│   ├── 로어북_캐릭터/ (16)           ← 한국어 원본
+│   ├── 로어북_모드/ (8)              ← 한국어 원본
+│   ├── 프라임시티 소개페이지.txt      ← 에덴챗 작품 소개 HTML (40KB)
+│   └── (기획 텍스트, NAI 프리셋, 백업 등)
+├── workers/ (8)                     ← Cloudflare Workers SVG 동적 생성 (*.bluehair.blue)
+├── tools/                           ← 이미지 생성+검열 파이프라인 (작업용)
+│   ├── asset_generator.py           ← NAI API 배치 생성 (577줄)
+│   ├── asset_config.json            ← 15명 × 81장면 프롬프트 DB
+│   ├── extract_config.py            ← NAI 백업 → config 추출
+│   └── auto_censor.py               ← YOLO seg + 형태 복원 검열
+├── tools_dist/                      ← 배포용 클린 복사본 (토큰/상태/모델 제외)
+├── models/                          ← ntd11_v5.pt (20MB, gitignore)
+├── .claude/                         ← Claude Code 설정 (훅 4개, 스킬 4개)
+├── .github/workflows/               ← Claude Code Action + PR 자동 리뷰
+├── index.html                       ← Vite 엔트리 (전역 @keyframes 10개)
+├── package.json                     ← React 18, Vite 6, react-router-dom 6
+├── vite.config.js / wrangler.jsonc  ← 빌드+배포 설정
+└── CLAUDE.md                        ← 이 파일
 ```
 
 ---
@@ -560,6 +478,41 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 
 ---
 
+## 개발 워크플로우
+
+> 모든 작업은 아래 순서를 따른다. 단계를 건너뛰지 않는다.
+
+```
+1. CLAUDE.md 읽기              ← 프로젝트 컨텍스트 확보
+2. research_sub.md 읽기/수정    ← 해당 폴더의 상세 분석 확인
+3. research.md 읽기/수정        ← 전체 프로젝트 종합 분석 확인
+4. plan.md 읽기/수정            ← 작업 계획 확인/작성 (.claude/plans/)
+5. plan_sub.md 읽기/수정        ← 세부 작업 계획 (필요 시)
+6. 사용자의 plan 주석 및 피드백 분석 ← 사용자 승인 대기
+7. 사용자의 허가 후 구현         ← 코드 작성
+8. 빌드 검증                    ← npm run build 성공 확인
+9. 커밋                         ← 서술형 커밋 메시지 (Add/Fix/Update/Redesign)
+10. 푸시                        ← git push origin main → Cloudflare 자동 배포
+11. CLAUDE.md 업데이트           ← 완료 항목 체크, 새 항목 추가
+12. research_sub.md/research.md 업데이트 ← 변경된 폴더의 분석 갱신
+```
+
+### 핵심 규칙
+- **구현 전 반드시 plan 단계를 거칠 것** — 사용자 승인 없이 구현 시작 금지
+- **커밋 전 반드시 빌드 검증** — `npm run build` 실패 시 커밋 금지
+- **CLAUDE.md는 매 세션 종료 시 업데이트** — 완료 항목 체크, 진행 상황 기록
+- **research 문서는 폴더 구조/내용이 변경될 때만 업데이트** — 불필요한 갱신 금지
+
+### 문서 체계
+| 문서 | 위치 | 역할 | 갱신 주기 |
+|---|---|---|---|
+| CLAUDE.md | 루트 | AI 어시스턴트 프로젝트 매뉴얼 | 매 세션 |
+| research.md | 루트 | 프로젝트 전체 종합 분석 | 구조 변경 시 |
+| research_sub.md | 각 폴더 | 폴더별 상세 분석 | 해당 폴더 변경 시 |
+| plan.md | .claude/plans/ | 작업 계획서 | 작업 시작/완료 시 |
+
+---
+
 ## 현재 상태 및 남은 작업
 
 ### 완료
@@ -863,29 +816,31 @@ Cloudflare Cache Reserve + Tiered Cache Topology 활성 환경. `public/_headers
 
 ## 향후 개선 아이디어
 
-> 현재 핵심 기능 완성 후 고려할 수 있는 개선 방향들.
+> 핵심 기능 완성 후 고려할 개선 방향. ✅ = 구현 완료.
 
-### UX / 인터랙션
-- **페이지 전환 애니메이션** — View Transitions API 또는 Framer Motion 활용, 하위 페이지 진입 시 시네마틱 전환
-- **캐릭터 관계도** — 인맥/소속 기반 그래프 시각화 (SVG 또는 D3.js)
-- **캐릭터 필터/검색** — 소속사·역할별 필터링, 검색 기능
-- **사운드 디자인** — BGM 토글 버튼 + 호버/클릭 효과음 (Web Audio API)
+### 소개 사이트
+- **페이지 전환 애니메이션** — View Transitions API
+- **캐릭터 관계도** — SVG/D3.js 그래프
+- **캐릭터 필터/검색** — 소속사·역할별
+- **사운드 디자인** — BGM + 효과음
+- **접근성(a11y)** — 키보드 네비게이션, aria-label, 고대비
+- **캐릭터 관계망** — 양방향 링크 + 관계 설명
+- ✅ 이미지 최적화 (WebP 전면 전환)
+- ✅ 코드 스플리팅 (lazy + Suspense)
+- ✅ SEO (react-helmet-async)
+- ✅ 404 페이지 (NotFound.jsx)
+- ✅ 로딩 상태 (Suspense fallback)
+- ✅ 구역 상세 확장 (히어로+랜드마크+로어)
 
-### 기술 / 성능
-- ~~**이미지 최적화** — WebP/AVIF 포맷 변환~~ ✅ 전면 WebP 전환 완료 (PNG→WebP, ASSET_VERSION 2)
-- ~~**코드 스플리팅** — React.lazy + Suspense로 하위 페이지 동적 임포트~~ ✅ 구현됨
-- ~~**SEO** — react-helmet-async로 페이지별 메타태그 + OG 이미지 동적 생성~~ ✅ 구현됨 (Seo 컴포넌트)
-- **접근성(a11y)** — 키보드 네비게이션 강화, aria-label, 고대비 모드, 스크린 리더 지원
-- ~~**404 페이지** — 존재하지 않는 경로 접근 시 커스텀 404~~ ✅ 구현됨 (NotFound.jsx)
-- ~~**로딩 상태** — 페이지 전환 시 스켈레톤/스피너 (Suspense fallback)~~ ✅ 구현됨 (App.jsx Fallback)
+### 챗봇
+- **i18n 다국어** — 한/영/일
+- **에덴챗 연동** — 위젯 임베드 / 데모 대화
+- **타임라인** — 세계관 역사 시각화
 
-### 콘텐츠 확장
-- **i18n 다국어** — 한/영/일 지원 (react-i18next)
-- **에덴챗 연동** — 챗봇 위젯 임베드 프리뷰 또는 데모 대화
-- **타임라인/연대기** — 프라임시티 세계관 역사 타임라인 시각화
-- **팬 아트 갤러리** — 커뮤니티 투고 기능 (Cloudflare R2 + Workers)
-- ~~**구역 상세 콘텐츠 확장** — DistrictDetail 페이지에 구역별 배경 이미지, 명소 소개~~ ✅ 히어로+랜드마크+로어 구현
-- **캐릭터 관계망** — 캐릭터 상세 페이지에서 관계 캐릭터 간 양방향 링크 + 관계 설명
+### 이미지 파이프라인
+- **검열 모델 파인튜닝** — pussy/anus 미감지율 개선
+- **CV fallback 선택적 복원** — YOLO 미감지 시 핑크 밀도 보조
+- **검열 배치 자동화** — 생성→검열→R2 업로드 원커맨드
 
 <!-- ooo:START -->
 <!-- ooo:VERSION:0.25.0 -->
