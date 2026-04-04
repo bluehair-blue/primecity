@@ -86,6 +86,14 @@
 - CDN URL → `cdnUrl()` 유틸 필수 (`ASSET_VERSION` 캐시 버스팅)
 - 새 페이지 → `/new-page` 스킬 또는 `PageLayout` + render props
 
+### 캐릭터 특별 인트로 패턴 (CharDetail)
+
+현재 장그루(JGR)에 적용된 별도 렌더 블록 패턴:
+- `CharDetail.jsx` 내 **module scope** 함수 `JgrCharDetail` — parent 내부 중첩 ❌
+- parent `CharDetail`에서 `if (char.id === "janggru") return <JgrCharDetail ... />;` early return
+- parent에 해당 캐릭터 전용 state/effect 잔류 0줄
+- 다른 캐릭터에 특별 인트로를 추가할 때도 동일 패턴 사용: module scope 함수 + early return
+
 ---
 
 ## 사이트 구조 (섹션 흐름)
@@ -238,8 +246,8 @@ C:\Users\User\OneDrive\图片\챗봇 제작\캐릭터 이미지\
 
 ## 작업 현황 (요약)
 
-**완료**: 사이트 16페이지, 디자인 시스템, 챗봇 프롬프트 Phase 1~4 (56KB), 에셋 1,215장+, 보안, 파일 정리, tools/ 파이프라인 개선 (18항목), NSFW 검열 배치 (264/855장), 캐릭터 사인 이미지 시스템, CharDetail phase 2 seam cue, 키비주얼/프로필 15명 CDN 통일
-**미완**: 에덴챗 삽입 테스트, Phase 5 프롬프트 품질, Works 확장, 나머지 캐릭터 사인 이미지 추가
+**완료**: 사이트 16페이지, 디자인 시스템, 챗봇 프롬프트 Phase 1~4 (56KB), 에셋 1,215장+, 보안, 파일 정리, tools/ 파이프라인 개선 (18항목), NSFW 검열 배치 (264/855장), 캐릭터 사인/썸네일 15명 CDN 통일, CharDetail seam cue, **장그루 전용 시네마틱 인트로 (JgrCharDetail v4)**
+**미완**: 에덴챗 삽입 테스트, Phase 5 프롬프트 품질, Works 확장, 나머지 캐릭터 사인 이미지
 
 > 상세 → `plan.md`
 > 아이디어 → `idea.md`

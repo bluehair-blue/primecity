@@ -78,15 +78,72 @@
 **변경 파일**: `src/pages/CharDetail.jsx` (1개)
 **연쇄 영향**: 파일 수 변동 없음. 내부 state 1개 + ref 1개 + effect 1개 + reset 1줄 확장.
 
-**검증 최소 세트** (3케이스):
+**검증 최소 세트** (현재 live 코드 기준으로 정정):
+
+> Signature는 hero 내부 프로필 이미지 아래로 이동됨. 독립 섹션 없음.
+> `cueCopy`는 `Expressions Below` / `Continue Below` 2분기만 존재 (정확).
+> `contentRef`는 항상 Expressions(또는 Navigation fallback)에 부착 (정확).
 
 | 케이스 | 캐릭터 | 확인 항목 |
 |---|---|---|
-| sign 있음 | KHR (강하람) | 카피 "Signature Below", observer가 Signature 섹션 진입 시 소멸 |
+| sign 있음 | KHR (강하람) | 카피 **"Expressions Below"** (sign은 hero 내부이므로 다음 섹션은 Expressions), observer가 Expressions 진입 시 소멸 |
 | sign 없음 (일반) | JGR (장그루) | 카피 "Expressions Below", observer가 Expressions 섹션 진입 시 소멸 |
 | 텍스트 긴 캐릭터 | SY (서윤) | cue 위치가 프로필 패널과 겹치지 않고 자연스러운지 |
 
-<!-- ✅ 승인 완료, 구현 완료 -->
+<!-- ✅ 승인 완료, 구현 완료. 문서를 live 코드 기준으로 정정함. -->
+
+---
+
+### 장그루(JGR) CharDetail 특별 인트로
+
+**목적**: 재도전형 캐릭터 장그루만의 영화적 2-beat 시네마틱 인트로. 사이버펑크/HUD 대신 영화적 문법으로 차별화.
+
+**상세 기획**: → `src/pages/chardetail_jgr_plan_sub.md`
+
+**시퀀스 (v3 — 별도 렌더 블록 + cinematic 범위 확정)**:
+```
+[검은 화면]        : preload 대기 (char.image 사용 안 함 → 깜빡임 없음)
+Beat 1 (0.3→5초)   : intro1 세피아+필름그레인+비네트+letterbox + "보고있어? 이게―..."
+Beat 2 (5→9초)     : intro2 풀컬러+블룸 + "내 마지막 꿈이야."
+Handoff (9→9.5초)  : dissolve (jgrFadingOut 0.5초)
+Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리빌)
+                     → 하단에 bgDeep 페이드 전환 (cinematic 종료)
+[Expressions]      : 공통 bgDeep 배경 복귀 (intro2 보이지 않음)
+[Navigation/Footer]: 공통
+* 클릭/wheel/touchmove/ESC 시 즉시 phase 2 skip
+```
+
+**설계 결정 (v4 — 분리 범위/fallback/배경 종료/Navbar/skip 확정)**:
+
+| 결정 | 내용 |
+|---|---|
+| **완전 분리** | `JgrCharDetail`을 **module scope 별도 함수 컴포넌트**로 선언 (CharDetail 내부 중첩 ❌ → remount 리스크 방지). JGR 전용 state/effect(`jgrBeat`, `jgrAssetsReady`, `jgrFallback`, `jgrFadingOut`, preload, skip) 전부 `JgrCharDetail` 내부로 이동. parent CharDetail에는 JGR 관련 코드 0줄. |
+| **fallback 주체** | **`JgrCharDetail` 내부**에서 자체 판단. preload 실패 시 JgrCharDetail이 공통 인트로와 유사한 fallback 화면(이름+태그라인)을 자체 렌더. parent로 돌려보내기 ❌ (early return 구조 유지). |
+| **intro2 배경 종료** | `position: fixed` 배경 위에 `position: relative` hero 콘텐츠. hero 하단에 `minHeight: 100vh`의 **bgDeep 커버 div** (relative, z-index 위)를 배치하여 스크롤 시 intro2를 물리적으로 덮음. fixed 배경 자체를 제거하지 않되, 스크롤하면 bgDeep이 위로 올라와 완전히 가림. |
+| **Navbar 복귀** | Expressions wrapper에 **IntersectionObserver (threshold 0.1)** 부착. 뷰포트 10% 진입 시 `navbarVisible=true` → Navbar opacity fade-in. hero 영역에서는 back link만. |
+| **phase 2 payoff** | 순차 리빌: chapter(0s)→이름(0.3s)→line(0.5s)→role(0.7s)→tagline(1s)→brief(1.3s)→fields(1.6s~) |
+| **skip 시 리빌 압축** | `skipped` boolean state. skip 경로에서는 모든 리빌 딜레이를 **0으로 압축** → 즉시 전체 표시. 일반 진입에서만 순차 재생. |
+| **seam 검증 기준** | 모바일에서 hero 하단 20~30%에 Expressions 상단 eyebrow("Concept Art & Expressions")가 **실제로 보이는지** 시각 확인. 안 보이면 hero `minHeight`를 `90vh`로 조정하거나 Expressions 상단 여백 축소. |
+| **Skip** | 클릭/wheel(preventDefault)/touchmove(preventDefault)/ESC + `overflow:hidden` |
+| **z-index** | overlay 200 > Navbar 100 |
+| **Handoff** | `jgrFadingOut` 500ms dissolve |
+| **타이밍** | Beat 1: 0.3→5s (4.7초), Beat 2: 5→9s (4초), dissolve: 0.5초 |
+
+**변경 파일** (live 코드 기준):
+- `src/pages/CharDetail.jsx` — 기존 JGR state/effect 전부 제거 + `JgrCharDetail` module scope 함수 추가 + `isJGR` early return
+- `src/data/characters.js` — 변경 없음
+- `src/utils/cdn.js` — 변경 없음
+
+**검증**:
+- `/characters/janggru`: 검은 화면→Beat 1→Beat 2→dissolve→크레딧 순차 리빌→bgDeep 커버→Expressions
+- `/characters/seoyun`: 기존 100% 정상 (JGR 코드 0줄 잔류)
+- Skip: 클릭/wheel/ESC → 즉시 phase 2, 리빌 딜레이 0 (즉시 전체 표시)
+- 배경 종료: Expressions 스크롤 시 intro2가 bgDeep 커버 뒤로 완전히 가려짐
+- Navbar: Expressions 10% 진입 시 fade-in
+- 모바일 seam: hero 하단에서 Expressions 상단 eyebrow가 살짝 예고되는지 확인
+- 에셋 실패: JgrCharDetail 내부 fallback (이름+태그라인 자체 렌더)
+
+<!-- ✅ 승인 완료, v4 구현 완료 (3bef079) -->
 
 **Phase 요약**:
 
@@ -165,6 +222,14 @@
 ## 완료 이력
 
 > 구현이 완료된 기획은 여기로 이동합니다. 접근 방식과 결과만 간략히 기록.
+
+### 2026-04-05: 장그루(JGR) CharDetail 전면 개편 v4
+- JgrCharDetail: module scope 완전 분리 (parent JGR 코드 0줄)
+- 영화적 2-beat 시네마틱 인트로: Beat 1(세피아 4.7초) → Beat 2(풀컬러 4초) → dissolve handoff
+- Phase 2: intro2 fixed 배경 + 영화 크레딧 순차 리빌 + bgDeep 커버로 cinematic 종료
+- Preload(allSettled) + 자체 fallback + skip(클릭/wheel/touch/ESC, 리빌 압축) + scroll lock
+- Navbar: hero 숨김, Expressions IO(0.1)에서 복귀
+- 4차 피드백 사이클: preload/fallback 상태기계, dissolve unmount 문제, scroll lock, z-index, 모바일 seam
 
 ### 2026-04-04: CharDetail seam cue + 캐릭터 이미지 정비
 - CharDetail phase 2 seam cue: 흐름형 배치, 동적 카피, IntersectionObserver 소멸
