@@ -1,0 +1,17 @@
+# tools/ Python 스크립트 의존성
+# 설치: pip install -r tools/requirements.txt
+# 또는: uv run <script>.py (uv script metadata로 자동 설치)
+
+# ── asset_generator.py ──
+# NAI API 호출 + 이미지 처리
+requests>=2.31
+Pillow>=10.0
+
+# ── auto_censor.py ──
+# YOLO 세그멘테이션 + OpenCV 이미지 처리
+opencv-python-headless>=4.8
+numpy>=1.24
+ultralytics>=8.0
+
+# ── extract_config.py ──
+# (표준 라이브러리만 사용 — 추가 의존성 없음)
