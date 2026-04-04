@@ -147,9 +147,16 @@ C:\Users\User\OneDrive\图片\챗봇 제작\캐릭터 이미지\
 |---|---|---|---|
 | **키비주얼** | `{CHAR}/{CHAR}.webp` | `ent/{CHAR}.webp` | `cdnUrl("{CHAR}.webp")` |
 | **프로필** | `{CHAR}/profile.webp` | `ent/{CHAR}/profile.webp` | `cdnUrl("{CHAR}/profile.webp")` |
+| **사인** | `{CHAR}/sign.webp` | `ent/{CHAR}/sign.webp` | `cdnUrl("{CHAR}/sign.webp")` |
 | **장면 이미지** | `{CHAR}/{번호}.webp` | `ent/{CHAR}/{번호}.webp` | `cdnExprUrl("{CHAR}",...)` |
 | **SVG 에셋** | `{CHAR}/svg/*.webp` | `ent/{CHAR}/svg/*.webp` | SVG Workers |
 | **도시 배경** | `bg3~11.webp` | `ent/bg3~11.webp` | `cdnUrl("bg{N}.webp")` |
+
+**새 캐릭터 사인 이미지 추가 시 체크리스트:**
+1. 로컬: `캐릭터 이미지/{CHAR}/sign.webp` 에 파일 배치
+2. R2: `npx wrangler r2 object put "prime/ent/{CHAR}/sign.webp" --file "...\{CHAR}\sign.webp" --content-type "image/webp" --remote`
+3. 코드: `src/data/characters.js` 해당 캐릭터의 `sign: null` → `sign: cdnUrl("{CHAR}/sign.webp")`
+4. 연쇄 확인: CharCarousel.jsx + CharDetail.jsx 에서 `char.sign`으로 자동 표시 (추가 수정 불필요)
 
 > 상세 → `research.md` §6, §7.3, `tools/research_sub.md`
 
