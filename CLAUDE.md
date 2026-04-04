@@ -171,6 +171,7 @@ C:\Users\User\OneDrive\图片\챗봇 제작\캐릭터 이미지\
 | R2 이미지 | `npx wrangler r2 object put "prime/ent/{path}" --file "C:\...\캐릭터 이미지\{path}"` |
 
 > **R2 업로드 시 반드시 로컬 원본 폴더(`캐릭터 이미지/`)에서 파일을 지정할 것.** 테스트/백업 폴더 사용 금지.
+> **R2에 이미지를 업로드할 때마다 반드시 `src/utils/cdn.js`의 `ASSET_VERSION`을 +1 올릴 것.** 이를 빠뜨리면 브라우저/CDN 캐시 때문에 업데이트가 반영되지 않는다.
 
 > 상세 → `research.md` §13
 
