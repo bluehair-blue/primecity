@@ -47,11 +47,46 @@
 > 아래에 다음 구현할 작업의 상세 기획을 작성합니다.
 > 사용자는 각 항목에 `<!-- 피드백: ... -->` 주석을 달아 방향을 조정합니다.
 
-### tools/ Python 파이프라인 개선 (18항목, 4Phase)
+### ~~tools/ Python 파이프라인 개선 (18항목, 4Phase)~~ ✅ 구현 완료 → 완료 이력 참조
 
-**목적**: 코드 리뷰 + 사용자 피드백(2차)을 바탕으로 한 버그 수정, 검열 커버리지, 경로 복구, 코드 품질 통합 개선.
+---
 
-**상세 기획**: → `tools/plan_sub.md` (전체 코드 스니펫 + 변경 파일 + 고려사항)
+### CharDetail — phase 2 ↔ 콘텐츠 섹션 연결감 강화
+
+**목적**: phase 2 hero와 아래 섹션(Signature/Expressions/Navigation) 사이에 자연스러운 seam을 만들어, 페이지가 한 호흡으로 이어지는 인상을 준다. 단순한 "스크롤 유도 화살표 추가"가 아니라 장면 전환의 일부로 설계.
+
+**상세 기획**: → `src/pages/plan_sub.md`
+
+**설계 결정 (2차 피드백 반영)**:
+
+| 결정 | 내용 |
+|---|---|
+| **배치** | hero 흐름 마지막에 **흐름형 seam cue** (프로필 패널 아래) |
+| **카피** | 첫 후속 섹션 기준 **동적 분기** (A안 채택): sign 있으면 "Signature Below", 없으면 "Expressions Below", 둘 다 없으면 "Continue Below" |
+| **Observer 대상** | hero 내부 sentinel ❌ → **다음 첫 실제 콘텐츠 섹션 wrapper를 직접 관찰** (Signature → Expressions → Navigation 우선순위). threshold 0.2. |
+| **초기화** | `[name]` reset effect에 `setContentReached(false)` 포함 (route 전환 깜빡임 방지) |
+| **그라데이션(B)** | **보류** |
+| **시각 밀도** | phase 2 marquee opacity 추가 감소 (선택적) |
+
+**구현 요소**:
+- `contentReached` 상태 + `contentRef` ref + IntersectionObserver effect
+- observer target = hero 다음 첫 실제 섹션 wrapper (ref를 동적으로 할당)
+- `showPhase2Cue = phase === 2 && !contentReached`
+- 카피: `char.sign ? "Signature Below" : char.expressions?.length ? "Expressions Below" : "Continue Below"`
+- seam cue: eyebrow text + accent gradient line + pulse line (2회 재생)
+
+**변경 파일**: `src/pages/CharDetail.jsx` (1개)
+**연쇄 영향**: 파일 수 변동 없음. 내부 state 1개 + ref 1개 + effect 1개 + reset 1줄 확장.
+
+**검증 최소 세트** (3케이스):
+
+| 케이스 | 캐릭터 | 확인 항목 |
+|---|---|---|
+| sign 있음 | KHR (강하람) | 카피 "Signature Below", observer가 Signature 섹션 진입 시 소멸 |
+| sign 없음 (일반) | JGR (장그루) | 카피 "Expressions Below", observer가 Expressions 섹션 진입 시 소멸 |
+| 텍스트 긴 캐릭터 | SY (서윤) | cue 위치가 프로필 패널과 겹치지 않고 자연스러운지 |
+
+<!-- ✅ 승인 완료, 구현 완료 -->
 
 **Phase 요약**:
 
@@ -104,15 +139,6 @@
 - `--coverage-test --result-dir`로 before/after 격리 + 200% 확대 수동 검수
 - 경로: `auto_censor.py --help`, `asset_generator.py --status` 에러 없이 실행
 
-<!-- 사용자 피드백 영역 -->
-<!-- 3차 피드백(6건) 반영 완료:
-  - 1-5: failed dict str 키 표준 확정 + JSON round-trip 안전 명시
-  - 2-2(C): 전용 run_coverage_test() 헬퍼, 기존 preview 재사용 금지
-  - 2-2: stats.json = 폴더 단위 집계 manifest (배열) 확정
-  - 2-3: 경로 검증은 I/O 실행 경로에서만 (status/help/dry-run 제외)
-  - 3-3+3-4: import os 유지(base64만 삭제), 토큰 우선순위 --token > --token-file > NAI_TOKEN 확정
-  - 수치: ALL_SCENES 75장으로 통일
--->
 
 ---
 

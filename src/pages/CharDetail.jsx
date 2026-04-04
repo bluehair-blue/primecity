@@ -23,8 +23,10 @@ export default function CharDetail() {
   const [lightbox, setLightbox] = useState(null);
   const [exprErrors, setExprErrors] = useState({});
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [contentReached, setContentReached] = useState(false);
   const timerRefs = useRef([]);
   const imgRef = useRef(null);
+  const contentRef = useRef(null);
 
   const char = characters.find((c) => c.id === name);
   const charIndex = characters.findIndex((c) => c.id === name);
@@ -44,6 +46,7 @@ export default function CharDetail() {
     setExprErrors({});
     setLightbox(null);
     setTilt({ x: 0, y: 0 });
+    setContentReached(false);
 
     timerRefs.current.forEach(clearTimeout);
     const t1 = setTimeout(() => { setUiReady(true); setPhase(1); }, 100);
@@ -69,6 +72,17 @@ export default function CharDetail() {
     return () => window.removeEventListener("keydown", onKey);
   }, [lightbox]);
 
+  // Content section observer (seam cue dismissal)
+  useEffect(() => {
+    if (!contentRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setContentReached(entry.isIntersecting),
+      { threshold: 0.2 }
+    );
+    observer.observe(contentRef.current);
+    return () => observer.disconnect();
+  }, [name]);
+
   // Mouse tilt (desktop only, phase 2)
   function handleMouseMove(e) {
     if (isMobile || phase !== 2 || !imgRef.current) return;
@@ -85,6 +99,11 @@ export default function CharDetail() {
 
   const [exprRef, exprV] = useReveal(0.1);
   const [navRef, navV] = useReveal(0.1);
+
+  const showPhase2Cue = phase === 2 && !contentReached;
+  const cueCopy = char
+    ? (char.sign ? "Signature Below" : char.expressions?.length ? "Expressions Below" : "Continue Below")
+    : "";
 
   if (!char) {
     return (
@@ -558,11 +577,38 @@ export default function CharDetail() {
           <span style={{ fontFamily: "var(--f-display-en)", fontSize: 9, letterSpacing: "0.3em", color: C.text25, textTransform: "uppercase" }}>Scroll</span>
           <div style={{ width: 1, height: 28, background: `linear-gradient(to bottom, ${char.color}, transparent)`, animation: "scrollPulse 2s ease-in-out infinite" }} />
         </div>
+
+        {/* ── Phase 2 seam cue ── */}
+        <div style={{ width: "100%", maxWidth: 1100, marginTop: isMobile ? 12 : 20 }}>
+          <div style={{
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
+            opacity: showPhase2Cue ? 1 : 0,
+            transform: showPhase2Cue ? "translateY(0)" : "translateY(-6px)",
+            transition: `opacity 0.6s ${EASE}, transform 0.6s ${EASE}`,
+            pointerEvents: "none",
+          }}>
+            <span style={{
+              fontFamily: "var(--f-display-en)", fontSize: 9,
+              letterSpacing: "0.28em", textTransform: "uppercase", color: C.text25,
+            }}>
+              {cueCopy}
+            </span>
+            <div style={{
+              width: isMobile ? 72 : 112, height: 1,
+              background: `linear-gradient(90deg, transparent, ${char.color}, transparent)`,
+            }} />
+            <div style={{
+              width: 1, height: 18,
+              background: `linear-gradient(to bottom, ${char.color}, transparent)`,
+              animation: "scrollPulse 2s ease-in-out 2",
+            }} />
+          </div>
+        </div>
       </section>
 
       {/* ══════════ Signature ══════════ */}
       {char.sign && (
-        <section style={{
+        <section ref={contentRef} style={{
           position: "relative", zIndex: 2,
           padding: isMobile ? "32px 24px" : "48px 64px",
           maxWidth: 1100, margin: "0 auto",
@@ -591,7 +637,7 @@ export default function CharDetail() {
 
       {/* ══════════ Concept Art & Expressions Preview ══════════ */}
       {char.expressions && char.expressions.length > 0 && (
-        <section ref={exprRef} style={{ position: "relative", zIndex: 2, padding: isMobile ? "48px 24px" : "64px 64px", maxWidth: 1100, margin: "0 auto", opacity: exprV ? 1 : 0, transform: exprV ? "translateY(0)" : "translateY(30px)", transition: `all 0.8s ${EASE}` }}>
+        <section ref={(el) => { exprRef.current = el; if (!char.sign) contentRef.current = el; }} style={{ position: "relative", zIndex: 2, padding: isMobile ? "48px 24px" : "64px 64px", maxWidth: 1100, margin: "0 auto", opacity: exprV ? 1 : 0, transform: exprV ? "translateY(0)" : "translateY(30px)", transition: `all 0.8s ${EASE}` }}>
           <h3 style={{ fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase", color: C.goldText, marginBottom: 6 }}>
             Concept Art &amp; Expressions
           </h3>
@@ -657,7 +703,7 @@ export default function CharDetail() {
       )}
 
       {/* ══════════ Navigation ══════════ */}
-      <section ref={navRef} style={{ position: "relative", zIndex: 2, padding: isMobile ? "32px 24px 48px" : "48px 64px 80px", maxWidth: 1100, margin: "0 auto", opacity: navV ? 1 : 0, transform: navV ? "translateY(0)" : "translateY(20px)", transition: `all 0.8s ${EASE}` }}>
+      <section ref={(el) => { navRef.current = el; if (!char.sign && !(char.expressions?.length)) contentRef.current = el; }} style={{ position: "relative", zIndex: 2, padding: isMobile ? "32px 24px 48px" : "48px 64px 80px", maxWidth: 1100, margin: "0 auto", opacity: navV ? 1 : 0, transform: navV ? "translateY(0)" : "translateY(20px)", transition: `all 0.8s ${EASE}` }}>
         {sameAgency.length > 0 && (
           <div style={{ marginBottom: isMobile ? 32 : 48 }}>
             <h3 style={{ fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase", color: C.goldText, marginBottom: isMobile ? 16 : 20 }}>Same Agency</h3>
