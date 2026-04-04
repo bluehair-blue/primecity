@@ -166,6 +166,12 @@
 
 > 구현이 완료된 기획은 여기로 이동합니다. 접근 방식과 결과만 간략히 기록.
 
+### 2026-04-04: CharDetail seam cue + 캐릭터 이미지 정비
+- CharDetail phase 2 seam cue: 흐름형 배치, 동적 카피, IntersectionObserver 소멸
+- 캐릭터 사인 이미지 시스템 (`{CHAR}/sign.webp`): characters.js + CharCarousel + CharDetail
+- 키비주얼/프로필 15명 전원 CDN 통일 (`cdnUrl("{CHAR}.webp")` + `cdnUrl("{CHAR}/profile.webp")`)
+- KHR 키비주얼+사인, ERK/SY/NHR/LSH 키비주얼 재업로드, ASSET_VERSION 3→4
+
 ### 2026-04-04: tools/ Python 파이프라인 개선 (Phase 1~4) + R2 업로드
 - Phase 1 (버그 7건): ZIP 가드, --retry-failed 명시적 태스크 리스트, done+cooldown 분리, status special scene 집계, mark_failed str key+reason, 임시 파일 race condition, zero-mask 상태 분리
 - Phase 2 (산출물 3건): atomic write, 검열 커버리지 보강(safety dilation+ROI re-clamp), 이미지/모델/배치 경로 통합
