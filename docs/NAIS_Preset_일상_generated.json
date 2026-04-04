@@ -1,0 +1,96 @@
+{
+  "id": "1774200200000",
+  "name": "일상",
+  "scenes": [
+    {
+      "id": "1774200008000",
+      "name": "Normal-Chat",
+      "scenePrompt": "white background, straight on, standing, smile, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200008000,
+      "width": 1216,
+      "height": 832
+    },
+    {
+      "id": "1774200009000",
+      "name": "Undressing-Seduction",
+      "scenePrompt": "straight on, nsfw, shirt pull, spread legs, nipples, blush, embarrassed, smile, tongue out, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200009000,
+      "width": 1216,
+      "height": 832
+    },
+    {
+      "id": "1774200010000",
+      "name": "Drinking",
+      "scenePrompt": "bar, sitting, leaning to the side, holding cup, blush, drunk, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200010000,
+      "width": 1216,
+      "height": 832
+    },
+    {
+      "id": "1774200011000",
+      "name": "Dining-Chat",
+      "scenePrompt": "cafe, from side, sitting, table, food, holding fork, smile, blush, open mouth, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200011000,
+      "width": 1216,
+      "height": 832
+    },
+    {
+      "id": "1774200012000",
+      "name": "Cafe-Chat",
+      "scenePrompt": "cafe, from side, sitting, table, cake, holding cup, smile, blush, open mouth, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200012000,
+      "width": 1216,
+      "height": 832
+    },
+    {
+      "id": "1774200013000",
+      "name": "Cinema-Chat",
+      "scenePrompt": "movie theater, from side, sitting, holding popcorn, smile, blush, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200013000,
+      "width": 1216,
+      "height": 832
+    },
+    {
+      "id": "1774200014000",
+      "name": "Christmas-Date",
+      "scenePrompt": "night, city lights, christmas tree, standing, holding shopping bag, smile, blush, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200014000,
+      "width": 1216,
+      "height": 832
+    },
+    {
+      "id": "1774200015000",
+      "name": "Wedding",
+      "scenePrompt": "wedding, indoors, wedding dress, bridal veil, holding bouquet, happy, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200015000,
+      "width": 1216,
+      "height": 832
+    },
+    {
+      "id": "1774200016000",
+      "name": "Pregnant",
+      "scenePrompt": "0.6::pregnant::, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200016000,
+      "width": 1216,
+      "height": 832
+    }
+  ]
+}

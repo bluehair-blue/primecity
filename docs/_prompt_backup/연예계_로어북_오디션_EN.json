@@ -1,0 +1,188 @@
+[
+  {
+    "id": 0,
+    "trigger": "!오디션모드, 🎤",
+    "title": "Audition Mode — Core Framework",
+    "on_enter": [
+      "Set 🔧 to 🎤.",
+      "Set 확장 구역: 🎤 + 🎙️1.",
+      "Output opening narrative: MC opening speech + judge intro + contestant entrance."
+    ],
+    "expansion_zone_rule": "Always maintain 🎤 marker while audition mode is active. Below it, write current round tag.",
+    "structure": {
+      "name": "Produce · Prime · Priority (PPP) — Stage Division",
+      "desc": "Prime City's largest rookie survival audition. Stage division covers idols, singers, dancers, singer-songwriters.",
+      "rounds": "4 rounds: 8 → 6 → 3 → Final",
+      "contestants": "All unaffiliated (outside Prime City)",
+      "producer_pick": "Fluid based on {{user}} choices and round results"
+    },
+    "round_flow": [
+      "1R 등급 평가: Individual stage + grade assignment. No elimination.",
+      "2R 프로듀서 픽: Nomination + contest. 2 unnominated eliminated (8→6).",
+      "막간: Dorm + interaction events (~1 month).",
+      "3R 팀 대항전: Team match + loser revival (6→3).",
+      "4R 최종 선택: Power reversal. Contestants choose producers."
+    ],
+    "judges": {
+      "user": "{{user}}: PRISM Studio producer. Lower-tier Prime City. This audition is the agency's last chance. Joined at 한소리's request.",
+      "jin": "진시혁: APEX producer. Cold rationalist. 'The weak should be weeded out.'",
+      "erika": "에리카: Blue Moon producer. Sharp-tongued but warm inside. Carries past trauma."
+    },
+    "contestant_slots": {
+      "장그루": "Retry / Desperation",
+      "밀라": "Overwhelming talent",
+      "엘라": "Buzz / Viral type",
+      "니아": "Growth type",
+      "하시은": "Stable honor student",
+      "라피스": "변수 / Unpredictable",
+      "레이": "언더독",
+      "미모리": "Troublemaker / 감초"
+    },
+    "mc": "Separate character. Smooth entertainer. Minimal depth. Handles hosting/pacing/comedy.",
+    "naharin": "Occasional appearance. Meaningful interventions.",
+    "timeline": {
+      "1R": "1 day → (1 week gap)",
+      "2R": "2 days → (dorm begins)",
+      "interlude": "~1 month (dorm + practice)",
+      "3R": "2 days → (2 week gap)",
+      "4R": "1 day",
+      "total": "~2 months. Update 📅 accordingly."
+    },
+    "status_row_format": {
+      "post_1R": "[Name]: ❤️n (Grade) | location, action",
+      "post_2R": "[Name]: ❤️n (Grade/ProducerName) | location, action",
+      "eliminated": "[Name]: ❤️n (Grade) (탈락) | —",
+      "rule": "Information accumulates. Never delete prior round data."
+    },
+    "expansion_zone_format": "🎤\n(current round tag)\n[생존]: survivors (탈락 for eliminated)\n[등급표]: shown after 1R\n[팀]: shown after 2R. ProducerName: (contestant1), (contestant2)\n[팀 순위]: shown after 3R",
+    "round_transition": {
+      "sequence": "🎙️1 → 🤝2 → 🏠0 → ⚔️3 → 🥊3 → 🏆3 → 👑4",
+      "rule": "Replace current tag with next. Never show two tags simultaneously. 🎤 persists throughout."
+    },
+    "critical": "{{user}}'s victory is NOT guaranteed. Contestants may choose other producers. {{user}}'s team can lose. AI determines outcomes based on ❤️, strategy, and narrative context."
+  },
+  {
+    "id": 1,
+    "trigger": "🎙️1",
+    "title": "1R — 등급 평가",
+    "flow": ["① Intro: MC opening + judge intro + contestant entrance","② Individual stages","③ Post-stage judge comments","④ Scoring: {{user}} scores first, then 진시혁/에리카 scores revealed","⑤ Round end: All grades finalized + next round preview"],
+    "scoring": {
+      "system": "3 judges × 100pts = 300pts total",
+      "grades": "A:250+ / B:200+ / C:150+ / D:100+ / F:<100",
+      "tendencies": {
+        "진시혁": "Values completeness + skill. Harsh standards. Stingy with high scores.",
+        "에리카": "Values potential + individuality. Generous to raw talent.",
+        "user": "Per {{user}} judgment."
+      }
+    },
+    "rules": [
+      "AI assigns brief scores for contestants {{user}} doesn't personally judge — carried into later rounds.",
+      "A-grade contestants receive benefits in 2R (veto rights etc.)."
+    ],
+    "end_condition": "All 8 grades confirmed → 1R ends. Output final grade summary → replace 🎙️1 with 🤝2."
+  },
+  {
+    "id": 2,
+    "trigger": "🤝2",
+    "title": "2R — 프로듀서 픽 & Contest",
+    "flow": ["① Group meeting: All contestants + judges gather. Free conversation. Character exposure.","② 1:1 meetings: {{user}} picks contestants for private talks. Optional.","③ Mini mission: Surprise task. Tests improvisation / hidden skills.","④ Nomination (ordered): Producers take turns picking 2 contestants each.","⑤ Elimination: 2 unchosen contestants eliminated (8→6)."],
+    "contest": {
+      "trigger": "When multiple producers nominate the same contestant.",
+      "flow": ["① Public appeal: Competing producers take turns persuading the contestant. {{user}}: free input.","② Reverse question: Contestant asks producers a question.","③ Blind choice: Contestant chooses → MC reveals with flair."],
+      "A_grade_perk": "A-grade contestants can veto their assigned producer and choose another."
+    },
+    "naharin": "First appearance in 2R. Meaningful comment or intervention. Doesn't judge directly but raises tension.",
+    "end_condition": "6 assigned + 2 eliminated confirmed → 2R ends. Output team lineup → replace 🤝2 with 🏠0."
+  },
+  {
+    "id": 3,
+    "trigger": "🏠0",
+    "title": "막간 — Dorm & Interaction",
+    "overview": "Post-2R, surviving 6 enter dorm. ~1 month duration. Team bonding, rival tension, character depth.",
+    "user_role": "Producer: observe / intervene / converse.",
+    "event_pool": [
+      "Dorm move-in / room assignment: roommate dynamics",
+      "Surprise mini missions: unexpected pairings",
+      "Contestant interview time: inner thoughts revealed via monitor",
+      "Producer lounge: judges discuss contestants (진시혁/에리카 interaction)",
+      "Practice room observation: {{user}} watches/intervenes in team practice"
+    ],
+    "principles": [
+      "1~2 events per turn. Don't rush.",
+      "Balance team bonding + rival tension.",
+      "Must include deep conversation opportunity with {{user}}'s team members.",
+      "나하린 can appear: hallway encounter, lounge drop-in, etc.",
+      "Advance 📅 by day increments across ~1 month."
+    ],
+    "end_condition": "~1 month elapsed → natural transition to 3R. If {{user}} wants early transition, summarize remaining days. MC announces team battle → replace 🏠0 with ⚔️3."
+  },
+  {
+    "id": 4,
+    "trigger": "⚔️3",
+    "title": "3R-A — 팀 대항전",
+    "situation": "6 survivors. 3 producers × 2 members = 3 teams. Team matches determine ranking.",
+    "flow": ["① Team battle declaration: MC explains rules","② Prep time: {{user}} decides team strategy (song, positions, etc.)","③ Stages: 3 teams perform in order. AI describes each.","④ Ranking reveal: MC directs. 1st→2nd→3rd or reverse."],
+    "user_role": "Producer: decide team strategy. Watch other teams + comment.",
+    "ranking_criteria": "AI judges: team performance quality + {{user}}'s strategy + individual contestant ability.",
+    "branching": {
+      "1st": "2 members survive → spectators/supporters in 3R-B",
+      "2nd": "Internal 1v1 individual match",
+      "3rd": "Internal 1v1 individual match"
+    },
+    "end_condition": "3 team rankings confirmed → replace ⚔️3 with 🥊3."
+  },
+  {
+    "id": 5,
+    "trigger": "🥊3",
+    "title": "3R-B — 패자부활 개인전",
+    "situation": "1st team (2) = confirmed survivors. 2nd team 1v1 → 1 survives. 3rd team 1v1 → 1 survives. Total 2 matches.",
+    "user_role_logic": {
+      "user_1st": "Spectator. Free commentary on matches.",
+      "user_2nd_or_3rd": "{{user}}'s contestant is a combatant. {{user}} can advise/cheer/strategize."
+    },
+    "flow": ["① 2nd team match: member vs member. AI describes stage + result.","② 3rd team match: member vs member. AI describes stage + result."],
+    "note": "Depict loser's elimination with emotional depth.",
+    "end_condition": "Both matches done, 2 winners confirmed → replace 🥊3 with 🏆3."
+  },
+  {
+    "id": 6,
+    "trigger": "🏆3",
+    "title": "3R-C — 패자부활 결승",
+    "situation": "1st team 2 survivors each support one finalist. 2nd team winner vs 3rd team winner for 1 final spot.",
+    "user_role_logic": {
+      "user_1st": "Suggest which finalist your team member supports.",
+      "user_2nd_or_3rd": "{{user}}'s contestant is a finalist. {{user}} can strategize/cheer."
+    },
+    "flow": ["① Support pairing: 1st team members each pick a side.","② Final stage: 2+supporter vs 2+supporter. AI describes.","③ Result: MC announces winner."],
+    "result": "1st team 2 + final winner 1 = 3 advance to 4R. Others: (탈락).",
+    "end_condition": "Final result confirmed, 3 finalists set → replace 🏆3 with 👑4. Announce 2-week gap."
+  },
+  {
+    "id": 7,
+    "trigger": "👑4",
+    "title": "4R — 최종 선택",
+    "situation": "3 survivors. Last round. Power reversal: contestants choose producers.",
+    "choice_basis": "Trust accumulated across entire audition (❤️-based).",
+    "flow": ["① Final stage: 3 survivors' last performance. AI visualizes growth/change.","② Private 1:1 talk: {{user}} and each contestant, off-camera. Formality drops. {{user}}: free input.","③ Public choice: On broadcast stage, contestants announce final choice. MC directs."],
+    "private_talk_rules": [
+      "Human-to-human conversation, not producer-to-contestant.",
+      "Past recall: Contestants quote {{user}}'s actual prior inputs — praise, harsh words, careless remarks.",
+      "{{user}}'s past choices become weapons or anchors.",
+      "Offer talks with all 3. {{user}} may choose specific ones."
+    ],
+    "public_choice_rules": [
+      "No instant reveal. MC builds atmosphere → contestant expression shots → choice revealed last.",
+      "Criteria: ❤️ + {{user}}'s behavior/words throughout audition.",
+      "Rejection possible: low ❤️ = contestant may not choose {{user}}. Reason derived from past context.",
+      "Other producers (진시혁, 에리카) can also be chosen."
+    ],
+    "user_role": {
+      "final_stage": "Watch + comment",
+      "private_talk": "Free input. The moment of truth.",
+      "public_choice": "Watch result. Cannot intervene."
+    },
+    "expansion_update": "[최종 선택]: pending → update on confirmation. [팀] info persists.",
+    "end_condition": "All 3 choices revealed → audition ends. Output final results + epilogue. Remove round tag, keep 🎤 with [완료].",
+    "epilogue_hint": "When {{user}}'s contestant is chosen, weave into MC narration or prose: the moment Produce · Prime · Priority becomes Produce · **Prism** · Priority — PRISM Studio's 언더독 story rewrites this season's name. Handle as narrative allusion, not direct quotation."
+  }
+]

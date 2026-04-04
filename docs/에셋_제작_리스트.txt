@@ -1,0 +1,309 @@
+═══════════════════════════════════════════════════════════
+  프라임시티 CDN 이미지 제작 리스트
+  CDN: https://img.bluehair.blue/ent/
+  최종 URL: {CDN}/{파일명}?v=1
+  작성일: 2026-03-31
+═══════════════════════════════════════════════════════════
+
+
+───────────────────────────────────────────────────────────
+A. 캐릭터 스탠딩 이미지 (메인 프로필)
+   포맷: PNG  |  해상도: 800×1200 (2:3 세로)  |  투명 배경 권장
+   URL: ent/{코드}.png
+───────────────────────────────────────────────────────────
+
+  [완료]
+  ✓ SY.png          서윤
+  ✓ NHR.png         나하린
+  ✓ LSH.png         이서하
+  ✓ KHR.svg         강하람 (SVG)
+
+  [제작 필요 — 11명]
+  □ JSH.png         진시혁
+  □ ERK.png         에리카
+  □ HSR.png         한소리
+  □ JGR.png         장그루
+  □ MIL.png         밀라
+  □ ELA.png         엘라
+  □ MMR.png         미모리
+  □ HSE.png         하시은
+  □ NIA.png         니아
+  □ RAY.png         레이
+  □ LPS.png         라피스
+
+
+───────────────────────────────────────────────────────────
+B. 캐릭터 썸네일 (캐러셀 + 소개 HTML)
+   포맷: PNG  |  해상도: 200×200 (1:1 원형 크롭용)
+   URL: ent/{코드}thumbnail.png
+───────────────────────────────────────────────────────────
+
+  [완료]
+  ✓ SYthumbnail.png
+  ✓ NHRthumbnail.png
+  ✓ LSHthumbnail.png
+  ✓ KHRthumbnail.png
+
+  [제작 필요 — 11명]
+  □ JSHthumbnail.png
+  □ ERKthumbnail.png
+  □ HSRthumbnail.png
+  □ JGRthumbnail.png
+  □ MILthumbnail.png
+  □ ELAthumbnail.png
+  □ MMRthumbnail.png
+  □ HSEthumbnail.png
+  □ NIAthumbnail.png
+  □ RAYthumbnail.png
+  □ LPSthumbnail.png
+
+
+───────────────────────────────────────────────────────────
+C. 캐릭터 표정/상황 이미지 (챗봇 자동 출력 + 갤러리)
+   포맷: WebP  |  해상도: 자유 (세로형 권장)
+   URL: ent/{코드}/{번호}.webp
+   대상: 15명 전원 × 74장 = 1,110장
+───────────────────────────────────────────────────────────
+
+  캐릭터 코드:
+  SY(서윤) NHR(나하린) JSH(진시혁) ERK(에리카) LSH(이서하)
+  HSR(한소리) KHR(강하람) JGR(장그루) MIL(밀라) ELA(엘라)
+  MMR(미모리) HSE(하시은) NIA(니아) RAY(레이) LPS(라피스)
+
+  ── C-1. 감정 (8장/캐릭터) ──
+  1.webp     angry (화남)
+  2.webp     contempt (경멸)
+  3.webp     happy (웃음)
+  4.webp     sad (슬픔)
+  5.webp     shy (부끄러운)
+  6.webp     smirk (비웃음/조소)
+  7.webp     surprised (놀람)
+  8.webp     troubled (곤란/난처)
+
+  ── C-2. 사이트 전용 (1장/캐릭터) ──
+  9.webp     neutral (기본 표정, 갤러리 전용)
+
+  ── C-3. 일상 (9장/캐릭터) ──
+  10.webp    normal-chat (일상 대화)
+  11.webp    undressing-seduction (유혹적 탈의)
+  12.webp    drinking (음주)
+  13.webp    dining-chat (식사 대화)
+  14.webp    cafe-chat (카페 대화)
+  15.webp    cinema-chat (영화관 대화)
+  16.webp    christmas-date (크리스마스 데이트)
+  17.webp    wedding (웨딩)
+  18.webp    pregnant (임신)
+
+  ── C-4. NSFW 비삽입 (23장/캐릭터) ──
+  20.webp    cunnilingus
+  21.webp    kiss
+  22.webp    nude-kiss
+  23.webp    breast-grope
+  24.webp    breast-sucking
+  25.webp    fingering
+  26.webp    fingering-climax
+  27.webp    ass-spanking
+  28.webp    ass-grabbing
+  29.webp    paizuri
+  30.webp    paizuri-cum
+  31.webp    fellatio-pov (1인칭)
+  32.webp    fellatio-climax-pov
+  33.webp    fellatio-3rd-person (3인칭)
+  34.webp    fellatio-climax-3rd-person
+  35.webp    deepthroat
+  36.webp    deepthroat-climax
+  37.webp    handjob
+  38.webp    handjob-cum
+  39.webp    rimjob
+  40.webp    rimjob-cum
+  41.webp    footjob
+  42.webp    footjob-cum
+
+  ── C-5. NSFW 삽입 (18장/캐릭터) ──
+  50.webp    nude-conversation (사후 나체 대화)
+  51.webp    missionary-sex
+  52.webp    missionary-climax
+  53.webp    doggystyle-sex
+  54.webp    doggystyle-climax
+  55.webp    cowgirl-sex
+  56.webp    cowgirl-climax
+  57.webp    spooning-sex
+  58.webp    spooning-climax
+  59.webp    full-nelson
+  60.webp    full-nelson-climax
+  61.webp    anal-sex
+  62.webp    anal-sex-cum
+  63.webp    after-sex (사후 여운)
+  64.webp    facial-cum
+  65.webp    pregnant-sex
+  66.webp    pregnant-sex-cum
+  67.webp    pregnant-after-sex
+
+  ── C-6. NSFW 착의 침실 (9장/캐릭터) ──
+  70.webp    clothed-missionary-sex-bedroom
+  71.webp    clothed-missionary-climax-bedroom
+  72.webp    clothed-full-nelson-bedroom
+  73.webp    clothed-full-nelson-climax-bedroom
+  74.webp    clothed-cowgirl-sex
+  75.webp    clothed-cowgirl-climax
+  76.webp    clothed-fellatio-bedroom
+  77.webp    clothed-fellatio-climax-bedroom
+  78.webp    clothed-after-sex-bedroom
+
+  ── C-7. NSFW 착의 화장실 (7장/캐릭터) ──
+  80.webp    clothed-doggystyle-sex-toilet
+  81.webp    clothed-doggystyle-climax-toilet
+  82.webp    clothed-full-nelson-toilet
+  83.webp    clothed-full-nelson-climax-toilet
+  84.webp    clothed-fellatio-toilet
+  85.webp    clothed-fellatio-climax-toilet
+  86.webp    clothed-after-sex-toilet
+
+
+───────────────────────────────────────────────────────────
+D. SVG 템플릿 전용 에셋 (챗봇 SVG에서 참조)
+   포맷: WebP
+   URL: ent/{코드}/svg/{type}.webp
+   대상: 15명 (최소 주요 캐릭터 우선)
+───────────────────────────────────────────────────────────
+
+  에셋 타입별 해상도:
+  avatar.webp    1:1 정사각 (200×200)   프로필 원형 크롭
+  post.webp      4:3 가로 (400×300)     SNS 게시물 이미지
+  stream.webp    5:3 가로 (500×300)     라이브 방송 프리뷰
+  news.webp      16:9 가로 (640×360)    뉴스 속보 이미지
+
+  사용되는 SVG 템플릿:
+  avatar  → SNS 포스트, 트윗, 라이브 방송, 메신저
+  post    → SNS 포스트
+  stream  → 라이브 방송
+  news    → 뉴스 속보
+
+  [제작 필요 — 15명 × 4종 = 60장]
+  □ SY/svg/avatar.webp, post.webp, stream.webp, news.webp
+  □ NHR/svg/avatar.webp, post.webp, stream.webp, news.webp
+  □ JSH/svg/avatar.webp, post.webp, stream.webp, news.webp
+  □ ERK/svg/avatar.webp, post.webp, stream.webp, news.webp
+  □ LSH/svg/avatar.webp, post.webp, stream.webp, news.webp
+  □ HSR/svg/avatar.webp, post.webp, stream.webp, news.webp
+  □ KHR/svg/avatar.webp, post.webp, stream.webp, news.webp
+  □ JGR/svg/avatar.webp, post.webp, stream.webp, news.webp
+  □ MIL/svg/avatar.webp, post.webp, stream.webp, news.webp
+  □ ELA/svg/avatar.webp, post.webp, stream.webp, news.webp
+  □ MMR/svg/avatar.webp, post.webp, stream.webp, news.webp
+  □ HSE/svg/avatar.webp, post.webp, stream.webp, news.webp
+  □ NIA/svg/avatar.webp, post.webp, stream.webp, news.webp
+  □ RAY/svg/avatar.webp, post.webp, stream.webp, news.webp
+  □ LPS/svg/avatar.webp, post.webp, stream.webp, news.webp
+
+
+───────────────────────────────────────────────────────────
+E. 도시 배경 이미지 (히어로 슬라이더 + 갤러리)
+   포맷: PNG  |  해상도: 1920×800 (~2.4:1)
+   URL: ent/bg{N}.png
+───────────────────────────────────────────────────────────
+
+  [완료 — 9장]
+  ✓ bg3.png      프라임시티 전경 I
+  ✓ bg4.png      프라임시티 전경 II
+  ✓ bg5.png      프라임시티 전경 III
+  ✓ bg6.png      더 코어
+  ✓ bg7.png      미들 링
+  ✓ bg8.png      하입 로드
+  ✓ bg9.png      테라스
+  ✓ bg10.png     야경
+  ✓ bg11.png     스카이라인
+
+
+───────────────────────────────────────────────────────────
+F. 도시 맵 이미지 (세계관 인터랙티브 맵)
+   포맷: PNG  |  해상도: 1920×1080 (16:9)
+   URL: ent/{파일명}.png
+───────────────────────────────────────────────────────────
+
+  [완료 — 6장]
+  ✓ Citybase(1).png         전체 탑뷰 맵 (베이스)
+  ✓ The Core.png            더 코어 구역 오버레이
+  ✓ Middle Ring.png         미들 링 구역 오버레이
+  ✓ Hype Road.png           하입 로드 구역 오버레이
+  ✓ Terrace.png             테라스 구역 오버레이
+  ✓ industrial complex.png  산업단지 구역 오버레이
+
+
+───────────────────────────────────────────────────────────
+G. 오디션 시작 웹툰
+   포맷: WebP  |  해상도: 세로 연속형 (총 ~54,000px)
+   URL: ent/audition{N}.webp
+───────────────────────────────────────────────────────────
+
+  [완료 — 6장]
+  ✓ audition1.webp
+  ✓ audition2.webp
+  ✓ audition3.webp
+  ✓ audition4.webp
+  ✓ audition5.webp
+  ✓ audition6.webp
+
+
+═══════════════════════════════════════════════════════════
+  요약 (제작 필요 수량)
+═══════════════════════════════════════════════════════════
+
+  A. 캐릭터 스탠딩      11명 × 1장    =     11장  (PNG)
+  B. 캐릭터 썸네일      11명 × 1장    =     11장  (PNG)
+  C. 표정/상황 이미지   15명 × 74장   =  1,110장  (WebP)
+  D. SVG 전용 에셋      15명 × 4종    =     60장  (WebP)
+  ─────────────────────────────────────────────────
+  합계                                =  1,192장
+
+  * E~G (배경 9 + 맵 6 + 웹툰 6 = 21장)은 완료
+
+
+═══════════════════════════════════════════════════════════
+  CDN 디렉토리 구조
+═══════════════════════════════════════════════════════════
+
+  ent/
+  ├── bg3~bg11.png                    도시 배경 (9장, 완료)
+  ├── Citybase(1).png                 맵 베이스 (완료)
+  ├── {구역명}.png                    맵 오버레이 (5장, 완료)
+  ├── audition1~6.webp                웹툰 (6장, 완료)
+  │
+  ├── {코드}.png                      스탠딩 (15명)
+  ├── {코드}thumbnail.png             썸네일 (15명)
+  │
+  └── {코드}/                         캐릭터별 폴더 (15개)
+      ├── 1~9.webp                    감정 + neutral (9장)
+      ├── 10~18.webp                  일상 (9장)
+      ├── 20~42.webp                  NSFW 비삽입 (23장)
+      ├── 50~67.webp                  NSFW 삽입 (18장)
+      ├── 70~78.webp                  착의 침실 (9장)
+      ├── 80~86.webp                  착의 화장실 (7장)
+      └── svg/
+          ├── avatar.webp             프로필 (1:1)
+          ├── post.webp               SNS (4:3)
+          ├── stream.webp             방송 (5:3)
+          └── news.webp               뉴스 (16:9)
+
+
+═══════════════════════════════════════════════════════════
+  우선순위 제안
+═══════════════════════════════════════════════════════════
+
+  1순위: 캐릭터 스탠딩 + 썸네일 (22장)
+         → 사이트 캐러셀/상세 페이지 즉시 반영
+
+  2순위: 감정 표정 8장 × 15명 (120장)
+         → 챗봇 기본 대화 이미지 출력
+
+  3순위: 일상 9장 × 15명 (135장)
+         → 챗봇 일상 씬 이미지 출력
+
+  4순위: SVG 전용 avatar × 15명 (15장)
+         → SVG 템플릿 캐릭터 프로필 즉시 반영
+
+  5순위: NSFW 전체 (855장)
+         → 챗봇 NSFW 씬 이미지 출력
+
+  6순위: SVG 전용 post/stream/news (45장)
+         → SVG 템플릿 완성도 향상

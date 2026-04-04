@@ -1,0 +1,125 @@
+{
+  "id": "1773479539822",
+  "name": "감정",
+  "scenes": [
+    {
+      "id": "1773479937603",
+      "name": "프로필",
+      "scenePrompt": "full body, portrait, standing, straight-on, profile, close-up, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1773479937603,
+      "width": 832,
+      "height": 1216
+    },
+    {
+      "id": "1773479573575",
+      "name": "기본 대화",
+      "scenePrompt": "upper body, portrait, white background, standing, face focus, grin, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1773479573575,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "1773479943283",
+      "name": "화남",
+      "scenePrompt": "upper body, portrait, white background, standing, straight-on, face focus, angry, shaded face, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1773479943283,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "1773569302518",
+      "name": "화남 (무표정)",
+      "scenePrompt": "standing, upper body, portrait, white background, standing, straight on, face focus, angry face",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1773569302518,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "1773479941915",
+      "name": "웃음",
+      "scenePrompt": "upper body, portrait, white background, standing, straight-on, face focus, arrogant face, 2::smile, teardrop::, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1773479941915,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "1773576236174",
+      "name": "웃음 (무표정)",
+      "scenePrompt": "standing, upper body, portrait, white background, standing, straight on, face focus, light smile, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1773576236174,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "1773479940949",
+      "name": "경멸",
+      "scenePrompt": "standing, upper body, portrait, white background, standing, straight on, face focus, cold face, disdainful, abhorrent, shaded face, arms crossed",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1773479940949,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "1773479939980",
+      "name": "부끄러운",
+      "scenePrompt": "standing, upper body, portrait, white background, standing, straight on, face focus, blush, embarrassed expression, embarrassed expression",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1773479939980,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "1773479763361",
+      "name": "놀람",
+      "scenePrompt": "upper body, portrait, white background, standing, straight-on, face focus, surprised, sweatdrop, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1773479763361,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "1773576527679",
+      "name": "놀람 (복사본)",
+      "scenePrompt": "standing, upper body, portrait, white background, standing, straight on, face focus, raised eyebrows, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1773576527679,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "1773479901121",
+      "name": "슬픈",
+      "scenePrompt": "standing, upper body, portrait, white background, standing, straight on, face focus, sad face, crying, teardrop",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1773479901121,
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "1773580613865",
+      "name": "곤란한",
+      "scenePrompt": "upper body, portrait, white background, standing, straight-on, face focus, closed mouth, sweatdrop, looking away, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1773580613865
+    }
+  ],
+  "createdAt": 1773479539822
+}

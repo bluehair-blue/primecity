@@ -1,0 +1,86 @@
+{
+  "id": "1774200100000",
+  "name": "감정2",
+  "scenes": [
+    {
+      "id": "1774200000000",
+      "name": "Angry",
+      "scenePrompt": "white background, straight on, upper body, portrait, face focus, standing, angry, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200000000,
+      "width": 1216,
+      "height": 832
+    },
+    {
+      "id": "1774200001000",
+      "name": "Contempt",
+      "scenePrompt": "white background, straight on, upper body, portrait, face focus, standing, arms crossed, cold face, disdainful, abhorrent, shaded face, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200001000,
+      "width": 1216,
+      "height": 832
+    },
+    {
+      "id": "1774200002000",
+      "name": "Happy",
+      "scenePrompt": "white background, straight on, upper body, portrait, face focus, standing, happy, smile, open mouth, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200002000,
+      "width": 1216,
+      "height": 832
+    },
+    {
+      "id": "1774200003000",
+      "name": "Sad",
+      "scenePrompt": "white background, straight on, upper body, portrait, face focus, standing, sad, crying, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200003000,
+      "width": 1216,
+      "height": 832
+    },
+    {
+      "id": "1774200004000",
+      "name": "Shy",
+      "scenePrompt": "white background, straight on, upper body, portrait, face focus, standing, blush, embarrassed, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200004000,
+      "width": 1216,
+      "height": 832
+    },
+    {
+      "id": "1774200005000",
+      "name": "Smirk",
+      "scenePrompt": "white background, straight on, upper body, portrait, face focus, standing, smirk, smug, half-closed eyes, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200005000,
+      "width": 1216,
+      "height": 832
+    },
+    {
+      "id": "1774200006000",
+      "name": "Surprised",
+      "scenePrompt": "white background, straight on, upper body, portrait, face focus, standing, blush, surprised, open mouth, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200006000,
+      "width": 1216,
+      "height": 832
+    },
+    {
+      "id": "1774200007000",
+      "name": "Troubled",
+      "scenePrompt": "white background, straight on, upper body, portrait, face focus, standing, worried, frown, sweatdrop, ",
+      "queueCount": 0,
+      "images": [],
+      "createdAt": 1774200007000,
+      "width": 1216,
+      "height": 832
+    }
+  ]
+}
