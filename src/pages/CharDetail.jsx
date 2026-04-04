@@ -12,6 +12,421 @@ import Seo from "../components/Seo";
 
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
+/* ══════════════════════════════════════════════════════════
+   JGR — 완전 분리 렌더 블록 (module scope)
+   state/effect/JSX 전부 여기. parent에 JGR 코드 0줄.
+   ══════════════════════════════════════════════════════════ */
+function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
+  const { name } = useParams();
+  const [scrolled, setScrolled] = useState(false);
+  const [phase, setPhase] = useState(0);
+  const [jgrBeat, setJgrBeat] = useState(0);
+  const [jgrAssetsReady, setJgrAssetsReady] = useState(false);
+  const [jgrFallback, setJgrFallback] = useState(false);
+  const [jgrFadingOut, setJgrFadingOut] = useState(false);
+  const [skipped, setSkipped] = useState(false);
+  const [navbarVisible, setNavbarVisible] = useState(false);
+  const [lightbox, setLightbox] = useState(null);
+  const [exprErrors, setExprErrors] = useState({});
+  const timerRefs = useRef([]);
+  const exprSectionRef = useRef(null);
+
+  const showJgrIntro = jgrAssetsReady && phase < 2 && !jgrFallback;
+  const showJgrOverlay = showJgrIntro || jgrFadingOut;
+
+  const profileFields = [
+    { label: "직업", en: "JOB", value: char.job },
+    { label: "배경", en: "BACKGROUND", value: char.background },
+    { label: "취향", en: "TASTE", value: char.taste },
+    { label: "목표", en: "GOAL", value: char.goal },
+  ].filter((f) => f.value);
+
+  // Reset
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setPhase(0); setJgrBeat(0); setJgrAssetsReady(false);
+    setJgrFallback(false); setJgrFadingOut(false); setSkipped(false);
+    setNavbarVisible(false); setLightbox(null); setExprErrors({});
+    document.body.style.overflow = "";
+    timerRefs.current.forEach(clearTimeout);
+    return () => { timerRefs.current.forEach(clearTimeout); document.body.style.overflow = ""; };
+  }, [name]);
+
+  // Scroll detection
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handler);
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
+  // Preload
+  useEffect(() => {
+    if (!char?.intro1 || !char?.intro2) { setJgrFallback(true); return; }
+    let alive = true;
+    Promise.allSettled(
+      [char.intro1, char.intro2].map(
+        (src) => new Promise((resolve, reject) => {
+          const img = new window.Image();
+          img.src = src;
+          img.onload = resolve;
+          img.onerror = reject;
+        })
+      )
+    ).then((results) => {
+      if (!alive) return;
+      if (results.every((r) => r.status === "fulfilled")) setJgrAssetsReady(true);
+      else setJgrFallback(true);
+    });
+    return () => { alive = false; };
+  }, [char?.intro1, char?.intro2]);
+
+  // Fallback → simple intro
+  useEffect(() => {
+    if (!jgrFallback) return;
+    const t = setTimeout(() => setPhase(2), 600);
+    timerRefs.current = [t];
+    return () => clearTimeout(t);
+  }, [jgrFallback]);
+
+  // Beat timing (after preload)
+  useEffect(() => {
+    if (!jgrAssetsReady) return;
+    setPhase(1);
+    document.body.style.overflow = "hidden";
+    const tb1 = setTimeout(() => setJgrBeat(1), 300);
+    const tb2 = setTimeout(() => setJgrBeat(2), 5000);
+    const tb3 = setTimeout(() => {
+      setJgrFadingOut(true);
+      setPhase(2);
+      setTimeout(() => { setJgrFadingOut(false); document.body.style.overflow = ""; }, 500);
+    }, 9000);
+    timerRefs.current = [tb1, tb2, tb3];
+    return () => timerRefs.current.forEach(clearTimeout);
+  }, [jgrAssetsReady]);
+
+  // Navbar visibility (Expressions)
+  useEffect(() => {
+    if (!exprSectionRef.current) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setNavbarVisible(entry.isIntersecting || entry.boundingClientRect.top < 0),
+      { threshold: 0.1 }
+    );
+    obs.observe(exprSectionRef.current);
+    return () => obs.disconnect();
+  }, []);
+
+  // Lightbox ESC
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e) => { if (e.key === "Escape") setLightbox(null); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightbox]);
+
+  function skipIntro() {
+    timerRefs.current.forEach(clearTimeout);
+    setJgrBeat(0); setJgrFadingOut(false);
+    setPhase(2); setSkipped(true);
+    window.scrollTo(0, 0);
+    document.body.style.overflow = "";
+  }
+
+  // Skip listeners
+  useEffect(() => {
+    if (!showJgrOverlay) return;
+    function onWheel(e) { e.preventDefault(); skipIntro(); }
+    function onTouch(e) { e.preventDefault(); skipIntro(); }
+    function onKey(e) { if (e.key === "Escape") skipIntro(); }
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchmove", onTouch, { passive: false });
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchmove", onTouch);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [showJgrOverlay]);
+
+  const d = (s) => skipped ? "0s" : `${s}s`;
+  const show = phase === 2;
+
+  // ── Fallback render ──
+  if (jgrFallback) {
+    return (
+      <div style={{ background: C.bgDeep, color: C.white, minHeight: "100vh", position: "relative" }}>
+        <Seo title={char.name} description={`${char.name} — ${char.role}`} path={`/characters/${name}`} />
+        <Navbar scrolled={scrolled} isMobile={isMobile} />
+        <section style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "80px 24px" }}>
+          <span style={{ fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase", color: char.color, marginBottom: 12 }}>{char.agency}</span>
+          <h1 style={{ fontFamily: "var(--f-display-kr)", fontSize: isMobile ? "clamp(48px,14vw,64px)" : "clamp(64px,8vw,96px)", fontWeight: 700, color: C.white, margin: "0 0 12px", textAlign: "center" }}>{char.name}</h1>
+          <p style={{ fontFamily: "var(--f-display-kr)", fontSize: 17, color: C.text70, fontStyle: "italic", textAlign: "center" }}>&ldquo;{char.tagline}&rdquo;</p>
+        </section>
+        <Footer isMobile={isMobile} />
+      </div>
+    );
+  }
+
+  // ── Main JGR render ──
+  return (
+    <div style={{ background: C.bgDeep, color: C.white, minHeight: "100vh", position: "relative", overflowX: "hidden" }}>
+      <Seo title={char.name} description={`${char.name} — ${char.role}`} path={`/characters/${name}`} />
+
+      {/* Navbar — Expressions 진입 후에만 표시 */}
+      <div style={{ opacity: navbarVisible && !showJgrOverlay ? 1 : 0, transition: `opacity 0.5s ${EASE}`, pointerEvents: navbarVisible && !showJgrOverlay ? "auto" : "none", position: "fixed", top: 0, left: 0, right: 0, zIndex: 100 }}>
+        <Navbar scrolled={scrolled} isMobile={isMobile} />
+      </div>
+
+      {/* ══════════ Cinematic Intro Overlay ══════════ */}
+      {showJgrOverlay && (
+        <div onClick={skipIntro} style={{
+          position: "fixed", inset: 0, zIndex: 200, background: "oklch(0 0 0)",
+          opacity: jgrFadingOut ? 0 : 1, transition: "opacity 0.5s ease-out", cursor: "pointer",
+          display: "flex", alignItems: "center", justifyContent: "center",
+        }}>
+          {/* Beat 1: intro1 세피아 */}
+          <img src={char.intro1} alt="" style={{
+            position: "absolute", inset: 0, width: "100%", height: "100%",
+            objectFit: "cover", objectPosition: isMobile ? "65% 50%" : "center 40%",
+            filter: jgrBeat === 1 ? "sepia(0.8) brightness(0.7) contrast(1.1)" : "sepia(0) brightness(0)",
+            opacity: jgrBeat === 1 ? 1 : 0, transition: "filter 1.5s ease-out, opacity 1s ease-out",
+          }} />
+          {/* Beat 2: intro2 풀컬러 */}
+          <img src={char.intro2} alt="" style={{
+            position: "absolute", inset: 0, width: "100%", height: "100%",
+            objectFit: "cover", objectPosition: isMobile ? "45% 40%" : "center 30%",
+            opacity: jgrBeat === 2 ? 1 : 0, transform: jgrBeat === 2 ? "scale(1)" : "scale(1.05)",
+            transition: "opacity 1.2s ease-out, transform 3s ease-out",
+          }} />
+          {/* 필름 그레인 */}
+          <div style={{
+            position: "absolute", inset: 0,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E")`,
+            opacity: jgrBeat === 1 ? 0.35 : 0.08, mixBlendMode: "overlay",
+            transition: "opacity 1.5s ease-out", pointerEvents: "none",
+          }} />
+          {/* 비네트 */}
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 30%, oklch(0 0 0 / 0.7) 100%)", pointerEvents: "none" }} />
+          {/* Letterbox */}
+          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "7%", background: "oklch(0 0 0)", zIndex: 2 }} />
+          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "7%", background: "oklch(0 0 0)", zIndex: 2 }} />
+          {/* Chapter label */}
+          <span style={{
+            position: "absolute", bottom: isMobile ? "10%" : "12%", left: isMobile ? 20 : 48,
+            fontFamily: "var(--f-display-en)", fontSize: isMobile ? 9 : 11,
+            letterSpacing: "0.25em", textTransform: "uppercase",
+            color: "oklch(0.6 0 0)", opacity: jgrBeat >= 1 ? 0.6 : 0,
+            transition: "opacity 1s ease-out", pointerEvents: "none", zIndex: 3,
+          }}>Jang Gru / Retake</span>
+          {/* 대사 */}
+          <p style={{
+            position: "relative", zIndex: 3, textAlign: "center",
+            padding: isMobile ? "0 24px" : "0 48px",
+            fontFamily: "var(--f-display-kr)",
+            fontSize: isMobile ? "clamp(20px,6vw,28px)" : "clamp(28px,3.5vw,42px)",
+            fontWeight: 400, fontStyle: "italic",
+            color: jgrBeat === 1 ? "oklch(0.85 0.03 80)" : "oklch(0.95 0 0)",
+            margin: 0, lineHeight: 1.6,
+            opacity: jgrBeat >= 1 ? 1 : 0, transform: jgrBeat >= 1 ? "translateY(0)" : "translateY(20px)",
+            transition: "all 1s ease-out, color 1.2s ease-out",
+            textShadow: "0 2px 24px oklch(0 0 0 / 0.8)",
+          }}>
+            {jgrBeat === 1 ? "보고있어? 이게―..." : "내 마지막 꿈이야."}
+          </p>
+          {/* Beat 2 블룸 */}
+          {jgrBeat === 2 && (
+            <div style={{
+              position: "absolute", top: "15%", left: "50%",
+              width: isMobile ? 200 : 400, height: isMobile ? 200 : 400,
+              borderRadius: "50%",
+              background: "radial-gradient(circle, oklch(0.85 0.12 300 / 0.25), transparent 70%)",
+              transform: "translate(-50%, -50%)", filter: "blur(40px)",
+              animation: "charGlowPulse 3s ease-in-out infinite", pointerEvents: "none",
+            }} />
+          )}
+        </div>
+      )}
+
+      {/* ══════════ Phase 2: intro2 배경 + 크레딧 프로필 ══════════ */}
+      {/* intro2 fixed 배경 */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
+        <img src={char.intro2} alt="" style={{
+          width: "100%", height: "100%", objectFit: "cover",
+          objectPosition: isMobile ? "45% 40%" : "center 30%",
+          opacity: phase === 2 ? 1 : 0, transition: `opacity 0.8s ${EASE}`,
+        }} />
+        <div style={{
+          position: "absolute", inset: 0,
+          background: isMobile
+            ? "linear-gradient(to top, oklch(0 0 0 / 0.85) 30%, oklch(0 0 0 / 0.3) 60%, transparent)"
+            : "linear-gradient(to right, oklch(0 0 0 / 0.8) 25%, oklch(0 0 0 / 0.3) 50%, transparent 70%)",
+        }} />
+      </div>
+
+      {/* Hero 크레딧 블록 */}
+      <section style={{ position: "relative", zIndex: 2, minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: isMobile ? "0 24px 80px" : "0 64px 100px" }}>
+        {/* Back link */}
+        <Link to="/" style={{
+          position: "absolute", top: isMobile ? 24 : 40, left: isMobile ? 24 : 64,
+          color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em",
+          opacity: show ? 1 : 0, transition: `opacity 0.6s ${EASE} ${d(0)}`,
+        }}>&larr; PRIME CITY</Link>
+
+        <div style={{ maxWidth: isMobile ? "100%" : 520 }}>
+          {/* Chapter label */}
+          <span style={{
+            fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em",
+            textTransform: "uppercase", color: char.color, display: "block", marginBottom: 12,
+            opacity: show ? 1 : 0, transform: show ? "translateY(0)" : "translateY(12px)",
+            transition: `all 0.8s ${EASE} ${d(0)}`,
+          }}>Jang Gru / Retake</span>
+
+          {/* Name */}
+          <h1 style={{
+            fontFamily: "var(--f-display-kr)",
+            fontSize: isMobile ? "clamp(32px,10vw,48px)" : "clamp(48px,5vw,64px)",
+            fontWeight: 700, color: C.white, margin: "0 0 8px", lineHeight: 1.2,
+            opacity: show ? 1 : 0, transform: show ? "translateY(0)" : "translateY(16px)",
+            transition: `all 0.8s ${EASE} ${d(0.3)}`,
+          }}>{char.name}</h1>
+
+          {/* Accent line */}
+          <div style={{
+            width: 80, height: 2, marginBottom: 16,
+            background: `linear-gradient(90deg, ${char.color}, transparent)`,
+            transformOrigin: "left", transform: show ? "scaleX(1)" : "scaleX(0)",
+            transition: `transform 0.6s ${EASE} ${d(0.5)}`,
+          }} />
+
+          {/* Role */}
+          <p style={{
+            fontFamily: "var(--f-body)", fontSize: 13, color: C.text55, margin: "0 0 16px",
+            opacity: show ? 1 : 0, transition: `opacity 0.6s ${EASE} ${d(0.7)}`,
+          }}>{char.role}{char.age && ` · ${char.age}`}</p>
+
+          {/* Tagline */}
+          <p style={{
+            fontFamily: "var(--f-display-kr)", fontSize: isMobile ? 15 : 17,
+            color: char.color, fontStyle: "italic", margin: "0 0 20px",
+            lineHeight: 1.7, wordBreak: "keep-all",
+            opacity: show ? 1 : 0, transform: show ? "translateY(0)" : "translateY(10px)",
+            transition: `all 0.8s ${EASE} ${d(1)}`,
+          }}>&ldquo;{char.tagline}&rdquo;</p>
+
+          {/* Brief */}
+          <p style={{
+            fontFamily: "var(--f-body)", fontSize: isMobile ? 13 : 14,
+            lineHeight: 1.9, color: C.text55, fontWeight: 300,
+            wordBreak: "keep-all", margin: "0 0 28px",
+            opacity: show ? 1 : 0, transition: `opacity 0.6s ${EASE} ${d(1.3)}`,
+          }}>{char.brief}</p>
+
+          {/* Profile fields */}
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12, marginBottom: 20 }}>
+            {profileFields.map((field, i) => (
+              <div key={field.en} style={{
+                paddingLeft: 12, borderLeft: `2px solid ${char.color}`,
+                opacity: show ? 1 : 0, transform: show ? "translateX(0)" : "translateX(20px)",
+                transition: `all 0.6s ${EASE} ${d(1.6 + i * 0.15)}`,
+              }}>
+                <span style={{ fontFamily: "var(--f-display-en)", fontSize: 9, letterSpacing: "0.2em", color: char.color, textTransform: "uppercase" }}>{field.en}</span>
+                <p style={{ fontFamily: "var(--f-body)", fontSize: 12, color: C.text45, margin: "4px 0 0", lineHeight: 1.6, wordBreak: "keep-all" }}>{field.value}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Traits */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 6, opacity: show ? 1 : 0, transition: `opacity 0.6s ${EASE} ${d(2.2)}` }}>
+            {char.signature && <p style={{ fontSize: 11, color: C.text35, fontFamily: "var(--f-body)", margin: 0 }}><span style={{ color: char.color }}>●</span> 시그니처: {char.signature}</p>}
+            {char.personality && <p style={{ fontSize: 11, color: C.text35, fontFamily: "var(--f-body)", margin: 0 }}><span style={{ color: char.color }}>●</span> 성격: {char.personality}</p>}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════ bgDeep 커버 (cinematic 종료) ══════════ */}
+      <div style={{ position: "relative", zIndex: 2, background: C.bgDeep }}>
+        {/* Expressions */}
+        {char.expressions && char.expressions.length > 0 && (
+          <section ref={exprSectionRef} style={{ padding: isMobile ? "48px 24px" : "64px 64px", maxWidth: 1100, margin: "0 auto" }}>
+            <h3 style={{ fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase", color: C.goldText, marginBottom: 6 }}>Concept Art &amp; Expressions</h3>
+            <p style={{ fontFamily: "var(--f-body)", fontSize: 12, color: C.text35, margin: `0 0 ${isMobile ? 20 : 28}px` }}>미리보기 · 전체 에셋은 갤러리에서 확인하세요</p>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: isMobile ? 8 : 14 }}>
+              {char.expressions.slice(0, 4).map((key) => {
+                const exprSrc = cdnExprUrl(char.cdnId, key);
+                const hasError = exprErrors[key];
+                return (
+                  <div key={key} onClick={() => !hasError && setLightbox({ key, src: exprSrc })} style={{ aspectRatio: "1/1", background: C.bgCard, border: `1px solid ${C.border06}`, overflow: "hidden", position: "relative", cursor: hasError ? "default" : "pointer", transition: `border-color 0.3s ${EASE}` }}
+                    onMouseEnter={(e) => { if (!hasError) e.currentTarget.style.borderColor = char.color; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border06; }}>
+                    {!hasError ? (
+                      <img src={exprSrc} alt={EXPRESSION_LABELS[key]} onError={() => setExprErrors((prev) => ({ ...prev, [key]: true }))} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    ) : (
+                      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <span style={{ fontSize: 13, color: C.text25 }}>{EXPRESSION_LABELS[key]}</span>
+                      </div>
+                    )}
+                    <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "6px 10px", background: `linear-gradient(to top, ${C.bgDeep}, transparent)` }}>
+                      <span style={{ fontFamily: "var(--f-body)", fontSize: 10, color: C.text45 }}>{EXPRESSION_LABELS[key]}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div style={{ marginTop: isMobile ? 20 : 28, textAlign: "center" }}>
+              <Link to={`/gallery?character=${char.id}`} style={{
+                display: "inline-block", padding: isMobile ? "12px 28px" : "14px 36px",
+                fontFamily: "var(--f-display-en)", fontSize: 11, letterSpacing: "0.2em",
+                textTransform: "uppercase", color: char.color, textDecoration: "none",
+                border: `1px solid ${`color-mix(in oklch, ${char.color} 30%, transparent)`}`,
+                background: C.bgCard, transition: `border-color 0.3s ${EASE}`,
+              }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = char.color; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = `color-mix(in oklch, ${char.color} 30%, transparent)`; }}>
+                View All in Gallery &rarr;
+              </Link>
+            </div>
+          </section>
+        )}
+
+        {/* Navigation */}
+        <section style={{ padding: isMobile ? "32px 24px 48px" : "48px 64px 80px", maxWidth: 1100, margin: "0 auto" }}>
+          {sameAgency.length > 0 && (
+            <div style={{ marginBottom: isMobile ? 32 : 48 }}>
+              <h3 style={{ fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase", color: C.goldText, marginBottom: isMobile ? 16 : 20 }}>Same Agency</h3>
+              <div style={{ display: "flex", gap: isMobile ? 10 : 16, flexWrap: "wrap" }}>
+                {sameAgency.map((c) => (
+                  <Link key={c.id} to={`/characters/${c.id}`} style={{ textDecoration: "none", padding: isMobile ? "10px 16px" : "12px 20px", background: C.bgCard, border: `1px solid ${C.border06}`, display: "flex", alignItems: "center", gap: 10, transition: "border-color 0.3s" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = c.color; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border06; }}>
+                    <span style={{ color: c.color, fontSize: 8 }}>●</span>
+                    <span style={{ fontFamily: "var(--f-body)", fontSize: 13, color: C.text55 }}>{c.name}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+          <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 20, borderTop: `1px solid ${C.border06}` }}>
+            {prevChar ? <Link to={`/characters/${prevChar.id}`} style={{ textDecoration: "none", color: C.text35, fontSize: 12, fontFamily: "var(--f-body)" }}>&larr; {prevChar.name}</Link> : <span />}
+            {nextChar ? <Link to={`/characters/${nextChar.id}`} style={{ textDecoration: "none", color: C.text35, fontSize: 12, fontFamily: "var(--f-body)" }}>{nextChar.name} &rarr;</Link> : <span />}
+          </div>
+        </section>
+
+        <Footer isMobile={isMobile} />
+      </div>
+
+      {/* Lightbox */}
+      {lightbox && (
+        <div onClick={() => setLightbox(null)} style={{ position: "fixed", inset: 0, zIndex: 9999, background: C.bgOverlay, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+          <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: isMobile ? "90vw" : "60vw", maxHeight: "80vh", position: "relative" }}>
+            <img src={lightbox.src} alt={EXPRESSION_LABELS[lightbox.key]} style={{ maxWidth: "100%", maxHeight: "80vh", objectFit: "contain", border: `1px solid ${C.border10}` }} />
+            <p style={{ textAlign: "center", fontFamily: "var(--f-body)", fontSize: 13, color: C.text55, marginTop: 12 }}>{char.name} — {EXPRESSION_LABELS[lightbox.key]}</p>
+            <button onClick={() => setLightbox(null)} style={{ position: "absolute", top: -12, right: -12, width: 32, height: 32, background: C.bgDeep, border: `1px solid ${C.border10}`, borderRadius: "50%", color: C.text55, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function CharDetail() {
   const { name } = useParams();
   const isMobile = useIsMobile();
@@ -24,10 +439,6 @@ export default function CharDetail() {
   const [exprErrors, setExprErrors] = useState({});
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [contentReached, setContentReached] = useState(false);
-  const [jgrBeat, setJgrBeat] = useState(0);
-  const [jgrAssetsReady, setJgrAssetsReady] = useState(false);
-  const [jgrFallback, setJgrFallback] = useState(false);
-  const [jgrFadingOut, setJgrFadingOut] = useState(false);
   const timerRefs = useRef([]);
   const imgRef = useRef(null);
   const contentRef = useRef(null);
@@ -36,7 +447,6 @@ export default function CharDetail() {
   const charIndex = characters.findIndex((c) => c.id === name);
   const prevChar = charIndex > 0 ? characters[charIndex - 1] : null;
   const nextChar = charIndex < characters.length - 1 ? characters[charIndex + 1] : null;
-  const isJGR = char?.id === "janggru";
   const sameAgency = char
     ? characters.filter((c) => c.agency === char.agency && c.id !== char.id)
     : [];
@@ -47,26 +457,13 @@ export default function CharDetail() {
     setImgError(false); setUiReady(false); setPhase(0);
     setGlitchDone(false); setExprErrors({}); setLightbox(null);
     setTilt({ x: 0, y: 0 }); setContentReached(false);
-    setJgrBeat(0); setJgrAssetsReady(false); setJgrFallback(false); setJgrFadingOut(false);
-    document.body.style.overflow = "";
-
     timerRefs.current.forEach(clearTimeout);
+    const t1 = setTimeout(() => { setUiReady(true); setPhase(1); }, 100);
+    const t2 = setTimeout(() => setGlitchDone(true), 600);
+    const t3 = setTimeout(() => setPhase(2), 2200);
+    timerRefs.current = [t1, t2, t3];
 
-    if (isJGR) {
-      setUiReady(true);
-      setGlitchDone(true);
-      // Beat timing starts in separate effect after preload
-    } else {
-      const t1 = setTimeout(() => { setUiReady(true); setPhase(1); }, 100);
-      const t2 = setTimeout(() => setGlitchDone(true), 600);
-      const t3 = setTimeout(() => setPhase(2), 2200);
-      timerRefs.current = [t1, t2, t3];
-    }
-
-    return () => {
-      timerRefs.current.forEach(clearTimeout);
-      document.body.style.overflow = "";
-    };
+    return () => timerRefs.current.forEach(clearTimeout);
   }, [name]);
 
   // Scroll detection
@@ -83,62 +480,6 @@ export default function CharDetail() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [lightbox]);
-
-  // JGR: Preload intro assets
-  useEffect(() => {
-    if (!isJGR || !char?.intro1 || !char?.intro2) {
-      if (isJGR) setJgrFallback(true);
-      return;
-    }
-    let alive = true;
-    Promise.allSettled(
-      [char.intro1, char.intro2].map(
-        (src) => new Promise((resolve, reject) => {
-          const img = new window.Image();
-          img.src = src;
-          img.onload = resolve;
-          img.onerror = reject;
-        })
-      )
-    ).then((results) => {
-      if (!alive) return;
-      if (results.every((r) => r.status === "fulfilled")) {
-        setJgrAssetsReady(true);
-      } else {
-        setJgrFallback(true);
-      }
-    });
-    return () => { alive = false; };
-  }, [isJGR, char?.intro1, char?.intro2]);
-
-  // JGR: Fallback → run normal intro timers
-  useEffect(() => {
-    if (!isJGR || !jgrFallback) return;
-    const t1 = setTimeout(() => { setUiReady(true); setPhase(1); }, 100);
-    const t2 = setTimeout(() => setGlitchDone(true), 600);
-    const t3 = setTimeout(() => setPhase(2), 2200);
-    timerRefs.current = [t1, t2, t3];
-    return () => timerRefs.current.forEach(clearTimeout);
-  }, [jgrFallback]);
-
-  // JGR: Beat timing (after preload)
-  useEffect(() => {
-    if (!isJGR || !jgrAssetsReady) return;
-    setPhase(1);
-    document.body.style.overflow = "hidden";
-    const tb1 = setTimeout(() => setJgrBeat(1), 200);
-    const tb2 = setTimeout(() => setJgrBeat(2), 3000);
-    const tb3 = setTimeout(() => {
-      setJgrFadingOut(true);
-      setPhase(2);
-      setTimeout(() => {
-        setJgrFadingOut(false);
-        document.body.style.overflow = "";
-      }, 500);
-    }, 5000);
-    timerRefs.current = [tb1, tb2, tb3];
-    return () => timerRefs.current.forEach(clearTimeout);
-  }, [jgrAssetsReady]);
 
   // Content section observer (seam cue dismissal)
   useEffect(() => {
@@ -165,38 +506,10 @@ export default function CharDetail() {
     setTilt({ x: 0, y: 0 });
   }
 
-  // JGR: Skip intro
-  function skipJgrIntro() {
-    timerRefs.current.forEach(clearTimeout);
-    setJgrBeat(0);
-    setJgrFadingOut(false);
-    setPhase(2);
-    window.scrollTo(0, 0);
-    document.body.style.overflow = "";
-  }
-
   const [exprRef, exprV] = useReveal(0.1);
   const [navRef, navV] = useReveal(0.1);
 
-  const showJgrIntro = isJGR && jgrAssetsReady && phase < 2 && !jgrFallback;
-  const showJgrOverlay = showJgrIntro || jgrFadingOut;
   const showPhase2Cue = phase === 2 && !contentReached;
-
-  // JGR: Skip on wheel/touch/ESC
-  useEffect(() => {
-    if (!showJgrOverlay) return;
-    function onWheel(e) { e.preventDefault(); skipJgrIntro(); }
-    function onTouch(e) { e.preventDefault(); skipJgrIntro(); }
-    function onKey(e) { if (e.key === "Escape") skipJgrIntro(); }
-    window.addEventListener("wheel", onWheel, { passive: false });
-    window.addEventListener("touchmove", onTouch, { passive: false });
-    window.addEventListener("keydown", onKey);
-    return () => {
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("touchmove", onTouch);
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [showJgrOverlay]);
   const cueCopy = char
     ? (char.expressions?.length ? "Expressions Below" : "Continue Below")
     : "";
@@ -208,6 +521,11 @@ export default function CharDetail() {
         <Link to="/" style={{ color: C.gold, textDecoration: "none", fontSize: 13, letterSpacing: "0.1em" }}>&larr; 메인으로 돌아가기</Link>
       </div>
     );
+  }
+
+  // JGR → 완전 분리 렌더 블록
+  if (char.id === "janggru") {
+    return <JgrCharDetail char={char} isMobile={isMobile} prevChar={prevChar} nextChar={nextChar} sameAgency={sameAgency} />;
   }
 
   const hasImage = char.image && !imgError;
@@ -240,109 +558,11 @@ export default function CharDetail() {
   return (
     <div style={{ background: C.bgDeep, color: C.white, minHeight: "100vh", position: "relative", overflowX: "hidden" }}>
       <Seo title={char.name} description={`${char.name} — ${char.role}. 프라임시티 캐릭터 상세 프로필.`} path={`/characters/${name}`} />
-      {!showJgrOverlay && <Particles isMobile={isMobile} />}
-      <div style={{ opacity: showJgrOverlay ? 0 : 1, transition: `opacity 0.5s ${EASE}`, pointerEvents: showJgrOverlay ? "none" : "auto" }}>
-        <Navbar scrolled={scrolled} isMobile={isMobile} />
-      </div>
-
-      {/* ══════════ JGR Cinematic Intro ══════════ */}
-      {showJgrOverlay && (
-        <div
-          onClick={skipJgrIntro}
-          style={{
-            position: "fixed", inset: 0, zIndex: 200,
-            background: "oklch(0 0 0)",
-            opacity: jgrFadingOut ? 0 : 1,
-            transition: "opacity 0.5s ease-out",
-            cursor: "pointer",
-            display: "flex", alignItems: "center", justifyContent: "center",
-          }}
-        >
-          {/* Beat 1: intro1 세피아 */}
-          <img src={char.intro1} alt="" style={{
-            position: "absolute", inset: 0, width: "100%", height: "100%",
-            objectFit: "cover",
-            objectPosition: isMobile ? "65% 50%" : "center 40%",
-            filter: jgrBeat === 1 ? "sepia(0.8) brightness(0.7) contrast(1.1)" : "sepia(0) brightness(0)",
-            opacity: jgrBeat === 1 ? 1 : 0,
-            transition: "filter 1.5s ease-out, opacity 1s ease-out",
-          }} />
-
-          {/* Beat 2: intro2 풀컬러 */}
-          <img src={char.intro2} alt="" style={{
-            position: "absolute", inset: 0, width: "100%", height: "100%",
-            objectFit: "cover",
-            objectPosition: isMobile ? "45% 40%" : "center 30%",
-            opacity: jgrBeat === 2 ? 1 : 0,
-            transform: jgrBeat === 2 ? "scale(1)" : "scale(1.05)",
-            transition: "opacity 1.2s ease-out, transform 3s ease-out",
-          }} />
-
-          {/* 필름 그레인 */}
-          <div style={{
-            position: "absolute", inset: 0,
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E")`,
-            opacity: jgrBeat === 1 ? 0.35 : 0.08,
-            mixBlendMode: "overlay", transition: "opacity 1.5s ease-out",
-            pointerEvents: "none",
-          }} />
-
-          {/* 비네트 */}
-          <div style={{
-            position: "absolute", inset: 0,
-            background: "radial-gradient(ellipse at center, transparent 30%, oklch(0 0 0 / 0.7) 100%)",
-            pointerEvents: "none",
-          }} />
-
-          {/* Letterbox matte */}
-          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "7%", background: "oklch(0 0 0)", zIndex: 2 }} />
-          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "7%", background: "oklch(0 0 0)", zIndex: 2 }} />
-
-          {/* Chapter label */}
-          <span style={{
-            position: "absolute", bottom: isMobile ? "10%" : "12%", left: isMobile ? 20 : 48,
-            fontFamily: "var(--f-display-en)", fontSize: isMobile ? 9 : 11,
-            letterSpacing: "0.25em", textTransform: "uppercase",
-            color: "oklch(0.6 0 0)", opacity: jgrBeat >= 1 ? 0.6 : 0,
-            transition: "opacity 1s ease-out", pointerEvents: "none", zIndex: 3,
-          }}>
-            Jang Gru / Retake
-          </span>
-
-          {/* 대사 */}
-          <p style={{
-            position: "relative", zIndex: 3, textAlign: "center",
-            padding: isMobile ? "0 24px" : "0 48px",
-            fontFamily: "var(--f-display-kr)",
-            fontSize: isMobile ? "clamp(20px, 6vw, 28px)" : "clamp(28px, 3.5vw, 42px)",
-            fontWeight: 400, fontStyle: "italic",
-            color: jgrBeat === 1 ? "oklch(0.85 0.03 80)" : "oklch(0.95 0 0)",
-            margin: 0, lineHeight: 1.6,
-            opacity: jgrBeat >= 1 ? 1 : 0,
-            transform: jgrBeat >= 1 ? "translateY(0)" : "translateY(20px)",
-            transition: "all 1s ease-out, color 1.2s ease-out",
-            textShadow: "0 2px 24px oklch(0 0 0 / 0.8)",
-          }}>
-            {jgrBeat === 1 ? "보고있어? 이게―..." : "내 마지막 꿈이야."}
-          </p>
-
-          {/* Beat 2 스포트라이트 블룸 */}
-          {jgrBeat === 2 && (
-            <div style={{
-              position: "absolute", top: "15%", left: "50%",
-              width: isMobile ? 200 : 400, height: isMobile ? 200 : 400,
-              borderRadius: "50%",
-              background: "radial-gradient(circle, oklch(0.85 0.12 300 / 0.25), transparent 70%)",
-              transform: "translate(-50%, -50%)", filter: "blur(40px)",
-              animation: "charGlowPulse 3s ease-in-out infinite",
-              pointerEvents: "none",
-            }} />
-          )}
-        </div>
-      )}
+      <Particles isMobile={isMobile} />
+      <Navbar scrolled={scrolled} isMobile={isMobile} />
 
       {/* ══════════ Dynamic Cyberpunk Background ══════════ */}
-      <div style={{ position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none", overflow: "hidden", opacity: showJgrOverlay ? 0 : 1, transition: `opacity 0.5s ${EASE}` }}>
+      <div style={{ position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none", overflow: "hidden" }}>
         {/* Vertical data grid */}
         <div style={{
           position: "absolute", inset: 0,
@@ -483,8 +703,8 @@ export default function CharDetail() {
           }}
         />
 
-        {/* ── Phase 1 overlay: Name + tagline (JGR 제외) ── */}
-        {!isJGR && <div
+        {/* ── Phase 1 overlay: Name + tagline ── */}
+        <div
           style={{
             position: "absolute", inset: 0,
             display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
@@ -503,7 +723,7 @@ export default function CharDetail() {
           <p style={{ fontFamily: "var(--f-display-kr)", fontSize: isMobile ? 15 : 18, color: C.text70, fontStyle: "italic", margin: 0, lineHeight: 1.6, textAlign: "center", opacity: uiReady ? 1 : 0, transform: uiReady ? "translateY(0)" : "translateY(16px)", transition: t(0.6) }}>
             &ldquo;{char.tagline}&rdquo;
           </p>
-        </div>}
+        </div>
 
         {/* ── Back link (phase 2) ── */}
         <div style={{ width: "100%", maxWidth: 1100, opacity: phase === 2 ? 1 : 0, transition: `opacity 0.6s ${EASE} 0.3s`, marginBottom: isMobile ? 24 : 40 }}>
@@ -786,8 +1006,8 @@ export default function CharDetail() {
           </div>
         </div>
 
-        {/* Scroll indicator (phase 1, JGR intro 중 숨김) */}
-        <div style={{ position: "absolute", bottom: isMobile ? 24 : 36, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: phase === 1 && !showJgrOverlay ? 1 : 0, transition: `opacity 0.6s ${EASE}`, pointerEvents: "none" }}>
+        {/* Scroll indicator (phase 1) */}
+        <div style={{ position: "absolute", bottom: isMobile ? 24 : 36, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: phase === 1 ? 1 : 0, transition: `opacity 0.6s ${EASE}`, pointerEvents: "none" }}>
           <span style={{ fontFamily: "var(--f-display-en)", fontSize: 9, letterSpacing: "0.3em", color: C.text25, textTransform: "uppercase" }}>Scroll</span>
           <div style={{ width: 1, height: 28, background: `linear-gradient(to bottom, ${char.color}, transparent)`, animation: "scrollPulse 2s ease-in-out infinite" }} />
         </div>
