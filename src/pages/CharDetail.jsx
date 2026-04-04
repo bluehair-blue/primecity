@@ -579,26 +579,27 @@ export default function CharDetail() {
         </div>
 
         {/* ── Phase 2 seam cue ── */}
-        <div style={{ width: "100%", maxWidth: 1100, marginTop: isMobile ? 12 : 20 }}>
+        <div style={{ width: "100%", maxWidth: 1100, marginTop: isMobile ? 48 : 80 }}>
           <div style={{
-            display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 16,
             opacity: showPhase2Cue ? 1 : 0,
-            transform: showPhase2Cue ? "translateY(0)" : "translateY(-6px)",
+            transform: showPhase2Cue ? "translateY(0)" : "translateY(-10px)",
             transition: `opacity 0.6s ${EASE}, transform 0.6s ${EASE}`,
             pointerEvents: "none",
           }}>
             <span style={{
-              fontFamily: "var(--f-display-en)", fontSize: 9,
-              letterSpacing: "0.28em", textTransform: "uppercase", color: C.text25,
+              fontFamily: "var(--f-display-en)", fontSize: 13,
+              letterSpacing: "0.35em", textTransform: "uppercase", color: C.text35,
             }}>
               {cueCopy}
             </span>
             <div style={{
-              width: isMobile ? 72 : 112, height: 1,
+              width: isMobile ? 200 : 400, height: 1,
               background: `linear-gradient(90deg, transparent, ${char.color}, transparent)`,
+              boxShadow: `0 0 12px ${`color-mix(in oklch, ${char.color} 30%, transparent)`}`,
             }} />
             <div style={{
-              width: 1, height: 18,
+              width: 1, height: 48,
               background: `linear-gradient(to bottom, ${char.color}, transparent)`,
               animation: "scrollPulse 2s ease-in-out 2",
             }} />
