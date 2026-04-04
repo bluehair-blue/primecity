@@ -102,7 +102,7 @@ export default function CharDetail() {
 
   const showPhase2Cue = phase === 2 && !contentReached;
   const cueCopy = char
-    ? (char.sign ? "Signature Below" : char.expressions?.length ? "Expressions Below" : "Continue Below")
+    ? (char.expressions?.length ? "Expressions Below" : "Continue Below")
     : "";
 
   if (!char) {
@@ -484,6 +484,26 @@ export default function CharDetail() {
                 </div>
               )}
             </div>
+
+            {/* Signature — below profile image */}
+            {char.sign && phase === 2 && (
+              <div style={{
+                marginTop: 16, textAlign: "center",
+                opacity: phase === 2 ? 1 : 0,
+                transition: `opacity 0.8s ${EASE} 0.5s`,
+              }}>
+                <img
+                  src={char.sign}
+                  alt={`${char.name} signature`}
+                  style={{
+                    maxWidth: isMobile ? 160 : 220,
+                    height: "auto",
+                    opacity: 0.85,
+                    filter: "drop-shadow(0 2px 12px oklch(0 0 0 / 0.5))",
+                  }}
+                />
+              </div>
+            )}
           </div>
 
           {/* Profile panels — slide in */}
@@ -607,38 +627,9 @@ export default function CharDetail() {
         </div>
       </section>
 
-      {/* ══════════ Signature ══════════ */}
-      {char.sign && (
-        <section ref={contentRef} style={{
-          position: "relative", zIndex: 2,
-          padding: isMobile ? "32px 24px" : "48px 64px",
-          maxWidth: 1100, margin: "0 auto",
-          display: "flex", flexDirection: "column",
-          alignItems: isMobile ? "center" : "flex-start",
-        }}>
-          <h3 style={{
-            fontFamily: "var(--f-display-en)", fontSize: 10,
-            letterSpacing: "0.3em", textTransform: "uppercase",
-            color: C.goldText, marginBottom: 12,
-          }}>
-            Signature
-          </h3>
-          <img
-            src={char.sign}
-            alt={`${char.name} signature`}
-            style={{
-              maxWidth: isMobile ? 200 : 300,
-              height: "auto",
-              opacity: 0.9,
-              filter: "drop-shadow(0 2px 16px oklch(0 0 0 / 0.5))",
-            }}
-          />
-        </section>
-      )}
-
       {/* ══════════ Concept Art & Expressions Preview ══════════ */}
       {char.expressions && char.expressions.length > 0 && (
-        <section ref={(el) => { exprRef.current = el; if (!char.sign) contentRef.current = el; }} style={{ position: "relative", zIndex: 2, padding: isMobile ? "48px 24px" : "64px 64px", maxWidth: 1100, margin: "0 auto", opacity: exprV ? 1 : 0, transform: exprV ? "translateY(0)" : "translateY(30px)", transition: `all 0.8s ${EASE}` }}>
+        <section ref={(el) => { exprRef.current = el; contentRef.current = el; }} style={{ position: "relative", zIndex: 2, padding: isMobile ? "48px 24px" : "64px 64px", maxWidth: 1100, margin: "0 auto", opacity: exprV ? 1 : 0, transform: exprV ? "translateY(0)" : "translateY(30px)", transition: `all 0.8s ${EASE}` }}>
           <h3 style={{ fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase", color: C.goldText, marginBottom: 6 }}>
             Concept Art &amp; Expressions
           </h3>
@@ -704,7 +695,7 @@ export default function CharDetail() {
       )}
 
       {/* ══════════ Navigation ══════════ */}
-      <section ref={(el) => { navRef.current = el; if (!char.sign && !(char.expressions?.length)) contentRef.current = el; }} style={{ position: "relative", zIndex: 2, padding: isMobile ? "32px 24px 48px" : "48px 64px 80px", maxWidth: 1100, margin: "0 auto", opacity: navV ? 1 : 0, transform: navV ? "translateY(0)" : "translateY(20px)", transition: `all 0.8s ${EASE}` }}>
+      <section ref={(el) => { navRef.current = el; if (!(char.expressions?.length)) contentRef.current = el; }} style={{ position: "relative", zIndex: 2, padding: isMobile ? "32px 24px 48px" : "48px 64px 80px", maxWidth: 1100, margin: "0 auto", opacity: navV ? 1 : 0, transform: navV ? "translateY(0)" : "translateY(20px)", transition: `all 0.8s ${EASE}` }}>
         {sameAgency.length > 0 && (
           <div style={{ marginBottom: isMobile ? 32 : 48 }}>
             <h3 style={{ fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase", color: C.goldText, marginBottom: isMobile ? 16 : 20 }}>Same Agency</h3>
