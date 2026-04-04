@@ -392,6 +392,22 @@ function MobileCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageCha
               <InfoTag label="직업" value={char.role} accent={char.color} />
             </div>
 
+            {/* Sign */}
+            {char.sign && (
+              <div style={{ margin: "0 0 14px" }}>
+                <img
+                  src={char.sign}
+                  alt={`${char.name} signature`}
+                  style={{
+                    maxWidth: 160,
+                    height: "auto",
+                    opacity: 0.85,
+                    filter: "drop-shadow(0 2px 8px oklch(0 0 0 / 0.4))",
+                  }}
+                />
+              </div>
+            )}
+
             {/* Tagline */}
             <p
               style={{
@@ -808,6 +824,22 @@ function DesktopCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageCh
             <InfoTag label="소속" value={char.agency} accent={char.color} />
             <InfoTag label="직업" value={char.role} accent={char.color} />
           </div>
+
+          {/* Sign */}
+          {char.sign && (
+            <div style={{ margin: "0 0 16px" }}>
+              <img
+                src={char.sign}
+                alt={`${char.name} signature`}
+                style={{
+                  maxWidth: 220,
+                  height: "auto",
+                  opacity: 0.85,
+                  filter: "drop-shadow(0 2px 12px oklch(0 0 0 / 0.5))",
+                }}
+              />
+            </div>
+          )}
 
           {/* Tagline */}
           <p

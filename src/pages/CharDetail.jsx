@@ -560,6 +560,35 @@ export default function CharDetail() {
         </div>
       </section>
 
+      {/* ══════════ Signature ══════════ */}
+      {char.sign && (
+        <section style={{
+          position: "relative", zIndex: 2,
+          padding: isMobile ? "32px 24px" : "48px 64px",
+          maxWidth: 1100, margin: "0 auto",
+          display: "flex", flexDirection: "column",
+          alignItems: isMobile ? "center" : "flex-start",
+        }}>
+          <h3 style={{
+            fontFamily: "var(--f-display-en)", fontSize: 10,
+            letterSpacing: "0.3em", textTransform: "uppercase",
+            color: C.goldText, marginBottom: 12,
+          }}>
+            Signature
+          </h3>
+          <img
+            src={char.sign}
+            alt={`${char.name} signature`}
+            style={{
+              maxWidth: isMobile ? 200 : 300,
+              height: "auto",
+              opacity: 0.9,
+              filter: "drop-shadow(0 2px 16px oklch(0 0 0 / 0.5))",
+            }}
+          />
+        </section>
+      )}
+
       {/* ══════════ Concept Art & Expressions Preview ══════════ */}
       {char.expressions && char.expressions.length > 0 && (
         <section ref={exprRef} style={{ position: "relative", zIndex: 2, padding: isMobile ? "48px 24px" : "64px 64px", maxWidth: 1100, margin: "0 auto", opacity: exprV ? 1 : 0, transform: exprV ? "translateY(0)" : "translateY(30px)", transition: `all 0.8s ${EASE}` }}>
