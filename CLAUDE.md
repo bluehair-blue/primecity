@@ -129,8 +129,10 @@
 
 - 생성: 1,125장 + 특수 90장 (NAI API, tools/asset_generator.py)
 - CDN: img.bluehair.blue/ent/{코드}/{번호}.webp?v=2
-- 검열: ntd11 YOLO-seg → ROI→CLOSE→flood fill→best component→convex hull
-- 74개 상황코드: 감정(1-9), 일상(10-18), NSFW(20-86)
+- 검열: ntd11 YOLO-seg → ROI→CLOSE→flood fill→best component→convex hull→**safety dilation→ROI re-clamp**
+- 검열 스타일: 흰색(255,255,255) + edge_blur=9 (가우시안 안티에일리어싱)
+- 75개 상황코드: 감정(1-9), 일상(10-18), NSFW(20-86)
+- 이미지 경로: `챗봇 제작/캐릭터 이미지/` (프로젝트 상위)
 
 > 상세 → `research.md` §6, §7.3, `tools/research_sub.md`
 
@@ -206,8 +208,8 @@
 
 ## 작업 현황 (요약)
 
-**완료**: 사이트 16페이지, 디자인 시스템, 챗봇 프롬프트 Phase 1~4 (56KB), 에셋 1,215장+, 보안, 파일 정리
-**미완**: 검열 배치 실행, 에덴챗 삽입 테스트, Phase 5 프롬프트 품질, Works 확장
+**완료**: 사이트 16페이지, 디자인 시스템, 챗봇 프롬프트 Phase 1~4 (56KB), 에셋 1,215장+, 보안, 파일 정리, tools/ 파이프라인 개선 (18항목), NSFW 검열 배치 (264/855장)
+**미완**: 에덴챗 삽입 테스트, Phase 5 프롬프트 품질, Works 확장
 
 > 상세 → `plan.md`
 > 아이디어 → `idea.md`

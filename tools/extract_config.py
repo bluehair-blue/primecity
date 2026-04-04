@@ -6,14 +6,22 @@ Usage:
   python extract_config.py
 """
 import json
-import os
+import logging
 import sys
+from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DOCS = os.path.join(BASE_DIR, "docs")
-OUT = os.path.join(BASE_DIR, "tools", "asset_config.json")
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[logging.StreamHandler(sys.stdout)],
+)
+log = logging.getLogger("extract_config")
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+DOCS = BASE_DIR / "docs"
+OUT = BASE_DIR / "tools" / "asset_config.json"
 
 # ── Character code mapping ──
 CODE_MAP = {
@@ -91,11 +99,12 @@ def extract_characters(backup):
 
 
 def extract_scenes(docs_dir):
+    docs_dir = Path(docs_dir)
     preset_files = [
-        os.path.join(docs_dir, "NAIS_Preset_감정2_generated.json"),
-        os.path.join(docs_dir, "NAIS_Preset_일상_generated.json"),
-        os.path.join(docs_dir, "NAIS_Preset_상황_generated.json"),
-        os.path.join(docs_dir, "NAIS_Preset_착의_generated.json"),
+        docs_dir / "NAIS_Preset_감정2_generated.json",
+        docs_dir / "NAIS_Preset_일상_generated.json",
+        docs_dir / "NAIS_Preset_상황_generated.json",
+        docs_dir / "NAIS_Preset_착의_generated.json",
     ]
 
     # Build exact name→number map (case-insensitive, hyphen-normalized)
@@ -129,10 +138,10 @@ def extract_scenes(docs_dir):
 
     scenes = {}
     for path in preset_files:
-        if not os.path.exists(path):
-            print(f"  WARNING: {path} not found, skipping")
+        if not path.exists():
+            log.warning(f"  {path.name} not found, skipping")
             continue
-        with open(path, "r", encoding="utf-8") as f:
+        with path.open("r", encoding="utf-8") as f:
             preset = json.load(f)
         for scene in preset.get("scenes", []):
             sname = norm(scene["name"])
@@ -169,32 +178,32 @@ def extract_base(backup):
 
 
 def main():
-    backup_path = os.path.join(DOCS, "nais2-backup-2026-03-22.json")
-    if not os.path.exists(backup_path):
-        print(f"ERROR: {backup_path} not found")
+    backup_path = DOCS / "nais2-backup-2026-03-22.json"
+    if not backup_path.exists():
+        log.error(f"{backup_path} not found")
         return
 
-    print("Loading NAIS2 backup...")
-    with open(backup_path, "r", encoding="utf-8") as f:
+    log.info("Loading NAIS2 backup...")
+    with backup_path.open("r", encoding="utf-8") as f:
         backup = json.load(f)
 
-    print("Extracting base generation settings...")
+    log.info("Extracting base generation settings...")
     base = extract_base(backup)
 
-    print("Extracting character prompts...")
+    log.info("Extracting character prompts...")
     characters = extract_characters(backup)
-    print(f"  {len(characters)} characters extracted")
+    log.info(f"  {len(characters)} characters extracted")
 
-    print("Extracting scene prompts...")
+    log.info("Extracting scene prompts...")
     scenes = extract_scenes(DOCS)
-    print(f"  {len(scenes)} scenes extracted")
+    log.info(f"  {len(scenes)} scenes extracted")
 
     # Check missing scenes
     all_nums = sorted(SCENE_VARIANT.keys())
     missing = [n for n in all_nums if n not in scenes]
     if missing:
-        print(f"  WARNING: {len(missing)} scenes not matched from presets: {missing}")
-        print("  These will need manual prompt entry in asset_config.json")
+        log.warning(f"  {len(missing)} scenes not matched from presets: {missing}")
+        log.warning("  These will need manual prompt entry in asset_config.json")
         for n in missing:
             scenes[n] = {
                 "name": SCENE_NAMES.get(n, f"scene-{n}"),
@@ -211,12 +220,12 @@ def main():
         "scenes": {str(k): v for k, v in sorted(scenes.items())},
     }
 
-    with open(OUT, "w", encoding="utf-8") as f:
+    with OUT.open("w", encoding="utf-8") as f:
         json.dump(config, f, ensure_ascii=False, indent=2)
 
-    print(f"\nSaved to {OUT}")
-    print(f"Characters: {len(characters)}, Scenes: {len(scenes)}")
-    print("Review the file and fill in any TODO prompts before running the generator.")
+    log.info(f"Saved to {OUT}")
+    log.info(f"Characters: {len(characters)}, Scenes: {len(scenes)}")
+    log.info("Review the file and fill in any TODO prompts before running the generator.")
 
 
 if __name__ == "__main__":

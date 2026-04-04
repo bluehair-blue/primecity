@@ -28,8 +28,9 @@ NAI API를 사용하여 캐릭터별 장면 이미지를 자동 생성합니다.
   python tools/asset_generator.py --token YOUR_TOKEN --retry-failed
 """
 
+from __future__ import annotations
+
 import argparse
-import base64
 import io
 import json
 import logging
@@ -38,7 +39,7 @@ import random
 import sys
 import time
 import zipfile
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 try:
@@ -58,7 +59,8 @@ STATE_PATH = TOOLS_DIR / "generation_state.json"
 LOG_PATH = TOOLS_DIR / "generation.log"
 
 # Output base: 캐릭터 이미지 폴더 (CDN 구조와 동일)
-OUTPUT_BASE = TOOLS_DIR.parent / "캐릭터 이미지"
+PROJECT_ROOT = TOOLS_DIR.parent                          # 연예계/
+OUTPUT_BASE = PROJECT_ROOT.parent / "캐릭터 이미지"      # 챗봇 제작/캐릭터 이미지/
 
 # ── Timing ──
 DELAY_NORMAL = 12       # 정상 생성 간 대기 (초, 최소 1초 필수)
@@ -84,42 +86,48 @@ log = logging.getLogger("asset_gen")
 #  Config & State
 # ═══════════════════════════════════════════════════════
 
-def load_config():
+def load_config() -> dict:
     with open(CONFIG_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
-def load_state():
+def load_state() -> dict:
     if STATE_PATH.exists():
         with open(STATE_PATH, "r", encoding="utf-8") as f:
-            return json.load(f)
+            state = json.load(f)
+        # Migrate failed: list → dict{str_key: reason}
+        for code, val in state.get("failed", {}).items():
+            if isinstance(val, list):
+                state["failed"][code] = {str(s): "unknown (migrated)" for s in val}
+        return state
     return {"completed": {}, "failed": {}, "started_at": None, "last_updated": None}
 
 
-def save_state(state):
-    state["last_updated"] = datetime.now().isoformat()
+def save_state(state: dict) -> None:
+    state["last_updated"] = datetime.now(timezone.utc).isoformat()
     with open(STATE_PATH, "w", encoding="utf-8") as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
 
 
-def mark_completed(state, char_code, scene_num):
+def mark_completed(state: dict, char_code: str, scene_num: int) -> None:
     state.setdefault("completed", {}).setdefault(char_code, [])
     if scene_num not in state["completed"][char_code]:
         state["completed"][char_code].append(scene_num)
-    # Remove from failed if present
-    if char_code in state.get("failed", {}) and scene_num in state["failed"][char_code]:
-        state["failed"][char_code].remove(scene_num)
+    # Remove from failed (str key)
+    if char_code in state.get("failed", {}):
+        state["failed"][char_code].pop(str(scene_num), None)
+        if not state["failed"][char_code]:
+            del state["failed"][char_code]
     save_state(state)
 
 
-def mark_failed(state, char_code, scene_num, reason):
-    state.setdefault("failed", {}).setdefault(char_code, [])
-    if scene_num not in state["failed"][char_code]:
-        state["failed"][char_code].append(scene_num)
+def mark_failed(state: dict, char_code: str, scene_num: int, reason: str) -> None:
+    state.setdefault("failed", {}).setdefault(char_code, {})
+    state["failed"][char_code][str(scene_num)] = reason
     save_state(state)
 
 
-def is_done(state, char_code, scene_num):
+def is_done(state: dict, char_code: str, scene_num: int) -> bool:
     return scene_num in state.get("completed", {}).get(char_code, [])
 
 
@@ -127,7 +135,7 @@ def is_done(state, char_code, scene_num):
 #  Prompt Construction
 # ═══════════════════════════════════════════════════════
 
-def clean_char_prompt(raw):
+def clean_char_prompt(raw: str) -> str:
     """Strip #comments and clean whitespace from character prompt."""
     return ", ".join(
         line.strip()
@@ -136,7 +144,7 @@ def clean_char_prompt(raw):
     )
 
 
-def build_prompt(config, char_code, scene_num):
+def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str, str, int, int]:
     """Build prompts with proper NAI V4 char_captions separation.
 
     Returns (base_prompt, female_caption, male_caption, width, height).
@@ -178,7 +186,8 @@ def build_prompt(config, char_code, scene_num):
 #  NAI API Call
 # ═══════════════════════════════════════════════════════
 
-def call_nai_api(token, base_prompt, female_caption, male_caption, negative, width, height):
+def call_nai_api(token: str, base_prompt: str, female_caption: str, male_caption: str,
+                 negative: str, width: int, height: int) -> "Image.Image":
     """Call NAI image generation API. Returns PIL Image or raises.
 
     NAI V4 prompt structure:
@@ -294,11 +303,13 @@ def call_nai_api(token, base_prompt, female_caption, male_caption, negative, wid
     # Response is a ZIP containing the image
     try:
         with zipfile.ZipFile(io.BytesIO(resp.content)) as zf:
-            img_name = zf.namelist()[0]
-            img_data = zf.read(img_name)
+            names = zf.namelist()
+            if not names:
+                raise APIError("API returned an empty ZIP archive")
+            img_data = zf.read(names[0])
             return Image.open(io.BytesIO(img_data))
-    except Exception as e:
-        raise APIError(f"Failed to decode image: {e}")
+    except (zipfile.BadZipFile, KeyError, OSError) as e:
+        raise APIError(f"Failed to decode image: {e}") from e
 
 
 class RateLimitError(Exception):
@@ -318,7 +329,7 @@ class APIError(Exception):
 #  Image Saving
 # ═══════════════════════════════════════════════════════
 
-def save_image(img, char_code, scene_num, config=None):
+def save_image(img: "Image.Image", char_code: str, scene_num: int, config: dict | None = None) -> Path:
     """Save as WebP in the CDN-matching folder structure.
 
     Special assets (900+) use custom output_path from config.
@@ -342,7 +353,7 @@ def save_image(img, char_code, scene_num, config=None):
     return out_path
 
 
-def save_image_png(img, char_code, scene_num):
+def save_image_png(img: "Image.Image", char_code: str, scene_num: int) -> Path:
     """Save as PNG for metadata comparison."""
     out_dir = OUTPUT_BASE / char_code
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -356,106 +367,125 @@ def save_image_png(img, char_code, scene_num):
 #  Generation Loop
 # ═══════════════════════════════════════════════════════
 
-def generate_batch(token, config, state, char_codes, scene_nums, dry_run=False, delay=DELAY_NORMAL):
-    """Main generation loop with retry & rate limit handling."""
+def _generate_one(token: str, config: dict, state: dict,
+                  char_code: str, scene_num: int, negative: str) -> bool:
+    """Single image generation with retry. Returns True on success.
+
+    AccountBannedError/AuthError/KeyboardInterrupt propagate to caller.
+    """
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            scene_name = config["scenes"][str(scene_num)]["name"]
+            base_prompt, female_cap, male_cap, w, h = build_prompt(config, char_code, scene_num)
+            log.info(f"  Generating {char_code}/{scene_num}.webp ({scene_name}) (attempt {attempt})")
+
+            img = call_nai_api(token, base_prompt, female_cap, male_cap, negative, w, h)
+            save_image(img, char_code, scene_num, config)
+            mark_completed(state, char_code, scene_num)
+            return True
+
+        except RateLimitError:
+            wait = min(DELAY_429_BASE * (2 ** (attempt - 1)), DELAY_429_MAX)
+            log.warning(f"  ⚠ 429 Rate Limit. {wait}초 대기...")
+            time.sleep(wait)
+
+        except (APIError, requests.RequestException) as e:
+            log.error(f"  ✖ Attempt {attempt}/{MAX_RETRIES}: {e}")
+            if attempt < MAX_RETRIES:
+                time.sleep(30)
+            else:
+                mark_failed(state, char_code, scene_num, str(e))
+                return False
+    return False
+
+
+def generate_batch(token, config, state, char_codes=None, scene_nums=None,
+                   retry_tasks=None, dry_run=False, delay=DELAY_NORMAL):
+    """Main generation loop.
+
+    Args:
+        retry_tasks: list of (char_code, scene_num) tuples for explicit retry.
+                     If given, char_codes/scene_nums are ignored.
+    """
+    # Path validation — only when actual I/O is needed
+    if not dry_run and not OUTPUT_BASE.exists():
+        log.error(f"Image directory not found: {OUTPUT_BASE.resolve()}")
+        sys.exit(1)
+
     negative = config["base"]["negative_prompt"]
-    total = len(char_codes) * len(scene_nums)
+
+    # Build task list
+    if retry_tasks:
+        tasks = retry_tasks
+    else:
+        tasks = [(c, s) for c in (char_codes or []) for s in (scene_nums or [])]
+    total = len(tasks)
     done = 0
-    consecutive_429 = 0
+    api_calls_since_cooldown = 0
 
     if not state.get("started_at"):
-        state["started_at"] = datetime.now().isoformat()
+        state["started_at"] = datetime.now(timezone.utc).isoformat()
         save_state(state)
 
-    log.info(f"═══ Generation Start: {len(char_codes)} chars × {len(scene_nums)} scenes = {total} images ═══")
+    log.info(f"═══ Generation Start: {total} tasks ═══")
 
-    for char_code in char_codes:
+    for char_code, scene_num in tasks:
         if char_code not in config["characters"]:
             log.error(f"Character {char_code} not found in config, skipping")
             continue
 
-        char_name = config["characters"][char_code]["name"]
-        log.info(f"\n── {char_code} ({char_name}) ──")
+        scene_key = str(scene_num)
+        if scene_key not in config["scenes"]:
+            log.warning(f"  Scene {scene_num} not in config, skipping")
+            continue
 
-        for scene_num in scene_nums:
-            scene_key = str(scene_num)
-            if scene_key not in config["scenes"]:
-                log.warning(f"  Scene {scene_num} not in config, skipping")
-                continue
+        done += 1
 
-            if is_done(state, char_code, scene_num):
-                done += 1
-                log.info(f"  [{done}/{total}] Scene {scene_num} already done, skipping")
-                continue
+        if is_done(state, char_code, scene_num):
+            log.info(f"  [{done}/{total}] Scene {scene_num} already done, skipping")
+            continue
 
+        if dry_run:
             scene_name = config["scenes"][scene_key]["name"]
             base_prompt, female_cap, male_cap, w, h = build_prompt(config, char_code, scene_num)
+            log.info(f"  [{done}/{total}] DRY-RUN {char_code}/{scene_num} ({scene_name}) {w}×{h}")
+            log.info(f"    base:    {base_prompt[:80]}...")
+            log.info(f"    female:  {female_cap[:80]}...")
+            log.info(f"    male:    {male_cap or '(none)'}")
+            continue
 
-            if dry_run:
-                done += 1
-                log.info(f"  [{done}/{total}] DRY-RUN {char_code}/{scene_num} ({scene_name}) {w}×{h}")
-                log.info(f"    base:    {base_prompt[:80]}...")
-                log.info(f"    female:  {female_cap[:80]}...")
-                log.info(f"    male:    {male_cap or '(none)'}")
-                continue
+        log.info(f"  [{done}/{total}]")
+        try:
+            success = _generate_one(token, config, state, char_code, scene_num, negative)
+        except AccountBannedError as e:
+            log.critical(f"  ✖ {e}")
+            log.critical("  즉시 중단합니다. NAI 계정을 확인하세요.")
+            mark_failed(state, char_code, scene_num, str(e))
+            save_state(state)
+            return
+        except AuthError as e:
+            log.error(f"  ✖ {e}")
+            log.error("  토큰을 갱신한 뒤 --retry-failed로 재실행하세요.")
+            mark_failed(state, char_code, scene_num, str(e))
+            save_state(state)
+            return
+        except KeyboardInterrupt:
+            log.info("\n  사용자 중단 (Ctrl+C). 진행 상태가 저장되었습니다.")
+            save_state(state)
+            return
 
-            # ── Retry loop ──
-            success = False
-            for attempt in range(1, MAX_RETRIES + 1):
-                try:
-                    done += 1
-                    log.info(f"  [{done}/{total}] Generating {char_code}/{scene_num}.webp ({scene_name}) {w}×{h}")
+        if not success:
+            log.error(f"  ✖ {char_code}/{scene_num} failed after {MAX_RETRIES} retries")
+            continue
 
-                    img = call_nai_api(token, base_prompt, female_cap, male_cap, negative, w, h)
-                    save_image(img, char_code, scene_num, config)
-                    mark_completed(state, char_code, scene_num)
-                    consecutive_429 = 0
-                    success = True
-                    break
-
-                except RateLimitError:
-                    consecutive_429 += 1
-                    wait = min(DELAY_429_BASE * (2 ** (consecutive_429 - 1)), DELAY_429_MAX)
-                    log.warning(f"  ⚠ 429 Rate Limit (연속 {consecutive_429}회). {wait}초 대기...")
-                    time.sleep(wait)
-                    done -= 1  # Don't count as done
-
-                except AccountBannedError as e:
-                    log.critical(f"  ✖ {e}")
-                    log.critical("  즉시 중단합니다. NAI 계정을 확인하세요.")
-                    mark_failed(state, char_code, scene_num, str(e))
-                    save_state(state)
-                    return  # HARD STOP
-
-                except AuthError as e:
-                    log.error(f"  ✖ {e}")
-                    log.error("  토큰을 갱신한 뒤 --retry-failed로 재실행하세요.")
-                    mark_failed(state, char_code, scene_num, str(e))
-                    save_state(state)
-                    return  # HARD STOP
-
-                except (APIError, requests.RequestException) as e:
-                    log.error(f"  ✖ Attempt {attempt}/{MAX_RETRIES}: {e}")
-                    if attempt < MAX_RETRIES:
-                        time.sleep(30)
-                    else:
-                        mark_failed(state, char_code, scene_num, str(e))
-
-                except KeyboardInterrupt:
-                    log.info("\n  사용자 중단 (Ctrl+C). 진행 상태가 저장되었습니다.")
-                    save_state(state)
-                    return
-
-            if not success and not dry_run:
-                log.error(f"  ✖ {char_code}/{scene_num} failed after {MAX_RETRIES} retries")
-
-            # ── Delay ──
-            if not dry_run and success:
-                if done % COOLDOWN_EVERY == 0:
-                    log.info(f"  ⏳ {COOLDOWN_EVERY}장 완료, {DELAY_COOLDOWN}초 쿨다운...")
-                    time.sleep(DELAY_COOLDOWN)
-                else:
-                    time.sleep(delay)
+        # ── Delay (API 호출 성공 기준 쿨다운) ──
+        api_calls_since_cooldown += 1
+        if api_calls_since_cooldown >= COOLDOWN_EVERY:
+            log.info(f"  ⏳ {COOLDOWN_EVERY}장 API 호출, {DELAY_COOLDOWN}초 쿨다운...")
+            time.sleep(DELAY_COOLDOWN)
+            api_calls_since_cooldown = 0
+        else:
+            time.sleep(delay)
 
     # ── Summary ──
     completed_total = sum(len(v) for v in state.get("completed", {}).values())
@@ -467,59 +497,59 @@ def generate_batch(token, config, state, char_codes, scene_nums, dry_run=False, 
 #  CLI
 # ═══════════════════════════════════════════════════════
 
-def parse_scene_range(s):
-    """Parse '1-8' or '1,2,3' or '1-8,20-42' into a list of ints."""
-    nums = []
-    for part in s.split(","):
-        if "-" in part:
-            a, b = part.split("-", 1)
-            nums.extend(range(int(a), int(b) + 1))
-        else:
-            nums.append(int(part))
-    return sorted(set(nums))
-
-
-ALL_SCENES = [
-    *range(1, 10),      # 감정 + neutral
-    *range(10, 19),      # 일상
-    *range(20, 43),      # NSFW 비삽입
-    *range(50, 68),      # NSFW 삽입
-    *range(70, 79),      # 착의 침실
-    *range(80, 87),      # 착의 화장실
-]
-
-SPECIAL_SCENES = [901, 902, 903, 904, 910, 911]  # SVG assets + key visual + thumbnail
-
-ALL_CHARS = ["SY", "NHR", "JSH", "ERK", "LSH", "HSR", "KHR",
-             "JGR", "MIL", "ELA", "MMR", "HSE", "NIA", "RAY", "LPS"]
+from utils import ALL_CHARS, ALL_SCENES, SPECIAL_SCENES, parse_scene_range
 
 
 def show_status():
     state = load_state()
     config = load_config()
+    all_scenes_set = set(ALL_SCENES)
     total_possible = len(ALL_CHARS) * len(ALL_SCENES)
-    completed_total = sum(len(v) for v in state.get("completed", {}).values())
-    failed_total = sum(len(v) for v in state.get("failed", {}).values())
+
+    # Count only ALL_SCENES range (exclude special scenes like 901+)
+    completed_total = sum(
+        len([s for s in v if s in all_scenes_set])
+        for v in state.get("completed", {}).values()
+    )
+    failed_total = sum(
+        len([k for k in v.keys() if int(k) in all_scenes_set])
+        if isinstance(v, dict)
+        else len([s for s in v if s in all_scenes_set])
+        for v in state.get("failed", {}).values()
+    )
+    special_total = sum(
+        len([s for s in v if s not in all_scenes_set])
+        for v in state.get("completed", {}).values()
+    )
+    pct = completed_total * 100 // total_possible if total_possible else 0
 
     print(f"\n{'═' * 50}")
     print(f"  Asset Generation Status")
     print(f"{'═' * 50}")
     print(f"  Started:   {state.get('started_at', 'N/A')}")
     print(f"  Updated:   {state.get('last_updated', 'N/A')}")
-    print(f"  Progress:  {completed_total}/{total_possible} ({completed_total*100//total_possible}%)")
+    print(f"  Progress:  {completed_total}/{total_possible} ({pct}%)")
     print(f"  Failed:    {failed_total}")
+    if special_total:
+        print(f"  Special:   {special_total} (SVG/key visual/thumbnail)")
     print()
 
     for code in ALL_CHARS:
-        done = len(state.get("completed", {}).get(code, []))
-        fail = len(state.get("failed", {}).get(code, []))
+        completed = state.get("completed", {}).get(code, [])
+        failed_items = state.get("failed", {}).get(code, {})
+        done_count = len([s for s in completed if s in all_scenes_set])
+        fail_count = (
+            len([k for k in failed_items.keys() if int(k) in all_scenes_set])
+            if isinstance(failed_items, dict)
+            else len([s for s in failed_items if s in all_scenes_set])
+        )
         bar_len = 20
-        filled = done * bar_len // len(ALL_SCENES)
+        filled = done_count * bar_len // len(ALL_SCENES) if ALL_SCENES else 0
         bar = "█" * filled + "░" * (bar_len - filled)
         name = config["characters"].get(code, {}).get("name", "?")
-        status = f"  {code:4} {name:8} [{bar}] {done:2}/{len(ALL_SCENES)}"
-        if fail:
-            status += f" ({fail} failed)"
+        status = f"  {code:4} {name:8} [{bar}] {done_count:2}/{len(ALL_SCENES)}"
+        if fail_count:
+            status += f" ({fail_count} failed)"
         print(status)
 
     print()
@@ -550,27 +580,43 @@ def main():
     else:
         char_codes = ALL_CHARS
 
-    # Determine scenes
-    if args.retry_failed:
-        # Build list from failed items
-        scene_nums = ALL_SCENES
-        log.info("Retrying failed items only")
-    elif args.scenes:
-        scene_nums = parse_scene_range(args.scenes)
-    else:
-        scene_nums = ALL_SCENES
-
-    # Get token
+    # Get token (priority: --token > --token-file > NAI_TOKEN env)
     token = args.token
     if not token and args.token_file:
-        with open(args.token_file, "r") as f:
-            token = f.read().strip()
-    if not token and not args.dry_run:
-        print("ERROR: --token or --token-file required (or use --dry-run)")
-        return
+        token = Path(args.token_file).read_text().strip()
+    if not token:
+        token = os.environ.get("NAI_TOKEN")
 
     delay = max(1.0, args.delay)  # Minimum 1 second (NAI rate limit)
-    generate_batch(token, config, state, char_codes, scene_nums, dry_run=args.dry_run, delay=delay)
+
+    # Determine scenes & dispatch
+    if args.retry_failed:
+        failed = state.get("failed", {})
+        retry_tasks = []
+        for fc, scenes in failed.items():
+            if args.chars and fc not in char_codes:
+                continue
+            scene_keys = scenes if isinstance(scenes, list) else scenes.keys()
+            for sk in scene_keys:
+                retry_tasks.append((fc, int(sk)))
+        if not retry_tasks:
+            log.info("No failed items to retry. All clear!")
+            return
+        log.info(f"Retrying {len(retry_tasks)} failed tasks")
+        generate_batch(token, config, state, retry_tasks=retry_tasks,
+                       dry_run=args.dry_run, delay=delay)
+    else:
+        if args.scenes:
+            scene_nums = parse_scene_range(args.scenes)
+        else:
+            scene_nums = ALL_SCENES
+
+        if not token and not args.dry_run:
+            print("ERROR: --token, --token-file, or NAI_TOKEN env required (or use --dry-run)")
+            return
+
+        generate_batch(token, config, state, char_codes=char_codes,
+                       scene_nums=scene_nums, dry_run=args.dry_run, delay=delay)
 
 
 if __name__ == "__main__":

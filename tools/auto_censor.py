@@ -26,7 +26,10 @@ ROI 제한 → closing → flood fill → best component → contour fill
   python auto_censor.py --batch SY --style mosaic
 """
 
+from __future__ import annotations
+
 import argparse
+import json
 import logging
 import sys
 import tempfile
@@ -59,11 +62,11 @@ logging.basicConfig(
 )
 log = logging.getLogger("censor")
 
-BASE_DIR = Path(__file__).parent / "캐릭터 이미지"
-MODEL_PATH = Path(__file__).parent / "models" / "ntd11_v5.pt"
-NSFW_SCENES = list(range(20, 43)) + list(range(50, 68)) + list(range(70, 79)) + list(range(80, 87))
-ALL_CHARS = ["SY", "NHR", "JSH", "ERK", "LSH", "HSR", "KHR",
-             "JGR", "MIL", "ELA", "MMR", "HSE", "NIA", "RAY", "LPS"]
+_TOOLS_DIR = Path(__file__).resolve().parent                   # 연예계/tools/
+_PROJECT_ROOT = _TOOLS_DIR.parent                              # 연예계/
+BASE_DIR = _PROJECT_ROOT.parent / "캐릭터 이미지"              # 챗봇 제작/캐릭터 이미지/
+MODEL_PATH = _PROJECT_ROOT / "models" / "ntd11_v5.pt"         # 연예계/models/ntd11_v5.pt
+from utils import ALL_CHARS, NSFW_SCENES, parse_scene_range as _parse_scene_range
 
 TARGET_CLASSES = {"pussy", "penis", "anus"}
 
@@ -187,13 +190,13 @@ def refine_segmentation_mask(
     if not np.any(temp):
         return temp
 
-    # 2. ROI restriction
+    # 2. ROI restriction (preserve roi_mask for later re-clamp)
     rx1, ry1, rx2, ry2 = expand_bbox(x1, y1, x2, y2, w, h, pad_ratio=0.05)
     roi_mask = np.zeros_like(temp)
     roi_mask[ry1:ry2, rx1:rx2] = 255
     temp = cv2.bitwise_and(temp, roi_mask)
 
-    # 3. Force crop if model merged too much
+    # 3. Force crop if model merged too much (preserve crop_mask for later re-clamp)
     expected = {
         "penis": (int(w * 0.18), int(h * 0.58)),
         "pussy": (int(w * 0.12), int(h * 0.16)),
@@ -243,6 +246,15 @@ def refine_segmentation_mask(
     # 8. Light opening for tiny spikes
     temp = cv2.morphologyEx(temp, cv2.MORPH_OPEN, k_open, iterations=1)
 
+    # 8.5 Safety dilation — compensate net shrinkage from opening
+    safety_sz = max(3, int(base_dim * 0.002)) | 1  # ~2px for 1024
+    k_safety = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (safety_sz, safety_sz))
+    temp = cv2.dilate(temp, k_safety, iterations=1)
+
+    # 8.6 Re-clamp to ROI + crop limits (prevent dilation bleeding beyond bbox)
+    temp = cv2.bitwise_and(temp, roi_mask)
+    temp = cv2.bitwise_and(temp, crop_mask)
+
     # 9. Final fill after opening
     temp = flood_fill_holes(temp)
 
@@ -263,25 +275,33 @@ def get_model() -> Optional["YOLO"]:
     return _model_cache["m"]
 
 
-def yolo_detect(image: np.ndarray, conf: float = 0.5) -> tuple[np.ndarray, list[dict]]:
-    """YOLO genital detection with robust mask refinement."""
+def yolo_detect(image: np.ndarray, conf: float = 0.5) -> tuple[np.ndarray, list[dict], str]:
+    """YOLO genital detection with robust mask refinement.
+
+    Returns (mask, detections, status) where status is:
+      "ok"       — inference ran successfully
+      "no_model" — model unavailable (path error or missing)
+    """
     model = get_model()
     if model is None:
-        return np.zeros(image.shape[:2], dtype=np.uint8), []
+        return np.zeros(image.shape[:2], dtype=np.uint8), [], "no_model"
 
     h, w = image.shape[:2]
 
-    tmp = Path(tempfile.gettempdir()) / "censor_yolo.jpg"
-    PILImage.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB)).save(str(tmp), "JPEG", quality=95)
-    results = model(str(tmp), verbose=False, conf=conf, imgsz=1024)
-    tmp.unlink(missing_ok=True)
+    with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as tf:
+        tmp = Path(tf.name)
+    try:
+        PILImage.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB)).save(str(tmp), "JPEG", quality=95)
+        results = model(str(tmp), verbose=False, conf=conf, imgsz=1024)
+    finally:
+        tmp.unlink(missing_ok=True)
 
     r = results[0]
     final_mask = np.zeros((h, w), dtype=np.uint8)
     detections = []
 
     if r.boxes is None or len(r.boxes) == 0:
-        return final_mask, detections
+        return final_mask, detections, "ok"
 
     for i, box in enumerate(r.boxes):
         cls_name = model.names[int(box.cls[0])]
@@ -307,7 +327,7 @@ def yolo_detect(image: np.ndarray, conf: float = 0.5) -> tuple[np.ndarray, list[
             rx1, ry1, rx2, ry2 = expand_bbox(x1, y1, x2, y2, w, h, pad_ratio=0.03)
             cv2.rectangle(final_mask, (rx1, ry1), (rx2, ry2), 255, cv2.FILLED)
 
-    return final_mask, detections
+    return final_mask, detections, "ok"
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -318,17 +338,36 @@ def apply_censor(
     image: np.ndarray,
     mask: np.ndarray,
     style: str = "solid",
-    color: tuple[int, int, int] = (0, 0, 0),
+    color: tuple[int, int, int] = (255, 255, 255),
+    edge_blur: int = 0,
 ) -> np.ndarray:
+    """Apply censorship with optional edge anti-aliasing.
+
+    Args:
+        edge_blur: Gaussian blur kernel size for mask edges (0=off, odd number).
+                   Typical values: 5~15. Creates smooth alpha blend at boundary.
+    """
     result = image.copy()
     h, w = image.shape[:2]
+
+    # Build censor layer
     if style == "mosaic":
         ratio = 0.04
         small = cv2.resize(result, (0, 0), fx=ratio, fy=ratio, interpolation=cv2.INTER_LINEAR)
-        pixelated = cv2.resize(small, (w, h), interpolation=cv2.INTER_NEAREST)
-        np.copyto(result, pixelated, where=(mask[:, :, None] > 0))
+        censor_layer = cv2.resize(small, (w, h), interpolation=cv2.INTER_NEAREST)
     else:
-        result[mask > 0] = color
+        censor_layer = np.full_like(image, color)
+
+    if edge_blur > 0:
+        # Anti-aliased edge: blur the binary mask → alpha blend
+        blur_k = edge_blur | 1  # ensure odd
+        alpha = cv2.GaussianBlur(mask.astype(np.float32) / 255.0, (blur_k, blur_k), 0)
+        alpha_3ch = alpha[:, :, None]
+        result = (censor_layer * alpha_3ch + result * (1.0 - alpha_3ch)).astype(np.uint8)
+    else:
+        # Hard edge (original behavior)
+        np.copyto(result, censor_layer, where=(mask[:, :, None] > 0))
+
     return result
 
 
@@ -341,7 +380,8 @@ def process_single(
     output_path: Optional[str] = None,
     yolo_conf: float = 0.5,
     style: str = "solid",
-    color: tuple[int, int, int] = (0, 0, 0),
+    color: tuple[int, int, int] = (255, 255, 255),
+    edge_blur: int = 0,
     preview: bool = False,
     verbose: bool = True,
 ) -> dict:
@@ -355,7 +395,12 @@ def process_single(
         p = Path(input_path)
         output_path = str(p.parent / f"{p.stem}_censored{p.suffix}")
 
-    mask, detections = yolo_detect(image, conf=yolo_conf)
+    mask, detections, status = yolo_detect(image, conf=yolo_conf)
+
+    if status == "no_model":
+        log.warning(f"  {Path(input_path).name} → MODEL UNAVAILABLE (not censored!)")
+        return {"path": input_path, "success": False, "reason": "no_model"}
+
     total_px = int(np.sum(mask > 0))
 
     if total_px == 0:
@@ -363,8 +408,16 @@ def process_single(
             log.info(f"  {Path(input_path).name} → clean (skip)")
         return {"path": input_path, "success": True, "detected": False}
 
-    result = apply_censor(image, mask, style, color)
-    save_image(result, output_path)
+    result = apply_censor(image, mask, style, color, edge_blur)
+
+    # Atomic write when input == output (prevent data loss on write failure)
+    out = Path(output_path)
+    if Path(input_path).resolve() == out.resolve():
+        tmp_out = out.with_suffix(".tmp" + out.suffix)
+        save_image(result, str(tmp_out))
+        tmp_out.replace(out)
+    else:
+        save_image(result, output_path)
 
     det_str = ", ".join(f"{d['class']}({d['conf']:.2f})" for d in detections)
     if verbose:
@@ -386,29 +439,34 @@ def process_single(
 
 
 def _worker(args: tuple) -> dict:
-    path, out, conf, style, color = args
+    path, out, conf, style, color, eblur = args
     try:
-        return process_single(path, out, conf, style, color, verbose=False)
+        return process_single(path, out, conf, style, color, edge_blur=eblur, verbose=False)
     except Exception as e:
         log.error(f"Worker failed: {path} — {e}")
         return {"path": path, "success": False}
 
 
-def process_batch(char_codes, scene_nums, yolo_conf=0.5, style="solid", color=(0,0,0),
-                  preview_first=0, verbose=True):
+def process_batch(char_codes, scene_nums, yolo_conf=0.5, style="solid", color=(255,255,255),
+                  edge_blur=0, preview_first=0, verbose=True):
+    # Path validation — only when actual I/O is needed
+    if not BASE_DIR.exists():
+        log.error(f"Image directory not found: {BASE_DIR.resolve()}")
+        sys.exit(1)
+
     tasks = []
     for code in char_codes:
         for num in scene_nums:
             src = BASE_DIR / code / f"{num}.webp"
             if src.exists():
-                tasks.append((str(src), str(src), yolo_conf, style, color))
+                tasks.append((str(src), str(src), yolo_conf, style, color, edge_blur))
 
     if verbose:
-        log.info(f"{len(tasks)} images, conf={yolo_conf}, style={style}")
+        log.info(f"{len(tasks)} images, conf={yolo_conf}, style={style}, edge_blur={edge_blur}")
 
     if preview_first > 0:
         for t in tasks[:preview_first]:
-            process_single(t[0], t[1], yolo_conf, style, color, preview=True)
+            process_single(t[0], t[1], yolo_conf, style, color, edge_blur=edge_blur, preview=True)
         log.info(f"Previewed {min(preview_first, len(tasks))}.")
         return
 
@@ -417,19 +475,63 @@ def process_batch(char_codes, scene_nums, yolo_conf=0.5, style="solid", color=(0
     detected = sum(1 for r in results if r.get("detected"))
     skipped = sum(1 for r in results if r.get("success") and not r.get("detected"))
     failed = sum(1 for r in results if not r.get("success"))
+    no_model = sum(1 for r in results if r.get("reason") == "no_model")
     if verbose:
         log.info(f"Done. {detected} censored, {skipped} clean, {failed} failed")
+        if no_model:
+            log.error(f"⚠ {no_model} images skipped: model unavailable!")
 
 
-def parse_scene_range(s):
-    nums = []
-    for part in s.split(","):
-        if "-" in part:
-            a, b = part.split("-", 1)
-            nums.extend(range(int(a), int(b) + 1))
-        else:
-            nums.append(int(part))
-    return sorted(set(nums))
+def run_coverage_test(input_dir: str | Path, result_dir: str | Path, yolo_conf: float = 0.5) -> None:
+    """Coverage test: read-only on originals, all output to result_dir."""
+    input_dir = Path(input_dir)
+    result_dir = Path(result_dir)
+    result_dir.mkdir(parents=True, exist_ok=True)
+    manifest = []
+
+    sources = sorted(input_dir.glob("*.webp"))
+    if not sources:
+        log.warning(f"No .webp files found in {input_dir}")
+        return
+
+    for src in sources:
+        image = load_image(str(src))
+        if image is None:
+            log.error(f"  Cannot load: {src.name}")
+            manifest.append({"file": src.name, "detected": False, "mask_area_px": 0, "status": "load_error"})
+            continue
+
+        mask, detections, status = yolo_detect(image, conf=yolo_conf)
+        area = int(np.sum(mask > 0))
+        stem = src.stem
+
+        # Preview: mask contour overlay (green)
+        preview = image.copy()
+        if area > 0:
+            cnts, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            cv2.drawContours(preview, cnts, -1, (0, 255, 0), 2)
+        cv2.imwrite(str(result_dir / f"{stem}_preview.jpg"), preview)
+
+        # Mask: binary
+        cv2.imwrite(str(result_dir / f"{stem}_mask.png"), mask)
+
+        manifest.append({
+            "file": src.name,
+            "detected": bool(detections),
+            "mask_area_px": area,
+            "detections": [{"class": d["class"], "conf": round(d["conf"], 3)} for d in detections],
+            "status": status,
+        })
+        det_str = ", ".join(f"{d['class']}({d['conf']:.2f})" for d in detections) if detections else "none"
+        log.info(f"  {src.name} → {area:,}px² [{det_str}] ({status})")
+
+    # Stats manifest (per-folder aggregate)
+    (result_dir / "stats.json").write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
+    log.info(f"Coverage test: {len(manifest)} images → {result_dir}")
+
+
+parse_scene_range = _parse_scene_range
 
 
 def main():
@@ -438,11 +540,17 @@ def main():
     group.add_argument("input", nargs="?")
     group.add_argument("--batch", metavar="CHARS")
     group.add_argument("--batch-all", action="store_true")
+    group.add_argument("--coverage-test", metavar="INPUT_DIR",
+                       help="Run coverage test on input dir (read-only), output to --result-dir")
 
+    parser.add_argument("--result-dir", metavar="DIR",
+                        help="Output directory for --coverage-test results")
     parser.add_argument("--scenes", default="20-42,50-67,70-78,80-86")
     parser.add_argument("--yolo-conf", type=float, default=0.5)
     parser.add_argument("--style", choices=["solid", "mosaic"], default="solid")
-    parser.add_argument("--color", nargs=3, type=int, default=[0,0,0], metavar=("B","G","R"))
+    parser.add_argument("--color", nargs=3, type=int, default=[255,255,255], metavar=("B","G","R"))
+    parser.add_argument("--edge-blur", type=int, default=9,
+                        help="Edge anti-aliasing blur kernel size (0=off, odd, default: 9)")
     parser.add_argument("--preview", action="store_true")
     parser.add_argument("--preview-first", type=int, default=0)
     parser.add_argument("-o", "--output")
@@ -450,13 +558,18 @@ def main():
     args = parser.parse_args()
     color = tuple(args.color)
 
-    if args.batch_all:
-        process_batch(ALL_CHARS, parse_scene_range(args.scenes), args.yolo_conf, args.style, color, args.preview_first)
+    eblur = args.edge_blur
+
+    if args.coverage_test:
+        result_dir = args.result_dir or str(Path(args.coverage_test).parent / "results")
+        run_coverage_test(args.coverage_test, result_dir, args.yolo_conf)
+    elif args.batch_all:
+        process_batch(ALL_CHARS, parse_scene_range(args.scenes), args.yolo_conf, args.style, color, eblur, args.preview_first)
     elif args.batch:
         chars = [c.strip().upper() for c in args.batch.split(",")]
-        process_batch(chars, parse_scene_range(args.scenes), args.yolo_conf, args.style, color, args.preview_first)
+        process_batch(chars, parse_scene_range(args.scenes), args.yolo_conf, args.style, color, eblur, args.preview_first)
     elif args.input:
-        process_single(args.input, args.output, args.yolo_conf, args.style, color, args.preview)
+        process_single(args.input, args.output, args.yolo_conf, args.style, color, edge_blur=eblur, preview=args.preview)
     else:
         parser.print_help()
 
