@@ -196,6 +196,8 @@ export const characters = [
     thumbnail: cdnUrl("JGRthumbnail.webp"),
     profile: cdnUrl("JGR/profile.webp"),
     sign: null,
+    intro1: cdnUrl("JGR/intro1.webp"),
+    intro2: cdnUrl("JGR/intro2.webp"),
     detailPath: "/characters/janggru",
     signature: "낡은 작사 노트",
     personality: "담담함 + 단단함 (내면: 간절함)",

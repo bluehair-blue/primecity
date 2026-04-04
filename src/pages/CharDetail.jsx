@@ -24,6 +24,10 @@ export default function CharDetail() {
   const [exprErrors, setExprErrors] = useState({});
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [contentReached, setContentReached] = useState(false);
+  const [jgrBeat, setJgrBeat] = useState(0);
+  const [jgrAssetsReady, setJgrAssetsReady] = useState(false);
+  const [jgrFallback, setJgrFallback] = useState(false);
+  const [jgrFadingOut, setJgrFadingOut] = useState(false);
   const timerRefs = useRef([]);
   const imgRef = useRef(null);
   const contentRef = useRef(null);
@@ -32,6 +36,7 @@ export default function CharDetail() {
   const charIndex = characters.findIndex((c) => c.id === name);
   const prevChar = charIndex > 0 ? characters[charIndex - 1] : null;
   const nextChar = charIndex < characters.length - 1 ? characters[charIndex + 1] : null;
+  const isJGR = char?.id === "janggru";
   const sameAgency = char
     ? characters.filter((c) => c.agency === char.agency && c.id !== char.id)
     : [];
@@ -39,22 +44,29 @@ export default function CharDetail() {
   // Reset + animation sequence
   useEffect(() => {
     window.scrollTo(0, 0);
-    setImgError(false);
-    setUiReady(false);
-    setPhase(0);
-    setGlitchDone(false);
-    setExprErrors({});
-    setLightbox(null);
-    setTilt({ x: 0, y: 0 });
-    setContentReached(false);
+    setImgError(false); setUiReady(false); setPhase(0);
+    setGlitchDone(false); setExprErrors({}); setLightbox(null);
+    setTilt({ x: 0, y: 0 }); setContentReached(false);
+    setJgrBeat(0); setJgrAssetsReady(false); setJgrFallback(false); setJgrFadingOut(false);
+    document.body.style.overflow = "";
 
     timerRefs.current.forEach(clearTimeout);
-    const t1 = setTimeout(() => { setUiReady(true); setPhase(1); }, 100);
-    const t2 = setTimeout(() => setGlitchDone(true), 600);
-    const t3 = setTimeout(() => setPhase(2), 2200);
-    timerRefs.current = [t1, t2, t3];
 
-    return () => timerRefs.current.forEach(clearTimeout);
+    if (isJGR) {
+      setUiReady(true);
+      setGlitchDone(true);
+      // Beat timing starts in separate effect after preload
+    } else {
+      const t1 = setTimeout(() => { setUiReady(true); setPhase(1); }, 100);
+      const t2 = setTimeout(() => setGlitchDone(true), 600);
+      const t3 = setTimeout(() => setPhase(2), 2200);
+      timerRefs.current = [t1, t2, t3];
+    }
+
+    return () => {
+      timerRefs.current.forEach(clearTimeout);
+      document.body.style.overflow = "";
+    };
   }, [name]);
 
   // Scroll detection
@@ -71,6 +83,62 @@ export default function CharDetail() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [lightbox]);
+
+  // JGR: Preload intro assets
+  useEffect(() => {
+    if (!isJGR || !char?.intro1 || !char?.intro2) {
+      if (isJGR) setJgrFallback(true);
+      return;
+    }
+    let alive = true;
+    Promise.allSettled(
+      [char.intro1, char.intro2].map(
+        (src) => new Promise((resolve, reject) => {
+          const img = new window.Image();
+          img.src = src;
+          img.onload = resolve;
+          img.onerror = reject;
+        })
+      )
+    ).then((results) => {
+      if (!alive) return;
+      if (results.every((r) => r.status === "fulfilled")) {
+        setJgrAssetsReady(true);
+      } else {
+        setJgrFallback(true);
+      }
+    });
+    return () => { alive = false; };
+  }, [isJGR, char?.intro1, char?.intro2]);
+
+  // JGR: Fallback → run normal intro timers
+  useEffect(() => {
+    if (!isJGR || !jgrFallback) return;
+    const t1 = setTimeout(() => { setUiReady(true); setPhase(1); }, 100);
+    const t2 = setTimeout(() => setGlitchDone(true), 600);
+    const t3 = setTimeout(() => setPhase(2), 2200);
+    timerRefs.current = [t1, t2, t3];
+    return () => timerRefs.current.forEach(clearTimeout);
+  }, [jgrFallback]);
+
+  // JGR: Beat timing (after preload)
+  useEffect(() => {
+    if (!isJGR || !jgrAssetsReady) return;
+    setPhase(1);
+    document.body.style.overflow = "hidden";
+    const tb1 = setTimeout(() => setJgrBeat(1), 200);
+    const tb2 = setTimeout(() => setJgrBeat(2), 3000);
+    const tb3 = setTimeout(() => {
+      setJgrFadingOut(true);
+      setPhase(2);
+      setTimeout(() => {
+        setJgrFadingOut(false);
+        document.body.style.overflow = "";
+      }, 500);
+    }, 5000);
+    timerRefs.current = [tb1, tb2, tb3];
+    return () => timerRefs.current.forEach(clearTimeout);
+  }, [jgrAssetsReady]);
 
   // Content section observer (seam cue dismissal)
   useEffect(() => {
@@ -97,10 +165,38 @@ export default function CharDetail() {
     setTilt({ x: 0, y: 0 });
   }
 
+  // JGR: Skip intro
+  function skipJgrIntro() {
+    timerRefs.current.forEach(clearTimeout);
+    setJgrBeat(0);
+    setJgrFadingOut(false);
+    setPhase(2);
+    window.scrollTo(0, 0);
+    document.body.style.overflow = "";
+  }
+
   const [exprRef, exprV] = useReveal(0.1);
   const [navRef, navV] = useReveal(0.1);
 
+  const showJgrIntro = isJGR && jgrAssetsReady && phase < 2 && !jgrFallback;
+  const showJgrOverlay = showJgrIntro || jgrFadingOut;
   const showPhase2Cue = phase === 2 && !contentReached;
+
+  // JGR: Skip on wheel/touch/ESC
+  useEffect(() => {
+    if (!showJgrOverlay) return;
+    function onWheel(e) { e.preventDefault(); skipJgrIntro(); }
+    function onTouch(e) { e.preventDefault(); skipJgrIntro(); }
+    function onKey(e) { if (e.key === "Escape") skipJgrIntro(); }
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchmove", onTouch, { passive: false });
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchmove", onTouch);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [showJgrOverlay]);
   const cueCopy = char
     ? (char.expressions?.length ? "Expressions Below" : "Continue Below")
     : "";
@@ -144,11 +240,109 @@ export default function CharDetail() {
   return (
     <div style={{ background: C.bgDeep, color: C.white, minHeight: "100vh", position: "relative", overflowX: "hidden" }}>
       <Seo title={char.name} description={`${char.name} — ${char.role}. 프라임시티 캐릭터 상세 프로필.`} path={`/characters/${name}`} />
-      <Particles isMobile={isMobile} />
-      <Navbar scrolled={scrolled} isMobile={isMobile} />
+      {!showJgrOverlay && <Particles isMobile={isMobile} />}
+      <div style={{ opacity: showJgrOverlay ? 0 : 1, transition: `opacity 0.5s ${EASE}`, pointerEvents: showJgrOverlay ? "none" : "auto" }}>
+        <Navbar scrolled={scrolled} isMobile={isMobile} />
+      </div>
+
+      {/* ══════════ JGR Cinematic Intro ══════════ */}
+      {showJgrOverlay && (
+        <div
+          onClick={skipJgrIntro}
+          style={{
+            position: "fixed", inset: 0, zIndex: 200,
+            background: "oklch(0 0 0)",
+            opacity: jgrFadingOut ? 0 : 1,
+            transition: "opacity 0.5s ease-out",
+            cursor: "pointer",
+            display: "flex", alignItems: "center", justifyContent: "center",
+          }}
+        >
+          {/* Beat 1: intro1 세피아 */}
+          <img src={char.intro1} alt="" style={{
+            position: "absolute", inset: 0, width: "100%", height: "100%",
+            objectFit: "cover",
+            objectPosition: isMobile ? "65% 50%" : "center 40%",
+            filter: jgrBeat === 1 ? "sepia(0.8) brightness(0.7) contrast(1.1)" : "sepia(0) brightness(0)",
+            opacity: jgrBeat === 1 ? 1 : 0,
+            transition: "filter 1.5s ease-out, opacity 1s ease-out",
+          }} />
+
+          {/* Beat 2: intro2 풀컬러 */}
+          <img src={char.intro2} alt="" style={{
+            position: "absolute", inset: 0, width: "100%", height: "100%",
+            objectFit: "cover",
+            objectPosition: isMobile ? "45% 40%" : "center 30%",
+            opacity: jgrBeat === 2 ? 1 : 0,
+            transform: jgrBeat === 2 ? "scale(1)" : "scale(1.05)",
+            transition: "opacity 1.2s ease-out, transform 3s ease-out",
+          }} />
+
+          {/* 필름 그레인 */}
+          <div style={{
+            position: "absolute", inset: 0,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E")`,
+            opacity: jgrBeat === 1 ? 0.35 : 0.08,
+            mixBlendMode: "overlay", transition: "opacity 1.5s ease-out",
+            pointerEvents: "none",
+          }} />
+
+          {/* 비네트 */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "radial-gradient(ellipse at center, transparent 30%, oklch(0 0 0 / 0.7) 100%)",
+            pointerEvents: "none",
+          }} />
+
+          {/* Letterbox matte */}
+          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "7%", background: "oklch(0 0 0)", zIndex: 2 }} />
+          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "7%", background: "oklch(0 0 0)", zIndex: 2 }} />
+
+          {/* Chapter label */}
+          <span style={{
+            position: "absolute", bottom: isMobile ? "10%" : "12%", left: isMobile ? 20 : 48,
+            fontFamily: "var(--f-display-en)", fontSize: isMobile ? 9 : 11,
+            letterSpacing: "0.25em", textTransform: "uppercase",
+            color: "oklch(0.6 0 0)", opacity: jgrBeat >= 1 ? 0.6 : 0,
+            transition: "opacity 1s ease-out", pointerEvents: "none", zIndex: 3,
+          }}>
+            Jang Gru / Retake
+          </span>
+
+          {/* 대사 */}
+          <p style={{
+            position: "relative", zIndex: 3, textAlign: "center",
+            padding: isMobile ? "0 24px" : "0 48px",
+            fontFamily: "var(--f-display-kr)",
+            fontSize: isMobile ? "clamp(20px, 6vw, 28px)" : "clamp(28px, 3.5vw, 42px)",
+            fontWeight: 400, fontStyle: "italic",
+            color: jgrBeat === 1 ? "oklch(0.85 0.03 80)" : "oklch(0.95 0 0)",
+            margin: 0, lineHeight: 1.6,
+            opacity: jgrBeat >= 1 ? 1 : 0,
+            transform: jgrBeat >= 1 ? "translateY(0)" : "translateY(20px)",
+            transition: "all 1s ease-out, color 1.2s ease-out",
+            textShadow: "0 2px 24px oklch(0 0 0 / 0.8)",
+          }}>
+            {jgrBeat === 1 ? "보고있어? 이게―..." : "내 마지막 꿈이야."}
+          </p>
+
+          {/* Beat 2 스포트라이트 블룸 */}
+          {jgrBeat === 2 && (
+            <div style={{
+              position: "absolute", top: "15%", left: "50%",
+              width: isMobile ? 200 : 400, height: isMobile ? 200 : 400,
+              borderRadius: "50%",
+              background: "radial-gradient(circle, oklch(0.85 0.12 300 / 0.25), transparent 70%)",
+              transform: "translate(-50%, -50%)", filter: "blur(40px)",
+              animation: "charGlowPulse 3s ease-in-out infinite",
+              pointerEvents: "none",
+            }} />
+          )}
+        </div>
+      )}
 
       {/* ══════════ Dynamic Cyberpunk Background ══════════ */}
-      <div style={{ position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none", overflow: "hidden" }}>
+      <div style={{ position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none", overflow: "hidden", opacity: showJgrOverlay ? 0 : 1, transition: `opacity 0.5s ${EASE}` }}>
         {/* Vertical data grid */}
         <div style={{
           position: "absolute", inset: 0,
@@ -289,8 +483,8 @@ export default function CharDetail() {
           }}
         />
 
-        {/* ── Phase 1 overlay: Name + tagline ── */}
-        <div
+        {/* ── Phase 1 overlay: Name + tagline (JGR 제외) ── */}
+        {!isJGR && <div
           style={{
             position: "absolute", inset: 0,
             display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
@@ -309,7 +503,7 @@ export default function CharDetail() {
           <p style={{ fontFamily: "var(--f-display-kr)", fontSize: isMobile ? 15 : 18, color: C.text70, fontStyle: "italic", margin: 0, lineHeight: 1.6, textAlign: "center", opacity: uiReady ? 1 : 0, transform: uiReady ? "translateY(0)" : "translateY(16px)", transition: t(0.6) }}>
             &ldquo;{char.tagline}&rdquo;
           </p>
-        </div>
+        </div>}
 
         {/* ── Back link (phase 2) ── */}
         <div style={{ width: "100%", maxWidth: 1100, opacity: phase === 2 ? 1 : 0, transition: `opacity 0.6s ${EASE} 0.3s`, marginBottom: isMobile ? 24 : 40 }}>
@@ -592,8 +786,8 @@ export default function CharDetail() {
           </div>
         </div>
 
-        {/* Scroll indicator (phase 1) */}
-        <div style={{ position: "absolute", bottom: isMobile ? 24 : 36, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: phase === 1 ? 1 : 0, transition: `opacity 0.6s ${EASE}`, pointerEvents: "none" }}>
+        {/* Scroll indicator (phase 1, JGR intro 중 숨김) */}
+        <div style={{ position: "absolute", bottom: isMobile ? 24 : 36, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 6, opacity: phase === 1 && !showJgrOverlay ? 1 : 0, transition: `opacity 0.6s ${EASE}`, pointerEvents: "none" }}>
           <span style={{ fontFamily: "var(--f-display-en)", fontSize: 9, letterSpacing: "0.3em", color: C.text25, textTransform: "uppercase" }}>Scroll</span>
           <div style={{ width: 1, height: 28, background: `linear-gradient(to bottom, ${char.color}, transparent)`, animation: "scrollPulse 2s ease-in-out infinite" }} />
         </div>
