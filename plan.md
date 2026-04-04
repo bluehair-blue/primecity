@@ -140,13 +140,15 @@
 
 > 구현이 완료된 기획은 여기로 이동합니다. 접근 방식과 결과만 간략히 기록.
 
-### 2026-04-04: tools/ Python 파이프라인 개선 (Phase 1~4)
+### 2026-04-04: tools/ Python 파이프라인 개선 (Phase 1~4) + R2 업로드
 - Phase 1 (버그 7건): ZIP 가드, --retry-failed 명시적 태스크 리스트, done+cooldown 분리, status special scene 집계, mark_failed str key+reason, 임시 파일 race condition, zero-mask 상태 분리
 - Phase 2 (산출물 3건): atomic write, 검열 커버리지 보강(safety dilation+ROI re-clamp), 이미지/모델/배치 경로 통합
 - Phase 3 (코드 품질 7건): utils.py 추출, pathlib 통합, base64 삭제, 환경변수 토큰, UTC, 로깅, generate_batch→_generate_one 분할
 - Phase 4 (타입 힌트): public 함수 시그니처 어노테이션
 - 추가: 검열 색상 흰색 기본값, edge_blur 안티에일리어싱(기본 9), --coverage-test 검증 인프라
 - NSFW 배치 검열 실행: 855장 → 264장 검열, 0 실패
+- R2 업로드: 검열 264장 + 키비주얼 15장 + 프로필 15장, ASSET_VERSION 2→3
+- **교훈**: 키비주얼(`ent/{CHAR}.webp`)과 프로필(`ent/{CHAR}/profile.webp`)을 혼동하지 말 것. 업로드 소스는 반드시 `C:\...\캐릭터 이미지\` 원본 폴더에서.
 
 ### 2026-04-03: 프로젝트 파일 정리 + 문서 체계 구축
 - 루트 콘텐츠 파일 7개 → docs/, 스크립트 → tools/, 임시파일 삭제

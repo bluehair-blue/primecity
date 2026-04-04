@@ -128,11 +128,28 @@
 ## 이미지 파이프라인 (요약)
 
 - 생성: 1,125장 + 특수 90장 (NAI API, tools/asset_generator.py)
-- CDN: img.bluehair.blue/ent/{코드}/{번호}.webp?v=2
+- CDN: img.bluehair.blue/ent/ (ASSET_VERSION=3)
 - 검열: ntd11 YOLO-seg → ROI→CLOSE→flood fill→best component→convex hull→**safety dilation→ROI re-clamp**
 - 검열 스타일: 흰색(255,255,255) + edge_blur=9 (가우시안 안티에일리어싱)
 - 75개 상황코드: 감정(1-9), 일상(10-18), NSFW(20-86)
-- 이미지 경로: `챗봇 제작/캐릭터 이미지/` (프로젝트 상위)
+
+### 로컬 원본 경로 (절대경로)
+
+```
+C:\Users\User\OneDrive\图片\챗봇 제작\캐릭터 이미지\
+```
+
+> **모든 이미지 업로드는 반드시 이 폴더에서 가져온다.** 테스트 복사본이나 백업 폴더에서 가져오지 않는다.
+
+### CDN 경로 구조 (혼동 금지)
+
+| 유형 | 로컬 파일 | R2 경로 | 코드 참조 |
+|---|---|---|---|
+| **키비주얼** | `{CHAR}/{CHAR}.webp` | `ent/{CHAR}.webp` | `cdnUrl("{CHAR}.webp")` |
+| **프로필** | `{CHAR}/profile.webp` | `ent/{CHAR}/profile.webp` | `cdnUrl("{CHAR}/profile.webp")` |
+| **장면 이미지** | `{CHAR}/{번호}.webp` | `ent/{CHAR}/{번호}.webp` | `cdnExprUrl("{CHAR}",...)` |
+| **SVG 에셋** | `{CHAR}/svg/*.webp` | `ent/{CHAR}/svg/*.webp` | SVG Workers |
+| **도시 배경** | `bg3~11.webp` | `ent/bg3~11.webp` | `cdnUrl("bg{N}.webp")` |
 
 > 상세 → `research.md` §6, §7.3, `tools/research_sub.md`
 
@@ -144,7 +161,9 @@
 |---|---|
 | 사이트 | `git push origin main` → Cloudflare Pages 자동 |
 | SVG Worker | `cd workers && wrangler deploy --config wrangler.toml` (Worker별) |
-| R2 이미지 | `npx wrangler r2 object put "prime/ent/{path}" --file {file}` |
+| R2 이미지 | `npx wrangler r2 object put "prime/ent/{path}" --file "C:\...\캐릭터 이미지\{path}"` |
+
+> **R2 업로드 시 반드시 로컬 원본 폴더(`캐릭터 이미지/`)에서 파일을 지정할 것.** 테스트/백업 폴더 사용 금지.
 
 > 상세 → `research.md` §13
 
