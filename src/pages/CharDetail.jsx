@@ -225,19 +225,23 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
           }} />
           {/* 비네트 */}
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 30%, oklch(0 0 0 / 0.7) 100%)", pointerEvents: "none" }} />
-          {/* 버닝 프레임 — 좌우 앰버 그래디언트 (Beat 1 전용, 반응형) */}
+          {/* 버닝 프레임 — Beat 1 전용, 모바일: 따뜻한 그림자, 데스크톱: 앰버 */}
           {jgrBeat === 1 && (<>
             <div style={{
               position: "absolute", top: 0, left: 0, bottom: 0,
-              width: isMobile ? "25vw" : "18vw",
-              background: "linear-gradient(to right, oklch(0.35 0.12 40 / 0.7), oklch(0.4 0.08 50 / 0.3) 50%, transparent)",
-              pointerEvents: "none", opacity: 1, animation: "splashFadeIn 1.5s ease-out",
+              width: isMobile ? "12vw" : "18vw",
+              background: isMobile
+                ? "linear-gradient(to right, oklch(0.12 0.04 40 / 0.85), oklch(0.15 0.02 45 / 0.3) 60%, transparent)"
+                : "linear-gradient(to right, oklch(0.35 0.12 40 / 0.7), oklch(0.4 0.08 50 / 0.3) 50%, transparent)",
+              pointerEvents: "none", animation: "splashFadeIn 1.5s ease-out",
             }} />
             <div style={{
               position: "absolute", top: 0, right: 0, bottom: 0,
-              width: isMobile ? "25vw" : "18vw",
-              background: "linear-gradient(to left, oklch(0.35 0.12 40 / 0.7), oklch(0.4 0.08 50 / 0.3) 50%, transparent)",
-              pointerEvents: "none", opacity: 1, animation: "splashFadeIn 1.5s ease-out",
+              width: isMobile ? "12vw" : "18vw",
+              background: isMobile
+                ? "linear-gradient(to left, oklch(0.12 0.04 40 / 0.85), oklch(0.15 0.02 45 / 0.3) 60%, transparent)"
+                : "linear-gradient(to left, oklch(0.35 0.12 40 / 0.7), oklch(0.4 0.08 50 / 0.3) 50%, transparent)",
+              pointerEvents: "none", animation: "splashFadeIn 1.5s ease-out",
             }} />
           </>)}
           {/* Letterbox */}
