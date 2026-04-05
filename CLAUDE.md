@@ -246,8 +246,8 @@ C:\Users\User\OneDrive\图片\챗봇 제작\캐릭터 이미지\
 
 ## 작업 현황 (요약)
 
-**완료**: 사이트 16페이지, 디자인 시스템, 챗봇 프롬프트 Phase 1~4 (56KB), 에셋 1,215장+, 보안, 파일 정리, tools/ 파이프라인 개선 (18항목), NSFW 검열 배치 (264/855장), 캐릭터 사인/썸네일 15명 CDN 통일, CharDetail seam cue, **장그루 전용 시네마틱 인트로 (JgrCharDetail v4)**
-**미완**: 에덴챗 삽입 테스트, Phase 5 프롬프트 품질, Works 확장, 나머지 캐릭터 사인 이미지
+**완료**: 사이트 16페이지, 디자인 시스템, 챗봇 프롬프트 Phase 1~4 (56KB), 에셋 1,215장+, 보안, 파일 정리, tools/ 파이프라인 개선 (18항목), NSFW 검열 배치 (264/855장), 캐릭터 사인/썸네일 15명 CDN 통일, CharDetail seam cue, **장그루 전용 시네마틱 인트로 (JgrCharDetail v4)**, 사이트 총체적 최적화 ①②③④ (PageLayout Hook 정리, 모달 접근성, Particles/transition:all/reduced motion, Hero preload), CityMap 히트박스 등각 보정
+**미완**: 에덴챗 삽입 테스트, Phase 5 프롬프트 품질, Works 확장, 나머지 캐릭터 사인 이미지, 최적화 ⑤ 접근성(사용자 디자인 판단 대기)
 
 > 상세 → `plan.md`
 > 아이디어 → `idea.md`

@@ -370,6 +370,13 @@ Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리
 
 > 구현이 완료된 기획은 여기로 이동합니다. 접근 방식과 결과만 간략히 기록.
 
+### 2026-04-05: UX 수정 + CityMap 히트박스 등각 보정
+- JGR intro 타이밍: Beat 2 at 4.2s, phase 2 at 8.2s (0.8초 빨라짐)
+- ← PRIME CITY: `Link to="/"` → `navigate(-1)` + fallback (14개 페이지)
+- CityMap: Hype Road 상단 확장 폴리곤 + Terrace 확장/오버라이드 폴리곤 (등각 뷰 보정)
+  - 타원 링 모델의 한계를 SVG 폴리곤 오버레이로 해결
+  - SVG z-order: 링 → Terrace 확장 → Hype 상단 → Terrace 우측 오버라이드 (최상위)
+
 ### 2026-04-05: 사이트 총체적 최적화 (①②③④)
 - ① 구조: PageLayout render prop 제거, 16개 페이지 Hook 최상단 이동
 - ② 모달 패스: Gallery/CharDetail lightbox popstate, dialog semantics, div→button, HeroSlider 구조 분리, Gallery stable key
