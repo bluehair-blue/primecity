@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import C from "../styles/tokens";
 import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
@@ -16,6 +16,7 @@ const works = [
 ];
 
 export default function Works() {
+  const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [ref, v] = useReveal(0.15);
 
@@ -23,17 +24,22 @@ export default function Works() {
     <PageLayout>
           <div style={{ maxWidth: 640, margin: "0 auto" }}>
             <Seo title="작가의 작품" description="프라임시티 작가의 다른 작품 소개." path="/works" />
-            <Link
-              to="/"
+            <button
+              onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")}
               style={{
+                background: "none",
+                border: "none",
+                padding: 0,
                 color: C.text35,
                 textDecoration: "none",
                 fontSize: 12,
                 letterSpacing: "0.08em",
+                cursor: "pointer",
+                fontFamily: "var(--f-body)",
               }}
             >
               &larr; PRIME CITY
-            </Link>
+            </button>
 
             <div
               style={{ textAlign: "center", marginTop: isMobile ? 32 : 48 }}

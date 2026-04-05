@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import C from "../styles/tokens";
 import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
@@ -41,6 +41,7 @@ const events = [
 ];
 
 export default function ModeManager() {
+  const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [refBranch, vBranch] = useReveal(0.12);
   const [refLoop, vLoop] = useReveal(0.12);
@@ -50,9 +51,9 @@ export default function ModeManager() {
     <PageLayout>
           <div style={{ maxWidth: 700, margin: "0 auto" }}>
             <Seo title="매니저 모드" description="프라임시티 매니저 모드 — 아티스트의 전담 매니저가 되어 스케줄, 위기, 관계를 관리합니다." path="/modes/manager" />
-            <Link to="/" style={{ color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em" }}>
+            <button onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")} style={{ background: "none", border: "none", padding: 0, color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em", cursor: "pointer", fontFamily: "var(--f-body)" }}>
               &larr; PRIME CITY
-            </Link>
+            </button>
 
             {/* Hero */}
             <div style={{ textAlign: "center", marginTop: isMobile ? 32 : 48 }}>

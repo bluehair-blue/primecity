@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import C from "../styles/tokens";
 import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
@@ -21,6 +21,7 @@ const connections = [
 ];
 
 export default function ModeTrainee() {
+  const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [refLoop, vLoop] = useReveal(0.12);
   const [refConn, vConn] = useReveal(0.12);
@@ -29,9 +30,9 @@ export default function ModeTrainee() {
     <PageLayout>
           <div style={{ maxWidth: 700, margin: "0 auto" }}>
             <Seo title="연습생 모드" description="프라임시티 연습생 모드 — Route 0 소속 연습생으로 데뷔를 향한 성장 서사." path="/modes/trainee" />
-            <Link to="/" style={{ color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em" }}>
+            <button onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")} style={{ background: "none", border: "none", padding: 0, color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em", cursor: "pointer", fontFamily: "var(--f-body)" }}>
               &larr; PRIME CITY
-            </Link>
+            </button>
 
             <div style={{ textAlign: "center", marginTop: isMobile ? 32 : 48 }}>
               <span style={{ fontSize: isMobile ? 36 : 48, display: "block" }}>✿</span>

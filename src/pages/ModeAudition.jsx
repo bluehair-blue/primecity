@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import C from "../styles/tokens";
 import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
@@ -38,7 +38,7 @@ const rounds = [
   },
 ];
 
-const WEBTOON_PAGES = [1, 2, 3, 4, 5, 6];
+const WEBTOON_PAGES = [1, 2, 3, 4, 5];
 
 function WebtoonSection({ isMobile }) {
   const [open, setOpen] = useState(false);
@@ -142,7 +142,7 @@ function WebtoonSection({ isMobile }) {
               <img
                 key={n}
                 src={cdnUrl(`audition${n}.webp`)}
-                alt={`오디션 오프닝 ${n}/6`}
+                alt={`오디션 오프닝 ${n}/5`}
                 loading="lazy"
                 style={{ width: "100%", display: "block" }}
               />
@@ -266,23 +266,29 @@ function RoundCard({ round, index, isMobile }) {
 }
 
 export default function ModeAudition() {
+  const navigate = useNavigate();
   const isMobile = useIsMobile();
 
   return (
     <PageLayout>
         <div style={{ maxWidth: 700, margin: "0 auto" }}>
           <Seo title="오디션 모드" description="프라임시티 오디션 모드 — 8명의 참가자, 4라운드 서바이벌 무대 상세 안내." path="/modes/audition" />
-          <Link
-            to="/"
+          <button
+            onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")}
             style={{
+              background: "none",
+              border: "none",
+              padding: 0,
               color: C.text35,
               textDecoration: "none",
               fontSize: 12,
               letterSpacing: "0.08em",
+              cursor: "pointer",
+              fontFamily: "var(--f-body)",
             }}
           >
             &larr; PRIME CITY
-          </Link>
+          </button>
 
           <div style={{ textAlign: "center", marginTop: isMobile ? 32 : 48 }}>
             <span style={{ fontSize: isMobile ? 36 : 48, display: "block" }}>

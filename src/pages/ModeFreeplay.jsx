@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import C from "../styles/tokens";
 import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
@@ -33,6 +33,7 @@ const features = [
 ];
 
 export default function ModeFreeplay() {
+  const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [ref, v] = useReveal(0.12);
 
@@ -40,17 +41,22 @@ export default function ModeFreeplay() {
     <PageLayout>
           <div style={{ maxWidth: 700, margin: "0 auto" }}>
             <Seo title="자유활동 모드" description="프라임시티 자유활동 모드 — 오디션 밖에서 도시를 탐색하고 캐릭터들과 교류하는 모드." path="/modes/freeplay" />
-            <Link
-              to="/"
+            <button
+              onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")}
               style={{
+                background: "none",
+                border: "none",
+                padding: 0,
                 color: C.text35,
                 textDecoration: "none",
                 fontSize: 12,
                 letterSpacing: "0.08em",
+                cursor: "pointer",
+                fontFamily: "var(--f-body)",
               }}
             >
               &larr; PRIME CITY
-            </Link>
+            </button>
 
             <div
               style={{ textAlign: "center", marginTop: isMobile ? 32 : 48 }}

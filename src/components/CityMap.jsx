@@ -33,7 +33,7 @@ const ZONES = [
     src: cdnUrl("Hype%20Road.webp"),
     accent: C.distHype,
     glowColor: "oklch(0.78 0.16 340)",
-    innerR: 0.30, outerR: 0.42,
+    innerR: 0.30, outerR: 0.44,
     type: "ring",
   },
   {
@@ -41,7 +41,7 @@ const ZONES = [
     src: cdnUrl("Terrace.webp"),
     accent: C.distTer,
     glowColor: "oklch(0.78 0.14 140)",
-    innerR: 0.42, outerR: 0.60,
+    innerR: 0.44, outerR: 0.56,
     type: "ring",
   },
   {

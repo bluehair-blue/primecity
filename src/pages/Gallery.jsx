@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import C from "../styles/tokens";
 import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
@@ -123,6 +123,7 @@ function ImageSystemInfo({ isMobile }) {
 }
 
 export default function Gallery() {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [category, setCategory] = useState(CATEGORIES.ALL);
   const [charFilter, setCharFilter] = useState(null);
@@ -281,9 +282,9 @@ export default function Gallery() {
           <div style={{ maxWidth: 1100, margin: "0 auto" }}>
             <Seo title="갤러리" description="프라임시티 아트 갤러리 — 도시 배경, 캐릭터 일러스트, 컨셉아트 모음." path="/gallery" />
             {/* Back link */}
-            <Link to="/" style={{ color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em" }}>
+            <button onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")} style={{ background: "none", border: "none", padding: 0, color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em", cursor: "pointer", fontFamily: "var(--f-body)" }}>
               &larr; PRIME CITY
-            </Link>
+            </button>
 
             {/* Header */}
             <div style={{ textAlign: "center", marginTop: isMobile ? 32 : 48 }}>

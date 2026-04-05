@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import C from "../styles/tokens";
 import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
@@ -21,6 +21,7 @@ const contacts = [
 ];
 
 export default function Contact() {
+  const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [ref, v] = useReveal(0.15);
 
@@ -28,17 +29,22 @@ export default function Contact() {
     <PageLayout>
           <div style={{ maxWidth: 560, margin: "0 auto" }}>
             <Seo title="문의" description="프라임시티에 대한 문의, 제안, 협업 요청 창구." path="/contact" />
-            <Link
-              to="/"
+            <button
+              onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")}
               style={{
+                background: "none",
+                border: "none",
+                padding: 0,
                 color: C.text35,
                 textDecoration: "none",
                 fontSize: 12,
                 letterSpacing: "0.08em",
+                cursor: "pointer",
+                fontFamily: "var(--f-body)",
               }}
             >
               &larr; PRIME CITY
-            </Link>
+            </button>
 
             <div
               style={{ textAlign: "center", marginTop: isMobile ? 32 : 48 }}

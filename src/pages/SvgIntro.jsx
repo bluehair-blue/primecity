@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import C from "../styles/tokens";
 import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
@@ -13,6 +13,7 @@ const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 // is ever injected without going through these controlled template functions.
 
 export default function SvgIntro() {
+  const navigate = useNavigate();
   const [category, setCategory] = useState(TEMPLATE_CATEGORIES.ALL);
   const [selected, setSelected] = useState(null);
   const [modalTab, setModalTab] = useState("params");
@@ -67,9 +68,9 @@ export default function SvgIntro() {
   return (
     <PageLayout>
           <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-            <Link to="/" style={{ color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em" }}>
+            <button onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")} style={{ background: "none", border: "none", padding: 0, color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em", cursor: "pointer", fontFamily: "var(--f-body)" }}>
               &larr; PRIME CITY
-            </Link>
+            </button>
 
             <div style={{ textAlign: "center", marginTop: isMobile ? 32 : 48 }}>
               <span style={{ fontFamily: "var(--f-display-en)", fontSize: isMobile ? 9 : 10, letterSpacing: "0.4em", textTransform: "uppercase", color: C.gold, display: "block", marginBottom: isMobile ? 10 : 16 }}>

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import C from "../styles/tokens";
 import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
@@ -29,6 +29,7 @@ const connections = [
 ];
 
 export default function ModeInfluencer() {
+  const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [refLoop, vLoop] = useReveal(0.12);
   const [refEvent, vEvent] = useReveal(0.12);
@@ -38,9 +39,9 @@ export default function ModeInfluencer() {
     <PageLayout>
           <div style={{ maxWidth: 700, margin: "0 auto" }}>
             <Seo title="인플루언서 모드" description="프라임시티 인플루언서 모드 — 팔로워가 곧 무대. 콘텐츠 기획부터 브랜드 딜까지." path="/modes/influencer" />
-            <Link to="/" style={{ color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em" }}>
+            <button onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")} style={{ background: "none", border: "none", padding: 0, color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em", cursor: "pointer", fontFamily: "var(--f-body)" }}>
               &larr; PRIME CITY
-            </Link>
+            </button>
 
             <div style={{ textAlign: "center", marginTop: isMobile ? 32 : 48 }}>
               <span style={{ fontSize: isMobile ? 36 : 48, display: "block" }}>◐</span>

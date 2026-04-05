@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import C from "../styles/tokens";
 import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
@@ -10,6 +10,7 @@ import Seo from "../components/Seo";
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
 export default function DistrictDetail() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const dist = districts.find((d) => d.id === id);
   const isMobile = useIsMobile();
@@ -19,7 +20,7 @@ export default function DistrictDetail() {
       <PageLayout>
           <div style={{ textAlign: "center", padding: "120px 24px", color: C.text45 }}>
             <p style={{ fontSize: 16, marginBottom: 24 }}>구역을 찾을 수 없습니다.</p>
-            <Link to="/" style={{ color: C.gold, textDecoration: "none" }}>&larr; 메인으로</Link>
+            <button onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")} style={{ background: "none", border: "none", padding: 0, color: C.gold, textDecoration: "none", cursor: "pointer", fontFamily: "var(--f-body)" }}>&larr; 메인으로</button>
           </div>
       </PageLayout>
     );
@@ -34,7 +35,7 @@ export default function DistrictDetail() {
     <PageLayout>
         <div>
           <Seo title={`${dist.name} — ${dist.en}`} description={dist.desc} path={`/districts/${dist.id}`} />
-          <HeroSection dist={dist} isMobile={isMobile} />
+          <HeroSection dist={dist} isMobile={isMobile} navigate={navigate} />
           <div style={{ maxWidth: 760, margin: "0 auto", padding: isMobile ? "0 20px" : "0 32px" }}>
             <OverviewSection dist={dist} isMobile={isMobile} />
             {dist.landmarks?.length > 0 && <LandmarkSection dist={dist} isMobile={isMobile} />}
@@ -47,7 +48,7 @@ export default function DistrictDetail() {
   );
 }
 
-function HeroSection({ dist, isMobile }) {
+function HeroSection({ dist, isMobile, navigate }) {
   return (
     <section style={{
       position: "relative", minHeight: isMobile ? 360 : 480,
@@ -61,7 +62,7 @@ function HeroSection({ dist, isMobile }) {
       <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, oklch(0.08 0.01 265 / 0.4) 0%, oklch(0.08 0.01 265 / 0.1) 30%, oklch(0.08 0.01 265 / 0.6) 70%, ${C.bgDeep} 100%)` }} />
       <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, transparent 30%, ${dist.accent} 200%)`, opacity: 0.08 }} />
       <div style={{ position: "relative", zIndex: 2 }}>
-        <Link to="/" style={{ color: C.text35, textDecoration: "none", fontSize: 11, letterSpacing: "0.1em", display: "block", marginBottom: isMobile ? 24 : 36 }}>&larr; PRIME CITY</Link>
+        <button onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")} style={{ background: "none", border: "none", padding: 0, color: C.text35, textDecoration: "none", fontSize: 11, letterSpacing: "0.1em", display: "block", marginBottom: isMobile ? 24 : 36, cursor: "pointer", fontFamily: "var(--f-body)" }}>&larr; PRIME CITY</button>
         <span style={{ fontFamily: "var(--f-display-en)", fontSize: isMobile ? 10 : 12, letterSpacing: "0.35em", textTransform: "uppercase", color: dist.accent, display: "block", marginBottom: 8 }}>{dist.en}</span>
         <h1 style={{ fontFamily: "var(--f-display-kr)", fontSize: isMobile ? "clamp(32px,8vw,44px)" : "clamp(40px,5vw,60px)", fontWeight: 700, color: C.white, margin: "0 0 12px", textShadow: `0 0 40px ${dist.accent}` }}>{dist.name}</h1>
         <span style={{ fontSize: 11, padding: "4px 14px", background: `color-mix(in oklch, ${dist.accent} 12%, transparent)`, border: `1px solid color-mix(in oklch, ${dist.accent} 25%, transparent)`, color: dist.accent, fontFamily: "var(--f-display-en)", letterSpacing: "0.1em" }}>{dist.tier}</span>
