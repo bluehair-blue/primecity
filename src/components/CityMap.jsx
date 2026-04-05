@@ -98,13 +98,26 @@ function hypeTopPolygon(vw, vh) {
   return pts.map(([x, y]) => `${x * vw},${y * vh}`).join(" ");
 }
 
-/* ── Terrace 우측 하단 확장 (타원 링 바깥) ── */
-function terraceBottomRightPolygon(vw, vh) {
+/* ── Terrace 우측+하단 확장 (타원 링 바깥, Hype 링 위에 렌더) ──
+   우측 수로~하단 수로~우측 하단 모서리를 커버. */
+function terraceExtensionPolygon(vw, vh) {
   const pts = [
-    [0.42, 1.00],  // industrial 폴리곤 끝
-    [0.58, 0.85], [0.72, 0.78], [0.85, 0.75],
-    [0.95, 0.78], [1.00, 0.85],
-    [1.00, 1.00],  // 우측 하단 모서리
+    // 우측 상단 수로 경계 (Hype와의 경계)
+    [0.786, 0.440], [0.897, 0.444], [0.907, 0.491],
+    // 우측 하단으로 내려감
+    [0.807, 0.741], [0.742, 0.711],
+    // 하단 수로 경계
+    [0.702, 0.668], [0.399, 0.714],
+    [0.411, 0.757], [0.406, 0.836],
+    // 하단 프레임
+    [0.42, 1.00], [1.00, 1.00],
+    // 우측 프레임
+    [1.00, 0.636],
+    // 우측 상단으로 올라감 (Hype 상단 폴리곤 경계와 맞닿음)
+    [0.945, 0.515], [0.875, 0.193],
+    [0.802, 0.130],
+    // Hype top 경계를 따라 내려와서 우측 수로 시작점으로
+    [0.789, 0.435],
   ];
   return pts.map(([x, y]) => `${x * vw},${y * vh}`).join(" ");
 }
@@ -436,9 +449,9 @@ export default function CityMap({ isMobile }) {
               );
             })}
 
-            {/* Terrace 우측 하단 확장 */}
+            {/* Terrace 우측+하단 확장 */}
             <polygon
-              points={terraceBottomRightPolygon(vw, vh)}
+              points={terraceExtensionPolygon(vw, vh)}
               fill="transparent"
               pointerEvents="visibleFill"
               style={{ cursor: "pointer" }}
