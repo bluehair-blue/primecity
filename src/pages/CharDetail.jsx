@@ -211,7 +211,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
           {/* Beat 2: intro2 풀컬러 */}
           <img src={char.intro2} alt="" style={{
             position: "absolute", inset: 0, width: "100%", height: "100%",
-            objectFit: "cover", objectPosition: isMobile ? "55% 40%" : "center 30%",
+            objectFit: "cover", objectPosition: isMobile ? "50% 40%" : "center 30%",
             opacity: jgrBeat === 2 ? 1 : 0, transform: jgrBeat === 2 ? "scale(1)" : "scale(1.05)",
             transition: "opacity 1.2s ease-out, transform 3s ease-out",
           }} />
@@ -269,7 +269,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
       <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
         <img src={char.intro2} alt="" style={{
           width: "100%", height: "100%", objectFit: "cover",
-          objectPosition: isMobile ? "55% 40%" : "center 30%",
+          objectPosition: isMobile ? "50% 40%" : "center 30%",
           opacity: phase === 2 ? 1 : 0, transition: `opacity 0.8s ${EASE}`,
         }} />
         <div style={{
