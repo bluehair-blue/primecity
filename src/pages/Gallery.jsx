@@ -129,7 +129,7 @@ export default function Gallery() {
   const [tagFilter, setTagFilter] = useState(null);
   const [nsfwEnabled, setNsfwEnabled] = useState(false);
   const [nsfwModal, setNsfwModal] = useState(false);
-  const [lightboxIdx, setLightboxIdx] = useState(null);
+  const [lightbox, setLightbox] = useState(null); // { src, label, index }
   const [imgErrors, setImgErrors] = useState({});
   const touchRef = useRef({ startX: 0 });
 
@@ -173,21 +173,47 @@ export default function Gallery() {
     return true;
   });
 
-  // Lightbox navigation
-  function openLightbox(idx) { setLightboxIdx(idx); }
-  function closeLightbox() { setLightboxIdx(null); }
+  // Lightbox navigation (stable key based)
+  const closedByButton = useRef(false);
+  const lightboxIdx = lightbox ? filtered.findIndex((item) => item.src === lightbox.src) : null;
+
+  function openLightbox(idx) {
+    const item = filtered[idx];
+    if (item) setLightbox({ src: item.src, label: item.caption, index: idx });
+  }
+  function closeLightbox() {
+    closedByButton.current = true;
+    setLightbox(null);
+    window.history.back();
+  }
   function prevLightbox() {
-    if (lightboxIdx === null) return;
-    setLightboxIdx(lightboxIdx > 0 ? lightboxIdx - 1 : filtered.length - 1);
+    if (lightboxIdx === null || lightboxIdx < 0) return;
+    const newIdx = lightboxIdx > 0 ? lightboxIdx - 1 : filtered.length - 1;
+    const item = filtered[newIdx];
+    if (item) setLightbox({ src: item.src, label: item.caption, index: newIdx });
   }
   function nextLightbox() {
-    if (lightboxIdx === null) return;
-    setLightboxIdx(lightboxIdx < filtered.length - 1 ? lightboxIdx + 1 : 0);
+    if (lightboxIdx === null || lightboxIdx < 0) return;
+    const newIdx = lightboxIdx < filtered.length - 1 ? lightboxIdx + 1 : 0;
+    const item = filtered[newIdx];
+    if (item) setLightbox({ src: item.src, label: item.caption, index: newIdx });
   }
+
+  // Lightbox popstate
+  useEffect(() => {
+    if (!lightbox) return;
+    closedByButton.current = false;
+    window.history.pushState({ lightbox: true }, "");
+    function onPop() {
+      if (!closedByButton.current) setLightbox(null);
+    }
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, [!!lightbox]);
 
   // Lightbox keyboard
   useEffect(() => {
-    if (lightboxIdx === null) return;
+    if (!lightbox) return;
     const onKey = (e) => {
       if (e.key === "Escape") closeLightbox();
       if (e.key === "ArrowLeft") prevLightbox();
@@ -195,7 +221,7 @@ export default function Gallery() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [lightboxIdx, filtered.length]);
+  }, [lightbox, filtered.length]);
 
   // Touch swipe
   function handleTouchStart(e) {
@@ -430,16 +456,19 @@ export default function Gallery() {
                 </div>
               ) : (
                 filtered.map((item, i) => (
-                  <div
+                  <button
                     key={`${item.src}-${i}`}
                     onClick={() => openLightbox(i)}
                     style={{
+                      background: "none", border: "none", padding: 0, font: "inherit", color: "inherit", cursor: "pointer",
+                      textAlign: "left",
                       breakInside: "avoid",
                       marginBottom: isMobile ? 8 : 14,
                       position: "relative",
                       overflow: "hidden",
-                      cursor: "pointer",
-                      border: `1px solid ${item.isNsfw ? "oklch(0.85 0.12 15 / 0.2)" : C.border06}`,
+                      outline: "none",
+                      borderWidth: 1, borderStyle: "solid",
+                      borderColor: item.isNsfw ? "oklch(0.85 0.12 15 / 0.2)" : C.border06,
                       transition: `border-color 0.3s ${EASE}`,
                     }}
                     onMouseEnter={(e) => {
@@ -487,7 +516,7 @@ export default function Gallery() {
                         </div>
                       )}
                     </div>
-                  </div>
+                  </button>
                 ))
               )}
             </div>
@@ -495,6 +524,9 @@ export default function Gallery() {
             {/* ══════════ NSFW Confirmation Modal ══════════ */}
             {nsfwModal && (
               <div
+                role="dialog"
+                aria-modal="true"
+                aria-label="연령 제한 확인"
                 onClick={() => setNsfwModal(false)}
                 style={{
                   position: "fixed", inset: 0, zIndex: 9998,
@@ -547,8 +579,11 @@ export default function Gallery() {
             )}
 
             {/* ══════════ Lightbox ══════════ */}
-            {lightboxIdx !== null && filtered[lightboxIdx] && (
+            {lightbox && lightboxIdx !== null && lightboxIdx >= 0 && filtered[lightboxIdx] && (
               <div
+                role="dialog"
+                aria-modal="true"
+                aria-label="이미지 상세보기"
                 onClick={closeLightbox}
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}

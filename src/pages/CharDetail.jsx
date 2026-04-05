@@ -115,10 +115,28 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
     return () => obs.disconnect();
   }, []);
 
-  // Lightbox ESC
+  // Lightbox popstate + ESC
+  const jgrClosedByButton = useRef(false);
   useEffect(() => {
     if (!lightbox) return;
-    const onKey = (e) => { if (e.key === "Escape") setLightbox(null); };
+    jgrClosedByButton.current = false;
+    window.history.pushState({ lightbox: true }, "");
+    function onPop() {
+      if (!jgrClosedByButton.current) setLightbox(null);
+    }
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, [!!lightbox]);
+
+  function closeJgrLightbox() {
+    jgrClosedByButton.current = true;
+    setLightbox(null);
+    window.history.back();
+  }
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e) => { if (e.key === "Escape") closeJgrLightbox(); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [lightbox]);
@@ -354,7 +372,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
                 const exprSrc = cdnExprUrl(char.cdnId, key);
                 const hasError = exprErrors[key];
                 return (
-                  <div key={key} onClick={() => !hasError && setLightbox({ key, src: exprSrc })} style={{ aspectRatio: "1/1", background: C.bgCard, border: `1px solid ${C.border06}`, overflow: "hidden", position: "relative", cursor: hasError ? "default" : "pointer", transition: `border-color 0.3s ${EASE}` }}
+                  <button key={key} onClick={() => !hasError && setLightbox({ key, src: exprSrc })} style={{ background: "none", border: "none", padding: 0, font: "inherit", color: "inherit", cursor: hasError ? "default" : "pointer", textAlign: "left", outline: "none", aspectRatio: "1/1", backgroundColor: C.bgCard, borderWidth: 1, borderStyle: "solid", borderColor: C.border06, overflow: "hidden", position: "relative", transition: `border-color 0.3s ${EASE}` }}
                     onMouseEnter={(e) => { if (!hasError) e.currentTarget.style.borderColor = char.color; }}
                     onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border06; }}>
                     {!hasError ? (
@@ -367,7 +385,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
                     <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "6px 10px", background: `linear-gradient(to top, ${C.bgDeep}, transparent)` }}>
                       <span style={{ fontFamily: "var(--f-body)", fontSize: 10, color: C.text45 }}>{EXPRESSION_LABELS[key]}</span>
                     </div>
-                  </div>
+                  </button>
                 );
               })}
             </div>
@@ -415,11 +433,11 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
 
       {/* Lightbox */}
       {lightbox && (
-        <div onClick={() => setLightbox(null)} style={{ position: "fixed", inset: 0, zIndex: 9999, background: C.bgOverlay, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+        <div role="dialog" aria-modal="true" aria-label="이미지 상세보기" onClick={closeJgrLightbox} style={{ position: "fixed", inset: 0, zIndex: 9999, background: C.bgOverlay, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
           <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: isMobile ? "90vw" : "60vw", maxHeight: "80vh", position: "relative" }}>
             <img src={lightbox.src} alt={EXPRESSION_LABELS[lightbox.key]} style={{ maxWidth: "100%", maxHeight: "80vh", objectFit: "contain", border: `1px solid ${C.border10}` }} />
             <p style={{ textAlign: "center", fontFamily: "var(--f-body)", fontSize: 13, color: C.text55, marginTop: 12 }}>{char.name} — {EXPRESSION_LABELS[lightbox.key]}</p>
-            <button onClick={() => setLightbox(null)} style={{ position: "absolute", top: -12, right: -12, width: 32, height: 32, background: C.bgDeep, border: `1px solid ${C.border10}`, borderRadius: "50%", color: C.text55, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
+            <button onClick={closeJgrLightbox} style={{ position: "absolute", top: -12, right: -12, width: 32, height: 32, background: C.bgDeep, border: `1px solid ${C.border10}`, borderRadius: "50%", color: C.text55, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
           </div>
         </div>
       )}
@@ -473,10 +491,28 @@ export default function CharDetail() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // Lightbox ESC
+  // Lightbox popstate + ESC
+  const mainClosedByButton = useRef(false);
   useEffect(() => {
     if (!lightbox) return;
-    const onKey = (e) => { if (e.key === "Escape") setLightbox(null); };
+    mainClosedByButton.current = false;
+    window.history.pushState({ lightbox: true }, "");
+    function onPop() {
+      if (!mainClosedByButton.current) setLightbox(null);
+    }
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, [!!lightbox]);
+
+  function closeMainLightbox() {
+    mainClosedByButton.current = true;
+    setLightbox(null);
+    window.history.back();
+  }
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e) => { if (e.key === "Escape") closeMainLightbox(); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [lightbox]);
@@ -1057,7 +1093,7 @@ export default function CharDetail() {
               const exprSrc = cdnExprUrl(char.cdnId, key);
               const hasError = exprErrors[key];
               return (
-                <div key={key} onClick={() => !hasError && setLightbox({ key, src: exprSrc })} style={{ aspectRatio: "1/1", background: C.bgCard, border: `1px solid ${C.border06}`, overflow: "hidden", position: "relative", cursor: hasError ? "default" : "pointer", transition: `border-color 0.3s ${EASE}` }}
+                <button key={key} onClick={() => !hasError && setLightbox({ key, src: exprSrc })} style={{ background: "none", border: "none", padding: 0, font: "inherit", color: "inherit", cursor: hasError ? "default" : "pointer", textAlign: "left", outline: "none", aspectRatio: "1/1", backgroundColor: C.bgCard, borderWidth: 1, borderStyle: "solid", borderColor: C.border06, overflow: "hidden", position: "relative", transition: `border-color 0.3s ${EASE}` }}
                   onMouseEnter={(e) => { if (!hasError) e.currentTarget.style.borderColor = char.color; }}
                   onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border06; }}
                 >
@@ -1071,7 +1107,7 @@ export default function CharDetail() {
                   <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: isMobile ? "4px 6px" : "6px 10px", background: `linear-gradient(to top, ${C.bgDeep}, transparent)` }}>
                     <span style={{ fontFamily: "var(--f-body)", fontSize: isMobile ? 9 : 10, color: C.text45, letterSpacing: "0.05em" }}>{EXPRESSION_LABELS[key]}</span>
                   </div>
-                </div>
+                </button>
               );
             })}
           </div>
@@ -1144,11 +1180,11 @@ export default function CharDetail() {
 
       {/* ══════════ Lightbox ══════════ */}
       {lightbox && (
-        <div onClick={() => setLightbox(null)} style={{ position: "fixed", inset: 0, zIndex: 9999, background: C.bgOverlay, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+        <div role="dialog" aria-modal="true" aria-label="이미지 상세보기" onClick={closeMainLightbox} style={{ position: "fixed", inset: 0, zIndex: 9999, background: C.bgOverlay, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
           <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: isMobile ? "90vw" : "60vw", maxHeight: "80vh", position: "relative" }}>
             <img src={lightbox.src} alt={EXPRESSION_LABELS[lightbox.key]} style={{ maxWidth: "100%", maxHeight: "80vh", objectFit: "contain", border: `1px solid ${C.border10}` }} />
             <p style={{ textAlign: "center", fontFamily: "var(--f-body)", fontSize: 13, color: C.text55, marginTop: 12 }}>{char.name} — {EXPRESSION_LABELS[lightbox.key]}</p>
-            <button onClick={() => setLightbox(null)} style={{ position: "absolute", top: -12, right: -12, width: 32, height: 32, background: C.bgDeep, border: `1px solid ${C.border10}`, borderRadius: "50%", color: C.text55, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
+            <button onClick={closeMainLightbox} style={{ position: "absolute", top: -12, right: -12, width: 32, height: 32, background: C.bgDeep, border: `1px solid ${C.border10}`, borderRadius: "50%", color: C.text55, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
           </div>
         </div>
       )}

@@ -94,7 +94,7 @@ export default function SvgIntro() {
 
             <div ref={ref} style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: isMobile ? 16 : 24, opacity: v ? 1 : 0, transform: v ? "translateY(0)" : "translateY(20px)", transition: `all 0.6s ${EASE}` }}>
               {filtered.map((tmpl) => (
-                <div key={tmpl.id} onClick={() => { setSelected(tmpl); setModalTab("params"); }} style={{ background: C.bgCard, border: `1px solid ${C.border06}`, overflow: "hidden", cursor: "pointer", transition: `border-color 0.3s ${EASE}, transform 0.3s ${EASE}`, position: "relative" }}
+                <button key={tmpl.id} onClick={() => { setSelected(tmpl); setModalTab("params"); }} style={{ background: "none", border: "none", padding: 0, font: "inherit", color: "inherit", cursor: "pointer", textAlign: "left", outline: "none", backgroundColor: C.bgCard, borderWidth: 1, borderStyle: "solid", borderColor: C.border06, overflow: "hidden", transition: `border-color 0.3s ${EASE}, transform 0.3s ${EASE}`, position: "relative" }}
                   onMouseEnter={(e) => { e.currentTarget.style.borderColor = C.gold; e.currentTarget.style.transform = "translateY(-4px)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border06; e.currentTarget.style.transform = "translateY(0)"; }}
                 >
@@ -108,13 +108,13 @@ export default function SvgIntro() {
                     </div>
                     <span style={{ fontSize: 10, padding: "2px 8px", background: C.bgDeep, border: `1px solid ${C.border05}`, color: C.text35, fontFamily: "var(--f-body)" }}>{tmpl.category}</span>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
 
             {/* ══════════ Detail Modal ══════════ */}
             {selected && (
-              <div onClick={closeModal} style={{ position: "fixed", inset: 0, zIndex: 9999, background: C.bgOverlay, display: "flex", alignItems: isMobile ? "flex-start" : "center", justifyContent: "center", padding: isMobile ? "0" : "32px", overflowY: isMobile ? "auto" : "hidden" }}>
+              <div role="dialog" aria-modal="true" aria-label={selected.name} onClick={closeModal} style={{ position: "fixed", inset: 0, zIndex: 9999, background: C.bgOverlay, display: "flex", alignItems: isMobile ? "flex-start" : "center", justifyContent: "center", padding: isMobile ? "0" : "32px", overflowY: isMobile ? "auto" : "hidden" }}>
                 <div onClick={(e) => e.stopPropagation()} style={{ width: "100%", maxWidth: 700, maxHeight: isMobile ? "none" : "90vh", overflowY: isMobile ? "visible" : "auto", background: C.bgDeep, border: isMobile ? "none" : `1px solid ${C.border06}`, position: "relative", minHeight: isMobile ? "100vh" : "auto" }}>
 
                   {/* Close button — below navbar on mobile, top-right on desktop */}

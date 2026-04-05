@@ -224,6 +224,9 @@ export default function Navbar({ scrolled, isMobile }) {
       {/* Mobile overlay menu */}
       {isMobile && (
         <div
+          role="dialog"
+          aria-modal={open ? "true" : undefined}
+          aria-label="모바일 메뉴"
           style={{
             position: "fixed",
             inset: 0,
@@ -285,6 +288,9 @@ export default function Navbar({ scrolled, isMobile }) {
       {/* External link confirmation modal */}
       {extConfirm && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="외부 링크 이동 확인"
           onClick={() => setExtConfirm(null)}
           style={{
             position: "fixed", inset: 0, zIndex: 9999,

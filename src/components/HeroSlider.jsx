@@ -321,26 +321,25 @@ export default function HeroSlider({ isMobile }) {
         </a>
         <a
           href="#world"
-          style={{ width: isMobile ? "100%" : "auto", textDecoration: "none" }}
+          style={{
+            display: "inline-block",
+            width: isMobile ? "100%" : "auto",
+            textDecoration: "none",
+            padding: isMobile ? "13px 0" : "13px 38px",
+            background: "transparent",
+            border: `1px solid ${C.text15}`,
+            color: C.text45,
+            fontSize: 12,
+            fontWeight: 500,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            cursor: "pointer",
+            fontFamily: "var(--f-body)",
+            transition: "all 0.4s",
+            textAlign: "center",
+          }}
         >
-          <button
-            style={{
-              padding: isMobile ? "13px 0" : "13px 38px",
-              width: "100%",
-              background: "transparent",
-              border: `1px solid ${C.text15}`,
-              color: C.text45,
-              fontSize: 12,
-              fontWeight: 500,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              cursor: "pointer",
-              fontFamily: "var(--f-body)",
-              transition: "all 0.4s",
-            }}
-          >
-            세계관 보기
-          </button>
+          세계관 보기
         </a>
       </div>
 
