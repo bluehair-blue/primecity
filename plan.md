@@ -334,6 +334,7 @@ Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리
 | div→button | 낮음 | style reset + 사용자 확인 |
 | 대비/터치 (D-3) | **높음** | 사용자 디자인 판단 필수 |
 
+<!-- ✅ 커밋 ①②③④ 구현 완료. ⑤는 사용자 디자인 판단 후 진행. -->
 <!-- 모든 피드백 반영 완료 (최종):
   - 문서 정합성: 요약표/역할분담/plan_sub 모두 16개 파일 기준 통일
   - 기술 근거: useIsMobile = resize listener (matchMedia 아님) 정정
@@ -368,6 +369,13 @@ Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리
 ## 완료 이력
 
 > 구현이 완료된 기획은 여기로 이동합니다. 접근 방식과 결과만 간략히 기록.
+
+### 2026-04-05: 사이트 총체적 최적화 (①②③④)
+- ① 구조: PageLayout render prop 제거, 16개 페이지 Hook 최상단 이동
+- ② 모달 패스: Gallery/CharDetail lightbox popstate, dialog semantics, div→button, HeroSlider 구조 분리, Gallery stable key
+- ③ 성능 hot: Particles fixed+RAF+visibility+reduced-motion, transition:all hot 5개 26곳, prefers-reduced-motion CSS+JS
+- ④ 성능 cold: transition:all 나머지 21곳, Hero staged preload(대기 방식)
+- ⑤ 접근성: 사용자 디자인 판단 대기 (대비/터치)
 
 ### 2026-04-05: 장그루(JGR) CharDetail 전면 개편 v4
 - JgrCharDetail: module scope 완전 분리 (parent JGR 코드 0줄)
