@@ -38,10 +38,10 @@ function Fallback() {
           border: `2px solid ${C.goldDim}`,
           borderTop: `2px solid ${C.gold}`,
           borderRadius: "50%",
-          animation: "spin 0.8s linear infinite",
+          animation: "spinLoader 0.8s linear infinite",
         }}
       />
-      <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
+      <style>{`@keyframes spinLoader { to { transform: rotate(360deg) } }`}</style>
     </div>
   );
 }

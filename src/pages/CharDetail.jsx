@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import C from "../styles/tokens";
 import useIsMobile from "../hooks/useIsMobile";
@@ -18,6 +18,7 @@ const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
    ══════════════════════════════════════════════════════════ */
 function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
   const { name } = useParams();
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [phase, setPhase] = useState(0);
   const [jgrBeat, setJgrBeat] = useState(0);
@@ -284,11 +285,15 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
       {/* Hero 크레딧 블록 */}
       <section style={{ position: "relative", zIndex: 2, minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: isMobile ? "0 24px 80px" : "0 64px 100px" }}>
         {/* Back link */}
-        <Link to="/" style={{
-          position: "absolute", top: isMobile ? 24 : 40, left: isMobile ? 24 : 64,
-          color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em",
-          opacity: show ? 1 : 0, transition: `opacity 0.6s ${EASE} ${d(0)}`,
-        }}>&larr; PRIME CITY</Link>
+        <button
+          onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")}
+          style={{
+            position: "absolute", top: isMobile ? 24 : 40, left: isMobile ? 24 : 64,
+            background: "none", border: "none", padding: 0,
+            color: C.text35, fontSize: 12, letterSpacing: "0.08em",
+            cursor: "pointer", fontFamily: "var(--f-body)",
+            opacity: show ? 1 : 0, transition: `opacity 0.6s ${EASE} ${d(0)}`,
+          }}>&larr; PRIME CITY</button>
 
         <div style={{ maxWidth: isMobile ? "100%" : 520 }}>
           {/* Chapter label */}
@@ -448,6 +453,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
 
 export default function CharDetail() {
   const { name } = useParams();
+  const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [scrolled, setScrolled] = useState(false);
   const [uiReady, setUiReady] = useState(false);
@@ -764,9 +770,11 @@ export default function CharDetail() {
 
         {/* ── Back link (phase 2) ── */}
         <div style={{ width: "100%", maxWidth: 1100, opacity: phase === 2 ? 1 : 0, transition: `opacity 0.6s ${EASE} 0.3s`, marginBottom: isMobile ? 24 : 40 }}>
-          <Link to="/" style={{ color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em", transition: "color 0.3s" }}>
+          <button
+            onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")}
+            style={{ background: "none", border: "none", padding: 0, color: C.text35, fontSize: 12, letterSpacing: "0.08em", cursor: "pointer", fontFamily: "var(--f-body)", transition: "color 0.3s" }}>
             &larr; PRIME CITY
-          </Link>
+          </button>
         </div>
 
         {/* ── Main content: Image + Profile panels ── */}
