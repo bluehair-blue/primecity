@@ -86,17 +86,26 @@ function industrialPolygon(vw, vh) {
    타원 링 바깥이지만 이미지상 Hype Road인 상단 영역을 커버.
    좌표: 사용자 피드백 기반 경계점을 곡선으로 이은 영역 + 이미지 상단 모서리. */
 function hypeTopPolygon(vw, vh) {
-  // 경계점 (normalized → absolute)
-  const boundary = [
-    [0.061, 0.624], [0.061, 0.520], [0.106, 0.231],
+  // 경계점 (normalized) — 프레임 가장자리까지 확장
+  const pts = [
+    [0.00, 0.624], [0.061, 0.520], [0.106, 0.231],
     [0.338, 0.049], [0.715, 0.049],
     [0.802, 0.130], [0.875, 0.193],
-    [0.945, 0.515], [1.000, 0.636],
+    [0.945, 0.515], [1.00, 0.636],
+    [1.00, 0.00], [0.00, 0.00],  // 상단 모서리로 닫기
   ];
-  // 이미지 상단 모서리로 닫기 (시계 방향)
-  const topCorners = [[1.00, 0.00], [0.00, 0.00]];
-  const all = [...boundary, ...topCorners];
-  return all.map(([x, y]) => `${x * vw},${y * vh}`).join(" ");
+  return pts.map(([x, y]) => `${x * vw},${y * vh}`).join(" ");
+}
+
+/* ── Terrace 우측 하단 확장 (타원 링 바깥) ── */
+function terraceBottomRightPolygon(vw, vh) {
+  const pts = [
+    [0.42, 1.00],  // industrial 폴리곤 끝
+    [0.58, 0.85], [0.72, 0.78], [0.85, 0.75],
+    [0.95, 0.78], [1.00, 0.85],
+    [1.00, 1.00],  // 우측 하단 모서리
+  ];
+  return pts.map(([x, y]) => `${x * vw},${y * vh}`).join(" ");
 }
 
 /* ── Tooltip content (shared between mobile fixed and desktop floating) ── */
@@ -425,6 +434,17 @@ export default function CityMap({ isMobile }) {
                 />
               );
             })}
+
+            {/* Terrace 우측 하단 확장 */}
+            <polygon
+              points={terraceBottomRightPolygon(vw, vh)}
+              fill="transparent"
+              pointerEvents="visibleFill"
+              style={{ cursor: "pointer" }}
+              onMouseEnter={() => handleZoneEnter("terrace")}
+              onMouseLeave={handleZoneLeave}
+              onClick={() => handleClick("terrace")}
+            />
 
             {/* Hype Road 상단 확장 — Terrace 링 위에 렌더하여 우선 히트 */}
             <polygon
