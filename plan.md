@@ -199,6 +199,160 @@ Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리
 
 ---
 
+---
+
+### 사이트 총체적 최적화 (research.md §17 감사 기반, 12항목 4Phase)
+
+**목적**: research.md §17의 12개 감사 항목을 체계적으로 해소. 성능/접근성/구조 안정성/UX를 동시에 개선.
+
+**상세 감사**: → `research.md` §17 (12항목 상세 피드백 + 17.5 우선순위)
+
+**Phase 요약**:
+
+| Phase | 내용 | 항목 | 영향도 | 누가 |
+|---|---|---|---|---|
+| **A. 구조 안정성** | render prop Hook 정리, 모달 히스토리 통일 | §17.3.4, §17.3.10, §17.3.13 | **최우선** | Claude |
+| **B. 런타임 성능** | Particles 최적화, transition:all 제거, reduced motion | §17.3.1, §17.3.2, §17.3.3, §17.3.12-11 | **최우선** | Claude + 사용자 검수 |
+| **C. 네트워크/이미지** | Hero preload 분산, preconnect, 이미지 placeholder | §17.3.5, §17.3.7, §17.3.8 | **그다음** | Claude |
+| **D. 접근성/UX** | dialog semantics, 클릭div→button/a, 터치 타깃, 대비 | §17.3.9, §17.3.11, §17.3.12 | **이후** | 사용자 (디자인 판단) + Claude |
+
+---
+
+#### Phase A: 구조 안정성 (최우선)
+
+**A-1. PageLayout render prop 내부 Hook 정리**
+
+- **문제**: 11개 페이지에서 `PageLayout` child callback 내부 `useReveal()` 호출. Hook 규칙 위반 가능성.
+- **접근**: `PageLayout`을 render prop이 아닌 일반 wrapper로 변경. `children`을 항상 ReactNode로 받고, `isMobile`은 각 페이지에서 직접 `useIsMobile()` 호출.
+- **변경 파일**: `PageLayout.jsx` + 11개 페이지 (Contact, Gallery, SvgIntro, Works, Mode* 6개, ModeFreeplay)
+- **디자인 침해 분석**: 없음. 시각 결과 동일. 내부 구조만 정리.
+- **구현**: Claude가 수행. **사용자는 빌드 후 각 페이지 시각 결과만 확인**.
+
+**A-2. Gallery/CharDetail lightbox 뒤로가기 대응**
+
+- **문제**: SvgIntro만 popstate 처리, Gallery/CharDetail lightbox는 뒤로가기 시 페이지 이탈.
+- **접근**: SvgIntro의 `pushState/popstate` 패턴을 Gallery/CharDetail lightbox에도 적용.
+- **변경 파일**: `Gallery.jsx`, `CharDetail.jsx`
+- **디자인 침해 분석**: 없음. 사용자 행동 기대에 맞는 UX 개선.
+
+---
+
+#### Phase B: 런타임 성능 (최우선)
+
+**B-1. Particles.jsx 캔버스 최적화**
+
+- **문제**: `scrollHeight` 전체를 캔버스로 잡아 매 프레임 전체 clearRect. 긴 페이지에서 비용 급증.
+- **접근**:
+  1. 캔버스 높이를 `window.innerHeight`로 제한 (뷰포트만 그림)
+  2. `position: fixed`로 전환 → 스크롤해도 캔버스 크기 불변
+  3. 저사양 감지: `navigator.hardwareConcurrency <= 2` 시 파티클 수 절반 또는 비활성
+- **변경 파일**: `Particles.jsx`
+- **디자인 침해 분석**: ⚠ 현재 파티클이 페이지 전체에 걸쳐 보이던 것이 뷰포트로 제한됨. 하지만 `position: fixed`면 스크롤해도 항상 뷰포트에 파티클이 보이므로 **시각 체감 차이 거의 없음**.
+- **사용자 확인 필요**: 최종 시각 결과 비교 검수.
+
+**B-2. `transition: all` → 명시적 속성 전환**
+
+- **문제**: 93곳에서 `transition: all` 사용. 의도하지 않은 속성까지 transition 감시 → reflow 비용.
+- **접근**: 각 파일에서 실제 변경되는 속성만 명시 (예: `transition: "opacity 0.3s, border-color 0.3s"`)
+- **변경 파일**: 25개 파일 (CharCarousel, CharDetail, CityMap, Gallery, Navbar, TriangleNav, GameModes, HeroSlider, Mode* 등)
+- **디자인 침해 분석**: ⚠ 일부 hover 효과에서 의도하지 않게 transition되던 속성이 빠질 수 있음. **파일별로 실제 변경 속성을 분석 후 적용 필요**.
+- **사용자 역할**: 각 컴포넌트의 hover/상태 전환 시각 결과 확인. **특히 Navbar, GameModes, TriangleNav는 hover 효과가 많아 사용자 검수 필수**.
+
+**B-3. prefers-reduced-motion 대응**
+
+- **문제**: 전역 smooth scroll, Particles, glow, glitch, marquee, ring spin 등이 항상 동작.
+- **접근**: `index.html`에 `@media (prefers-reduced-motion: reduce)` CSS 추가 — 전역 keyframes를 `animation: none`으로 오버라이드. JS에서는 `matchMedia` 체크 후 Particles/HeroSlider 자동재생 비활성.
+- **변경 파일**: `index.html`, `Particles.jsx`, `HeroSlider.jsx`
+- **디자인 침해 분석**: reduced motion 설정한 사용자에게만 영향. 일반 사용자 체감 없음.
+
+---
+
+#### Phase C: 네트워크/이미지 (그다음)
+
+**C-1. Hero 배경 preload 전략 변경**
+
+- **문제**: 9장 동시 preload → 느린 회선에서 경쟁.
+- **접근**: 첫 장만 즉시 로드, 나머지 8장은 첫 장 로드 후 순차 또는 idle callback으로 분산.
+- **변경 파일**: `HeroSlider.jsx`
+- **디자인 침해 분석**: 첫 화면 표시 속도 개선. 슬라이더 전환 시 이미지 미로드 시 blur-up fallback 필요.
+
+**C-2. preconnect 추가**
+
+- **문제**: `fonts.googleapis.com`, `fonts.gstatic.com`, `img.bluehair.blue`에 preconnect 없음.
+- **접근**: `index.html` `<head>`에 `<link rel="preconnect">` 3개 추가.
+- **변경 파일**: `index.html`
+- **디자인 침해 분석**: 없음. 순수 성능 개선.
+- **사용자 직접 수행 권장**: 3줄 HTML 추가만으로 완료. 위치도 명확.
+
+**C-3. 이미지 placeholder/lazy loading 확대**
+
+- **문제**: Hero/CharCarousel/CharDetail/SvgIntro에 placeholder가 약하고 lazy loading 없음.
+- **접근**: CDN 이미지에 `loading="lazy"` 추가 (Gallery 외 컴포넌트), 주요 이미지에 bgColor placeholder.
+- **변경 파일**: `CharCarousel.jsx`, `CharDetail.jsx`, `SvgIntro.jsx`
+- **디자인 침해 분석**: ⚠ lazy loading 추가 시 above-the-fold 이미지에 잘못 적용하면 LCP 악화. **Hero/첫 화면 이미지는 eager 유지, below-the-fold만 lazy**.
+
+---
+
+#### Phase D: 접근성/UX (이후)
+
+**D-1. dialog semantics + focus trap**
+
+- **문제**: Gallery/CharDetail/Navbar 모달에 `role="dialog"`, `aria-modal`, focus trap 없음.
+- **접근**: 각 모달/lightbox에 dialog role + ESC 닫기(이미 있음) + focus trap 추가.
+- **변경 파일**: `Gallery.jsx`, `CharDetail.jsx`, `Navbar.jsx`, `SvgIntro.jsx`
+
+**D-2. 클릭 가능한 div → button/a 전환**
+
+- **문제**: Gallery/SvgIntro/CharDetail 카드들이 `div onClick`으로 구현 → 키보드/보조기기 접근 불리.
+- **접근**: 클릭 가능한 `div`를 `button` 또는 `Link`로 교체.
+- **디자인 침해 분석**: ⚠ `button`은 기본 스타일이 있으므로 reset 필요. **사용자가 최종 시각 확인**.
+
+**D-3. 저시력 대비/터치 타깃**
+
+- **문제**: 9~12px 텍스트, 28~32px 터치 타깃, `text25`/`text15` 낮은 대비.
+- **접근**: 최소 폰트 11px, 터치 타깃 최소 40px, 보조 텍스트 대비 기준 정리.
+- **사용자 직접 판단 필요**: 디자인 시스템의 의도적 뮤트 텍스트(text15 등)를 어디까지 올릴지는 미감 판단. **토큰 값 변경은 사이트 전체 시각에 영향**.
+
+**D-4. HeroSlider `<a>` 안 `<button>` 정리**
+
+- **문제**: HTML semantics 위반.
+- **접근**: `<a>` 내부의 `<button>`을 `<span role="button">` 또는 구조 분리.
+- **변경 파일**: `HeroSlider.jsx`
+
+---
+
+**역할 분담 요약**:
+
+| 항목 | 구현 주체 | 사용자 역할 |
+|---|---|---|
+| A-1 render prop 정리 | Claude | 빌드 후 페이지별 시각 확인 |
+| A-2 lightbox 뒤로가기 | Claude | 기능 확인 |
+| B-1 Particles 최적화 | Claude | 시각 결과 비교 검수 |
+| B-2 transition:all 제거 | Claude (분석+치환) | **각 컴포넌트 hover 효과 검수 필수** |
+| B-3 reduced motion | Claude | 설정 ON 시 동작 확인 |
+| C-1 Hero preload | Claude | 느린 회선 시뮬레이션 확인 |
+| C-2 preconnect | **사용자 직접** (3줄 HTML) | — |
+| C-3 이미지 lazy/placeholder | Claude | LCP 영향 확인 |
+| D-1 dialog semantics | Claude | 스크린 리더 테스트 (선택적) |
+| D-2 div→button/a | Claude | 시각 확인 |
+| D-3 저시력 대비/터치 | **사용자 판단** | 토큰 값 조정은 디자인 결정 |
+| D-4 a 안 button | Claude | — |
+
+**기존 디자인 침해 가능 항목 정리**:
+
+| 항목 | 위험도 | 침해 내용 | 대응 |
+|---|---|---|---|
+| B-1 Particles | 중간 | 페이지 전체→뷰포트 제한 | fixed position으로 시각 차이 최소화 |
+| B-2 transition:all | 중간 | hover 효과 일부 달라질 수 있음 | 파일별 분석, 사용자 검수 |
+| C-1 Hero preload | 낮음 | 슬라이더 전환 시 이미지 미로드 | blur-up fallback |
+| C-3 이미지 lazy | 낮음 | above-the-fold 잘못 적용 시 LCP 악화 | Hero/첫 화면은 eager 유지 |
+| D-2 div→button | 낮음 | button 기본 스타일 | style reset |
+| D-3 대비/터치 | **높음** | 사이트 전체 시각 톤 변경 가능 | 사용자 디자인 판단 필수 |
+
+<!-- 사용자 피드백/승인 영역 -->
+
+---
+
 ## 대기열 (우선순위순)
 
 > plan.md에 상세 기획이 작성되기 전의 작업 후보 목록입니다.
