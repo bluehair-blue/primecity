@@ -122,6 +122,26 @@ function terraceExtensionPolygon(vw, vh) {
   return pts.map(([x, y]) => `${x * vw},${y * vh}`).join(" ");
 }
 
+/* ── Terrace 우측 수로 오버라이드 (Hype 상단 폴리곤 위에 렌더) ──
+   사용자 좌표 기반: 이 경계 안쪽(우하 방향)은 Terrace.
+   SVG 최하단에 렌더하여 Hype 상단 폴리곤보다 우선. */
+function terraceRightOverride(vw, vh) {
+  const pts = [
+    // 좌변 (곡면): 수로 경계를 따라 올라감
+    [0.729, 0.654], [0.780, 0.552], [0.786, 0.438],
+    // 상변: 수로 상단
+    [0.891, 0.435],
+    // 우변 (곡면): 우측 수로를 따라 내려감
+    [0.923, 0.569], [0.999, 0.628],
+    // 우측 프레임 → 하단 프레임으로 닫기
+    [1.00, 1.00], [0.42, 1.00],
+    // 하단 수로 경계를 따라 좌변 시작점으로
+    [0.406, 0.836], [0.411, 0.757], [0.399, 0.714],
+    [0.702, 0.668], [0.742, 0.711],
+  ];
+  return pts.map(([x, y]) => `${x * vw},${y * vh}`).join(" ");
+}
+
 /* ── Tooltip content (shared between mobile fixed and desktop floating) ── */
 function TooltipContent({ district, accent, isMobile, onNavigate }) {
   return (
@@ -469,6 +489,17 @@ export default function CityMap({ isMobile }) {
               onMouseEnter={() => handleZoneEnter("hype")}
               onMouseLeave={handleZoneLeave}
               onClick={() => handleClick("hype")}
+            />
+
+            {/* Terrace 우측 수로 오버라이드 — Hype 상단 폴리곤 위 최상위 렌더 */}
+            <polygon
+              points={terraceRightOverride(vw, vh)}
+              fill="transparent"
+              pointerEvents="visibleFill"
+              style={{ cursor: "pointer" }}
+              onMouseEnter={() => handleZoneEnter("terrace")}
+              onMouseLeave={handleZoneLeave}
+              onClick={() => handleClick("terrace")}
             />
           </svg>
         </div>
