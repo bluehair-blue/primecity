@@ -221,15 +221,13 @@ Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리
 
 #### ① 구조: PageLayout + Hook 소유권 (최우선)
 
-**isMobile 소유권 결정**:
-- `PageLayout`은 **`isMobile`을 계속 소유**하되 `children`에 전달하지 않음 (render prop 제거).
-- `PageLayout` 내부: `isMobile`을 padding/Navbar/Footer 반응형에만 사용.
-- 각 페이지: `useIsMobile()`을 **직접** 호출하여 자기 레이아웃에 사용 + `useReveal()`도 페이지 최상단에서 호출.
-- 결과: Hook이 항상 컴포넌트 최상단에서 호출됨. `PageLayout`과 페이지 양쪽에서 `useIsMobile()` 호출 → **중복이지만 안전**. `useIsMobile`은 `matchMedia` 기반이라 추가 비용 무시 가능.
+**isMobile 소유권**: `PageLayout`이 계속 소유 (padding/Navbar/Footer 반응형). 페이지는 직접 `useIsMobile()` 호출 (중복이지만 안전, matchMedia 비용 무시 가능).
 
-**변경**:
-- `PageLayout.jsx`: `typeof children === "function" ? children({ isMobile }) : children` → 항상 `{children}`. render prop 분기 제거.
-- 11개 페이지: `({ isMobile }) => (...)` → 일반 JSX. 상단에 `const isMobile = useIsMobile();` 추가.
+**변경 범위 (16개 파일)**:
+- `PageLayout.jsx`: render prop 분기 제거 → 항상 `{children}`
+- 기존 11개: Contact, Gallery, SvgIntro, Works, Mode× 6개, ModeFreeplay
+- **추가 5개**: ModeAudition, Updates, NotFound, DistrictDetail(2곳 — 17행, 34행)
+- 하나라도 빠지면 **즉시 런타임 오류**.
 
 **디자인 침해**: 없음. 시각 결과 100% 동일.
 
@@ -237,35 +235,50 @@ Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리
 
 #### ② 모달/인터랙션 접근성 패스 (A-2 + D-1 + D-2 통합)
 
-같은 파일의 같은 DOM 노드를 건드리는 3개 항목을 **한 커밋으로 통합**:
+같은 파일의 같은 DOM 노드를 건드리는 3개 항목을 **한 커밋으로 통합**.
 
-| 파일 | lightbox popstate | dialog semantics | div→button/a |
-|---|---|---|---|
-| `Gallery.jsx` | lightbox open/close ↔ history | `role="dialog"` + focus trap | 이미지 카드 `div onClick` → `button` |
-| `CharDetail.jsx` | lightbox 동일 | 동일 | expr preview `div onClick` → `button` |
-| `SvgIntro.jsx` | 이미 구현 (기준 패턴) | 추가 필요 | 템플릿 카드 `div onClick` → `button` |
-| `Navbar.jsx` | 모바일 메뉴 | 추가 필요 | — |
+**요소 교체 3규칙** (확정):
+1. **이동** → `<a>` / `<Link>` (URL 변경이 목적)
+2. **모달 트리거** → `<button>` (Gallery:433, SvgIntro:97, CharDetail:1060 등)
+3. **중첩 인터랙션 금지** — `<a>` 안 `<button>` (HeroSlider:322,326) → 구조 분리 (별도 형제 요소로)
 
-**디자인 침해**: `button` 기본 스타일 reset 필요 (`background:none, border:none, padding:0, font:inherit, color:inherit, cursor:pointer`). 사용자 시각 확인.
+**Gallery lightbox state 안정화** (popstate 전제):
+- 현재: 배열 인덱스(Gallery.jsx:131,550)에 의존 → filtered 배열 변동 시 "뒤로가기=같은 이미지 닫기" 계약 깨짐
+- 변경: `src` 또는 `sceneNum` 같은 **stable key** 기반으로 modal state 전환 후 popstate
+
+| 파일 | popstate | dialog | div→button | 추가 작업 |
+|---|---|---|---|---|
+| `Gallery.jsx` | lightbox | overlay | 이미지 카드 | **stable key 전환** |
+| `CharDetail.jsx` | lightbox | overlay | expr preview | — |
+| `SvgIntro.jsx` | 이미 있음 | 추가 | 템플릿 카드 | — |
+| `Navbar.jsx` | 모바일 메뉴 | 추가 | — | — |
+| `HeroSlider.jsx` | — | — | — | **a안button 구조 분리** |
+
+**디자인 침해**: button reset 필요. 사용자 시각 확인.
 
 ---
 
 #### ③ 성능 hot path (최우선)
 
-**B-1. Particles.jsx 캔버스 최적화**:
-- `scrollHeight` → `window.innerHeight`, `position: fixed`
+**B-1. Particles.jsx 캔버스 + RAF 최적화**:
+- 캔버스: `scrollHeight` → `window.innerHeight`, `position: fixed`
 - 저사양: `hardwareConcurrency <= 2` 시 파티클 절반
-- **디자인 침해**: `fixed`면 스크롤해도 항상 뷰포트에 파티클 → 시각 차이 거의 없음. 사용자 검수.
+- **RAF 비용 제어** (높이만 줄여도 full-screen repaint는 계속됨):
+  1. **visibility pause**: `document.hidden` 시 rAF 중단 (`visibilitychange` 이벤트)
+  2. **reduced-motion short-circuit**: `matchMedia("(prefers-reduced-motion: reduce)")` 시 rAF 미시작
+  3. **route opt-out** (선택): 특정 라우트(예: JGR 시네마틱)에서 Particles 자체를 unmount하는 기존 패턴 유지
+- **디자인 침해**: `fixed`면 시각 차이 거의 없음. 사용자 검수.
 
 **B-2-hot. transition:all 제거 — hot path 5개만**:
 - `Navbar.jsx` (4곳), `HeroSlider.jsx` (2곳), `CharDetail.jsx` (12곳), `ScrollNav.jsx` (4곳), `Home.jsx` (4곳) = **26곳**
 - 이 5개 파일이 모든 페이지/스크롤에서 항상 활성 → 최대 체감.
 - 나머지 20개 파일(67곳)은 ④에서 처리.
 
-**B-3. prefers-reduced-motion**:
-- `index.html`: `@media (prefers-reduced-motion: reduce)` CSS — 전역 keyframes override
-- `Particles.jsx`: `matchMedia` 체크 시 rAF 중단
-- `HeroSlider.jsx`: 자동재생 비활성
+**B-3. prefers-reduced-motion** (CSS + JS 양면):
+- **CSS** (`index.html`): `@media (prefers-reduced-motion: reduce)` — 전역 keyframes override + `scroll-behavior: auto`
+- **JS 컴포넌트**: `Particles.jsx` rAF 중단, `HeroSlider.jsx` 자동재생 비활성
+- **JS smooth scroll 호출** (CSS만으론 안 잡히는 곳): `Navbar.jsx`(36,42행), `ScrollNav.jsx`(42,46행), `ModeAudition.jsx`(154행) 등의 `scrollIntoView({behavior:"smooth"})` → `matchMedia` 체크 후 `behavior: "auto"` 분기
+- 범위: main.jsx 전역 `scroll-behavior` + 개별 JS 호출 모두 포함
 
 ---
 
@@ -276,8 +289,10 @@ Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리
 - hot path 적용 후 문제 없으면 동일 패턴으로 일괄 치환.
 - **사용자 역할**: hover 효과 많은 컴포넌트 (GameModes, TriangleNav, Gallery) 검수.
 
-**C-1. Hero preload 전략**:
-- 첫 장만 즉시, 나머지 8장은 첫 장 로드 후 순차.
+**C-1. Hero preload 전략** (autoplay 연동 필수):
+- 현재: 9장 동시 preload → autoplay 즉시 시작(HeroSlider.jsx:33) → 미로드 슬라이드 빈 화면
+- 변경: **최소 현재+다음 2장 로드 후 autoplay 시작**. 나머지는 순차 분산.
+- autoplay 인덱스 전환(HeroSlider.jsx:35) 시 다음 이미지 로드 여부 체크 → 미로드면 skip 또는 대기.
 
 **C-2. preconnect** (사용자 직접 — 3줄):
 ```html
@@ -316,8 +331,14 @@ Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리
 | div→button | 낮음 | style reset + 사용자 확인 |
 | 대비/터치 (D-3) | **높음** | 사용자 디자인 판단 필수 |
 
-<!-- 사용자 피드백/승인 영역 -->
-
+<!-- 피드백 6건 반영 완료:
+  1. A-1 범위: 11→16파일 (ModeAudition, Updates, NotFound, DistrictDetail×2 추가)
+  2. B-3 범위: CSS keyframes + JS smooth scroll 호출 (Navbar/ScrollNav/ModeAudition 등) 양면 포함
+  3. C-1: autoplay 연동 — 최소 2장 로드 후 시작, 미로드 슬라이드 skip/대기
+  4. 요소 교체 3규칙 확정: 이동=a/Link, 모달=button, 중첩 금지(구조 분리)
+  5. Gallery stable key: 배열 인덱스→src/sceneNum 기반 modal state 후 popstate
+  6. Particles RAF: visibility pause + reduced-motion short-circuit + route opt-out
+-->
 ---
 
 ## 대기열 (우선순위순)
