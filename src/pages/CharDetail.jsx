@@ -225,6 +225,21 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
           }} />
           {/* 비네트 */}
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 30%, oklch(0 0 0 / 0.7) 100%)", pointerEvents: "none" }} />
+          {/* 버닝 프레임 — 좌우 앰버 그래디언트 (Beat 1 전용, 반응형) */}
+          {jgrBeat === 1 && (<>
+            <div style={{
+              position: "absolute", top: 0, left: 0, bottom: 0,
+              width: isMobile ? "25vw" : "18vw",
+              background: "linear-gradient(to right, oklch(0.35 0.12 40 / 0.7), oklch(0.4 0.08 50 / 0.3) 50%, transparent)",
+              pointerEvents: "none", opacity: 1, animation: "splashFadeIn 1.5s ease-out",
+            }} />
+            <div style={{
+              position: "absolute", top: 0, right: 0, bottom: 0,
+              width: isMobile ? "25vw" : "18vw",
+              background: "linear-gradient(to left, oklch(0.35 0.12 40 / 0.7), oklch(0.4 0.08 50 / 0.3) 50%, transparent)",
+              pointerEvents: "none", opacity: 1, animation: "splashFadeIn 1.5s ease-out",
+            }} />
+          </>)}
           {/* Letterbox */}
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "7%", background: "oklch(0 0 0)", zIndex: 2 }} />
           <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "7%", background: "oklch(0 0 0)", zIndex: 2 }} />
