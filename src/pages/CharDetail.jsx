@@ -211,7 +211,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
           {/* Beat 2: intro2 풀컬러 */}
           <img src={char.intro2} alt="" style={{
             position: "absolute", inset: 0, width: "100%", height: "100%",
-            objectFit: "cover", objectPosition: isMobile ? "45% 40%" : "center 30%",
+            objectFit: "cover", objectPosition: isMobile ? "55% 40%" : "center 30%",
             opacity: jgrBeat === 2 ? 1 : 0, transform: jgrBeat === 2 ? "scale(1)" : "scale(1.05)",
             transition: "opacity 1.2s ease-out, transform 3s ease-out",
           }} />
@@ -269,7 +269,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
       <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
         <img src={char.intro2} alt="" style={{
           width: "100%", height: "100%", objectFit: "cover",
-          objectPosition: isMobile ? "45% 40%" : "center 30%",
+          objectPosition: isMobile ? "55% 40%" : "center 30%",
           opacity: phase === 2 ? 1 : 0, transition: `opacity 0.8s ${EASE}`,
         }} />
         <div style={{
@@ -304,7 +304,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
             fontSize: isMobile ? "clamp(32px,10vw,48px)" : "clamp(48px,5vw,64px)",
             fontWeight: 700, color: C.white, margin: "0 0 8px", lineHeight: 1.2,
             opacity: show ? 1 : 0, transform: show ? "translateY(0)" : "translateY(16px)",
-            transition: `opacity 0.8s ${EASE} ${d(0.3)}, transform 0.8s ${EASE} ${d(0.3)}`,
+            transition: `opacity 0.8s ${EASE} ${d(0.15)}, transform 0.8s ${EASE} ${d(0.15)}`,
           }}>{char.name}</h1>
 
           {/* Accent line */}
@@ -312,13 +312,13 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
             width: 80, height: 2, marginBottom: 16,
             background: `linear-gradient(90deg, ${char.color}, transparent)`,
             transformOrigin: "left", transform: show ? "scaleX(1)" : "scaleX(0)",
-            transition: `transform 0.6s ${EASE} ${d(0.5)}`,
+            transition: `transform 0.6s ${EASE} ${d(0.25)}`,
           }} />
 
           {/* Role */}
           <p style={{
             fontFamily: "var(--f-body)", fontSize: 13, color: C.text55, margin: "0 0 16px",
-            opacity: show ? 1 : 0, transition: `opacity 0.6s ${EASE} ${d(0.7)}`,
+            opacity: show ? 1 : 0, transition: `opacity 0.6s ${EASE} ${d(0.35)}`,
           }}>{char.role}{char.age && ` · ${char.age}`}</p>
 
           {/* Tagline */}
@@ -327,7 +327,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
             color: char.color, fontStyle: "italic", margin: "0 0 20px",
             lineHeight: 1.7, wordBreak: "keep-all",
             opacity: show ? 1 : 0, transform: show ? "translateY(0)" : "translateY(10px)",
-            transition: `opacity 0.8s ${EASE} ${d(1)}, transform 0.8s ${EASE} ${d(1)}`,
+            transition: `opacity 0.8s ${EASE} ${d(0.5)}, transform 0.8s ${EASE} ${d(0.5)}`,
           }}>&ldquo;{char.tagline}&rdquo;</p>
 
           {/* Brief */}
@@ -335,7 +335,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
             fontFamily: "var(--f-body)", fontSize: isMobile ? 13 : 14,
             lineHeight: 1.9, color: C.text55, fontWeight: 300,
             wordBreak: "keep-all", margin: "0 0 28px",
-            opacity: show ? 1 : 0, transition: `opacity 0.6s ${EASE} ${d(1.3)}`,
+            opacity: show ? 1 : 0, transition: `opacity 0.6s ${EASE} ${d(0.7)}`,
           }}>{char.brief}</p>
 
           {/* Profile fields */}
@@ -344,7 +344,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
               <div key={field.en} style={{
                 paddingLeft: 12, borderLeft: `2px solid ${char.color}`,
                 opacity: show ? 1 : 0, transform: show ? "translateX(0)" : "translateX(20px)",
-                transition: `opacity 0.6s ${EASE} ${d(1.6 + i * 0.15)}, transform 0.6s ${EASE} ${d(1.6 + i * 0.15)}`,
+                transition: `opacity 0.6s ${EASE} ${d(0.85 + i * 0.1)}, transform 0.6s ${EASE} ${d(0.85 + i * 0.1)}`,
               }}>
                 <span style={{ fontFamily: "var(--f-display-en)", fontSize: 9, letterSpacing: "0.2em", color: char.color, textTransform: "uppercase" }}>{field.en}</span>
                 <p style={{ fontFamily: "var(--f-body)", fontSize: 12, color: C.text45, margin: "4px 0 0", lineHeight: 1.6, wordBreak: "keep-all" }}>{field.value}</p>
@@ -353,7 +353,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
           </div>
 
           {/* Traits */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 6, opacity: show ? 1 : 0, transition: `opacity 0.6s ${EASE} ${d(2.2)}` }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6, opacity: show ? 1 : 0, transition: `opacity 0.6s ${EASE} ${d(1.25)}` }}>
             {char.signature && <p style={{ fontSize: 11, color: C.text35, fontFamily: "var(--f-body)", margin: 0 }}><span style={{ color: char.color }}>●</span> 시그니처: {char.signature}</p>}
             {char.personality && <p style={{ fontSize: 11, color: C.text35, fontFamily: "var(--f-body)", margin: 0 }}><span style={{ color: char.color }}>●</span> 성격: {char.personality}</p>}
           </div>
