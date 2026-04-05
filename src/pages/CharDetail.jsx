@@ -94,12 +94,12 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
     setPhase(1);
     document.body.style.overflow = "hidden";
     const tb1 = setTimeout(() => setJgrBeat(1), 300);
-    const tb2 = setTimeout(() => setJgrBeat(2), 4200);
+    const tb2 = setTimeout(() => setJgrBeat(2), 3400);
     const tb3 = setTimeout(() => {
       setJgrFadingOut(true);
       setPhase(2);
       setTimeout(() => { setJgrFadingOut(false); document.body.style.overflow = ""; }, 500);
-    }, 8200);
+    }, 7400);
     timerRefs.current = [tb1, tb2, tb3];
     return () => timerRefs.current.forEach(clearTimeout);
   }, [jgrAssetsReady]);
