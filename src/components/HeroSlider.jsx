@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import C from "../styles/tokens";
 import { cdnUrl } from "../utils/cdn";
 
@@ -12,10 +12,13 @@ export default function HeroSlider({ isMobile }) {
   const [uiReady, setUiReady] = useState(false);
   const [loadedSet, setLoadedSet] = useState(new Set());
   const [anyLoaded, setAnyLoaded] = useState(false);
+  const [autoplayReady, setAutoplayReady] = useState(false);
 
   const [currentIdx, setCurrentIdx] = useState(0);
+  const loadedRef = useRef(new Set());
 
   const markLoaded = useCallback((idx) => {
+    loadedRef.current.add(idx);
     setLoadedSet((prev) => {
       const s = new Set(prev);
       s.add(idx);
@@ -24,20 +27,58 @@ export default function HeroSlider({ isMobile }) {
     setAnyLoaded(true);
   }, []);
 
+  /* ── Staged preload: first 2 images, then rest sequentially ── */
+  useEffect(() => {
+    let cancelled = false;
+
+    function preloadImage(src, idx) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => { markLoaded(idx); resolve(); };
+        img.onerror = () => { markLoaded(idx); resolve(); };
+      });
+    }
+
+    async function run() {
+      /* Phase 1: load first 2 images (current + next) */
+      await Promise.all([
+        preloadImage(BG_IMAGES[0], 0),
+        preloadImage(BG_IMAGES[1], 1),
+      ]);
+      if (cancelled) return;
+      setAutoplayReady(true);
+
+      /* Phase 2: sequentially preload remaining images */
+      for (let i = 2; i < BG_IMAGES.length; i++) {
+        if (cancelled) return;
+        await preloadImage(BG_IMAGES[i], i);
+      }
+    }
+
+    run();
+    return () => { cancelled = true; };
+  }, [markLoaded]);
+
   useEffect(() => {
     const t = setTimeout(() => setUiReady(true), 300);
     return () => clearTimeout(t);
   }, []);
 
   useEffect(() => {
-    if (!anyLoaded) return;
+    if (!autoplayReady) return;
     /* reduced-motion: keep static image, no autoplay */
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const timer = setInterval(() => {
-      setCurrentIdx((prev) => (prev + 1) % BG_IMAGES.length);
+      setCurrentIdx((prev) => {
+        const next = (prev + 1) % BG_IMAGES.length;
+        /* If next image hasn't loaded yet, stay on current slide */
+        if (!loadedRef.current.has(next)) return prev;
+        return next;
+      });
     }, SLIDE_INTERVAL);
     return () => clearInterval(timer);
-  }, [anyLoaded]);
+  }, [autoplayReady]);
 
   const t = (delay) => `opacity 1s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 1s cubic-bezier(0.22,1,0.36,1) ${delay}s`;
 
@@ -77,17 +118,7 @@ export default function HeroSlider({ isMobile }) {
               }}
             />
           ))}
-        {/* Preload images */}
-        {BG_IMAGES.map((url, idx) => (
-          <img
-            key={`preload-${url}`}
-            src={url}
-            alt=""
-            onLoad={() => markLoaded(idx)}
-            onError={() => markLoaded(idx)}
-            style={{ display: "none" }}
-          />
-        ))}
+        {/* Images are preloaded via staged useEffect (first 2, then rest sequentially) */}
         {/* Fallback gradient */}
         <div
           style={{

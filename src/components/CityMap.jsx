@@ -152,7 +152,7 @@ function TooltipContent({ district, accent, isMobile, onNavigate }) {
             background: "transparent",
             border: `1px solid ${accent}`,
             cursor: "pointer",
-            transition: "all 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
+            transition: "border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         >
           자세히 보기 →
@@ -241,7 +241,7 @@ export default function CityMap({ isMobile }) {
         margin: isMobile ? "0 auto 36px" : "0 auto 64px",
         opacity: mapVisible ? 1 : 0,
         transform: mapVisible ? "translateY(0)" : "translateY(24px)",
-        transition: "all 1s cubic-bezier(0.22,1,0.36,1)",
+        transition: "opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1)",
         pointerEvents: mapVisible ? "auto" : "none",
       }}
     >

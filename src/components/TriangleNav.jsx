@@ -166,7 +166,7 @@ function DesktopPrismNav() {
                     strokeWidth={isHov ? 2 : 1}
                     strokeLinejoin="round"
                     style={{
-                      transition: "all 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
+                      transition: "fill 0.5s cubic-bezier(0.25, 1, 0.5, 1), stroke 0.5s cubic-bezier(0.25, 1, 0.5, 1), stroke-width 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
                       filter: isHov ? "url(#neon-glow)" : "none",
                       transformOrigin: `${cx}px ${cy}px`,
                       transform: isHov ? "scale(1.015)" : "scale(1)",
@@ -213,7 +213,7 @@ function DesktopPrismNav() {
                     fontWeight="700"
                     filter={isHov ? "url(#text-glow)" : undefined}
                     style={{
-                      transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
+                      transition: "fill 0.4s cubic-bezier(0.22,1,0.36,1), font-size 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s cubic-bezier(0.22,1,0.36,1)",
                       pointerEvents: "none",
                     }}
                   >
@@ -231,7 +231,7 @@ function DesktopPrismNav() {
                     fontSize={11}
                     letterSpacing="0.2em"
                     style={{
-                      transition: "all 0.4s",
+                      transition: "fill 0.4s",
                       pointerEvents: "none",
                       textTransform: "uppercase",
                     }}
@@ -313,7 +313,7 @@ function MobilePrismNav() {
                 : "oklch(0 0 0 / 0.6)",
               backdropFilter: "blur(8px)",
               WebkitBackdropFilter: "blur(8px)",
-              transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
+              transition: "background 0.4s cubic-bezier(0.22,1,0.36,1), z-index 0.4s cubic-bezier(0.22,1,0.36,1)",
               zIndex: isHov ? 10 : i,
               willChange: "transform",
             }}
@@ -343,7 +343,7 @@ function MobilePrismNav() {
                   ? `linear-gradient(${135 + i * 15}deg, ${alpha(item.accent, 0.06)}, transparent 40%)`
                   : "none",
                 pointerEvents: "none",
-                transition: "all 0.4s",
+                transition: "background 0.4s",
               }}
             />
             <div
@@ -386,7 +386,7 @@ function MobilePrismNav() {
                   fontFamily: "var(--f-display-en)",
                   fontSize: 14,
                   color: isHov ? item.accent : C.text15,
-                  transition: "all 0.3s cubic-bezier(0.22,1,0.36,1)",
+                  transition: "color 0.3s cubic-bezier(0.22,1,0.36,1), transform 0.3s cubic-bezier(0.22,1,0.36,1), opacity 0.3s cubic-bezier(0.22,1,0.36,1)",
                   transform: isHov ? "translateX(4px)" : "translateX(0)",
                   opacity: isHov ? 1 : 0.5,
                 }}
@@ -420,7 +420,7 @@ export default function TriangleNav({ isMobile }) {
           marginBottom: isMobile ? 28 : 52,
           opacity: visible ? 1 : 0,
           transform: visible ? "translateY(0)" : "translateY(24px)",
-          transition: "all 1s cubic-bezier(0.22,1,0.36,1)",
+          transition: "opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1)",
         }}
       >
         <span
@@ -464,7 +464,7 @@ export default function TriangleNav({ isMobile }) {
         style={{
           opacity: visible ? 1 : 0,
           transform: visible ? "translateY(0)" : "translateY(20px)",
-          transition: "all 0.8s cubic-bezier(0.22,1,0.36,1) 0.2s",
+          transition: "opacity 0.8s cubic-bezier(0.22,1,0.36,1) 0.2s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.2s",
         }}
       >
         {isMobile ? <MobilePrismNav /> : <DesktopPrismNav />}

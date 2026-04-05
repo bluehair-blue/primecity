@@ -51,7 +51,7 @@ function WebtoonSection({ isMobile }) {
         marginBottom: isMobile ? 40 : 56,
         opacity: vWt ? 1 : 0,
         transform: vWt ? "translateY(0)" : "translateY(20px)",
-        transition: "all 0.8s cubic-bezier(0.22,1,0.36,1)",
+        transition: "opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)",
       }}
     >
       {/* Section label */}
@@ -120,7 +120,7 @@ function WebtoonSection({ isMobile }) {
                 border: `1px solid ${C.goldMuted}`,
                 padding: "10px 32px",
                 cursor: "pointer",
-                transition: "all 0.3s cubic-bezier(0.22,1,0.36,1)",
+                transition: "background 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s cubic-bezier(0.22,1,0.36,1), color 0.3s cubic-bezier(0.22,1,0.36,1)",
                 letterSpacing: "0.04em",
               }}
             >
@@ -163,7 +163,7 @@ function WebtoonSection({ isMobile }) {
                 border: `1px solid ${C.border06}`,
                 padding: "8px 24px",
                 cursor: "pointer",
-                transition: "all 0.3s",
+                transition: "border-color 0.3s, color 0.3s",
               }}
             >
               접기

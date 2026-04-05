@@ -174,7 +174,7 @@ export default function Works() {
                   border: `1px dashed ${C.border10}`,
                   textAlign: "center",
                   opacity: v ? 1 : 0,
-                  transition: "all 0.8s cubic-bezier(0.22,1,0.36,1) 0.2s",
+                  transition: "opacity 0.8s cubic-bezier(0.22,1,0.36,1) 0.2s",
                 }}
               >
                 <p

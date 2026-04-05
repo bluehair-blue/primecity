@@ -29,7 +29,7 @@ function Thumbnail({ char, selected, onClick, index, isMobile }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
+        transition: "border-color 0.4s cubic-bezier(0.22,1,0.36,1), background 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s cubic-bezier(0.22,1,0.36,1), opacity 0.4s cubic-bezier(0.22,1,0.36,1)",
         boxShadow: selected ? `0 0 16px ${alpha(char.color, 0.25)}` : "none",
         flexShrink: 0,
         opacity: selected ? 1 : 0.5,
@@ -275,7 +275,7 @@ function MobileCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageCha
           style={{
             opacity: fade ? 1 : 0,
             transform: fade ? "translateY(0)" : "translateY(12px)",
-            transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
+            transition: "opacity 0.4s cubic-bezier(0.22,1,0.36,1), transform 0.4s cubic-bezier(0.22,1,0.36,1)",
           }}
         >
           {/* Character image */}
@@ -484,7 +484,7 @@ function DesktopCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageCh
           pointerEvents: "none",
           opacity: fade ? 1 : 0,
           transform: fade ? "scale(1) translateX(0)" : "scale(0.97) translateX(20px)",
-          transition: "all 0.6s cubic-bezier(0.22,1,0.36,1)",
+          transition: "opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1)",
         }}
       >
         {char.image ? (
@@ -653,7 +653,7 @@ function DesktopCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageCh
               alignItems: "center",
               justifyContent: "center",
               fontSize: 14,
-              transition: "all 0.3s",
+              transition: "border-color 0.3s",
             }}
             onMouseEnter={(e) => {
               if (totalPages > 1) e.currentTarget.style.borderColor = C.gold;
@@ -692,7 +692,7 @@ function DesktopCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageCh
               alignItems: "center",
               justifyContent: "center",
               fontSize: 14,
-              transition: "all 0.3s",
+              transition: "border-color 0.3s",
             }}
             onMouseEnter={(e) => {
               if (totalPages > 1) e.currentTarget.style.borderColor = C.gold;
@@ -716,7 +716,7 @@ function DesktopCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageCh
             position: "relative",
             opacity: fade ? 1 : 0,
             transform: fade ? "translateX(0)" : "translateX(-16px)",
-            transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
+            transition: "opacity 0.4s cubic-bezier(0.22,1,0.36,1), transform 0.4s cubic-bezier(0.22,1,0.36,1)",
           }}
         >
           {/* Readability gradient behind text */}

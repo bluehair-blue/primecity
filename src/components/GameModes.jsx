@@ -28,7 +28,7 @@ export default function GameModes({ isMobile }) {
           marginBottom: isMobile ? 32 : 56,
           opacity: visible ? 1 : 0,
           transform: visible ? "translateY(0)" : "translateY(24px)",
-          transition: "all 1s cubic-bezier(0.22,1,0.36,1)",
+          transition: "opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1)",
         }}
       >
         <span
@@ -99,7 +99,7 @@ export default function GameModes({ isMobile }) {
           marginBottom: isMobile ? 28 : 44,
           opacity: visible ? 1 : 0,
           transform: visible ? "translateY(0)" : "translateY(16px)",
-          transition: "all 0.8s cubic-bezier(0.22,1,0.36,1) 0.15s",
+          transition: "opacity 0.8s cubic-bezier(0.22,1,0.36,1) 0.15s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.15s",
         }}
       >
         {mainModes.map((m, i) => {
@@ -118,7 +118,7 @@ export default function GameModes({ isMobile }) {
                 padding: isMobile ? "8px 16px" : "10px 28px",
                 borderRadius: 100,
                 cursor: "pointer",
-                transition: "all 0.4s cubic-bezier(0.22,1,0.36,1)",
+                transition: "background 0.4s cubic-bezier(0.22,1,0.36,1), color 0.4s cubic-bezier(0.22,1,0.36,1), border-color 0.4s cubic-bezier(0.22,1,0.36,1), font-weight 0.4s cubic-bezier(0.22,1,0.36,1)",
                 letterSpacing: "0.02em",
               }}
             >
@@ -136,7 +136,7 @@ export default function GameModes({ isMobile }) {
           margin: "0 auto",
           textAlign: "center",
           opacity: visible ? 1 : 0,
-          transition: "all 0.5s cubic-bezier(0.22,1,0.36,1)",
+          transition: "opacity 0.5s cubic-bezier(0.22,1,0.36,1)",
         }}
       >
         <div
@@ -220,7 +220,7 @@ export default function GameModes({ isMobile }) {
             marginBottom: isMobile ? 24 : 36,
             opacity: vCareer ? 1 : 0,
             transform: vCareer ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.8s cubic-bezier(0.22,1,0.36,1)",
+            transition: "opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)",
           }}
         >
           <span
@@ -281,7 +281,7 @@ export default function GameModes({ isMobile }) {
                 overflow: "hidden",
                 opacity: vCareer ? 1 : 0,
                 transform: vCareer ? "translateY(0)" : "translateY(20px)",
-                transition: `all 0.7s cubic-bezier(0.22,1,0.36,1) ${i * 0.06}s`,
+                transition: `opacity 0.7s cubic-bezier(0.22,1,0.36,1) ${i * 0.06}s, transform 0.7s cubic-bezier(0.22,1,0.36,1) ${i * 0.06}s, border-color 0.7s cubic-bezier(0.22,1,0.36,1) ${i * 0.06}s, box-shadow 0.7s cubic-bezier(0.22,1,0.36,1) ${i * 0.06}s`,
                 display: "block",
               }}
               onMouseEnter={(e) => {
