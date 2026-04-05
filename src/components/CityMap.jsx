@@ -8,8 +8,8 @@ import { cdnUrl } from "../utils/cdn";
 const BASE_SRC = cdnUrl("Citybase(1).webp");
 
 const CENTER_X = 0.50;
-const CENTER_Y = 0.47;
-const RATIO = 0.54;
+const CENTER_Y = 0.52;
+const RATIO = 0.50;
 
 const ZONES = [
   {
@@ -41,7 +41,7 @@ const ZONES = [
     src: cdnUrl("Terrace.webp"),
     accent: C.distTer,
     glowColor: "oklch(0.78 0.14 140)",
-    innerR: 0.44, outerR: 0.56,
+    innerR: 0.44, outerR: 0.52,
     type: "ring",
   },
   {
