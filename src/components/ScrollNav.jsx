@@ -38,12 +38,13 @@ export default function ScrollNav({ isMobile }) {
   }, []);
 
   function scrollTo(id) {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (id === "hero") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: prefersReduced ? "auto" : "smooth" });
       return;
     }
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (el) el.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
   }
 
   if (!visible) return null;
@@ -80,7 +81,7 @@ export default function ScrollNav({ isMobile }) {
                 background: isActive ? C.primeBlue : C.text25,
                 cursor: "pointer",
                 padding: 0,
-                transition: "all 0.25s ease-out",
+                transition: "width 0.25s ease-out, height 0.25s ease-out, background 0.25s ease-out, box-shadow 0.25s ease-out",
                 boxShadow: isActive
                   ? `0 0 8px oklch(0.62 0.20 252 / 0.5)`
                   : "none",
@@ -122,7 +123,7 @@ export default function ScrollNav({ isMobile }) {
               border: "none",
               cursor: "pointer",
               padding: "6px 0",
-              transition: "all 0.2s ease-out",
+              transition: "opacity 0.2s ease-out",
             }}
           >
             <span
@@ -134,7 +135,7 @@ export default function ScrollNav({ isMobile }) {
                 color: isActive ? C.primeBlue : C.text25,
                 opacity: isActive ? 1 : 0.7,
                 transform: isActive ? "translateX(0)" : "translateX(4px)",
-                transition: "all 0.2s ease-out",
+                transition: "color 0.2s ease-out, opacity 0.2s ease-out, transform 0.2s ease-out",
               }}
             >
               {s.en}
@@ -145,7 +146,7 @@ export default function ScrollNav({ isMobile }) {
                 height: 1.5,
                 background: isActive ? C.primeBlue : C.text15,
                 borderRadius: 1,
-                transition: "all 0.2s ease-out",
+                transition: "width 0.2s ease-out, background 0.2s ease-out, box-shadow 0.2s ease-out",
                 boxShadow: isActive
                   ? `0 0 6px oklch(0.62 0.20 252 / 0.4)`
                   : "none",

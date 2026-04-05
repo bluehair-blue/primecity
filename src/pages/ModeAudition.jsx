@@ -152,7 +152,8 @@ function WebtoonSection({ isMobile }) {
             <button
               onClick={() => {
                 setOpen(false);
-                document.getElementById("webtoon-top")?.scrollIntoView({ behavior: "smooth" });
+                const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                document.getElementById("webtoon-top")?.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth" });
               }}
               style={{
                 fontFamily: "var(--f-body)",

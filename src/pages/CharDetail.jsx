@@ -245,7 +245,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
             color: jgrBeat === 1 ? "oklch(0.85 0.03 80)" : "oklch(0.95 0 0)",
             margin: 0, lineHeight: 1.6,
             opacity: jgrBeat >= 1 ? 1 : 0, transform: jgrBeat >= 1 ? "translateY(0)" : "translateY(20px)",
-            transition: "all 1s ease-out, color 1.2s ease-out",
+            transition: "opacity 1s ease-out, transform 1s ease-out, color 1.2s ease-out",
             textShadow: "0 2px 24px oklch(0 0 0 / 0.8)",
           }}>
             {jgrBeat === 1 ? "보고있어? 이게―..." : "내 마지막 꿈이야."}
@@ -295,7 +295,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
             fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em",
             textTransform: "uppercase", color: char.color, display: "block", marginBottom: 12,
             opacity: show ? 1 : 0, transform: show ? "translateY(0)" : "translateY(12px)",
-            transition: `all 0.8s ${EASE} ${d(0)}`,
+            transition: `opacity 0.8s ${EASE} ${d(0)}, transform 0.8s ${EASE} ${d(0)}`,
           }}>Jang Gru / Retake</span>
 
           {/* Name */}
@@ -304,7 +304,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
             fontSize: isMobile ? "clamp(32px,10vw,48px)" : "clamp(48px,5vw,64px)",
             fontWeight: 700, color: C.white, margin: "0 0 8px", lineHeight: 1.2,
             opacity: show ? 1 : 0, transform: show ? "translateY(0)" : "translateY(16px)",
-            transition: `all 0.8s ${EASE} ${d(0.3)}`,
+            transition: `opacity 0.8s ${EASE} ${d(0.3)}, transform 0.8s ${EASE} ${d(0.3)}`,
           }}>{char.name}</h1>
 
           {/* Accent line */}
@@ -327,7 +327,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
             color: char.color, fontStyle: "italic", margin: "0 0 20px",
             lineHeight: 1.7, wordBreak: "keep-all",
             opacity: show ? 1 : 0, transform: show ? "translateY(0)" : "translateY(10px)",
-            transition: `all 0.8s ${EASE} ${d(1)}`,
+            transition: `opacity 0.8s ${EASE} ${d(1)}, transform 0.8s ${EASE} ${d(1)}`,
           }}>&ldquo;{char.tagline}&rdquo;</p>
 
           {/* Brief */}
@@ -344,7 +344,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
               <div key={field.en} style={{
                 paddingLeft: 12, borderLeft: `2px solid ${char.color}`,
                 opacity: show ? 1 : 0, transform: show ? "translateX(0)" : "translateX(20px)",
-                transition: `all 0.6s ${EASE} ${d(1.6 + i * 0.15)}`,
+                transition: `opacity 0.6s ${EASE} ${d(1.6 + i * 0.15)}, transform 0.6s ${EASE} ${d(1.6 + i * 0.15)}`,
               }}>
                 <span style={{ fontFamily: "var(--f-display-en)", fontSize: 9, letterSpacing: "0.2em", color: char.color, textTransform: "uppercase" }}>{field.en}</span>
                 <p style={{ fontFamily: "var(--f-body)", fontSize: 12, color: C.text45, margin: "4px 0 0", lineHeight: 1.6, wordBreak: "keep-all" }}>{field.value}</p>
@@ -833,7 +833,7 @@ export default function CharDetail() {
                       filter: `drop-shadow(0 0 12px oklch(0.7 0.15 200)) brightness(1.2)`,
                       opacity: phase === 2 ? 0 : 0.6,
                       transform: phase === 2 ? "scale(0.9) translateX(0)" : "scale(1) translateX(-12%)",
-                      transition: `all 0.9s ${EASE}`,
+                      transition: `opacity 0.9s ${EASE}, transform 0.9s ${EASE}`,
                     }}
                   />
                   {/* Ghost echo right (character accent silhouette) */}
@@ -845,7 +845,7 @@ export default function CharDetail() {
                       filter: `drop-shadow(0 0 12px ${char.color}) brightness(1.2)`,
                       opacity: phase === 2 ? 0 : 0.6,
                       transform: phase === 2 ? "scale(0.9) translateX(0)" : "scale(1) translateX(12%)",
-                      transition: `all 0.9s ${EASE}`,
+                      transition: `opacity 0.9s ${EASE}, transform 0.9s ${EASE}`,
                     }}
                   />
                   {/* Central hologram (Phase 1) */}
@@ -857,7 +857,7 @@ export default function CharDetail() {
                       filter: `drop-shadow(0 0 20px ${`color-mix(in oklch, ${char.color} 50%, transparent)`})`,
                       opacity: phase === 2 ? 0 : 1,
                       transform: phase === 2 ? "scale(0.95)" : "scale(1)",
-                      transition: `all 0.8s ${EASE}`,
+                      transition: `opacity 0.8s ${EASE}, transform 0.8s ${EASE}`,
                     }}
                   />
                   {/* Profile card (Phase 2): focus lock-on with blur clear */}
@@ -962,7 +962,7 @@ export default function CharDetail() {
               flex: 1, minWidth: 0,
               opacity: phase === 2 ? 1 : 0,
               transform: phase === 2 ? "translateX(0)" : (isMobile ? "translateY(30px)" : "translateX(60px)"),
-              transition: `all 1s ${EASE} 0.3s`,
+              transition: `opacity 1s ${EASE} 0.3s, transform 1s ${EASE} 0.3s`,
               pointerEvents: phase === 2 ? "auto" : "none",
             }}
           >
@@ -996,7 +996,7 @@ export default function CharDetail() {
                     paddingLeft: 18,
                     opacity: phase === 2 ? 1 : 0,
                     transform: phase === 2 ? "translateX(0)" : "translateX(30px)",
-                    transition: `all 0.8s ${EASE} ${0.5 + i * 0.12}s`,
+                    transition: `opacity 0.8s ${EASE} ${0.5 + i * 0.12}s, transform 0.8s ${EASE} ${0.5 + i * 0.12}s`,
                   }}
                 >
                   {/* Animated border-left line (scaleY 0→1) */}
@@ -1079,7 +1079,7 @@ export default function CharDetail() {
 
       {/* ══════════ Concept Art & Expressions Preview ══════════ */}
       {char.expressions && char.expressions.length > 0 && (
-        <section ref={(el) => { exprRef.current = el; contentRef.current = el; }} style={{ position: "relative", zIndex: 2, padding: isMobile ? "48px 24px" : "64px 64px", maxWidth: 1100, margin: "0 auto", opacity: exprV ? 1 : 0, transform: exprV ? "translateY(0)" : "translateY(30px)", transition: `all 0.8s ${EASE}` }}>
+        <section ref={(el) => { exprRef.current = el; contentRef.current = el; }} style={{ position: "relative", zIndex: 2, padding: isMobile ? "48px 24px" : "64px 64px", maxWidth: 1100, margin: "0 auto", opacity: exprV ? 1 : 0, transform: exprV ? "translateY(0)" : "translateY(30px)", transition: `opacity 0.8s ${EASE}, transform 0.8s ${EASE}` }}>
           <h3 style={{ fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase", color: C.goldText, marginBottom: 6 }}>
             Concept Art &amp; Expressions
           </h3>
@@ -1145,7 +1145,7 @@ export default function CharDetail() {
       )}
 
       {/* ══════════ Navigation ══════════ */}
-      <section ref={(el) => { navRef.current = el; if (!(char.expressions?.length)) contentRef.current = el; }} style={{ position: "relative", zIndex: 2, padding: isMobile ? "32px 24px 48px" : "48px 64px 80px", maxWidth: 1100, margin: "0 auto", opacity: navV ? 1 : 0, transform: navV ? "translateY(0)" : "translateY(20px)", transition: `all 0.8s ${EASE}` }}>
+      <section ref={(el) => { navRef.current = el; if (!(char.expressions?.length)) contentRef.current = el; }} style={{ position: "relative", zIndex: 2, padding: isMobile ? "32px 24px 48px" : "48px 64px 80px", maxWidth: 1100, margin: "0 auto", opacity: navV ? 1 : 0, transform: navV ? "translateY(0)" : "translateY(20px)", transition: `opacity 0.8s ${EASE}, transform 0.8s ${EASE}` }}>
         {sameAgency.length > 0 && (
           <div style={{ marginBottom: isMobile ? 32 : 48 }}>
             <h3 style={{ fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase", color: C.goldText, marginBottom: isMobile ? 16 : 20 }}>Same Agency</h3>

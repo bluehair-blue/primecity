@@ -7,11 +7,19 @@ export default function Particles({ isMobile }) {
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
+
+    /* reduced-motion short-circuit: no rAF at all */
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const ctx = canvas.getContext("2d");
     let w = (canvas.width = window.innerWidth);
-    let h = (canvas.height =
-      document.documentElement.scrollHeight || window.innerHeight * 5);
-    const N = isMobile ? 35 : 80;
+    let h = (canvas.height = window.innerHeight);
+
+    /* low-end device detection: halve particle count */
+    const isLowEnd = navigator.hardwareConcurrency != null && navigator.hardwareConcurrency <= 2;
+    const baseN = isMobile ? 35 : 80;
+    const N = isLowEnd ? Math.ceil(baseN / 2) : baseN;
+
     const ps = Array.from({ length: N }, (_, i) => ({
       x: Math.random() * w,
       y: Math.random() * h,
@@ -43,17 +51,33 @@ export default function Particles({ isMobile }) {
       }
       anim.current = requestAnimationFrame(draw);
     }
+
+    /* visibility pause: stop rAF when tab is hidden */
+    function onVisibilityChange() {
+      if (document.hidden) {
+        cancelAnimationFrame(anim.current);
+        anim.current = null;
+      } else {
+        /* duplicate rAF guard: only start if null */
+        if (anim.current === null) {
+          anim.current = requestAnimationFrame(draw);
+        }
+      }
+    }
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     draw();
 
     const onResize = () => {
       w = canvas.width = window.innerWidth;
-      h = canvas.height =
-        document.documentElement.scrollHeight || window.innerHeight * 5;
+      h = canvas.height = window.innerHeight;
     };
     window.addEventListener("resize", onResize);
     return () => {
       cancelAnimationFrame(anim.current);
+      anim.current = null;
       window.removeEventListener("resize", onResize);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, [isMobile]);
 

@@ -31,13 +31,15 @@ export default function HeroSlider({ isMobile }) {
 
   useEffect(() => {
     if (!anyLoaded) return;
+    /* reduced-motion: keep static image, no autoplay */
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const timer = setInterval(() => {
       setCurrentIdx((prev) => (prev + 1) % BG_IMAGES.length);
     }, SLIDE_INTERVAL);
     return () => clearInterval(timer);
   }, [anyLoaded]);
 
-  const t = (delay) => `all 1s cubic-bezier(0.22,1,0.36,1) ${delay}s`;
+  const t = (delay) => `opacity 1s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 1s cubic-bezier(0.22,1,0.36,1) ${delay}s`;
 
   return (
     <section
@@ -311,7 +313,7 @@ export default function HeroSlider({ isMobile }) {
             cursor: "pointer",
             fontFamily: "var(--f-body)",
             boxShadow: `0 0 28px ${C.goldGlow}`,
-            transition: "all 0.4s",
+            transition: "box-shadow 0.4s, opacity 0.4s",
             textDecoration: "none",
             textAlign: "center",
             display: "inline-block",
@@ -335,7 +337,7 @@ export default function HeroSlider({ isMobile }) {
             textTransform: "uppercase",
             cursor: "pointer",
             fontFamily: "var(--f-body)",
-            transition: "all 0.4s",
+            transition: "border-color 0.4s, color 0.4s",
             textAlign: "center",
           }}
         >

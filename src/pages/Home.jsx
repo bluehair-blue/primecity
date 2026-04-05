@@ -54,7 +54,7 @@ function IntroSection({ isMobile }) {
           marginBottom: isMobile ? 12 : 18,
           opacity: v ? 1 : 0,
           transform: v ? "translateY(0)" : "translateY(16px)",
-          transition: "all 0.8s cubic-bezier(0.22,1,0.36,1)",
+          transition: "opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)",
         }}
       >
         About
@@ -71,7 +71,7 @@ function IntroSection({ isMobile }) {
           lineHeight: 1.4,
           opacity: v ? 1 : 0,
           transform: v ? "translateY(0)" : "translateY(20px)",
-          transition: "all 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s",
+          transition: "opacity 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s",
           wordBreak: "keep-all",
         }}
       >
@@ -99,7 +99,7 @@ function IntroSection({ isMobile }) {
           wordBreak: "keep-all",
           opacity: v ? 1 : 0,
           transform: v ? "translateY(0)" : "translateY(16px)",
-          transition: "all 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s",
+          transition: "opacity 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s",
         }}
       >
         자동화가 모든 것을 대체한 근미래. 사람이 자신의 가치를 증명할 수 있는
@@ -147,7 +147,7 @@ function WorldSection({ isMobile }) {
           marginBottom: isMobile ? 36 : 60,
           opacity: tV ? 1 : 0,
           transform: tV ? "translateY(0)" : "translateY(24px)",
-          transition: "all 1s cubic-bezier(0.22,1,0.36,1)",
+          transition: "opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1)",
         }}
       >
         <span

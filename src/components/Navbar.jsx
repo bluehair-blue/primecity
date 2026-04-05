@@ -33,13 +33,15 @@ export default function Navbar({ scrolled, isMobile }) {
     if (location.pathname === "/") {
       // Already on home — just scroll
       const el = document.querySelector(hash);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (el) el.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth" });
     } else {
       // Navigate to home, then scroll after mount
       navigate("/");
       setTimeout(() => {
         const el = document.querySelector(hash);
-        if (el) el.scrollIntoView({ behavior: "smooth" });
+        const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (el) el.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth" });
       }, 100);
     }
   }
@@ -111,7 +113,7 @@ export default function Navbar({ scrolled, isMobile }) {
             scrolled || open
               ? `1px solid ${C.border10}`
               : "1px solid transparent",
-          transition: "all 0.5s cubic-bezier(0.22,1,0.36,1)",
+          transition: "background 0.5s cubic-bezier(0.22,1,0.36,1), backdrop-filter 0.5s cubic-bezier(0.22,1,0.36,1), border-bottom 0.5s cubic-bezier(0.22,1,0.36,1)",
           fontFamily: "var(--f-body)",
         }}
       >
@@ -170,7 +172,7 @@ export default function Navbar({ scrolled, isMobile }) {
                 cursor: "pointer",
                 fontFamily: "var(--f-body)",
                 fontWeight: 500,
-                transition: "all 0.3s",
+                transition: "background 0.3s, border-color 0.3s",
               }}
               onMouseEnter={(e) => (e.target.style.background = C.primeBlueDim)}
               onMouseLeave={(e) =>
@@ -205,7 +207,7 @@ export default function Navbar({ scrolled, isMobile }) {
                   width: 20,
                   height: 1.5,
                   background: C.gold,
-                  transition: "all 0.35s cubic-bezier(0.22,1,0.36,1)",
+                  transition: "transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.35s cubic-bezier(0.22,1,0.36,1)",
                   transform: open
                     ? i === 0
                       ? "rotate(45deg) translate(4.5px,4.5px)"
@@ -254,7 +256,7 @@ export default function Navbar({ scrolled, isMobile }) {
                 fontFamily: "var(--f-body)",
                 opacity: open ? 1 : 0,
                 transform: open ? "translateY(0)" : "translateY(16px)",
-                transition: `all 0.5s cubic-bezier(0.22,1,0.36,1) ${0.1 + i * 0.07}s`,
+                transition: `opacity 0.5s cubic-bezier(0.22,1,0.36,1) ${0.1 + i * 0.07}s, transform 0.5s cubic-bezier(0.22,1,0.36,1) ${0.1 + i * 0.07}s`,
               },
               () => setOpen(false)
             )
@@ -278,7 +280,7 @@ export default function Navbar({ scrolled, isMobile }) {
               opacity: open ? 1 : 0,
               transform: open ? "translateY(0)" : "translateY(16px)",
               transition:
-                "all 0.5s cubic-bezier(0.22,1,0.36,1) 0.35s",
+                "opacity 0.5s cubic-bezier(0.22,1,0.36,1) 0.35s, transform 0.5s cubic-bezier(0.22,1,0.36,1) 0.35s",
             }}
           >
             플레이
