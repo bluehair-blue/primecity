@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import C from "../styles/tokens";
+import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
 import { districts } from "../data/districts";
@@ -11,16 +12,15 @@ const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 export default function DistrictDetail() {
   const { id } = useParams();
   const dist = districts.find((d) => d.id === id);
+  const isMobile = useIsMobile();
 
   if (!dist) {
     return (
       <PageLayout>
-        {() => (
           <div style={{ textAlign: "center", padding: "120px 24px", color: C.text45 }}>
             <p style={{ fontSize: 16, marginBottom: 24 }}>구역을 찾을 수 없습니다.</p>
             <Link to="/" style={{ color: C.gold, textDecoration: "none" }}>&larr; 메인으로</Link>
           </div>
-        )}
       </PageLayout>
     );
   }
@@ -32,7 +32,6 @@ export default function DistrictDetail() {
 
   return (
     <PageLayout>
-      {({ isMobile }) => (
         <div>
           <Seo title={`${dist.name} — ${dist.en}`} description={dist.desc} path={`/districts/${dist.id}`} />
           <HeroSection dist={dist} isMobile={isMobile} />
@@ -44,7 +43,6 @@ export default function DistrictDetail() {
             <OtherDistrictsSection districts={otherDistricts} isMobile={isMobile} />
           </div>
         </div>
-      )}
     </PageLayout>
   );
 }

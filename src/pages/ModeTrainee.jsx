@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import C from "../styles/tokens";
+import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
 import Seo from "../components/Seo";
@@ -20,13 +21,12 @@ const connections = [
 ];
 
 export default function ModeTrainee() {
+  const isMobile = useIsMobile();
+  const [refLoop, vLoop] = useReveal(0.12);
+  const [refConn, vConn] = useReveal(0.12);
+
   return (
     <PageLayout>
-      {({ isMobile }) => {
-        const [refLoop, vLoop] = useReveal(0.12);
-        const [refConn, vConn] = useReveal(0.12);
-
-        return (
           <div style={{ maxWidth: 700, margin: "0 auto" }}>
             <Seo title="연습생 모드" description="프라임시티 연습생 모드 — Route 0 소속 연습생으로 데뷔를 향한 성장 서사." path="/modes/trainee" />
             <Link to="/" style={{ color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em" }}>
@@ -100,8 +100,6 @@ export default function ModeTrainee() {
               </div>
             </div>
           </div>
-        );
-      }}
     </PageLayout>
   );
 }

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import C from "../styles/tokens";
+import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
 import Seo from "../components/Seo";
@@ -157,9 +158,10 @@ function TimelineItem({ update, index, isMobile }) {
 }
 
 export default function Updates() {
+  const isMobile = useIsMobile();
+
   return (
     <PageLayout>
-      {({ isMobile }) => (
         <div style={{ maxWidth: 640, margin: "0 auto" }}>
           <Seo title="업데이트" description="프라임시티 업데이트 로그 — 개발 진행 상황과 변경 이력." path="/updates" />
           <Link
@@ -220,7 +222,6 @@ export default function Updates() {
             />
           ))}
         </div>
-      )}
     </PageLayout>
   );
 }

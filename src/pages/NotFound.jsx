@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import C from "../styles/tokens";
+import useIsMobile from "../hooks/useIsMobile";
 import PageLayout from "../components/PageLayout";
 import Seo from "../components/Seo";
 
 export default function NotFound() {
+  const isMobile = useIsMobile();
+
   return (
     <PageLayout>
-      {({ isMobile }) => (
         <div
           style={{
             display: "flex",
@@ -95,7 +97,6 @@ export default function NotFound() {
             메인으로 돌아가기
           </Link>
         </div>
-      )}
     </PageLayout>
   );
 }

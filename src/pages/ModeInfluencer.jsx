@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import C from "../styles/tokens";
+import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
 import Seo from "../components/Seo";
@@ -28,14 +29,13 @@ const connections = [
 ];
 
 export default function ModeInfluencer() {
+  const isMobile = useIsMobile();
+  const [refLoop, vLoop] = useReveal(0.12);
+  const [refEvent, vEvent] = useReveal(0.12);
+  const [refConn, vConn] = useReveal(0.12);
+
   return (
     <PageLayout>
-      {({ isMobile }) => {
-        const [refLoop, vLoop] = useReveal(0.12);
-        const [refEvent, vEvent] = useReveal(0.12);
-        const [refConn, vConn] = useReveal(0.12);
-
-        return (
           <div style={{ maxWidth: 700, margin: "0 auto" }}>
             <Seo title="인플루언서 모드" description="프라임시티 인플루언서 모드 — 팔로워가 곧 무대. 콘텐츠 기획부터 브랜드 딜까지." path="/modes/influencer" />
             <Link to="/" style={{ color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em" }}>
@@ -124,8 +124,6 @@ export default function ModeInfluencer() {
               </div>
             </div>
           </div>
-        );
-      }}
     </PageLayout>
   );
 }

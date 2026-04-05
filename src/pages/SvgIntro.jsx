@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import C from "../styles/tokens";
+import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
 import { svgTemplates, TEMPLATE_CATEGORIES } from "../data/svgTemplates";
@@ -60,12 +61,11 @@ export default function SvgIntro() {
     TEMPLATE_CATEGORIES.UTILITY,
   ];
 
+  const isMobile = useIsMobile();
+  const [ref, v] = useReveal(0.05);
+
   return (
     <PageLayout>
-      {({ isMobile }) => {
-        const [ref, v] = useReveal(0.05);
-
-        return (
           <div style={{ maxWidth: 1100, margin: "0 auto" }}>
             <Link to="/" style={{ color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em" }}>
               &larr; PRIME CITY
@@ -184,8 +184,6 @@ export default function SvgIntro() {
               </div>
             )}
           </div>
-        );
-      }}
     </PageLayout>
   );
 }

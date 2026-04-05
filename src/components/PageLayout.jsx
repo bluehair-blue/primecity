@@ -38,7 +38,7 @@ export default function PageLayout({ children }) {
           padding: isMobile ? "80px 24px 48px" : "120px 48px 80px",
         }}
       >
-        {typeof children === "function" ? children({ isMobile }) : children}
+        {children}
       </main>
       <Footer isMobile={isMobile} />
     </div>

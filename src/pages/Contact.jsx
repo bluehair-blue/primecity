@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import C from "../styles/tokens";
+import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
 import Seo from "../components/Seo";
@@ -20,12 +21,11 @@ const contacts = [
 ];
 
 export default function Contact() {
+  const isMobile = useIsMobile();
+  const [ref, v] = useReveal(0.15);
+
   return (
     <PageLayout>
-      {({ isMobile }) => {
-        const [ref, v] = useReveal(0.15);
-
-        return (
           <div style={{ maxWidth: 560, margin: "0 auto" }}>
             <Seo title="문의" description="프라임시티에 대한 문의, 제안, 협업 요청 창구." path="/contact" />
             <Link
@@ -148,8 +148,6 @@ export default function Contact() {
               ))}
             </div>
           </div>
-        );
-      }}
     </PageLayout>
   );
 }

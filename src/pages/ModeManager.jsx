@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import C from "../styles/tokens";
+import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
 import Seo from "../components/Seo";
@@ -40,14 +41,13 @@ const events = [
 ];
 
 export default function ModeManager() {
+  const isMobile = useIsMobile();
+  const [refBranch, vBranch] = useReveal(0.12);
+  const [refLoop, vLoop] = useReveal(0.12);
+  const [refEvent, vEvent] = useReveal(0.12);
+
   return (
     <PageLayout>
-      {({ isMobile }) => {
-        const [refBranch, vBranch] = useReveal(0.12);
-        const [refLoop, vLoop] = useReveal(0.12);
-        const [refEvent, vEvent] = useReveal(0.12);
-
-        return (
           <div style={{ maxWidth: 700, margin: "0 auto" }}>
             <Seo title="매니저 모드" description="프라임시티 매니저 모드 — 아티스트의 전담 매니저가 되어 스케줄, 위기, 관계를 관리합니다." path="/modes/manager" />
             <Link to="/" style={{ color: C.text35, textDecoration: "none", fontSize: 12, letterSpacing: "0.08em" }}>
@@ -139,8 +139,6 @@ export default function ModeManager() {
               </pre>
             </div>
           </div>
-        );
-      }}
     </PageLayout>
   );
 }

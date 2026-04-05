@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import C from "../styles/tokens";
+import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
 import { galleryItems, CATEGORIES, CHARACTER_TAGS } from "../data/gallery";
@@ -246,12 +247,11 @@ export default function Gallery() {
     ...(nsfwEnabled ? [{ key: CHARACTER_TAGS.NSFW, label: "NSFW" }] : []),
   ];
 
+  const isMobile = useIsMobile();
+  const [ref, v] = useReveal(0.05);
+
   return (
     <PageLayout>
-      {({ isMobile }) => {
-        const [ref, v] = useReveal(0.05);
-
-        return (
           <div style={{ maxWidth: 1100, margin: "0 auto" }}>
             <Seo title="갤러리" description="프라임시티 아트 갤러리 — 도시 배경, 캐릭터 일러스트, 컨셉아트 모음." path="/gallery" />
             {/* Back link */}
@@ -650,8 +650,6 @@ export default function Gallery() {
               </div>
             )}
           </div>
-        );
-      }}
     </PageLayout>
   );
 }
