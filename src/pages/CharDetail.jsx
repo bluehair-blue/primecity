@@ -230,12 +230,16 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
           <div style={{
             position: "absolute", inset: 0,
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)' opacity='0.5'/%3E%3C/svg%3E")`,
-            backgroundSize: "160px 160px",
+            backgroundSize: isMobile ? "120px 120px" : "160px 160px",
             backgroundColor: "oklch(0.2 0.06 40)",
             backgroundBlendMode: "overlay",
-            WebkitMaskImage: "linear-gradient(to right, black, transparent 25%, transparent 75%, black)",
-            maskImage: "linear-gradient(to right, black, transparent 25%, transparent 75%, black)",
-            opacity: jgrBeat === 1 ? 0.45 : 0,
+            WebkitMaskImage: isMobile
+              ? "linear-gradient(to right, black, transparent 35%, transparent 65%, black)"
+              : "linear-gradient(to right, black, transparent 22%, transparent 78%, black)",
+            maskImage: isMobile
+              ? "linear-gradient(to right, black, transparent 35%, transparent 65%, black)"
+              : "linear-gradient(to right, black, transparent 22%, transparent 78%, black)",
+            opacity: jgrBeat === 1 ? (isMobile ? 0.55 : 0.45) : 0,
             mixBlendMode: "multiply",
             transition: "opacity 1s ease-out",
             pointerEvents: "none",
