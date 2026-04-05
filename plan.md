@@ -211,17 +211,17 @@ Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리
 
 | 커밋 | 내용 | 변경 파일 | 누가 |
 |---|---|---|---|
-| **①구조** | PageLayout→wrapper, Hook 소유권 정리 | `PageLayout.jsx` + 11개 페이지 | Claude |
-| **②모달 패스** | lightbox popstate + dialog semantics + div→button/a (A-2+D-1+D-2 통합) | `Gallery.jsx`, `CharDetail.jsx`, `SvgIntro.jsx`, `Navbar.jsx` | Claude |
-| **③성능 hot** | Particles fixed, transition:all **hot path만** (Navbar/HeroSlider/CharDetail/ScrollNav/Home), reduced motion | `Particles.jsx`, 5개 hot path, `index.html` | Claude + 사용자 검수 |
-| **④성능 cold** | transition:all **나머지 20개** + Hero preload 분산 + preconnect | 20개 파일, `HeroSlider.jsx`, `index.html` | Claude + 사용자 hover 검수 |
-| **⑤접근성** | 이미지 lazy/placeholder, 터치 타깃, 대비, `<a>` 안 `<button>` | 여러 | **사용자 디자인 판단** + Claude |
+| **①구조** | PageLayout→wrapper, Hook 소유권 정리 | `PageLayout.jsx` + **16개 페이지** | Claude |
+| **②모달 패스** | lightbox popstate + dialog + div→button + **HeroSlider 구조 분리** (A-2+D-1+D-2+D-4 통합) | `Gallery.jsx`, `CharDetail.jsx`, `SvgIntro.jsx`, `Navbar.jsx`, `HeroSlider.jsx` | Claude |
+| **③성능 hot** | Particles fixed+RAF제어, transition:all **hot path 5개**, reduced motion (CSS+JS) | `Particles.jsx`, 5개 hot path, `index.html` | Claude + 사용자 검수 |
+| **④성능 cold** | transition:all **나머지 20개** + Hero preload 분산(대기 방식) + preconnect | 20개 파일, `HeroSlider.jsx`, `index.html` | Claude + 사용자 hover 검수 |
+| **⑤접근성** | 이미지 lazy/placeholder, 터치 타깃, 대비 | 여러 | **사용자 디자인 판단** + Claude |
 
 ---
 
 #### ① 구조: PageLayout + Hook 소유권 (최우선)
 
-**isMobile 소유권**: `PageLayout`이 계속 소유 (padding/Navbar/Footer 반응형). 페이지는 직접 `useIsMobile()` 호출 (중복이지만 안전, matchMedia 비용 무시 가능).
+**isMobile 소유권 (확정)**: PageLayout 유지 + 페이지 직접 `useIsMobile()` 호출. Context 일원화 ❌ — 중복 호출을 감수하되 구현 단순성 우선. `useIsMobile`은 **resize listener** 기반(matchMedia 아닌)이나, listener 추가 비용은 여전히 낮음.
 
 **변경 범위 (16개 파일)**:
 - `PageLayout.jsx`: render prop 분기 제거 → 항상 `{children}`
@@ -256,6 +256,8 @@ Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리
 
 **디자인 침해**: button reset 필요. 사용자 시각 확인.
 
+> HeroSlider `<a>` 안 `<button>` 정리(D-4)는 이 ② 커밋에서 처리. ⑤에서는 다루지 않음.
+
 ---
 
 #### ③ 성능 hot path (최우선)
@@ -266,7 +268,8 @@ Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리
 - **RAF 비용 제어** (높이만 줄여도 full-screen repaint는 계속됨):
   1. **visibility pause**: `document.hidden` 시 rAF 중단 (`visibilitychange` 이벤트)
   2. **reduced-motion short-circuit**: `matchMedia("(prefers-reduced-motion: reduce)")` 시 rAF 미시작
-  3. **route opt-out** (선택): 특정 라우트(예: JGR 시네마틱)에서 Particles 자체를 unmount하는 기존 패턴 유지
+  3. **route opt-out**: 기존 unmount 패턴 유지 (JGR 시네마틱 등). 추가 opt-out 라우트 없음.
+- **cleanup 보장**: visibilitychange listener 등록/해제 + **active rAF 단일 보장** (탭 복귀 시 중복 rAF 가드)
 - **디자인 침해**: `fixed`면 시각 차이 거의 없음. 사용자 검수.
 
 **B-2-hot. transition:all 제거 — hot path 5개만**:
@@ -292,7 +295,7 @@ Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리
 **C-1. Hero preload 전략** (autoplay 연동 필수):
 - 현재: 9장 동시 preload → autoplay 즉시 시작(HeroSlider.jsx:33) → 미로드 슬라이드 빈 화면
 - 변경: **최소 현재+다음 2장 로드 후 autoplay 시작**. 나머지는 순차 분산.
-- autoplay 인덱스 전환(HeroSlider.jsx:35) 시 다음 이미지 로드 여부 체크 → 미로드면 skip 또는 대기.
+- autoplay 인덱스 전환(HeroSlider.jsx:35) 시 다음 이미지 로드 여부 체크 → **미로드면 현재 슬라이드 유지, 준비되면 전환 ("대기" 확정, skip ❌)**.
 
 **C-2. preconnect** (사용자 직접 — 3줄):
 ```html
@@ -307,7 +310,7 @@ Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리
 
 **C-3. 이미지 lazy/placeholder**: above-the-fold은 eager 유지.
 **D-3. 저시력 대비/터치 타깃**: **사용자 판단 필수** — 토큰 값 변경은 사이트 전체 영향.
-**D-4. `<a>` 안 `<button>`**: HeroSlider.jsx 구조 정리.
+~~**D-4**~~: ②에서 처리 완료 (HeroSlider 구조 분리).
 
 ---
 
@@ -315,8 +318,8 @@ Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리
 
 | 항목 | 구현 주체 | 사용자 역할 |
 |---|---|---|
-| ① 구조 | Claude | 빌드 후 11개 페이지 시각 확인 |
-| ② 모달 패스 | Claude | lightbox 뒤로가기 + button 시각 확인 |
+| ① 구조 | Claude | 빌드 후 **16개 페이지** 시각 확인 |
+| ② 모달 패스 | Claude | lightbox 뒤로가기 + button 시각 + HeroSlider 구조 확인 |
 | ③ 성능 hot | Claude | Particles 시각 + hover 효과 검수 |
 | ④ 성능 cold | Claude | hover 효과 검수 (GameModes/TriangleNav/Gallery) |
 | ④ preconnect | **사용자 직접** | index.html 3줄 추가 |
@@ -331,13 +334,14 @@ Phase 2 (9.5초~)   : intro2 배경 + JGR 전용 크레딧 프로필 (순차 리
 | div→button | 낮음 | style reset + 사용자 확인 |
 | 대비/터치 (D-3) | **높음** | 사용자 디자인 판단 필수 |
 
-<!-- 피드백 6건 반영 완료:
-  1. A-1 범위: 11→16파일 (ModeAudition, Updates, NotFound, DistrictDetail×2 추가)
-  2. B-3 범위: CSS keyframes + JS smooth scroll 호출 (Navbar/ScrollNav/ModeAudition 등) 양면 포함
-  3. C-1: autoplay 연동 — 최소 2장 로드 후 시작, 미로드 슬라이드 skip/대기
-  4. 요소 교체 3규칙 확정: 이동=a/Link, 모달=button, 중첩 금지(구조 분리)
-  5. Gallery stable key: 배열 인덱스→src/sceneNum 기반 modal state 후 popstate
-  6. Particles RAF: visibility pause + reduced-motion short-circuit + route opt-out
+<!-- 모든 피드백 반영 완료 (최종):
+  - 문서 정합성: 요약표/역할분담/plan_sub 모두 16개 파일 기준 통일
+  - 기술 근거: useIsMobile = resize listener (matchMedia 아님) 정정
+  - HeroSlider D-4: ②에만 고정, ⑤에서 삭제
+  - Hero preload: “대기” 확정 (skip ❌)
+  - Particles: cleanup 보장 + active rAF 단일 가드 명시
+  - isMobile: Context ❌, 중복 호출로 확정
+  - route opt-out: 기존 unmount 패턴만 유지, 추가 라우트 없음
 -->
 ---
 

@@ -21,7 +21,7 @@ PageLayout                         PageLayout
                                     └── useReveal() ← 최상단 호출 ✅
 ```
 
-- `useIsMobile`은 `matchMedia` 기반 → 중복 호출 비용 무시 가능 (listener 1개만 추가)
+- `useIsMobile`은 **resize listener** 기반 (matchMedia 아님). 중복 호출 시 listener 1개 추가되나 비용 낮음. Context 일원화보다 구현 단순성 우선.
 - PageLayout의 padding(`80px 24px 48px` vs `120px 48px 80px`)과 Navbar/Footer는 PageLayout 내부 `isMobile`로 계속 처리 → 페이지 코드 변경 최소화
 
 ### 변경 패턴 (11개 페이지 공통)
@@ -143,10 +143,19 @@ const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").mat
 if (prefersReduced) return;  // 정적 상태 유지, 그리지 않음
 
 // 2) visibility pause: 탭 비활성 시 rAF 중단
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) cancelAnimationFrame(anim.current);
-  else anim.current = requestAnimationFrame(draw);
-});
+// ⚠ cleanup 보장 + active rAF 단일 가드:
+//   - useEffect cleanup에서 visibilitychange listener 해제
+//   - 탭 복귀 시 anim.current가 null일 때만 새 rAF 시작 (중복 방지)
+function onVisibility() {
+  if (document.hidden) {
+    cancelAnimationFrame(anim.current);
+    anim.current = null;
+  } else if (!anim.current) {
+    anim.current = requestAnimationFrame(draw);
+  }
+}
+document.addEventListener("visibilitychange", onVisibility);
+// cleanup: document.removeEventListener("visibilitychange", onVisibility);
 ```
 
 ### transition:all hot path 목록 (26곳)
@@ -231,8 +240,8 @@ Promise.all([preloadImage(bgImages[0]), preloadImage(bgImages[1])]).then(() => {
   });
 });
 
-// autoplay 전환 시 다음 이미지 로드 체크
-// loaded.has(bgImages[nextIdx]) === false → skip 또는 대기
+// autoplay 전환 시 다음 이미지 로드 체크 (확정: "대기" 방식)
+// loaded.has(bgImages[nextIdx]) === false → 현재 슬라이드 유지, 준비되면 전환
 ```
 
 ---
