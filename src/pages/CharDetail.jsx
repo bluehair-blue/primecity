@@ -207,6 +207,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
             objectFit: "cover", objectPosition: isMobile ? "65% 50%" : "center 40%",
             filter: jgrBeat === 1 ? "sepia(0.8) brightness(0.7) contrast(1.1)" : "sepia(0) brightness(0)",
             opacity: jgrBeat === 1 ? 1 : 0, transition: "filter 1.5s ease-out, opacity 1s ease-out",
+            animation: jgrBeat >= 1 ? "jgrKenBurns 3.1s ease-in-out forwards" : "none",
           }} />
           {/* Beat 2: intro2 풀컬러 */}
           <img src={char.intro2} alt="" style={{
