@@ -225,6 +225,43 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
           }} />
           {/* 비네트 */}
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 30%, oklch(0 0 0 / 0.7) 100%)", pointerEvents: "none" }} />
+          {/* 버닝 프레임 — Beat 1 전용 */}
+          {jgrBeat === 1 && (<>
+            <div style={{
+              position: "absolute", top: 0, left: 0, bottom: 0,
+              width: isMobile ? "18vw" : "18vw",
+              ...(isMobile ? {
+                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")`,
+                backgroundSize: "128px 128px",
+                backgroundColor: "oklch(0.18 0.07 40)",
+                backgroundBlendMode: "overlay",
+                WebkitMaskImage: "linear-gradient(to right, black 10%, transparent 90%)",
+                maskImage: "linear-gradient(to right, black 10%, transparent 90%)",
+                animation: "jgrBurnDrift 4s ease-in-out infinite, splashFadeIn 1.5s ease-out",
+              } : {
+                background: "linear-gradient(to right, oklch(0.35 0.12 40 / 0.7), oklch(0.4 0.08 50 / 0.3) 50%, transparent)",
+                animation: "splashFadeIn 1.5s ease-out",
+              }),
+              pointerEvents: "none",
+            }} />
+            <div style={{
+              position: "absolute", top: 0, right: 0, bottom: 0,
+              width: isMobile ? "18vw" : "18vw",
+              ...(isMobile ? {
+                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")`,
+                backgroundSize: "128px 128px",
+                backgroundColor: "oklch(0.18 0.07 40)",
+                backgroundBlendMode: "overlay",
+                WebkitMaskImage: "linear-gradient(to left, black 10%, transparent 90%)",
+                maskImage: "linear-gradient(to left, black 10%, transparent 90%)",
+                animation: "jgrBurnDrift 4s ease-in-out infinite, splashFadeIn 1.5s ease-out",
+              } : {
+                background: "linear-gradient(to left, oklch(0.35 0.12 40 / 0.7), oklch(0.4 0.08 50 / 0.3) 50%, transparent)",
+                animation: "splashFadeIn 1.5s ease-out",
+              }),
+              pointerEvents: "none",
+            }} />
+          </>)}
           {/* Letterbox */}
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "7%", background: "oklch(0 0 0)", zIndex: 2 }} />
           <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "7%", background: "oklch(0 0 0)", zIndex: 2 }} />
