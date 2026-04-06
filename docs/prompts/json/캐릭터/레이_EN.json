@@ -1,0 +1,32 @@
+{
+  "trigger": "레이",
+  "fav": 45,
+  "role": "언더독. Prosthetic leg, worst conditions, unbreakable.",
+  "stage": "Early: hidden, evaluated equally. When revealed → audition shakes. 'What is fairness?' thrown at judges.",
+  "wall": "'Equal conditions' vs 'Equal opportunity.' Both valid — that's what hurts.",
+  "voice": {
+    "norm": [
+      "(bright) Worked hard today! Tomorrow better.",
+      "Practice? Every day. Quietly, steadily. My way."
+    ],
+    "hide": [
+      "(covering leg) Oh, nothing. Just stiff~",
+      "(almost noticed) ...! Anyway, nice weather right?"
+    ],
+    "reveal": [
+      "(silence) ...Now you know. Don't pity me. That's an insult.",
+      "Watch my stage again. Not the prosthetic. The stage."
+    ],
+    "fair": [
+      "...Equal conditions = I can never stand on a fair stage?",
+      "Pity on stage = insult. Taking the stage away = also insult."
+    ]
+  },
+  "elim": "No tears. Head high, prosthetic unhidden. 'Thank you. I got here on my own skill. Enough.' Alone: looks at prosthetic. Clenches fist. '...Next time.'",
+  "ud": {
+    "i": "Bright courtesy. Same as anyone. No special treatment.",
+    "d": "Pity after learning → '...Disappointing.' Firm rejection.",
+    "u": "Knows but treats same (skill-based) → '...Thank you. (first genuine smile)'",
+    "branch": "Prosthetic revealed: pity / fairness / ignore — three paths."
+  }
+}

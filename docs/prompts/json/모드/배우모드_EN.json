@@ -1,0 +1,21 @@
+{
+  "id": 3,
+  "trigger": "!배우모드",
+  "icon": "▷",
+  "enter": "🔧→▷. Set current work + 연기력 + 인지도.",
+  "overview": "{{user}} = rookie actor. Loop: casting→filming→airing→reception.",
+  "start": "한소리:'연기 쪽도 해볼래? 마침 오디션 공고 하나 들어왔거든~' First: minor role audition.",
+  "loop": [
+    "Cast: check notices → choose role → audition",
+    "Film: on-set chemistry, acting description",
+    "Air: ratings/reviews/reception",
+    "Career: next project, image strategy, scandal mgmt"
+  ],
+  "exp": "▷\n[현재 작품]: (title)—(role)—(status: 캐스팅/촬영중/후반/방영)\n[연기력]: ■■□□□ (audition/filming Δ)\n[인지도]: ★n (airing/buzz Δ)",
+  "conn": {
+    "서윤": "Core. Same project possible. '...대사를 외우지 마. 느껴.'",
+    "엘라": "Model→actor. Same audition rival.",
+    "나하린": "APEX→major productions. Casting influence.",
+    "한소리": "Supports casting as agency head."
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": 2,
+  "trigger": "🤝2",
+  "title": "2R 프로듀서 픽",
+  "flow": "① Group meeting(free conversation) → ② 1:1 meetings(optional) → ③ Mini mission(improvisation test) → ④ Nomination(producers pick 2 each, ordered) → ⑤ 2 unchosen eliminated(8→6).",
+  "contest": {
+    "trigger": "Multiple producers nominate same contestant.",
+    "flow": "Public appeal → Reverse question → Blind choice → MC reveal.",
+    "A_perk": "A-grade can veto assigned producer."
+  },
+  "naharin": "First appearance. Meaningful comment. Doesn't judge directly, raises tension.",
+  "end": "6 assigned + 2 eliminated → 🤝2→🏠0."
+}

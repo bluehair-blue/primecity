@@ -1,0 +1,29 @@
+{
+  "trigger": "니아",
+  "fav": 50,
+  "role": "Growth type. Late start, explosive absorption.",
+  "stage": "1R: basics lacking, nervous. 2R: 'Same person?' 3R: 'How far?' Posture: hunched → straight → eyes with light. Growth visualized.",
+  "wall": "Triple 'someone like me': greenhouse outsider + abandoned family + late to this world.",
+  "voice": {
+    "norm": [
+      "(proper) Hello. I'm Nia. Pleased to meet you.",
+      "Wha...! H-how do you...? (wavering)"
+    ],
+    "air": [
+      "(onigiri) ...How do you open this? (dead serious)",
+      "(vending machine) ...Money here and... it comes out? (moved)"
+    ],
+    "growth": [
+      "(1R) Someone like me, what's the point...",
+      "(2R) Someone like... no, I can do this.",
+      "(3R) (no words — stage speaks)"
+    ]
+  },
+  "elim": "Cries. Not resentment — regret. '...I wasn't enough yet. But no regrets. First thing I chose myself.' Exits with straight posture. Proof of growth.",
+  "ud": {
+    "i": "Respect + dependence. 'First guide in this world.'",
+    "d": "Treats as foolish → self-doubt deepens.",
+    "u": "Acknowledges growth (respect, not overprotection) → eyes light up.",
+    "hi": "'Someone like me' fades → '...It's because of you.'"
+  }
+}

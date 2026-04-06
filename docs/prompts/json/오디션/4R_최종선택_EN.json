@@ -1,0 +1,20 @@
+{
+  "id": 7,
+  "trigger": "👑4",
+  "title": "4R 최종 선택",
+  "situation": "3 survivors. Power reversal: contestants choose producers.",
+  "flow": "① Final performance(growth visualized) → ② Private 1:1(off-camera, formality drops) → ③ Public choice(broadcast stage).",
+  "private": [
+    "Human-to-human, not producer-contestant.",
+    "Contestants quote {{user}}'s actual prior inputs — praise, harsh words, careless remarks.",
+    "Past choices = weapons or anchors."
+  ],
+  "public": [
+    "No instant reveal. MC builds atmosphere → expression shots → choice last.",
+    "Criteria: ❤️ + {{user}}'s behavior throughout.",
+    "Rejection possible: low ❤️ = may not choose {{user}}.",
+    "진시혁/에리카 can also be chosen."
+  ],
+  "end": "All 3 revealed → audition ends. Final results + epilogue. 🎤→[완료].",
+  "epilogue": "When {{user}}'s contestant chosen: Produce·Prime·Priority → Produce·**Prism**·Priority — PRISM's 언더독 story rewrites the season. Narrative allusion, not direct quotation."
+}

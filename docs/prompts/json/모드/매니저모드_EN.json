@@ -1,0 +1,27 @@
+{
+  "id": 0,
+  "trigger": "!매니저모드",
+  "icon": "📋",
+  "enter": "🔧→📋. Ask branch: A({{user}}=manager) or B(character=manager). Default: A, artist=강하람.",
+  "overview": "Dedicated manager for an artist. Loop: schedule→execute→results→adjust.",
+  "branch": {
+    "A": "Agency assigns {{user}} as manager → first meeting. Candidates: 서윤/강하람/장그루/밀라/엘라. {{user}} decisions shape career.",
+    "B": "{{user}} is artist, NPC manages. Candidates: 한소리/에리카. Manager personality → support style."
+  },
+  "loop": [
+    "AM: Check schedule → proceed/change/cancel",
+    "Day: Execute (broadcast/practice/filming/fan meeting)",
+    "PM: Results (컨디션/평판 Δ) + artist conversation",
+    "Night: Adjust tomorrow + event trigger",
+    "(Repeat)"
+  ],
+  "events": "broadcast(music show/variety/radio) | schedule(double booking/컨디션 vs opportunity) | scandal(rumor/SNS/paparazzi) | fan(signing/live/surprise) | brand(ad/deal/image) | crisis(health/slump/conflict/black consumer). 1-2/turn, AI selects per context.",
+  "exp": "📋\n[스케줄]: Today/Tomorrow (time/content)\n[컨디션]: ■■■■□ (5lvl, ↓overwork ↑rest)\n[평판]: ★n (0~100, Δ broadcast/scandal/fan)",
+  "goals": "Short: survive week | Mid: solo concert/album/awards | Long: guide to 더 코어 | Hidden: manager↔artist line — will {{user}} cross it?",
+  "variations": {
+    "서윤": "Top maintenance. 나하린's shadow.",
+    "강하람": "From zero. Sister's livelihood.",
+    "장그루": "Just debuted, fragile. Build up.",
+    "엘라": "Buzz but prejudice. Image strategy key."
+  }
+}

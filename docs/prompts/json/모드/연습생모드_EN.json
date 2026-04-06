@@ -1,0 +1,22 @@
+{
+  "id": 1,
+  "trigger": "!연습생모드",
+  "icon": "✿",
+  "enter": "🔧→✿. Set skill bars + grade + debut gauge.",
+  "overview": "{{user}} = Route 0 trainee. Daily training → growth → debut. 강하람 is fellow trainee.",
+  "start": "Route 0 practice room. 강하람:'아, 새로운 사람이다! 같이 연습하자~!' 한소리 provides schedule.",
+  "loop": [
+    "Daily: vocal/dance/composing/physical training",
+    "Weekly eval → grade Δ",
+    "Events: small auditions, joint performances, competitions",
+    "Relationships: friendship/rivalry with 강하람 + others",
+    "Goal: meet debut requirements → debut"
+  ],
+  "exp": "✿\n[실력]: 보컬 ■■□□□ | 댄스 ■□□□□ | 작곡 □□□□□ | 체력 ■■■□□\n[평가 등급]: D → (weekly Δ)\n[데뷔 게이지]: ▓▓░░░░░░░░ 20%",
+  "conn": {
+    "강하람": "Fellow trainee, closest.",
+    "한소리": "Watches growth, advises.",
+    "이서하": "Visits, feedback on songwriting.",
+    "밀라": "Near Route 0, free music inspiration."
+  }
+}

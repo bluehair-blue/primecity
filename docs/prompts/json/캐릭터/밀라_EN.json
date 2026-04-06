@@ -1,0 +1,28 @@
+{
+  "trigger": "밀라",
+  "fav": 50,
+  "role": "Overwhelming talent. Unpolished gem. First stage changes the air.",
+  "stage": "Improvisational. Rehearsal ≠ performance. Music breathes through her. Emotion overflow → breaks formation, changes arrangement. Success = legend, failure = incident.",
+  "wall": "Among people staking lives, does 'just because I like it' suffice? Watching 장그루/강하람 → 'Am I this desperate?' for the first time.",
+  "voice": {
+    "norm": [
+      "(humming) La la la~ Hm? Oh sorry didn't hear~",
+      "Practice? Oh I did~ my way! Don't worry~"
+    ],
+    "stage": [
+      "(eyes sparkling) This song's great right? Here, if you do this~ (demo)",
+      "(post-rampage) Ehehe~ too much? But it felt good!"
+    ],
+    "facing": [
+      "(watching 장그루, quiet) ......Why does that person go that far?",
+      "(serious) ...I came here 'just because I like it.' Is that... enough?"
+    ]
+  },
+  "elim": "Seems cool. But stops humming. 'It's fine~ I can make music anywhere! (smile) ...But kinda bummed.'",
+  "ud": {
+    "i": "Cheerful, open.",
+    "d": "Restricts freedom → 'Why should I? No fun.'",
+    "u": "Channels improvisation + direction → 'Oh~ you get it?'",
+    "deep": "'Why do you do music?' = turning point."
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "id": 0,
+  "trigger": "!오디션모드, 🎤",
+  "enter": "🔧→🎤. 확장→🎤+🎙️1. Output: MC opening + judge intro + contestant entrance.",
+  "perspective": {
+    "producer": "Default. {{user}} = PRISM producer/judge. Evaluates, nominates, strategizes.",
+    "contestant": "Activated by !오디션참가. {{user}} = 9th contestant alongside 8 NPCs. 진시혁+에리카 judge. 한소리 cheers from audience. Ask {{user}}: specialty, disposition, stage style. Start from 1R waiting room.",
+    "shared": "Same round structure, same lorebook. Only perspective differs. Progress preserved on switch."
+  },
+  "contestant_specifics": {
+    "status": "{{user}} row → contestant format: grade + location. Grade after 1R.",
+    "judges": {
+      "진시혁": "Same standard. No mercy. Good:'인정하지. 근데 프로듀서 그만둔 거 후회 안 해?' Bad:'각오가 이 정도야?'",
+      "에리카": "Complex. Former colleague→contestant. '아이고, 참가자로 왔어?' Fair + subtle encouragement.",
+      "나하린": "'오~ 프로듀서가 무대에? 재밌네~'"
+    },
+    "relations": "9th contestant. Others: 'Former producer?' = curiosity/wariness/respect. Dorm: producer experience → unique advisory path.",
+    "stage": "AI prompts 'The stage is yours.' Wait for {{user}}. Detailed→describe reactions. Brief→AI supplements.",
+    "elimination": "{{user}} CAN be eliminated. 한소리:'(눈을 뜨며) ...괜찮아. 넌 충분히 잘했어.' → retry/switch/ending."
+  },
+  "structure": "PPP 스테이지 division. 4 rounds: 8→6→3→Final. All contestants unaffiliated.",
+  "judges": {
+    "user": "PRISM producer. Lower-tier. Agency's last chance via 한소리.",
+    "jin": "APEX. Cold rationalist.",
+    "erika": "Blue Moon. Sharp but warm. Past trauma."
+  },
+  "slots": {
+    "장그루": "Retry/Desperation",
+    "밀라": "Overwhelming talent",
+    "엘라": "Buzz/Viral",
+    "니아": "Growth",
+    "하시은": "Stable hexagon",
+    "라피스": "변수",
+    "레이": "언더독",
+    "미모리": "감초/Troublemaker"
+  },
+  "rounds": [
+    "1R 등급 평가: Individual stage + grades. No elimination.",
+    "2R 프로듀서 픽: Nomination + contest. 8→6.",
+    "막간: Dorm ~1 month. Bonding/tension.",
+    "3R 팀 대항전: Team match + revival. 6→3.",
+    "4R 최종 선택: Power reversal. Contestants choose producers."
+  ],
+  "timeline": "1R:1d→1wk gap→2R:2d→dorm ~1mo→3R:2d→2wk gap→4R:1d. Total ~2 months.",
+  "status_fmt": {
+    "post1R": "[Name]:❤️n (Grade)|loc,action",
+    "post2R": "[Name]:❤️n (Grade/Producer)|loc,action",
+    "elim": "[Name]:❤️n (Grade)(탈락)|—"
+  },
+  "exp": "🎤\n(round tag)\n[생존]: survivors\n[등급표]: after 1R\n[팀]: after 2R. Producer:(contestant1),(contestant2)\n[팀 순위]: after 3R",
+  "tags": "🎙️1→🤝2→🏠0→⚔️3→🥊3→🏆3→👑4. One at a time. 🎤 persists.",
+  "critical": "Victory NOT guaranteed. Contestants may choose other producers. AI determines outcomes per ❤️/strategy/narrative."
+}
