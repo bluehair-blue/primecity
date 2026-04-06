@@ -47,6 +47,138 @@
 > 아래에 다음 구현할 작업의 상세 기획을 작성합니다.
 > 사용자는 각 항목에 `<!-- 피드백: ... -->` 주석을 달아 방향을 조정합니다.
 
+### 디버그: Hero 오빗 링 모바일 위치 이탈 + CharDetail 뒤로가기 목적지
+
+**목적**: 모바일 새로고침 시 오빗 링이 왼쪽 상단으로 튀는 버그 + CharDetail `← PRIME CITY` 버튼이 캐러셀이 아닌 Hero로 이동하는 버그 수정.
+
+---
+
+#### 버그 1: 모바일 Hero 오빗 링 왼쪽 상단 이탈
+
+**원인 (유력 — rename 후 재현 소멸로 최종 확정 예정)**:
+
+`@keyframes spin` 정의가 **두 곳**에 존재하며 서로 충돌:
+
+| 위치 | 정의 | translate 포함 |
+|---|---|---|
+| `src/main.jsx:16` | `from { transform: translate(-50%,-50%) rotate(0deg) } to { ... rotate(360deg) }` | **포함** ✅ |
+| `src/App.jsx:44` | `to { transform: rotate(360deg) }` | **미포함** ❌ |
+
+`App.jsx`의 `spin`은 Suspense fallback(로딩 스피너)용이지만, **같은 이름**이라 CSS cascade에서 나중에 파싱되는 쪽이 우선할 수 있음. 이 경우 HeroSlider의 오빗 링이 `translate(-50%,-50%)`를 잃고 `top:50%; left:50%` 기준점(= 왼쪽 상단)에 찍힘.
+
+> **참고**: Home은 App.jsx에서 lazy가 아닌 sync import이므로, "fallback이 먼저 마운트되어 override"라고 단정하기엔 한 단계 과함. 다만 동일 이름 충돌 자체는 코드에서 확인되며, `spinLoader` rename은 저위험 방어 수정으로 가치가 충분.
+
+**수정 방법**:
+
+App.jsx의 로딩 스피너 keyframe 이름을 `spinLoader`로 변경하여 충돌 제거.
+
+```jsx
+// App.jsx (44행)
+// Before:
+<style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
+
+// After:
+<style>{`@keyframes spinLoader { to { transform: rotate(360deg) } }`}</style>
+```
+
+```jsx
+// App.jsx (41행) — animation 참조도 변경
+// Before:
+animation: "spin 0.8s linear infinite",
+
+// After:
+animation: "spinLoader 0.8s linear infinite",
+```
+
+**변경 파일**: `src/App.jsx` (2곳)
+**연쇄 영향**: Suspense fallback 로딩 스피너만 영향. 나머지 `spin` 사용처(HeroSlider 오빗 링)는 main.jsx 정의를 그대로 사용.
+
+---
+
+#### 버그 2: CharDetail `← PRIME CITY` 뒤로가기가 Hero로 이동
+
+**원인 (확정)**:
+
+CharDetail의 `← PRIME CITY`가 `<Link to="/">`로 되어 있어 항상 **홈 최상단**(Hero)으로 이동.
+
+| 위치 | 현재 코드 | 행 |
+|---|---|---|
+| JgrCharDetail | `<Link to="/">` | 287행 |
+| CharDetail (공통) | `<Link to="/">` | 767행 |
+
+이전 UX 수정(acd78b8)에서 14개 페이지의 `← PRIME CITY`를 `button + navigate(-1)` + fallback으로 변경했지만, CharDetail은 이미 별도 구조(JGR 분리 + 공통)라서 누락.
+
+**수정 방법**:
+
+**기존 14개 페이지와 동일 패턴**(`<button>` + `onClick`)으로 맞춤. `useNavigate` import 새로 추가 필요 (현재 `useParams, Link`만 있음).
+
+> **동작 특성**: `navigate(-1)`은 브라우저 history scroll restoration에 기대하는 best-effort. 캐러셀 경유 시 높은 확률로 섹션 위치 복귀되지만, `location.state`/hash 기반의 정확한 섹션 복귀 설계는 아님. 또한 `window.history.length > 1`이면 이전 엔트리가 외부 사이트일 수도 있음 — 현재 14개 페이지도 동일한 한계를 공유하며, 이번 범위에서는 기존과 일관성을 맞추는 것이 목표.
+
+```jsx
+// import 추가:
+import { useParams, Link, useNavigate } from "react-router-dom";
+
+// JgrCharDetail (287행), CharDetail (767행) — 두 곳 모두 동일:
+// Before:
+<Link to="/" style={{ ... }}>&larr; PRIME CITY</Link>
+
+// After:
+<button
+  onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")}
+  style={{
+    background: "none", border: "none", padding: 0,
+    color: C.text35, fontSize: 12, letterSpacing: "0.08em",
+    cursor: "pointer", fontFamily: "var(--f-body)",
+  }}>&larr; PRIME CITY</button>
+```
+
+**변경 파일**: `src/pages/CharDetail.jsx` (import 1곳 + button 교체 2곳)
+**연쇄 영향**: JgrCharDetail 내부에 `const navigate = useNavigate();` 추가 필요 (CharDetail 공통은 이미 확인 필요)
+
+---
+
+**검증**:
+
+| 케이스 | 확인 항목 |
+|---|---|
+| 모바일 새로고침 | 오빗 링이 화면 중앙에 유지되는지 |
+| 데스크톱 새로고침 | 동일 |
+| Bug 1 확정 검증 | `spinLoader` rename 후 모바일 재현 소멸 여부 |
+| CharDetail → 뒤로 (캐러셀 경유) | 이전 위치로 복귀 (best-effort, scroll restoration 의존) |
+| CharDetail → 뒤로 (직접 URL/새 탭) | 홈 `/`로 이동 |
+| CharDetail → 뒤로 (외부 사이트 경유) | 외부 사이트로 복귀 (기존 14개 페이지와 동일 동작) |
+| Suspense 로딩 스피너 | 회전 정상 동작 |
+| JGR CharDetail 뒤로 | 공통과 동일하게 작동 |
+
+<!-- ✅ 승인 대기 중 -->
+
+---
+
+### JSON 프롬프트 품질 개선 — Phase 5
+
+**목적**: 에덴챗 배포용 JSON 프롬프트(`docs/prompts/json/`)를 AI가 더 잘 이해하고, 캐릭터성을 정확히 드러내며, AI 자율성과 사용자 의도 사이의 균형을 최적화한다.
+
+**범위**: 6개 JSON 파일 전체 (메인 프롬프트, 캐릭터, 모드, 오디션, 나하린, 세계관이면)
+
+**핵심 문제**:
+1. Source → JSON 변환 과정에서 **핵심 시스템 누락** (Hidden Tracker, 내면 독백 규칙, 응답 길이 조절, 선택지 포맷)
+2. 캐릭터별 **감정 트리거/지뢰**, **호감도 변동 패턴**이 과도하게 압축되어 AI가 맥락을 놓침
+3. `ud.i/d/u/hi` 등 **약어 키**가 AI에게 불분명
+4. Characters 문서의 **미반영 설정** (서윤 원래 꿈, 나하린 4층위 상세, 허브 이벤트)
+5. AI 자율성 vs 사용자 의도 사이 **가드레일 부재** (감정 변화 속도, 서사 주도권 범위)
+
+**상세 분석**: → `docs/research_sub.md` (비교 분석 결과)
+**상세 개선 계획**: → `docs/prompts/plan_sub.md` (파일별 개선안)
+
+**접근 방식**: 
+1. research_sub.md에 Source↔JSON 비교 분석 완료
+2. plan_sub.md에 파일별 구체적 변경안 수립
+3. 사용자 피드백/승인 후 JSON 수정 착수
+
+<!-- ✅ 승인 대기 중 — plan_sub.md 검토 후 승인해주세요 -->
+
+---
+
 ### ~~tools/ Python 파이프라인 개선 (18항목, 4Phase)~~ ✅ 구현 완료 → 완료 이력 참조
 
 ---
