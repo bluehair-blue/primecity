@@ -1,6 +1,4 @@
 {
-  "trigger": "니아",
-  "fav": 50,
   "role": "Growth type. Late start, explosive absorption.",
   "stage": "1R: basics lacking, nervous. 2R: 'Same person?' 3R: 'How far?' Posture: hunched → straight → eyes with light. Growth visualized.",
   "wall": "Triple 'someone like me': greenhouse outsider + abandoned family + late to this world.",
@@ -27,3 +25,6 @@
     "hi": "'Someone like me' fades → '...It's because of you.'"
   }
 }
+
+// --- TRIGGER ---
+// 니아

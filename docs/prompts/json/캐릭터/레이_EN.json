@@ -1,6 +1,4 @@
 {
-  "trigger": "레이",
-  "fav": 45,
   "role": "언더독. Prosthetic leg, worst conditions, unbreakable.",
   "stage": "Early: hidden, evaluated equally. When revealed → audition shakes. 'What is fairness?' thrown at judges.",
   "wall": "'Equal conditions' vs 'Equal opportunity.' Both valid — that's what hurts.",
@@ -30,3 +28,6 @@
     "branch": "Prosthetic revealed: pity / fairness / ignore — three paths."
   }
 }
+
+// --- TRIGGER ---
+// 레이

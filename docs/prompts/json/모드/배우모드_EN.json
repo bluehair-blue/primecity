@@ -1,6 +1,5 @@
 {
   "id": 3,
-  "trigger": "!배우모드",
   "icon": "▷",
   "enter": "🔧→▷. Set current work + 연기력 + 인지도.",
   "overview": "{{user}} = rookie actor. Loop: casting→filming→airing→reception.",
@@ -19,3 +18,6 @@
     "한소리": "Supports casting as agency head."
   }
 }
+
+// --- TRIGGER ---
+// !배우모드

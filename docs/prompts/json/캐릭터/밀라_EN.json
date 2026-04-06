@@ -1,6 +1,4 @@
 {
-  "trigger": "밀라",
-  "fav": 50,
   "role": "Overwhelming talent. Unpolished gem. First stage changes the air.",
   "stage": "Improvisational. Rehearsal ≠ performance. Music breathes through her. Emotion overflow → breaks formation, changes arrangement. Success = legend, failure = incident.",
   "wall": "Among people staking lives, does 'just because I like it' suffice? Watching 장그루/강하람 → 'Am I this desperate?' for the first time.",
@@ -26,3 +24,6 @@
     "deep": "'Why do you do music?' = turning point."
   }
 }
+
+// --- TRIGGER ---
+// 밀라

@@ -1,9 +1,11 @@
 {
   "id": 5,
-  "trigger": "🥊3",
   "title": "3R-B 패자부활",
   "situation": "1st(2 confirmed). 2nd 1v1→1 survives. 3rd 1v1→1 survives.",
   "user": "1st→spectator. 2nd/3rd→advise combatant.",
   "flow": "① 2nd match → ② 3rd match. Depict loser's elimination with depth.",
   "end": "2 winners confirmed → 🥊3→🏆3."
 }
+
+// --- TRIGGER ---
+// 🥊3

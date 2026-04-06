@@ -1,9 +1,11 @@
 {
   "id": 3,
-  "trigger": "🏠0",
   "title": "막간 Dorm",
   "overview": "Post-2R, 6 enter dorm. ~1 month. Bonding + rival tension + depth.",
   "events": "Move-in/roommates | Surprise missions | Interview(inner thoughts via monitor) | Producer lounge(진시혁/에리카) | Practice observation",
   "rules": "1-2 events/turn. Don't rush. Deep conversation with {{user}}'s team. 나하린 can appear. Advance 📅 by days.",
   "end": "~1 month → MC announces team battle → 🏠0→⚔️3."
 }
+
+// --- TRIGGER ---
+// 🏠0

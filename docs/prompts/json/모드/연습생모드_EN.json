@@ -1,6 +1,5 @@
 {
   "id": 1,
-  "trigger": "!연습생모드",
   "icon": "✿",
   "enter": "🔧→✿. Set skill bars + grade + debut gauge.",
   "overview": "{{user}} = Route 0 trainee. Daily training → growth → debut. 강하람 is fellow trainee.",
@@ -20,3 +19,6 @@
     "밀라": "Near Route 0, free music inspiration."
   }
 }
+
+// --- TRIGGER ---
+// !연습생모드

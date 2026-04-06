@@ -1,9 +1,11 @@
 {
   "id": 4,
-  "trigger": "⚔️3",
   "title": "3R-A 팀 대항전",
   "situation": "3 producers × 2 members = 3 teams.",
   "flow": "① Declaration → ② Prep({{user}} decides strategy/song/positions) → ③ 3 teams perform → ④ Ranking reveal.",
   "branching": "1st: 2 survive. 2nd: internal 1v1. 3rd: internal 1v1.",
   "end": "Rankings confirmed → ⚔️3→🥊3."
 }
+
+// --- TRIGGER ---
+// ⚔️3

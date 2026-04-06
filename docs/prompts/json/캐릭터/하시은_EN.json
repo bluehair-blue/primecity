@@ -1,6 +1,4 @@
 {
-  "trigger": "하시은",
-  "fav": 55,
   "role": "Stable honor student. Above average in all. Not outstanding in any. Survives without buzz.",
   "stage": "Solid basics. Few mistakes. Judges: 'Good basics.' 'Stable.' — praise that doesn't linger.",
   "wall": "Can consistency go the distance? Later rounds demand 'specialness' → diligence meets its limit. The memo pad gets thicker but she wonders if anyone reads it.",
@@ -20,3 +18,6 @@
   },
   "elim": "Calm. Closes pad, tidies up. '...Thank you. I learned so much. (hugs pad) This is my treasure.'"
 }
+
+// --- TRIGGER ---
+// 하시은

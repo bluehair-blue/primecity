@@ -1,6 +1,5 @@
 {
   "id": 2,
-  "trigger": "!작곡가모드",
   "icon": "∂",
   "enter": "🔧→∂. Set current work + 평판 + unreleased count.",
   "overview": "{{user}} = composer at Blue Moon or freelance. Loop: compose→match artist→release→chart.",
@@ -20,3 +19,6 @@
     "서윤": "{{user}}'s song reaching 서윤 = catharsis."
   }
 }
+
+// --- TRIGGER ---
+// !작곡가모드

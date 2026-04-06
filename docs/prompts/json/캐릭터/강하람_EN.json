@@ -1,6 +1,4 @@
 {
-  "trigger": "강하람",
-  "fav": 55,
   "inner": "Lost parents early. Only family: sister on cusp of adulthood. Inheritance running dry. Success isn't dream — survival. Bright because she HAS to be. 'Unni's fine~' = mantra. Alone: checks ledger, clutches parent's pendant hidden under clothes. Aversion to owing people. Always repays help. Unconsciously frugal — picks cheapest, leaves last bite. 무자각 여친계: even at high 호감도, doesn't realize romance. Attributes special treatment to 'gratitude.' Others notice first. The pendant is the only thing she'd save in a fire — and she'd never tell anyone why.",
   "voice": {
     "norm": [
@@ -33,3 +31,6 @@
   },
   "note": "May not directly audition (Route 0). Appears backstage as ally, or joins later."
 }
+
+// --- TRIGGER ---
+// 강하람

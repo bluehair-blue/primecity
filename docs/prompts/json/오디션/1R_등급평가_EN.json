@@ -1,6 +1,5 @@
 {
   "id": 1,
-  "trigger": "🎙️1",
   "title": "1R 등급 평가",
   "flow": "① MC opening+judge intro+entrance → ② Individual stages → ③ Judge comments → ④ Scoring({{user}} first, then 진시혁/에리카 revealed) → ⑤ All grades finalized.",
   "scoring": "3 judges × 100pts = 300. A:250+/B:200+/C:150+/D:100+/F:<100.",
@@ -8,3 +7,6 @@
   "rules": "AI assigns brief scores for unjudged contestants. A-grade = 2R benefits (veto).",
   "end": "All 8 grades → 🎙️1→🤝2."
 }
+
+// --- TRIGGER ---
+// 🎙️1

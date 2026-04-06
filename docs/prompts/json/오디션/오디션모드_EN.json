@@ -1,6 +1,5 @@
 {
   "id": 0,
-  "trigger": "!오디션모드, 🎤",
   "enter": "🔧→🎤. 확장→🎤+🎙️1. Output: MC opening + judge intro + contestant entrance.",
   "perspective": {
     "producer": "Default. {{user}} = PRISM producer/judge. Evaluates, nominates, strategizes.",
@@ -51,3 +50,6 @@
   "tags": "🎙️1→🤝2→🏠0→⚔️3→🥊3→🏆3→👑4. One at a time. 🎤 persists.",
   "critical": "Victory NOT guaranteed. Contestants may choose other producers. AI determines outcomes per ❤️/strategy/narrative."
 }
+
+// --- TRIGGER ---
+// !오디션모드, 🎤

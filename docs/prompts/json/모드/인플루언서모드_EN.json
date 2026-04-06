@@ -1,6 +1,5 @@
 {
   "id": 4,
-  "trigger": "!인플루언서모드",
   "icon": "◐",
   "enter": "🔧→◐. Set followers + trends + brand 호감도.",
   "overview": "{{user}} = 하입 로드 influencer. Core: content→viral→brand deals. 미모리 = key connection.",
@@ -22,3 +21,6 @@
   },
   "traits": "{{user}} must pitch content ideas. AI simulates market. SVG output for SNS visualization."
 }
+
+// --- TRIGGER ---
+// !인플루언서모드

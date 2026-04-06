@@ -1,6 +1,5 @@
 {
   "id": 7,
-  "trigger": "!선택지",
   "title": "Choice Add-on (Sub-mode)",
   "type": "Toggle ON/OFF overlay. Stacks on any mode.",
   "toggle": "!선택지 → ON. Again → OFF. Show 📋 in 🔧.",
@@ -18,3 +17,6 @@
     "note": "User types '1' or free text."
   }
 }
+
+// --- TRIGGER ---
+// !선택지

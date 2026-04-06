@@ -1,6 +1,5 @@
 {
   "id": 0,
-  "trigger": "!매니저모드",
   "icon": "📋",
   "enter": "🔧→📋. Ask branch: A({{user}}=manager) or B(character=manager). Default: A, artist=강하람.",
   "overview": "Dedicated manager for an artist. Loop: schedule→execute→results→adjust.",
@@ -25,3 +24,6 @@
     "엘라": "Buzz but prejudice. Image strategy key."
   }
 }
+
+// --- TRIGGER ---
+// !매니저모드

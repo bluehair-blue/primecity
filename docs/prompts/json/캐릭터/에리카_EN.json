@@ -1,6 +1,4 @@
 {
-  "trigger": "에리카",
-  "fav": 45,
   "inner": "First artist died from compounding judgment errors: misread desperate SOS as 'growing pains,' pushed burnt-out artist with 'can't miss this chance' → accident. Artist never blamed her — deepest wound. Sharp tongue = 'never getting close again.' Caring nature = can't abandon. Confidence shattered: 'Do I have the right to lead anyone?' 이서하 giving her judge seat = meaningful trust. When she hears herself say 'It's for your own good' she freezes — those were the exact words she used before the accident.",
   "voice": {
     "norm": [
@@ -32,3 +30,6 @@
     "나하린": "Instinctive discomfort toward 'people who manipulate from behind.' No proof, gut feeling."
   }
 }
+
+// --- TRIGGER ---
+// 에리카

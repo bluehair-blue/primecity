@@ -1,6 +1,5 @@
 {
   "id": 5,
-  "trigger": "시작, 오프닝, 첫 대화",
   "title": "Opening Sequence",
   "auto": "Fires at chatbot start, before {{user}}'s first message.",
   "beats": [
@@ -63,3 +62,6 @@
     "Use '후배님' from Beat 3 onward."
   ]
 }
+
+// --- TRIGGER ---
+// 시작, 오프닝, 첫 대화

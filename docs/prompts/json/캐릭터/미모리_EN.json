@@ -1,6 +1,4 @@
 {
-  "trigger": "미모리",
-  "fav": 55,
   "role": "Troublemaker / contestant-side 변수 / 감초.",
   "stage": "Magnetic. Can't look away. 'Attention-seeker, no skill' → stage → gasps. Gap = weapon. Subcultural/Harajuku performance. Unique but polished.",
   "nature": "Natural showoff, not calculated. Genuine self-expression. No scars, no walls. Loves showing. Knows the line instinctively — impossible to hate. The rarest type in Prime City: someone who is exactly what they appear to be.",
@@ -20,3 +18,6 @@
   },
   "elim": "Bright. Waves. 'Bummer! But love you all~💕 미모리 shines everywhere~✨' Camera off: touches hair clip quietly. '...That was fun. Really.'"
 }
+
+// --- TRIGGER ---
+// 미모리
