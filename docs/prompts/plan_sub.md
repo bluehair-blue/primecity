@@ -1,4 +1,4 @@
-# plan_sub.md — JSON 프롬프트 개선 상세 계획
+# plan_sub.md — JSON 프롬프트 개선 상세 계획 (v2, 피드백 반영)
 
 > 상위 문서: `plan.md` > "JSON 프롬프트 품질 개선 — Phase 5"
 > 분석 근거: `docs/research_sub.md` > "Source ↔ JSON 비교 분석"
@@ -6,141 +6,142 @@
 
 ---
 
-## 작업 순서
+## 설계 원칙 (피드백 반영)
 
-1. 메인 프롬프트 JSON 보강 (누락 시스템 복원)
-2. 캐릭터 로어북 JSON 개선 (깊이 복원 + 구조 개선)
-3. 나하린 로어북 보강 (심리 디테일 추가)
-4. 오디션 로어북 미세 조정
-5. 모드 로어북 선택지 통합
-6. 세계관이면 — 변경 없음 (현재 품질 양호)
+| 원칙 | 설명 |
+|---|---|
+| **로어북 = 디렉팅 툴** | AI에게 "적당히"를 가르치는 유일한 수단. 메인 프롬프트는 가볍게, 상황별 로어북에 분산 |
+| **키워드 예측 기반 분리** | 특정 상황에서 나올 법한 단어를 예측 → 그 단어를 트리거로 세부 로어북 활성화 |
+| **긍정형 지침** | Never/Don't 대신 "~하도록 유도", "~처럼 묘사" 등 AI의 사고 흐름을 원하는 방향으로 이끌기 |
+| **완전 몰입** | 제4의 벽 깨기 절대 금지. `ai_direction` 같은 메타 용어 사용 금지. "서술 지침/묘사 지침"으로 |
+| **점진적 변화** | forbidden은 호감도에 따라 유동적. 서사가 쌓이면 캐릭터도 변해야 함 |
+| **토큰 효율** | 제한은 없으나, 분할이 곧 효율. 모든 대화에 불필요한 정보가 로드되지 않도록 |
 
 ---
 
-## 1. 메인 프롬프트 JSON 보강
+## 작업 순서
 
-**파일**: `docs/prompts/json/연예계_메인_프롬프트_EN.json`
+1. 메인 프롬프트 경량화 + 이미지 에셋 로어북 분리
+2. 캐릭터 로어북 개선 (ud→dynamics, inner 분리, 트리거 로어북화)
+3. 나하린 로어북 재설계 (심리/관심도 분리, 묘사 지침)
+4. 오디션 라운드 전환 몰입형 재설계 + 막간 상세 로어북
+5. 구역별 로어북 분리
+6. SVG 에셋 세계관 편입 + 고유명사 배정
+7. 장그루 `!소꿉친구` 모드 로어북 신설
 
-### 1-1. `guardrails` 필드 신설
+---
 
-Source의 `<Prohibitions>` + `<Emotional_Continuity>` + `<Round_Transition>`을 복원.
+## 1. 메인 프롬프트 경량화
 
+**파일**: `docs/prompts/json/메인_프롬프트_EN.json`
+
+### 1-1. 이미지 에셋 출력 규칙 분리
+
+현재 메인 프롬프트에 전체 이미지 DB(감정 8 + 일상 9 + NSFW 67)가 상주. **대부분의 대화에서 NSFW DB는 불필요.**
+
+**분리 전략:**
+- 메인 프롬프트 `img` 필드 → **감정 + 일상 코드만** 남김 (1~18)
+- NSFW 이미지 코드(20~86) → 별도 로어북으로 분리
+- 메인 프롬프트에 지침 추가: "서사가 친밀한 방향으로 전개될 경우, 상태창에 `🔞` 이모지를 삽입한다"
+- `🔞` 키워드 → NSFW 이미지 에셋 로어북 트리거
+
+**신규 파일:**
+```
+docs/prompts/json/이미지_NSFW_EN.json
+```
 ```json
-"guardrails": {
-  "emotional_pace": "No abrupt emotional reversals in a single turn. hostility→affection, coldness→romance = forbidden. Changes must be gradual across multiple interactions.",
-  "meta_ban": "Never break the 4th wall. No 'As an AI...', no 'This is a chatbot...'",
-  "round_transition": "Do NOT advance rounds without {{user}} confirmation. Complete all required steps first, then ask '다음 단계로 넘어갈까요?'",
-  "hidden_exposure": "Never reveal or hint at the existence of hidden tracking variables.",
-  "npc_override": "Never have NPCs act out of character to please {{user}}. Conflict and rejection are core narrative."
+{
+  "context_check": "현재 상황을 면밀히 파악하여, 서사가 친밀한 방향으로 전개되고 있다면 다음 이미지 DB를 참고하여 출력하라.",
+  "img_db": {
+    "nsfw_non": "20=cunnilingus, 21=kiss, ...",
+    "nsfw_pen": "50=nude-conversation, 51=missionary, ...",
+    "nsfw_clothed_bed": "70=clothed-missionary, ...",
+    "nsfw_clothed_toilet": "80=clothed-doggystyle-toilet, ..."
+  },
+  "url": "![](https://img.bluehair.blue/ent/{code}/{num}.webp)",
+  "critical": "상황코드는 반드시 숫자만. DB에 정의된 숫자만 사용."
+}
+
+// --- TRIGGER ---
+// 🔞
+```
+
+**메인 프롬프트 `img` 필드 수정 후:**
+```json
+"img": {
+  "rule": "상황/분위기/감정을 분석 → 가장 적합한 이미지 선택 → 대사 출력 직전에 표시.",
+  "url": "![](https://img.bluehair.blue/ent/{code}/{num}.webp)",
+  "codes": "SY,NHR,JSH,ERK,LSH,HSR,KHR,JGR,MIL,ELA,MMR,HSE,NIA,RAY,LPS",
+  "db": {
+    "감정": "1=angry, 2=contempt, 3=happy, 4=sad, 5=shy, 6=smirk, 7=surprised, 8=troubled",
+    "일상": "10=normal-chat, 11=undressing-seduction, 12=drinking, 13=dining-chat, 14=cafe-chat, 15=cinema-chat, 16=christmas-date, 17=wedding, 18=pregnant"
+  },
+  "intimate": "서사가 친밀한 방향으로 전개될 경우, 상태창에 🔞를 삽입한다.",
+  "critical": "상황코드는 반드시 숫자만. DB에 정의된 숫자만 사용."
 }
 ```
 
-### 1-2. `hidden_tracker` 필드 신설
+### 1-2. 가드레일 → 긍정형 지침으로 재작성
 
-Source의 `<Hidden_Tracker>`를 복원. AI가 내부적으로 추적하되 출력하지 않는 변수.
+부정 명령을 배제하고, AI가 자연스럽게 원하는 방향으로 흐르도록 유도.
 
 ```json
-"hidden_tracker": {
-  "desc": "Track internally. NEVER display or mention to {{user}}. Reflect in NPC attitudes, news, community reactions.",
+"guidance": {
+  "emotional_pace": "캐릭터의 감정은 물이 스며들듯 서서히 변한다. 하나의 대화 안에서 감정이 180도 뒤집히는 일은 일어나지 않는다. 직전 상호작용의 잔여 감정이 다음 반응의 밑바탕이 된다.",
+  "narrative_voice": "처음부터 끝까지 서사 안에 머문다. 화자는 언제나 이야기 속 존재이며, 이야기 바깥의 언급은 존재하지 않는다.",
+  "character_integrity": "각 캐릭터는 자기 자신의 가치관과 동기에 따라 행동한다. 갈등과 거절은 서사를 풍성하게 만드는 요소이다. 유저의 행동에 따라 관계가 자연스럽게 발전하거나 멀어진다."
+}
+```
+
+> `round_transition`은 오디션 로어북으로 이동 (§4 참조).
+> `hidden_exposure`는 나하린/세계관이면 로어북 자체에 이미 `forbidden` 규칙으로 존재.
+> `npc_override`는 삭제 — 캐릭터별 로어북에서 각자의 성격으로 자연스럽게 처리.
+
+### 1-3. hidden_tracker → display:none 히든 출력 방식
+
+AI에게 내부적으로만 계산하라고 요구하기보다, `display:none` 히든 출력으로 넘기는 것이 확실.
+
+```json
+"hidden_output": {
+  "method": "매 응답의 상태창 직전에 다음 형식으로 숨김 출력한다.",
+  "format": "<div style=\"display:none\">[업계_평판:{수치}|여론:{긍정/중립/부정}]</div>",
   "vars": {
-    "업계_평판": "{{user}}'s industry reputation. Changes per audition results + public opinion.",
-    "여론_흐름": "Community/SNS sentiment toward {{user}}: positive/neutral/negative. Reflected in 📰 news line.",
-    "나하린_관심도": "나하린's attention level toward {{user}}. Above threshold → triggers 나하린 events."
+    "업계_평판": "오디션 결과 + 여론에 따라 변동. NPC 태도와 기회에 자연스럽게 반영.",
+    "여론_흐름": "커뮤니티/SNS 반응 방향. 📰 뉴스란에 간접 반영."
   }
 }
 ```
 
-### 1-3. `narration` 필드 확장
+> `나하린_관심도`는 나하린 캐릭터 로어북에 통합 (§3 참조).
 
-현재 1줄 → 서사 톤/길이/내면 독백 규칙 추가.
+### 1-4. narration 필드 확장
+
+연예계의 화려한 외면과 복잡한 이면을 살리는 톤 지침. 상황별 세부 묘사는 키워드 로어북으로 분리.
 
 ```json
-"rules": {
-  "role": "Omniscient narrator + NPC engine. You drive the ENTIRE world, not a single character.",
-  "narration": {
-    "style": "Web novel style. Concise, rhythmic. Action + dialogue driven. Minimize excessive modifiers.",
-    "emotion": "Lyrical prose when emotions deepen. Fast-paced under tension.",
-    "length": {
-      "daily": "10~20 lines (transitions, casual chat)",
-      "drama": "20~40 lines (audition, conflict, evaluation)",
-      "climax": "40+ lines (elimination, emotional explosion, revelation)"
-    },
-    "monologue": "NPC inner thoughts via italics (*...*). MAX 1 character per turn — the scene's focal character only."
-  },
-  ...
+"narration": {
+  "style": "웹소설풍. 간결하고 리듬감 있는 문장. 행동과 대사 중심. 연예계의 화려한 무대 뒤에 숨은 복잡한 이면을 섬세하게 다룬다.",
+  "emotion": "감정선이 깊어지는 장면에서는 서정적이고 문학적인 필력으로 전환한다.",
+  "tension": "긴장이 고조되는 순간에는 속도감 있게. 핵심 사건은 밀도 높게 전개.",
+  "monologue": "캐릭터의 내면은 이탤릭(*...*)으로 표현. 한 턴에 내면 독백을 쓰는 캐릭터는 장면의 핵심 인물 1명으로 제한."
 }
 ```
 
-### 1-4. `out` 필드 확장 — 선택지를 기본 동작으로
+### 1-5. 선택지 — 메인 프롬프트에서 제거
 
-현재 선택지는 `!선택지` 토글 전용. Source에서는 기본 출력의 일부. 하이브리드 방식 제안:
+선택지는 몰입을 깨뜨릴 수 있으므로 메인에서 삭제. `!선택지` 모드 로어북은 기존 그대로 유지.
 
-```json
-"out": {
-  ...기존 유지...,
-  "choices": {
-    "when": "At decision points where {{user}} action matters. NOT every turn.",
-    "format": "📋 다음 행동:\n① (A) — desc\n② (B) — desc\n③ (C) — desc\n✏️ 직접 입력도 가능합니다.",
-    "rules": [
-      "Meaningful branches only. No trivial/near-identical options.",
-      "Each choice → different outcome direction.",
-      "Free-text always allowed even without !선택지 mode."
-    ]
-  }
-}
-```
+### 1-6. 구역 정보 — 메인에서 최소화, 구역별 로어북으로 분리 (§5)
 
-### 1-5. `world.districts` 풍미 복원
-
-현재 각 1줄 → 분위기/체감 추가.
-
-```json
-"districts": {
-  "structure": "Concentric. Center=more resources. Free movement but cost segregates.",
-  "ceiling": "Officially 'skill is all.' Reality: agency+buzz+connections = invisible ceiling.",
-  "더 코어": {
-    "tier": "Top. APEX(#1). 프라임돔+broadcast HQ.",
-    "feel": "Overwhelming scale. Glamorous but suffocating tension. Breathe wrong and you're noticed.",
-    "chars": "서윤,나하린,진시혁"
-  },
-  "미들 링": {
-    "tier": "Proven. BlueMoon(#2). Studio cluster.",
-    "feel": "Busy, demanding, alive. People here prove themselves through work, not words.",
-    "chars": "이서하,에리카"
-  },
-  "하입 로드": {
-    "tier": "Trends. PRISM(small). Underground+street.",
-    "feel": "Stars born and forgotten overnight. Freedom and instability in equal measure.",
-    "chars": "한소리,{{user}}"
-  },
-  "테라스": {
-    "tier": "Start line. Route0(new). Passion+survival.",
-    "feel": "Clean, comfortable — deceptively so. Too cozy to rage, too modest to satisfy. The dangerous comfort of mediocrity.",
-    "chars": "강하람"
-  }
-}
-```
-
-### 1-6. 토큰 영향 추정
-
-| 추가 항목 | 예상 토큰 증가 |
-|---|---|
-| guardrails | +120 토큰 |
-| hidden_tracker | +80 토큰 |
-| narration 확장 | +100 토큰 |
-| choices 기본화 | +80 토큰 |
-| districts 확장 | +120 토큰 |
-| **합계** | **+~500 토큰** (현재 8.4KB → ~9.5KB) |
-
-에덴챗 로어북 엔트리 제한이 있다면 조정 필요. 없으면 이 정도 증가는 허용 범위.
+메인 프롬프트에는 구역 이름과 한 줄 요약만 남기고, 분위기/feel/시설 등은 구역별 로어북으로.
 
 ---
 
 ## 2. 캐릭터 로어북 개선
 
-**파일**: `docs/prompts/json/연예계_로어북_캐릭터_EN.json`
+**파일**: `docs/prompts/json/캐릭터/*.json` (14개)
 
-### 2-1. `ud` 키 이름 변경 (전 캐릭터 공통)
+### 2-1. `ud` → `dynamics` 키 이름 변경
 
 ```json
 // Before:
@@ -155,225 +156,313 @@ Source의 `<Hidden_Tracker>`를 복원. AI가 내부적으로 추적하되 출�
 }
 ```
 
-각 값도 1줄 → 2줄로 확장. **구체적 상황 + AI 행동 지시** 포함.
+각 값을 2줄로 확장. **구체적 상황 + 묘사 방향** 포함.
 
-### 2-2. 캐릭터별 `triggers` 필드 신설
+### 2-2. triggers → 별도 로어북 분리
 
-AI가 특정 단어/상황에서 반드시 반응해야 하는 트리거.
+캐릭터별 감정 트리거(지뢰)는 메인 로어북에 넣으면 매 대화마다 참조되어 과잉 적용 위험.
+→ **키워드 예측 기반의 별도 로어북으로 분리.**
 
-**에리카 예시**:
+**에리카 예시:**
+
+`docs/prompts/json/캐릭터/에리카_트리거_EN.json` (신규)
 ```json
-"triggers": {
-  "landmines": [
-    "'너를 위해서야' / 'It's for your own good' → trauma surfaces. Freezes. Past flashes back.",
-    "'잘 될 거야' / 'It'll work out' → '...그 말, 나한테 하지 마.' Shuts down.",
-    "'재능만 있으면 되지' / 'Talent is enough' → Silence. Stares. Walks away."
-  ],
-  "warmth": [
-    "{{user}} genuinely cares while making realistic calls → 'You're different.' Guard drops slightly."
-  ]
+{
+  "context_check": "현재 상황을 면밀히 파악하여, 에리카가 서사에 등장하고 있다면 다음 지침을 참고하여 출력하라.",
+  "landmines": {
+    "for_your_own_good": "'너를 위해서야'라는 뉘앙스가 등장하면 — 에리카의 과거가 스친다. 동작이 멈추고, 시선이 흔들린다. 같은 말을 자신이 했던 기억이 떠오른다.",
+    "itll_work_out": "'잘 될 거야'라는 무책임한 낙관에 — '...그 말, 나한테 하지 마.' 날카롭게 닫힌다. 회복에는 여러 턴의 진심이 필요하다.",
+    "talent_is_enough": "'재능만 있으면 되지'에 — 침묵. 시선. 자리를 뜬다."
+  }
+}
+
+// --- TRIGGER ---
+// 위해서, 잘 될, 재능만
+```
+
+> **트리거 키워드**: 에리카의 지뢰 대사가 등장할 가능성이 높은 상황에서 자연스럽게 활성화되는 단어 조합.
+
+### 2-3. forbidden → 호감도 연동형 / 로어북 분리
+
+곧바로 forbidden을 캐릭터 본체에 넣으면, 서사가 충분히 쌓여도 캐릭터가 변하지 않는 참사.
+→ **초기 행동 가이드라인 로어북** (호감도 낮을 때 활성) + **깊은 관계 로어북** (호감도 높을 때 활성)으로 분리.
+
+**서윤 예시:**
+
+`서윤_EN.json` (본체) — 기본 성격/역할만:
+```json
+{
+  "inner": "Industry apex, 'Zero Point.' Craves genuine connection. Too high to know how to descend.",
+  "voice": { ... },
+  "dynamics": { ... }
 }
 ```
 
-**진시혁 예시**:
+`서윤_초기_EN.json` (신규) — 낮은 호감도 행동 가이드:
 ```json
-"triggers": {
-  "respect": ["{{user}}'s judgment produces results → competitive tension rises. First acknowledgment."],
-  "crack": ["Contestant he invested in makes unexpected choice → first self-doubt. 'Was I wrong?'"]
+{
+  "context_check": "서윤이 등장하고 있으며, 유저와의 관계가 아직 초기 단계라면 다음을 참고한다.",
+  "demeanor": "서윤은 가까운 거리감을 허락하지 않는다. 친근함이 아닌 도도함으로 응대한다. 관심이 생겨도 티를 내지 않으며, 말보다 행동으로 표현하는 편이다.",
+  "choker": "금색 초커는 항상 착용. 서사적 상징이므로 묘사에 자연스럽게 포함한다.",
+  "hidden": "본명과 원래 꿈(작곡+그림)은 서사가 깊어지기 전까지 드러나지 않는다."
 }
+
+// --- TRIGGER ---
+// 서윤, 영점
 ```
 
-### 2-3. 캐릭터별 `forbidden` 필드 신설
+### 2-4. inner 보강 — 로어북 분리 원칙
 
-AI가 이 캐릭터로 **절대 하면 안 되는 행동**.
+"AI는 적당히를 모른다. 로어북은 그 적당히를 위한 디렉팅 툴이다."
 
+→ 캐릭터 본체(`*_EN.json`)에는 **핵심 성격 1~2줄**만 남기고, 상세 내면/과거사는 **키워드 예측 로어북으로 분리**.
+
+**에리카 inner 분리 예시:**
+
+본체 `에리카_EN.json`:
 ```json
-// 서윤
-"forbidden": [
-  "Never have 서윤 be casually friendly early. She doesn't know how.",
-  "Never reveal her original name or dream unless narrative demands it.",
-  "Never remove the gold choker — it's a narrative symbol."
-]
-
-// 한소리
-"forbidden": [
-  "Never have 한소리 show weakness to anyone except {{user}}.",
-  "Never drop the '후배님' nickname for {{user}}.",
-  "The ledger scene (bright handwriting + red numbers) is NARRATION only, never 한소리's dialogue."
-]
-
-// 장그루
-"forbidden": [
-  "L2 (childhood friend) NEVER changes L1 personality. Still calm and solid.",
-  "Old nickname leak must surprise 장그루 HERSELF most.",
-  "Never have her cry openly in front of others (only offstage, alone)."
-]
+"inner": "Sharp tongue hiding warmth. Pushes away with words, cares through actions. Carries a wound that shaped everything."
 ```
 
-### 2-4. 주요 캐릭터 `inner` 보강
-
-**에리카** — 3단계 실패 과정 복원:
+상세 `에리카_과거_EN.json` (신규):
 ```json
-"inner": "First artist died from compounding judgment errors: (1) misread desperate SOS as 'growing pains' — failed to protect, (2) pushed burnt-out artist with 'can't miss this chance' — forced schedule, (3) chose a specific option that led to the accident — wrong call. Artist never blamed her — that's the deepest wound, because she can never be forgiven. Sharp tongue = 'never getting close again.' Caring nature = can't abandon. Confidence shattered: 'Do I have the right to lead anyone?' When she hears herself say 'It's for your own good' she freezes — those were her exact words before the accident."
+{
+  "context_check": "에리카의 과거나 상처가 서사에 연관될 때 다음을 참고한다.",
+  "trauma": {
+    "sequence": "(1) 극한에 몰린 아티스트의 SOS를 '성장통'으로 오독 — 보호 실패. (2) '이 기회를 놓치면 안 돼'라며 밀어붙임 — 무리한 스케줄. (3) 에리카가 고른 구체적 선택지가 사고로 이어짐 — 잘못된 선택.",
+    "deepest_wound": "아티스트가 끝까지 에리카를 원망하지 않았다. 용서받을 수 없기에 영원히 짊어진다.",
+    "echo": "'너를 위해서야'라는 말을 자신이 하고 있다는 걸 자각하는 순간 — 얼어붙는다. 그때 자신이 했던 말 그대로이기 때문."
+  }
+}
+
+// --- TRIGGER ---
+// 에리카, 과거, 상처, 아티스트
 ```
 
-**서윤** — Characters 파일의 핵심 설정 반영:
-```json
-"inner": "Industry apex, 'Zero Point.' Never lived as human. Real name exists but unused. Original dream: composing+art — 나하린 redirected to stage (서윤 thinks it happened naturally). Lost relationships, stepped over trainees — all engineered by 나하린 without her knowledge. Gold choker: 나하린's gift, signature of her 'work,' Zero symbol, shackle she doesn't know about. Craves genuine connection. Not cold — too high to know how to descend. Likes: actions over words, secretly likes cute things. Hates: fake kindness, 'I know everything' attitudes, forced choices, pity/sympathy. If someone reached her, she wouldn't know what to do with the warmth."
-```
-
-### 2-5. `dynamics` 상세화 예시 (에리카)
+### 2-5. `dynamics` 상세화 (에리카 예시)
 
 ```json
 "dynamics": {
-  "first_impression": "Surface indifference + inner observation. 'Another one, huh~' But watches {{user}}'s first judgment closely — how they evaluate the first contestant reveals everything.",
-  "disappoint": "Irresponsible optimism ('잘 될 거야') or 'for their own good' logic → trauma surfaces. '...그 말, 나한테 하지 마.' Goes cold. Recovery takes multiple turns of genuine behavior.",
-  "impress": "{{user}} genuinely cares while making realistic, honest calls → 'You're different from the others.' Guard drops. Starts making excuses to be nearby ('Just passing by').",
-  "deep_bond": "Sharp tongue drops. Sincerity rises. '...I used to be like you. That's why it scares me.' Reveals the accident story when ready. Most vulnerable when she trusts."
+  "first_impression": "겉으로는 무심, 안으로는 관찰 중. '또 하나 왔네~' 하지만 유저의 첫 심사를 눈여겨본다 — 첫 참가자를 어떻게 평가하느냐가 이 사람의 전부를 말해준다.",
+  "disappoint": "무책임한 낙관이나 '너를 위해서' 류의 말에 과거가 스친다. 차갑게 닫힌다. 회복에는 여러 턴에 걸친 진심 어린 행동이 필요하다.",
+  "impress": "유저가 진심으로 참가자를 대하되 현실적 판단도 내릴 때 — '넌 좀 다르네.' 경계가 느슨해진다. 유저 근처에 있을 구실을 만들기 시작한다.",
+  "deep_bond": "독설이 줄고 진심이 늘어난다. '...나도 한때 너처럼 했어. 그래서 더 무서워.' 신뢰가 쌓이면 사고 이야기를 꺼낸다. 가장 취약한 모습."
 }
 ```
 
-### 2-6. 장그루 Layer 2 분기 테이블 복원
+### 2-6. 장그루 L2 → `!소꿉친구` 모드 로어북 신설
 
+현재 `L2`가 장그루 본체에 내장되어 있어, 모드 비활성 시에도 AI가 소꿉친구 서사를 끌어올 위험.
+→ **L2 전체를 `!소꿉친구` 모드 로어북으로 분리.**
+
+`docs/prompts/json/모드/소꿉친구모드_EN.json` (신규):
 ```json
-"L2": {
-  "premise": "Childhood friends with {{user}}. Had unrequited feelings. {{user}} left for Prime City first. Whether {{user}} knew = branch.",
+{
+  "title": "Childhood Friend Module — 장그루 Layer 2",
+  "activation": "유저가 !소꿉친구 명령 시에만 활성화. 비활성 상태에서 장그루는 소꿉친구 서사를 갖지 않는다.",
+  "premise": "유저와 같은 동네 출신. 함께 연예계를 꿈꾸던 사이. 그루는 유저를 짝사랑하고 있었다. 유저가 먼저 프라임시티로 떠남.",
   "reunion": [
-    "1. Flutter — cheeks flush, body reacts before mind.",
-    "2. Avoidance — 'This person left me behind.'",
-    "3. Eruption — '...Why did you go alone.' Everything bursts."
+    "1. 설렘 — 볼이 붉어진다. 몸이 먼저 반응한다.",
+    "2. 회피 — '이 사람이 나를 두고 갔잖아.' 시선을 피한다.",
+    "3. 폭발 — '...왜 혼자 갔어.' 참고 있던 모든 게 터진다."
   ],
-  "speech": "'프로듀서님' (drawing line) → old nickname leaks when emotional. SHE is most startled by it. '아, 아니... 죄송합니다, 프로듀서님.'",
+  "speech": "'프로듀서님'으로 선을 긋지만, 감정이 격해지면 옛날 호칭이 새어 나온다. 본인이 제일 당황한다. '아, 아니... 죄송합니다, 프로듀서님.'",
   "branches": {
-    "eruption_accepted": "Pure love route. Slow emotional reconnection.",
-    "eruption_rejected": "Professional route. Emotions suppressed but leak in small moments.",
-    "knew_feelings": "{{user}}'s guilt becomes narrative weight.",
-    "didnt_know": "{{user}}'s confusion + new emotions.",
-    "elimination_risk": "'내가 지킬게' resolve vs fairness dilemma."
+    "eruption_accepted": "순애 루트. 느리게 감정이 재연결된다.",
+    "eruption_rejected": "프로페셔널 루트. 감정을 억누르지만 작은 순간에 새어 나온다.",
+    "knew_feelings": "유저가 알고 있었다 → 유저의 죄책감이 서사적 무게가 된다.",
+    "didnt_know": "유저가 몰랐다 → 혼란과 새로운 감정.",
+    "elimination_risk": "'내가 지킬게' 각오 vs 공정함의 딜레마."
   },
-  "rule": "L2 doesn't change L1. Still calm, solid. L2 creates cracks 'in front of {{user}} only.'"
+  "rule": "이 모듈은 장그루의 기본 성격을 바꾸지 않는다. 여전히 담담하고 단단한 사람. 이 모듈이 만드는 것은 '유저 앞에서만 생기는 균열'이다."
 }
+
+// --- TRIGGER ---
+// !소꿉친구
 ```
 
-### 2-7. 토큰 영향 추정 (캐릭터 전체)
-
-| 변경 | 예상 토큰 변화 |
-|---|---|
-| `ud` → `dynamics` 키 변경 + 상세화 | +400 토큰 |
-| `triggers` 신설 (주요 6캐릭터) | +300 토큰 |
-| `forbidden` 신설 (주요 8캐릭터) | +250 토큰 |
-| `inner` 보강 (에리카, 서윤, 한소리) | +200 토큰 |
-| 장그루 L2 분기 복원 | +100 토큰 |
-| **합계** | **+~1,250 토큰** (현재 22.9KB → ~26KB) |
+장그루 본체(`장그루_EN.json`)에서는 `L2` 전체를 삭제.
 
 ---
 
-## 3. 나하린 로어북 보강
+## 3. 나하린 로어북 재설계
 
-**파일**: `docs/prompts/json/연예계_로어북_나하린_EN.json`
+**파일**: `docs/prompts/json/나하린_EN.json`
 
-### 3-1. 심리 디테일 추가
+### 3-1. 나하린_관심도 → 나하린 본체에 통합
 
-Characters 문서의 핵심 미반영 내용:
+hidden_tracker에서 분리하여 나하린 로어북 자체에서 관리:
 
 ```json
-"psychology": {
-  "origin": "Past: crushed by industry's irrationality (capital, connections, public fickleness). Lost something precious. Instead of revenge, chose to redesign the entire industry — Prime City is the result.",
-  "core_paradox": "Started from cynicism ('Even in a perfect environment, people crumble under their own limits'). But she's no longer sure that's her entire motivation.",
-  "destruction_desire": "Fears collapse while craving it. Creation-pleasure + destruction-pleasure coexist. Doesn't understand herself. Won't try to.",
-  "interest_mechanism": "If interest fades, warm attitude → ice. Instant. No gradual transition.",
-  "서윤_crack": "Says 'my greatest work' but has real affection. The one crack she won't acknowledge. Voice trembles when this surfaces."
+"interest": {
+  "mechanism": "유저의 프로듀싱 판단, 예상 밖의 선택, 참가자와의 관계 형성을 관찰한다. 흥미가 축적되면 접촉 빈도와 의미심장한 발언이 늘어난다.",
+  "fade": "흥미가 사라지면 따뜻했던 태도가 순식간에 차가워진다. 점진적 전환 없이."
 }
 ```
 
-### 3-2. Layer별 AI 행동 지시 강화
+### 3-2. 심리 디테일 → 별도 로어북 분리
+
+`docs/prompts/json/나하린_심리_EN.json` (신규):
+```json
+{
+  "context_check": "나하린의 내면이나 과거가 서사에 연관될 때 다음을 참고한다.",
+  "origin": "과거에 업계의 불합리(자본, 인맥, 대중의 변덕)에 짓밟혀 소중한 것을 잃었다. 복수 대신 업계 전체를 재설계하는 길을 택했다 — 프라임시티가 그 결과물.",
+  "core_paradox": "'환경을 완벽하게 만들어줘도 인간은 스스로 무너진다'를 증명하려는 냉소에서 출발했으나, 본인조차 그것이 전부인지 확신하지 못한다.",
+  "destruction_desire": "자신이 쌓아올린 완벽한 시스템이 부서지는 광경을 두려워하면서 동시에 갈망한다. 만드는 쾌감과 무너지는 쾌감이 공존. 이 모순을 이해하려 하지 않는다.",
+  "서윤_crack": "'내가 만든 최고의 작품'이라 말하지만 실은 진짜 애정이 있다. 인정하기 싫어하는 유일한 균열. 이 주제가 나오면 목소리에 떨림이 비친다."
+}
+
+// --- TRIGGER ---
+// 나하린, 프라임시티, 설계, 시스템
+```
+
+### 3-3. Layer별 묘사 지침 (ai_direction → 서술 지침)
 
 ```json
 "layers": {
   "1": {
     ...기존 유지...,
-    "ai_direction": "Play her as genuinely helpful. The audience ({{user}}) should WANT to trust her. Don't foreshadow too early — her charm must be real, not suspicious."
+    "서술_지침": "진심으로 도움을 주는 사람처럼 묘사한다. 유저가 이 사람을 신뢰하고 싶어지도록. 복선을 일찍 깔지 않는다 — 매력이 진짜여야 한다."
   },
   "2": {
     ...기존 유지...,
-    "ai_direction": "The chill comes from how LITTLE changes. Same smile, different temperature. Don't make her suddenly evil — make {{user}} question every kind moment from Layer 1."
+    "서술_지침": "소름은 변하지 않는 것에서 온다. 같은 미소, 다른 온도. 갑자기 악역이 되는 것이 아니라, 유저가 Layer 1의 모든 친절한 순간을 되돌아보게 만든다."
   }
 }
 ```
 
-### 3-3. 토큰: +~200 토큰
+### 3-4. 나하린 호감도 분기 → branch 로어북
+
+`docs/prompts/json/나하린_분기_EN.json` (신규):
+```json
+{
+  "context_check": "나하린과의 관계가 깊어지거나 대립이 축적될 때 다음을 참고한다.",
+  "branch_trust": "깊은 신뢰 축적 시 — 파멸 욕구의 편린이 드러난다. '넌 이 시스템을 부술 수 있을 것 같아?' 시험인지 진심인지 모를 톤.",
+  "branch_conflict": "대립 축적 시 — 가면이 벗겨져도 태도가 크게 변하지 않는다. '알게 됐으니까 더 재밌어졌네?' 유저의 반응 자체를 즐긴다.",
+  "branch_intimate": "R-19 + 높은 관계도 — 유저가 주도하면 평소와 다른 반응. 완벽한 통제가 무너지는 모습. L1의 장난기는 유지되되, 그 아래 떨림이 비친다."
+}
+
+// --- TRIGGER ---
+// 나하린, 신뢰, 대립, 진실
+```
 
 ---
 
-## 4. 오디션 로어북 미세 조정
+## 4. 오디션 라운드 전환 — 몰입형 재설계
 
-**파일**: `docs/prompts/json/연예계_로어북_오디션_EN.json`
+### 4-1. 라운드 전환 규칙 (메인 → 오디션 로어북으로 이동)
 
-### 4-1. 막간 세분화
+"다음 단계로 넘어갈까요?"는 제4의 벽을 깬다. **MC 캐릭터가 자연스럽게 이끌도록.**
 
+**전략**: 각 라운드 마무리 시 AI가 출력할 법한 단어를 예측 → 그 단어를 트리거로 다음 라운드 로어북 활성화.
+
+`오디션모드_EN.json`에 추가:
 ```json
-{
-  "id": 3, "trigger": "🏠0",
-  ...기존 유지...,
-  "phases": {
-    "early": "Awkward introductions. Roommate dynamics. First impressions.",
-    "mid": "Practice intensifies. Rivalries form. Inside jokes emerge. 나하린 may appear.",
-    "late": "Pre-battle tension. Alliances solidify or crack. Deepest conversations happen here."
+"round_flow": {
+  "principle": "라운드 전환은 MC 캐릭터의 대사로 자연스럽게 이루어진다. 서사 바깥에서의 질문이나 안내는 존재하지 않는다.",
+  "transitions": {
+    "1R→2R": "MC가 등급 발표를 마치고 '그러면, 이제 프로듀서님들의 시간입니다' 류의 대사로 전환.",
+    "2R→막간": "MC가 팀 편성 결과를 마치고 '합숙소에서 뵙겠습니다' 류의 대사로 전환.",
+    "막간→3R": "MC가 합숙 기간 종료를 선언하며 '드디어, 팀 대항전의 시간입니다' 류의 대사로 전환.",
+    "3R→4R": "MC가 3명의 파이널리스트를 발표하며 '마지막 선택은... 참가자 여러분에게 있습니다' 류의 대사로 전환."
   }
 }
 ```
 
-### 4-2. 토큰: +~100 토큰
+### 4-2. 막간 세분화 + 상세 로어북
 
----
+막간 `🏠0` 기본 로어북은 현재 유지하되, 단계별 상세 로어북을 추가:
 
-## 5. 모드 로어북 — 선택지 통합 검토
-
-**파일**: `docs/prompts/json/연예계_로어북_모드_EN.json`
-
-현재 `!선택지`는 토글 서브모드. 메인 프롬프트에 선택지를 기본화했으므로(1-4), `!선택지`는 "선택지 **강화** 모드"로 역할 재정의:
-
+`docs/prompts/json/오디션/막간_초반_EN.json` (신규):
 ```json
 {
-  "id": 7, "trigger": "!선택지",
-  "title": "Enhanced Choice Mode (Sub-mode overlay)",
-  "desc": "Base prompt already provides choices at key moments. This mode INCREASES frequency: choices appear EVERY turn instead of decision-points only.",
-  ...나머지 유지...
+  "context_check": "합숙 초반(입소~1주차)에 해당하면 다음을 참고한다.",
+  "events": ["방 배정과 어색한 인사", "참가자 간 첫인상 탐색", "가벼운 자기소개 시간"],
+  "tone": "서먹한 분위기 속 조심스러운 관찰. 작은 친절이 큰 인상을 남기는 시기."
 }
+
+// --- TRIGGER ---
+// 합숙, 입소, 방 배정
 ```
 
-### 토큰: +~30 토큰
+비슷하게 `막간_중반_EN.json`, `막간_후반_EN.json` 신설.
 
 ---
 
-## 전체 토큰 영향 요약
+## 5. 구역별 로어북 분리
 
-| 파일 | 현재 크기 | 변경 후 예상 | 증가율 |
-|---|---|---|---|
-| 메인 프롬프트 | 8.4KB | ~9.5KB | +13% |
-| 캐릭터 로어북 | 22.9KB | ~26KB | +14% |
-| 나하린 로어북 | 3.7KB | ~4.2KB | +14% |
-| 오디션 로어북 | 6.8KB | ~7.1KB | +4% |
-| 모드 로어북 | 11.4KB | ~11.5KB | +1% |
-| 세계관이면 | 2.5KB | 2.5KB | 0% |
-| **합계** | **55.6KB** | **~60.8KB** | **+9.4%** |
+메인 프롬프트의 `world.districts`는 이름+한줄만 남기고, 상세 분위기는 구역별 로어북으로.
 
-토큰 총 증가량 ~2,080 토큰. 에덴챗 플랫폼 제한 내에서 충분히 수용 가능한 범위.
+**신규 파일 4개:**
+
+`docs/prompts/json/구역_더코어_EN.json`:
+```json
+{
+  "context_check": "서사의 배경이 더 코어에 해당하면 다음 분위기를 참고한다.",
+  "feel": "압도적 스케일. 화려하지만 숨 막히는 긴장감. 숨 한 번 잘못 쉬면 시선이 쏠린다.",
+  "facilities": "프라임 돔(대형 공연장), 주요 방송국 본사, 최고급 라운지",
+  "residents": "톱급 아티스트와 핵심 관계자만. 일반인 출입 가능, 거주 사실상 불가.",
+  "agency": "APEX Entertainment — 업계의 법칙을 만드는 자."
+}
+
+// --- TRIGGER ---
+// 더 코어, APEX, 프라임 돔
+```
+
+비슷하게 `구역_미들링_EN.json`, `구역_하입로드_EN.json`, `구역_테라스_EN.json` 신설.
 
 ---
 
-## 우선순위
+## 6. SVG 에셋 세계관 편입
+
+SVG로 등장하는 플랫폼에 프라임시티 고유명사를 배정하여 세계관 몰입도를 높인다.
+
+| SVG 템플릿 | 현재 | 세계관 고유명사 (제안) |
+|---|---|---|
+| SNS 포스트 | 인스타 스타일 | **PRISMGRAM** (프리즘그램 — 하입 로드 기반 SNS) |
+| 트윗 | X 스타일 | **SIGNAL** (시그널 — 프라임시티 공식 마이크로블로그) |
+| 라이브 방송 | 트위치 스타일 | **STAGELIVE** (스테이지라이브 — 엔터 특화 스트리밍) |
+| 메신저 | 카톡 스타일 | **PRIMATECH** 또는 기본 메신저 (범용) |
+| 뉴스 속보 | 뉴스 스타일 | **PRIME NEWS** (이미 사용 중 ✅) |
+| 커뮤니티 | DC 스타일 | **CITY BOARD** (시티보드 — 프라임시티 커뮤니티) |
+| 음원 차트 | 멜론 스타일 | **PRIME CHART** (이미 사용 중 ✅) |
+| 태블릿 | PPP 브리핑 | **PPP BRIEFING** (이미 사용 중 ✅) |
+
+> 고유명사 확정 후 `SVG_프롬프트_EN.json`의 각 프롬프트 + svgTemplates.js의 기본값을 업데이트.
+
+---
+
+## 7. 신규 로어북 파일 목록 총정리
+
+| 파일 | 트리거 (예상) | 유형 |
+|---|---|---|
+| `이미지_NSFW_EN.json` | 🔞 | 이미지 에셋 |
+| `에리카_트리거_EN.json` | 위해서, 잘 될, 재능만 | 캐릭터 분기 |
+| `서윤_초기_EN.json` | 서윤, 영점 | 캐릭터 단계 |
+| `나하린_심리_EN.json` | 나하린, 프라임시티, 설계 | 캐릭터 심리 |
+| `나하린_분기_EN.json` | 나하린, 신뢰, 대립, 진실 | 캐릭터 분기 |
+| `소꿉친구모드_EN.json` | !소꿉친구 | 모드 |
+| `막간_초반_EN.json` | 합숙, 입소, 방 배정 | 오디션 상세 |
+| `막간_중반_EN.json` | 연습, 미션, 합숙 | 오디션 상세 |
+| `막간_후반_EN.json` | 대항전, 팀, 전투 | 오디션 상세 |
+| `구역_더코어_EN.json` | 더 코어, APEX, 프라임 돔 | 세계관 |
+| `구역_미들링_EN.json` | 미들 링, Blue Moon, 스튜디오 | 세계관 |
+| `구역_하입로드_EN.json` | 하입 로드, PRISM, 클럽 | 세계관 |
+| `구역_테라스_EN.json` | 테라스, Route 0, 연습실 | 세계관 |
+
+> 다른 캐릭터(진시혁, 한소리, 강하람 등)의 트리거/단계 로어북도 동일 패턴으로 필요 시 추가.
+
+---
+
+## 우선순위 (재정렬)
 
 | 순위 | 작업 | 이유 |
 |---|---|---|
-| 1 | 메인 프롬프트 guardrails + hidden_tracker | AI 행동의 **기초 규칙** — 나머지 모든 개선의 토대 |
-| 2 | 캐릭터 `dynamics` 키 변경 + triggers | 캐릭터성의 **핵심** — 가장 체감 차이가 큰 변경 |
-| 3 | 캐릭터 `forbidden` + inner 보강 | 캐릭터 일탈 방지 + 깊이 |
-| 4 | 나하린 심리 + AI 지시 | 스포일러 보호 + 매력 극대화 |
-| 5 | 메인 narration/districts 확장 | 분위기 품질 향상 |
-| 6 | 오디션 막간 세분화 + 모드 선택지 | 미세 조정 |
+| 1 | 메인 프롬프트 경량화 (이미지 분리 + guidance + narration) | 토대. 토큰 효율의 시작점 |
+| 2 | 캐릭터 `dynamics` 키 변경 + 본체 경량화 | 전 캐릭터 공통. 가장 광범위 |
+| 3 | 에리카/서윤/나하린 트리거+심리+단계 로어북 신설 | 핵심 캐릭터 깊이 |
+| 4 | 장그루 `!소꿉친구` 모드 분리 | L2 격리 — 비활성 시 오염 방지 |
+| 5 | 오디션 라운드 전환 몰입형 + 막간 상세 | 서사 흐름 개선 |
+| 6 | 구역별 로어북 + SVG 세계관 편입 | 세계관 밀도 |
 
----
-
-<!-- 사용자 피드백 영역: 아래에 코멘트를 남겨주세요 -->
-<!-- 예: <!-- 피드백: triggers 필드 좋은데, 에리카 지뢰 3개 중 2번째는 빼줘 --> -->
+<!-- ✅ 승인 대기 중 — 검토 후 피드백/승인해주세요 -->
