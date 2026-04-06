@@ -47,7 +47,11 @@
 │   ├── components/ (14)   │  pages/ (16+404)  │  data/ (5)
 │   ├── styles/tokens.js   │  utils/cdn.js     │  hooks/ (2)
 │   └── App.jsx · main.jsx
-├── docs/                  ← 기획 문서 + 영문 JSON 로어북 6개 + 챗봇 소개 HTML
+├── docs/                  ← 기획 문서
+│   ├── prompts/ (json/ source/ _backup/)  ← 챗봇 프롬프트
+│   ├── image-rules/       ← NAI 프리셋 + 에셋 목록 + 검열 피드백
+│   ├── worldbuilding/     ← 세계관 + 캐릭터 프로필
+│   └── 은랑밀입국/        ← 별도 프로젝트
 ├── workers/ (8)           ← SVG Workers (*.bluehair.blue)
 ├── tools/                 ← NAI 생성 + 검열 파이프라인
 ├── tools_dist/            ← 배포용 클린 복사본
@@ -120,7 +124,7 @@
 
 15명 캐릭터 (CDN코드): SY, NHR, JSH, ERK, LSH, HSR, KHR, JGR, MIL, ELA, MMR, HSE, NIA, RAY, LPS
 
-> 상세 → `research.md` §10, `docs/캐릭터 프로필.md`, `docs/프라임시티 세계관.md`
+> 상세 → `research.md` §10, `docs/worldbuilding/캐릭터 프로필.md`, `docs/worldbuilding/프라임시티 세계관.md`
 
 ---
 
@@ -129,7 +133,7 @@
 31개 로어북 엔트리, 55.6KB (영문 JSON):
 - 메인 프롬프트 (1, 상시) + 캐릭터 (14, 트리거) + 오디션 (8, 라운드별) + 모드 (7, 명령어) + 🔒스포일러 (2)
 
-> 상세 → `research.md` §5, `docs/*_EN.json`
+> 상세 → `research.md` §5, `docs/prompts/json/*_EN.json`
 
 ---
 

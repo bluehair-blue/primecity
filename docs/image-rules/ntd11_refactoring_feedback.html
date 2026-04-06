@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>자동 검열 파이프라인 리팩터링 버전</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      background:
+        radial-gradient(circle at top, rgba(34, 211, 238, 0.12), transparent 28%),
+        radial-gradient(circle at right, rgba(168, 85, 247, 0.10), transparent 24%),
+        linear-gradient(180deg, #050b16 0%, #0b1220 100%);
+    }
+    .glass {
+      background: rgba(15, 23, 42, 0.76);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    }
+    .code-box {
+      background: #06101d;
+      border: 1px solid rgba(100, 116, 139, 0.4);
+    }
+    .code-font {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    .tab.active,
+    .view-btn.active {
+      background: rgb(8 145 178);
+      color: white;
+    }
+    .nav-link.active {
+      color: white;
+      background: rgba(255,255,255,0.08);
+    }
+    pre {
+      white-space: pre;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body class="text-slate-100 min-h-screen">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <section class="glass rounded-3xl p-6 md:p-8 overflow-hidden relative">
+      <div class="absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-transparent to-fuchsia-400/10 pointer-events-none"></div>
+      <div class="relative z-10">
+        <div class="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200">
+          <span class="h-2 w-2 rounded-full bg-cyan-300"></span>
+          Python / OpenCV / YOLO 후처리 리팩터링
+        </div>
+        <h1 class="mt-4 text-3xl md:text-5xl font-bold tracking-tight">자동 검열 마스크 리팩터링 버전</h1>
+        <p class="mt-4 text-slate-300 max-w-4xl leading-7">
+          요청하신 방향대로 기존 <span class="font-semibold text-white">edge-stop 중심 후처리</span>를 줄이고,
+          <span class="font-semibold text-cyan-200">ROI 제한 → closing → hole fill → component 선택 → contour 재채우기</span>
+          기반으로 더 안정적인 드롭인 리팩터링 버전을 정리했습니다.
+          아래 페이지에서 핵심 변경점, 통합 포인트, 복사 가능한 파이썬 코드까지 바로 확인할 수 있습니다.
+        </p>
+        <div class="mt-6 grid gap-4 md:grid-cols-4">
+          <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-4">
+            <div class="text-sm text-slate-400">핵심 변화</div>
+            <div class="mt-2 text-lg font-semibold">Edge 의존도 감소</div>
+            <p class="mt-2 text-sm text-slate-300">내부 디테일을 경계로 오인하는 문제를 구조적으로 줄입니다.</p>
+          </div>
+          <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-4">
+            <div class="text-sm text-slate-400">핵심 변화</div>
+            <div class="mt-2 text-lg font-semibold">Flood fill 적용</div>
+            <p class="mt-2 text-sm text-slate-300">검열 내부가 김가루처럼 비는 현상을 줄이는 데 가장 효과적입니다.</p>
+          </div>
+          <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-4">
+            <div class="text-sm text-slate-400">핵심 변화</div>
+            <div class="mt-2 text-lg font-semibold">Best component 선택</div>
+            <p class="mt-2 text-sm text-slate-300">bbox 중심 기준으로 주 객체만 남겨 번짐을 억제합니다.</p>
+          </div>
+          <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-4">
+            <div class="text-sm text-slate-400">핵심 변화</div>
+            <div class="mt-2 text-lg font-semibold">Contour 재채우기</div>
+            <p class="mt-2 text-sm text-slate-300">최종 바이너리의 외곽을 다시 폐곡선으로 만들어 꽉 찬 결과를 만듭니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-8 grid gap-8 lg:grid-cols-[290px,1fr]">
+      <aside class="glass rounded-3xl p-4 h-fit lg:sticky lg:top-6">
+        <div class="text-sm font-semibold text-slate-300 mb-3">빠른 이동</div>
+        <nav class="space-y-2 text-sm" id="sideNav">
+          <a href="#summary" class="nav-link block rounded-xl px-3 py-2 hover:bg-white/5 text-slate-200">1. 리팩터링 요약</a>
+          <a href="#architecture" class="nav-link block rounded-xl px-3 py-2 hover:bg-white/5 text-slate-200">2. 변경 아키텍처</a>
+          <a href="#integration" class="nav-link block rounded-xl px-3 py-2 hover:bg-white/5 text-slate-200">3. 어디를 교체할지</a>
+          <a href="#code" class="nav-link block rounded-xl px-3 py-2 hover:bg-white/5 text-slate-200">4. 리팩터링 코드</a>
+          <a href="#tuning" class="nav-link block rounded-xl px-3 py-2 hover:bg-white/5 text-slate-200">5. 튜닝 포인트</a>
+          <a href="#next" class="nav-link block rounded-xl px-3 py-2 hover:bg-white/5 text-slate-200">6. 다음 개선안</a>
+        </nav>
+      </aside>
+
+      <div class="space-y-8">
+        <section id="summary" class="glass rounded-3xl p-6 md:p-8">
+          <div class="flex items-center justify-between gap-4 flex-wrap">
+            <h2 class="text-2xl font-bold">1. 리팩터링 요약</h2>
+            <div class="flex flex-wrap gap-2" id="summaryTabs">
+              <button class="tab active rounded-full px-3 py-1.5 text-sm bg-slate-800 text-slate-200" data-tab="why">왜 바꾸는가</button>
+              <button class="tab rounded-full px-3 py-1.5 text-sm bg-slate-800 text-slate-200" data-tab="changes">무엇이 바뀌는가</button>
+              <button class="tab rounded-full px-3 py-1.5 text-sm bg-slate-800 text-slate-200" data-tab="impact">기대 효과</button>
+            </div>
+          </div>
+
+          <div class="mt-5 space-y-4">
+            <div class="tab-panel" data-panel="why">
+              <div class="rounded-2xl border border-rose-400/30 bg-rose-400/10 p-4 text-rose-100">
+                기존 로직은 seed mask를 edge에 맞춰 계속 확장하는 방식이라, 내부 묘사와 lineart 끊김에 지나치게 민감합니다.
+                반면 리팩터링 버전은 <span class="font-semibold">이미 검출된 세그멘테이션 마스크를 보수적으로 복원</span>하는 방향이라 결과가 훨씬 안정적입니다.
+              </div>
+              <ul class="mt-4 list-disc pl-5 text-slate-300 space-y-2 leading-7">
+                <li>내부 핏줄·하이라이트가 경계처럼 보이더라도 flood fill로 구멍을 메웁니다.</li>
+                <li>전체 이미지 대신 bbox 기반 ROI 안에서만 후처리해 주변 오검출 간섭을 줄입니다.</li>
+                <li>largest area만이 아니라 <span class="text-white font-medium">bbox 중심과의 거리</span>를 같이 써서 주 객체를 고릅니다.</li>
+              </ul>
+            </div>
+
+            <div class="tab-panel hidden" data-panel="changes">
+              <div class="grid gap-4 md:grid-cols-2">
+                <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-4">
+                  <div class="text-sm text-slate-400">교체</div>
+                  <div class="mt-2 font-semibold">geodesic dilation 루프</div>
+                  <p class="mt-2 text-sm text-slate-300">메인 엔진에서 제거하고 optional trim 단계로 내렸습니다.</p>
+                </div>
+                <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-4">
+                  <div class="text-sm text-slate-400">추가</div>
+                  <div class="mt-2 font-semibold">flood_fill_holes()</div>
+                  <p class="mt-2 text-sm text-slate-300">내부 구멍 제거용 전용 함수입니다.</p>
+                </div>
+                <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-4">
+                  <div class="text-sm text-slate-400">추가</div>
+                  <div class="mt-2 font-semibold">keep_best_component()</div>
+                  <p class="mt-2 text-sm text-slate-300">면적과 중심 거리 점수를 함께 써서 메인 성분만 남깁니다.</p>
+                </div>
+                <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-4">
+                  <div class="text-sm text-slate-400">추가</div>
+                  <div class="mt-2 font-semibold">fill_from_contour()</div>
+                  <p class="mt-2 text-sm text-slate-300">정제된 바이너리 마스크의 외곽을 다시 채워 결과를 단단하게 만듭니다.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-panel hidden" data-panel="impact">
+              <div class="rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-4 text-emerald-100">
+                기대 효과는 크게 세 가지입니다. <span class="font-semibold">(1) 내부 빈칸 감소, (2) 영역 밖 새어 나감 감소, (3) 튜닝 난이도 하락</span>입니다.
+              </div>
+              <div class="mt-4 grid gap-4 md:grid-cols-3">
+                <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-4">
+                  <div class="font-semibold">내부 fill 안정화</div>
+                  <p class="mt-2 text-sm text-slate-300">구멍이 구조적으로 메워져 검열 품질이 더 균일해집니다.</p>
+                </div>
+                <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-4">
+                  <div class="font-semibold">번짐 감소</div>
+                  <p class="mt-2 text-sm text-slate-300">ROI와 component 선택 덕분에 주변 blob 혼입이 줄어듭니다.</p>
+                </div>
+                <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-4">
+                  <div class="font-semibold">예측 가능한 튜닝</div>
+                  <p class="mt-2 text-sm text-slate-300">blur와 edge threshold보다 morphology 파라미터가 더 직관적입니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="architecture" class="glass rounded-3xl p-6 md:p-8">
+          <h2 class="text-2xl font-bold">2. 변경 아키텍처</h2>
+          <div class="mt-6 grid gap-4 md:grid-cols-5">
+            <div class="rounded-2xl border border-slate-700/60 bg-slate-900/60 p-4">
+              <div class="text-cyan-300 text-sm font-medium">Step 1</div>
+              <h3 class="mt-1 font-semibold">YOLO seed 확보</h3>
+              <p class="mt-2 text-sm text-slate-300">segmentation 마스크를 원시 seed로 사용</p>
+            </div>
+            <div class="rounded-2xl border border-slate-700/60 bg-slate-900/60 p-4">
+              <div class="text-cyan-300 text-sm font-medium">Step 2</div>
+              <h3 class="mt-1 font-semibold">BBox 기반 ROI 제한</h3>
+              <p class="mt-2 text-sm text-slate-300">후처리 대상 공간을 강하게 제한</p>
+            </div>
+            <div class="rounded-2xl border border-slate-700/60 bg-slate-900/60 p-4">
+              <div class="text-cyan-300 text-sm font-medium">Step 3</div>
+              <h3 class="mt-1 font-semibold">Closing + Hole Fill</h3>
+              <p class="mt-2 text-sm text-slate-300">끊김을 닫고 내부 구멍을 제거</p>
+            </div>
+            <div class="rounded-2xl border border-slate-700/60 bg-slate-900/60 p-4">
+              <div class="text-cyan-300 text-sm font-medium">Step 4</div>
+              <h3 class="mt-1 font-semibold">Best Component 선택</h3>
+              <p class="mt-2 text-sm text-slate-300">면적과 중심 거리로 주 객체 고정</p>
+            </div>
+            <div class="rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-4">
+              <div class="text-emerald-200 text-sm font-medium">Step 5</div>
+              <h3 class="mt-1 font-semibold text-emerald-50">Contour/Hull 재채우기</h3>
+              <p class="mt-2 text-sm text-emerald-50">최종 외곽을 매끈하게 봉합</p>
+            </div>
+          </div>
+          <div class="mt-6 rounded-2xl border border-cyan-400/25 bg-cyan-400/10 p-5 text-cyan-50">
+            추천 철학은 간단합니다. <span class="font-semibold">경계를 찾으려 하지 말고, 이미 찾은 대상을 복원하라.</span>
+          </div>
+        </section>
+
+        <section id="integration" class="glass rounded-3xl p-6 md:p-8">
+          <h2 class="text-2xl font-bold">3. 어디를 교체할지</h2>
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-5">
+              <h3 class="font-semibold">교체 대상 함수</h3>
+              <ul class="mt-3 list-disc pl-5 text-slate-300 space-y-2 leading-7">
+                <li><span class="text-white font-medium">yolo_detect()</span>: detection별 bbox 기반 ROI와 새 refine 함수를 사용하도록 교체</li>
+                <li><span class="text-white font-medium">apply_censor()</span>: 그대로 사용 가능</li>
+                <li><span class="text-white font-medium">process_single()</span>: 그대로 사용 가능</li>
+              </ul>
+            </div>
+            <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-5">
+              <h3 class="font-semibold">새로 추가되는 헬퍼</h3>
+              <ul class="mt-3 list-disc pl-5 text-slate-300 space-y-2 leading-7">
+                <li>expand_bbox()</li>
+                <li>flood_fill_holes()</li>
+                <li>keep_best_component()</li>
+                <li>fill_from_contour()</li>
+                <li>refine_segmentation_mask()</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-5 rounded-2xl bg-slate-900/60 border border-slate-700/60 p-5">
+            <h3 class="font-semibold">적용 순서</h3>
+            <ol class="mt-3 list-decimal pl-5 text-slate-300 space-y-2 leading-7">
+              <li>기존 geodesic dilation 블록을 제거합니다.</li>
+              <li>새 helper 함수들을 추가합니다.</li>
+              <li>YOLO 결과마다 bbox + seg mask를 받아 <span class="text-white font-medium">refine_segmentation_mask()</span> 를 호출합니다.</li>
+              <li>최종 정제 마스크를 OR 합성한 뒤 기존 censor 적용 로직으로 넘깁니다.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="code" class="glass rounded-3xl p-6 md:p-8">
+          <div class="flex items-center justify-between gap-4 flex-wrap">
+            <div>
+              <h2 class="text-2xl font-bold">4. 리팩터링 코드</h2>
+              <p class="mt-2 text-slate-300">아래 코드는 현재 스크립트 구조에 맞춘 드롭인 버전입니다. 보기 모드를 바꾸거나 바로 복사할 수 있습니다.</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button class="view-btn active rounded-xl bg-slate-800 hover:bg-slate-700 px-4 py-2 text-sm" data-view="full">전체 드롭인 코드</button>
+              <button class="view-btn rounded-xl bg-slate-800 hover:bg-slate-700 px-4 py-2 text-sm" data-view="patch">교체 포인트 요약</button>
+              <button id="copyCode" class="rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold px-4 py-2 text-sm">코드 복사</button>
+            </div>
+          </div>
+
+          <div class="mt-5 code-box rounded-2xl overflow-hidden">
+            <div class="flex items-center justify-between border-b border-slate-700/60 px-4 py-3 bg-slate-950/40">
+              <div class="text-sm text-slate-400" id="codeTitle">전체 드롭인 코드</div>
+              <div class="text-xs text-slate-500">Python</div>
+            </div>
+            <pre id="codeBlock" class="code-font text-[13px] leading-6 text-slate-200 p-4"></pre>
+          </div>
+          <p id="copyStatus" class="mt-3 text-sm text-slate-400">복사 버튼으로 현재 보이는 코드를 클립보드에 복사할 수 있습니다.</p>
+        </section>
+
+        <section id="tuning" class="glass rounded-3xl p-6 md:p-8">
+          <h2 class="text-2xl font-bold">5. 튜닝 포인트</h2>
+          <div class="mt-5 overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="text-left text-slate-300 border-b border-slate-700/60">
+                  <th class="py-3 pr-4">항목</th>
+                  <th class="py-3 pr-4">권장값</th>
+                  <th class="py-3 pr-4">효과</th>
+                  <th class="py-3">주의점</th>
+                </tr>
+              </thead>
+              <tbody class="text-slate-200">
+                <tr class="border-b border-slate-800/80">
+                  <td class="py-3 pr-4 font-medium">ROI pad</td>
+                  <td class="py-3 pr-4">2% ~ 6%</td>
+                  <td class="py-3 pr-4">seed 주변만 다뤄 주변 노이즈 차단</td>
+                  <td class="py-3">너무 작으면 진짜 외곽이 잘릴 수 있음</td>
+                </tr>
+                <tr class="border-b border-slate-800/80">
+                  <td class="py-3 pr-4 font-medium">closing kernel</td>
+                  <td class="py-3 pr-4">base_dim * 0.006 ~ 0.012</td>
+                  <td class="py-3 pr-4">끊긴 윤곽과 작은 틈 봉합</td>
+                  <td class="py-3">크면 주변 객체와 붙을 수 있음</td>
+                </tr>
+                <tr class="border-b border-slate-800/80">
+                  <td class="py-3 pr-4 font-medium">opening kernel</td>
+                  <td class="py-3 pr-4">closing보다 작게</td>
+                  <td class="py-3 pr-4">튀어나온 잔돌기 제거</td>
+                  <td class="py-3">과하면 본체가 깎임</td>
+                </tr>
+                <tr class="border-b border-slate-800/80">
+                  <td class="py-3 pr-4 font-medium">seg threshold</td>
+                  <td class="py-3 pr-4">0.40 ~ 0.55 sweep</td>
+                  <td class="py-3 pr-4">seed 두께와 안정성 조절</td>
+                  <td class="py-3">너무 높으면 seed가 빈약해짐</td>
+                </tr>
+                <tr>
+                  <td class="py-3 pr-4 font-medium">hull 사용 여부</td>
+                  <td class="py-3 pr-4">기본 ON</td>
+                  <td class="py-3 pr-4">내부를 더 꽉 채움</td>
+                  <td class="py-3">아주 오목한 형상을 다소 넓게 덮을 수 있음</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="next" class="glass rounded-3xl p-6 md:p-8">
+          <h2 class="text-2xl font-bold">6. 다음 개선안</h2>
+          <div class="mt-5 grid gap-4 md:grid-cols-3">
+            <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-4">
+              <div class="font-semibold">클래스별 후처리 분기</div>
+              <p class="mt-2 text-sm text-slate-300">penis / pussy / anus마다 ROI pad와 morphology 커널을 다르게 설정하면 품질이 더 안정화됩니다.</p>
+            </div>
+            <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-4">
+              <div class="font-semibold">preview 3단계 저장</div>
+              <p class="mt-2 text-sm text-slate-300">raw seed, refined mask, final censor를 나란히 저장하면 튜닝 시간이 크게 줄어듭니다.</p>
+            </div>
+            <div class="rounded-2xl bg-slate-900/60 border border-slate-700/60 p-4">
+              <div class="font-semibold">optional trim 단계</div>
+              <p class="mt-2 text-sm text-slate-300">정말 필요할 때만 edge 기반 trim을 아주 약하게 넣어 과팽창만 살짝 억제하는 방식이 좋습니다.</p>
+            </div>
+          </div>
+          <div class="mt-6 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-5">
+            <p class="text-emerald-50 leading-7">
+              원하시면 다음 단계로는 이 페이지에 <span class="font-semibold">기존 코드 대비 diff 스타일 비교</span>나
+              <span class="font-semibold">preview 저장 기능까지 포함한 확장판</span>도 추가할 수 있습니다.
+            </p>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const fullCode = String.raw`# === Drop-in refactor for your current script ===
+# Replace the old yolo_detect() implementation and add the helpers below.
+
+import cv2
+import numpy as np
+import tempfile
+from pathlib import Path
+
+
+def expand_bbox(x1, y1, x2, y2, w, h, pad_ratio=0.04):
+    bw = x2 - x1
+    bh = y2 - y1
+    pad = int(max(bw, bh) * pad_ratio)
+    rx1 = max(0, x1 - pad)
+    ry1 = max(0, y1 - pad)
+    rx2 = min(w, x2 + pad)
+    ry2 = min(h, y2 + pad)
+    return rx1, ry1, rx2, ry2
+
+
+def flood_fill_holes(mask):
+    """
+    Fill internal holes of a binary mask.
+    Input: uint8 mask with 0/255 values.
+    Output: uint8 mask with holes filled.
+    """
+    if mask is None or mask.size == 0:
+        return mask
+
+    work = mask.copy()
+    h, w = work.shape
+    flood_mask = np.zeros((h + 2, w + 2), dtype=np.uint8)
+    cv2.floodFill(work, flood_mask, (0, 0), 255)
+    holes = cv2.bitwise_not(work)
+    return cv2.bitwise_or(mask, holes)
+
+
+def keep_best_component(mask, target_center=None, min_area=0):
+    """
+    Keep the most relevant connected component.
+    Score = area - distance penalty from bbox center.
+    """
+    binary = (mask > 0).astype(np.uint8)
+    n, labels, stats, centroids = cv2.connectedComponentsWithStats(binary, connectivity=8)
+
+    if n <= 1:
+        return (binary * 255).astype(np.uint8)
+
+    best_label = None
+    best_score = -1e18
+
+    for label in range(1, n):
+        area = int(stats[label, cv2.CC_STAT_AREA])
+        if area < min_area:
+            continue
+
+        score = float(area)
+        if target_center is not None:
+            cx, cy = centroids[label]
+            dx = cx - target_center[0]
+            dy = cy - target_center[1]
+            dist = (dx * dx + dy * dy) ** 0.5
+            score -= dist * 2.0
+
+        if score > best_score:
+            best_score = score
+            best_label = label
+
+    if best_label is None:
+        return np.zeros_like(mask)
+
+    return np.where(labels == best_label, 255, 0).astype(np.uint8)
+
+
+def fill_from_contour(mask, use_hull=True, approx_eps_ratio=0.01):
+    """
+    Rebuild a clean outer contour and fill it.
+    use_hull=True is recommended for censorship because it prevents inner gaps.
+    """
+    cnts, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    if not cnts:
+        return np.zeros_like(mask)
+
+    cnt = max(cnts, key=cv2.contourArea)
+    canvas = np.zeros_like(mask)
+
+    if use_hull:
+        outer = cv2.convexHull(cnt)
+    else:
+        peri = cv2.arcLength(cnt, True)
+        eps = max(1.0, peri * approx_eps_ratio)
+        outer = cv2.approxPolyDP(cnt, eps, True)
+
+    cv2.drawContours(canvas, [outer], -1, 255, thickness=cv2.FILLED)
+    return canvas
+
+
+def refine_segmentation_mask(seg_mask, image_shape, bbox_xyxy, cls_name, seg_thr=0.5):
+    """
+    Refine one YOLO segmentation mask into a stable censorship mask.
+
+    Pipeline:
+      1) threshold seg mask
+      2) limit to expanded ROI around bbox
+      3) close gaps
+      4) fill internal holes
+      5) keep best connected component
+      6) rebuild contour and fill
+      7) light opening for small spikes
+    """
+    h, w = image_shape[:2]
+    x1, y1, x2, y2 = map(int, bbox_xyxy)
+    base_dim = max(h, w)
+
+    seg_resized = cv2.resize(seg_mask, (w, h), interpolation=cv2.INTER_LINEAR)
+    temp = np.zeros((h, w), dtype=np.uint8)
+    temp[seg_resized > seg_thr] = 255
+
+    if not np.any(temp):
+        return temp
+
+    # Class-specific safety limits
+    expected = {
+        "penis": (int(w * 0.18), int(h * 0.58)),
+        "pussy": (int(w * 0.12), int(h * 0.16)),
+        "anus":  (int(w * 0.08), int(h * 0.12)),
+    }
+    max_cw, max_ch = expected.get(cls_name, (int(w * 0.18), int(h * 0.58)))
+
+    # ROI restriction
+    rx1, ry1, rx2, ry2 = expand_bbox(x1, y1, x2, y2, w, h, pad_ratio=0.05)
+    roi_mask = np.zeros_like(temp)
+    roi_mask[ry1:ry2, rx1:rx2] = 255
+    temp = cv2.bitwise_and(temp, roi_mask)
+
+    # If model merged too much, force crop around bbox center
+    bw = x2 - x1
+    bh = y2 - y1
+    crop_w = min(max(bw, 1), max_cw)
+    crop_h = min(max(bh, 1), max_ch)
+    cx = (x1 + x2) // 2
+    cy = (y1 + y2) // 2
+    cx1 = max(0, cx - crop_w // 2)
+    cy1 = max(0, cy - crop_h // 2)
+    cx2 = min(w, cx1 + crop_w)
+    cy2 = min(h, cy1 + crop_h)
+
+    crop_mask = np.zeros_like(temp)
+    crop_mask[cy1:cy2, cx1:cx2] = 255
+    temp = cv2.bitwise_and(temp, crop_mask)
+
+    if not np.any(temp):
+        return temp
+
+    # Morphology sizes
+    close_sz = max(3, int(base_dim * 0.008)) | 1
+    open_sz = max(3, int(base_dim * 0.004)) | 1
+
+    k_close = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (close_sz, close_sz))
+    k_open = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (open_sz, open_sz))
+
+    # 1) close small boundary gaps
+    temp = cv2.morphologyEx(temp, cv2.MORPH_CLOSE, k_close, iterations=1)
+
+    # 2) fill holes inside the selected shape
+    temp = flood_fill_holes(temp)
+
+    # 3) keep the main component near bbox center
+    temp = keep_best_component(
+        temp,
+        target_center=((x1 + x2) / 2.0, (y1 + y2) / 2.0),
+        min_area=max(8, int((bw * bh) * 0.01)),
+    )
+
+    if not np.any(temp):
+        return temp
+
+    # 4) rebuild a strong filled outer contour
+    temp = fill_from_contour(temp, use_hull=True)
+
+    # 5) light opening to remove tiny spikes
+    temp = cv2.morphologyEx(temp, cv2.MORPH_OPEN, k_open, iterations=1)
+
+    # 6) final fill once more after opening
+    temp = flood_fill_holes(temp)
+
+    return temp
+
+
+def yolo_detect(image: np.ndarray, conf: float = 0.5) -> tuple[np.ndarray, list[dict]]:
+    """
+    YOLO genital detection with robust mask refinement.
+    This version avoids edge-driven region growth.
+    """
+    model = get_model()
+    if model is None:
+        return np.zeros(image.shape[:2], dtype=np.uint8), []
+
+    h, w = image.shape[:2]
+
+    tmp = Path(tempfile.gettempdir()) / "censor_yolo.jpg"
+    PILImage.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB)).save(str(tmp), "JPEG", quality=95)
+    results = model(str(tmp), verbose=False, conf=conf, imgsz=1024)
+    tmp.unlink(missing_ok=True)
+
+    r = results[0]
+    final_mask = np.zeros((h, w), dtype=np.uint8)
+    detections = []
+
+    if r.boxes is None or len(r.boxes) == 0:
+        return final_mask, detections
+
+    for i, box in enumerate(r.boxes):
+        cls_name = model.names[int(box.cls[0])]
+        conf_val = float(box.conf[0])
+
+        if cls_name not in TARGET_CLASSES:
+            continue
+
+        detections.append({"class": cls_name, "conf": conf_val})
+
+        if r.masks is not None and i < len(r.masks):
+            seg = r.masks[i].data[0].cpu().numpy()
+            refined = refine_segmentation_mask(
+                seg_mask=seg,
+                image_shape=image.shape,
+                bbox_xyxy=box.xyxy[0].tolist(),
+                cls_name=cls_name,
+                seg_thr=0.5,
+            )
+            final_mask = cv2.bitwise_or(final_mask, refined)
+        else:
+            x1, y1, x2, y2 = map(int, box.xyxy[0].tolist())
+            rx1, ry1, rx2, ry2 = expand_bbox(x1, y1, x2, y2, w, h, pad_ratio=0.03)
+            cv2.rectangle(final_mask, (rx1, ry1), (rx2, ry2), 255, cv2.FILLED)
+
+    return final_mask, detections
+
+
+# Optional: preview helper for debugging
+# Save three stages side-by-side when tuning:
+#   raw seed / refined mask / final result
+# This makes kernel tuning much faster.`;
+
+    const patchCode = String.raw`# === What to replace in your current script ===
+
+# 1) Remove the old block inside yolo_detect() that does:
+#    - edge extraction with Canny
+#    - edges_thick / allowed
+#    - geodesic dilation loop
+#    - final edge-based smoothing
+
+# 2) Add these helpers above yolo_detect():
+#    - expand_bbox()
+#    - flood_fill_holes()
+#    - keep_best_component()
+#    - fill_from_contour()
+#    - refine_segmentation_mask()
+
+# 3) In yolo_detect(), for each YOLO segmentation result, call:
+refined = refine_segmentation_mask(
+    seg_mask=seg,
+    image_shape=image.shape,
+    bbox_xyxy=box.xyxy[0].tolist(),
+    cls_name=cls_name,
+    seg_thr=0.5,
+)
+mask = cv2.bitwise_or(mask, refined)
+
+# 4) Keep apply_censor(), process_single(), process_batch() mostly unchanged.
+
+# 5) Recommended next tweaks:
+#    - tune close_sz/open_sz per class
+#    - save debug previews for raw / refined / final
+#    - sweep seg_thr between 0.40 and 0.55
+#    - only re-introduce edge-based trim as a very weak optional step`;
+
+    const codeBlock = document.getElementById('codeBlock');
+    const codeTitle = document.getElementById('codeTitle');
+    const copyBtn = document.getElementById('copyCode');
+    const copyStatus = document.getElementById('copyStatus');
+    const viewButtons = [...document.querySelectorAll('.view-btn')];
+
+    const views = {
+      full: {
+        title: '전체 드롭인 코드',
+        content: fullCode,
+      },
+      patch: {
+        title: '교체 포인트 요약',
+        content: patchCode,
+      },
+    };
+
+    let currentView = 'full';
+
+    function renderCode(viewKey) {
+      currentView = viewKey;
+      codeTitle.textContent = views[viewKey].title;
+      codeBlock.textContent = views[viewKey].content;
+      viewButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.view === viewKey));
+    }
+
+    viewButtons.forEach(btn => {
+      btn.addEventListener('click', () => renderCode(btn.dataset.view));
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(views[currentView].content);
+        copyStatus.textContent = '현재 코드 보기를 클립보드에 복사했습니다.';
+      } catch (err) {
+        copyStatus.textContent = '복사에 실패했습니다. 브라우저 권한을 확인하세요.';
+      }
+    });
+
+    renderCode('full');
+
+    const tabButtons = [...document.querySelectorAll('[data-tab]')];
+    const tabPanels = [...document.querySelectorAll('.tab-panel')];
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.tab;
+        tabButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        tabPanels.forEach(panel => {
+          panel.classList.toggle('hidden', panel.dataset.panel !== key);
+        });
+      });
+    });
+
+    const sections = [...document.querySelectorAll('section[id]')];
+    const navLinks = [...document.querySelectorAll('.nav-link')];
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          const active = link.getAttribute('href') === `#${id}`;
+          link.classList.toggle('active', active);
+        });
+      });
+    }, { rootMargin: '-35% 0px -55% 0px', threshold: 0.01 });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>
