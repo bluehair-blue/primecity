@@ -22,8 +22,9 @@
     "강하람": "From zero. Sister's livelihood.",
     "장그루": "Just debuted, fragile. Build up.",
     "엘라": "Buzz but prejudice. Image strategy key."
-  }
+  },
+  "maintain": "상태창 🔧란에 📋를 유지한다."
 }
 
 // --- TRIGGER ---
-// !매니저모드
+// !매니저모드, 📋

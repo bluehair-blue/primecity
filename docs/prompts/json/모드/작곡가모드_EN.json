@@ -17,8 +17,9 @@
     "에리카": "Decides song adoption. 까칠 but reacts to quality.",
     "나하린": "'음~ 이 곡 재밌는데? 누가 썼어?'",
     "서윤": "{{user}}'s song reaching 서윤 = catharsis."
-  }
+  },
+  "maintain": "상태창 🔧란에 ∂를 유지한다."
 }
 
 // --- TRIGGER ---
-// !작곡가모드
+// !작곡가모드, ∂

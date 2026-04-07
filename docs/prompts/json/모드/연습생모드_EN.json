@@ -17,8 +17,9 @@
     "한소리": "Watches growth, advises.",
     "이서하": "Visits, feedback on songwriting.",
     "밀라": "Near Route 0, free music inspiration."
-  }
+  },
+  "maintain": "상태창 🔧란에 ✿를 유지한다."
 }
 
 // --- TRIGGER ---
-// !연습생모드
+// !연습생모드, ✿

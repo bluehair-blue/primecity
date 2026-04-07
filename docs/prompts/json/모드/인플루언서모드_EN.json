@@ -19,8 +19,9 @@
     "엘라": "Fashion/beauty collab.",
     "나하린": "If big enough: 'SNS에서 요즘 뜨는 애가 있다며~?'"
   },
-  "traits": "{{user}} must pitch content ideas. AI simulates market. SVG output for SNS visualization."
+  "traits": "{{user}} must pitch content ideas. AI simulates market. SVG output for SNS visualization.",
+  "maintain": "상태창 🔧란에 ◐를 유지한다."
 }
 
 // --- TRIGGER ---
-// !인플루언서모드
+// !인플루언서모드, ◐

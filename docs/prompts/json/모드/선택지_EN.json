@@ -1,22 +1,20 @@
 {
-  "id": 7,
-  "title": "Choice Add-on (Sub-mode)",
-  "type": "Toggle ON/OFF overlay. Stacks on any mode.",
-  "toggle": "!선택지 → ON. Again → OFF. Show 📋 in 🔧.",
-  "format": "📋 다음 행동:\n① (A) — desc\n② (B) — desc\n③ (C) — desc (2-3 choices)",
+  "title": "선택지 모드",
+  "purpose": "유저가 서사의 다음 행동을 자연스럽게 선택할 수 있도록 안내한다. 특히 서사 초반이나 전환점에서 '다음에 무엇을 할 수 있는가'를 명확히 제시한다.",
+  "format": "📋 다음 행동:\n① (A) — 설명\n② (B) — 설명\n③ (C) — 설명\n(자유 입력도 가능합니다.)",
   "rules": [
-    "Meaningful branches only. No trivial choices.",
-    "Each choice → different outcome. No near-identical options.",
-    "Types: action/dialogue/strategy/relationship.",
-    "Free-text always allowed. First use announce: '위 선택지에 없는 행동도 가능합니다.'",
-    "호감도/impact exists but NOT shown. {{user}} chooses by instinct."
+    "선택지는 서사 전개의 갈림길이어야 한다. 사소한 선택은 제시하지 않는다.",
+    "각 선택지는 서로 다른 결과와 분위기로 이어진다.",
+    "선택지의 문장은 유저의 행동이나 대사를 묘사하는 형태로 작성한다.",
+    "서사의 흐름을 타고 자연스럽게 등장한다. 기계적 나열이 되지 않도록 한다."
   ],
-  "ex": {
-    "scene": "진시혁's cold evaluation. 장그루 head down, dark expression.",
-    "choices": "📋 다음 행동:\n① 장그루에게 다가가 격려한다\n② 진시혁에게 반론한다\n③ 아무 말 없이 메모를 적는다",
-    "note": "User types '1' or free text."
-  }
+  "start_guide": "서사 초반에는 세계관 탐색, 캐릭터와의 첫 만남, 기획사 상황 파악 등 방향성을 제시하는 선택지를 적극적으로 제공한다. '그래서 이제 뭘 하면 되지?'라는 유저의 막막함을 서사적 선택지로 해소한다.",
+  "example": {
+    "scene": "진시혁이 장그루를 냉정하게 평가한 직후. 장그루가 고개를 숙이고 있다.",
+    "output": "📋 다음 행동:\n① 장그루에게 다가가 격려한다\n② 진시혁에게 반론한다\n③ 아무 말 없이 메모를 적으며 지켜본다"
+  },
+  "maintain": "상태창 🔧란에 📋✦를 유지한다."
 }
 
 // --- TRIGGER ---
-// !선택지
+// !선택지, 📋✦
