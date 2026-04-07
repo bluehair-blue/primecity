@@ -13,6 +13,7 @@ dist/
 # Large binary assets (use CDN instead)
 캐릭터 이미지/
 캐릭터 이미지.zip
+char_img/
 배경/
 
 # Backups & external plugins

@@ -58,9 +58,9 @@ CONFIG_PATH = TOOLS_DIR / "asset_config.json"
 STATE_PATH = TOOLS_DIR / "generation_state.json"
 LOG_PATH = TOOLS_DIR / "generation.log"
 
-# Output base: 캐릭터 이미지 폴더 (CDN 구조와 동일)
+# Output base: 프로젝트 내부 char_img/ (CDN 구조와 동일)
 PROJECT_ROOT = TOOLS_DIR.parent                          # 연예계/
-OUTPUT_BASE = PROJECT_ROOT.parent / "캐릭터 이미지"      # 챗봇 제작/캐릭터 이미지/
+OUTPUT_BASE = PROJECT_ROOT / "char_img"                  # 연예계/char_img/
 
 # ── Timing ──
 DELAY_NORMAL = 12       # 정상 생성 간 대기 (초, 최소 1초 필수)
