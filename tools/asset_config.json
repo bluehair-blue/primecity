@@ -113,7 +113,7 @@
     },
     "NHR": {
       "name": "나하린",
-      "clothed": "#기본 구성\n1girl, solo, \n\n#체형/인상\nhuge breasts, \nlight smile, half-closed eyes,\n\n#헤어\nblack hair, straight hair, hair over left eye, very long hair, blunt bangs, parted bangs, layered hair, long sidelocks, hair over shoulder, \n\n#눈\nsilver eyes, droopy eyes, fox eyes, narrow eyes,\nlong eyelashes,\n\n#의상\nwhite shirt, rolled-up sleeves, black slacks, dress pants, single earphone, earphone cord between a chest bone, old wristwatch,\n\n#분위기/배경\nsimple background, fashionable, high fashion, confident, charismatic, mysterious aura,",
+      "clothed": "#기본 구성\n1girl, solo, \n\n#체형/인상\nhuge breasts, \nlight smile, half-closed eyes,\n\n#헤어\nblack hair, straight hair, hair over left eye, very long hair, blunt bangs, parted bangs, layered hair, long sidelocks, hair over shoulder, \n\n#눈\nsilver eyes, droopy eyes, fox eyes, narrow eyes,\nlong eyelashes,\n\n#의상\nwhite shirt, rolled-up sleeves, black slacks, dress pants, single earphone, earphone cord between a chest bone, old wristwatch,\n\n#분위기/배경\nfashionable, high fashion, confident, charismatic, mysterious aura,",
       "nude": "#기본 구성\n1girl, \n\n#체형/인상\nhuge breasts, \nhalf-closed eyes,\n\n#헤어\nblack hair, straight hair, hair over left eye, very long hair, blunt bangs, parted bangs, layered hair, long sidelocks, hair over shoulder, \n\n#눈\nsilver eyes, droopy eyes, fox eyes, narrow eyes,\nlong eyelashes,\n\n#의상\nnude,"
     },
     "ERK": {
@@ -128,12 +128,12 @@
     },
     "JSH": {
       "name": "진시혁",
-      "clothed": "#기본 구성\n1boy, solo, \n\n#체형/인상\n2::sharp eyes, muscular, broad shoulders::, narrow eyes, \n\n#헤어\ngrey hair, short hair, slicked back hair, undercut,\n\n#눈\nblack eyes, dark eyes, looking down, head raised, \n\n#의상\n2::all black suit::, black dress shirt, black necktie,\nblack suit jacket, buttoned up,\nblack pants, black leather shoes,\n2::holding pen::, \n\n#포즈/분위기\nconfident, \ncold expression, \nsimple background, condescending, choker, ",
+      "clothed": "#기본 구성\n1boy, solo, \n\n#체형/인상\n2::sharp eyes, muscular, broad shoulders::, narrow eyes, \n\n#헤어\ngrey hair, short hair, slicked back hair, undercut,\n\n#눈\nblack eyes, dark eyes, looking down, head raised, \n\n#의상\n2::all black suit::, black dress shirt, black necktie,\nblack suit jacket, buttoned up,\nblack pants, black leather shoes,\n2::holding pen::, \n\n#포즈/분위기\nconfident, \ncold expression, \ncondescending, choker,",
       "nude": ""
     },
     "JGR": {
       "name": "장그루",
-      "clothed": "#기본 구성\n1girl, solo, \n\n#체형/인상\nmedium breasts, gentle expression, \n\n#헤어\n2::champagne blonde hair::, very long hair, straight hair, dull hair, matte hair, \nhair over face, hair covering eyes, long bangs,\n\n#눈\nlavender eyes, almond eyes, half-closed eyes, \n\n#의상\nold clothes, \noversized cardigan, inner blouse,\nplain shirt, long skirt,\n\n#소품\nholding old notebook, \n\n#분위기\nsoft lighting,\nsimple background, choker, ",
+      "clothed": "#기본 구성\n1girl, solo, \n\n#체형/인상\nmedium breasts, gentle expression, \n\n#헤어\n2::champagne blonde hair::, very long hair, straight hair, dull hair, matte hair, \nhair over face, hair covering eyes, long bangs,\n\n#눈\nlavender eyes, almond eyes, half-closed eyes, \n\n#의상\nold clothes, \noversized cardigan, inner blouse,\nplain shirt, long skirt,\n\n#소품\nholding old notebook, \n\n#분위기\nsoft lighting, choker,",
       "nude": "#기본 구성\n1girl, \n\n#체형/인상\nnude, medium breasts, gentle expression, \n\n#헤어\n2::champagne blonde hair::, very long hair, straight hair, dull hair, matte hair, \nhair over face, hair covering eyes, long bangs,\n\n#눈\nlavender eyes, almond eyes, half-closed eyes, choker, "
     },
     "LPS": {
@@ -143,7 +143,7 @@
     },
     "MIL": {
       "name": "밀라",
-      "clothed": "#기본 구성\n1girl, solo, \n\n#체형/인상\ntoned, healthy,\ngrin, \n\n#헤어\nlight orange hair, long hair, messy hair,\nwindswept hair, ahoge, headphones, \n\n#눈\nteal eyes, bright eyes,\nsharp eyes, upturned eyes, \n\n#의상 — 믹스매치\ncropped hoodie, unzipped,\nsports bra, midriff,\ncargo pants, one leg rolled up,\nmismatched accessories, layered bracelets,\nsneakers, untied shoelaces,\n\n#분위기\nsimple background, choker, ",
+      "clothed": "#기본 구성\n1girl, solo, \n\n#체형/인상\ntoned, healthy,\ngrin, \n\n#헤어\nlight orange hair, long hair, messy hair,\nwindswept hair, ahoge, headphones, \n\n#눈\nteal eyes, bright eyes,\nsharp eyes, upturned eyes, \n\n#의상 — 믹스매치\ncropped hoodie, unzipped,\nsports bra, midriff,\ncargo pants, one leg rolled up,\nmismatched accessories, layered bracelets,\nsneakers, untied shoelaces,\n\n#분위기\nchoker,",
       "nude": "#기본 구성\n1girl, \n\n#체형/인상\nnude, toned, healthy,\ngrin, \n\n#헤어\nlight orange hair, long hair, messy hair,\nwindswept hair, ahoge, headphones, \n\n#눈\nteal eyes, bright eyes,\nsharp eyes, upturned eyes, choker, "
     },
     "MMR": {
@@ -775,7 +775,7 @@
     },
     "901": {
       "name": "svg-avatar",
-      "female_prompt": "very aesthetic, masterpiece, close-up, face focus, portrait, looking at viewer, smile, simple background, soft lighting",
+      "female_prompt": "very aesthetic, masterpiece, close-up, face focus, portrait, looking at viewer, smile, soft lighting",
       "male_prompt": "",
       "width": 1024,
       "height": 1024,
@@ -815,7 +815,7 @@
     },
     "911": {
       "name": "thumbnail",
-      "female_prompt": "very aesthetic, masterpiece, upper body, portrait, looking at viewer, simple background, smile, soft focus background",
+      "female_prompt": "very aesthetic, masterpiece, upper body, portrait, looking at viewer, smile, soft focus background",
       "male_prompt": "",
       "width": 832,
       "height": 832,
