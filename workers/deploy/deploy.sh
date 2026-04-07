@@ -1,5 +1,5 @@
 #!/bin/bash
-# Deploy all 7 SVG Workers to Cloudflare
+# Deploy all 8 SVG Workers to Cloudflare
 # Usage: cd workers/deploy && bash deploy.sh
 # Requires: wrangler login (run once before deploying)
 
@@ -13,6 +13,7 @@ WORKERS[svg-talk]="svg-messenger.js"
 WORKERS[svg-news]="svg-news.js"
 WORKERS[svg-chart]="svg-chart.js"
 WORKERS[svg-community]="svg-community.js"
+WORKERS[svg-tablet]="svg-tablet.js"
 
 for NAME in "${!WORKERS[@]}"; do
   FILE="${WORKERS[$NAME]}"
@@ -31,3 +32,4 @@ echo "  svg-talk        → talk.bluehair.blue/ent/*"
 echo "  svg-news        → news.bluehair.blue/ent/*"
 echo "  svg-chart       → chart.bluehair.blue/ent/*"
 echo "  svg-community   → community.bluehair.blue/ent/*"
+echo "  svg-tablet      → tablet.bluehair.blue/ent/*"

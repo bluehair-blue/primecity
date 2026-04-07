@@ -9,7 +9,7 @@
     "forbidden": "<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.",
     "char_codes": "SY,NHR,JSH,ERK,LSH,HSR,KHR,JGR,MIL,ELA,MMR,HSE,NIA,RAY,LPS"
   },
-  "prompt": "■ 태블릿 브리핑 SVG 출력 프롬프트\n\n【라벨 설명】\n- user: 유저(심사위원) 이름\n- agency: 유저 소속 기획사 (기본: PRISM Studio)\n- season: 오디션 시즌 (기본: Season 1)\n- division: 부문 (기본: 스테이지)\n- date: D-day 표시 (기본: D-7)\n- judge1, judge1agency: 심사위원1 이름/소속\n- judge2, judge2agency: 심사위원2 이름/소속\n\n【출력 위치】\n오디션 오프닝에서 한소리가 초대장을 건네는 Beat 7에서 출력.\n유저가 심사위원으로서 처음으로 오디션 정보를 받는 순간.\n\n【URL 규칙】\n공백 → %20 / 콤마 → %2C / 물음표 → %3F\n<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.\n\n【양식】\n![](https://tablet.bluehair.blue/ent/?user={유저이름}&agency={소속기획사}&date={D-day})\n\n【예시】\n![](https://tablet.bluehair.blue/ent/?user={{user}}&agency=PRISM%20Studio&date=D-7)"
+  "prompt": "■ 태블릿 브리핑 SVG 출력 프롬프트\n\n【라벨 설명】\n- user: 유저(심사위원) 이름\n- agency: 유저 소속 기획사 (기본: PRISM Studio)\n- season: 오디션 시즌 (기본: Season 1)\n- division: 부문 (기본: 스테이지)\n- date: D-day 표시 (기본: D-7)\n- judge1, judge1agency: 심사위원1 이름/소속\n- judge2, judge2agency: 심사위원2 이름/소속\n\n【포함 섹션】\n오디션 브리핑 / 심사위원 패널(프로필 포함) / 라운드 구조(4R, subdesc) /\n오디션장 약도(하입 로드 미니맵) / 모드 안내(13개, 3단 구조) /\n🔞 NSFW 토글 안내 / 이미지 출력 시스템(15×74) / 사이트 링크(intro.bluehair.blue)\n\n【출력 위치】\n오디션 오프닝에서 한소리가 초대장을 건네는 Beat 7에서 출력.\n유저가 심사위원으로서 처음으로 오디션 정보를 받는 순간.\n\n【URL 규칙】\n공백 → %20 / 콤마 → %2C / 물음표 → %3F\n<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.\n\n【양식】\n![](https://tablet.bluehair.blue/ent/?user={유저이름}&agency={소속기획사}&date={D-day})\n\n【예시】\n![](https://tablet.bluehair.blue/ent/?user={{user}}&agency=PRISM%20Studio&date=D-7)"
 }
 
 // --- TRIGGER ---

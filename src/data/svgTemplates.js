@@ -1438,7 +1438,7 @@ export const svgTemplates = [
     en: "Tablet Briefing",
     category: "유틸리티",
     animated: true,
-    desc: "PPP 오디션 초대장/브리핑 태블릿. 디바이스 프레임 + 심사위원 패널 + 라운드 구조 + 스캔라인 애니메이션.",
+    desc: "PPP 오디션 종합 브리핑 태블릿. 심사위원 패널 + 라운드 구조 + 오디션장 약도 + 13개 모드 안내 + NSFW 토글 + 이미지 시스템 + 사이트 링크. 스캔라인 애니메이션.",
     params: [
       { name: "user", desc: "유저(심사위원) 이름", example: "{{user}}" },
       { name: "agency", desc: "유저 소속 기획사", example: "PRISM Studio" },
@@ -1477,6 +1477,11 @@ export const svgTemplates = [
 - date: D-day 표시 (기본: D-7)
 - judge1, judge1agency: 심사위원1 이름/소속
 - judge2, judge2agency: 심사위원2 이름/소속
+
+【포함 섹션】
+오디션 브리핑 / 심사위원 패널(프로필 포함) / 라운드 구조(4R, subdesc) /
+오디션장 약도(하입 로드 미니맵) / 모드 안내(13개, 3단 구조) /
+🔞 NSFW 토글 안내 / 이미지 출력 시스템(15×74) / 사이트 링크(intro.bluehair.blue)
 
 【출력 위치】
 오디션 오프닝에서 한소리가 초대장을 건네는 Beat 7에서 출력.
