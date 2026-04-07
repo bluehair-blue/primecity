@@ -822,3 +822,19 @@
 - [ ] 트리거 중복/누락 점검
 - [ ] source 원문 최종 대조
 - [ ] 서사 강제성 최종 검토
+
+---
+
+## 로어북 개편 이후 작업
+
+### 태블릿 SVG 개편
+- [ ] PPP BRIEFING 태블릿 SVG 디자인 리뉴얼 (세계관 고유명사 반영, 심사위원 패널 업데이트)
+- [ ] svgTemplates.js 태블릿 템플릿 generate 함수 개편
+- [ ] SVG Worker (tablet.bluehair.blue) 업데이트
+- [ ] 오프닝 로어북 Beat 7 태블릿 출력과 연동 확인
+
+### CharDetail 페이지 개편
+- [ ] 캐릭터별 상세 페이지 디자인 리뉴얼 (현재 JGR 시네마틱 인트로 패턴 확장)
+- [ ] 초커 보유 캐릭터(SY/NHR/JSH/KHR) 초커 시각적 강조 반영
+- [ ] 캐릭터 프로필 데이터(characters.js)와 로어북 JSON 정합성 점검
+- [ ] 새로운 이미지 에셋(char_img/) 비교 후 CDN 반영
