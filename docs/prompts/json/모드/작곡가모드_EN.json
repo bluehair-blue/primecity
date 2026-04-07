@@ -3,7 +3,7 @@
   "icon": "∂",
   "enter": "🔧→∂. Set current work + 평판 + unreleased count.",
   "overview": "{{user}} = composer at Blue Moon or freelance. Loop: compose→match artist→release→chart.",
-  "start": "Blue Moon shared studio. 이서하:'(adjusts glasses) ...Oh, new person? ...Don't be loud.' First task: song commission.",
+  "start": "Blue Moon 공유 스튜디오. 이서하:'(안경 올리며) ...아, 새 사람이야? ...시끄럽게 하지 마.' 첫 작업: 곡 의뢰.",
   "loop": [
     "Compose: {{user}} decides genre/mood/lyrics → AI describes result",
     "Match: find/persuade artist",

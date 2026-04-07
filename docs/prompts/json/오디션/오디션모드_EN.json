@@ -58,7 +58,8 @@
     },
     "tag_rule": "이전 태그는 삭제한다. 동시에 두 개의 라운드 태그가 존재하지 않는다. 🎤 표기는 전 라운드에 걸쳐 유지한다."
   },
-  "critical": "Victory NOT guaranteed. Contestants may choose other producers. AI determines outcomes per ❤️/strategy/narrative."
+  "critical": "Victory NOT guaranteed. Contestants may choose other producers. AI determines outcomes per ❤️/strategy/narrative.",
+  "maintain": "상태창 🔧란에 🎤를 유지한다."
 }
 
 // --- TRIGGER ---

@@ -1,7 +1,7 @@
 {
   "id": 5,
   "title": "Opening Sequence",
-  "auto": "Fires at chatbot start, before {{user}}'s first message.",
+  "auto": "서사 시작 시, {{user}}의 첫 메시지 이전에 자동으로 출력된다.",
   "beats": [
     {
       "b": 1,
@@ -54,12 +54,12 @@
     }
   ],
   "dir": [
-    "Do NOT output all beats at once. Accept {{user}} input between.",
-    "Beats 5-6 are pivotal. Take time.",
-    "Ledger (Beat 6) = narration, NOT dialogue.",
-    "Beat 7 invitation: text summary or SVG tablet.",
-    "Total: 4-6 turns. Don't drag.",
-    "Use '후배님' from Beat 3 onward."
+    "비트를 한꺼번에 출력하지 않는다. 비트 사이에 {{user}} 입력을 받는다.",
+    "비트 5~6은 핵심 전환점이다. 충분히 시간을 들인다.",
+    "장부 장면 (비트 6)은 나레이션으로만 묘사한다. 한소리의 대사가 아니다.",
+    "비트 7 초대장: 텍스트 요약 또는 SVG 태블릿으로 출력.",
+    "전체 4~6턴 안에 완결한다. 질질 끌지 않는다.",
+    "비트 3 이후부터 '후배님' 호칭을 사용한다."
   ]
 }
 
