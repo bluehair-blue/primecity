@@ -563,7 +563,6 @@ function generateCommunity(p) {
 function generateTablet(p) {
   const user = escapeXml(p.user || "{{user}}");
   const agency = escapeXml(p.agency || "PRISM Studio");
-  const season = escapeXml(p.season || "Season 1");
   const division = escapeXml(p.division || "스테이지");
   const date = escapeXml(p.date || "");
 
@@ -581,13 +580,13 @@ function generateTablet(p) {
   const contentW = R - L; // 320
   const colW = 155;
   const gapX = 10;
-  const SEC_GAP = 20;  // uniform section gap
+  const SEC_GAP = 24;  // uniform section gap
 
   // ── Section accent bar helper ──
   function sectionHeader(label, y) {
     return `
     <rect x="${L - 6}" y="${y - 10}" width="3" height="14" rx="1" fill="#c9a84c" opacity="0.5"/>
-    <text x="${L}" y="${y}" fill="#888" font-size="9" font-weight="600" font-family="sans-serif" letter-spacing="2">${label}</text>
+    <text x="${L}" y="${y}" fill="#888" font-size="10" font-weight="600" font-family="sans-serif" letter-spacing="2">${label}</text>
     <rect x="${L}" y="${y + 5}" width="50" height="1.5" fill="#c9a84c" opacity="0.4"/>`;
   }
 
@@ -600,57 +599,64 @@ function generateTablet(p) {
   // ══════════════════════════════════════════════
 
   // ── [A] HEADER ──
+  // [1] status bar y=34로 하향 (코너 브라켓 겹침 해소)
+  // [2] PRIME PRIORITY 영문화
+  // [3] 시즌 표시 제거
+  // [4] "본선 심사위원 위촉 서한"
   function renderHeader() {
-    const h = 170;
+    const h = 180;
     const svg = `
-    <!-- Status bar -->
-    <rect x="20" y="20" width="380" height="28" fill="#0a0a18" opacity="0.8"/>
-    <text x="36" y="38" fill="#555" font-size="9" font-family="sans-serif">${date || "D-7"}</text>
-    <text x="380" y="38" text-anchor="end" fill="#555" font-size="9" font-family="sans-serif">CONFIDENTIAL</text>
+    <!-- Status bar — [1] y=34 to avoid corner bracket overlap -->
+    <rect x="20" y="34" width="380" height="24" fill="#0a0a18" opacity="0.8"/>
+    <text x="36" y="50" fill="#555" font-size="9" font-family="sans-serif">${date || "D-7"}</text>
+    <text x="380" y="50" text-anchor="end" fill="#555" font-size="9" font-family="sans-serif">CONFIDENTIAL</text>
 
     <!-- PPP Logo -->
-    <g transform="translate(210, 82)">
+    <g transform="translate(210, 88)">
       <polygon points="0,-22 19,11 -19,11" fill="none" stroke="url(#gold-grad)" stroke-width="1.5" filter="url(#glow)">
         <animate attributeName="stroke-opacity" values="0.6;1;0.6" dur="3s" repeatCount="indefinite"/>
       </polygon>
       <polygon points="0,-12 10,6 -10,6" fill="#c9a84c" opacity="0.15"/>
     </g>
-    <text x="210" y="124" text-anchor="middle" fill="#c9a84c" font-size="11" font-weight="600" font-family="sans-serif" letter-spacing="4">P R O D U C E</text>
-    <text x="210" y="143" text-anchor="middle" fill="#e8e8e8" font-size="16" font-weight="700" font-family="sans-serif">프라임 · 프라이오리티</text>
-    <text x="210" y="160" text-anchor="middle" fill="#666" font-size="9" font-family="sans-serif" letter-spacing="2">${season.toUpperCase()}</text>
-    <text x="210" y="174" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif" font-style="italic">심사위원 위촉 서한</text>
+    <text x="210" y="130" text-anchor="middle" fill="#c9a84c" font-size="11" font-weight="600" font-family="sans-serif" letter-spacing="4">P R O D U C E</text>
+    <!-- [2] English program name -->
+    <text x="210" y="150" text-anchor="middle" fill="#e8e8e8" font-size="16" font-weight="700" font-family="sans-serif">PRIME PRIORITY</text>
+    <!-- [3] season removed, [4] 본선 추가 -->
+    <text x="210" y="168" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif" font-style="italic">본선 심사위원 위촉 서한</text>
 
     <!-- Divider -->
-    <line x1="80" y1="185" x2="340" y2="185" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
-    <circle cx="210" cy="185" r="2" fill="#c9a84c" opacity="0.5"/>`;
+    <line x1="80" y1="180" x2="340" y2="180" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+    <circle cx="210" cy="180" r="2" fill="#c9a84c" opacity="0.5"/>`;
     return { svg, height: h };
   }
 
   // ── [B] AUDITION BRIEFING ──
+  // [5] "본선 진출자" + 간격 확보
   function renderBriefing(startY) {
-    const h = 95;
+    const h = 100;
     const svg = `
-    ${sectionHeader("AUDITION BRIEFING", startY + 15)}
+    ${sectionHeader("AUDITION BRIEFING", startY + 18)}
     <g>
-      <text x="${L}" y="${startY + 46}" fill="#666" font-size="9" font-family="sans-serif">부문</text>
-      <text x="130" y="${startY + 46}" fill="#e8e8e8" font-size="11" font-weight="600" font-family="sans-serif">${division}</text>
-      <text x="230" y="${startY + 46}" fill="#666" font-size="9" font-family="sans-serif">참가자</text>
-      <text x="290" y="${startY + 46}" fill="#e8e8e8" font-size="11" font-weight="600" font-family="sans-serif">8명</text>
+      <text x="${L}" y="${startY + 50}" fill="#666" font-size="10" font-family="sans-serif">부문</text>
+      <text x="130" y="${startY + 50}" fill="#e8e8e8" font-size="11" font-weight="600" font-family="sans-serif">${division}</text>
+      <text x="230" y="${startY + 50}" fill="#666" font-size="10" font-family="sans-serif">본선 진출자</text>
+      <text x="320" y="${startY + 50}" fill="#e8e8e8" font-size="11" font-weight="600" font-family="sans-serif">8명</text>
     </g>
     <g>
-      <text x="${L}" y="${startY + 66}" fill="#666" font-size="9" font-family="sans-serif">라운드</text>
-      <text x="130" y="${startY + 66}" fill="#e8e8e8" font-size="11" font-weight="600" font-family="sans-serif">총 4라운드</text>
-      <text x="230" y="${startY + 66}" fill="#666" font-size="9" font-family="sans-serif">기간</text>
-      <text x="290" y="${startY + 66}" fill="#e8e8e8" font-size="11" font-weight="600" font-family="sans-serif">약 2개월</text>
+      <text x="${L}" y="${startY + 70}" fill="#666" font-size="10" font-family="sans-serif">라운드</text>
+      <text x="130" y="${startY + 70}" fill="#e8e8e8" font-size="11" font-weight="600" font-family="sans-serif">총 4라운드</text>
+      <text x="230" y="${startY + 70}" fill="#666" font-size="10" font-family="sans-serif">기간</text>
+      <text x="320" y="${startY + 70}" fill="#e8e8e8" font-size="11" font-weight="600" font-family="sans-serif">약 2개월</text>
     </g>
     <g>
-      <text x="${L}" y="${startY + 86}" fill="#666" font-size="9" font-family="sans-serif">분야</text>
-      <text x="130" y="${startY + 86}" fill="#ccc" font-size="10" font-family="sans-serif">아이돌 · 가수 · 댄서 · 싱어송라이터 · 멀티</text>
+      <text x="${L}" y="${startY + 90}" fill="#666" font-size="10" font-family="sans-serif">분야</text>
+      <text x="130" y="${startY + 90}" fill="#ccc" font-size="10" font-family="sans-serif">아이돌 · 가수 · 댄서 · 싱어송라이터 · 멀티</text>
     </g>`;
     return { svg, height: h };
   }
 
   // ── [C] JUDGE PANEL ──
+  // [6] 원형 아이콘 R-14로 수정
   function renderJudges(startY) {
     function judgeCard(name, agencyName, role, profile, y, delay, isUser) {
       const badge = isUser ? "YOU" : "";
@@ -666,8 +672,9 @@ function generateTablet(p) {
         ${badge ? `<rect x="${L + 16 + name.length * 13 + 6}" y="${y + 6}" width="30" height="16" rx="3" fill="#c9a84c"/>
         <text x="${L + 16 + name.length * 13 + 21}" y="${y + 18}" text-anchor="middle" fill="#0e0e1a" font-size="8" font-weight="700" font-family="sans-serif">${badge}</text>` : ""}
         <text x="${L + 16}" y="${y + 34}" fill="#888" font-size="9" font-family="sans-serif">${agencyName} · ${role}</text>
-        ${profile ? `<text x="${L + 16}" y="${y + 48}" fill="#555" font-size="8" font-family="sans-serif">${profile}</text>` : ""}
-        <rect x="${R - 6}" y="${y + 12}" width="8" height="8" rx="4" fill="${isUser ? "#c9a84c" : "#555"}" opacity="${isUser ? 1 : 0.5}"/>
+        ${profile ? `<text x="${L + 16}" y="${y + 48}" fill="#555" font-size="9" font-family="sans-serif">${profile}</text>` : ""}
+        <!-- [6] R-14 to keep circle inside card -->
+        <rect x="${R - 14}" y="${y + 12}" width="8" height="8" rx="4" fill="${isUser ? "#c9a84c" : "#555"}" opacity="${isUser ? 1 : 0.5}"/>
       </g>`;
     }
 
@@ -680,7 +687,7 @@ function generateTablet(p) {
     const j3 = judgeCard(user, agency, "프로듀서", "", cy, 0.9, true);
     cy += 44 + cardGap;
 
-    const note = `<text x="210" y="${cy + 6}" text-anchor="middle" fill="#555" font-size="8" font-family="sans-serif">심사위원 상호 간 평가 방식, 합의 구조는 라운드별 상이</text>`;
+    const note = `<text x="210" y="${cy + 6}" text-anchor="middle" fill="#555" font-size="9" font-family="sans-serif">심사위원 상호 간 평가 방식, 합의 구조는 라운드별 상이</text>`;
     const h = cy + 16 - startY;
 
     const svg = `
@@ -691,6 +698,7 @@ function generateTablet(p) {
   }
 
   // ── [D] ROUND STRUCTURE ──
+  // [7] subdesc 별도 줄 + 폰트 확대 + rowH 48
   function renderRounds(startY) {
     const rounds = [
       { tag: "1R", name: "등급 평가", desc: "개인 무대 → 등급 배정", subdesc: "탈락 없음" },
@@ -699,7 +707,7 @@ function generateTablet(p) {
       { tag: "4R", name: "최종 선택", desc: "참가자가 프로듀서를 선택", subdesc: "역전 구조" },
     ];
 
-    const rowH = 42;
+    const rowH = 48;
     const rows = rounds.map((r, i) => {
       const y = startY + 30 + i * rowH;
       const barDelay = `${0.3 + i * 0.15}s`;
@@ -707,10 +715,10 @@ function generateTablet(p) {
       <g>
         <rect x="${L}" y="${y}" width="32" height="22" rx="4" fill="#c9a84c" opacity="0.15"/>
         <text x="${L + 16}" y="${y + 15}" text-anchor="middle" fill="#c9a84c" font-size="10" font-weight="700" font-family="sans-serif">${r.tag}</text>
-        <text x="${L + 42}" y="${y + 10}" fill="#e8e8e8" font-size="11" font-weight="600" font-family="sans-serif">${r.name}</text>
-        <text x="${L + 42}" y="${y + 22}" fill="#888" font-size="8.5" font-family="sans-serif">${r.desc}</text>
-        ${r.subdesc ? `<text x="${R}" y="${y + 10}" text-anchor="end" fill="#555" font-size="7.5" font-family="sans-serif" font-style="italic">${r.subdesc}</text>` : ""}
-        <rect x="${L}" y="${y + 30}" width="0" height="1" fill="#c9a84c" opacity="0.3">
+        <text x="${L + 42}" y="${y + 11}" fill="#e8e8e8" font-size="11" font-weight="600" font-family="sans-serif">${r.name}</text>
+        <text x="${L + 42}" y="${y + 24}" fill="#888" font-size="10" font-family="sans-serif">${r.desc}</text>
+        ${r.subdesc ? `<text x="${L + 42}" y="${y + 36}" fill="#666" font-size="9" font-family="sans-serif" font-style="italic">${r.subdesc}</text>` : ""}
+        <rect x="${L}" y="${y + 40}" width="0" height="1" fill="#c9a84c" opacity="0.3">
           <animate attributeName="width" from="0" to="${contentW}" dur="0.8s" begin="${barDelay}" fill="freeze"/>
         </rect>
       </g>`;
@@ -724,6 +732,7 @@ function generateTablet(p) {
   }
 
   // ── [E] VENUE MAP ──
+  // [8] "오시는 길" + 더 코어 프라임 돔 강조
   function renderVenueMap(startY) {
     const zones = [
       { label: "코어", w: 50, color: "#c9a84c" },
@@ -732,33 +741,34 @@ function generateTablet(p) {
       { label: "테라스", w: 70, color: "#888" },
       { label: "산업", w: 50, color: "#555" },
     ];
-    const barH = 22;
-    const barY = startY + 32;
-    const totalBarW = zones.reduce((a, z) => a + z.w, 0); // 300
+    const barH = 24;
+    const barY = startY + 34;
+    const totalBarW = zones.reduce((a, z) => a + z.w, 0);
     const barStartX = L + (contentW - totalBarW) / 2;
 
     let cx = barStartX;
     const zoneBars = zones.map((z) => {
       const x = cx;
       cx += z.w;
-      const isHighlight = z.label === "하입";
+      const isHighlight = z.label === "코어";
       return `
         <rect x="${x}" y="${barY}" width="${z.w}" height="${barH}" fill="${z.color}" opacity="${isHighlight ? 0.35 : 0.12}" stroke="${z.color}" stroke-width="${isHighlight ? 1.5 : 0.5}" rx="2"/>
-        <text x="${x + z.w / 2}" y="${barY + 14}" text-anchor="middle" fill="${isHighlight ? "#fff" : z.color}" font-size="8" font-weight="${isHighlight ? "700" : "400"}" font-family="sans-serif">${isHighlight ? "★ " + z.label : z.label}</text>`;
+        <text x="${x + z.w / 2}" y="${barY + 16}" text-anchor="middle" fill="${isHighlight ? "#fff" : z.color}" font-size="9" font-weight="${isHighlight ? "700" : "400"}" font-family="sans-serif">${isHighlight ? "★ " + z.label : z.label}</text>`;
     }).join("");
 
-    const legendY = barY + barH + 16;
-    const legend = `<text x="210" y="${legendY}" text-anchor="middle" fill="#666" font-size="8" font-family="sans-serif">★ PRISM Studio — 하입 로드 7번길, 프라임시티</text>`;
+    const legendY = barY + barH + 18;
+    const legend = `<text x="210" y="${legendY}" text-anchor="middle" fill="#666" font-size="9" font-family="sans-serif">★ 프라임 돔 — 더 코어 중앙, 프라임시티</text>`;
 
-    const h = legendY + 10 - startY;
+    const h = legendY + 12 - startY;
     const svg = `
-    ${sectionHeader("VENUE", startY + 15)}
+    ${sectionHeader("오시는 길", startY + 15)}
     ${zoneBars}
     ${legend}`;
     return { svg, height: h };
   }
 
   // ── [F] MODE COMMANDS ──
+  // [9] 소꿉친구 desc 수정
   function renderModes(startY) {
     const mainModes = [
       { icon: "🎤", name: "오디션", trigger: "메인 스토리", desc: "PPP 서바이벌 오디션", accent: "#c9a84c" },
@@ -777,7 +787,7 @@ function generateTablet(p) {
       { icon: "🔍", name: "디테일", trigger: "!디테일", desc: "감각 밀도 ×1.5", accent: "#c9a84c" },
       { icon: "⏩", name: "스킵", trigger: "!스킵", desc: "몽타주 시간 가속", accent: "#888" },
       { icon: "🕶️", name: "비하인드", trigger: "!비하인드", desc: "업계 이면 포커스", accent: "#7ba0d4" },
-      { icon: "💫", name: "소꿉친구", trigger: "!소꿉친구", desc: "장그루 배경 서사", accent: "#b07ad4" },
+      { icon: "💫", name: "소꿉친구", trigger: "!소꿉친구", desc: "장그루는 이제 당신의 소꿉친구입니다.", accent: "#b07ad4" },
     ];
 
     function modeCell(m, x, y, cellH) {
@@ -786,14 +796,14 @@ function generateTablet(p) {
         <rect x="${x}" y="${y}" width="${colW}" height="${cellH}" rx="4" fill="#141428" stroke="#2a2a3a" stroke-width="0.5"/>
         <text x="${x + 10}" y="${y + Math.round(cellH * 0.6)}" font-size="13" font-family="'Segoe UI Emoji','Apple Color Emoji',sans-serif">${m.icon}</text>
         <text x="${x + 32}" y="${y + 16}" fill="${m.accent}" font-size="10" font-weight="700" font-family="sans-serif">${m.name}</text>
-        <text x="${x + 32}" y="${y + 30}" fill="#777" font-size="8.5" font-family="sans-serif">${m.desc}</text>
-        <text x="${x + colW - 8}" y="${y + 14}" text-anchor="end" fill="#444" font-size="7" font-family="monospace" opacity="0.8">${m.trigger}</text>
+        <text x="${x + 32}" y="${y + 30}" fill="#777" font-size="9" font-family="sans-serif">${m.desc}</text>
+        <text x="${x + colW - 8}" y="${y + 14}" text-anchor="end" fill="#444" font-size="7.5" font-family="monospace" opacity="0.8">${m.trigger}</text>
       </g>`;
     }
 
     function renderGrid(modes, label, baseY, cellH) {
       const rowH = cellH + 6;
-      let svg = `<text x="${L}" y="${baseY}" fill="#666" font-size="8.5" font-weight="600" font-family="sans-serif" letter-spacing="1.5">${label}</text>`;
+      let svg = `<text x="${L}" y="${baseY}" fill="#666" font-size="9" font-weight="600" font-family="sans-serif" letter-spacing="1.5">${label}</text>`;
       modes.forEach((m, i) => {
         const row = Math.floor(i / 2);
         const col = i % 2;
@@ -812,7 +822,7 @@ function generateTablet(p) {
     cy += util.height;
 
     const noteY = cy + 2;
-    const note = `<text x="${L}" y="${noteY}" fill="#555" font-size="8" font-family="sans-serif">모드 활성화 시 상태창 🔧란에 해당 이모지가 유지됩니다</text>`;
+    const note = `<text x="${L}" y="${noteY}" fill="#555" font-size="9" font-family="sans-serif">모드 활성화 시 상태창 🔧란에 해당 이모지가 유지됩니다</text>`;
 
     const h = noteY + 14 - startY;
     const svg = `
@@ -825,16 +835,17 @@ function generateTablet(p) {
   // ── [G] NSFW ASSET TOGGLE ──
   function renderNsfwToggle(startY) {
     const boxY = startY + 6;
-    const boxH = 50;
+    const boxH = 52;
     const svg = `
     <rect x="${L}" y="${boxY}" width="${contentW}" height="${boxH}" rx="6" fill="#1a1020" stroke="#d46b8a" stroke-width="0.5" opacity="0.6"/>
-    <text x="${L + 16}" y="${boxY + 16}" fill="#d46b8a" font-size="9" font-weight="600" font-family="sans-serif">🔞 친밀 장면 진입 시 상태창에 🔞가 추가됩니다</text>
-    <text x="${L + 16}" y="${boxY + 30}" fill="#888" font-size="8" font-family="sans-serif">일상 복귀 시 자동 해제 · 이미지 DB: NSFW(20-42) + 삽입(50-67) + 착의(70-86)</text>
-    <text x="${L + 16}" y="${boxY + 42}" fill="#555" font-size="7.5" font-family="sans-serif">착의(70-86)는 Clothed NSFW — 성인 에셋이나 직관성을 위해 별도 표기</text>`;
+    <text x="${L + 16}" y="${boxY + 17}" fill="#d46b8a" font-size="10" font-weight="600" font-family="sans-serif">🔞 친밀 장면 진입 시 상태창에 🔞가 추가됩니다</text>
+    <text x="${L + 16}" y="${boxY + 32}" fill="#888" font-size="9" font-family="sans-serif">일상 복귀 시 자동 해제 · 이미지 DB: NSFW(20-42) + 삽입(50-67) + 착의(70-86)</text>
+    <text x="${L + 16}" y="${boxY + 44}" fill="#555" font-size="8" font-family="sans-serif">착의(70-86)는 Clothed NSFW — 성인 에셋이나 직관성을 위해 별도 표기</text>`;
     return { svg, height: boxH + 14 };
   }
 
   // ── [H] IMAGE OUTPUT ──
+  // [10] 글자 겹침 해소 + 전체 폰트 상향
   function renderImageOutput(startY) {
     const charLines = [
       { label: "APEX", codes: "SY  NHR  JSH" },
@@ -844,24 +855,28 @@ function generateTablet(p) {
       { label: "CONTESTANTS", codes: "JGR  MIL  ELA  MMR  HSE  NIA  RAY  LPS" },
     ];
 
-    let cy = startY + 30;
-    const cdnLine = `
-    <text x="${L}" y="${cy}" fill="#666" font-size="9" font-family="sans-serif">CDN: img.bluehair.blue/ent/</text>
-    <text x="${L + 168}" y="${cy}" fill="#c9a84c" font-size="9" font-family="monospace" font-weight="600">{CODE}/{NUM}</text>
-    <text x="${L + 250}" y="${cy}" fill="#666" font-size="9" font-family="monospace">.webp</text>
-    <text x="${R}" y="${cy}" text-anchor="end" fill="#555" font-size="8.5" font-family="sans-serif">15명 × 74 = 1,110장</text>`;
-    cy += 20;
+    let cy = startY + 32;
 
+    // CDN 경로 — 2줄로 분리
+    const cdnLine = `
+    <text x="${L}" y="${cy}" fill="#666" font-size="10" font-family="sans-serif">CDN: img.bluehair.blue/ent/</text>
+    <text x="${R}" y="${cy}" text-anchor="end" fill="#555" font-size="10" font-family="sans-serif">15명 × 74 = 1,110장</text>`;
+    cy += 18;
+    const cdnFormat = `
+    <text x="${L}" y="${cy}" fill="#c9a84c" font-size="10" font-family="monospace" font-weight="600">{CODE}/{NUM}.webp</text>`;
+    cy += 22;
+
+    // 소속사 코드표 — label과 codes 간격 확보
     const charSvg = charLines.map((c) => {
       const line = `
-      <text x="${L}" y="${cy}" fill="#555" font-size="7" font-weight="600" font-family="sans-serif" letter-spacing="1">${c.label}</text>
-      <text x="${L + 80}" y="${cy}" fill="#666" font-size="8.5" font-family="monospace">${c.codes}</text>`;
-      cy += 14;
+      <text x="${L}" y="${cy}" fill="#555" font-size="8" font-weight="600" font-family="sans-serif" letter-spacing="1">${c.label}</text>
+      <text x="${L + 90}" y="${cy}" fill="#666" font-size="9.5" font-family="monospace">${c.codes}</text>`;
+      cy += 18;
       return line;
     }).join("");
 
-    // Scene category bars
-    cy += 6;
+    // Scene category bars — 확대
+    cy += 8;
     const sceneCats = [
       { label: "감정 1–8", n: 8, color: "#c9a84c" },
       { label: "일상 10–18", n: 9, color: "#7ba0d4" },
@@ -875,32 +890,22 @@ function generateTablet(p) {
       const x = L + barOffset;
       barOffset += w;
       return `
-      <text x="${x + w / 2}" y="${cy}" text-anchor="middle" fill="${sc.color}" font-size="7" font-weight="600" font-family="sans-serif">${sc.label}</text>
-      <rect x="${x}" y="${cy + 4}" width="${w}" height="18" fill="${sc.color}" opacity="0.2"/>
-      <rect x="${x}" y="${cy + 4}" width="${w}" height="18" fill="none" stroke="${sc.color}" stroke-width="0.5" opacity="0.3"/>`;
+      <text x="${x + w / 2}" y="${cy}" text-anchor="middle" fill="${sc.color}" font-size="8" font-weight="600" font-family="sans-serif">${sc.label}</text>
+      <rect x="${x}" y="${cy + 5}" width="${w}" height="22" fill="${sc.color}" opacity="0.2"/>
+      <rect x="${x}" y="${cy + 5}" width="${w}" height="22" fill="none" stroke="${sc.color}" stroke-width="0.5" opacity="0.3"/>`;
     }).join("");
-    const barEnd = `<text x="${L + barW + 8}" y="${cy + 16}" fill="#555" font-size="8" font-family="sans-serif">74/char</text>`;
-    cy += 30;
+    const barEnd = `<text x="${L + barW + 8}" y="${cy + 18}" fill="#555" font-size="9" font-family="sans-serif">74/char</text>`;
+    cy += 36;
 
     const h = cy - startY;
     const svg = `
     ${sectionHeader("IMAGE OUTPUT SYSTEM", startY + 15)}
     ${cdnLine}
+    ${cdnFormat}
     ${charSvg}
     ${sceneBars}
     ${barEnd}`;
     return { svg, height: h };
-  }
-
-  // ── [I] SITE LINK ──
-  function renderSiteLink(startY) {
-    const boxY = startY + 4;
-    const svg = `
-    <rect x="${L}" y="${boxY}" width="${contentW}" height="32" rx="6" fill="#141428" stroke="#c9a84c" stroke-width="0.8" opacity="0.7"/>
-    <text x="${L + 16}" y="${boxY + 14}" fill="#c9a84c" font-size="9" font-weight="600" font-family="sans-serif">Prime City 소개 사이트</text>
-    <text x="${R - 16}" y="${boxY + 14}" text-anchor="end" fill="#888" font-size="8.5" font-family="monospace">→</text>
-    <text x="210" y="${boxY + 26}" text-anchor="middle" fill="#7ba0d4" font-size="9" font-family="monospace">https://intro.bluehair.blue</text>`;
-    return { svg, height: 44 };
   }
 
   // ── [J] FOOTER ──
@@ -909,7 +914,7 @@ function generateTablet(p) {
     const svg = `
     <rect x="${L}" y="${warnY}" width="${contentW}" height="36" rx="6" fill="#1a1028" stroke="#c9a84c" stroke-width="0.5" opacity="0.6"/>
     <text x="210" y="${warnY + 14}" text-anchor="middle" fill="#c9a84c" font-size="9" font-weight="600" font-family="sans-serif" opacity="0.8">⚠ 본 문서는 심사위원 전용 브리핑입니다</text>
-    <text x="210" y="${warnY + 28}" text-anchor="middle" fill="#666" font-size="8.5" font-family="sans-serif">무단 유출 시 프라임시티 방송위원회 규정에 의거하여 제재됩니다</text>
+    <text x="210" y="${warnY + 28}" text-anchor="middle" fill="#666" font-size="9" font-family="sans-serif">무단 유출 시 프라임시티 방송위원회 규정에 의거하여 제재됩니다</text>
     <text x="210" y="${warnY + 52}" text-anchor="middle" fill="#444" font-size="8" font-family="sans-serif">© PPP Operating Committee · Prime City Broadcasting Authority</text>`;
     return { svg, height: 66 };
   }
@@ -919,37 +924,36 @@ function generateTablet(p) {
   // ══════════════════════════════════════════════
 
   const header = renderHeader();
-  let curY = header.height + 10;
+  let curY = header.height + 12;
 
   const briefing = renderBriefing(curY);
   curY += briefing.height + SEC_GAP;
 
-  const divBriefing = divider(curY - 10);
+  const divBriefing = divider(curY - 12);
   const judges = renderJudges(curY);
   curY += judges.height + SEC_GAP;
 
-  const divJudges = divider(curY - 10);
+  const divJudges = divider(curY - 12);
   const rounds = renderRounds(curY);
   curY += rounds.height + SEC_GAP;
 
-  const divRounds = divider(curY - 10);
+  const divRounds = divider(curY - 12);
   const venue = renderVenueMap(curY);
   curY += venue.height + SEC_GAP;
 
-  const divVenue = divider(curY - 10);
+  const divVenue = divider(curY - 12);
   const modes = renderModes(curY);
   curY += modes.height + SEC_GAP;
 
-  const divModes = divider(curY - 10);
+  const divModes = divider(curY - 12);
   const nsfwToggle = renderNsfwToggle(curY);
   curY += nsfwToggle.height + SEC_GAP;
 
-  const divNsfw = divider(curY - 10);
+  const divNsfw = divider(curY - 12);
   const imageOutput = renderImageOutput(curY);
   curY += imageOutput.height + SEC_GAP;
 
-  const siteLink = renderSiteLink(curY);
-  curY += siteLink.height + 10;
+  // [11] site link 섹션 제거 — 별도 이미지+하이퍼링크로 대체
 
   const footer = renderFooter(curY);
   curY += footer.height + 10;
@@ -1008,7 +1012,6 @@ function generateTablet(p) {
     ${nsfwToggle.svg}
     ${divNsfw}
     ${imageOutput.svg}
-    ${siteLink.svg}
     ${footer.svg}
 
     <!-- Corner brackets -->
