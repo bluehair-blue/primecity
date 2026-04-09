@@ -62,8 +62,9 @@
     "url": "![](https://img.bluehair.blue/ent/{캐릭터코드}/{상황코드}.webp)",
     "codes": "SY,NHR,JSH,ERK,LSH,HSR,KHR,JGR,MIL,ELA,MMR,HSE,NIA,RAY,LPS",
     "db": {
-      "감정": "1=angry, 2=contempt, 3=happy, 4=sad, 5=shy, 6=smirk, 7=surprised, 8=troubled",
-      "일상": "10=normal-chat, 11=undressing-seduction, 12=drinking, 13=dining-chat, 14=cafe-chat, 15=cinema-chat, 16=christmas-date, 17=wedding, 18=pregnant"
+      "감정": "1=angry, 2=contempt, 3=happy, 4=sad, 5=shy, 6=smirk, 7=surprised, 8=troubled, 9=neutral",
+      "일상": "10=normal-chat, 11=undressing-seduction, 12=drinking, 13=dining-chat, 14=cafe-chat, 15=cinema-chat, 16=christmas-date, 17=wedding, 18=pregnant, 19=sleeping",
+      "무대": "93=stage-performance, 94=stage-group, 95=backstage, 96=off-stage"
     },
     "intimate": "키스, 신체 접촉, 유혹, 성행위 조짐 등 NSFW 상황이 전개될 경우 상태창 🔧 모드란 옆에 🔞를 삽입한다. 예: 🔧 🎤 🔞",
     "intimate_off": "NSFW 상황이 종료되면(사후 대화, 일상 복귀 등) 🔞를 상태창에서 제거한다.",

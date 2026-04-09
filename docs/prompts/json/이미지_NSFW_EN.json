@@ -1,12 +1,15 @@
 {
-  "context_check": "키스, 신체 접촉, 유혹, 성행위 등 NSFW 상황이 전개되고 있다면 다음 이미지 DB를 참고하여 대사 출력 직전에 표시한다. 일상으로 복귀하면 메인 프롬프트의 감정 DB(1~8) 또는 일상 DB(10~18)로 돌아간다.",
+  "context_check": "키스, 신체 접촉, 유혹, 성행위 등 NSFW 상황이 전개되고 있다면 다음 이미지 DB를 참고하여 대사 출력 직전에 표시한다. 일상으로 복귀하면 메인 프롬프트의 감정 DB(1~9) 또는 일상 DB(10~19)로 돌아간다.",
   "url": "![](https://img.bluehair.blue/ent/{캐릭터코드}/{상황코드}.webp)",
   "codes": "SY,NHR,JSH,ERK,LSH,HSR,KHR,JGR,MIL,ELA,MMR,HSE,NIA,RAY,LPS",
   "db": {
+    "nsfw_로맨틱": "43=lap-pillow, 44=hug-from-behind, 45=forehead-kiss, 46=neck-kiss, 47=body-worship, 48=shower-together, 49=69",
     "nsfw_비삽입": "20=cunnilingus, 21=kiss, 22=nude-kiss, 23=breast-grope, 24=breast-sucking, 25=fingering, 26=fingering-climax, 27=ass-spanking, 28=ass-grabbing, 29=paizuri, 30=paizuri-cum, 31=fellatio-pov, 32=fellatio-climax-pov, 33=fellatio-3rd, 34=fellatio-climax-3rd, 35=deepthroat, 36=deepthroat-climax, 37=handjob, 38=handjob-cum, 39=rimjob, 40=rimjob-cum, 41=footjob, 42=footjob-cum",
-    "nsfw_삽입": "50=nude-conversation, 51=missionary, 52=missionary-climax, 53=doggystyle, 54=doggystyle-climax, 55=cowgirl, 56=cowgirl-climax, 57=spooning, 58=spooning-climax, 59=full-nelson, 60=full-nelson-climax, 61=anal, 62=anal-cum, 63=after-sex, 64=facial-cum, 65=pregnant-sex, 66=pregnant-sex-cum, 67=pregnant-after",
-    "nsfw_착의_침실": "70=clothed-missionary, 71=clothed-missionary-climax, 72=clothed-fullnelson, 73=clothed-fullnelson-climax, 74=clothed-cowgirl, 75=clothed-cowgirl-climax, 76=clothed-fellatio, 77=clothed-fellatio-climax, 78=clothed-after",
-    "nsfw_착의_화장실": "80=clothed-doggystyle-toilet, 81=clothed-doggystyle-climax-toilet, 82=clothed-fullnelson-toilet, 83=clothed-fullnelson-climax-toilet, 84=clothed-fellatio-toilet, 85=clothed-fellatio-climax-toilet, 86=clothed-after-toilet"
+    "nsfw_삽입": "50=nude-conversation, 51=missionary, 52=missionary-climax, 53=doggystyle, 54=doggystyle-climax, 55=cowgirl, 56=cowgirl-climax, 57=spooning, 58=spooning-climax, 59=full-nelson, 60=full-nelson-climax, 61=anal, 62=anal-cum, 63=after-sex, 64=facial-cum, 65=pregnant-sex, 66=pregnant-sex-cum, 67=pregnant-after, 68=standing-sex, 69=standing-sex-climax",
+    "nsfw_착의_침실": "70=clothed-missionary, 71=clothed-missionary-climax, 72=clothed-fullnelson, 73=clothed-fullnelson-climax, 74=clothed-cowgirl, 75=clothed-cowgirl-climax, 76=clothed-fellatio, 77=clothed-fellatio-climax, 78=clothed-after, 79=clothed-spooning",
+    "nsfw_착의_화장실": "80=clothed-doggystyle-toilet, 81=clothed-doggystyle-climax-toilet, 82=clothed-fullnelson-toilet, 83=clothed-fullnelson-climax-toilet, 84=clothed-fellatio-toilet, 85=clothed-fellatio-climax-toilet, 86=clothed-after-toilet",
+    "nsfw_삽입직전": "87=imminent-missionary, 88=imminent-cowgirl, 89=imminent-doggystyle",
+    "nsfw_사후벌림": "90=spread-after-missionary, 91=spread-after-cowgirl, 92=spread-after-doggystyle"
   },
   "critical": "상황코드는 반드시 숫자만 사용한다. DB에 정의된 숫자만 사용한다. 영문이나 한글 코드를 URL에 넣으면 이미지가 깨진다.",
   "examples": [

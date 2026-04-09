@@ -31,6 +31,7 @@
     "16": "clothed",
     "17": "clothed",
     "18": "nude",
+    "19": "clothed",
     "20": "nude",
     "21": "nude",
     "22": "nude",
@@ -54,6 +55,13 @@
     "40": "nude",
     "41": "nude",
     "42": "nude",
+    "43": "clothed",
+    "44": "clothed",
+    "45": "clothed",
+    "46": "nude",
+    "47": "nude",
+    "48": "nude",
+    "49": "nude",
     "50": "nude",
     "51": "nude",
     "52": "nude",
@@ -72,6 +80,8 @@
     "65": "nude",
     "66": "nude",
     "67": "nude",
+    "68": "nude",
+    "69": "nude",
     "70": "clothed",
     "71": "clothed",
     "72": "clothed",
@@ -81,6 +91,7 @@
     "76": "clothed",
     "77": "clothed",
     "78": "clothed",
+    "79": "clothed",
     "80": "clothed",
     "81": "clothed",
     "82": "clothed",
@@ -88,6 +99,16 @@
     "84": "clothed",
     "85": "clothed",
     "86": "clothed",
+    "87": "nude",
+    "88": "nude",
+    "89": "nude",
+    "90": "nude",
+    "91": "nude",
+    "92": "nude",
+    "93": "clothed",
+    "94": "clothed",
+    "95": "clothed",
+    "96": "clothed",
     "901": "clothed",
     "902": "clothed",
     "903": "clothed",
@@ -317,6 +338,13 @@
       "male_prompt": "",
       "_old_prompt": "very aesthetic, masterpiece, bedroom, soft lighting, 0.6::pregnant::, maternal, gentle smile, hand on belly, looking at viewer, "
     },
+    "19": {
+      "name": "sleeping",
+      "width": 1216,
+      "height": 832,
+      "female_prompt": "very aesthetic, masterpiece, bedroom, on bed, sleeping, eyes closed, lying, peaceful, blanket, pillow, soft lighting",
+      "male_prompt": ""
+    },
     "20": {
       "name": "cunnilingus",
       "width": 1216,
@@ -501,6 +529,55 @@
       "male_prompt": "",
       "_old_prompt": "normal quality, bedroom, straight on, footjob, trembling, cum, overflow, cum on breasts, blush, open mouth, "
     },
+    "43": {
+      "name": "lap-pillow",
+      "width": 832,
+      "height": 1216,
+      "female_prompt": "normal quality, lap pillow, thighs, sitting, smile, looking down, pov, head on lap, gentle",
+      "male_prompt": ""
+    },
+    "44": {
+      "name": "hug-from-behind",
+      "width": 1216,
+      "height": 832,
+      "female_prompt": "normal quality, hug from behind, blush, closed eyes, smile",
+      "male_prompt": "1boy, black hair, hair over eyes"
+    },
+    "45": {
+      "name": "forehead-kiss",
+      "width": 1216,
+      "height": 832,
+      "female_prompt": "normal quality, close-up, face focus, forehead kiss, closed eyes, gentle, blush",
+      "male_prompt": ""
+    },
+    "46": {
+      "name": "neck-kiss",
+      "width": 1216,
+      "height": 832,
+      "female_prompt": "normal quality, from side, neck kiss, collarbone, blush, closed eyes, head tilt",
+      "male_prompt": ""
+    },
+    "47": {
+      "name": "body-worship",
+      "width": 832,
+      "height": 1216,
+      "female_prompt": "normal quality, from above, lying, on bed, nude, arms above head, blush, looking at viewer, seductive smile",
+      "male_prompt": ""
+    },
+    "48": {
+      "name": "shower-together",
+      "width": 832,
+      "height": 1216,
+      "female_prompt": "normal quality, shower, bathroom, wet body, wet hair, steam, nude, from side, blush, standing",
+      "male_prompt": "1boy, black hair, hair over eyes"
+    },
+    "49": {
+      "name": "69",
+      "width": 1216,
+      "height": 832,
+      "female_prompt": "normal quality, 69, from side, bedroom, oral, wet body, blush",
+      "male_prompt": "1boy, black hair, hair over eyes"
+    },
     "50": {
       "name": "nude-conversation",
       "width": 1216,
@@ -645,6 +722,20 @@
       "male_prompt": "",
       "_old_prompt": "normal quality, bedroom, from above, lying, on back, spread legs, spooning, 0.6::pregnant::, after sex, afterglow, wet body, lactation, cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, smile, open mouth, "
     },
+    "68": {
+      "name": "standing-sex",
+      "width": 832,
+      "height": 1216,
+      "female_prompt": "normal quality, bedroom, standing sex, against wall, leg lift, from side, wet body, sex, penis, blush, open mouth",
+      "male_prompt": "1boy, black hair, hair over eyes"
+    },
+    "69": {
+      "name": "standing-sex-climax",
+      "width": 832,
+      "height": 1216,
+      "female_prompt": "normal quality, bedroom, standing sex, against wall, leg lift, from side, wet body, sex, penis, cum in pussy, overflow, trembling, heart-shaped pupils, ahegao, tongue out, open mouth",
+      "male_prompt": "1boy, black hair, hair over eyes"
+    },
     "70": {
       "name": "clothed-missionary-bedroom",
       "width": 1216,
@@ -717,6 +808,13 @@
       "male_prompt": "",
       "_old_prompt": "normal quality, bedroom, from above, lying, spread legs, spooning, clothed sex, after sex, afterglow, wet body, cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, double v, smile, open mouth, "
     },
+    "79": {
+      "name": "clothed-spooning-bedroom",
+      "width": 1216,
+      "height": 832,
+      "female_prompt": "normal quality, bedroom, from side, lying, on side, spooning, leg lift, female focus, clothed sex, wet body, sex, penis, blush, open mouth",
+      "male_prompt": "1boy, black hair, hair over eyes"
+    },
     "80": {
       "name": "clothed-doggystyle-toilet",
       "width": 1216,
@@ -773,6 +871,76 @@
       "male_prompt": "pov, large penis",
       "_old_prompt": "normal quality, bathroom stall, toilet, from above, lying, spread legs, spooning, pov, large penis, clothed sex, after sex, afterglow, wet body, cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, double v, smile, open mouth, "
     },
+    "87": {
+      "name": "imminent-missionary",
+      "width": 832,
+      "height": 1216,
+      "female_prompt": "normal quality, on bed, 2::lying, on back, lying on pillow::, missionary, seductive smile, looking at viewer, 1.5::penis on stomach, pussy juice, pussy juice trail::, legs apart, imminent penetration",
+      "male_prompt": ""
+    },
+    "88": {
+      "name": "imminent-cowgirl",
+      "width": 832,
+      "height": 1216,
+      "female_prompt": "normal quality, pov crotch, kneeling, parted lips, cowgirl position, imminent penetration, just the tip, looking at penis, 2::pussy juice, pussy juice trail::, hands on another's stomach, tongue out",
+      "male_prompt": ""
+    },
+    "89": {
+      "name": "imminent-doggystyle",
+      "width": 832,
+      "height": 1216,
+      "female_prompt": "normal quality, from above, from behind, 2::embarrassed, imminent penetration, just the tip, penis, doggystyle::, 2::pussy juice, pussy juice trail::, parted lips, ass focus, pillow, white bed",
+      "male_prompt": ""
+    },
+    "90": {
+      "name": "spread-after-missionary",
+      "width": 832,
+      "height": 1216,
+      "female_prompt": "normal quality, on bed, 2::from above, lying, on back::, 2::seductive smile, looking at viewer::, 2::spread pussy, spreading own pussy, cum in pussy::, 2::pussy juice, pussy juice trail, cum overflow::, very sweaty, wet hair, heart, flustered",
+      "male_prompt": ""
+    },
+    "91": {
+      "name": "spread-after-cowgirl",
+      "width": 832,
+      "height": 1216,
+      "female_prompt": "normal quality, pov crotch, 2::spread pussy, spreading own pussy, cum in pussy::, cowgirl position, 2::looking down, seductive smile::, open mouth, steaming body, flustered, 2::very sweaty, wet hair, head tilt, saliva trail::, arched back",
+      "male_prompt": ""
+    },
+    "92": {
+      "name": "spread-after-doggystyle",
+      "width": 832,
+      "height": 1216,
+      "female_prompt": "normal quality, from above, 2::ass focus, flustered, cum in pussy, doggystyle, spread pussy::, 2::pussy juice, pussy juice trail, cum overflow::, spreading own pussy, pillow, 2::seductive smile::, heart, 2::very sweaty, wet hair::, nipples",
+      "male_prompt": ""
+    },
+    "93": {
+      "name": "stage-performance",
+      "width": 832,
+      "height": 1216,
+      "female_prompt": "very aesthetic, masterpiece, stage, spotlight, performing, dramatic lighting, crowd silhouette, concert, full body, bokeh",
+      "male_prompt": ""
+    },
+    "94": {
+      "name": "stage-group",
+      "width": 1216,
+      "height": 832,
+      "female_prompt": "very aesthetic, masterpiece, stage, group performance, formation, dramatic lighting, concert, spotlight, crowd silhouette, synchronized, full body, bokeh",
+      "male_prompt": ""
+    },
+    "95": {
+      "name": "backstage",
+      "width": 1216,
+      "height": 832,
+      "female_prompt": "very aesthetic, masterpiece, backstage, mirror, vanity, preparing, nervous, determination, dressing room, warm lighting",
+      "male_prompt": ""
+    },
+    "96": {
+      "name": "off-stage",
+      "width": 1216,
+      "height": 832,
+      "female_prompt": "very aesthetic, masterpiece, casual, relaxed, off duty, natural lighting",
+      "male_prompt": ""
+    },
     "901": {
       "name": "svg-avatar",
       "female_prompt": "very aesthetic, masterpiece, close-up, face focus, portrait, looking at viewer, smile, soft lighting",
@@ -824,14 +992,127 @@
   },
   "character_scene_overrides": {
     "NHR": {
-      "remove_tags": [
-        "double v"
-      ]
+      "remove_tags": ["double v"],
+      "93": {
+        "female_prompt": "very aesthetic, masterpiece, stage, spotlight, standing, commanding presence, one hand raised, mysterious aura, backlit, dramatic lighting, crowd silhouette, full body, bokeh"
+      },
+      "96": {
+        "female_prompt": "very aesthetic, masterpiece, dark office, monitor glow, sitting, leaning back, mysterious, documents, chess piece on desk, scheming"
+      }
     },
     "JSH": {
-      "remove_tags": [
-        "double v"
-      ]
+      "remove_tags": ["double v"],
+      "93": {
+        "female_prompt": "very aesthetic, masterpiece, stage, spotlight, standing, microphone, announcing, serious, formal suit, dramatic lighting, crowd silhouette, presentation, full body, bokeh"
+      },
+      "96": {
+        "female_prompt": "very aesthetic, masterpiece, office, desk, reviewing documents, serious, pen in hand, organized, professional, warm desk lamp"
+      }
+    },
+    "SY": {
+      "93": {
+        "female_prompt": "very aesthetic, masterpiece, center stage, spotlight, microphone, singing, elegant, confident, arms spread, wind effect, dramatic lighting, crowd silhouette, concert, full body, bokeh"
+      },
+      "96": {
+        "female_prompt": "very aesthetic, masterpiece, luxury lounge, elegant, sitting, legs crossed, window, city night view, wine glass, contemplative"
+      }
+    },
+    "ERK": {
+      "93": {
+        "female_prompt": "very aesthetic, masterpiece, stage, spotlight, headphones around neck, standing behind turntable, focused, dramatic lighting, crowd silhouette, concert, neon lights, full body, bokeh"
+      },
+      "96": {
+        "female_prompt": "very aesthetic, masterpiece, recording studio, mixing console, headphones, focused, monitor glow, soundproof room, professional"
+      }
+    },
+    "LSH": {
+      "93": {
+        "female_prompt": "very aesthetic, masterpiece, stage, spotlight, piano, playing piano, contemplative, glasses, dramatic lighting, concert, grand piano, elegant, full body, bokeh"
+      },
+      "96": {
+        "female_prompt": "very aesthetic, masterpiece, home studio, messy room, composing, laptop, headphones, glasses, tired eyes, coffee cup, sheet music scattered"
+      }
+    },
+    "HSR": {
+      "93": {
+        "female_prompt": "very aesthetic, masterpiece, stage, spotlight, standing, microphone, speech, determined, formal suit, dramatic lighting, crowd silhouette, presentation, full body, bokeh"
+      },
+      "96": {
+        "female_prompt": "very aesthetic, masterpiece, office, late night, desk, phone, documents, exhausted, dark circles, coffee cup, desk lamp, determined"
+      }
+    },
+    "KHR": {
+      "93": {
+        "female_prompt": "very aesthetic, masterpiece, stage, spotlight, dancing, dynamic pose, sweat, passionate, powerful, dramatic lighting, crowd silhouette, concert, full body, bokeh"
+      },
+      "96": {
+        "female_prompt": "very aesthetic, masterpiece, practice room, mirror, stretching, sweat, towel around neck, water bottle, determined, wooden floor"
+      }
+    },
+    "JGR": {
+      "93": {
+        "_skip": true,
+        "_note": "JGR already has live scene asset"
+      },
+      "96": {
+        "female_prompt": "very aesthetic, masterpiece, park bench, writing in notebook, peaceful, wind, autumn leaves, contemplative, old notebook, pen"
+      }
+    },
+    "MIL": {
+      "93": {
+        "female_prompt": "very aesthetic, masterpiece, stage, spotlight, guitar, singing, casual, standing, carefree, smile, dramatic lighting, crowd silhouette, acoustic, full body, bokeh"
+      },
+      "96": {
+        "female_prompt": "very aesthetic, masterpiece, rooftop, sitting on edge, guitar, sunset, wind, cityscape, carefree, humming, relaxed"
+      }
+    },
+    "ELA": {
+      "93": {
+        "female_prompt": "very aesthetic, masterpiece, stage, spotlight, dancing, hair flip, glamorous, elegant, dramatic lighting, crowd silhouette, concert, confident, full body, bokeh"
+      },
+      "96": {
+        "female_prompt": "very aesthetic, masterpiece, fashion magazine shoot, posing, professional camera, flash, confident, stylish outfit, studio"
+      }
+    },
+    "MMR": {
+      "93": {
+        "female_prompt": "very aesthetic, masterpiece, stage, spotlight, microphone, singing, wink, peace sign, energetic, cute, dramatic lighting, crowd silhouette, concert, full body, bokeh"
+      },
+      "96": {
+        "female_prompt": "very aesthetic, masterpiece, cafe, phone, taking selfie, wink, cute, colorful drink, window seat, bright, cheerful"
+      }
+    },
+    "HSE": {
+      "93": {
+        "female_prompt": "very aesthetic, masterpiece, stage, spotlight, dancing, focused, determined, precise, graceful, dramatic lighting, crowd silhouette, concert, full body, bokeh"
+      },
+      "96": {
+        "female_prompt": "very aesthetic, masterpiece, library, studying, notebook, pen, focused, quiet, warm lighting, bookshelf, alone, diligent"
+      }
+    },
+    "NIA": {
+      "93": {
+        "female_prompt": "very aesthetic, masterpiece, stage, spotlight, gripping microphone, singing, nervous, trembling, first performance, dramatic lighting, small crowd, intimate venue, full body, bokeh"
+      },
+      "96": {
+        "female_prompt": "very aesthetic, masterpiece, garden, bench, reading, peaceful, flowers, sunlight, gentle breeze, contemplative, elegant"
+      }
+    },
+    "RAY": {
+      "93": {
+        "female_prompt": "very aesthetic, masterpiece, stage, spotlight, dancing, ballet, graceful, flowing movement, leg up, arms extended, dramatic lighting, crowd silhouette, concert, full body, bokeh"
+      },
+      "96": {
+        "female_prompt": "very aesthetic, masterpiece, gym, stretching, athletic, determined, mirror, sports outfit, towel, water bottle, focused"
+      }
+    },
+    "LPS": {
+      "93": {
+        "female_prompt": "very aesthetic, masterpiece, stage, spotlight, DJ booth, turntable, headphones, mixing, one hand raised, neon lights, dramatic lighting, crowd silhouette, concert, full body, bokeh"
+      },
+      "96": {
+        "female_prompt": "very aesthetic, masterpiece, music shop, browsing vinyl records, headphones around neck, curious, colorful, shelves, indie"
+      }
     }
   }
 }
