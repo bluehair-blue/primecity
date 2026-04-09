@@ -170,8 +170,19 @@ def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str
     female_scene = scene.get("female_prompt", "")
     male_caption = scene.get("male_prompt", "")
 
-    # Apply per-character overrides (e.g., remove "double v" for NHR/JSH)
+    # Apply per-character overrides
     overrides = config.get("character_scene_overrides", {}).get(char_code, {})
+
+    # Per-scene override: replace entire female_prompt for this character+scene
+    scene_ovr = overrides.get(str(scene_num), {})
+    if scene_ovr.get("_skip"):
+        return None  # Signal caller to skip this scene
+    if scene_ovr.get("female_prompt"):
+        female_scene = scene_ovr["female_prompt"]
+    if scene_ovr.get("male_prompt") is not None and str(scene_num) in overrides:
+        male_caption = scene_ovr.get("male_prompt", male_caption)
+
+    # Global remove_tags (e.g., remove "double v" for NHR/JSH)
     remove_tags = overrides.get("remove_tags", [])
     for tag in remove_tags:
         female_scene = female_scene.replace(f", {tag},", ",").replace(f", {tag}", "").replace(f"{tag}, ", "")
@@ -376,7 +387,12 @@ def _generate_one(token: str, config: dict, state: dict,
     for attempt in range(1, MAX_RETRIES + 1):
         try:
             scene_name = config["scenes"][str(scene_num)]["name"]
-            base_prompt, female_cap, male_cap, w, h = build_prompt(config, char_code, scene_num)
+            result = build_prompt(config, char_code, scene_num)
+            if result is None:
+                log.info(f"  Skipped {char_code}/{scene_num} (override _skip)")
+                mark_completed(state, char_code, scene_num)
+                return True
+            base_prompt, female_cap, male_cap, w, h = result
             log.info(f"  Generating {char_code}/{scene_num}.webp ({scene_name}) (attempt {attempt})")
 
             img = call_nai_api(token, base_prompt, female_cap, male_cap, negative, w, h)
@@ -447,7 +463,11 @@ def generate_batch(token, config, state, char_codes=None, scene_nums=None,
 
         if dry_run:
             scene_name = config["scenes"][scene_key]["name"]
-            base_prompt, female_cap, male_cap, w, h = build_prompt(config, char_code, scene_num)
+            result = build_prompt(config, char_code, scene_num)
+            if result is None:
+                log.info(f"  [{done}/{total}] DRY-RUN {char_code}/{scene_num} — SKIPPED (override)")
+                continue
+            base_prompt, female_cap, male_cap, w, h = result
             log.info(f"  [{done}/{total}] DRY-RUN {char_code}/{scene_num} ({scene_name}) {w}×{h}")
             log.info(f"    base:    {base_prompt[:80]}...")
             log.info(f"    female:  {female_cap[:80]}...")
