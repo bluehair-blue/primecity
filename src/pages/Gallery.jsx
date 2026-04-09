@@ -24,11 +24,12 @@ const CHAR_CODES = [
 
 const SCENE_CATEGORIES = [
   { label: "감정", en: "Emotion", range: "1–9", count: 9, accent: C.gold },
-  { label: "일상", en: "Daily", range: "10–19", count: 10, accent: C.distMid },
+  { label: "일상", en: "Daily", range: "10–18", count: 9, accent: C.distMid },
   { label: "NSFW", en: "추가 예정!", range: "20–69", count: "추가 예정!", accent: C.distHype },
   { label: "착의", en: "추가 예정!", range: "70–86", count: "추가 예정!", accent: C.distHype },
-  { label: "확장", en: "Extended", range: "87–92", count: "추가 예정!", accent: C.distHype },
-  { label: "무대", en: "Stage", range: "93–96", count: 4, accent: C.distMid },
+  { label: "확장", en: "추가 예정!", range: "87–92", count: "추가 예정!", accent: C.distHype },
+  { label: "무대", en: "추가 예정!", range: "93–96", count: "추가 예정!", accent: C.distHype },
+  { label: "SVG", en: "Tablet Art", range: "4 per char", count: 60, accent: C.blue },
 ];
 
 function ImageSystemInfo({ isMobile }) {
@@ -98,7 +99,7 @@ function ImageSystemInfo({ isMobile }) {
           {/* Scene code categories */}
           <div>
             <span style={{ fontFamily: "var(--f-display-en)", fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: C.gold }}>
-              Scene Codes — 74 per character
+              Scene Codes — 75 per character + SVG 4
             </span>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 8, marginTop: 8 }}>
               {SCENE_CATEGORIES.map((sc) => (
