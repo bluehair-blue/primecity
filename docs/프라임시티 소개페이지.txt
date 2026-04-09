@@ -114,8 +114,8 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <!-- Update Notice -->
 <div style="padding:24px;text-align:center;background:linear-gradient(135deg,oklch(0.76 0.12 80/0.08),oklch(0.62 0.20 252/0.06));border-top:1px solid oklch(0.76 0.12 80/0.15);border-bottom:1px solid oklch(0.76 0.12 80/0.15);">
 <div style="font-family:serif;font-size:13px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Coming Soon</div>
-<div style="font-family:serif;font-size:22px;font-weight:600;color:var(--txt);margin-bottom:8px;word-break:keep-all;">NSFW 이미지 1,170장 추가 예정!</div>
-<div style="font-size:15px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;max-width:480px;margin:0 auto;">고퀄리티 NSFW · 확장 이미지가 곧 업데이트됩니다.<br>첫 번째 업데이트를 기대해 주세요.</div>
+<div style="font-family:serif;font-size:22px;font-weight:600;color:var(--txt);margin-bottom:8px;word-break:keep-all;">NSFW 이미지 1,095장 추가 예정!</div>
+<div style="font-size:15px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;max-width:480px;margin:0 auto;">고퀄리티 NSFW · 착의 · 확장 이미지가 곧 업데이트됩니다.<br>첫 번째 업데이트를 기대해 주세요.</div>
 </div>
 <!-- About -->
 <div class="w">
@@ -367,7 +367,7 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div style="padding:8px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:15px;color:oklch(1.0 0 0/0.6);">감정</div><div style="font-family:monospace;font-size:14px;color:var(--gold);">1–9 <span style="color:var(--txt-dim);">· 9장</span></div></div>
 <div style="padding:8px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:15px;color:oklch(1.0 0 0/0.6);">일상</div><div style="font-family:monospace;font-size:14px;color:var(--blue);">10–19 <span style="color:var(--txt-dim);">· 10장</span></div></div>
 <div style="padding:8px 10px;background:oklch(0.76 0.12 80/0.06);border:1px solid oklch(0.76 0.12 80/0.15);"><div style="font-size:15px;color:oklch(0.76 0.12 80);">NSFW</div><div style="font-family:monospace;font-size:14px;color:oklch(0.76 0.12 80);font-weight:600;">추가 예정!</div></div>
-<div style="padding:8px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:15px;color:oklch(1.0 0 0/0.6);">착의</div><div style="font-family:monospace;font-size:14px;color:oklch(0.72 0.10 170);">70–86 <span style="color:var(--txt-dim);">· 17장</span></div></div>
+<div style="padding:8px 10px;background:oklch(0.76 0.12 80/0.06);border:1px solid oklch(0.76 0.12 80/0.15);"><div style="font-size:15px;color:oklch(0.76 0.12 80);">착의</div><div style="font-family:monospace;font-size:14px;color:oklch(0.76 0.12 80);font-weight:600;">추가 예정!</div></div>
 <div style="padding:8px 10px;background:oklch(0.76 0.12 80/0.06);border:1px solid oklch(0.76 0.12 80/0.15);"><div style="font-size:15px;color:oklch(0.76 0.12 80);">확장</div><div style="font-family:monospace;font-size:14px;color:oklch(0.76 0.12 80);font-weight:600;">추가 예정!</div></div>
 <div style="padding:8px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:15px;color:oklch(1.0 0 0/0.6);">무대</div><div style="font-family:monospace;font-size:14px;color:oklch(0.65 0.10 240);">93–96 <span style="color:var(--txt-dim);">· 4장</span></div></div>
 </div>

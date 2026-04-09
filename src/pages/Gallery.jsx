@@ -26,7 +26,7 @@ const SCENE_CATEGORIES = [
   { label: "감정", en: "Emotion", range: "1–9", count: 9, accent: C.gold },
   { label: "일상", en: "Daily", range: "10–19", count: 10, accent: C.distMid },
   { label: "NSFW", en: "추가 예정!", range: "20–69", count: "추가 예정!", accent: C.distHype },
-  { label: "착의", en: "Clothed", range: "70–86", count: 17, accent: C.charEri },
+  { label: "착의", en: "추가 예정!", range: "70–86", count: "추가 예정!", accent: C.distHype },
   { label: "확장", en: "Extended", range: "87–92", count: "추가 예정!", accent: C.distHype },
   { label: "무대", en: "Stage", range: "93–96", count: 4, accent: C.distMid },
 ];
@@ -606,7 +606,7 @@ export default function Gallery() {
                     NSFW 이미지 추가 예정!
                   </p>
                   <p style={{ fontFamily: "var(--f-body)", fontSize: 14, color: C.text55, lineHeight: 1.8, marginBottom: 28, wordBreak: "keep-all" }}>
-                    고퀄리티 NSFW 이미지 <span style={{ color: C.gold, fontWeight: 600 }}>1,170장</span>이<br />
+                    고퀄리티 NSFW 이미지 <span style={{ color: C.gold, fontWeight: 600 }}>1,095장</span>이<br />
                     곧 업데이트됩니다. 기대해 주세요!
                   </p>
                   <button
