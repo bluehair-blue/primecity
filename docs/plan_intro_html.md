@@ -136,11 +136,13 @@ NSFW 20-69 · 50장
 
 ## 4. 구현 순서
 
-- [ ] Hero: 프로그램명 수정
-- [ ] 전체: `?v=2` → `?v=3` 일괄 교체
-- [ ] Characters: 11명 썸네일 이미지 교체
-- [ ] World Building: 산업단지 추가
-- [ ] Game Modes: 유틸리티 모드 5개 추가
-- [ ] Image System: 섹션 위치 이동 + 수치 업데이트
-- [ ] CTA: 챗봇 시작 버튼 + confirm 제거
+- [x] Hero: 프로그램명 수정 (Prism→Prime)
+- [x] 전체: `?v=2` → `?v=3` 일괄 교체
+- [x] Characters: 11명 썸네일 이미지 교체 (`.ap` 텍스트 아이콘 → `.ai` CDN 이미지)
+- [x] World Building: 산업단지 추가 (5번째 구역, 아이콘 "I")
+- [x] Game Modes: 유틸리티 모드 5개 추가 (!선택지/!디테일/!스킵/!비하인드/!소꿉친구)
+- [x] Image System: 섹션 하단 이동 + 6카테고리 3열 그리드 + 캐릭터 코드란 + 갤러리 링크
+- [x] CTA: 챗봇 시작 버튼 + bg11 배경이미지 + confirm 팝업 제거
+- [x] 폰트 전체 +4px 리디자인
+- [x] Stat bridge 2개 추가 (Characters↔World, Modes↔Image System 사이)
 - [ ] 에덴챗 플랫폼에 HTML 업로드 (수동)

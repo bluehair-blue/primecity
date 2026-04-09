@@ -23,11 +23,12 @@ const CHAR_CODES = [
 ];
 
 const SCENE_CATEGORIES = [
-  { label: "감정", en: "Emotion", range: "1–8", count: 8, accent: C.gold },
-  { label: "일상", en: "Daily", range: "10–18", count: 9, accent: C.distMid },
-  { label: "NSFW", en: "Non-insertion", range: "20–42", count: 23, accent: C.distHype },
-  { label: "NSFW", en: "Insertion", range: "50–67", count: 18, accent: C.distHype },
-  { label: "착의", en: "Clothed", range: "70–86", count: 16, accent: C.charEri },
+  { label: "감정", en: "Emotion", range: "1–9", count: 9, accent: C.gold },
+  { label: "일상", en: "Daily", range: "10–19", count: 10, accent: C.distMid },
+  { label: "NSFW", en: "추가 예정!", range: "20–69", count: "추가 예정!", accent: C.distHype },
+  { label: "착의", en: "Clothed", range: "70–86", count: 17, accent: C.charEri },
+  { label: "확장", en: "Extended", range: "87–92", count: "추가 예정!", accent: C.distHype },
+  { label: "무대", en: "Stage", range: "93–96", count: 4, accent: C.distMid },
 ];
 
 function ImageSystemInfo({ isMobile }) {
@@ -236,13 +237,10 @@ export default function Gallery() {
     }
   }
 
-  // NSFW toggle handler
+  // NSFW toggle handler — temporarily blocked until image QC complete
+  const [nsfwComingSoon, setNsfwComingSoon] = useState(false);
   function handleNsfwToggle() {
-    if (nsfwEnabled) {
-      setNsfwEnabled(false);
-    } else {
-      setNsfwModal(true);
-    }
+    setNsfwComingSoon(true);
   }
 
   // Agency groups for accordion
@@ -575,6 +573,55 @@ export default function Gallery() {
                       취소
                     </button>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* ══════════ NSFW Coming Soon Modal ══════════ */}
+            {nsfwComingSoon && (
+              <div
+                role="dialog"
+                aria-modal="true"
+                aria-label="NSFW 이미지 출시 예정"
+                onClick={() => setNsfwComingSoon(false)}
+                style={{
+                  position: "fixed", inset: 0, zIndex: 9998,
+                  background: C.bgOverlay,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}
+              >
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    maxWidth: 420, padding: isMobile ? "32px 24px" : "40px 36px",
+                    background: C.bgDeep,
+                    border: `1px solid ${C.gold}40`,
+                    textAlign: "center",
+                  }}
+                >
+                  <p style={{ fontFamily: "var(--f-display-en)", fontSize: 13, letterSpacing: "0.3em", color: C.gold, marginBottom: 16, textTransform: "uppercase" }}>
+                    Coming Soon
+                  </p>
+                  <p style={{ fontFamily: "var(--f-display-kr)", fontSize: 22, color: C.white, lineHeight: 1.5, marginBottom: 12, wordBreak: "keep-all", fontWeight: 600 }}>
+                    NSFW 이미지 추가 예정!
+                  </p>
+                  <p style={{ fontFamily: "var(--f-body)", fontSize: 14, color: C.text55, lineHeight: 1.8, marginBottom: 28, wordBreak: "keep-all" }}>
+                    고퀄리티 NSFW 이미지 <span style={{ color: C.gold, fontWeight: 600 }}>1,170장</span>이<br />
+                    곧 업데이트됩니다. 기대해 주세요!
+                  </p>
+                  <button
+                    onClick={() => setNsfwComingSoon(false)}
+                    style={{
+                      padding: "10px 32px", fontFamily: "var(--f-body)", fontSize: 13,
+                      color: C.bgDeep, fontWeight: 600,
+                      background: `linear-gradient(135deg, ${C.gold}, oklch(0.65 0.12 75))`,
+                      border: "none",
+                      cursor: "pointer", transition: `all 0.3s ${EASE}`,
+                      letterSpacing: "0.1em",
+                    }}
+                  >
+                    확인
+                  </button>
                 </div>
               </div>
             )}

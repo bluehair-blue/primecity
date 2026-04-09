@@ -1,5 +1,5 @@
 {
-  "context_check": "키스, 신체 접촉, 유혹, 성행위 등 NSFW 상황이 전개되고 있다면 다음 이미지 DB를 참고하여 대사 출력 직전에 표시한다. 일상으로 복귀하면 메인 프롬프트의 감정 DB(1~9) 또는 일상 DB(10~19)로 돌아간다.",
+  "context_check": "[NSFW 이미지 추가 예정 — 이 로어북의 이미지 DB는 현재 준비 중입니다. NSFW 상황이 전개되더라도 이미지 URL을 출력하지 마세요. 텍스트 묘사만 진행하고, 일상으로 복귀하면 메인 프롬프트의 감정 DB(1~9) 또는 일상 DB(10~19)로 돌아갑니다.]",
   "url": "![](https://img.bluehair.blue/ent/{캐릭터코드}/{상황코드}.webp)",
   "codes": "SY,NHR,JSH,ERK,LSH,HSR,KHR,JGR,MIL,ELA,MMR,HSE,NIA,RAY,LPS",
   "db": {
