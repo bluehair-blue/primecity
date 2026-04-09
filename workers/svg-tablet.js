@@ -305,7 +305,7 @@ function generateTablet(p) {
     // CDN 경로 — 2줄로 분리
     const cdnLine = `
     <text x="${L}" y="${cy}" fill="#666" font-size="10" font-family="sans-serif">CDN: img.bluehair.blue/ent/</text>
-    <text x="${R}" y="${cy}" text-anchor="end" fill="#555" font-size="10" font-family="sans-serif">15명 × 92 = 1,380장</text>`;
+    <text x="${R}" y="${cy}" text-anchor="end" fill="#555" font-size="10" font-family="sans-serif">15명 × 103 = 1,545장</text>`;
     cy += 18;
     const cdnFormat = `
     <text x="${L}" y="${cy}" fill="#c9a84c" font-size="10" font-family="monospace" font-weight="600">{CODE}/{NUM}.webp</text>`;
@@ -323,15 +323,17 @@ function generateTablet(p) {
     // Scene category bars — 확대
     cy += 8;
     const sceneCats = [
-      { label: "감정 1–8", n: 8, color: "#c9a84c" },
-      { label: "일상 10–18", n: 9, color: "#7ba0d4" },
-      { label: "NSFW 20–67", n: 41, color: "#d46b8a" },
-      { label: "착의 70–86", n: 16, color: "#6bacd4" },
+      { label: "감정 1–9", n: 9, color: "#c9a84c" },
+      { label: "일상 10–19", n: 10, color: "#7ba0d4" },
+      { label: "NSFW 20–69", n: 50, color: "#d46b8a" },
+      { label: "착의 70–86", n: 17, color: "#6bacd4" },
+      { label: "확장 87–92", n: 6, color: "#b07ad4" },
+      { label: "무대 93–96", n: 4, color: "#6db87a" },
     ];
     const barW = contentW - 50;
     let barOffset = 0;
     const sceneBars = sceneCats.map((sc) => {
-      const w = (sc.n / 74) * barW;
+      const w = (sc.n / 96) * barW;
       const x = L + barOffset;
       barOffset += w;
       return `
@@ -339,7 +341,7 @@ function generateTablet(p) {
       <rect x="${x}" y="${cy + 5}" width="${w}" height="22" fill="${sc.color}" opacity="0.2"/>
       <rect x="${x}" y="${cy + 5}" width="${w}" height="22" fill="none" stroke="${sc.color}" stroke-width="0.5" opacity="0.3"/>`;
     }).join("");
-    const barEnd = `<text x="${L + barW + 8}" y="${cy + 18}" fill="#555" font-size="9" font-family="sans-serif">92/char</text>`;
+    const barEnd = `<text x="${L + barW + 8}" y="${cy + 18}" fill="#555" font-size="9" font-family="sans-serif">103/char</text>`;
     cy += 36;
 
     const h = cy - startY;
