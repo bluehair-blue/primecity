@@ -27,8 +27,8 @@ const SCENE_CATEGORIES = [
   { label: "일상", en: "Daily", range: "10–18", count: 9, accent: C.distMid },
   { label: "NSFW", en: "추가 예정!", range: "20–69", count: "추가 예정!", accent: C.distHype },
   { label: "착의", en: "추가 예정!", range: "70–86", count: "추가 예정!", accent: C.distHype },
-  { label: "확장", en: "추가 예정!", range: "87–92", count: "추가 예정!", accent: C.distHype },
-  { label: "무대", en: "추가 예정!", range: "93–96", count: "추가 예정!", accent: C.distHype },
+  { label: "확장", en: "Extended", range: "87–92", count: 6, accent: C.distHype },
+  { label: "무대", en: "Stage", range: "93–96", count: 4, accent: C.distMid },
   { label: "SVG", en: "Tablet Art", range: "4 per char", count: 60, accent: C.blue },
 ];
 
