@@ -14,6 +14,7 @@ import CharExpressionsGrid from "../components/CharExpressionsGrid";
 import CharNavigation from "../components/CharNavigation";
 import { useImagePreloader } from "../hooks/useImagePreloader";
 import { INTRO_STYLE_CONFIG, PRELOAD_BUDGET_OVERRIDE, DEFAULT_PRELOAD_BUDGET } from "../data/introStyles";
+import { INTRO_COMPONENTS } from "../components/cinematic";
 
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
@@ -572,8 +573,25 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
     );
   }
 
-  // ════════ PHASE 0: Cinematic intro (skeleton — no transition yet) ════════
+  // ════════ PHASE 0: Cinematic intro ════════
   if (phase === 0) {
+    const StyleComponent = INTRO_COMPONENTS[char.introStyle];
+    if (StyleComponent) {
+      return (
+        <>
+          <Seo title={char.name} description={`${char.name} — ${char.role}`} path={`/characters/${name}`} />
+          <StyleComponent
+            char={char}
+            isMobile={isMobile}
+            objectPosition={objectPosition}
+            config={config}
+            onSkip={skipIntro}
+          />
+        </>
+      );
+    }
+
+    // Fallback placeholder (for styles not yet implemented)
     return (
       <div
         onClick={skipIntro}
@@ -585,7 +603,6 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
         }}
       >
         <Seo title={char.name} description={`${char.name} — ${char.role}`} path={`/characters/${name}`} />
-        {/* Placeholder: simple keyVisual fade (actual transitions in Step 5+) */}
         <img
           src={char.keyVisual}
           alt=""
@@ -600,7 +617,6 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
           position: "absolute", inset: 0,
           background: "radial-gradient(ellipse at center, transparent 30%, oklch(0 0 0 / 0.6) 100%)",
         }} />
-        {/* First quote (skeleton; Step 5+ handles sequencing) */}
         <p style={{
           position: "relative", zIndex: 3,
           fontFamily: "var(--f-display-kr)",
@@ -613,7 +629,6 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
         }}>
           {char.quoteSequence?.[0] || char.tagline}
         </p>
-        {/* Chapter label */}
         {char.introLabel && (
           <span style={{
             position: "absolute", bottom: isMobile ? "8%" : "10%",
