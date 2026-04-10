@@ -43,14 +43,15 @@ CODE_MAP = {
 }
 
 # ── Scene number → prompt variant (clothed or nude) ──
-SCENE_VARIANT = {}
-for n in [1,2,3,4,5,6,7,8,9]:          SCENE_VARIANT[n] = "clothed"   # 감정
-for n in range(10, 18):                  SCENE_VARIANT[n] = "clothed"   # 일상 (대부분 착의)
-SCENE_VARIANT[18] = "nude"                                              # pregnant
-for n in range(20, 43):                  SCENE_VARIANT[n] = "nude"      # NSFW 비삽입
-for n in range(50, 68):                  SCENE_VARIANT[n] = "nude"      # NSFW 삽입
-for n in range(70, 79):                  SCENE_VARIANT[n] = "clothed"   # 착의 침실
-for n in range(80, 87):                  SCENE_VARIANT[n] = "clothed"   # 착의 화장실
+SCENE_VARIANT: dict[int, str] = {
+    **{n: "clothed" for n in range(1, 10)},    # 감정
+    **{n: "clothed" for n in range(10, 18)},   # 일상 (대부분 착의)
+    18: "nude",                                 # pregnant
+    **{n: "nude"    for n in range(20, 43)},   # NSFW 비삽입
+    **{n: "nude"    for n in range(50, 68)},   # NSFW 삽입
+    **{n: "clothed" for n in range(70, 79)},   # 착의 침실
+    **{n: "clothed" for n in range(80, 87)},   # 착의 화장실
+}
 
 # ── Scene number → name mapping ──
 SCENE_NAMES = {

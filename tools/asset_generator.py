@@ -144,7 +144,7 @@ def clean_char_prompt(raw: str) -> str:
     )
 
 
-def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str, str, int, int]:
+def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str, str, int, int] | None:
     """Build prompts with proper NAI V4 char_captions separation.
 
     Returns (base_prompt, female_caption, male_caption, width, height).
@@ -206,7 +206,7 @@ def call_nai_api(token: str, base_prompt: str, female_caption: str, male_caption
     - char_captions[0]:  female character appearance + Female Part actions → female_caption
     - char_captions[1]:  Male Part (if present) → male_caption
     """
-    seed = random.randint(0, 2**32 - 1)
+    seed = random.randint(0, 2**32 - 1)  # noqa: S311  (image seed, not crypto)
 
     # Build char_captions: female always present, male only when needed
     char_captions = []
@@ -517,7 +517,7 @@ def generate_batch(token, config, state, char_codes=None, scene_nums=None,
 #  CLI
 # ═══════════════════════════════════════════════════════
 
-from utils import ALL_CHARS, ALL_SCENES, SPECIAL_SCENES, parse_scene_range
+from utils import ALL_CHARS, ALL_SCENES, parse_scene_range  # noqa: E402
 
 
 def show_status():
@@ -532,7 +532,7 @@ def show_status():
         for v in state.get("completed", {}).values()
     )
     failed_total = sum(
-        len([k for k in v.keys() if int(k) in all_scenes_set])
+        len([k for k in v if int(k) in all_scenes_set])
         if isinstance(v, dict)
         else len([s for s in v if s in all_scenes_set])
         for v in state.get("failed", {}).values()
@@ -544,7 +544,7 @@ def show_status():
     pct = completed_total * 100 // total_possible if total_possible else 0
 
     print(f"\n{'═' * 50}")
-    print(f"  Asset Generation Status")
+    print("  Asset Generation Status")
     print(f"{'═' * 50}")
     print(f"  Started:   {state.get('started_at', 'N/A')}")
     print(f"  Updated:   {state.get('last_updated', 'N/A')}")
@@ -559,7 +559,7 @@ def show_status():
         failed_items = state.get("failed", {}).get(code, {})
         done_count = len([s for s in completed if s in all_scenes_set])
         fail_count = (
-            len([k for k in failed_items.keys() if int(k) in all_scenes_set])
+            len([k for k in failed_items if int(k) in all_scenes_set])
             if isinstance(failed_items, dict)
             else len([s for s in failed_items if s in all_scenes_set])
         )
@@ -603,7 +603,7 @@ def main():
     # Get token (priority: --token > --token-file > NAI_TOKEN env)
     token = args.token
     if not token and args.token_file:
-        token = Path(args.token_file).read_text().strip()
+        token = Path(args.token_file).read_text(encoding="utf-8-sig").strip()
     if not token:
         token = os.environ.get("NAI_TOKEN")
 

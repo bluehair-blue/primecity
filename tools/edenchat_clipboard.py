@@ -159,7 +159,7 @@ def parse_lorebook(filepath: Path) -> dict[str, Any] | None:
     """JSON 파일에서 이름, 본문, 트리거 키워드 리스트를 파싱."""
     raw = filepath.read_text(encoding="utf-8")
 
-    parts = raw.split("// --- TRIGGER ---")
+    parts = raw.rsplit("// --- TRIGGER ---", 1)
     json_text = parts[0].strip()
     keywords: list[str] = []
 
@@ -198,7 +198,7 @@ def run_pipeline(entries: list[dict[str, Any]], start_from: int = 1, delay: floa
     total = len(entries)
 
     print(f"\n{'=' * 60}")
-    print(f"  에덴챗 로어북 자동 입력")
+    print("  에덴챗 로어북 자동 입력")
     print(f"  총 {total}개 | {start_from}번부터 | 딜레이 {delay}s")
     print(f"{'=' * 60}")
     print()
@@ -210,7 +210,7 @@ def run_pipeline(entries: list[dict[str, Any]], start_from: int = 1, delay: floa
     for sec in range(5, 0, -1):
         print(f"  {sec}초 후 시작...", end="\r")
         time.sleep(1)
-    print(f"  시작!            ")
+    print("  시작!            ")
     print()
 
     for i, entry in enumerate(entries, 1):
@@ -227,6 +227,7 @@ def run_pipeline(entries: list[dict[str, Any]], start_from: int = 1, delay: floa
         if pause_each and i > start_from:
             answer = input("    → Enter로 계속 (q=중단): ").strip().lower()
             if answer == "q":
+                pyperclip.copy("")  # 민감 내용 클립보드에서 제거
                 print(f"\n  중단. 재개: --from {i}")
                 sys.exit(0)
 
@@ -261,8 +262,9 @@ def run_pipeline(entries: list[dict[str, Any]], start_from: int = 1, delay: floa
         # 저장 후 UI 로딩 대기
         time.sleep(delay * 3)
 
-        print(f"    -> 완료")
+        print("    -> 완료")
 
+    pyperclip.copy("")  # 민감 내용 클립보드에서 제거
     print(f"\n{'=' * 60}")
     print(f"  전체 {total}개 로어북 입력 완료!")
     print(f"{'=' * 60}")

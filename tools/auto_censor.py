@@ -66,7 +66,7 @@ _TOOLS_DIR = Path(__file__).resolve().parent                   # 연예계/tools
 _PROJECT_ROOT = _TOOLS_DIR.parent                              # 연예계/
 BASE_DIR = _PROJECT_ROOT.parent / "캐릭터 이미지"              # 챗봇 제작/캐릭터 이미지/
 MODEL_PATH = _PROJECT_ROOT / "models" / "ntd11_v5.pt"         # 연예계/models/ntd11_v5.pt
-from utils import ALL_CHARS, NSFW_SCENES, parse_scene_range as _parse_scene_range
+from utils import ALL_CHARS, parse_scene_range as _parse_scene_range  # noqa: E402
 
 TARGET_CLASSES = {"pussy", "penis", "anus"}
 
@@ -442,9 +442,9 @@ def _worker(args: tuple) -> dict:
     path, out, conf, style, color, eblur = args
     try:
         return process_single(path, out, conf, style, color, edge_blur=eblur, verbose=False)
-    except Exception as e:
+    except (cv2.error, OSError, ValueError) as e:
         log.error(f"Worker failed: {path} — {e}")
-        return {"path": path, "success": False}
+        return {"path": path, "success": False, "error": str(e)}
 
 
 def process_batch(char_codes, scene_nums, yolo_conf=0.5, style="solid", color=(255,255,255),
