@@ -428,7 +428,6 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
   const { lightbox, setLightbox, close: closeLightbox } = useCharLightbox();
   const [exprErrors, setExprErrors] = useState({});
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [phase2Latched, setPhase2Latched] = useState(false); // one-way latch
   const phase1Ref = useRef(null);
   const exprSectionRef = useRef(null);
 
@@ -454,7 +453,6 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
   useEffect(() => {
     window.scrollTo(0, 0);
     setPhase(-1);
-    setPhase2Latched(false);
     setNavbarVisible(false);
     setExprErrors({});
     document.body.style.overflow = "";
@@ -495,18 +493,17 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
     document.body.style.overflow = "";
   };
 
-  // ── Phase 1 → Phase 2 one-way latch (scroll threshold) ──
+  // ── Phase 1 → Phase 2 (scroll triggers navbar visibility state) ──
   useEffect(() => {
-    if (phase < 1 || phase2Latched) return;
+    if (phase !== 1) return;
     const handler = () => {
       if (window.scrollY > 80) {
-        setPhase2Latched(true);
         setPhase(2);
       }
     };
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
-  }, [phase, phase2Latched]);
+  }, [phase]);
 
   // ── Scroll tracking for Navbar (Phase 2+) ──
   useEffect(() => {
@@ -759,8 +756,8 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
         )}
       </section>
 
-      {/* Phase 2 lower sections — rendered once latched (one-way) */}
-      {phase2Latched && (
+      {/* Lower sections — rendered from Phase 1 so the page is scrollable */}
+      {phase >= 1 && (
         <>
           <div style={{ position: "relative", zIndex: 2, background: C.bgDeep, paddingTop: 80 }}>
             <CharExpressionsGrid
