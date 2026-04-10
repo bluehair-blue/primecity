@@ -690,15 +690,24 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
           )}
         </div>
         {/* Scroll hint */}
-        {phase === 1 && (
+        {phase >= 1 && (
           <div style={{
             position: "absolute",
-            bottom: 24, left: "50%", transform: "translateX(-50%)",
-            fontFamily: "var(--f-display-en)", fontSize: 9,
-            letterSpacing: "0.3em", textTransform: "uppercase",
-            color: C.text35, opacity: 0.7,
+            bottom: 32, left: "50%", transform: "translateX(-50%)",
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
             pointerEvents: "none",
-          }}>Scroll ↓</div>
+          }}>
+            <span style={{
+              fontFamily: "var(--f-display-en)", fontSize: 9,
+              letterSpacing: "0.35em", textTransform: "uppercase",
+              color: C.text35,
+            }}>Scroll</span>
+            <div style={{
+              width: 1, height: 40,
+              background: `linear-gradient(to bottom, ${char.color}99, transparent)`,
+              animation: "scrollPulse 1.8s ease-in-out infinite",
+            }} />
+          </div>
         )}
       </section>
 
