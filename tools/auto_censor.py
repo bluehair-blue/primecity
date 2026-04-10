@@ -40,10 +40,11 @@ import cv2
 import numpy as np
 
 try:
-    from PIL import Image as PILImage
+    from PIL import Image as PILImage, UnidentifiedImageError as PILUnidentifiedImageError
     HAS_PIL = True
 except ImportError:
     HAS_PIL = False
+    PILUnidentifiedImageError = OSError  # fallback: treat as OSError when PIL absent
 
 try:
     from ultralytics import YOLO
@@ -256,9 +257,7 @@ def refine_segmentation_mask(
     temp = cv2.bitwise_and(temp, crop_mask)
 
     # 9. Final fill after opening
-    temp = flood_fill_holes(temp)
-
-    return temp
+    return flood_fill_holes(temp)
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -442,8 +441,8 @@ def _worker(args: tuple) -> dict:
     path, out, conf, style, color, eblur = args
     try:
         return process_single(path, out, conf, style, color, edge_blur=eblur, verbose=False)
-    except (cv2.error, OSError, ValueError) as e:
-        log.error(f"Worker failed: {path} — {e}")
+    except (cv2.error, OSError, ValueError, RuntimeError, PILUnidentifiedImageError) as e:
+        log.exception(f"Worker failed: {path}")
         return {"path": path, "success": False, "error": str(e)}
 
 

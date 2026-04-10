@@ -87,13 +87,13 @@ log = logging.getLogger("asset_gen")
 # ═══════════════════════════════════════════════════════
 
 def load_config() -> dict:
-    with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+    with CONFIG_PATH.open(encoding="utf-8") as f:
         return json.load(f)
 
 
 def load_state() -> dict:
     if STATE_PATH.exists():
-        with open(STATE_PATH, "r", encoding="utf-8") as f:
+        with STATE_PATH.open(encoding="utf-8") as f:
             state = json.load(f)
         # Migrate failed: list → dict{str_key: reason}
         for code, val in state.get("failed", {}).items():
@@ -105,8 +105,10 @@ def load_state() -> dict:
 
 def save_state(state: dict) -> None:
     state["last_updated"] = datetime.now(timezone.utc).isoformat()
-    with open(STATE_PATH, "w", encoding="utf-8") as f:
+    tmp = STATE_PATH.with_suffix(".tmp")
+    with tmp.open("w", encoding="utf-8") as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
+    tmp.replace(STATE_PATH)  # atomic rename (POSIX/NTFS same-filesystem)
 
 
 def mark_completed(state: dict, char_code: str, scene_num: int) -> None:
@@ -304,11 +306,11 @@ def call_nai_api(token: str, base_prompt: str, female_caption: str, male_caption
 
     if resp.status_code == 429:
         raise RateLimitError("429 Too Many Requests")
-    elif resp.status_code == 403:
+    if resp.status_code == 403:
         raise AccountBannedError("403 Forbidden — 계정 영구 제한 위험. 즉시 중단.")
-    elif resp.status_code == 401:
+    if resp.status_code == 401:
         raise AuthError("401 Unauthorized — 토큰이 만료되었거나 잘못되었습니다.")
-    elif resp.status_code != 200:
+    if resp.status_code != 200:
         raise APIError(f"HTTP {resp.status_code}: {resp.text[:200]}")
 
     # Response is a ZIP containing the image
@@ -406,7 +408,7 @@ def _generate_one(token: str, config: dict, state: dict,
             time.sleep(wait)
 
         except (APIError, requests.RequestException) as e:
-            log.error(f"  ✖ Attempt {attempt}/{MAX_RETRIES}: {e}")
+            log.exception(f"  ✖ Attempt {attempt}/{MAX_RETRIES}")
             if attempt < MAX_RETRIES:
                 time.sleep(30)
             else:
@@ -484,7 +486,7 @@ def generate_batch(token, config, state, char_codes=None, scene_nums=None,
             save_state(state)
             return
         except AuthError as e:
-            log.error(f"  ✖ {e}")
+            log.exception("  ✖ AuthError")
             log.error("  토큰을 갱신한 뒤 --retry-failed로 재실행하세요.")
             mark_failed(state, char_code, scene_num, str(e))
             save_state(state)
