@@ -694,17 +694,26 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
           <div style={{
             position: "absolute",
             bottom: 32, left: "50%", transform: "translateX(-50%)",
-            display: "flex", flexDirection: "column", alignItems: "center", gap: 10,
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 14,
             pointerEvents: "none",
           }}>
             <span style={{
-              fontFamily: "var(--f-display-en)", fontSize: isMobile ? 11 : 13,
-              letterSpacing: "0.4em", textTransform: "uppercase",
+              fontFamily: "var(--f-display-en)", fontSize: isMobile ? 18 : 22,
+              letterSpacing: "0.45em", textTransform: "uppercase",
               color: C.goldText,
+              textShadow: `0 0 20px ${C.goldText}88`,
             }}>Scroll</span>
-            <div style={{ animation: "scrollPulse 1.6s ease-in-out infinite", display: "flex", flexDirection: "column", gap: 5 }}>
-              <div style={{ width: 22, height: 2, background: C.goldText }} />
-              <div style={{ width: 22, height: 2, background: C.goldText }} />
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+              <div style={{
+                width: 36, height: 3, background: C.goldText,
+                animation: "scrollPulse 1.6s ease-in-out infinite",
+                boxShadow: `0 0 8px ${C.goldText}99`,
+              }} />
+              <div style={{
+                width: 36, height: 3, background: C.goldText,
+                animation: "scrollPulse 1.6s ease-in-out infinite 0.15s",
+                boxShadow: `0 0 8px ${C.goldText}99`,
+              }} />
             </div>
           </div>
         )}
