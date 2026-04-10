@@ -28,7 +28,7 @@
 | HSR | 한자 아이콘 "한" | ✅ | 동일 |
 | JGR~LPS (8명) | 한자 아이콘 | ✅ | 동일 — 모두 썸네일 이미지로 교체 |
 
-> 15명 중 **11명이 텍스트 아이콘** (`<div class="ap">`)으로 표시. CDN에 `{CODE}thumbnail.webp`가 존재하므로 모두 이미지로 교체 가능.
+> 15명 중 **11명이 텍스트 아이콘** (`<div class="ap">`)으로 표시. CDN에 `{CODE}/thumbnail.webp`가 존재하므로 모두 이미지로 교체 가능.
 
 ### UX 문제
 1. **Image System 섹션이 캐릭터보다 위에 있음** — 유저가 캐릭터 소개 전에 기술 정보를 먼저 봄. 순서가 비직관적
@@ -75,7 +75,7 @@
 <div class="ap" style="background:oklch(...);">진</div>
 
 <!-- 수정 (이미지) -->
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/JSHthumbnail.webp?v=3');border-color:oklch(...);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/JSH/thumbnail.webp?v=10');border-color:oklch(...);"></div>
 ```
 
 대상: JSH, ERK, HSR, JGR, MIL, ELA, MMR, HSE, NIA, RAY, LPS (11명)

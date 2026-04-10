@@ -979,7 +979,7 @@
       "male_prompt": "",
       "width": 832,
       "height": 1216,
-      "output_path": "{code}.webp"
+      "output_path": "key.webp"
     },
     "911": {
       "name": "thumbnail",
@@ -987,7 +987,7 @@
       "male_prompt": "",
       "width": 832,
       "height": 832,
-      "output_path": "{code}thumbnail.webp"
+      "output_path": "thumbnail.webp"
     }
   },
   "character_scene_overrides": {

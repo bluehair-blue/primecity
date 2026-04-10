@@ -177,8 +177,8 @@ C:\Users\User\OneDrive\图片\챗봇 제작\캐릭터 이미지\
 
 | 유형 | 로컬 파일 | R2 경로 | 코드 참조 |
 |---|---|---|---|
-| **키비주얼** | `{CHAR}/{CHAR}.webp` | `ent/{CHAR}.webp` | `cdnUrl("{CHAR}.webp")` |
-| **썸네일** | `{CHAR}/{CHAR}thumbnail.webp` | `ent/{CHAR}thumbnail.webp` | `cdnUrl("{CHAR}thumbnail.webp")` |
+| **키비주얼** | `{CHAR}/key.webp` | `ent/{CHAR}/key.webp` | `cdnUrl("{CHAR}/key.webp")` |
+| **썸네일** | `{CHAR}/thumbnail.webp` | `ent/{CHAR}/thumbnail.webp` | `cdnUrl("{CHAR}/thumbnail.webp")` |
 | **프로필** | `{CHAR}/profile.webp` | `ent/{CHAR}/profile.webp` | `cdnUrl("{CHAR}/profile.webp")` |
 | **사인** | `{CHAR}/sign.webp` | `ent/{CHAR}/sign.webp` | `cdnUrl("{CHAR}/sign.webp")` |
 | **장면 이미지** | `{CHAR}/{번호}.webp` | `ent/{CHAR}/{번호}.webp` | `cdnExprUrl("{CHAR}",...)` |
