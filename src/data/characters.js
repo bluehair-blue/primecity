@@ -86,6 +86,10 @@ export const characters = [
       desktop: { cx: 50, cy: 35, w: 35, h: 65 },
       mobile:  { cx: 50, cy: 32, w: 45, h: 70 },
     },
+    zoomSequence: [
+      { cx: 50, cy: 25, scale: 2.8 },  // 얼굴/눈매
+      { cx: 42, cy: 55, scale: 2.5 },  // 상체/손
+    ],
     detailPath: "/characters/jinshihyuk",
     signature: "볼펜 시퀀스 (돌리기→딸깍→머리넘기기)",
     personality: "냉정 + 직설 + 합리주의",

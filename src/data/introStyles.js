@@ -8,8 +8,8 @@
 
 export const INTRO_STYLE_CONFIG = {
   cutaway: {
-    duration: 3200,
-    letterbox: true,
+    duration: 3000,
+    letterbox: false,
     requiresSvgFilter: false,
     mobileFallback: null,
   },

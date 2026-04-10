@@ -665,7 +665,7 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
         <Navbar scrolled={scrolled} isMobile={isMobile} />
       </div>
 
-      {/* Fixed keyVisual background (z:0) */}
+      {/* Fixed keyVisual background (z:0) — opacity immediate to seamlessly hand off from Phase 0 */}
       <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
         <img
           src={char.keyVisual}
@@ -673,8 +673,7 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
           style={{
             width: "100%", height: "100%",
             objectFit: "cover", objectPosition,
-            opacity: phase >= 1 ? 1 : 0,
-            transition: "opacity 0.8s ease-out",
+            opacity: 1,
           }}
         />
         {/* Gradient overlay */}
