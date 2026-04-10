@@ -620,20 +620,22 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
         }} />
       </div>
 
-      {/* Back button — always visible in Phase 1+ */}
-      <button
-        onClick={() => navigate(-1)}
-        aria-label="Back"
-        style={{
-          position: "fixed", top: 16, left: 16, zIndex: 50,
-          width: 40, height: 40,
-          background: "oklch(0 0 0 / 0.6)",
-          border: `1px solid ${C.border10}`,
-          borderRadius: "50%",
-          color: C.white, fontSize: 18, cursor: "pointer",
-          display: "flex", alignItems: "center", justifyContent: "center",
-        }}
-      >←</button>
+      {/* Back button — Phase 1+ only, top-right to avoid Navbar logo */}
+      {phase >= 1 && (
+        <button
+          onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")}
+          aria-label="Back"
+          style={{
+            position: "fixed", top: 16, right: 16, zIndex: 150,
+            width: 40, height: 40,
+            background: "oklch(0 0 0 / 0.6)",
+            border: `1px solid ${C.border10}`,
+            borderRadius: "50%",
+            color: C.white, fontSize: 18, cursor: "pointer",
+            display: "flex", alignItems: "center", justifyContent: "center",
+          }}
+        >←</button>
+      )}
 
       {/* Phase 1 hero: name + tagline + profile */}
       <section ref={phase1Ref} style={{
