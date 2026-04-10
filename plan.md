@@ -47,6 +47,74 @@
 > 아래에 다음 구현할 작업의 상세 기획을 작성합니다.
 > 사용자는 각 항목에 `<!-- 피드백: ... -->` 주석을 달아 방향을 조정합니다.
 
+### 🚧 CharDetail 시네마틱 인트로 시스템 (8캐릭터, JGR 제외)
+
+**상태**: Step 5a(JSH) 완료 · Step 5b~8 대기 (2026-04-10 세션 종료 시점)
+
+**아키텍처 (확정, 변경 금지)**:
+- `CharDetail.jsx` 내부 3개 분기: `JgrCharDetail` → `CinematicCharDetail` → `DefaultCharDetail`
+  - early return: `char.id === "janggru"` → JGR / `char.introStyle` → Cinematic / else → Default
+- `CinematicCharDetail` (module scope 함수, ~L415-L740) — 8캐릭터 공용 컨테이너
+- `src/components/cinematic/index.js` — 스타일 레지스트리 (`INTRO_COMPONENTS`)
+  - 현재: `{ cutaway: CutawayIntro }` / 7스타일 주석 처리
+- `src/data/introStyles.js` — `INTRO_STYLE_CONFIG` (duration, mobileFallback 등)
+- `src/data/characters.js` — 캐릭터별 `introStyle`, `introAssets[]`, `introLabel`, `quoteSequence[]`, `focusBox{}`, `zoomSequence[]`
+- `src/hooks/useImagePreloader.js` — `{loaded, total, ready, progress, timedOut}` 반환
+
+**Phase 상태기계**:
+- `-1`: LoadingShell (progress bar, `char.color`)
+- `0`: 시네마틱 overlay (z:200) 재생
+- `1`: hero + lower sections (scroll 가능)
+- `2`: navbar 노출 (IntersectionObserver)
+
+**핵심 결정사항 (재결정 금지)**:
+- **Fall-open 프로토콜**: `fullyLoaded = loaded >= total`을 먼저 체크, 그 다음에만 `timedOut` 체크. race condition 방지.
+- **JGR 패턴 handoff**: Phase 0 overlay는 unmount가 아닌 opacity fadeOut. Phase 1 컨텐츠는 overlay 아래에 항상 렌더.
+- **Lower sections 상시 렌더**: `phase2Latched` gate 제거 완료. scroll deadlock 해결.
+- **Hero + lower 단일 render tree**: 분기 렌더 금지 (Phase 0에 overlay만 얹는 방식)
+
+**Step 5a: JSH (cutaway) — ✅ 완료**
+- `src/components/cinematic/CutawayIntro.jsx` (247줄)
+- 시퀀스 6400ms: black(200) → zoom1+Ken Burns(1500) → flash(100) → zoom2+Ken Burns(1500) → flash(100) → full view+centered hero text(2400) → fadeOut(600)
+- 캐릭터 데이터: `zoomSequence: [{cx:50,cy:25,scale:2.8},{cx:42,cy:55,scale:2.5}]`
+- 4차 반복 결과: 3초→6.4초 (느긋함 요청), 단순 페이드→2줌+화이트플래시(방향성 교정), 우하 텍스트→centered hero text, 부자연 전환→JGR dissolve 패턴
+- 커밋: `fceac30`
+
+**Step 5b: KHR (sunrise) — ⏳ 대기**
+- `INTRO_STYLE_CONFIG.sunrise`: duration 2500, `flare: true`
+- 목표: 태양 플레어/광원 효과 (KHR=스타덤/청순)
+
+**Step 6: MIL (ripple) — ⏳ 대기**
+- `requiresSvgFilter: true`, `svgId: "introRipple"` — SVG 필터 먼저 정의 필요
+
+**Step 7a: LSH (glitch) — ⏳ 대기** — `layers: 3`, mobileFallback `simpleGlitch`
+**Step 7b: MMR (flash) — ⏳ 대기** — `flashes: 3`, `commentOverlay: true`, `commentRows: 5`
+  - MMR introComments 데이터 finalize 필요
+  - PRELOAD_BUDGET_OVERRIDE: MMR=1200ms (animated WebP 무거움)
+**Step 7c: NHR (fog) — ⏳ 대기** — `fogLayers: 2`
+**Step 7d: HSR (cardDeal) — ⏳ 대기** — `perspective: 1200`
+**Step 7e: HSE (pageFlip) — ⏳ 대기** — `direction: "ltr"`, HSE focusBox finalize 필요
+
+**Step 8: 테스트 체크리스트 — ⏳ 대기**
+- 8캐릭터 × (mobile/desktop) × (첫 로드/재방문) × (reduced-motion) × (fall-open)
+- 각 스타일 skip 작동, back button, scroll hint 작동
+- navbar IntersectionObserver 복귀
+
+**마지막 세션 수정 사항 (2026-04-10)**:
+1. 뒤로가기 버튼 수정 (`6c9f7ba` 직전):
+   - `zIndex: 50 → 150` (Navbar z:100 위로)
+   - 위치: `top:16 left:16 → top:(isMobile?68:84) right:16` (로고 겹침 해소)
+   - `phase >= 1`일 때만 렌더 (Phase 0 overlay가 가려 무의미)
+   - `navigate(-1)` → history fallback 추가 (`window.history.length > 1 ? navigate(-1) : navigate("/")`)
+2. Scroll hint 재디자인 (`6c9f7ba`):
+   - SCROLL 텍스트 22px (desktop) / 18px (mobile), 금색 + textShadow glow
+   - 이중 수평바 36×3px, 금색, boxShadow glow
+   - `scrollPulse` 1.6s 애니메이션 + 두 번째 바 `0.15s` delay로 스태거드
+
+**다음 세션 착수 지점**: Step 5b (KHR sunrise intro)
+
+---
+
 ### 디버그: Hero 오빗 링 모바일 위치 이탈 + CharDetail 뒤로가기 목적지
 
 **목적**: 모바일 새로고침 시 오빗 링이 왼쪽 상단으로 튀는 버그 + CharDetail `← PRIME CITY` 버튼이 캐러셀이 아닌 Hero로 이동하는 버그 수정.

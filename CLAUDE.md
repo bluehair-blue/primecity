@@ -271,7 +271,8 @@ C:\Users\User\OneDrive\图片\챗봇 제작\캐릭터 이미지\
 ## 작업 현황 (요약)
 
 **완료**: 사이트 16페이지, 디자인 시스템, 에셋 1,215장+, 보안, 파일 정리, tools/ 파이프라인 개선 (18항목), NSFW 검열 배치 (264/855장), 캐릭터 사인/썸네일 15명 CDN 통일, CharDetail seam cue, **장그루 전용 시네마틱 인트로 (JgrCharDetail v4)**, 사이트 총체적 최적화 ①②③④, CityMap 히트박스 등각 보정, **챗봇 프롬프트 Phase 5 전면 개편 완료 (103개 로어북, 최종 검증 A~E PASS)**, **태블릿 SVG 개편 (10섹션, 13모드, escapeXml 수정, 상대좌표 리팩터링)**, 이미지 에셋 재생성 1,125장 완료 (char_img/), **에덴챗 로어북 102개 플랫폼 삽입 완료** (edenchat_clipboard.py 매크로), char_img/ 검열 배치 완료 (conf=0.7, 252장 검열/603장 클린), **이미지 에셋 확장 완료 (21코드×15캐릭 = 314장 + 검열 53장)** — 코드 1-96 빈번호 해소 + NSFW 확장(섹스웅 패턴) + 라이브씬/무대씬, **에덴챗 소개 HTML 개편 완료** (폰트 +4px, 15명 전체 썸네일 이미지, Prism→Prime, ?v=3, 섹션 재배치, stat bridge 2개, 산업단지 추가, 유틸리티 모드 5개, Image System 6카테고리+캐릭터코드란, CTA 배경이미지+챗봇 시작 버튼, confirm 팝업 제거)
-**미완**: **에덴챗 소개 HTML 사용자 피드백 반영** (에덴챗 플랫폼 삽입 후 확인 필요), **에덴챗 삽입 테스트** (실제 챗봇 동작 검증), Works 확장, 나머지 캐릭터 사인 이미지, 최적화 ⑤ 접근성(사용자 디자인 판단 대기), **CharDetail 페이지 개편**, svgTemplates.js 고유명사 반영, char_img/ CDN 비교+반영
+**진행 중**: **CharDetail 시네마틱 인트로 시스템 (8캐릭터)** — Step 5a(JSH cutaway, 6.4s) 완료 / Step 5b(KHR sunrise), 6(MIL ripple), 7a-e(LSH/MMR/NHR/HSR/HSE), 8(테스트) 대기. 아키텍처: `CinematicCharDetail` 공용 컨테이너 + `INTRO_COMPONENTS` 레지스트리 + Phase -1/0/1/2 상태기계 + JGR 패턴 overlay fadeOut + fall-open(fullyLoaded > timedOut) 프로토콜. 마지막 세션: 뒤로가기 버튼 위치/z-index 수정 (`top:isMobile?68:84 right:16 z:150` + phase≥1 gate), scroll hint 금색 이중바 애니메이션. 상세 → `plan.md`
+**미완**: **에덴챗 소개 HTML 사용자 피드백 반영** (에덴챗 플랫폼 삽입 후 확인 필요), **에덴챗 삽입 테스트** (실제 챗봇 동작 검증), Works 확장, 나머지 캐릭터 사인 이미지, 최적화 ⑤ 접근성(사용자 디자인 판단 대기), svgTemplates.js 고유명사 반영, char_img/ CDN 비교+반영
 **최후순위**: PyTorch CPU→CUDA 교체 + ntd11 YOLO 파인튜닝 (귀두/작은 성기 미감지 개선, 라벨링 40장 필요, GPU 활성화 후 학습 5-10분)
 
 ### 에덴챗 로어북 삽입 반자동화
