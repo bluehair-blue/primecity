@@ -436,6 +436,7 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
   const { lightbox, setLightbox, close: closeLightbox } = useCharLightbox();
   const [exprErrors, setExprErrors] = useState({});
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const phase1Ref = useRef(null);
   const exprSectionRef = useRef(null);
 
@@ -530,6 +531,23 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
+  // ── Mouse tilt (desktop Phase 1, ±1.5deg) ──
+  useEffect(() => {
+    if (isMobile || phase < 1) return;
+    const handleMove = (e) => {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      setTilt({ x: ((e.clientY - cy) / cy) * -1.5, y: ((e.clientX - cx) / cx) * 1.5 });
+    };
+    const handleLeave = () => setTilt({ x: 0, y: 0 });
+    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("mouseleave", handleLeave);
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseleave", handleLeave);
+    };
+  }, [isMobile, phase]);
+
   // ── Navbar IntersectionObserver (show after Expressions visible) ──
   useEffect(() => {
     if (phase < 2 || !exprSectionRef.current) return;
@@ -608,8 +626,16 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
         <Navbar scrolled={scrolled} isMobile={isMobile} />
       </div>
 
-      {/* Fixed keyVisual background (z:0) — opacity immediate to seamlessly hand off from Phase 0 */}
-      <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
+      {/* Fixed keyVisual background (z:0) — tilt applied on desktop Phase 1 */}
+      <div
+        style={{
+          position: "fixed", inset: 0, zIndex: 0,
+          transform: !isMobile
+            ? `perspective(1400px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`
+            : "none",
+          transition: "transform 0.45s ease-out",
+        }}
+      >
         <img
           src={char.keyVisual}
           alt=""
@@ -617,9 +643,32 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
             width: "100%", height: "100%",
             objectFit: char.keyVisualFit || "cover",
             objectPosition: char.keyVisualFit === "contain" ? "50% 50%" : objectPosition,
-            opacity: 1,
           }}
         />
+        {/* Reflection strip at bottom */}
+        <div
+          style={{
+            position: "absolute", bottom: 0, left: 0, right: 0,
+            height: "28%", overflow: "hidden",
+          }}
+        >
+          <img
+            src={char.keyVisual}
+            alt=""
+            style={{
+              position: "absolute", bottom: 0, left: 0,
+              width: "100%", height: "100%",
+              objectFit: char.keyVisualFit || "cover",
+              objectPosition: char.keyVisualFit === "contain" ? "50% 50%" : objectPosition,
+              transform: "scaleY(-1)",
+              transformOrigin: "bottom",
+              WebkitMaskImage: "linear-gradient(to top, oklch(1 0 0 / 0.18) 0%, transparent 65%)",
+              maskImage: "linear-gradient(to top, oklch(1 0 0 / 0.18) 0%, transparent 65%)",
+              opacity: phase >= 1 ? 1 : 0,
+              transition: "opacity 1s ease-out",
+            }}
+          />
+        </div>
         {/* Gradient overlay */}
         <div style={{
           position: "absolute", inset: 0,
@@ -653,7 +702,55 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
         display: "flex",
         alignItems: isMobile ? "flex-end" : "center",
         padding: isMobile ? "0 24px 80px" : "0 0 0 64px",
+        overflow: "hidden",
       }}>
+        {/* bgMarquee line 1 */}
+        {phase >= 1 && (
+          <div style={{
+            position: "absolute", top: isMobile ? "12%" : "18%", left: 0,
+            display: "flex", width: "200%",
+            animation: "bgMarquee 80s linear infinite",
+            pointerEvents: "none", zIndex: 0,
+          }}>
+            {[1, 2].map((k) => (
+              <div key={k} style={{
+                flex: "0 0 50%",
+                fontFamily: "var(--f-display-en)",
+                fontSize: isMobile ? "clamp(36px,9vw,50px)" : "clamp(70px,7vw,100px)",
+                fontWeight: 900, color: char.color, opacity: 0.025,
+                whiteSpace: "nowrap", textTransform: "uppercase",
+                letterSpacing: "0.08em", lineHeight: 0.8,
+                filter: "blur(1px)",
+              }}>
+                {char.agency} ◆ PRIME CITY ◆ {char.cdnId} ◆ {char.role} ◆&nbsp;
+              </div>
+            ))}
+          </div>
+        )}
+        {/* bgMarquee line 2 — reverse */}
+        {phase >= 1 && (
+          <div style={{
+            position: "absolute", bottom: isMobile ? "12%" : "16%", left: 0,
+            display: "flex", width: "200%",
+            animation: "bgMarqueeReverse 100s linear infinite",
+            pointerEvents: "none", zIndex: 0,
+          }}>
+            {[1, 2].map((k) => (
+              <div key={k} style={{
+                flex: "0 0 50%",
+                fontFamily: "var(--f-display-en)",
+                fontSize: isMobile ? "clamp(36px,9vw,50px)" : "clamp(70px,7vw,100px)",
+                fontWeight: 900, color: char.color, opacity: 0.018,
+                whiteSpace: "nowrap", textTransform: "uppercase",
+                letterSpacing: "0.08em", lineHeight: 0.9,
+                filter: "blur(1.5px)",
+              }}>
+                SECTOR: {char.cdnId} ◆ CLASSIFICATION: CONFIDENTIAL ◆ PRIME CITY ◆&nbsp;
+              </div>
+            ))}
+          </div>
+        )}
+
         <div style={{
           maxWidth: isMobile ? "100%" : 520,
           opacity: phase >= 1 ? 1 : 0,

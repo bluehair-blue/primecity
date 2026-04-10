@@ -290,6 +290,7 @@ export const characters = [
       desktop: { cx: 55, cy: 45, w: 65, h: 80 },  // v4 +10%
       mobile:  { cx: 62, cy: 38, w: 55, h: 75 },  // v4 +10%
     },
+    keyVisualFit: "contain",
     detailPath: "/characters/mila",
     signature: "흥얼거림 — 항상 뭔가를 흥얼거리고 있음",
     personality: "자유로운 영혼 — 음악이 본능",

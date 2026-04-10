@@ -27,11 +27,10 @@ export const INTRO_STYLE_CONFIG = {
     layers: 3,
   },
   ripple: {
-    duration: 3000,
+    duration: 6000,   // v4.2: zoom 2-beat + ripple + 1s hero hold (was 3000)
     letterbox: false,
     requiresSvgFilter: true,
     mobileFallback: "simpleRipple",
-    svgId: "introRipple",
   },
   flash: {
     duration: 2000,
