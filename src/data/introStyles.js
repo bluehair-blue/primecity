@@ -32,14 +32,10 @@ export const INTRO_STYLE_CONFIG = {
     mobileFallback: "simpleRipple",
   },
   flash: {
-    duration: 2000,
+    duration: 8800,   // v4.1: comments(2700) + blur(400) + 3×zoom(3300) + hero(1600) + fadeOut(500) = 8500+300
     letterbox: false,
     requiresSvgFilter: false,
     mobileFallback: null,
-    flashes: 3,
-    commentOverlay: true,
-    commentDuration: 900,
-    commentRows: 5,
   },
   fog: {
     duration: 3500,
@@ -66,12 +62,9 @@ export const INTRO_STYLE_CONFIG = {
 
 /**
  * Per-character preload budget override.
- * MMR's keyVisual is animated WebP (heavier) → extended budget.
- * Default budget is 500ms (in CinematicCharDetail), this map overrides
- * for specific character cdnIds.
+ * MMR previously needed 1200ms but v4.1 comment-stream phase (2700ms)
+ * absorbs animated WebP decode time → standard 500ms is sufficient.
  */
-export const PRELOAD_BUDGET_OVERRIDE = {
-  MMR: 1200,
-};
+export const PRELOAD_BUDGET_OVERRIDE = {};
 
 export const DEFAULT_PRELOAD_BUDGET = 500;
