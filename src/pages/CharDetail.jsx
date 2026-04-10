@@ -12,6 +12,8 @@ import Seo from "../components/Seo";
 import CharLightbox from "../components/CharLightbox";
 import CharExpressionsGrid from "../components/CharExpressionsGrid";
 import CharNavigation from "../components/CharNavigation";
+import { useImagePreloader } from "../hooks/useImagePreloader";
+import { INTRO_STYLE_CONFIG, PRELOAD_BUDGET_OVERRIDE, DEFAULT_PRELOAD_BUDGET } from "../data/introStyles";
 
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
@@ -397,6 +399,383 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
   );
 }
 
+/* ══════════════════════════════════════════════════════════
+   CinematicCharDetail — Step 4 skeleton (module scope)
+   ------------------------------------------------------------
+   Phase state machine + LoadingShell for characters with
+   `introStyle`. Actual cinematic transitions come in Steps 5-7;
+   Phase 0 here is a placeholder keyVisual fade + quote.
+
+   Phases:
+     -1  LoadingShell (progress bar)
+      0  Cinematic intro overlay (placeholder)
+      1  KeyVisual hero (fixed bg + profile column)
+      2  CharSections (Expressions / Navigation / Footer)
+   ══════════════════════════════════════════════════════════ */
+function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
+  const { name } = useParams();
+  const navigate = useNavigate();
+
+  // ── Config ──
+  const config = INTRO_STYLE_CONFIG[char.introStyle] || {};
+  const preloadBudget = PRELOAD_BUDGET_OVERRIDE[char.cdnId] ?? DEFAULT_PRELOAD_BUDGET;
+
+  // ── Phase state machine ──
+  const [phase, setPhase] = useState(-1);
+  const [scrolled, setScrolled] = useState(false);
+  const [navbarVisible, setNavbarVisible] = useState(false);
+  const { lightbox, setLightbox, close: closeLightbox } = useCharLightbox();
+  const [exprErrors, setExprErrors] = useState({});
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [phase2Latched, setPhase2Latched] = useState(false); // one-way latch
+  const phase1Ref = useRef(null);
+  const exprSectionRef = useRef(null);
+
+  // ── Preload list: keyVisual + introAssets ──
+  const preloadUrls = [char.keyVisual, ...(char.introAssets || [])].filter(Boolean);
+  const { ready: assetsReady, timedOut, progress } = useImagePreloader(preloadUrls, { timeoutMs: preloadBudget });
+
+  // ── Detect reduced-motion ──
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mq.matches);
+    const handler = (e) => setReducedMotion(e.matches);
+    if (mq.addEventListener) mq.addEventListener("change", handler);
+    else mq.addListener(handler);
+    return () => {
+      if (mq.removeEventListener) mq.removeEventListener("change", handler);
+      else mq.removeListener(handler);
+    };
+  }, []);
+
+  // ── Reset on character change ──
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setPhase(-1);
+    setPhase2Latched(false);
+    setNavbarVisible(false);
+    setExprErrors({});
+    document.body.style.overflow = "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [name]);
+
+  // ── Shell → Phase transition ──
+  useEffect(() => {
+    if (phase !== -1) return;
+    if (!assetsReady) return;
+    // reduced-motion OR timedOut → skip Phase 0, go direct to Phase 1
+    if (reducedMotion || timedOut) {
+      setPhase(1);
+      return;
+    }
+    // Normal path → Phase 0
+    setPhase(0);
+    document.body.style.overflow = "hidden";
+  }, [phase, assetsReady, timedOut, reducedMotion]);
+
+  // ── Phase 0 → Phase 1 auto-advance ──
+  useEffect(() => {
+    if (phase !== 0) return;
+    const duration = config.duration || 2000;
+    const t = setTimeout(() => {
+      setPhase(1);
+      document.body.style.overflow = "";
+    }, duration);
+    return () => clearTimeout(t);
+  }, [phase, config.duration]);
+
+  // ── Skip on click/touch during Phase 0 ──
+  const skipIntro = () => {
+    if (phase !== 0) return;
+    setPhase(1);
+    document.body.style.overflow = "";
+  };
+
+  // ── Phase 1 → Phase 2 one-way latch (scroll threshold) ──
+  useEffect(() => {
+    if (phase < 1 || phase2Latched) return;
+    const handler = () => {
+      if (window.scrollY > 80) {
+        setPhase2Latched(true);
+        setPhase(2);
+      }
+    };
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, [phase, phase2Latched]);
+
+  // ── Scroll tracking for Navbar (Phase 2+) ──
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handler);
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
+  // ── Navbar IntersectionObserver (show after Expressions visible) ──
+  useEffect(() => {
+    if (phase < 2 || !exprSectionRef.current) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setNavbarVisible(true); },
+      { threshold: 0.1 }
+    );
+    obs.observe(exprSectionRef.current);
+    return () => obs.disconnect();
+  }, [phase]);
+
+  // ── focusBox → objectPosition derivation ──
+  const fb = char.focusBox || {};
+  const focus = isMobile ? (fb.mobile || fb.desktop) : (fb.desktop || fb.mobile);
+  const objectPosition = focus ? `${focus.cx}% ${focus.cy}%` : "center 30%";
+
+  const profileFields = [
+    { label: "직업", en: "JOB", value: char.job },
+    { label: "배경", en: "BACKGROUND", value: char.background },
+    { label: "취향", en: "TASTE", value: char.taste },
+    { label: "목표", en: "GOAL", value: char.goal },
+  ].filter((f) => f.value);
+
+  // ════════ PHASE -1: LoadingShell ════════
+  if (phase === -1) {
+    return (
+      <div style={{
+        position: "fixed", inset: 0, zIndex: 100,
+        background: C.bgDeep,
+        display: "flex", flexDirection: "column",
+        alignItems: "center", justifyContent: "center",
+        padding: 24,
+      }}>
+        <Seo title={char.name} description={`${char.name} — ${char.role}`} path={`/characters/${name}`} />
+        <div style={{
+          fontFamily: "var(--f-display-en)", fontSize: 11,
+          letterSpacing: "0.3em", textTransform: "uppercase",
+          color: C.text45, marginBottom: 16,
+        }}>
+          Loading {char.introLabel || char.name}
+        </div>
+        {/* Progress bar */}
+        <div style={{
+          width: 200, height: 2,
+          background: C.border06,
+          position: "relative", overflow: "hidden",
+        }}>
+          <div style={{
+            position: "absolute", left: 0, top: 0, bottom: 0,
+            width: `${Math.round(progress * 100)}%`,
+            background: char.color,
+            transition: "width 0.3s ease-out",
+          }} />
+        </div>
+      </div>
+    );
+  }
+
+  // ════════ PHASE 0: Cinematic intro (skeleton — no transition yet) ════════
+  if (phase === 0) {
+    return (
+      <div
+        onClick={skipIntro}
+        style={{
+          position: "fixed", inset: 0, zIndex: 200,
+          background: "oklch(0 0 0)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          cursor: "pointer",
+        }}
+      >
+        <Seo title={char.name} description={`${char.name} — ${char.role}`} path={`/characters/${name}`} />
+        {/* Placeholder: simple keyVisual fade (actual transitions in Step 5+) */}
+        <img
+          src={char.keyVisual}
+          alt=""
+          style={{
+            position: "absolute", inset: 0,
+            width: "100%", height: "100%",
+            objectFit: "cover", objectPosition,
+            opacity: 0.9,
+          }}
+        />
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "radial-gradient(ellipse at center, transparent 30%, oklch(0 0 0 / 0.6) 100%)",
+        }} />
+        {/* First quote (skeleton; Step 5+ handles sequencing) */}
+        <p style={{
+          position: "relative", zIndex: 3,
+          fontFamily: "var(--f-display-kr)",
+          fontSize: isMobile ? "clamp(22px,6vw,30px)" : "clamp(28px,3.5vw,42px)",
+          fontStyle: "italic",
+          color: "oklch(0.95 0 0)",
+          margin: 0, padding: isMobile ? "0 24px" : "0 48px",
+          textAlign: "center",
+          textShadow: "0 2px 24px oklch(0 0 0 / 0.8)",
+        }}>
+          {char.quoteSequence?.[0] || char.tagline}
+        </p>
+        {/* Chapter label */}
+        {char.introLabel && (
+          <span style={{
+            position: "absolute", bottom: isMobile ? "8%" : "10%",
+            left: isMobile ? 20 : 48,
+            fontFamily: "var(--f-display-en)", fontSize: isMobile ? 9 : 11,
+            letterSpacing: "0.25em", textTransform: "uppercase",
+            color: "oklch(0.6 0 0)", opacity: 0.6,
+            pointerEvents: "none",
+          }}>{char.introLabel}</span>
+        )}
+      </div>
+    );
+  }
+
+  // ════════ PHASE 1+ : KeyVisual hero + (optionally) lower sections ════════
+  return (
+    <div style={{ background: C.bgDeep, color: C.white, minHeight: "100vh", position: "relative", overflowX: "hidden" }}>
+      <Seo title={char.name} description={`${char.name} — ${char.role}`} path={`/characters/${name}`} />
+
+      {/* Navbar — visible after Phase 2 IntersectionObserver trigger */}
+      <div style={{
+        opacity: navbarVisible ? 1 : 0,
+        pointerEvents: navbarVisible ? "auto" : "none",
+        transition: "opacity 0.5s",
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+      }}>
+        <Navbar scrolled={scrolled} isMobile={isMobile} />
+      </div>
+
+      {/* Fixed keyVisual background (z:0) */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
+        <img
+          src={char.keyVisual}
+          alt=""
+          style={{
+            width: "100%", height: "100%",
+            objectFit: "cover", objectPosition,
+            opacity: phase >= 1 ? 1 : 0,
+            transition: "opacity 0.8s ease-out",
+          }}
+        />
+        {/* Gradient overlay */}
+        <div style={{
+          position: "absolute", inset: 0,
+          background: isMobile
+            ? "linear-gradient(to top, oklch(0 0 0 / 0.88) 25%, oklch(0 0 0 / 0.35) 55%, transparent 75%)"
+            : "linear-gradient(to right, oklch(0 0 0 / 0.82) 28%, oklch(0 0 0 / 0.35) 55%, transparent 75%)",
+        }} />
+      </div>
+
+      {/* Back button — always visible in Phase 1+ */}
+      <button
+        onClick={() => navigate(-1)}
+        aria-label="Back"
+        style={{
+          position: "fixed", top: 16, left: 16, zIndex: 50,
+          width: 40, height: 40,
+          background: "oklch(0 0 0 / 0.6)",
+          border: `1px solid ${C.border10}`,
+          borderRadius: "50%",
+          color: C.white, fontSize: 18, cursor: "pointer",
+          display: "flex", alignItems: "center", justifyContent: "center",
+        }}
+      >←</button>
+
+      {/* Phase 1 hero: name + tagline + profile */}
+      <section ref={phase1Ref} style={{
+        position: "relative", zIndex: 2,
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: isMobile ? "flex-end" : "center",
+        padding: isMobile ? "0 24px 80px" : "0 0 0 64px",
+      }}>
+        <div style={{
+          maxWidth: isMobile ? "100%" : 520,
+          opacity: phase >= 1 ? 1 : 0,
+          transform: phase >= 1 ? "translateY(0)" : "translateY(20px)",
+          transition: "opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s",
+        }}>
+          <p style={{
+            fontFamily: "var(--f-display-en)", fontSize: isMobile ? 10 : 12,
+            letterSpacing: "0.3em", textTransform: "uppercase",
+            color: char.color, marginBottom: 12,
+          }}>{char.introLabel || char.agency}</p>
+          <h1 style={{
+            fontFamily: "var(--f-display-kr)",
+            fontSize: isMobile ? "clamp(44px,12vw,60px)" : "clamp(56px,6vw,88px)",
+            fontWeight: 700, color: C.white,
+            margin: "0 0 8px", lineHeight: 1.1,
+          }}>{char.name}</h1>
+          <p style={{
+            fontFamily: "var(--f-body)", fontSize: isMobile ? 14 : 16,
+            color: C.text55, marginBottom: 20,
+          }}>{char.role}</p>
+          <p style={{
+            fontFamily: "var(--f-display-kr)", fontSize: isMobile ? 17 : 20,
+            fontStyle: "italic", color: char.color,
+            lineHeight: 1.6, marginBottom: 28, wordBreak: "keep-all",
+          }}>&ldquo;{char.tagline}&rdquo;</p>
+          {profileFields.length > 0 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {profileFields.map((f) => (
+                <div key={f.en}>
+                  <div style={{
+                    fontFamily: "var(--f-display-en)", fontSize: 9,
+                    letterSpacing: "0.2em", textTransform: "uppercase",
+                    color: char.color, marginBottom: 3,
+                  }}>{f.en} · {f.label}</div>
+                  <div style={{
+                    fontFamily: "var(--f-body)", fontSize: isMobile ? 13 : 14,
+                    color: C.text70, lineHeight: 1.7, wordBreak: "keep-all",
+                  }}>{f.value}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        {/* Scroll hint */}
+        {phase === 1 && (
+          <div style={{
+            position: "absolute",
+            bottom: 24, left: "50%", transform: "translateX(-50%)",
+            fontFamily: "var(--f-display-en)", fontSize: 9,
+            letterSpacing: "0.3em", textTransform: "uppercase",
+            color: C.text35, opacity: 0.7,
+            pointerEvents: "none",
+          }}>Scroll ↓</div>
+        )}
+      </section>
+
+      {/* Phase 2 lower sections — rendered once latched (one-way) */}
+      {phase2Latched && (
+        <>
+          <div style={{ position: "relative", zIndex: 2, background: C.bgDeep, paddingTop: 80 }}>
+            <CharExpressionsGrid
+              char={char}
+              isMobile={isMobile}
+              sectionRef={exprSectionRef}
+              exprErrors={exprErrors}
+              setExprErrors={setExprErrors}
+              onOpen={(key, src) => setLightbox({ key, src })}
+            />
+            <CharNavigation
+              prevChar={prevChar}
+              nextChar={nextChar}
+              sameAgency={sameAgency}
+              isMobile={isMobile}
+            />
+            <Footer isMobile={isMobile} />
+          </div>
+          <CharLightbox
+            lightbox={lightbox}
+            onClose={closeLightbox}
+            charName={char.name}
+            isMobile={isMobile}
+          />
+        </>
+      )}
+    </div>
+  );
+}
+
 export default function CharDetail() {
   const { name } = useParams();
   const navigate = useNavigate();
@@ -486,9 +865,14 @@ export default function CharDetail() {
     );
   }
 
-  // JGR → 완전 분리 렌더 블록
+  // JGR → 완전 분리 렌더 블록 (legacy intro1/intro2)
   if (char.id === "janggru") {
     return <JgrCharDetail char={char} isMobile={isMobile} prevChar={prevChar} nextChar={nextChar} sameAgency={sameAgency} />;
+  }
+
+  // Cinematic intro (characters with introStyle) → 공통 시네마틱 컴포넌트
+  if (char.introStyle) {
+    return <CinematicCharDetail char={char} isMobile={isMobile} prevChar={prevChar} nextChar={nextChar} sameAgency={sameAgency} />;
   }
 
   const hasImage = char.image && !imgError;
