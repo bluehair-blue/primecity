@@ -3,31 +3,113 @@ import { useEffect, useState } from "react";
 /* ══════════════════════════════════════════════════════════
    CutawayIntro (JSH) — punchy zoom montage → overlay fadeOut
    ------------------------------------------------------------
-   Sequence (5800ms) + handoff fadeOut (600ms)
+   Sequence (5800ms) + handoff fadeOut (600ms) = 6400ms total
      0    -  200ms : black hold
-     200  - 1700ms : intro1 zoom #1 (1500ms hold) — slow Ken Burns
+     200  - 1700ms : intro1 zoom #1 (Ken Burns, scale 2.0→2.12) + quote subtle
      1700 - 1800ms : WHITE FLASH #1 (100ms)
-     1800 - 3300ms : intro1 zoom #2 (1500ms hold) — slow Ken Burns
+     1800 - 3300ms : intro1 zoom #2 (Ken Burns, scale 1.9→2.014) + quote subtle
      3300 - 3400ms : WHITE FLASH #2 (100ms)
-     3400 - 5800ms : intro1 full-view (2400ms) + centered hero text
-     5800 - 6400ms : overlay fadeOut over 600ms → Phase 1 keyVisual beneath
-   Total: config.duration (6400ms)
+     3400 - 5800ms : intro1 full-view (scale 1.0→1.05) + quote hero (name + line)
+     5800 - 6400ms : overlay fadeOut → Phase 1 keyVisual beneath
 
-   Phase 1 handoff follows JGR pattern: Phase 1 content is already
-   rendered beneath; this overlay simply fades away without
-   unmounting the keyVisual.
+   v4 changes:
+   - CenteredQuote: subtle from beat 1, hero at beat 3
+   - zoomSequence scale 2.0/1.9 (was 2.8/2.5) — image quality
+   - Letterbox top/bottom 7% (zIndex 15)
+   - introLabel bottom 10% to clear letterbox
    ══════════════════════════════════════════════════════════ */
+
+/* ── CenteredQuote — shared quote overlay ── */
+function CenteredQuote({ char, isMobile, emphasis, show }) {
+  const quote = char.quoteSequence?.[0] || char.tagline || "";
+  const isHero = emphasis === "hero";
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        inset: 0,
+        zIndex: 6,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        padding: isMobile ? "0 24px" : "0 48px",
+        pointerEvents: "none",
+        opacity: show ? 1 : 0,
+        transform: show ? "translateY(0) scale(1)" : "translateY(16px) scale(0.96)",
+        transition: "opacity 0.8s ease-out, transform 1.0s ease-out",
+      }}
+    >
+      {/* agency label — hero only */}
+      {isHero && (
+        <p
+          style={{
+            fontFamily: "var(--f-display-en)",
+            fontSize: isMobile ? 11 : 14,
+            letterSpacing: "0.4em",
+            textTransform: "uppercase",
+            color: char.color,
+            margin: "0 0 14px",
+            textShadow: "0 2px 20px oklch(0 0 0 / 0.85)",
+          }}
+        >
+          {char.agency}
+        </p>
+      )}
+
+      {/* name — hero only */}
+      {isHero && (
+        <h1
+          style={{
+            fontFamily: "var(--f-display-kr)",
+            fontSize: isMobile ? "clamp(58px,16vw,84px)" : "clamp(84px,10vw,144px)",
+            fontWeight: 700,
+            color: "oklch(0.99 0 0)",
+            margin: "0 0 20px",
+            lineHeight: 1,
+            letterSpacing: "-0.02em",
+            textShadow: "0 6px 48px oklch(0 0 0 / 0.9)",
+          }}
+        >
+          {char.name}
+        </h1>
+      )}
+
+      {/* quote */}
+      <p
+        style={{
+          fontFamily: "var(--f-display-kr)",
+          fontSize: isHero
+            ? (isMobile ? 17 : 24)
+            : (isMobile ? "clamp(14px,4vw,18px)" : "clamp(16px,1.8vw,22px)"),
+          fontStyle: "italic",
+          fontWeight: isHero ? 500 : 400,
+          color: isHero ? char.color : "oklch(0.88 0 0)",
+          margin: 0,
+          wordBreak: "keep-all",
+          textShadow: isHero
+            ? "0 2px 24px oklch(0 0 0 / 0.9)"
+            : "0 2px 18px oklch(0 0 0 / 0.85)",
+          opacity: isHero ? 1 : 0.82,
+        }}
+      >
+        &ldquo;{quote}&rdquo;
+      </p>
+    </div>
+  );
+}
+
 export default function CutawayIntro({ char, isMobile, objectPosition, config, onSkip }) {
   const [beat, setBeat] = useState(0);
   const [flash, setFlash] = useState(0);
   const [fadingOut, setFadingOut] = useState(false);
 
   const introSrc = char.introAssets?.[0] || char.keyVisual;
-  const quote = char.quoteSequence?.[0] || char.tagline || "";
-
   const zoomSequence = char.zoomSequence || [
-    { cx: 50, cy: 30, scale: 2.7 },
-    { cx: 45, cy: 55, scale: 2.4 },
+    { cx: 50, cy: 30, scale: 2.0 },
+    { cx: 45, cy: 55, scale: 1.9 },
   ];
   const z1 = zoomSequence[0];
   const z2 = zoomSequence[1] || z1;
@@ -68,7 +150,7 @@ export default function CutawayIntro({ char, isMobile, objectPosition, config, o
         transition: "opacity 0.6s ease-out",
       }}
     >
-      {/* ── Beat 1: intro1 zoom #1 with slow Ken Burns drift ── */}
+      {/* ── Beat 1: zoom #1 — slow Ken Burns drift ── */}
       <img
         src={introSrc}
         alt=""
@@ -83,7 +165,7 @@ export default function CutawayIntro({ char, isMobile, objectPosition, config, o
         }}
       />
 
-      {/* ── Beat 2: intro1 zoom #2 with slow Ken Burns drift ── */}
+      {/* ── Beat 2: zoom #2 — slow Ken Burns drift ── */}
       <img
         src={introSrc}
         alt=""
@@ -98,7 +180,7 @@ export default function CutawayIntro({ char, isMobile, objectPosition, config, o
         }}
       />
 
-      {/* ── Beat 3: intro1 full view with gentle Ken Burns ── */}
+      {/* ── Beat 3: full view — gentle Ken Burns ── */}
       <img
         src={introSrc}
         alt=""
@@ -112,7 +194,7 @@ export default function CutawayIntro({ char, isMobile, objectPosition, config, o
         }}
       />
 
-      {/* Dark radial vignette for text legibility during beat 3 */}
+      {/* ── Dark vignette (text legibility) — beat 3 only ── */}
       <div
         style={{
           position: "absolute",
@@ -126,72 +208,50 @@ export default function CutawayIntro({ char, isMobile, objectPosition, config, o
         }}
       />
 
-      {/* Beat 3: CENTERED hero text */}
+      {/* ── CenteredQuote: subtle (beat 1/2) ── */}
+      <CenteredQuote
+        char={char}
+        isMobile={isMobile}
+        emphasis="subtle"
+        show={beat >= 1 && beat < 3}
+      />
+
+      {/* ── CenteredQuote: hero (beat 3) ── */}
+      <CenteredQuote
+        char={char}
+        isMobile={isMobile}
+        emphasis="hero"
+        show={beat === 3}
+      />
+
+      {/* ── Letterbox top/bottom 7% (zIndex 15, above text) ── */}
       <div
         style={{
           position: "absolute",
-          inset: 0,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          textAlign: "center",
-          padding: isMobile ? "0 24px" : "0 48px",
-          zIndex: 5,
+          top: 0, left: 0, right: 0,
+          height: "7%",
+          background: "oklch(0 0 0)",
+          zIndex: 15,
           pointerEvents: "none",
-          opacity: beat === 3 ? 1 : 0,
-          transform: beat === 3 ? "translateY(0) scale(1)" : "translateY(16px) scale(0.96)",
-          transition: "opacity 0.8s ease-out 0.2s, transform 1.1s ease-out 0.2s",
         }}
-      >
-        <p
-          style={{
-            fontFamily: "var(--f-display-en)",
-            fontSize: isMobile ? 11 : 14,
-            letterSpacing: "0.4em",
-            textTransform: "uppercase",
-            color: char.color,
-            margin: "0 0 14px",
-            textShadow: "0 2px 20px oklch(0 0 0 / 0.85)",
-          }}
-        >
-          {char.agency}
-        </p>
-        <h1
-          style={{
-            fontFamily: "var(--f-display-kr)",
-            fontSize: isMobile ? "clamp(58px,16vw,84px)" : "clamp(84px,10vw,144px)",
-            fontWeight: 700,
-            color: "oklch(0.99 0 0)",
-            margin: "0 0 20px",
-            lineHeight: 1,
-            letterSpacing: "-0.02em",
-            textShadow: "0 6px 48px oklch(0 0 0 / 0.9)",
-          }}
-        >
-          {char.name}
-        </h1>
-        <p
-          style={{
-            fontFamily: "var(--f-display-kr)",
-            fontSize: isMobile ? 17 : 24,
-            fontStyle: "italic",
-            color: char.color,
-            margin: 0,
-            wordBreak: "keep-all",
-            textShadow: "0 2px 24px oklch(0 0 0 / 0.9)",
-          }}
-        >
-          &ldquo;{quote}&rdquo;
-        </p>
-      </div>
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0, left: 0, right: 0,
+          height: "7%",
+          background: "oklch(0 0 0)",
+          zIndex: 15,
+          pointerEvents: "none",
+        }}
+      />
 
-      {/* Chapter label — bottom center, beat 3 only */}
+      {/* ── Chapter label — bottom 10% (clears letterbox 7%) ── */}
       {char.introLabel && (
         <span
           style={{
             position: "absolute",
-            bottom: "7%",
+            bottom: "10%",
             left: "50%",
             transform: "translateX(-50%)",
             fontFamily: "var(--f-display-en)",
@@ -210,7 +270,7 @@ export default function CutawayIntro({ char, isMobile, objectPosition, config, o
         </span>
       )}
 
-      {/* ── WHITE FLASH overlay ── */}
+      {/* ── WHITE FLASH overlay (zIndex 20, above letterbox) ── */}
       <div
         style={{
           position: "absolute",
@@ -223,7 +283,7 @@ export default function CutawayIntro({ char, isMobile, objectPosition, config, o
         }}
       />
 
-      {/* Skip hint */}
+      {/* ── Tap to skip hint ── */}
       <span
         style={{
           position: "absolute",

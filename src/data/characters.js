@@ -83,12 +83,12 @@ export const characters = [
     introLabel: "Jin Sihyuk / Verdict",
     quoteSequence: ["탈락, 다음."],
     focusBox: {
-      desktop: { cx: 50, cy: 35, w: 35, h: 65 },
-      mobile:  { cx: 50, cy: 32, w: 45, h: 70 },
+      desktop: { cx: 50, cy: 35, w: 45, h: 75 },  // v4 +10%
+      mobile:  { cx: 50, cy: 32, w: 55, h: 80 },  // v4 +10%
     },
     zoomSequence: [
-      { cx: 50, cy: 25, scale: 2.8 },  // 얼굴/눈매
-      { cx: 42, cy: 55, scale: 2.5 },  // 상체/손
+      { cx: 50, cy: 25, scale: 2.0 },  // 얼굴/눈매 (v4: 2.8→2.0 화질 우선)
+      { cx: 42, cy: 55, scale: 1.9 },  // 상체/손  (v4: 2.5→1.9)
     ],
     detailPath: "/characters/jinshihyuk",
     signature: "볼펜 시퀀스 (돌리기→딸깍→머리넘기기)",

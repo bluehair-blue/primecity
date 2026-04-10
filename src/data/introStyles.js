@@ -9,7 +9,7 @@
 export const INTRO_STYLE_CONFIG = {
   cutaway: {
     duration: 6400,
-    letterbox: false,
+    letterbox: true,   // v4: 상하 7% 레터박스 활성
     requiresSvgFilter: false,
     mobileFallback: null,
   },
