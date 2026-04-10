@@ -34,6 +34,7 @@ import os
 import sys
 import time
 from pathlib import Path
+from typing import Any
 
 # Windows CP949 → UTF-8 강제
 if sys.stdout.encoding != "utf-8":
@@ -95,9 +96,13 @@ def select_all_and_paste(text: str, delay: float = 0.1):
 #  로어북 파일 수집 및 파싱
 # ═══════════════════════════════════════════════════════════════
 
-def collect_lorebooks() -> list[dict]:
+def collect_lorebooks() -> list[dict[str, Any]]:
     """모든 로어북 JSON을 삽입 우선순위 순으로 수집."""
-    entries = []
+    entries: list[dict[str, Any]] = []
+    freeplay_mode_files = {
+        "프리플레이_시작_EN.json",
+        "프리플레이_유지_EN.json",
+    }
 
     order = [
         ("메인", [PROMPTS_DIR / "메인_프롬프트_EN.json"]),
@@ -119,7 +124,13 @@ def collect_lorebooks() -> list[dict]:
             if (PROMPTS_DIR / "캐릭터").exists() else []),
         ("오디션", sorted((PROMPTS_DIR / "오디션").glob("*_EN.json"), key=lambda p: p.name)
             if (PROMPTS_DIR / "오디션").exists() else []),
-        ("모드", sorted((PROMPTS_DIR / "모드").glob("*_EN.json"), key=lambda p: p.name)
+        ("프리플레이", [
+            PROMPTS_DIR / "모드" / "프리플레이_시작_EN.json",
+            PROMPTS_DIR / "모드" / "프리플레이_유지_EN.json",
+        ]),
+        ("모드", sorted(
+            [p for p in (PROMPTS_DIR / "모드").glob("*_EN.json") if p.name not in freeplay_mode_files],
+            key=lambda p: p.name)
             if (PROMPTS_DIR / "모드").exists() else []),
         ("구역", sorted(PROMPTS_DIR.glob("구역_*_EN.json"), key=lambda p: p.name)),
         ("SVG", sorted(PROMPTS_DIR.glob("SVG_*_EN.json"), key=lambda p: p.name)),
@@ -144,13 +155,13 @@ def collect_lorebooks() -> list[dict]:
     return entries
 
 
-def parse_lorebook(filepath: Path) -> dict | None:
+def parse_lorebook(filepath: Path) -> dict[str, Any] | None:
     """JSON 파일에서 이름, 본문, 트리거 키워드 리스트를 파싱."""
     raw = filepath.read_text(encoding="utf-8")
 
     parts = raw.split("// --- TRIGGER ---")
     json_text = parts[0].strip()
-    keywords = []
+    keywords: list[str] = []
 
     if len(parts) > 1:
         for line in parts[1].strip().split("\n"):
@@ -183,7 +194,7 @@ def parse_lorebook(filepath: Path) -> dict | None:
 #  자동 입력 파이프라인
 # ═══════════════════════════════════════════════════════════════
 
-def run_pipeline(entries: list[dict], start_from: int = 1, delay: float = 0.15, pause_each: bool = False):
+def run_pipeline(entries: list[dict[str, Any]], start_from: int = 1, delay: float = 0.15, pause_each: bool = False):
     total = len(entries)
 
     print(f"\n{'=' * 60}")
@@ -214,8 +225,10 @@ def run_pipeline(entries: list[dict], start_from: int = 1, delay: float = 0.15, 
         print(f"  [{i}/{total}] {cat} | {name} ({len(keywords)} keywords, {entry['size']:,} chars)")
 
         if pause_each and i > start_from:
-            input("    → Enter로 계속 (q=중단): ").strip().lower() == "q" and sys.exit(
-                print(f"\n  중단. 재개: --from {i}"))
+            answer = input("    → Enter로 계속 (q=중단): ").strip().lower()
+            if answer == "q":
+                print(f"\n  중단. 재개: --from {i}")
+                sys.exit(0)
 
         # ── 1. 로어북 제목 ──
         if i == start_from:
@@ -259,7 +272,7 @@ def run_pipeline(entries: list[dict], start_from: int = 1, delay: float = 0.15, 
 #  목록 출력
 # ═══════════════════════════════════════════════════════════════
 
-def print_list(entries: list[dict]):
+def print_list(entries: list[dict[str, Any]]):
     print(f"\n{'=' * 70}")
     print(f"  에덴챗 로어북 삽입 순서 ({len(entries)}개)")
     print(f"{'=' * 70}")

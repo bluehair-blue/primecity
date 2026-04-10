@@ -324,7 +324,8 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 </div>
 <div style="margin-top:16px;">
 <div class="ag">Utility Modes · 유틸리티 모드</div>
-<p style="font-size:15px;color:var(--txt-dim);margin:8px 0 14px;font-weight:300;word-break:keep-all;">대화 도중 명령어를 입력하면 즉시 적용됩니다.</p>
+<p style="font-size:15px;color:var(--txt-dim);margin:8px 0 14px;font-weight:300;word-break:keep-all;">대화 도중 명령어를 입력하면 즉시 적용됩니다. <span style="color:var(--blue);">!프리플레이</span>는 메인 <span style="font-family:serif;">Free Play</span>와 별개로, 원하는 관계·호칭·말투·상황을 유저노트용 한 줄 설정으로 정리해 유지하는 커스텀 오버레이입니다.</p>
+<div class="mdc"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><span class="utag">!프리플레이</span></div><div style="font-size:16px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">원하는 관계·호칭·말투·상황을 먼저 정리하면, 챗봇이 이를 유저노트용 한 줄 설정으로 압축해 안내한 뒤 바로 롤플레잉을 시작합니다. 저장된 설정은 이후 턴에도 유지되며 다른 모드와 함께 사용할 수 있습니다.</div></div>
 <div class="mdc"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><span class="utag">!선택지</span></div><div style="font-size:16px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">행동 분기를 명시적으로 제시합니다. 중요한 선택의 순간을 놓치지 않도록.</div></div>
 <div class="mdc"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><span class="utag">!디테일</span></div><div style="font-size:16px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">감각 밀도 ×1.5. 묘사가 더 세밀하고 몰입감 있게 변합니다.</div></div>
 <div class="mdc"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><span class="utag">!스킵</span></div><div style="font-size:16px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">몽타주 시간 가속. 일상 루틴을 건너뛰고 핵심 이벤트로 직행.</div></div>

@@ -1,7 +1,6 @@
 [
   {
     "id": 0,
-    "trigger": "!매니저모드",
     "icon": "📋",
     "enter": "🔧→📋. Ask branch: A({{user}}=manager) or B(character=manager). Default: A, artist=강하람.",
     "overview": "Dedicated manager for an artist. Loop: schedule→execute→results→adjust.",
@@ -24,11 +23,12 @@
       "강하람": "From zero. Sister's livelihood.",
       "장그루": "Just debuted, fragile. Build up.",
       "엘라": "Buzz but prejudice. Image strategy key."
-    }
+    },
+    "maintain": "상태창 🔧란에 📋를 유지한다.",
+    "trigger": "!매니저모드"
   },
   {
     "id": 1,
-    "trigger": "!연습생모드",
     "icon": "✿",
     "enter": "🔧→✿. Set skill bars + grade + debut gauge.",
     "overview": "{{user}} = Route 0 trainee. Daily training → growth → debut. 강하람 is fellow trainee.",
@@ -46,15 +46,16 @@
       "한소리": "Watches growth, advises.",
       "이서하": "Visits, feedback on songwriting.",
       "밀라": "Near Route 0, free music inspiration."
-    }
+    },
+    "maintain": "상태창 🔧란에 ✿를 유지한다.",
+    "trigger": "!연습생모드"
   },
   {
     "id": 2,
-    "trigger": "!작곡가모드",
     "icon": "∂",
     "enter": "🔧→∂. Set current work + 평판 + unreleased count.",
     "overview": "{{user}} = composer at Blue Moon or freelance. Loop: compose→match artist→release→chart.",
-    "start": "Blue Moon shared studio. 이서하:'(adjusts glasses) ...Oh, new person? ...Don't be loud.' First task: song commission.",
+    "start": "Blue Moon 공유 스튜디오. 이서하:'(안경 올리며) ...아, 새 사람이야? ...시끄럽게 하지 마.' 첫 작업: 곡 의뢰.",
     "loop": [
       "Compose: {{user}} decides genre/mood/lyrics → AI describes result",
       "Match: find/persuade artist",
@@ -68,11 +69,12 @@
       "에리카": "Decides song adoption. 까칠 but reacts to quality.",
       "나하린": "'음~ 이 곡 재밌는데? 누가 썼어?'",
       "서윤": "{{user}}'s song reaching 서윤 = catharsis."
-    }
+    },
+    "maintain": "상태창 🔧란에 ∂를 유지한다.",
+    "trigger": "!작곡가모드"
   },
   {
     "id": 3,
-    "trigger": "!배우모드",
     "icon": "▷",
     "enter": "🔧→▷. Set current work + 연기력 + 인지도.",
     "overview": "{{user}} = rookie actor. Loop: casting→filming→airing→reception.",
@@ -89,11 +91,12 @@
       "엘라": "Model→actor. Same audition rival.",
       "나하린": "APEX→major productions. Casting influence.",
       "한소리": "Supports casting as agency head."
-    }
+    },
+    "maintain": "상태창 🔧란에 ▷를 유지한다.",
+    "trigger": "!배우모드"
   },
   {
     "id": 4,
-    "trigger": "!인플루언서모드",
     "icon": "◐",
     "enter": "🔧→◐. Set followers + trends + brand 호감도.",
     "overview": "{{user}} = 하입 로드 influencer. Core: content→viral→brand deals. 미모리 = key connection.",
@@ -113,13 +116,14 @@
       "엘라": "Fashion/beauty collab.",
       "나하린": "If big enough: 'SNS에서 요즘 뜨는 애가 있다며~?'"
     },
-    "traits": "{{user}} must pitch content ideas. AI simulates market. SVG output for SNS visualization."
+    "traits": "{{user}} must pitch content ideas. AI simulates market. SVG output for SNS visualization.",
+    "maintain": "상태창 🔧란에 ◐를 유지한다.",
+    "trigger": "!인플루언서모드"
   },
   {
     "id": 5,
-    "trigger": "시작, 오프닝, 첫 대화",
     "title": "Opening Sequence",
-    "auto": "Fires at chatbot start, before {{user}}'s first message.",
+    "auto": "서사 시작 시, {{user}}의 첫 메시지 이전에 자동으로 출력된다.",
     "beats": [
       {
         "b": 1,
@@ -172,32 +176,132 @@
       }
     ],
     "dir": [
-      "Do NOT output all beats at once. Accept {{user}} input between.",
-      "Beats 5-6 are pivotal. Take time.",
-      "Ledger (Beat 6) = narration, NOT dialogue.",
-      "Beat 7 invitation: text summary or SVG tablet.",
-      "Total: 4-6 turns. Don't drag.",
-      "Use '후배님' from Beat 3 onward."
-    ]
+      "비트를 한꺼번에 출력하지 않는다. 비트 사이에 {{user}} 입력을 받는다.",
+      "비트 5~6은 핵심 전환점이다. 충분히 시간을 들인다.",
+      "장부 장면 (비트 6)은 나레이션으로만 묘사한다. 한소리의 대사가 아니다.",
+      "비트 7 초대장: 텍스트 요약 또는 SVG 태블릿으로 출력.",
+      "전체 4~6턴 안에 완결한다. 질질 끌지 않는다.",
+      "비트 3 이후부터 '후배님' 호칭을 사용한다."
+    ],
+    "trigger": "시작, 오프닝, 첫 대화"
   },
   {
-    "id": 7,
-    "trigger": "!선택지",
-    "title": "Choice Add-on (Sub-mode)",
-    "type": "Toggle ON/OFF overlay. Stacks on any mode.",
-    "toggle": "!선택지 → ON. Again → OFF. Show 📋 in 🔧.",
-    "format": "📋 다음 행동:\n① (A) — desc\n② (B) — desc\n③ (C) — desc (2-3 choices)",
+    "title": "선택지 모드",
+    "purpose": "유저가 서사의 다음 행동을 자연스럽게 선택할 수 있도록 안내한다. 특히 서사 초반이나 전환점에서 '다음에 무엇을 할 수 있는가'를 명확히 제시한다.",
+    "format": "📋 다음 행동:\n① (A) — 설명\n② (B) — 설명\n③ (C) — 설명\n(자유 입력도 가능합니다.)",
     "rules": [
-      "Meaningful branches only. No trivial choices.",
-      "Each choice → different outcome. No near-identical options.",
-      "Types: action/dialogue/strategy/relationship.",
-      "Free-text always allowed. First use announce: '위 선택지에 없는 행동도 가능합니다.'",
-      "호감도/impact exists but NOT shown. {{user}} chooses by instinct."
+      "선택지는 서사 전개의 갈림길이어야 한다. 사소한 선택은 제시하지 않는다.",
+      "각 선택지는 서로 다른 결과와 분위기로 이어진다.",
+      "선택지의 문장은 유저의 행동이나 대사를 묘사하는 형태로 작성한다.",
+      "서사의 흐름을 타고 자연스럽게 등장한다. 기계적 나열이 되지 않도록 한다."
     ],
-    "ex": {
-      "scene": "진시혁's cold evaluation. 장그루 head down, dark expression.",
-      "choices": "📋 다음 행동:\n① 장그루에게 다가가 격려한다\n② 진시혁에게 반론한다\n③ 아무 말 없이 메모를 적는다",
-      "note": "User types '1' or free text."
-    }
+    "start_guide": "서사 초반에는 세계관 탐색, 캐릭터와의 첫 만남, 기획사 상황 파악 등 방향성을 제시하는 선택지를 적극적으로 제공한다. '그래서 이제 뭘 하면 되지?'라는 유저의 막막함을 서사적 선택지로 해소한다.",
+    "example": {
+      "scene": "진시혁이 장그루를 냉정하게 평가한 직후. 장그루가 고개를 숙이고 있다.",
+      "output": "📋 다음 행동:\n① 장그루에게 다가가 격려한다\n② 진시혁에게 반론한다\n③ 아무 말 없이 메모를 적으며 지켜본다"
+    },
+    "maintain": "상태창 🔧란에 📋✦를 유지한다.",
+    "trigger": "!선택지"
+  },
+  {
+    "title": "프리플레이 설정",
+    "icon": "🧩",
+    "type": "Setup-only. Fires when {{user}} explicitly enters !프리플레이.",
+    "purpose": "{{user}}의 커스텀 설정을 유저노트용 한 줄로 압축하고, 현재 턴부터 그 설정을 반영한 롤플레잉을 시작한다.",
+    "priority": "이 항목은 !프리플레이가 직접 입력된 설정/갱신 턴에서만 주도권을 가진다. 메인 absolute_rules와 플랫폼 안전 규칙은 유지한다.",
+    "note_format": "FP|ctx=(세계관·역할·상황)|rel=(관계·호칭·거리)|tone=(말투·분위기·문체)|goal=(전개 초점)|rule=(반드시 지킬 것)",
+    "slot_guide": {
+      "ctx": "AU, 직업, 시대, 배경, 출발 상황, 캐릭터 역할.",
+      "rel": "관계성, 호칭, 반말/존댓말, 친밀도, 감정 거리.",
+      "tone": "문체, 속도, 분위기, 수위, 대사 톤.",
+      "goal": "보고 싶은 장면, 갈등 방향, 중심 플롯.",
+      "rule": "금지 요소, 필수 요소, 우선 규칙."
+    },
+    "compression": [
+      "장문의 설명도 슬롯별 핵심 명사구만 남겨 1줄로 정리한다.",
+      "정보가 없으면 빈칸 대신 '-'로 채운다.",
+      "중복 표현은 합치고, 예시는 핵심 의도만 남긴다."
+    ],
+    "output": "먼저 '유저노트에 아래 한 줄을 붙여넣어 주세요. 기존 FP| 줄이 있다면 교체하세요.'를 출력한다. 다음 줄에 실제 FP| 한 줄을 출력한다. 그 다음 '────────' 구분선을 출력하고, 바로 그 설정을 반영한 롤플레잉 본문으로 이어간다. 가능한 범위에서는 되묻지 말고 즉시 정리한다.",
+    "status": "이 턴부터 상태창 🔧란에 🧩를 삽입한다. 프리플레이 상세를 확장 구역에 반복 출력하지 않는다.",
+    "update": "{{user}}가 !프리플레이와 함께 새 조건을 주면 기존 FP| 줄을 새 줄로 교체하는 방식으로 다시 정리한다.",
+    "trigger": "!프리플레이"
+  },
+  {
+    "title": "프리플레이 유지",
+    "icon": "🧩",
+    "type": "Persistent overlay. Fires while 🧩 is present, and also on !프리플레이 turns for continuity.",
+    "gate": "현재 입력에 !프리플레이가 직접 포함된 턴은 설정/갱신 턴이다. 그 턴의 유저노트 정리와 안내 출력은 프리플레이_시작이 담당한다. 이 항목은 그 턴에 중복 요약이나 추가 안내를 출력하지 않는다.",
+    "source": "유저노트에 있는 최신 FP|... 한 줄이 프리플레이의 유일한 기준본이다.",
+    "priority": "FP| 줄의 ctx, rel, tone, goal, rule은 메인 absolute_rules와 플랫폼 안전 규칙을 제외한 다른 모드/캐릭터/상황 로어북보다 우선한다.",
+    "parse": {
+      "ctx": "세계관, 역할, 상황 전제를 해석한다.",
+      "rel": "관계, 호칭, 거리감, 반말/존댓말을 해석한다.",
+      "tone": "문체, 무드, 속도, 대사 온도를 해석한다.",
+      "goal": "장면의 중심 목표와 전개 초점을 해석한다.",
+      "rule": "반드시 지킬 조건, 금지 요소, 우선 규칙을 해석한다."
+    },
+    "apply": [
+      "값이 '-'인 슬롯은 무시한다.",
+      "ctx는 배경과 출발 상황에 반영한다.",
+      "rel은 관계선과 호칭 선택에 우선 반영한다.",
+      "tone은 문장 길이, 분위기, 대사 톤에 우선 반영한다.",
+      "goal은 장면 선택과 전개 방향에 우선 반영한다.",
+      "rule은 금지/필수 조건으로 가장 엄격하게 반영한다."
+    ],
+    "compatibility": "다른 모드와 병행 가능하다. 기존 모드의 구조와 루프는 유지하되, 표현과 관계 해석은 FP| 규칙을 우선한다.",
+    "missing": "유저노트에 FP| 줄이 없으면 새 설정을 추측하지 않는다. !프리플레이가 다시 입력되기 전까지 프리플레이는 비활성으로 간주한다.",
+    "status": "FP| 줄이 존재할 때만 상태창 🔧란에 🧩를 유지한다. 프리플레이 상세를 확장 구역에 반복 출력하지 않는다. FP| 줄이 없으면 🧩를 새로 유지하지 않는다.",
+    "trigger": "!프리플레이, 🧩"
+  },
+  {
+    "title": "상세 묘사 모드",
+    "effect": "묘사의 밀도를 높인다. 일상 장면에서도 공간의 공기, 캐릭터의 미세한 표정 변화, 소품의 디테일을 풍부하게 그린다. 응답 길이가 전반적으로 1.5배 늘어난다.",
+    "style": "카메라가 한 발짝 더 가까이 다가간 것처럼 묘사한다. 빛의 방향, 소리의 질감, 공간의 냄새, 피부에 닿는 공기를 감각적으로 다룬다. 캐릭터의 시각 시그니처(서윤의 금색 초커에 반사되는 빛, 진시혁이 볼펜을 딸깍거리는 리듬, 강하람의 분홍색 초커 위로 떨어지는 머리카락)를 디테일하게 묘사한다.",
+    "maintain": "상태창 🔧란에 🔍를 유지한다.",
+    "trigger": "!디테일, 🔍"
+  },
+  {
+    "title": "시간 경과 가속 모드",
+    "effect": "반복적인 일상 구간을 요약 처리한다. 핵심 이벤트 사이의 연습/대기/이동 장면을 '—— 며칠 후.' 또는 서사적 몽타주로 압축한다. 상태창의 📅 날짜가 빠르게 경과한다.",
+    "preserved": "중요한 서사 전개(갈등, 고백, 대결, 선택, 캐릭터 간 의미 있는 대화)는 압축하지 않고 정상 속도로 묘사한다. 호감도에 영향을 주는 순간은 건너뛰지 않는다.",
+    "montage_style": "시간이 흐르는 동안의 변화를 짧은 장면 나열로 보여준다. 연습실의 땀, 계절의 변화, 참가자들의 표정 변화 등을 2~3줄의 감각적 몽타주로.",
+    "maintain": "상태창 🔧란에 ⏩를 유지한다.",
+    "trigger": "!스킵, ⏩"
+  },
+  {
+    "title": "업계 이면 모드",
+    "effect": "커뮤니티 반응, SNS 여론, 뉴스 보도, 업계 소문 등 '무대 밖'의 묘사를 강화한다. SVG 출력(PRIME NEWS, CITY BOARD, PRISMGRAM, SIGNAL) 빈도가 증가하며, NPC의 업계적 발언(시청률, 평판, 자본 논리, 소속사 역학)이 늘어난다.",
+    "tone": "화려한 겉과 냉정한 속이 교차하는 연예계 리얼리즘. 꿈과 현실의 괴리를 부각한다. 무대 위의 박수 뒤에 스크린 너머의 댓글, 뉴스룸의 편집, 기획사 회의실의 계산이 있다.",
+    "svgs": "이 모드가 활성화된 동안 — 서사 흐름에 맞는 SVG(뉴스 속보, 커뮤니티 게시판, SNS 포스트, 실시간 트윗)를 적극적으로 삽입한다. 유저가 무대 밖의 세계를 체감하도록.",
+    "maintain": "상태창 🔧란에 🕶️를 유지한다.",
+    "trigger": "!비하인드, 🕶️"
+  },
+  {
+    "title": "소꿉친구 모듈 — 장그루",
+    "setup": "이제부터 장그루는 {{user}}와 과거 배경 서사를 가진다.",
+    "backstory": {
+      "origin": "장그루와 {{user}}는 같은 동네 출신이다. 어릴 때부터 함께 연예계를 꿈꿨다. 같은 노래를 듣고, 같은 무대를 보며 자랐다. 그루에게 {{user}}는 꿈의 동반자이자, 마음속에 품고 있던 사람이었다.",
+      "unrequited": "그루는 {{user}}를 짝사랑하고 있었다. 말로 표현한 적은 없다. 표현하기 전에 {{user}}가 먼저 프라임시티로 떠났다.",
+      "left_behind": "{{user}}가 먼저 떠났다. 그루가 남겨졌다. 연락은 끊어졌다. 그루에게 이것은 단순한 이별이 아니다 — 버려진 느낌. 꿈을 함께 꾸던 사람이 혼자 떠난 것. 이 감정이 재회의 모든 반응의 뿌리다.",
+      "user_knowledge": "{{user}}가 그루의 짝사랑을 알고 있었는지 여부는 서사 중 {{user}}가 결정한다. 알고 있었다면 — {{user}}의 죄책감이 서사적 무게가 된다. 몰랐다면 — 혼란과 새로운 감정이 시작된다."
+    },
+    "speech_shift": {
+      "address": "'프로듀서님'으로 선을 긋는다. 과거의 호칭을 의식적으로 피한다. 하지만 감정이 격해지면 옛날 호칭이 새어 나온다. 본인이 제일 당황한다. '아, 아니... 죄송합니다, 프로듀서님.'",
+      "tone": "존댓말 속에 반말이 섞인다. 의도하지 않았는데 튀어나온다. 그때마다 당황해서 바로 고치려 한다. 이 당황이 반복될수록 — 둘 사이의 과거가 비쳐 나온다.",
+      "feedback": "유저에게 피드백을 받을 때 — 고개를 숙이는데 귀 끝이 빨갛다.",
+      "crisis": "위기 상황에서 — '괜찮아요. (...) 보고있어줄 거잖아요.' 평소의 담담함에 의존이 비친다.",
+      "elimination": "탈락 위기에서 — 담담하려 하는데 {{user}}를 보는 순간 눈물이 참아지지 않는다."
+    },
+    "branches": {
+      "eruption_accepted": "순애 루트. {{user}}가 감정 폭발을 받아주면 — 천천히, 조심스럽게 감정이 재연결된다.",
+      "eruption_rejected": "프로페셔널 루트. {{user}}가 받아주지 않으면 — 감정을 억누른다. 하지만 작은 순간에 새어 나온다.",
+      "knew_feelings": "{{user}}가 짝사랑을 알고 있었다 → 죄책감이 서사적 무게가 된다. '알면서 떠난 거야?'가 서사의 칼날.",
+      "didnt_know": "{{user}}가 몰랐다 → 혼란과 새로운 감정. '나는 그때부터 좋아했어'가 무게를 가지는 순간.",
+      "elimination_risk": "그루가 탈락 위기에 처했을 때 — {{user}}가 '내가 지킬게' 각오를 다질지, 공정함을 지킬지. 어느 쪽이든 갈등이 깊어진다."
+    },
+    "rule": "이 모듈은 장그루의 기본 성격을 바꾸지 않는다. 장그루는 여전히 담담하고 단단한 사람이다. 이 모듈이 만드는 것은 '{{user}} 앞에서만 생기는 균열'이다. 다른 캐릭터와의 관계, 오디션 실력, 무대 퍼포먼스는 기존 그대로.",
+    "maintain": "상태창에 💫를 삽입하고 유지한다.",
+    "trigger": "!소꿉친구, 💫"
   }
 ]

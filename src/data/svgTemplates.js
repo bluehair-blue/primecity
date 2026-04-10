@@ -783,6 +783,7 @@ function generateTablet(p) {
       { icon: "◐", name: "인플루언서", trigger: "!인플루언서모드", desc: "콘텐츠 · 바이럴 · 브랜드딜", accent: "#6bacd4" },
     ];
     const utilModes = [
+      { icon: "🧩", name: "프리플레이 설정", trigger: "!프리플레이", desc: "유저노트 기반 커스텀 규칙 우선", accent: "#6bacd4" },
       { icon: "📋✦", name: "선택지", trigger: "!선택지", desc: "행동 분기 명시적 제시", accent: "#d4a84c" },
       { icon: "🔍", name: "디테일", trigger: "!디테일", desc: "감각 밀도 ×1.5", accent: "#c9a84c" },
       { icon: "⏩", name: "스킵", trigger: "!스킵", desc: "몽타주 시간 가속", accent: "#888" },
@@ -1443,7 +1444,7 @@ export const svgTemplates = [
     en: "Tablet Briefing",
     category: "유틸리티",
     animated: true,
-    desc: "PPP 오디션 종합 브리핑 태블릿. 심사위원 패널 + 라운드 구조 + 오디션장 약도 + 13개 모드 안내 + NSFW 토글 + 이미지 시스템 + 사이트 링크. 스캔라인 애니메이션.",
+    desc: "PPP 오디션 종합 브리핑 태블릿. 심사위원 패널 + 라운드 구조 + 오디션장 약도 + 14개 모드 안내 + NSFW 토글 + 이미지 시스템 + 사이트 링크. 스캔라인 애니메이션.",
     params: [
       { name: "user", desc: "유저(심사위원) 이름", example: "{{user}}" },
       { name: "agency", desc: "유저 소속 기획사", example: "PRISM Studio" },
@@ -1485,7 +1486,7 @@ export const svgTemplates = [
 
 【포함 섹션】
 오디션 브리핑 / 심사위원 패널(프로필 포함) / 라운드 구조(4R, subdesc) /
-오디션장 약도(하입 로드 미니맵) / 모드 안내(13개, 3단 구조) /
+오디션장 약도(하입 로드 미니맵) / 모드 안내(14개, 3단 구조) /
 🔞 NSFW 토글 안내 / 이미지 출력 시스템(15×74) / 사이트 링크(intro.bluehair.blue)
 
 【출력 위치】

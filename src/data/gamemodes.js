@@ -101,5 +101,63 @@ export const careerModes = [
   },
 ];
 
+// ── Utility command modes ──
+export const utilityModes = [
+  {
+    id: "freeplay-config",
+    name: "프리플레이 설정",
+    en: "Custom Freeplay",
+    trigger: "!프리플레이",
+    desc: "원하는 관계·호칭·말투·상황을 먼저 정리하면, 챗봇이 이를 유저노트용 한 줄 설정으로 압축해 안내한 뒤 바로 롤플레잉을 시작한다. 저장된 설정은 이후 턴에도 유지되며 다른 모드와 함께 쓸 수 있다.",
+    accent: "oklch(0.72 0.10 220)",
+    icon: "🧩",
+  },
+  {
+    id: "choices",
+    name: "선택지",
+    en: "Choice Add-on",
+    trigger: "!선택지",
+    desc: "행동 분기를 명시적으로 제시한다. 중요한 선택의 순간을 놓치지 않도록.",
+    accent: "oklch(0.72 0.12 55)",
+    icon: "📋✦",
+  },
+  {
+    id: "detail",
+    name: "디테일",
+    en: "Detail",
+    trigger: "!디테일",
+    desc: "감각 밀도 ×1.5. 묘사가 더 세밀하고 몰입감 있게 변한다.",
+    accent: "oklch(0.76 0.12 80)",
+    icon: "🔍",
+  },
+  {
+    id: "skip",
+    name: "스킵",
+    en: "Skip",
+    trigger: "!스킵",
+    desc: "몽타주 시간 가속. 반복 루틴을 압축하고 핵심 이벤트로 빠르게 넘어간다.",
+    accent: "oklch(0.62 0.02 260)",
+    icon: "⏩",
+  },
+  {
+    id: "behind",
+    name: "비하인드",
+    en: "Behind",
+    trigger: "!비하인드",
+    desc: "업계 이면에 포커스. 여론, 뉴스, 커뮤니티, 자본 논리가 더 선명해진다.",
+    accent: "oklch(0.72 0.10 220)",
+    icon: "🕶️",
+  },
+  {
+    id: "childhood",
+    name: "소꿉친구",
+    en: "Childhood Friend",
+    trigger: "!소꿉친구",
+    desc: "장그루와 {{user}}의 과거 인연을 활성화한다. 재회 서사의 감정선이 크게 달라진다.",
+    accent: "oklch(0.72 0.10 310)",
+    icon: "💫",
+  },
+];
+
 // ── Combined export for backward compatibility ──
-export const gamemodes = [...mainModes, ...careerModes];
+export const gamemodes = [...mainModes, ...careerModes, ...utilityModes];

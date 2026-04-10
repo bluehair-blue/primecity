@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import C from "../styles/tokens";
 import useReveal from "../hooks/useReveal";
-import { mainModes, careerModes } from "../data/gamemodes";
+import { mainModes, careerModes, utilityModes } from "../data/gamemodes";
 
 export default function GameModes({ isMobile }) {
   const [ref, visible] = useReveal(0.12);
@@ -407,6 +407,155 @@ export default function GameModes({ isMobile }) {
               </div>
             </Link>
           ))}
+        </div>
+
+        <div
+          style={{
+            marginTop: isMobile ? 28 : 36,
+            opacity: vCareer ? 1 : 0,
+            transform: vCareer ? "translateY(0)" : "translateY(20px)",
+            transition: "opacity 0.8s cubic-bezier(0.22,1,0.36,1) 0.08s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.08s",
+          }}
+        >
+          <div
+            style={{
+              textAlign: "center",
+              marginBottom: isMobile ? 18 : 24,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "var(--f-display-en)",
+                fontSize: 9,
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                color: C.gold,
+                display: "block",
+                marginBottom: 8,
+              }}
+            >
+              Utility Modes
+            </span>
+            <h3
+              style={{
+                fontFamily: "var(--f-display-kr)",
+                fontSize: isMobile ? 18 : 22,
+                fontWeight: 600,
+                color: C.white,
+                margin: 0,
+              }}
+            >
+              유틸리티 모드
+            </h3>
+            <p
+              style={{
+                fontFamily: "var(--f-body)",
+                fontSize: 12,
+                color: C.text35,
+                margin: "8px 0 0",
+                fontWeight: 300,
+                wordBreak: "keep-all",
+              }}
+            >
+              대화 중 명령어를 입력하면 즉시 적용됩니다. !프리플레이는 메인 Free Play와 별개로, 원하는 관계·호칭·말투·상황을 유저노트용 한 줄 설정으로 정리해 유지하는 커스텀 오버레이입니다.
+            </p>
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
+              gap: isMobile ? 12 : 16,
+            }}
+          >
+            {utilityModes.map((um, i) => (
+              <div
+                key={um.id}
+                style={{
+                  padding: isMobile ? "18px 16px" : "20px 18px",
+                  background: C.bgCard,
+                  border: `1px solid ${C.border06}`,
+                  position: "relative",
+                  overflow: "hidden",
+                  opacity: vCareer ? 1 : 0,
+                  transform: vCareer ? "translateY(0)" : "translateY(20px)",
+                  transition: `opacity 0.7s cubic-bezier(0.22,1,0.36,1) ${i * 0.05}s, transform 0.7s cubic-bezier(0.22,1,0.36,1) ${i * 0.05}s`,
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: 2,
+                    background: `linear-gradient(90deg, ${um.accent}, transparent 70%)`,
+                    opacity: 0.6,
+                  }}
+                />
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 10,
+                    marginBottom: 10,
+                  }}
+                >
+                  <span style={{ fontSize: 22 }}>{um.icon}</span>
+                  <div>
+                    <span
+                      style={{
+                        fontFamily: "var(--f-display-en)",
+                        fontSize: 9,
+                        letterSpacing: "0.2em",
+                        textTransform: "uppercase",
+                        color: um.accent,
+                        display: "block",
+                      }}
+                    >
+                      {um.en}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: "var(--f-display-kr)",
+                        fontSize: isMobile ? 15 : 16,
+                        fontWeight: 600,
+                        color: C.white,
+                      }}
+                    >
+                      {um.name}
+                    </span>
+                  </div>
+                </div>
+
+                <p
+                  style={{
+                    fontFamily: "var(--f-body)",
+                    fontSize: 12,
+                    color: C.text45,
+                    margin: 0,
+                    lineHeight: 1.7,
+                    fontWeight: 300,
+                    wordBreak: "keep-all",
+                  }}
+                >
+                  {um.desc}
+                </p>
+
+                <div
+                  style={{
+                    marginTop: 12,
+                    fontFamily: "monospace",
+                    fontSize: 10,
+                    color: um.accent,
+                    opacity: 0.8,
+                  }}
+                >
+                  {um.trigger}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
