@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import CenteredQuote from "./CenteredQuote";
 
 /* ══════════════════════════════════════════════════════════
    CutawayIntro (JSH) — punchy zoom montage → overlay fadeOut
@@ -13,93 +14,11 @@ import { useEffect, useState } from "react";
      5800 - 6400ms : overlay fadeOut → Phase 1 keyVisual beneath
 
    v4 changes:
-   - CenteredQuote: subtle from beat 1, hero at beat 3
+   - CenteredQuote: subtle from beat 1, hero at beat 3 (shared component)
    - zoomSequence scale 2.0/1.9 (was 2.8/2.5) — image quality
    - Letterbox top/bottom 7% (zIndex 15)
    - introLabel bottom 10% to clear letterbox
    ══════════════════════════════════════════════════════════ */
-
-/* ── CenteredQuote — shared quote overlay ── */
-function CenteredQuote({ char, isMobile, emphasis, show }) {
-  const quote = char.quoteSequence?.[0] || char.tagline || "";
-  const isHero = emphasis === "hero";
-
-  return (
-    <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        zIndex: 6,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        padding: isMobile ? "0 24px" : "0 48px",
-        pointerEvents: "none",
-        opacity: show ? 1 : 0,
-        transform: show ? "translateY(0) scale(1)" : "translateY(16px) scale(0.96)",
-        transition: "opacity 0.8s ease-out, transform 1.0s ease-out",
-      }}
-    >
-      {/* agency label — hero only */}
-      {isHero && (
-        <p
-          style={{
-            fontFamily: "var(--f-display-en)",
-            fontSize: isMobile ? 11 : 14,
-            letterSpacing: "0.4em",
-            textTransform: "uppercase",
-            color: char.color,
-            margin: "0 0 14px",
-            textShadow: "0 2px 20px oklch(0 0 0 / 0.85)",
-          }}
-        >
-          {char.agency}
-        </p>
-      )}
-
-      {/* name — hero only */}
-      {isHero && (
-        <h1
-          style={{
-            fontFamily: "var(--f-display-kr)",
-            fontSize: isMobile ? "clamp(58px,16vw,84px)" : "clamp(84px,10vw,144px)",
-            fontWeight: 700,
-            color: "oklch(0.99 0 0)",
-            margin: "0 0 20px",
-            lineHeight: 1,
-            letterSpacing: "-0.02em",
-            textShadow: "0 6px 48px oklch(0 0 0 / 0.9)",
-          }}
-        >
-          {char.name}
-        </h1>
-      )}
-
-      {/* quote */}
-      <p
-        style={{
-          fontFamily: "var(--f-display-kr)",
-          fontSize: isHero
-            ? (isMobile ? 17 : 24)
-            : (isMobile ? "clamp(14px,4vw,18px)" : "clamp(16px,1.8vw,22px)"),
-          fontStyle: "italic",
-          fontWeight: isHero ? 500 : 400,
-          color: isHero ? char.color : "oklch(0.88 0 0)",
-          margin: 0,
-          wordBreak: "keep-all",
-          textShadow: isHero
-            ? "0 2px 24px oklch(0 0 0 / 0.9)"
-            : "0 2px 18px oklch(0 0 0 / 0.85)",
-          opacity: isHero ? 1 : 0.82,
-        }}
-      >
-        &ldquo;{quote}&rdquo;
-      </p>
-    </div>
-  );
-}
 
 export default function CutawayIntro({ char, isMobile, objectPosition, config, onSkip }) {
   const [beat, setBeat] = useState(0);

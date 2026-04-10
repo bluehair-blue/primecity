@@ -221,8 +221,8 @@ export const characters = [
     introLabel: "Kang Haram / Daybreak",
     quoteSequence: ["오늘도 연습! 아자아자~!"],
     focusBox: {
-      desktop: { cx: 50, cy: 38, w: 55, h: 65 },
-      mobile:  { cx: 50, cy: 32, w: 60, h: 60 },
+      desktop: { cx: 50, cy: 38, w: 65, h: 75 },  // v4 +10%
+      mobile:  { cx: 50, cy: 32, w: 70, h: 70 },  // v4 +10%
     },
     detailPath: "/characters/kangharam",
     signature: "손목 스크런치 + 숨긴 펜던트",

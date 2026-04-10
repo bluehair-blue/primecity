@@ -1,6 +1,6 @@
 import CutawayIntro from "./CutawayIntro";
+import SunriseIntro from "./SunriseIntro";
 // Future styles added here as implemented:
-// import SunriseIntro from "./SunriseIntro";
 // import GlitchIntro from "./GlitchIntro";
 // import RippleIntro from "./RippleIntro";
 // import FlashIntro from "./FlashIntro";
@@ -10,5 +10,6 @@ import CutawayIntro from "./CutawayIntro";
 
 export const INTRO_COMPONENTS = {
   cutaway: CutawayIntro,
+  sunrise: SunriseIntro,
   // Fallback: styles not yet registered render the default overlay in CinematicCharDetail
 };
