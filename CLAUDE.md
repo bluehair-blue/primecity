@@ -98,6 +98,131 @@
 - parent에 해당 캐릭터 전용 state/effect 잔류 0줄
 - 다른 캐릭터에 특별 인트로를 추가할 때도 동일 패턴 사용: module scope 함수 + early return
 
+### CharDetail 시네마틱 인트로 시스템 관례
+
+> 상세 기획: `src/pages/chardetail_intro_plan.md` (v4.2)
+> 구현 파일: `src/components/cinematic/`
+
+#### 아키텍처
+
+```
+CharDetail.jsx
+  ├─ if (janggru)      → JgrCharDetail (독립 컴포넌트, 별도 유지)
+  ├─ if (char.keyVisual) → CinematicCharDetail (공용 뼈대)
+  └─ else              → DefaultCharDetail (기존 홀로그램 뷰)
+
+CinematicCharDetail Phase 상태기계
+  Phase -1  LoadingShell (progress bar, 500ms timeout)
+  Phase  0  Intro overlay (INTRO_COMPONENTS 레지스트리에서 로드)
+  Phase  1  KeyVisual hero (fixed bg + 프로필 텍스트 + 이펙트)
+  Phase  2  하단 콘텐츠 (CharExpressionsGrid → Sign → CharNavigation → Footer)
+```
+
+#### CenteredQuote 공용 컴포넌트
+
+**파일**: `src/components/cinematic/CenteredQuote.jsx`
+
+| Prop | 타입 | 설명 |
+|---|---|---|
+| `show` | bool | opacity/transform 게이트 |
+| `emphasis` | `"subtle"` \| `"hero"` | subtle = 대사만 (opacity 0.82), hero = agency+name+quote |
+| `quoteIndex` | number | `char.quoteSequence[n]` (2비트 대사용, 기본 0) |
+| `glitch` | bool | `cinemaGlitchText` 애니메이션 (LSH 전용) |
+| `blurred` | bool | `filter: blur(8px)` + `translateY(-12px)` (MMR Beat 2 전용) |
+
+**전역 원칙 (v4):**
+
+- Phase 0 첫 비트부터 `<CenteredQuote emphasis="subtle" show />` 노출
+- 마지막 beat 에서 `<CenteredQuote emphasis="hero" show />` 로 교체
+- hero 전 마지막 beat 는 **1초 이상** 여유 — 대사를 읽을 시간
+- subtle/hero 를 각각 별도 인스턴스로 렌더하여 CSS transition 교차
+
+#### Intro 컴포넌트 구조 패턴
+
+```jsx
+// 기본 골격 — 모든 XxxIntro.jsx 준수
+export default function XxxIntro({ char, isMobile, objectPosition, config, onSkip }) {
+  const [beat, setBeat] = useState(0);
+  const [fadingOut, setFadingOut] = useState(false);
+
+  useEffect(() => {
+    const timers = [
+      setTimeout(() => setBeat(1), 300),
+      // ... beat transitions ...
+      setTimeout(() => setFadingOut(true), config.duration - 500),
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  return (
+    <div onClick={onSkip} style={{ position:"fixed",inset:0,zIndex:200,
+      opacity: fadingOut ? 0 : 1, transition: "opacity 0.5s ease-out", ... }}>
+      {/* layers — zIndex 체인 준수 */}
+      <CenteredQuote ... />
+    </div>
+  );
+}
+```
+
+#### zIndex 체인 (표준)
+
+| 레이어 | zIndex | 비고 |
+|---|---|---|
+| 이미지 레이어 | 1~2 | 복수 beat 이미지 |
+| 모바일 fallback | 3 | specular sweep 등 |
+| 비네트 | 4~5 | `radial-gradient` |
+| CenteredQuote | 6 | 공용 컴포넌트 |
+| introLabel | 10 | chapter label |
+| 레터박스 | 15 | JSH 전용 (letterbox: true) |
+| flash overlay | 20 | JSH 전용 |
+| Intro 오버레이 전체 | 200 | CinematicCharDetail 에서 설정 |
+
+#### INTRO_COMPONENTS 레지스트리
+
+**파일**: `src/components/cinematic/index.js`
+
+- 신규 Intro 완성 시 반드시 등록 (`styleName: XxxIntro`)
+- 미등록 style → Phase 0 건너뜀 + Phase 1 직행 (안전장치 내장)
+- 현재 등록: `cutaway` (JSH), `sunrise` (KHR), `ripple` (MIL)
+
+#### introStyles.js 규칙
+
+```js
+// duration = Phase 0 총시간 (fadeOut 500ms 포함)
+// 예: 6000ms = 애니메이션 5500ms + fadeOut 500ms
+cutaway: { duration: 6400 },  // JSH — 연출 의도된 과부하
+sunrise: { duration: 4900 },  // KHR — 카메라 컨셉
+ripple:  { duration: 6000 },  // MIL — 줌 2비트 + 물결 + hero hold
+```
+
+#### focusBox 규칙
+
+- 모든 캐릭터 focusBox `w`/`h` 값은 **원안 +10%** (v4 확정값 `chardetail_intro_plan.md` §8-1 참조)
+- `keyVisualFit: "contain"` 추가 시 Phase 1 에서 전체 이미지 표시 (현재 JSH/KHR/MIL)
+  - contain 시 `objectPosition: "50% 50%"` 자동 적용 (CinematicCharDetail 분기 내장)
+- 클로즈업 scale 상한: **2.0~2.2** (화질 유지)
+
+#### Phase 1 CinematicCharDetail 이펙트 (2026-04-10 추가)
+
+| 이펙트 | 구현 | 비고 |
+|---|---|---|
+| 마우스 틸트 | `perspective(1400px) rotateX(±1.5deg) rotateY(±1.5deg)` | desktop only, Phase 1+ |
+| 반사 | 하단 28% `scaleY(-1)` + `maskImage` gradient | opacity 0.18 |
+| bgMarquee | 2줄 (top 18%, bottom 16%) | 80s / 100s, opacity 0.025/0.018 |
+
+#### Sign 섹션 (2026-04-10 추가)
+
+- 15명 전원 `char.sign = cdnUrl("{CHAR}/sign.webp")` 등록 완료
+- CharDetail 3곳 모두 Sign 섹션 추가: JgrCharDetail · CinematicCharDetail · DefaultCharDetail
+- 위치: `CharExpressionsGrid → Sign → CharNavigation → Footer`
+- 스타일: gold `Sign` 라벨 + `drop-shadow(... char.color)` 글로우
+
+#### 구현 정책
+
+- **1 캐릭터 완전 구현 → 사용자 피드백 → 다음 캐릭터** (절대 일괄 금지)
+- 각 Step = 컴포넌트 작성 + 레지스트리 등록 + focusBox 갱신 + `npm run build` + 사용자 승인
+- 상세 체크리스트 → `chardetail_intro_plan.md` §5
+
 ### 챗봇 로어북 JSON 파일 규칙 (`docs/prompts/json/`)
 
 새 캐릭터/모드/라운드 로어북을 만들 때 반드시 따를 것:
@@ -160,7 +285,7 @@
 ## 이미지 파이프라인 (요약)
 
 - 생성: 1,125장 + 특수 90장 (NAI API, tools/asset_generator.py)
-- CDN: img.bluehair.blue/ent/ (ASSET_VERSION=3)
+- CDN: img.bluehair.blue/ent/ (**ASSET_VERSION=11**, 2026-04-10 sign 이미지 일괄 등록 시 업)
 - 검열: ntd11 YOLO-seg → ROI→CLOSE→flood fill→best component→convex hull→**safety dilation→ROI re-clamp**
 - 검열 스타일: 흰색(255,255,255) + edge_blur=9 (가우시안 안티에일리어싱)
 - 75개 상황코드: 감정(1-9), 일상(10-18), NSFW(20-86)
@@ -270,9 +395,9 @@ C:\Users\User\OneDrive\图片\챗봇 제작\캐릭터 이미지\
 
 ## 작업 현황 (요약)
 
-**완료**: 사이트 16페이지, 디자인 시스템, 에셋 1,215장+, 보안, 파일 정리, tools/ 파이프라인 개선 (18항목), NSFW 검열 배치 (264/855장), 캐릭터 사인/썸네일 15명 CDN 통일, CharDetail seam cue, **장그루 전용 시네마틱 인트로 (JgrCharDetail v4)**, 사이트 총체적 최적화 ①②③④, CityMap 히트박스 등각 보정, **챗봇 프롬프트 Phase 5 전면 개편 완료 (103개 로어북, 최종 검증 A~E PASS)**, **태블릿 SVG 개편 (10섹션, 13모드, escapeXml 수정, 상대좌표 리팩터링)**, 이미지 에셋 재생성 1,125장 완료 (char_img/), **에덴챗 로어북 102개 플랫폼 삽입 완료** (edenchat_clipboard.py 매크로), char_img/ 검열 배치 완료 (conf=0.7, 252장 검열/603장 클린), **이미지 에셋 확장 완료 (21코드×15캐릭 = 314장 + 검열 53장)** — 코드 1-96 빈번호 해소 + NSFW 확장(섹스웅 패턴) + 라이브씬/무대씬, **에덴챗 소개 HTML 개편 완료** (폰트 +4px, 15명 전체 썸네일 이미지, Prism→Prime, ?v=3, 섹션 재배치, stat bridge 2개, 산업단지 추가, 유틸리티 모드 5개, Image System 6카테고리+캐릭터코드란, CTA 배경이미지+챗봇 시작 버튼, confirm 팝업 제거)
-**진행 중**: **CharDetail 시네마틱 인트로 시스템 (8캐릭터)** — Step 5a(JSH cutaway, 6.4s) 완료 / Step 5b(KHR sunrise), 6(MIL ripple), 7a-e(LSH/MMR/NHR/HSR/HSE), 8(테스트) 대기. 아키텍처: `CinematicCharDetail` 공용 컨테이너 + `INTRO_COMPONENTS` 레지스트리 + Phase -1/0/1/2 상태기계 + JGR 패턴 overlay fadeOut + fall-open(fullyLoaded > timedOut) 프로토콜. 마지막 세션: 뒤로가기 버튼 위치/z-index 수정 (`top:isMobile?68:84 right:16 z:150` + phase≥1 gate), scroll hint 금색 이중바 애니메이션. 상세 → `plan.md`
-**미완**: **에덴챗 소개 HTML 사용자 피드백 반영** (에덴챗 플랫폼 삽입 후 확인 필요), **에덴챗 삽입 테스트** (실제 챗봇 동작 검증), Works 확장, 나머지 캐릭터 사인 이미지, 최적화 ⑤ 접근성(사용자 디자인 판단 대기), svgTemplates.js 고유명사 반영, char_img/ CDN 비교+반영
+**완료**: 사이트 16페이지, 디자인 시스템, 에셋 1,215장+, 보안, 파일 정리, tools/ 파이프라인 개선 (18항목), NSFW 검열 배치 (264/855장), 캐릭터 사인/썸네일 15명 CDN 통일, CharDetail seam cue, **장그루 전용 시네마틱 인트로 (JgrCharDetail v4)**, 사이트 총체적 최적화 ①②③④, CityMap 히트박스 등각 보정, **챗봇 프롬프트 Phase 5 전면 개편 완료 (103개 로어북, 최종 검증 A~E PASS)**, **태블릿 SVG 개편 (10섹션, 13모드, escapeXml 수정, 상대좌표 리팩터링)**, 이미지 에셋 재생성 1,125장 완료 (char_img/), **에덴챗 로어북 102개 플랫폼 삽입 완료** (edenchat_clipboard.py 매크로), char_img/ 검열 배치 완료 (conf=0.7, 252장 검열/603장 클린), **이미지 에셋 확장 완료 (21코드×15캐릭 = 314장 + 검열 53장)** — 코드 1-96 빈번호 해소 + NSFW 확장(섹스웅 패턴) + 라이브씬/무대씬, **에덴챗 소개 HTML 개편 완료** (폰트 +4px, 15명 전체 썸네일 이미지, Prism→Prime, ?v=3, 섹션 재배치, stat bridge 2개, 산업단지 추가, 유틸리티 모드 5개, Image System 6카테고리+캐릭터코드란, CTA 배경이미지+챗봇 시작 버튼, confirm 팝업 제거), **15명 sign 이미지 전원 등록** (ASSET_VERSION 11, CharDetail 3곳 Sign 섹션 추가), **CinematicCharDetail 인트로 시스템 Step 5a/5b/6 완료** (JSH CutawayIntro v4 · KHR CameraIntro · MIL RippleIntro), **CinematicCharDetail Phase 1 이펙트 추가** (마우스 틸트 · 반사 · bgMarquee)
+**진행 중**: **CharDetail 시네마틱 인트로 시스템** — Step 7a(LSH 글리치), 7b(MMR 플래시+댓글), 7c(NHR 안개), 7d(HSR 카드딜), 7e(HSE 페이지넘김), 8(전수 테스트). 아키텍처: `CinematicCharDetail` + `INTRO_COMPONENTS` 레지스트리 + Phase -1/0/1/2 상태기계 + `CenteredQuote.jsx` 공용 컴포넌트. 상세 → `src/pages/chardetail_intro_plan.md`
+**미완**: **에덴챗 소개 HTML 사용자 피드백 반영** (에덴챗 플랫폼 삽입 후 확인 필요), **에덴챗 삽입 테스트** (실제 챗봇 동작 검증), Works 확장, 최적화 ⑤ 접근성(사용자 디자인 판단 대기), svgTemplates.js 고유명사 반영, char_img/ CDN 비교+반영
 **최후순위**: PyTorch CPU→CUDA 교체 + ntd11 YOLO 파인튜닝 (귀두/작은 성기 미감지 개선, 라벨링 40장 필요, GPU 활성화 후 학습 5-10분)
 
 ### 에덴챗 로어북 삽입 반자동화
