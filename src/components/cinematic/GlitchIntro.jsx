@@ -5,15 +5,15 @@ import CenteredQuote from "./CenteredQuote";
    GlitchIntro (LSH) — glitch intro → KV zoom pan → hero
    ------------------------------------------------------------
    Concept: 신호가 깨지다 → KV 위에서 아래로 천천히 훑음 → 정착
-   Sequence: 4800ms + 500ms fadeOut = 5300ms total
+   Sequence: 5600ms + 500ms fadeOut = 6100ms total
      0    -  300ms : black
      300  - 2400ms : intro1 SHAKES (cinemaGlitchMain)
                      + R/B ghost copies ±15px (screen blend)
                      + scanline + CenteredQuote subtle quoteIndex=0 ("하아… 또?")
-     2400 - 3800ms : KV zoom pan top→bottom (cinemaLshPan, scale 2.0)
+     2400 - 4200ms : KV zoom pan top→bottom (cinemaLshPan 1.8s, scale 2.0)
                      + CenteredQuote subtle quoteIndex=1 ("귀찮으니 빨리 끝내.")
-     3800 - 4800ms : KV settled (scale 1.0) + hero CenteredQuote quoteIndex=1
-     4800 - 5300ms : fadeOut → Phase 1 keyVisual
+     4200 - 5600ms : KV settled (scale 1.0) + hero CenteredQuote quoteIndex=1
+     5600 - 6100ms : fadeOut → Phase 1 keyVisual
 
    Mobile: R ghost only (1 copy ±10px), G channel skipped
    Phase 1 uses cover (no keyVisualFit) → seamless handoff from pan
@@ -28,8 +28,8 @@ export default function GlitchIntro({ char, isMobile, objectPosition, config, on
     const timers = [
       setTimeout(() => setBeat(1), 300),
       setTimeout(() => setBeat(2), 2400),
-      setTimeout(() => setBeat(3), 3800),
-      setTimeout(() => setFadingOut(true), 4800),
+      setTimeout(() => setBeat(3), 4200),
+      setTimeout(() => setFadingOut(true), 5600),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
@@ -129,7 +129,7 @@ export default function GlitchIntro({ char, isMobile, objectPosition, config, on
             objectFit: "cover",
             objectPosition,
             animation:
-              beat === 2 ? "cinemaLshPan 1.4s cubic-bezier(0.22,1,0.36,1) forwards" :
+              beat === 2 ? "cinemaLshPan 1.8s cubic-bezier(0.22,1,0.36,1) forwards" :
               beat >= 3 ? "none" : "none",
             transform: beat >= 3 ? "scale(1.0)" : "scale(2.0) translateY(-18%)",
             transition: beat >= 3

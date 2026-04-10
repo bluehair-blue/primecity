@@ -20,7 +20,7 @@ export const INTRO_STYLE_CONFIG = {
     mobileFallback: null,
   },
   glitch: {
-    duration: 5300,   // v4.3: glitch→KV pan top→bottom→hero (was 4300)
+    duration: 6100,   // v4.4: Beat2 extended to 1800ms + hero 1.4s (was 5300)
     letterbox: false,
     requiresSvgFilter: false,
     mobileFallback: null,

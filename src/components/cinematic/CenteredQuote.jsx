@@ -97,13 +97,13 @@ export default function CenteredQuote({
             : (isMobile ? "clamp(14px,4vw,18px)" : "clamp(16px,1.8vw,22px)"),
           fontStyle: "italic",
           fontWeight: isHero ? 500 : 400,
-          color: isHero ? char.color : "oklch(0.88 0 0)",
+          color: "oklch(0.99 0 0)",
           margin: 0,
           wordBreak: "keep-all",
           textShadow: isHero
             ? "0 2px 24px oklch(0 0 0 / 0.9)"
-            : "0 2px 18px oklch(0 0 0 / 0.85)",
-          opacity: isHero ? 1 : 0.82,
+            : "0 0 2px oklch(0 0 0), 0 0 8px oklch(0 0 0 / 0.9), 0 3px 20px oklch(0 0 0 / 0.85)",
+          opacity: 1,
         }}
       >
         &ldquo;{quote}&rdquo;
