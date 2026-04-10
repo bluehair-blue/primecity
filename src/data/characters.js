@@ -13,7 +13,7 @@ export const characters = [
     image: cdnUrl("SY/key.webp"),
     thumbnail: cdnUrl("SY/thumbnail.webp"),
     profile: cdnUrl("SY/profile.webp"),
-    sign: null,
+    sign: cdnUrl("SY/sign.webp"),
     detailPath: "/characters/seoyun",
     signature: "금색 초커",
     personality: "고데레 — 너무 높은 곳에 있어서 내려오는 법을 모름",
@@ -39,7 +39,7 @@ export const characters = [
     image: cdnUrl("NHR/key.webp"),
     thumbnail: cdnUrl("NHR/thumbnail.webp"),
     profile: cdnUrl("NHR/profile.webp"),
-    sign: null,
+    sign: cdnUrl("NHR/sign.webp"),
     // ── Cinematic intro ──
     keyVisual: cdnUrl("NHR/key.webp"),
     introStyle: "fog",
@@ -75,7 +75,7 @@ export const characters = [
     image: cdnUrl("JSH/key.webp"),
     thumbnail: cdnUrl("JSH/thumbnail.webp"),
     profile: cdnUrl("JSH/profile.webp"),
-    sign: null,
+    sign: cdnUrl("JSH/sign.webp"),
     // ── Cinematic intro ──
     keyVisual: cdnUrl("JSH/key.webp"),
     introStyle: "cutaway",
@@ -115,7 +115,7 @@ export const characters = [
     image: cdnUrl("ERK/key.webp"),
     thumbnail: cdnUrl("ERK/thumbnail.webp"),
     profile: cdnUrl("ERK/profile.webp"),
-    sign: null,
+    sign: cdnUrl("ERK/sign.webp"),
     detailPath: "/characters/erika",
     signature: "느슨한 넥타이",
     personality: "아네데레 — 독설가 (내면은 따뜻함)",
@@ -141,7 +141,7 @@ export const characters = [
     image: cdnUrl("LSH/key.webp"),
     thumbnail: cdnUrl("LSH/thumbnail.webp"),
     profile: cdnUrl("LSH/profile.webp"),
-    sign: null,
+    sign: cdnUrl("LSH/sign.webp"),
     // ── Cinematic intro ──
     keyVisual: cdnUrl("LSH/key.webp"),
     introStyle: "glitch",
@@ -177,7 +177,7 @@ export const characters = [
     image: cdnUrl("HSR/key.webp"),
     thumbnail: cdnUrl("HSR/thumbnail.webp"),
     profile: cdnUrl("HSR/profile.webp"),
-    sign: null,
+    sign: cdnUrl("HSR/sign.webp"),
     // ── Cinematic intro ──
     keyVisual: cdnUrl("HSR/key.webp"),
     introStyle: "cardDeal",
@@ -221,9 +221,10 @@ export const characters = [
     introLabel: "Kang Haram / Daybreak",
     quoteSequence: ["오늘도 연습! 아자아자~!"],
     focusBox: {
-      desktop: { cx: 50, cy: 38, w: 65, h: 75 },  // v4 +10%
-      mobile:  { cx: 50, cy: 32, w: 70, h: 70 },  // v4 +10%
+      desktop: { cx: 50, cy: 50, w: 100, h: 100 },  // v4.2: contain → center
+      mobile:  { cx: 50, cy: 50, w: 100, h: 100 },
     },
+    keyVisualFit: "contain",  // v4.2: Phase 1에서 KV 전체 이미지 표시
     detailPath: "/characters/kangharam",
     signature: "손목 스크런치 + 숨긴 펜던트",
     personality: "무자각 여친계 — 열정 넘치는 밝음 (내면은 절박함)",
@@ -249,7 +250,7 @@ export const characters = [
     image: cdnUrl("JGR/key.webp"),
     thumbnail: cdnUrl("JGR/thumbnail.webp"),
     profile: cdnUrl("JGR/profile.webp"),
-    sign: null,
+    sign: cdnUrl("JGR/sign.webp"),
     intro1: cdnUrl("JGR/intro1.webp"),
     intro2: cdnUrl("JGR/intro2.webp"),
     detailPath: "/characters/janggru",
@@ -277,7 +278,7 @@ export const characters = [
     image: cdnUrl("MIL/key.webp"),
     thumbnail: cdnUrl("MIL/thumbnail.webp"),
     profile: cdnUrl("MIL/profile.webp"),
-    sign: null,
+    sign: cdnUrl("MIL/sign.webp"),
     // ── Cinematic intro ──
     keyVisual: cdnUrl("MIL/key.webp"),
     introStyle: "ripple",
@@ -313,7 +314,7 @@ export const characters = [
     image: cdnUrl("ELA/key.webp"),
     thumbnail: cdnUrl("ELA/thumbnail.webp"),
     profile: cdnUrl("ELA/profile.webp"),
-    sign: null,
+    sign: cdnUrl("ELA/sign.webp"),
     detailPath: "/characters/ella",
     signature: "머리카락 넘기기 — 말하기 전에 머리를 넘김",
     personality: "여유로운 관능미 (내면: 자존심 + 상처)",
@@ -339,7 +340,7 @@ export const characters = [
     image: cdnUrl("MMR/key.webp"),
     thumbnail: cdnUrl("MMR/thumbnail.webp"),
     profile: cdnUrl("MMR/profile.webp"),
-    sign: null,
+    sign: cdnUrl("MMR/sign.webp"),
     // ── Cinematic intro ──
     keyVisual: cdnUrl("MMR/key.webp"),
     introStyle: "flash",
@@ -383,7 +384,7 @@ export const characters = [
     image: cdnUrl("HSE/key.webp"),
     thumbnail: cdnUrl("HSE/thumbnail.webp"),
     profile: cdnUrl("HSE/profile.webp"),
-    sign: null,
+    sign: cdnUrl("HSE/sign.webp"),
     // ── Cinematic intro ──
     keyVisual: cdnUrl("HSE/key.webp"),
     introStyle: "pageFlip",
@@ -420,7 +421,7 @@ export const characters = [
     image: cdnUrl("NIA/key.webp"),
     thumbnail: cdnUrl("NIA/thumbnail.webp"),
     profile: cdnUrl("NIA/profile.webp"),
-    sign: null,
+    sign: cdnUrl("NIA/sign.webp"),
     detailPath: "/characters/nia",
     signature: "당당한듯 소심 — 예상 밖 상황에서 눈이 흔들림",
     personality: "성장형 — 늦된 출발, 흡수력 폭발",
@@ -446,7 +447,7 @@ export const characters = [
     image: cdnUrl("RAY/key.webp"),
     thumbnail: cdnUrl("RAY/thumbnail.webp"),
     profile: cdnUrl("RAY/profile.webp"),
-    sign: null,
+    sign: cdnUrl("RAY/sign.webp"),
     detailPath: "/characters/ray",
     signature: "의족 (숨김) — 공정한 평가를 위해 감춤",
     personality: "꺾이지 않는 밝음 — 한계를 받아들인 단단함",
@@ -472,7 +473,7 @@ export const characters = [
     image: cdnUrl("LPS/key.webp"),
     thumbnail: cdnUrl("LPS/thumbnail.webp"),
     profile: cdnUrl("LPS/profile.webp"),
-    sign: null,
+    sign: cdnUrl("LPS/sign.webp"),
     detailPath: "/characters/lapis",
     signature: "V사인 — 트레이드마크",
     personality: "쿨하고 여유로운 예측불가형",

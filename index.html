@@ -101,6 +101,11 @@
         40%  { opacity: 0.65; }
         100% { opacity: 0; transform: translateX(20%); }
       }
+      @keyframes cinemaIrisWipe {
+        0%   { clip-path: circle(100% at center); opacity: 1; }
+        50%  { clip-path: circle(0% at center);   opacity: 1; }
+        100% { clip-path: circle(0% at center);   opacity: 0; }
+      }
       @keyframes cinemaGlitchR {
         0%   { transform: translate(0, 0); }
         8%   { transform: translate(-6px, 2px); }

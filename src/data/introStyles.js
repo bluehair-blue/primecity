@@ -14,11 +14,10 @@ export const INTRO_STYLE_CONFIG = {
     mobileFallback: null,
   },
   sunrise: {
-    duration: 2500,
+    duration: 4900,  // v4.2: camera concept (was 2500)
     letterbox: false,
     requiresSvgFilter: false,
     mobileFallback: null,
-    flare: true,
   },
   glitch: {
     duration: 2800,

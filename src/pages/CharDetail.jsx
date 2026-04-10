@@ -607,7 +607,8 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
           alt=""
           style={{
             width: "100%", height: "100%",
-            objectFit: "cover", objectPosition,
+            objectFit: char.keyVisualFit || "cover",
+            objectPosition: char.keyVisualFit === "contain" ? "50% 50%" : objectPosition,
             opacity: 1,
           }}
         />
