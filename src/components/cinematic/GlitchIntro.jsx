@@ -2,20 +2,21 @@ import { useEffect, useState } from "react";
 import CenteredQuote from "./CenteredQuote";
 
 /* ══════════════════════════════════════════════════════════
-   GlitchIntro (LSH) — image shake + RGB ghost split
+   GlitchIntro (LSH) — glitch intro → KV zoom pan → hero
    ------------------------------------------------------------
-   Concept: 신호가 깨지다 정착 — 자기부정, 숨기는 성격
-   Sequence: 3800ms + 500ms fadeOut = 4300ms total
+   Concept: 신호가 깨지다 → KV 위에서 아래로 천천히 훑음 → 정착
+   Sequence: 4800ms + 500ms fadeOut = 5300ms total
      0    -  300ms : black
-     300  - 2400ms : intro1 MAIN SHAKES (cinemaGlitchMain)
-                     + R ghost displaced +15px / B ghost -15px
-                     + scanline + CenteredQuote subtle (glitch sync)
-     2400 - 3800ms : glitch fades, hero CenteredQuote — 1.4s hold
-     3800 - 4300ms : fadeOut → Phase 1 keyVisual
+     300  - 2400ms : intro1 SHAKES (cinemaGlitchMain)
+                     + R/B ghost copies ±15px (screen blend)
+                     + scanline + CenteredQuote subtle quoteIndex=0 ("하아… 또?")
+     2400 - 3800ms : KV zoom pan top→bottom (cinemaLshPan, scale 2.0)
+                     + CenteredQuote subtle quoteIndex=1 ("귀찮으니 빨리 끝내.")
+     3800 - 4800ms : KV settled (scale 1.0) + hero CenteredQuote quoteIndex=1
+     4800 - 5300ms : fadeOut → Phase 1 keyVisual
 
-   Key change from v1: animate the MAIN image itself (visible regardless
-   of image brightness), ghost copies use ±15px offset (not ±6px).
-   Mobile: R ghost only (1 copy), reduced offset ±10px.
+   Mobile: R ghost only (1 copy ±10px), G channel skipped
+   Phase 1 uses cover (no keyVisualFit) → seamless handoff from pan
    ══════════════════════════════════════════════════════════ */
 export default function GlitchIntro({ char, isMobile, objectPosition, config, onSkip }) {
   const [beat, setBeat] = useState(0);
@@ -27,7 +28,8 @@ export default function GlitchIntro({ char, isMobile, objectPosition, config, on
     const timers = [
       setTimeout(() => setBeat(1), 300),
       setTimeout(() => setBeat(2), 2400),
-      setTimeout(() => setFadingOut(true), 3800),
+      setTimeout(() => setBeat(3), 3800),
+      setTimeout(() => setFadingOut(true), 4800),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
@@ -50,11 +52,13 @@ export default function GlitchIntro({ char, isMobile, objectPosition, config, on
         transition: "opacity 0.5s ease-out",
       }}
     >
-      {/* ── Main image — SHAKES via cinemaGlitchMain ── */}
+      {/* ════ BEAT 1: GLITCH (intro1) ════ */}
+
+      {/* Main image — shakes via cinemaGlitchMain */}
       <div
         style={{
           position: "absolute", inset: 0,
-          opacity: beat >= 1 ? 1 : 0,
+          opacity: beat === 1 ? 1 : 0,
           animation: beat === 1 ? "cinemaGlitchMain 2.1s ease-out forwards" : "none",
           transition: "opacity 0.3s ease-out",
           zIndex: 2,
@@ -63,113 +67,110 @@ export default function GlitchIntro({ char, isMobile, objectPosition, config, on
         <img src={introSrc} alt="" style={{ ...commonImg }} />
       </div>
 
-      {/* ── R ghost — displaced right (+15px desktop, +10px mobile) ── */}
+      {/* R ghost — displaced right */}
       <div
         style={{
-          position: "absolute",
-          inset: 0,
-          transform: beat === 1
-            ? `translateX(${isMobile ? 10 : 15}px)`
-            : "translateX(0)",
+          position: "absolute", inset: 0,
+          transform: beat === 1 ? `translateX(${isMobile ? 10 : 15}px)` : "translateX(0)",
           opacity: beat === 1 ? 0.45 : 0,
           mixBlendMode: "screen",
           animation: beat === 1 ? "cinemaGlitchR 2.1s ease-out forwards" : "none",
           transition: "opacity 0.4s ease-out",
-          zIndex: 3,
-          pointerEvents: "none",
+          zIndex: 3, pointerEvents: "none",
         }}
       >
-        <img
-          src={introSrc}
-          alt=""
-          style={{
-            ...commonImg,
-            filter: "hue-rotate(-25deg) saturate(2.0) brightness(1.2)",
-          }}
-        />
+        <img src={introSrc} alt="" style={{ ...commonImg, filter: "hue-rotate(-25deg) saturate(2.0) brightness(1.2)" }} />
       </div>
 
-      {/* ── B ghost — displaced left (-15px, desktop only) ── */}
+      {/* B ghost — displaced left (desktop only) */}
       {!isMobile && (
         <div
           style={{
-            position: "absolute",
-            inset: 0,
+            position: "absolute", inset: 0,
             transform: beat === 1 ? "translateX(-15px)" : "translateX(0)",
             opacity: beat === 1 ? 0.4 : 0,
             mixBlendMode: "screen",
             animation: beat === 1 ? "cinemaGlitchB 2.1s ease-out forwards" : "none",
             transition: "opacity 0.4s ease-out",
-            zIndex: 3,
-            pointerEvents: "none",
+            zIndex: 3, pointerEvents: "none",
           }}
         >
-          <img
-            src={introSrc}
-            alt=""
-            style={{
-              ...commonImg,
-              filter: "hue-rotate(195deg) saturate(2.0) brightness(1.1)",
-            }}
-          />
+          <img src={introSrc} alt="" style={{ ...commonImg, filter: "hue-rotate(195deg) saturate(2.0) brightness(1.1)" }} />
         </div>
       )}
 
-      {/* ── Scanline overlay (Beat 1) ── */}
+      {/* Scanline (Beat 1) */}
       <div
         style={{
           position: "absolute", inset: 0,
-          background:
-            "repeating-linear-gradient(to bottom, oklch(0 0 0 / 0) 0px, oklch(0 0 0 / 0) 3px, oklch(0 0 0 / 0.18) 4px)",
+          background: "repeating-linear-gradient(to bottom, oklch(0 0 0 / 0) 0px, oklch(0 0 0 / 0) 3px, oklch(0 0 0 / 0.18) 4px)",
           opacity: beat === 1 ? 0.45 : 0,
           transition: "opacity 0.5s ease-out",
-          zIndex: 4,
-          pointerEvents: "none",
-          mixBlendMode: "multiply",
+          zIndex: 4, pointerEvents: "none", mixBlendMode: "multiply",
         }}
       />
 
-      {/* ── Vignette for hero legibility (Beat 2+) ── */}
+      {/* ════ BEAT 2: KV PAN (top→bottom, scale 2.0) ════ */}
       <div
         style={{
           position: "absolute", inset: 0,
-          background:
-            "radial-gradient(ellipse at center, oklch(0 0 0 / 0) 30%, oklch(0 0 0 / 0.55) 90%)",
+          overflow: "hidden",
+          opacity: beat >= 2 ? 1 : 0,
+          transition: "opacity 0.5s ease-out",
+          zIndex: beat >= 2 ? 2 : 0,
+        }}
+      >
+        <img
+          src={char.keyVisual}
+          alt=""
+          style={{
+            position: "absolute", inset: 0,
+            width: "100%", height: "100%",
+            objectFit: "cover",
+            objectPosition,
+            animation:
+              beat === 2 ? "cinemaLshPan 1.4s cubic-bezier(0.22,1,0.36,1) forwards" :
+              beat >= 3 ? "none" : "none",
+            transform: beat >= 3 ? "scale(1.0)" : "scale(2.0) translateY(-18%)",
+            transition: beat >= 3
+              ? "transform 1.0s cubic-bezier(0.22,1,0.36,1)"
+              : "none",
+          }}
+        />
+      </div>
+
+      {/* ════ SHARED LAYERS (Beat 2+) ════ */}
+
+      {/* Vignette (Beat 2+) */}
+      <div
+        style={{
+          position: "absolute", inset: 0,
+          background: "radial-gradient(ellipse at center, oklch(0 0 0 / 0) 30%, oklch(0 0 0 / 0.52) 90%)",
           opacity: beat >= 2 ? 1 : 0,
           transition: "opacity 0.6s ease-out",
-          zIndex: 5,
-          pointerEvents: "none",
+          zIndex: 5, pointerEvents: "none",
         }}
       />
 
-      {/* ── CenteredQuote subtle + glitch sync (Beat 1) ── */}
-      <CenteredQuote
-        char={char}
-        isMobile={isMobile}
-        emphasis="subtle"
-        show={beat === 1}
-        glitch
-      />
+      {/* Quote[0] "하아… 또?" — Beat 1, glitch sync */}
+      <CenteredQuote char={char} isMobile={isMobile} emphasis="subtle" show={beat === 1} quoteIndex={0} glitch />
 
-      {/* ── CenteredQuote hero (Beat 2+) — 1.4s hold ── */}
-      <CenteredQuote
-        char={char}
-        isMobile={isMobile}
-        emphasis="hero"
-        show={beat >= 2}
-      />
+      {/* Quote[1] "귀찮으니 빨리 끝내." — Beat 2 subtle */}
+      <CenteredQuote char={char} isMobile={isMobile} emphasis="subtle" show={beat === 2} quoteIndex={1} />
 
-      {/* ── Chapter label (Beat 2+) ── */}
+      {/* Quote[1] hero — Beat 3 (1s hold) */}
+      <CenteredQuote char={char} isMobile={isMobile} emphasis="hero" show={beat >= 3} quoteIndex={1} />
+
+      {/* Chapter label (Beat 3+) */}
       {char.introLabel && (
         <span
           style={{
             position: "absolute", bottom: "7%", left: "50%",
             transform: "translateX(-50%)",
-            fontFamily: "var(--f-display-en)",
-            fontSize: isMobile ? 10 : 12,
+            fontFamily: "var(--f-display-en)", fontSize: isMobile ? 10 : 12,
             letterSpacing: "0.35em", textTransform: "uppercase",
             color: "oklch(0.82 0 0)",
-            opacity: beat >= 2 ? 0.6 : 0,
+            opacity: beat >= 3 ? 0.6 : 0,
             transition: "opacity 0.6s ease-out 0.4s",
             zIndex: 10, pointerEvents: "none", whiteSpace: "nowrap",
           }}
@@ -178,7 +179,7 @@ export default function GlitchIntro({ char, isMobile, objectPosition, config, on
         </span>
       )}
 
-      {/* ── Skip hint ── */}
+      {/* Skip hint */}
       <span
         style={{
           position: "absolute", bottom: "2.5%", right: isMobile ? 16 : 32,

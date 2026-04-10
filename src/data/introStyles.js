@@ -20,7 +20,7 @@ export const INTRO_STYLE_CONFIG = {
     mobileFallback: null,
   },
   glitch: {
-    duration: 4300,   // v4.2: main-shake + ghost ±15px + 1.4s hero hold (was 2800)
+    duration: 5300,   // v4.3: glitch→KV pan top→bottom→hero (was 4300)
     letterbox: false,
     requiresSvgFilter: false,
     mobileFallback: null,

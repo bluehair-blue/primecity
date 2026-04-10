@@ -148,12 +148,11 @@ export const characters = [
     introStyle: "glitch",
     introAssets: [cdnUrl("LSH/intro1.webp")],
     introLabel: "Lee Seoha / Indifference",
-    quoteSequence: ["하아… 또?"],
+    quoteSequence: ["하아… 또?", "귀찮으니 빨리 끝내."],
     focusBox: {
       desktop: { cx: 38, cy: 45, w: 55, h: 65 },  // v4 +10%
       mobile:  { cx: 32, cy: 40, w: 55, h: 60 },  // v4 +10%
     },
-    keyVisualFit: "contain",
     detailPath: "/characters/leeseha",
     signature: "둥근 안경 + 다크서클",
     personality: "다루데레 + 자기부정 + 귀차니즘",
