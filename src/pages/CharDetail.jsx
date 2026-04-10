@@ -3,12 +3,15 @@ import { useState, useEffect, useRef } from "react";
 import C from "../styles/tokens";
 import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
+import useCharLightbox from "../hooks/useCharLightbox";
 import { characters } from "../data/characters";
-import { cdnExprUrl, EXPRESSION_LABELS } from "../utils/cdn";
 import Navbar from "../components/Navbar";
 import Particles from "../components/Particles";
 import Footer from "../components/Footer";
 import Seo from "../components/Seo";
+import CharLightbox from "../components/CharLightbox";
+import CharExpressionsGrid from "../components/CharExpressionsGrid";
+import CharNavigation from "../components/CharNavigation";
 
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
@@ -27,7 +30,7 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
   const [jgrFadingOut, setJgrFadingOut] = useState(false);
   const [skipped, setSkipped] = useState(false);
   const [navbarVisible, setNavbarVisible] = useState(false);
-  const [lightbox, setLightbox] = useState(null);
+  const { lightbox, setLightbox, close: closeLightbox } = useCharLightbox();
   const [exprErrors, setExprErrors] = useState({});
   const timerRefs = useRef([]);
   const exprSectionRef = useRef(null);
@@ -115,32 +118,6 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
     obs.observe(exprSectionRef.current);
     return () => obs.disconnect();
   }, []);
-
-  // Lightbox popstate + ESC
-  const jgrClosedByButton = useRef(false);
-  useEffect(() => {
-    if (!lightbox) return;
-    jgrClosedByButton.current = false;
-    window.history.pushState({ lightbox: true }, "");
-    function onPop() {
-      if (!jgrClosedByButton.current) setLightbox(null);
-    }
-    window.addEventListener("popstate", onPop);
-    return () => window.removeEventListener("popstate", onPop);
-  }, [!!lightbox]);
-
-  function closeJgrLightbox() {
-    jgrClosedByButton.current = true;
-    setLightbox(null);
-    window.history.back();
-  }
-
-  useEffect(() => {
-    if (!lightbox) return;
-    const onKey = (e) => { if (e.key === "Escape") closeJgrLightbox(); };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [lightbox]);
 
   function skipIntro() {
     timerRefs.current.forEach(clearTimeout);
@@ -387,84 +364,35 @@ function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
       {/* ══════════ bgDeep 커버 (cinematic 종료) ══════════ */}
       <div style={{ position: "relative", zIndex: 2, background: C.bgDeep }}>
         {/* Expressions */}
-        {char.expressions && char.expressions.length > 0 && (
-          <section ref={exprSectionRef} style={{ padding: isMobile ? "48px 24px" : "64px 64px", maxWidth: 1100, margin: "0 auto" }}>
-            <h3 style={{ fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase", color: C.goldText, marginBottom: 6 }}>Concept Art &amp; Expressions</h3>
-            <p style={{ fontFamily: "var(--f-body)", fontSize: 12, color: C.text35, margin: `0 0 ${isMobile ? 20 : 28}px` }}>미리보기 · 전체 에셋은 갤러리에서 확인하세요</p>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: isMobile ? 8 : 14 }}>
-              {char.expressions.slice(0, 4).map((key) => {
-                const exprSrc = cdnExprUrl(char.cdnId, key);
-                const hasError = exprErrors[key];
-                return (
-                  <button key={key} onClick={() => !hasError && setLightbox({ key, src: exprSrc })} style={{ background: "none", border: "none", padding: 0, font: "inherit", color: "inherit", cursor: hasError ? "default" : "pointer", textAlign: "left", outline: "none", aspectRatio: "1/1", backgroundColor: C.bgCard, borderWidth: 1, borderStyle: "solid", borderColor: C.border06, overflow: "hidden", position: "relative", transition: `border-color 0.3s ${EASE}` }}
-                    onMouseEnter={(e) => { if (!hasError) e.currentTarget.style.borderColor = char.color; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border06; }}>
-                    {!hasError ? (
-                      <img src={exprSrc} alt={EXPRESSION_LABELS[key]} onError={() => setExprErrors((prev) => ({ ...prev, [key]: true }))} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                    ) : (
-                      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <span style={{ fontSize: 13, color: C.text25 }}>{EXPRESSION_LABELS[key]}</span>
-                      </div>
-                    )}
-                    <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "6px 10px", background: `linear-gradient(to top, ${C.bgDeep}, transparent)` }}>
-                      <span style={{ fontFamily: "var(--f-body)", fontSize: 10, color: C.text45 }}>{EXPRESSION_LABELS[key]}</span>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-            <div style={{ marginTop: isMobile ? 20 : 28, textAlign: "center" }}>
-              <Link to={`/gallery?character=${char.id}`} style={{
-                display: "inline-block", padding: isMobile ? "12px 28px" : "14px 36px",
-                fontFamily: "var(--f-display-en)", fontSize: 11, letterSpacing: "0.2em",
-                textTransform: "uppercase", color: char.color, textDecoration: "none",
-                border: `1px solid ${`color-mix(in oklch, ${char.color} 30%, transparent)`}`,
-                background: C.bgCard, transition: `border-color 0.3s ${EASE}`,
-              }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = char.color; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = `color-mix(in oklch, ${char.color} 30%, transparent)`; }}>
-                View All in Gallery &rarr;
-              </Link>
-            </div>
-          </section>
-        )}
+        <CharExpressionsGrid
+          char={char}
+          isMobile={isMobile}
+          sectionRef={exprSectionRef}
+          sectionStyle={{ position: "static" }}
+          exprErrors={exprErrors}
+          setExprErrors={setExprErrors}
+          onOpen={(key, src) => setLightbox({ key, src })}
+        />
 
         {/* Navigation */}
-        <section style={{ padding: isMobile ? "32px 24px 48px" : "48px 64px 80px", maxWidth: 1100, margin: "0 auto" }}>
-          {sameAgency.length > 0 && (
-            <div style={{ marginBottom: isMobile ? 32 : 48 }}>
-              <h3 style={{ fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase", color: C.goldText, marginBottom: isMobile ? 16 : 20 }}>Same Agency</h3>
-              <div style={{ display: "flex", gap: isMobile ? 10 : 16, flexWrap: "wrap" }}>
-                {sameAgency.map((c) => (
-                  <Link key={c.id} to={`/characters/${c.id}`} style={{ textDecoration: "none", padding: isMobile ? "10px 16px" : "12px 20px", background: C.bgCard, border: `1px solid ${C.border06}`, display: "flex", alignItems: "center", gap: 10, transition: "border-color 0.3s" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = c.color; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border06; }}>
-                    <span style={{ color: c.color, fontSize: 8 }}>●</span>
-                    <span style={{ fontFamily: "var(--f-body)", fontSize: 13, color: C.text55 }}>{c.name}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-          <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 20, borderTop: `1px solid ${C.border06}` }}>
-            {prevChar ? <Link to={`/characters/${prevChar.id}`} style={{ textDecoration: "none", color: C.text35, fontSize: 12, fontFamily: "var(--f-body)" }}>&larr; {prevChar.name}</Link> : <span />}
-            {nextChar ? <Link to={`/characters/${nextChar.id}`} style={{ textDecoration: "none", color: C.text35, fontSize: 12, fontFamily: "var(--f-body)" }}>{nextChar.name} &rarr;</Link> : <span />}
-          </div>
-        </section>
+        <CharNavigation
+          prevChar={prevChar}
+          nextChar={nextChar}
+          sameAgency={sameAgency}
+          isMobile={isMobile}
+          sectionStyle={{ position: "static" }}
+        />
 
         <Footer isMobile={isMobile} />
       </div>
 
       {/* Lightbox */}
-      {lightbox && (
-        <div role="dialog" aria-modal="true" aria-label="이미지 상세보기" onClick={closeJgrLightbox} style={{ position: "fixed", inset: 0, zIndex: 9999, background: C.bgOverlay, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
-          <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: isMobile ? "90vw" : "60vw", maxHeight: "80vh", position: "relative" }}>
-            <img src={lightbox.src} alt={EXPRESSION_LABELS[lightbox.key]} style={{ maxWidth: "100%", maxHeight: "80vh", objectFit: "contain", border: `1px solid ${C.border10}` }} />
-            <p style={{ textAlign: "center", fontFamily: "var(--f-body)", fontSize: 13, color: C.text55, marginTop: 12 }}>{char.name} — {EXPRESSION_LABELS[lightbox.key]}</p>
-            <button onClick={closeJgrLightbox} style={{ position: "absolute", top: -12, right: -12, width: 32, height: 32, background: C.bgDeep, border: `1px solid ${C.border10}`, borderRadius: "50%", color: C.text55, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
-          </div>
-        </div>
-      )}
+      <CharLightbox
+        lightbox={lightbox}
+        onClose={closeLightbox}
+        charName={char.name}
+        isMobile={isMobile}
+      />
     </div>
   );
 }
@@ -478,7 +406,7 @@ export default function CharDetail() {
   const [phase, setPhase] = useState(0);
   const [glitchDone, setGlitchDone] = useState(false);
   const [imgError, setImgError] = useState(false);
-  const [lightbox, setLightbox] = useState(null);
+  const { lightbox, setLightbox, close: closeLightbox } = useCharLightbox();
   const [exprErrors, setExprErrors] = useState({});
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [contentReached, setContentReached] = useState(false);
@@ -515,32 +443,6 @@ export default function CharDetail() {
     window.addEventListener("scroll", handler);
     return () => window.removeEventListener("scroll", handler);
   }, []);
-
-  // Lightbox popstate + ESC
-  const mainClosedByButton = useRef(false);
-  useEffect(() => {
-    if (!lightbox) return;
-    mainClosedByButton.current = false;
-    window.history.pushState({ lightbox: true }, "");
-    function onPop() {
-      if (!mainClosedByButton.current) setLightbox(null);
-    }
-    window.addEventListener("popstate", onPop);
-    return () => window.removeEventListener("popstate", onPop);
-  }, [!!lightbox]);
-
-  function closeMainLightbox() {
-    mainClosedByButton.current = true;
-    setLightbox(null);
-    window.history.back();
-  }
-
-  useEffect(() => {
-    if (!lightbox) return;
-    const onKey = (e) => { if (e.key === "Escape") closeMainLightbox(); };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [lightbox]);
 
   // Content section observer (seam cue dismissal)
   useEffect(() => {
@@ -1105,116 +1007,41 @@ export default function CharDetail() {
       </section>
 
       {/* ══════════ Concept Art & Expressions Preview ══════════ */}
-      {char.expressions && char.expressions.length > 0 && (
-        <section ref={(el) => { exprRef.current = el; contentRef.current = el; }} style={{ position: "relative", zIndex: 2, padding: isMobile ? "48px 24px" : "64px 64px", maxWidth: 1100, margin: "0 auto", opacity: exprV ? 1 : 0, transform: exprV ? "translateY(0)" : "translateY(30px)", transition: `opacity 0.8s ${EASE}, transform 0.8s ${EASE}` }}>
-          <h3 style={{ fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase", color: C.goldText, marginBottom: 6 }}>
-            Concept Art &amp; Expressions
-          </h3>
-          <p style={{ fontFamily: "var(--f-body)", fontSize: 12, color: C.text35, margin: `0 0 ${isMobile ? 20 : 28}px` }}>
-            미리보기 · 전체 에셋은 갤러리에서 확인하세요
-          </p>
-
-          {/* Preview grid — show first 4 expressions only */}
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: isMobile ? 8 : 14 }}>
-            {char.expressions.slice(0, 4).map((key) => {
-              const exprSrc = cdnExprUrl(char.cdnId, key);
-              const hasError = exprErrors[key];
-              return (
-                <button key={key} onClick={() => !hasError && setLightbox({ key, src: exprSrc })} style={{ background: "none", border: "none", padding: 0, font: "inherit", color: "inherit", cursor: hasError ? "default" : "pointer", textAlign: "left", outline: "none", aspectRatio: "1/1", backgroundColor: C.bgCard, borderWidth: 1, borderStyle: "solid", borderColor: C.border06, overflow: "hidden", position: "relative", transition: `border-color 0.3s ${EASE}` }}
-                  onMouseEnter={(e) => { if (!hasError) e.currentTarget.style.borderColor = char.color; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border06; }}
-                >
-                  {!hasError ? (
-                    <img src={exprSrc} alt={EXPRESSION_LABELS[key]} onError={() => setExprErrors((prev) => ({ ...prev, [key]: true }))} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                  ) : (
-                    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, background: `radial-gradient(circle, ${`color-mix(in oklch, ${char.color} 8%, transparent)`}, transparent)` }}>
-                      <span style={{ fontSize: isMobile ? 11 : 13, color: C.text25, fontFamily: "var(--f-body)" }}>{EXPRESSION_LABELS[key]}</span>
-                    </div>
-                  )}
-                  <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: isMobile ? "4px 6px" : "6px 10px", background: `linear-gradient(to top, ${C.bgDeep}, transparent)` }}>
-                    <span style={{ fontFamily: "var(--f-body)", fontSize: isMobile ? 9 : 10, color: C.text45, letterSpacing: "0.05em" }}>{EXPRESSION_LABELS[key]}</span>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* View all in Gallery button */}
-          <div style={{ marginTop: isMobile ? 20 : 28, textAlign: "center" }}>
-            <Link
-              to={`/gallery?character=${char.id}`}
-              style={{
-                display: "inline-block",
-                padding: isMobile ? "12px 28px" : "14px 36px",
-                fontFamily: "var(--f-display-en)",
-                fontSize: 11,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: char.color,
-                textDecoration: "none",
-                border: `1px solid ${`color-mix(in oklch, ${char.color} 30%, transparent)`}`,
-                background: C.bgCard,
-                transition: `border-color 0.3s ${EASE}, box-shadow 0.3s ${EASE}`,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = char.color;
-                e.currentTarget.style.boxShadow = `0 0 20px ${`color-mix(in oklch, ${char.color} 15%, transparent)`}`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = `color-mix(in oklch, ${char.color} 30%, transparent)`;
-                e.currentTarget.style.boxShadow = "none";
-              }}
-            >
-              View All in Gallery &rarr;
-            </Link>
-          </div>
-        </section>
-      )}
+      <CharExpressionsGrid
+        char={char}
+        isMobile={isMobile}
+        sectionRef={(el) => { exprRef.current = el; contentRef.current = el; }}
+        sectionStyle={{
+          opacity: exprV ? 1 : 0,
+          transform: exprV ? "translateY(0)" : "translateY(30px)",
+          transition: `opacity 0.8s ${EASE}, transform 0.8s ${EASE}`,
+        }}
+        exprErrors={exprErrors}
+        setExprErrors={setExprErrors}
+        onOpen={(key, src) => setLightbox({ key, src })}
+      />
 
       {/* ══════════ Navigation ══════════ */}
-      <section ref={(el) => { navRef.current = el; if (!(char.expressions?.length)) contentRef.current = el; }} style={{ position: "relative", zIndex: 2, padding: isMobile ? "32px 24px 48px" : "48px 64px 80px", maxWidth: 1100, margin: "0 auto", opacity: navV ? 1 : 0, transform: navV ? "translateY(0)" : "translateY(20px)", transition: `opacity 0.8s ${EASE}, transform 0.8s ${EASE}` }}>
-        {sameAgency.length > 0 && (
-          <div style={{ marginBottom: isMobile ? 32 : 48 }}>
-            <h3 style={{ fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.3em", textTransform: "uppercase", color: C.goldText, marginBottom: isMobile ? 16 : 20 }}>Same Agency</h3>
-            <div style={{ display: "flex", gap: isMobile ? 10 : 16, flexWrap: "wrap" }}>
-              {sameAgency.map((c) => (
-                <Link key={c.id} to={`/characters/${c.id}`} style={{ textDecoration: "none", padding: isMobile ? "10px 16px" : "12px 20px", background: C.bgCard, border: `1px solid ${C.border06}`, display: "flex", alignItems: "center", gap: 10, transition: "border-color 0.3s, box-shadow 0.3s" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = c.color; e.currentTarget.style.boxShadow = `0 0 16px ${`color-mix(in oklch, ${c.color} 20%, transparent)`}`; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border06; e.currentTarget.style.boxShadow = "none"; }}
-                >
-                  <span style={{ color: c.color, fontSize: 8 }}>●</span>
-                  <span style={{ fontFamily: "var(--f-body)", fontSize: 13, color: C.text55 }}>{c.name}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-        <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 20, borderTop: `1px solid ${C.border06}` }}>
-          {prevChar ? (
-            <Link to={`/characters/${prevChar.id}`} style={{ textDecoration: "none", color: C.text35, fontSize: 12, fontFamily: "var(--f-body)", transition: "color 0.3s" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = C.gold)} onMouseLeave={(e) => (e.currentTarget.style.color = C.text35)}>
-              &larr; {prevChar.name}
-            </Link>
-          ) : <span />}
-          {nextChar ? (
-            <Link to={`/characters/${nextChar.id}`} style={{ textDecoration: "none", color: C.text35, fontSize: 12, fontFamily: "var(--f-body)", transition: "color 0.3s" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = C.gold)} onMouseLeave={(e) => (e.currentTarget.style.color = C.text35)}>
-              {nextChar.name} &rarr;
-            </Link>
-          ) : <span />}
-        </div>
-      </section>
+      <CharNavigation
+        prevChar={prevChar}
+        nextChar={nextChar}
+        sameAgency={sameAgency}
+        isMobile={isMobile}
+        sectionRef={(el) => { navRef.current = el; if (!(char.expressions?.length)) contentRef.current = el; }}
+        sectionStyle={{
+          opacity: navV ? 1 : 0,
+          transform: navV ? "translateY(0)" : "translateY(20px)",
+          transition: `opacity 0.8s ${EASE}, transform 0.8s ${EASE}`,
+        }}
+      />
 
       {/* ══════════ Lightbox ══════════ */}
-      {lightbox && (
-        <div role="dialog" aria-modal="true" aria-label="이미지 상세보기" onClick={closeMainLightbox} style={{ position: "fixed", inset: 0, zIndex: 9999, background: C.bgOverlay, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
-          <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: isMobile ? "90vw" : "60vw", maxHeight: "80vh", position: "relative" }}>
-            <img src={lightbox.src} alt={EXPRESSION_LABELS[lightbox.key]} style={{ maxWidth: "100%", maxHeight: "80vh", objectFit: "contain", border: `1px solid ${C.border10}` }} />
-            <p style={{ textAlign: "center", fontFamily: "var(--f-body)", fontSize: 13, color: C.text55, marginTop: 12 }}>{char.name} — {EXPRESSION_LABELS[lightbox.key]}</p>
-            <button onClick={closeMainLightbox} style={{ position: "absolute", top: -12, right: -12, width: 32, height: 32, background: C.bgDeep, border: `1px solid ${C.border10}`, borderRadius: "50%", color: C.text55, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
-          </div>
-        </div>
-      )}
+      <CharLightbox
+        lightbox={lightbox}
+        onClose={closeLightbox}
+        charName={char.name}
+        isMobile={isMobile}
+      />
 
       <Footer isMobile={isMobile} />
     </div>
