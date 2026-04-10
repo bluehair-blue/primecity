@@ -433,7 +433,7 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
 
   // ── Preload list: keyVisual + introAssets ──
   const preloadUrls = [char.keyVisual, ...(char.introAssets || [])].filter(Boolean);
-  const { ready: assetsReady, timedOut, progress } = useImagePreloader(preloadUrls, { timeoutMs: preloadBudget });
+  const { loaded, total, timedOut, progress } = useImagePreloader(preloadUrls, { timeoutMs: preloadBudget });
 
   // ── Detect reduced-motion ──
   useEffect(() => {
@@ -462,18 +462,28 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
   }, [name]);
 
   // ── Shell → Phase transition ──
+  // Priority:
+  //   1) reduced-motion   → always skip cinematic → Phase 1
+  //   2) all assets loaded in time → Phase 0 (cinematic plays)
+  //   3) timedOut before fully loaded → fall-open to Phase 1
   useEffect(() => {
     if (phase !== -1) return;
-    if (!assetsReady) return;
-    // reduced-motion OR timedOut → skip Phase 0, go direct to Phase 1
-    if (reducedMotion || timedOut) {
+    if (reducedMotion) {
       setPhase(1);
       return;
     }
-    // Normal path → Phase 0
-    setPhase(0);
-    document.body.style.overflow = "hidden";
-  }, [phase, assetsReady, timedOut, reducedMotion]);
+    const fullyLoaded = loaded >= total;
+    if (fullyLoaded) {
+      setPhase(0);
+      document.body.style.overflow = "hidden";
+      return;
+    }
+    if (timedOut) {
+      setPhase(1);
+      return;
+    }
+    // still loading, wait
+  }, [phase, loaded, total, timedOut, reducedMotion]);
 
   // ── Phase 0 → Phase 1 auto-advance ──
   useEffect(() => {
