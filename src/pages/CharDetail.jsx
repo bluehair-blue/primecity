@@ -694,19 +694,18 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
           <div style={{
             position: "absolute",
             bottom: 32, left: "50%", transform: "translateX(-50%)",
-            display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 10,
             pointerEvents: "none",
           }}>
             <span style={{
-              fontFamily: "var(--f-display-en)", fontSize: 9,
-              letterSpacing: "0.35em", textTransform: "uppercase",
-              color: C.text35,
+              fontFamily: "var(--f-display-en)", fontSize: isMobile ? 11 : 13,
+              letterSpacing: "0.4em", textTransform: "uppercase",
+              color: C.goldText,
             }}>Scroll</span>
-            <div style={{
-              width: 1, height: 40,
-              background: `linear-gradient(to bottom, ${char.color}99, transparent)`,
-              animation: "scrollPulse 1.8s ease-in-out infinite",
-            }} />
+            <div style={{ animation: "scrollPulse 1.6s ease-in-out infinite", display: "flex", flexDirection: "column", gap: 5 }}>
+              <div style={{ width: 22, height: 2, background: C.goldText }} />
+              <div style={{ width: 22, height: 2, background: C.goldText }} />
+            </div>
           </div>
         )}
       </section>
