@@ -580,77 +580,12 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
     );
   }
 
-  // ════════ PHASE 0: Cinematic intro ════════
-  if (phase === 0) {
-    const StyleComponent = INTRO_COMPONENTS[char.introStyle];
-    if (StyleComponent) {
-      return (
-        <>
-          <Seo title={char.name} description={`${char.name} — ${char.role}`} path={`/characters/${name}`} />
-          <StyleComponent
-            char={char}
-            isMobile={isMobile}
-            objectPosition={objectPosition}
-            config={config}
-            onSkip={skipIntro}
-          />
-        </>
-      );
-    }
+  // ════════ PHASE 0+ : Hero + (conditional) cinematic overlay ════════
+  // Phase 0 renders the intro overlay ON TOP of Phase 1 hero so the
+  // overlay can fadeOut naturally to reveal the final keyVisual+hero.
+  // (JGR pattern — overlay layer, not a separate render branch.)
+  const StyleComponent = INTRO_COMPONENTS[char.introStyle];
 
-    // Fallback placeholder (for styles not yet implemented)
-    return (
-      <div
-        onClick={skipIntro}
-        style={{
-          position: "fixed", inset: 0, zIndex: 200,
-          background: "oklch(0 0 0)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          cursor: "pointer",
-        }}
-      >
-        <Seo title={char.name} description={`${char.name} — ${char.role}`} path={`/characters/${name}`} />
-        <img
-          src={char.keyVisual}
-          alt=""
-          style={{
-            position: "absolute", inset: 0,
-            width: "100%", height: "100%",
-            objectFit: "cover", objectPosition,
-            opacity: 0.9,
-          }}
-        />
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "radial-gradient(ellipse at center, transparent 30%, oklch(0 0 0 / 0.6) 100%)",
-        }} />
-        <p style={{
-          position: "relative", zIndex: 3,
-          fontFamily: "var(--f-display-kr)",
-          fontSize: isMobile ? "clamp(22px,6vw,30px)" : "clamp(28px,3.5vw,42px)",
-          fontStyle: "italic",
-          color: "oklch(0.95 0 0)",
-          margin: 0, padding: isMobile ? "0 24px" : "0 48px",
-          textAlign: "center",
-          textShadow: "0 2px 24px oklch(0 0 0 / 0.8)",
-        }}>
-          {char.quoteSequence?.[0] || char.tagline}
-        </p>
-        {char.introLabel && (
-          <span style={{
-            position: "absolute", bottom: isMobile ? "8%" : "10%",
-            left: isMobile ? 20 : 48,
-            fontFamily: "var(--f-display-en)", fontSize: isMobile ? 9 : 11,
-            letterSpacing: "0.25em", textTransform: "uppercase",
-            color: "oklch(0.6 0 0)", opacity: 0.6,
-            pointerEvents: "none",
-          }}>{char.introLabel}</span>
-        )}
-      </div>
-    );
-  }
-
-  // ════════ PHASE 1+ : KeyVisual hero + (optionally) lower sections ════════
   return (
     <div style={{ background: C.bgDeep, color: C.white, minHeight: "100vh", position: "relative", overflowX: "hidden" }}>
       <Seo title={char.name} description={`${char.name} — ${char.role}`} path={`/characters/${name}`} />
@@ -765,33 +700,41 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
         )}
       </section>
 
-      {/* Lower sections — rendered from Phase 1 so the page is scrollable */}
-      {phase >= 1 && (
-        <>
-          <div style={{ position: "relative", zIndex: 2, background: C.bgDeep, paddingTop: 80 }}>
-            <CharExpressionsGrid
-              char={char}
-              isMobile={isMobile}
-              sectionRef={exprSectionRef}
-              exprErrors={exprErrors}
-              setExprErrors={setExprErrors}
-              onOpen={(key, src) => setLightbox({ key, src })}
-            />
-            <CharNavigation
-              prevChar={prevChar}
-              nextChar={nextChar}
-              sameAgency={sameAgency}
-              isMobile={isMobile}
-            />
-            <Footer isMobile={isMobile} />
-          </div>
-          <CharLightbox
-            lightbox={lightbox}
-            onClose={closeLightbox}
-            charName={char.name}
-            isMobile={isMobile}
-          />
-        </>
+      {/* Lower sections — always rendered so the page is scrollable
+           and the cinematic overlay can fadeOut onto real content */}
+      <div style={{ position: "relative", zIndex: 2, background: C.bgDeep, paddingTop: 80 }}>
+        <CharExpressionsGrid
+          char={char}
+          isMobile={isMobile}
+          sectionRef={exprSectionRef}
+          exprErrors={exprErrors}
+          setExprErrors={setExprErrors}
+          onOpen={(key, src) => setLightbox({ key, src })}
+        />
+        <CharNavigation
+          prevChar={prevChar}
+          nextChar={nextChar}
+          sameAgency={sameAgency}
+          isMobile={isMobile}
+        />
+        <Footer isMobile={isMobile} />
+      </div>
+      <CharLightbox
+        lightbox={lightbox}
+        onClose={closeLightbox}
+        charName={char.name}
+        isMobile={isMobile}
+      />
+
+      {/* Phase 0: cinematic overlay layered on top of everything */}
+      {phase === 0 && StyleComponent && (
+        <StyleComponent
+          char={char}
+          isMobile={isMobile}
+          objectPosition={objectPosition}
+          config={config}
+          onSkip={skipIntro}
+        />
       )}
     </div>
   );
