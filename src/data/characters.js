@@ -150,8 +150,8 @@ export const characters = [
     introLabel: "Lee Seoha / Indifference",
     quoteSequence: ["하아… 또?"],
     focusBox: {
-      desktop: { cx: 38, cy: 45, w: 45, h: 55 },
-      mobile:  { cx: 32, cy: 40, w: 45, h: 50 },
+      desktop: { cx: 38, cy: 45, w: 55, h: 65 },  // v4 +10%
+      mobile:  { cx: 32, cy: 40, w: 55, h: 60 },  // v4 +10%
     },
     detailPath: "/characters/leeseha",
     signature: "둥근 안경 + 다크서클",
