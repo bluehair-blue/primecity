@@ -20,11 +20,10 @@ export const INTRO_STYLE_CONFIG = {
     mobileFallback: null,
   },
   glitch: {
-    duration: 2800,
+    duration: 4300,   // v4.2: main-shake + ghost ±15px + 1.4s hero hold (was 2800)
     letterbox: false,
     requiresSvgFilter: false,
-    mobileFallback: "simpleGlitch",
-    layers: 3,
+    mobileFallback: null,
   },
   ripple: {
     duration: 6000,   // v4.2: zoom 2-beat + ripple + 1s hero hold (was 3000)
