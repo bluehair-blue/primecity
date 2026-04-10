@@ -90,6 +90,7 @@ export const characters = [
       { cx: 50, cy: 25, scale: 2.0 },  // 얼굴/눈매 (v4: 2.8→2.0 화질 우선)
       { cx: 42, cy: 55, scale: 1.9 },  // 상체/손  (v4: 2.5→1.9)
     ],
+    keyVisualFit: "contain",
     detailPath: "/characters/jinshihyuk",
     signature: "볼펜 시퀀스 (돌리기→딸깍→머리넘기기)",
     personality: "냉정 + 직설 + 합리주의",
