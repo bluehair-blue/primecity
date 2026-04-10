@@ -103,8 +103,43 @@ const PAGE_SIZE = 5;
 export default function CharCarousel({ isMobile }) {
   const [idx, setIdx] = useState(0);
   const [fade, setFade] = useState(true);
+  const [imgLoaded, setImgLoaded] = useState(false);
   const timeoutRef = useRef(null);
   const char = characters[idx];
+
+  // Reset imgLoaded when character changes (so skeleton shows during swap)
+  useEffect(() => {
+    setImgLoaded(false);
+  }, [char.id]);
+
+  // Preload selected + neighbors immediately
+  useEffect(() => {
+    const neighbors = [idx - 1, idx, idx + 1]
+      .map((i) => characters[((i % characters.length) + characters.length) % characters.length])
+      .filter((c) => c?.image);
+    neighbors.forEach((c) => {
+      const img = new Image();
+      img.src = c.image;
+    });
+  }, [idx]);
+
+  // Idle preload for the rest (all characters)
+  useEffect(() => {
+    const preloadAll = () => {
+      characters.forEach((c) => {
+        if (c.image) {
+          const img = new Image();
+          img.src = c.image;
+        }
+      });
+    };
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      const id = window.requestIdleCallback(preloadAll, { timeout: 2000 });
+      return () => window.cancelIdleCallback?.(id);
+    }
+    const timer = setTimeout(preloadAll, 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Thumbnail pagination
   const totalPages = Math.ceil(characters.length / PAGE_SIZE);
@@ -157,6 +192,7 @@ export default function CharCarousel({ isMobile }) {
   const carouselProps = {
     idx, fade, char, switchTo, prevPage, nextPage,
     pageChars, totalPages, currentPage,
+    imgLoaded, setImgLoaded,
   };
 
   return isMobile
@@ -164,7 +200,7 @@ export default function CharCarousel({ isMobile }) {
     : <DesktopCarousel {...carouselProps} />;
 }
 
-function MobileCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageChars, totalPages }) {
+function MobileCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageChars, totalPages, imgLoaded, setImgLoaded }) {
   return (
       <section
         id="characters"
@@ -291,15 +327,27 @@ function MobileCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageCha
           >
             {char.image ? (
               <>
+                {!imgLoaded && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background: `linear-gradient(135deg, ${alpha(char.color, 0.12)}, ${C.bgCard})`,
+                    }}
+                  />
+                )}
                 <img
                   src={char.image}
                   alt={char.name}
+                  onLoad={() => setImgLoaded(true)}
                   style={{
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
                     objectPosition: "center 20%",
                     display: "block",
+                    opacity: imgLoaded ? 1 : 0,
+                    transition: "opacity 0.3s ease-out",
                   }}
                 />
                 {/* Bottom fade */}
@@ -457,7 +505,7 @@ function MobileCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageCha
   );
 }
 
-function DesktopCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageChars, totalPages }) {
+function DesktopCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageChars, totalPages, imgLoaded, setImgLoaded }) {
   const accentFaint = alpha(char.color, 0.06);
   const accentMid = alpha(char.color, 0.15);
 
@@ -488,21 +536,35 @@ function DesktopCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageCh
         }}
       >
         {char.image ? (
-          <img
-            src={char.image}
-            alt={char.name}
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "55%",
-              transform: "translate(-45%, -50%)",
-              height: "105%",
-              width: "auto",
-              maxWidth: "none",
-              objectFit: "contain",
-              display: "block",
-            }}
-          />
+          <>
+            {!imgLoaded && (
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: `linear-gradient(135deg, ${alpha(char.color, 0.12)}, ${C.bgCard})`,
+                }}
+              />
+            )}
+            <img
+              src={char.image}
+              alt={char.name}
+              onLoad={() => setImgLoaded(true)}
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "55%",
+                transform: "translate(-45%, -50%)",
+                height: "105%",
+                width: "auto",
+                maxWidth: "none",
+                objectFit: "contain",
+                display: "block",
+                opacity: imgLoaded ? 1 : 0,
+                transition: "opacity 0.3s ease-out",
+              }}
+            />
+          </>
         ) : (
           <div
             style={{
