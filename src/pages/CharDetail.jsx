@@ -626,7 +626,7 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
           onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")}
           aria-label="Back"
           style={{
-            position: "fixed", top: 16, right: 16, zIndex: 150,
+            position: "fixed", top: isMobile ? 68 : 84, right: 16, zIndex: 150,
             width: 40, height: 40,
             background: "oklch(0 0 0 / 0.6)",
             border: `1px solid ${C.border10}`,
