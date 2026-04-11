@@ -601,7 +601,7 @@ def generate_batch(token, config, state, char_codes=None, scene_nums=None,
 #  CLI
 # ═══════════════════════════════════════════════════════
 
-from utils import ALL_CHARS, ALL_SCENES, parse_scene_range  # noqa: E402
+from utils import ALL_CHARS, ALL_SCENES, SPECIAL_SCENES, parse_scene_range  # noqa: E402
 
 
 def show_status():
@@ -668,6 +668,8 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="Print prompts without API calls")
     parser.add_argument("--status", action="store_true", help="Show generation progress")
     parser.add_argument("--retry-failed", action="store_true", help="Retry only failed items")
+    parser.add_argument("--include-special", action="store_true",
+                        help=f"Also queue SPECIAL_SCENES ({SPECIAL_SCENES}) — opt-in for the 901+ series.")
     parser.add_argument("--delay", type=float, default=DELAY_NORMAL, help=f"Delay between generations in seconds (default: {DELAY_NORMAL}s, min: 1s)")
     args = parser.parse_args()
 
@@ -713,7 +715,9 @@ def main():
         if args.scenes:
             scene_nums = parse_scene_range(args.scenes)
         else:
-            scene_nums = ALL_SCENES
+            scene_nums = list(ALL_SCENES)
+            if args.include_special:
+                scene_nums = scene_nums + list(SPECIAL_SCENES)
 
         if not token and not args.dry_run:
             print("ERROR: --token, --token-file, or NAI_TOKEN env required (or use --dry-run)")
