@@ -28,6 +28,11 @@ tools/parsed_scenes.json
 tools/__pycache__/
 tools/censor.log
 tools/_run_*.sh
+tools/.r2_uploaded.json
+tools/r2_sync.log
+tools/r2_sync.pid
+tools/asset_gen_bg.pid
+tools/asset_gen_bg_*.log
 
 # Models (large binary, download separately)
 models/
