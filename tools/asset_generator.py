@@ -55,6 +55,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 NAI_API_URL = "https://image.novelai.net/ai/generate-image"
 TOOLS_DIR = Path(__file__).parent
 CONFIG_PATH = TOOLS_DIR / "asset_config.json"
+POSE_OVERRIDES_PATH = TOOLS_DIR / "character_pose_overrides.json"
 STATE_PATH = TOOLS_DIR / "generation_state.json"
 LOG_PATH = TOOLS_DIR / "generation.log"
 
@@ -89,6 +90,52 @@ log = logging.getLogger("asset_gen")
 def load_config() -> dict:
     with CONFIG_PATH.open(encoding="utf-8") as f:
         return json.load(f)
+
+
+_pose_overrides_cache: dict | None = None
+
+
+def load_pose_overrides() -> dict:
+    """character_pose_overrides.json 로드 (모듈 레벨 캐시). 없으면 빈 dict."""
+    global _pose_overrides_cache
+    if _pose_overrides_cache is not None:
+        return _pose_overrides_cache
+    if not POSE_OVERRIDES_PATH.exists():
+        _pose_overrides_cache = {}
+        return _pose_overrides_cache
+    with POSE_OVERRIDES_PATH.open(encoding="utf-8") as f:
+        _pose_overrides_cache = json.load(f)
+    return _pose_overrides_cache
+
+
+def resolve_pose_tags(pose_ovr: dict, char_code: str, scene_num: int) -> list[str]:
+    """캐릭터 × 씬에 대한 포즈 오버라이드 태그 리스트 해결.
+
+    우선순위:
+      1. _scene_to_pose[scene_num] → pose category
+      2. _character_archetype[char] → archetype
+      3. _archetypes[archetype].poses[pose] → base tags
+      4. _character_overrides[char][pose] → char-specific tags (base 뒤에 append)
+    """
+    if not pose_ovr:
+        return []
+
+    pose = pose_ovr.get("_scene_to_pose", {}).get(str(scene_num))
+    if not pose:
+        return []
+
+    archetype = pose_ovr.get("_character_archetype", {}).get(char_code)
+    base_tags: list[str] = []
+    if archetype:
+        arch_poses = pose_ovr.get("_archetypes", {}).get(archetype, {}).get("poses", {})
+        base_tags = list(arch_poses.get(pose, []))
+
+    char_tags = pose_ovr.get("_character_overrides", {}).get(char_code, {}).get(pose, [])
+    # _note 같은 메타 키는 리스트가 아니므로 자동 스킵
+    if isinstance(char_tags, list):
+        base_tags.extend(char_tags)
+
+    return base_tags
 
 
 def load_state() -> dict:
@@ -212,6 +259,20 @@ def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str
     for tag in remove_tags:
         female_scene = female_scene.replace(f", {tag},", ",").replace(f", {tag}", "").replace(f"{tag}, ", "")
         male_caption = male_caption.replace(f", {tag},", ",").replace(f", {tag}", "").replace(f"{tag}, ", "")
+
+    # Character × pose overrides (archetype base + character-specific)
+    # 씬 female_prompt 끝에 append하여 체위 본질 태그 뒤에 성격/포즈 디테일이 오도록 함
+    pose_ovr = load_pose_overrides()
+    pose_tags = resolve_pose_tags(pose_ovr, char_code, scene_num)
+    if pose_tags:
+        # 씬에 이미 있는 토큰은 중복 제거
+        existing = {t.strip() for t in female_scene.split(",")}
+        new_tags = [t for t in pose_tags if t not in existing]
+        if new_tags:
+            if female_scene:
+                female_scene = f"{female_scene.rstrip(', ')}, " + ", ".join(new_tags)
+            else:
+                female_scene = ", ".join(new_tags)
 
     female_caption = f"{cleaned_char}, {female_scene}" if female_scene else cleaned_char
 
