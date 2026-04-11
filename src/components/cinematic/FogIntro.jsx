@@ -2,92 +2,101 @@ import { useEffect, useRef, useState } from "react";
 import CenteredQuote from "./CenteredQuote";
 
 /* ══════════════════════════════════════════════════════════
-   FogIntro (NHR) — TV static noise × 2-beat zoom → unfurl → hero
+   FogIntro (NHR) — canvas TV static + 2-beat zoom → unfurl → hero
    ------------------------------------------------------------
-   Concept: 지직거리는 전파 노이즈 속 두 번의 줌인 → 이미지 펼쳐짐 → hero
-   Layout : 이미지 70% (상단) + 바닥 reflection 22% (하단)
+   v4: canvas 기반 노이즈 (SVG filter 제거 — filter+blend-mode 충돌 해결)
+       80×45 저해상도 canvas → pixelated 확대 → TV 정적 노이즈
+       reflection: maskImage white→transparent (alpha 오용 수정)
 
    Timeline: 5400ms + 500ms fadeOut = 5900ms total
      0    -  300ms : black
-     300  - 1600ms : 줌인 #1 (좌하-중심) + 강한 노이즈 + "후후..." subtle  [1300ms]
-     1600 - 2800ms : 줌인 #2 (우상-중심) + 강한 노이즈 + "후후..." 유지   [1200ms]
-     2800 - 4100ms : "잘 부탁해?" subtle + 줌아웃 + 노이즈 중간           [1300ms >1초]
-     4100 - 5400ms : hero (이름+대사) + 노이즈 사라짐                      [1300ms >1초]
+     300  - 1600ms : 줌인 #1 (25% 67%) + 강한 노이즈 + "후후..." subtle  [1300ms]
+     1600 - 2800ms : 줌인 #2 (75% 18%) + 강한 노이즈 + "후후..." 유지   [1200ms]
+     2800 - 4100ms : "잘 부탁해?" subtle + 줌아웃 + 노이즈 중간          [1300ms]
+     4100 - 5400ms : hero (이름+대사) + 노이즈 사라짐                     [1300ms]
      5400 - 5900ms : fadeOut → Phase 1
-
-   Zoom positions (NHR focusBox center 50% 35% 기준):
-     #1 좌하-중심: "25% 67%"
-     #2 우상-중심: "75% 18%"
    ══════════════════════════════════════════════════════════ */
 
-const NOISE_ID = "nhrStaticNoise";
 const ZOOM_SCALE = 1.55;
 const ZOOM_POSITIONS = ["25% 67%", "75% 18%"];
 
 export default function FogIntro({ char, isMobile, objectPosition, config, onSkip }) {
   const [beat, setBeat] = useState(0);
   const [fadingOut, setFadingOut] = useState(false);
-  const noiseSeedRef = useRef(null);
+  const canvasRef = useRef(null);
   const noiseRafRef = useRef(null);
 
   // ── Timeline ──
   useEffect(() => {
     const timers = [
-      setTimeout(() => setBeat(1), 300),   // 줌인 #1 + 노이즈 + "후후..."
-      setTimeout(() => setBeat(2), 1600),  // 줌인 #2 (포지션 전환)
-      setTimeout(() => setBeat(3), 2800),  // "잘 부탁해?" + 줌아웃 + 노이즈 중간
-      setTimeout(() => setBeat(4), 4100),  // hero
+      setTimeout(() => setBeat(1), 300),
+      setTimeout(() => setBeat(2), 1600),
+      setTimeout(() => setBeat(3), 2800),
+      setTimeout(() => setBeat(4), 4100),
       setTimeout(() => setFadingOut(true), 5400),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  // ── rAF: noise seed 랜덤화 — beats 1~3 ──
+  // ── Canvas TV static noise — beats 1~3 ──
+  // 80×45 저해상도 랜덤 픽셀 → pixelated CSS 확대 → TV 정적 효과
+  // canvas element에는 CSS filter 없음 → mix-blend-mode 정상 동작
   useEffect(() => {
-    if (beat < 1 || beat >= 4) {
+    const canvas = canvasRef.current;
+    if (!canvas || beat < 1 || beat >= 4) {
       if (noiseRafRef.current) cancelAnimationFrame(noiseRafRef.current);
       return;
     }
-    const tick = () => {
-      if (noiseSeedRef.current) {
-        noiseSeedRef.current.setAttribute("seed", Math.floor(Math.random() * 9999));
+
+    canvas.width = 80;
+    canvas.height = 45;
+    const ctx = canvas.getContext("2d");
+
+    const draw = () => {
+      const d = ctx.createImageData(80, 45);
+      for (let i = 0; i < d.data.length; i += 4) {
+        const v = Math.floor(Math.random() * 256);
+        d.data[i] = d.data[i + 1] = d.data[i + 2] = v;
+        d.data[i + 3] = 185;  // ~72% alpha
       }
-      noiseRafRef.current = requestAnimationFrame(tick);
+      ctx.putImageData(d, 0, 0);
+      noiseRafRef.current = requestAnimationFrame(draw);
     };
-    noiseRafRef.current = requestAnimationFrame(tick);
+
+    noiseRafRef.current = requestAnimationFrame(draw);
     return () => {
       if (noiseRafRef.current) cancelAnimationFrame(noiseRafRef.current);
     };
   }, [beat]);
 
-  // 줌인 objectPosition: beat 1→#1, beat 2→#2, beat 3+→focusBox
+  // 줌인 objectPosition
   const currentObjPos =
     beat === 1 ? ZOOM_POSITIONS[0] :
     beat === 2 ? ZOOM_POSITIONS[1] :
     objectPosition;
 
-  // 이미지 scale: 줌인(1~2) → 줌아웃(3+)
-  const imgScale = beat >= 3 ? 1.0 : beat >= 1 ? ZOOM_SCALE : ZOOM_SCALE;
+  // scale: 줌인(1~2) → 줌아웃(3+)
+  const imgScale = beat >= 3 ? 1.0 : 1.55;
 
-  // 이미지 filter: 저채도(1~2) → 복원(3+)
+  // 이미지 filter (저채도 → 복원)
   const imageFilter =
     beat <= 2 ? "saturate(0.35) brightness(0.65)" :
     beat === 3 ? "saturate(0.8) brightness(0.9)" :
     "saturate(1.0) brightness(1.0)";
 
-  // 노이즈 overlay opacity: beat1~2 강함, beat3 중간, beat4 사라짐
+  // 노이즈 canvas opacity
   const noiseOpacity =
-    beat === 1 || beat === 2 ? 0.55 :
-    beat === 3 ? 0.35 :
+    beat === 1 || beat === 2 ? 0.5 :
+    beat === 3 ? 0.3 :
     0;
 
-  // 이미지 transition: beat 구간별 차등
+  // 이미지 transition (beat마다 차등)
   const imgTransition =
     beat >= 3
       ? "transform 1.1s cubic-bezier(0.22,1,0.36,1), object-position 1.0s ease-out, filter 1.1s ease-out, opacity 0.5s ease-out"
       : beat === 2
-      ? "object-position 0.35s ease-out, opacity 0.4s ease-out, filter 0.3s ease-out"
-      : "opacity 0.45s ease-out, filter 0.3s ease-out";
+      ? "object-position 0.35s ease-out"
+      : "opacity 0.45s ease-out";
 
   return (
     <div
@@ -100,28 +109,7 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
         transition: "opacity 0.5s ease-out",
       }}
     >
-      {/* ── SVG static noise filter (seed 랜덤화로 60fps TV 지직) ── */}
-      <svg
-        width="0" height="0"
-        style={{ position: "absolute", pointerEvents: "none" }}
-        aria-hidden="true"
-      >
-        <defs>
-          <filter id={NOISE_ID} x="0%" y="0%" width="100%" height="100%">
-            <feTurbulence
-              ref={noiseSeedRef}
-              type="turbulence"
-              baseFrequency="0.65"
-              numOctaves="1"
-              seed="1"
-              stitchTiles="stitch"
-            />
-            <feColorMatrix type="saturate" values="0" />
-          </filter>
-        </defs>
-      </svg>
-
-      {/* ── KV 이미지 영역 (화면 상단 70%) ── */}
+      {/* ── KV 이미지 (상단 70%) ── */}
       <div
         style={{
           position: "absolute",
@@ -143,12 +131,14 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
             filter: imageFilter,
             opacity: beat >= 1 ? 1 : 0,
             transition: imgTransition,
-            willChange: "transform, object-position",
+            willChange: "transform",
           }}
         />
       </div>
 
-      {/* ── 바닥 reflection (70%~92%) ── */}
+      {/* ── 바닥 reflection (70%~92%) ──
+          maskImage: white→transparent (alpha 1→0) 으로 상단 가장 진하게 하단 사라짐
+          오용 수정: oklch(1 0 0 / 0.22) 제거 → white (alpha=1) 사용               */}
       <div
         style={{
           position: "absolute",
@@ -157,7 +147,7 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
           overflow: "hidden",
           zIndex: 2,
           opacity: beat >= 1 ? 1 : 0,
-          transition: "opacity 0.8s ease-out",
+          transition: "opacity 1.0s ease-out",
         }}
       >
         <img
@@ -171,31 +161,23 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
             objectPosition: currentObjPos,
             transform: "scaleY(-1)",
             filter: imageFilter,
-            WebkitMaskImage:
-              "linear-gradient(to bottom, oklch(1 0 0 / 0.22) 0%, transparent 85%)",
-            maskImage:
-              "linear-gradient(to bottom, oklch(1 0 0 / 0.22) 0%, transparent 85%)",
-            opacity: 0.22,
+            WebkitMaskImage: "linear-gradient(to bottom, white 0%, transparent 80%)",
+            maskImage: "linear-gradient(to bottom, white 0%, transparent 80%)",
+            opacity: 0.18,
             transition: "object-position 0.35s ease-out, filter 1.0s ease-out",
-          }}
-        />
-        {/* reflection 하단 페이드아웃 */}
-        <div
-          style={{
-            position: "absolute", inset: 0,
-            background:
-              "linear-gradient(to bottom, transparent 30%, oklch(0 0 0 / 0.75) 100%)",
-            pointerEvents: "none",
           }}
         />
       </div>
 
-      {/* ── TV static noise overlay (전체 화면, zIndex 3) ── */}
-      <div
+      {/* ── Canvas TV static noise ──
+          CSS filter 없이 직접 픽셀 그리기 → mix-blend-mode overlay 정상 작동
+          imageRendering: pixelated → 80×45 픽셀이 chunky 블록으로 확대 (TV 정적)  */}
+      <canvas
+        ref={canvasRef}
         style={{
           position: "absolute", inset: 0,
-          filter: `url(#${NOISE_ID})`,
-          background: "oklch(0.5 0 0)",
+          width: "100%", height: "100%",
+          imageRendering: "pixelated",
           opacity: noiseOpacity,
           mixBlendMode: "overlay",
           transition: "opacity 0.5s ease-out",
@@ -210,7 +192,7 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
           position: "absolute", inset: 0,
           background:
             "repeating-linear-gradient(to bottom, oklch(0 0 0 / 0) 0px, oklch(0 0 0 / 0) 2px, oklch(0 0 0 / 0.13) 3px)",
-          opacity: beat >= 1 && beat <= 3 ? 0.6 : 0,
+          opacity: beat >= 1 && beat <= 3 ? 0.55 : 0,
           transition: "opacity 0.8s ease-out",
           zIndex: 4,
           pointerEvents: "none",
@@ -231,7 +213,7 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
         }}
       />
 
-      {/* ── "후후..." subtle — beats 1~2 (두 번의 줌인 내내) ── */}
+      {/* ── "후후..." subtle (beat 1~2) ── */}
       <CenteredQuote
         char={char} isMobile={isMobile}
         emphasis="subtle"
@@ -239,7 +221,7 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
         quoteIndex={0}
       />
 
-      {/* ── "잘 부탁해?" subtle — beat 3 (줌아웃 + 노이즈 중간) ── */}
+      {/* ── "잘 부탁해?" subtle (beat 3) ── */}
       <CenteredQuote
         char={char} isMobile={isMobile}
         emphasis="subtle"
@@ -247,7 +229,7 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
         quoteIndex={1}
       />
 
-      {/* ── "잘 부탁해?" hero — beat 4 (최소 1.3초) ── */}
+      {/* ── "잘 부탁해?" hero (beat 4) ── */}
       <CenteredQuote
         char={char} isMobile={isMobile}
         emphasis="hero"
