@@ -11,6 +11,17 @@ function safeImageUrl(url) {
   } catch (e) {}
   return null;
 }
+// CDN asset mapping (mirrors src/data/svgTemplates.js charAssets)
+const SVG_CDN = "https://img.bluehair.blue/ent";
+function charAssets(code) {
+  if (!code) return {};
+  return {
+    avatar: `${SVG_CDN}/${code}/svg/avatar.webp`,
+    post:   `${SVG_CDN}/${code}/svg/post.webp`,
+    stream: `${SVG_CDN}/${code}/svg/stream.webp`,
+    news:   `${SVG_CDN}/${code}/svg/news.webp`,
+  };
+}
 
 function generateNews(p) {
   const channel = p.channel || "PRIME NEWS";
@@ -19,7 +30,8 @@ function generateNews(p) {
   const reporter = p.reporter || "김기자";
   const time = p.time || "LIVE 오후 8:00";
   const ticker = p.ticker || "프라임시티 엔터테인먼트 지수 사상 최고치 경신";
-  const imageUrl = safeImageUrl(p.image);
+  const assets = charAssets(p.char);
+  const imageUrl = safeImageUrl(p.image) || safeImageUrl(assets.news);
 
   const newsImageSvg = imageUrl
     ? `<image href="${escapeXml(imageUrl)}" x="300" y="84" width="180" height="140" preserveAspectRatio="xMidYMid slice"/>`

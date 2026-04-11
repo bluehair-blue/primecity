@@ -11,6 +11,17 @@ function safeImageUrl(url) {
   } catch (e) {}
   return null;
 }
+// CDN asset mapping (mirrors src/data/svgTemplates.js charAssets)
+const SVG_CDN = "https://img.bluehair.blue/ent";
+function charAssets(code) {
+  if (!code) return {};
+  return {
+    avatar: `${SVG_CDN}/${code}/svg/avatar.webp`,
+    post:   `${SVG_CDN}/${code}/svg/post.webp`,
+    stream: `${SVG_CDN}/${code}/svg/stream.webp`,
+    news:   `${SVG_CDN}/${code}/svg/news.webp`,
+  };
+}
 
 function generateTweet(p) {
   const name = p.name || "나하린";
@@ -19,7 +30,8 @@ function generateTweet(p) {
   const retweets = p.retweets || "3,847";
   const likes = p.likes || "18,291";
   const time = p.time || "오후 11:42";
-  const avatarUrl = safeImageUrl(p.avatar);
+  const assets = charAssets(p.char);
+  const avatarUrl = safeImageUrl(p.avatar) || safeImageUrl(assets.avatar);
 
   // Word wrap content
   const maxCharsPerLine = 32;

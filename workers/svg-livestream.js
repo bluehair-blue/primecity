@@ -11,6 +11,17 @@ function safeImageUrl(url) {
   } catch (e) {}
   return null;
 }
+// CDN asset mapping (mirrors src/data/svgTemplates.js charAssets)
+const SVG_CDN = "https://img.bluehair.blue/ent";
+function charAssets(code) {
+  if (!code) return {};
+  return {
+    avatar: `${SVG_CDN}/${code}/svg/avatar.webp`,
+    post:   `${SVG_CDN}/${code}/svg/post.webp`,
+    stream: `${SVG_CDN}/${code}/svg/stream.webp`,
+    news:   `${SVG_CDN}/${code}/svg/news.webp`,
+  };
+}
 
 function generateLivestream(p) {
   const streamer = p.streamer || "강하람";
@@ -20,8 +31,9 @@ function generateLivestream(p) {
   const chat1 = p.chat1 || "화이팅!!!";
   const chat2 = p.chat2 || "목소리 너무 좋다";
   const chat3 = p.chat3 || "앵콜 앵콜!!!";
-  const avatarUrl = safeImageUrl(p.avatar);
-  const imageUrl = safeImageUrl(p.image);
+  const assets = charAssets(p.char);
+  const avatarUrl = safeImageUrl(p.avatar) || safeImageUrl(assets.avatar);
+  const imageUrl  = safeImageUrl(p.image)  || safeImageUrl(assets.stream);
 
   const avatarSvg = avatarUrl
     ? `<defs><clipPath id="ls-avatar-clip"><circle cx="18" cy="18" r="18"/></clipPath></defs>

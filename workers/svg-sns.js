@@ -11,6 +11,17 @@ function safeImageUrl(url) {
   } catch (e) {}
   return null;
 }
+// CDN asset mapping (mirrors src/data/svgTemplates.js charAssets)
+const SVG_CDN = "https://img.bluehair.blue/ent";
+function charAssets(code) {
+  if (!code) return {};
+  return {
+    avatar: `${SVG_CDN}/${code}/svg/avatar.webp`,
+    post:   `${SVG_CDN}/${code}/svg/post.webp`,
+    stream: `${SVG_CDN}/${code}/svg/stream.webp`,
+    news:   `${SVG_CDN}/${code}/svg/news.webp`,
+  };
+}
 
 function generateSnsPost(p) {
   const username = p.username || "seoyun_official";
@@ -19,8 +30,9 @@ function generateSnsPost(p) {
   const comments = p.comments || "1,204";
   const time = p.time || "2시간 전";
   const location = p.location || "The Core, Prime City";
-  const avatarUrl = safeImageUrl(p.avatar);
-  const imageUrl = safeImageUrl(p.image);
+  const assets = charAssets(p.char);
+  const avatarUrl = safeImageUrl(p.avatar) || safeImageUrl(assets.avatar);
+  const imageUrl  = safeImageUrl(p.image)  || safeImageUrl(assets.post);
 
   const avatarSvg = avatarUrl
     ? `<defs><clipPath id="avatar-clip"><circle cx="24" cy="24" r="18"/></clipPath></defs>
