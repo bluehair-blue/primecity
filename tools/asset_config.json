@@ -10,7 +10,8 @@
     "sampler": "k_euler",
     "scheduler": "karras",
     "smea": false,
-    "variety": true
+    "variety": true,
+    "nsfw_suffix": "white censor, censored pussy, censored anus, censored penis, -1::censored nipples::"
   },
   "scene_variant_map": {
     "1": "clothed",

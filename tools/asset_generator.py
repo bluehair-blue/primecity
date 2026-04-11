@@ -146,6 +146,21 @@ def clean_char_prompt(raw: str) -> str:
     )
 
 
+def is_nsfw_scene(config: dict, scene_num: int) -> bool:
+    """Return True if scene is NSFW and should receive the nsfw_suffix.
+
+    Rule:
+      - variant == "nude"  (explicit)
+      - OR clothed 삽입씬 70~86 (옷은 입었지만 성기 노출/삽입)
+    """
+    variant = config["scene_variant_map"].get(str(scene_num), "clothed")
+    if variant == "nude":
+        return True
+    if 70 <= scene_num <= 86:
+        return True
+    return False
+
+
 def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str, str, int, int] | None:
     """Build prompts with proper NAI V4 char_captions separation.
 
@@ -153,8 +168,16 @@ def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str
     - base_prompt:    global artists + quality → v4_prompt.base_caption
     - female_caption: character appearance + Female Part → char_captions[0]
     - male_caption:   Male Part (if any) → char_captions[1]
+
+    NSFW scenes get base.nsfw_suffix appended to base_prompt.
     """
     base = config["base"]["base_prompt"]
+    # NSFW 씬이면 검열 태그 suffix를 base_prompt 최하단에 append
+    if is_nsfw_scene(config, scene_num):
+        nsfw_suffix = config["base"].get("nsfw_suffix", "")
+        if nsfw_suffix:
+            base = f"{base.rstrip(', ')}, {nsfw_suffix}"
+
     char = config["characters"][char_code]
     scene = config["scenes"][str(scene_num)]
     variant_map = config["scene_variant_map"]
