@@ -372,6 +372,22 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div style="padding:8px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:15px;color:oklch(1.0 0 0/0.6);">확장</div><div style="font-family:monospace;font-size:14px;color:oklch(0.72 0.12 55);">87–92 <span style="color:var(--txt-dim);">· 6장</span></div></div>
 <div style="padding:8px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:15px;color:oklch(1.0 0 0/0.6);">무대</div><div style="font-family:monospace;font-size:14px;color:oklch(0.65 0.10 240);">93–96 <span style="color:var(--txt-dim);">· 4장</span></div></div>
 </div>
+<div style="margin-bottom:14px;padding-top:6px;border-top:1px solid oklch(1.0 0 0/0.06);">
+<div style="font-family:serif;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(1.0 0 0/0.3);margin:10px 0 8px;">Live UI Mockups <span style="font-size:11px;color:var(--txt-dim);text-transform:none;letter-spacing:0;font-family:sans-serif;">· 9종</span></div>
+<p style="font-size:14px;color:var(--txt-dim);margin:0 0 10px;font-weight:300;line-height:1.7;word-break:keep-all;">챗봇이 장면 직전에 가상 UI를 즉석 렌더링합니다 — 뉴스 속보, 라이브 방송, SNS 피드, 메신저, 커뮤니티 게시판·게시글 정독, 차트, 태블릿 브리핑.</p>
+<div style="display:flex;flex-wrap:wrap;gap:4px;">
+<span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--blue);font-family:serif;">📰 뉴스 속보</span>
+<span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--blue);font-family:serif;">📺 라이브 방송</span>
+<span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--blue);font-family:serif;">💬 메신저</span>
+<span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--blue);font-family:serif;">🐦 트윗</span>
+<span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--blue);font-family:serif;">📸 SNS 포스트</span>
+<span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--blue);font-family:serif;">📊 음원 차트</span>
+<span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--blue);font-family:serif;">📋 커뮤니티 게시판</span>
+<span style="font-size:13px;padding:3px 8px;background:oklch(0.76 0.12 80/0.08);border:1px solid oklch(0.76 0.12 80/0.3);color:var(--gold);font-family:serif;font-weight:600;">📄 커뮤니티 게시글 <span style="font-size:10px;padding:1px 4px;margin-left:2px;background:var(--gold);color:#0a0a0e;border-radius:2px;">NEW</span></span>
+<span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--blue);font-family:serif;">📱 태블릿 브리핑</span>
+</div>
+<a href="https://intro.bluehair.blue/svg" target="_blank" rel="noopener" style="display:block;margin-top:10px;text-align:center;font-size:13px;color:var(--blue);text-decoration:none;border:1px solid oklch(0.62 0.20 252/0.2);padding:8px;transition:background 0.3s;">SVG 갤러리에서 라이브 프리뷰 보기 →</a>
+</div>
 <a href="https://intro.bluehair.blue/gallery" target="_blank" rel="noopener" style="display:block;text-align:center;font-size:14px;color:var(--blue);text-decoration:none;border:1px solid oklch(0.62 0.20 252/0.2);padding:10px;transition:background 0.3s;">이미지 갤러리에서 더 보기 →</a>
 </div>
 </details>
