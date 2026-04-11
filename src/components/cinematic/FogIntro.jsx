@@ -1,40 +1,79 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CenteredQuote from "./CenteredQuote";
 
 /* ══════════════════════════════════════════════════════════
-   FogIntro (NHR) — 2-beat quote with fog dissipation
+   FogIntro (NHR) — TV static noise → zoom-out reveal → hero
    ------------------------------------------------------------
-   Concept: 안개 속에 숨겨진 정체 → 서서히 걷히는 안개
-   Sequence: 3800ms + 500ms fadeOut = 4300ms total
-     0    -  400ms : black
-     400  - 1800ms : key.webp low-sat + fog layers + quote[0] "후후." subtle
-     1800 - 3200ms : fog dissipates + quote[0] fades out + quote[1] fades in
-     3200 - 3800ms : full color + quote[1] "잘 부탁해?" hero
-     3800 - 4300ms : fadeOut → Phase 1
+   Concept: 지직거리는 전파 노이즈 속에 모습을 드러내는 NHR
+   Sequence: 3500ms + 500ms fadeOut = 4000ms total
 
-   zIndex 체인: img(2) < fog1(3) < fog2(4) < vignette(5) < CenteredQuote(6) < label(10)
-   keyframes: cinemaFogDrift1 (18s), cinemaFogDrift2 (14s) — index.html
+     0    -  300ms : black + noise primed (seed rAF starts)
+     300  - 1400ms : KV scale(1.45) low-sat + strong TV static + "후후..." subtle
+     1400 - 1900ms : pause — noise weakens, KV stays zoomed, quote fades
+     1900 - 3100ms : "잘 부탁해?" subtle + KV scale(1.45→1.0) unfurl + color restore
+     3100 - 3500ms : "잘 부탁해?" hero + vignette + stable
+     3500 - 4000ms : fadeOut → Phase 1
+
+   Noise: SVG feTurbulence seed randomized per rAF frame (60fps static)
+   Zoom : transformOrigin=objectPosition → character face stays anchored
+   zIndex: img(2) < noise(3) < scanline(4) < vignette(5) < CenteredQuote(6) < label(10)
    ══════════════════════════════════════════════════════════ */
+
+const NOISE_ID = "nhrStaticNoise";
 
 export default function FogIntro({ char, isMobile, objectPosition, config, onSkip }) {
   const [beat, setBeat] = useState(0);
   const [fadingOut, setFadingOut] = useState(false);
+  const noiseSeedRef = useRef(null);
+  const noiseRafRef = useRef(null);
 
+  // ── Timeline ──
   useEffect(() => {
     const timers = [
-      setTimeout(() => setBeat(1), 400),
-      setTimeout(() => setBeat(2), 1800),
-      setTimeout(() => setBeat(3), 3200),
-      setTimeout(() => setFadingOut(true), 3800),
+      setTimeout(() => setBeat(1), 300),   // KV + noise burst + "후후..."
+      setTimeout(() => setBeat(2), 1400),  // pause — noise subsides
+      setTimeout(() => setBeat(3), 1900),  // "잘 부탁해?" + zoom-out unfurl
+      setTimeout(() => setBeat(4), 3100),  // hero
+      setTimeout(() => setFadingOut(true), 3500),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  // filter interpolates: low-sat → mid → full color across beats
+  // ── rAF: randomize noise seed every frame (beats 1~2 only) ──
+  useEffect(() => {
+    if (beat < 1 || beat >= 3) {
+      if (noiseRafRef.current) cancelAnimationFrame(noiseRafRef.current);
+      return;
+    }
+    const tick = () => {
+      if (noiseSeedRef.current) {
+        noiseSeedRef.current.setAttribute("seed", Math.floor(Math.random() * 9999));
+      }
+      noiseRafRef.current = requestAnimationFrame(tick);
+    };
+    noiseRafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (noiseRafRef.current) cancelAnimationFrame(noiseRafRef.current);
+    };
+  }, [beat]);
+
+  // Image scale: zoomed in (1.45) → full reveal (1.0) at beat 3
+  const imgScale = beat >= 3 ? 1.0 : 1.45;
+
+  // Image filter: low-sat during noise → color restore on unfurl
   const imageFilter =
-    beat <= 1 ? "saturate(0.4) brightness(0.7)" :
-    beat === 2 ? "saturate(0.7) brightness(0.85)" :
-    "saturate(1.0) brightness(1.0)";
+    beat <= 2
+      ? "saturate(0.3) brightness(0.65)"
+      : beat === 3
+      ? "saturate(0.85) brightness(0.95)"
+      : "saturate(1.0) brightness(1.0)";
+
+  // TV static overlay opacity
+  const noiseOpacity =
+    beat === 0 ? 0.2 :
+    beat === 1 ? 0.55 :
+    beat === 2 ? 0.18 :
+    0;
 
   return (
     <div
@@ -47,7 +86,28 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
         transition: "opacity 0.5s ease-out",
       }}
     >
-      {/* ── Key visual with saturation transition ── */}
+      {/* ── SVG static noise filter — seed randomized via rAF ── */}
+      <svg
+        width="0" height="0"
+        style={{ position: "absolute", pointerEvents: "none" }}
+        aria-hidden="true"
+      >
+        <defs>
+          <filter id={NOISE_ID} x="0%" y="0%" width="100%" height="100%">
+            <feTurbulence
+              ref={noiseSeedRef}
+              type="turbulence"
+              baseFrequency="0.65"
+              numOctaves="1"
+              seed="1"
+              stitchTiles="stitch"
+            />
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+        </defs>
+      </svg>
+
+      {/* ── Key visual: zoomed in → zoom-out reveal ── */}
       <img
         src={char.keyVisual}
         alt=""
@@ -56,59 +116,60 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
           width: "100%", height: "100%",
           objectFit: "cover",
           objectPosition,
+          transform: `scale(${imgScale})`,
+          transformOrigin: objectPosition,
           filter: imageFilter,
           opacity: beat >= 1 ? 1 : 0,
-          transition: "filter 1.4s ease-out, opacity 0.8s ease-out",
+          transition: beat >= 3
+            ? "transform 1.2s cubic-bezier(0.22,1,0.36,1), filter 1.2s ease-out, opacity 0.5s ease-out"
+            : "opacity 0.4s ease-out, filter 0.4s ease-out",
           zIndex: 2,
+          willChange: "transform",
         }}
       />
 
-      {/* ── Fog layer 1 (slow diagonal drift, screen blend) ── */}
+      {/* ── TV static noise overlay (filter output replaces div rendering) ── */}
       <div
         style={{
           position: "absolute", inset: 0,
-          background:
-            "linear-gradient(135deg, oklch(0.85 0.02 260 / 0.9) 0%, oklch(0.7 0.04 260 / 0.4) 50%, oklch(0.85 0.02 260 / 0.9) 100%)",
-          backgroundSize: "200% 200%",
-          opacity: beat === 1 ? 0.85 : beat === 2 ? 0.4 : beat >= 3 ? 0.1 : 0,
-          animation: beat >= 1 ? "cinemaFogDrift1 18s linear infinite" : "none",
-          transition: "opacity 1.4s ease-out",
+          filter: `url(#${NOISE_ID})`,
+          background: "oklch(0.5 0 0)",  // gray canvas for turbulence
+          opacity: noiseOpacity,
+          mixBlendMode: "overlay",
+          transition: "opacity 0.6s ease-out",
           zIndex: 3,
           pointerEvents: "none",
-          mixBlendMode: "screen",
         }}
       />
 
-      {/* ── Fog layer 2 (faster, reversed direction) ── */}
+      {/* ── Scanline overlay (CRT effect, beats 1~2) ── */}
       <div
         style={{
           position: "absolute", inset: 0,
           background:
-            "linear-gradient(-45deg, oklch(0.7 0.03 280 / 0.7) 0%, oklch(0.55 0.05 280 / 0.2) 50%, oklch(0.7 0.03 280 / 0.7) 100%)",
-          backgroundSize: "180% 180%",
-          opacity: beat === 1 ? 0.75 : beat === 2 ? 0.3 : beat >= 3 ? 0.05 : 0,
-          animation: beat >= 1 ? "cinemaFogDrift2 14s linear infinite" : "none",
-          transition: "opacity 1.4s ease-out",
+            "repeating-linear-gradient(to bottom, oklch(0 0 0 / 0) 0px, oklch(0 0 0 / 0) 2px, oklch(0 0 0 / 0.15) 3px)",
+          opacity: beat === 1 ? 0.65 : beat === 2 ? 0.2 : 0,
+          transition: "opacity 0.8s ease-out",
           zIndex: 4,
           pointerEvents: "none",
-          mixBlendMode: "screen",
+          mixBlendMode: "multiply",
         }}
       />
 
-      {/* ── Vignette for hero legibility (Beat 3) ── */}
+      {/* ── Vignette for hero legibility (Beat 4) ── */}
       <div
         style={{
           position: "absolute", inset: 0,
           background:
             "radial-gradient(ellipse at center, oklch(0 0 0 / 0) 30%, oklch(0 0 0 / 0.55) 90%)",
-          opacity: beat >= 3 ? 1 : 0,
+          opacity: beat >= 4 ? 1 : 0,
           transition: "opacity 0.7s ease-out",
           zIndex: 5,
           pointerEvents: "none",
         }}
       />
 
-      {/* ── Quote[0] "후후." subtle — Beat 1, fades as Beat 2 begins ── */}
+      {/* ── Quote[0] "후후..." subtle — Beat 1 only ── */}
       <CenteredQuote
         char={char}
         isMobile={isMobile}
@@ -117,25 +178,25 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
         quoteIndex={0}
       />
 
-      {/* ── Quote[1] "잘 부탁해?" subtle — Beat 2, fog dissipating ── */}
+      {/* ── Quote[1] "잘 부탁해?" subtle — Beat 3, during zoom-out ── */}
       <CenteredQuote
         char={char}
         isMobile={isMobile}
         emphasis="subtle"
-        show={beat === 2}
+        show={beat === 3}
         quoteIndex={1}
       />
 
-      {/* ── Quote[1] "잘 부탁해?" hero — Beat 3, full reveal ── */}
+      {/* ── Quote[1] "잘 부탁해?" hero — Beat 4 ── */}
       <CenteredQuote
         char={char}
         isMobile={isMobile}
         emphasis="hero"
-        show={beat >= 3}
+        show={beat >= 4}
         quoteIndex={1}
       />
 
-      {/* ── Chapter label (Beat 3+) ── */}
+      {/* ── Chapter label (Beat 4+) ── */}
       {char.introLabel && (
         <span
           style={{
@@ -145,7 +206,7 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
             fontSize: isMobile ? 10 : 12,
             letterSpacing: "0.35em", textTransform: "uppercase",
             color: "oklch(0.82 0 0)",
-            opacity: beat >= 3 ? 0.6 : 0,
+            opacity: beat >= 4 ? 0.6 : 0,
             transition: "opacity 0.6s ease-out 0.4s",
             zIndex: 10, pointerEvents: "none", whiteSpace: "nowrap",
           }}

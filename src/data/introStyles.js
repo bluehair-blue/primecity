@@ -38,7 +38,7 @@ export const INTRO_STYLE_CONFIG = {
     mobileFallback: null,
   },
   fog: {
-    duration: 4300,   // 3800ms content + 500ms fadeOut
+    duration: 4000,   // 3500ms content + 500ms fadeOut
     letterbox: false,
     requiresSvgFilter: false,
     mobileFallback: null,

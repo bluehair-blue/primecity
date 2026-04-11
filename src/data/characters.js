@@ -45,7 +45,7 @@ export const characters = [
     introStyle: "fog",
     introAssets: [],
     introLabel: "Naharin / Enigma",
-    quoteSequence: ["후후.", "잘 부탁해?"],
+    quoteSequence: ["후후...", "잘 부탁해?"],
     focusBox: {
       desktop: { cx: 50, cy: 35, w: 55, h: 75 },  // v4 +10%
       mobile:  { cx: 50, cy: 30, w: 65, h: 70 },  // v4 +10%
