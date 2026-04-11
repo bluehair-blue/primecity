@@ -38,11 +38,11 @@ export const INTRO_STYLE_CONFIG = {
     mobileFallback: null,
   },
   fog: {
-    duration: 5900,   // 5400ms content + 500ms fadeOut
+    duration: 7900,   // v5 압축판: 7400ms content + 500ms fadeOut (organic fog + meaningful zoom)
     letterbox: false,
     requiresSvgFilter: false,
     mobileFallback: null,
-    fogLayers: 2,
+    fogLayers: 3,    // v5: A(SVG turbulence) + B(violet drift) + C(cool-blue drift)
   },
   cardDeal: {
     duration: 3600,   // 3200ms content + 400ms fadeOut

@@ -1,102 +1,97 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import CenteredQuote from "./CenteredQuote";
 
 /* ══════════════════════════════════════════════════════════
-   FogIntro (NHR) — canvas TV static + 2-beat zoom → unfurl → hero
+   FogIntro (NHR) — v5 재설계 (2026-04-12, 7.9초 압축판)
    ------------------------------------------------------------
-   v4: canvas 기반 노이즈 (SVG filter 제거 — filter+blend-mode 충돌 해결)
-       80×45 저해상도 canvas → pixelated 확대 → TV 정적 노이즈
-       reflection: maskImage white→transparent (alpha 오용 수정)
+   컨셉: 유기체 안개 3층 + 3점 의미 있는 줌인 + RGB 분리 reveal
 
-   Timeline: 5400ms + 500ms fadeOut = 5900ms total
-     0    -  300ms : black
-     300  - 1600ms : 줌인 #1 (25% 67%) + 강한 노이즈 + "후후..." subtle  [1300ms]
-     1600 - 2800ms : 줌인 #2 (75% 18%) + 강한 노이즈 + "후후..." 유지   [1200ms]
-     2800 - 4100ms : "잘 부탁해?" subtle + 줌아웃 + 노이즈 중간          [1300ms]
-     4100 - 5400ms : hero (이름+대사) + 노이즈 사라짐                     [1300ms]
-     5400 - 5900ms : fadeOut → Phase 1
+   Timeline: 7400ms + 500ms fadeOut = 7900ms (모든 hold ≥ 1100ms)
+     0    -  100  : black
+     100  - 1800  : 짙은 안개 + 미소 줌인 + quote[0] subtle         [hold 1100]
+     1800 - 3400  : 안개 1파 걷힘 + 시계 줌인 + signature pulse     [hold 1100]
+     3400 - 5000  : 안개 재확산 + 이어폰 줌인 + signature pulse     [hold 1100]
+     5000 - 6700  : 줌아웃 + chromatic aberration + quote[0→1]      [hold 1100]
+     6700 - 7400  : quote[1] hero + vignette + chapter label
+     7400 - 7900  : fadeOut → Phase 1
+
+   zIndex 체인:
+     kvStage(2) - kvMask(3) - fogA-svg(4) - fogB(5) - fogC(6)
+     sigPulse(7) - bgMarquee(8) - vignette(9) - CenteredQuote(internal)
+     label(10) - skip(10)
    ══════════════════════════════════════════════════════════ */
 
-const ZOOM_SCALE = 1.55;
-const ZOOM_POSITIONS = ["25% 67%", "75% 18%"];
+// 줌 포인트 — NHR/key.webp 실물 확인 후 미세 조정 가능
+const ZOOM_POINTS = {
+  desktop: {
+    1: { pos: "50% 28%", scale: 2.0 },  // 입꼬리/미소
+    2: { pos: "38% 62%", scale: 2.1 },  // 손목시계
+    3: { pos: "62% 24%", scale: 2.0 },  // 한쪽 이어폰
+    4: { pos: "50% 35%", scale: 1.0 },  // 전체 (focusBox cx/cy)
+  },
+  mobile: {
+    1: { pos: "50% 32%", scale: 1.9 },
+    2: { pos: "42% 65%", scale: 2.0 },
+    3: { pos: "58% 28%", scale: 1.9 },
+    4: { pos: "50% 30%", scale: 1.0 },
+  },
+};
+
+// 시그니처 pulse 위치 — beat 2 (watch) / beat 3 (earphone)
+const SIG_POS = {
+  desktop: {
+    2: { left: "38%", top: "43%", size: 180 },
+    3: { left: "62%", top: "17%", size: 160 },
+  },
+  mobile: {
+    2: { left: "42%", top: "45%", size: 140 },
+    3: { left: "58%", top: "20%", size: 120 },
+  },
+};
 
 export default function FogIntro({ char, isMobile, objectPosition, config, onSkip }) {
   const [beat, setBeat] = useState(0);
   const [fadingOut, setFadingOut] = useState(false);
-  const canvasRef = useRef(null);
-  const noiseRafRef = useRef(null);
 
-  // ── Timeline ──
   useEffect(() => {
     const timers = [
-      setTimeout(() => setBeat(1), 300),
-      setTimeout(() => setBeat(2), 1600),
-      setTimeout(() => setBeat(3), 2800),
-      setTimeout(() => setBeat(4), 4100),
-      setTimeout(() => setFadingOut(true), 5400),
+      setTimeout(() => setBeat(1),  100),
+      setTimeout(() => setBeat(2), 1800),
+      setTimeout(() => setBeat(3), 3400),
+      setTimeout(() => setBeat(4), 5000),
+      setTimeout(() => setBeat(5), 6700),
+      setTimeout(() => setFadingOut(true), 7400),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  // ── Canvas TV static noise — beats 1~3 ──
-  // 80×45 저해상도 랜덤 픽셀 → pixelated CSS 확대 → TV 정적 효과
-  // canvas element에는 CSS filter 없음 → mix-blend-mode 정상 동작
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas || beat < 1 || beat >= 4) {
-      if (noiseRafRef.current) cancelAnimationFrame(noiseRafRef.current);
-      return;
-    }
+  const zoomTable = ZOOM_POINTS[isMobile ? "mobile" : "desktop"];
+  const sigTable = SIG_POS[isMobile ? "mobile" : "desktop"];
+  const currentZoom = zoomTable[Math.min(Math.max(beat, 1), 4)] || zoomTable[1];
 
-    canvas.width = 80;
-    canvas.height = 45;
-    const ctx = canvas.getContext("2d");
-
-    const draw = () => {
-      const d = ctx.createImageData(80, 45);
-      for (let i = 0; i < d.data.length; i += 4) {
-        const v = Math.floor(Math.random() * 256);
-        d.data[i] = d.data[i + 1] = d.data[i + 2] = v;
-        d.data[i + 3] = 185;  // ~72% alpha
-      }
-      ctx.putImageData(d, 0, 0);
-      noiseRafRef.current = requestAnimationFrame(draw);
-    };
-
-    noiseRafRef.current = requestAnimationFrame(draw);
-    return () => {
-      if (noiseRafRef.current) cancelAnimationFrame(noiseRafRef.current);
-    };
-  }, [beat]);
-
-  // 줌인 objectPosition
-  const currentObjPos =
-    beat === 1 ? ZOOM_POSITIONS[0] :
-    beat === 2 ? ZOOM_POSITIONS[1] :
-    objectPosition;
-
-  // scale: 줌인(1~2) → 줌아웃(3+)
-  const imgScale = beat >= 3 ? 1.0 : 1.55;
-
-  // 이미지 filter (저채도 → 복원)
+  // 이미지 saturation/brightness : 안개 속 저채도 → reveal 복원
   const imageFilter =
-    beat <= 2 ? "saturate(0.35) brightness(0.65)" :
-    beat === 3 ? "saturate(0.8) brightness(0.9)" :
+    beat <= 1 ? "saturate(0.35) brightness(0.6)" :
+    beat === 2 ? "saturate(0.55) brightness(0.75)" :
+    beat === 3 ? "saturate(0.55) brightness(0.75)" :
+    beat === 4 ? "saturate(0.9) brightness(0.95)" :
     "saturate(1.0) brightness(1.0)";
 
-  // 노이즈 canvas opacity
-  const noiseOpacity =
-    beat === 1 || beat === 2 ? 0.5 :
-    beat === 3 ? 0.3 :
-    0;
+  // 안개 3층 밀도 (beat 1~4 엇갈린 감쇠)
+  const fogA = beat === 1 ? 0.92 : beat === 2 ? 0.58 : beat === 3 ? 0.68 : beat === 4 ? 0.15 : 0.05;
+  const fogB = beat === 1 ? 0.78 : beat === 2 ? 0.45 : beat === 3 ? 0.52 : beat === 4 ? 0.12 : 0.05;
+  const fogC = beat === 1 ? 0.62 : beat === 2 ? 0.35 : beat === 3 ? 0.40 : beat === 4 ? 0.08 : 0.04;
 
-  // 이미지 transition (beat마다 차등)
+  // RGB chromatic aberration (beat 4 peak → 수렴)
+  const ca = beat === 4 ? 2.5 : 0;
+
+  // 이미지 transition: beat별 속도 분리 (압축판)
   const imgTransition =
-    beat >= 3
-      ? "transform 1.1s cubic-bezier(0.22,1,0.36,1), object-position 1.0s ease-out, filter 1.1s ease-out, opacity 0.5s ease-out"
-      : beat === 2
-      ? "object-position 0.35s ease-out"
-      : "opacity 0.45s ease-out";
+    beat === 4
+      ? "transform 0.6s cubic-bezier(0.22,1,0.36,1), object-position 0.6s cubic-bezier(0.22,1,0.36,1), filter 0.6s ease-out"
+      : beat >= 2
+      ? "transform 0.5s cubic-bezier(0.33,1,0.68,1), object-position 0.5s cubic-bezier(0.33,1,0.68,1), filter 0.5s ease-out"
+      : "transform 0.6s ease-out, object-position 0.6s ease-out, filter 0.6s ease-out, opacity 0.55s ease-out";
 
   return (
     <div
@@ -109,7 +104,7 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
         transition: "opacity 0.5s ease-out",
       }}
     >
-      {/* ── KV 이미지 (상단 70%) ── */}
+      {/* ── KV STAGE: top 70%, bottom 30% 네거티브 스페이스 ── */}
       <div
         style={{
           position: "absolute",
@@ -119,92 +114,215 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
           zIndex: 2,
         }}
       >
+        {/* Base KV image (ca=0 때만 표시) */}
         <img
           src={char.keyVisual}
           alt=""
           style={{
             width: "100%", height: "100%",
             objectFit: "cover",
-            objectPosition: currentObjPos,
-            transform: `scale(${imgScale})`,
-            transformOrigin: currentObjPos,
+            objectPosition: currentZoom.pos,
+            transform: `scale(${currentZoom.scale})`,
+            transformOrigin: currentZoom.pos,
             filter: imageFilter,
-            opacity: beat >= 1 ? 1 : 0,
+            opacity: beat >= 1 ? (ca > 0 ? 0 : 1) : 0,
             transition: imgTransition,
             willChange: "transform",
           }}
         />
+
+        {/* Chromatic aberration RGB 3-layer (beat 4 only) */}
+        {ca > 0 && ["R", "G", "B"].map((channel, i) => {
+          const dx = (i - 1) * ca; // -ca, 0, +ca
+          const hue = channel === "R" ? 0 : channel === "G" ? 120 : 240;
+          return (
+            <img
+              key={channel}
+              src={char.keyVisual}
+              alt=""
+              style={{
+                position: "absolute", inset: 0,
+                width: "100%", height: "100%",
+                objectFit: "cover",
+                objectPosition: currentZoom.pos,
+                transform: `scale(${currentZoom.scale}) translate(${dx}px, 0)`,
+                transformOrigin: currentZoom.pos,
+                filter: `hue-rotate(${hue}deg) saturate(1.3) brightness(0.95)`,
+                mixBlendMode: "screen",
+                opacity: 0.45,
+                transition: "transform 0.6s cubic-bezier(0.22,1,0.36,1)",
+                pointerEvents: "none",
+              }}
+            />
+          );
+        })}
+
+        {/* KV 하단 dissipate mask (이미지 → 블랙 자연 전환) */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0, left: 0, right: 0,
+            height: "35%",
+            background: "linear-gradient(to bottom, transparent 0%, oklch(0 0 0) 100%)",
+            pointerEvents: "none",
+            zIndex: 3,
+          }}
+        />
       </div>
 
-      {/* ── Canvas TV static noise ──
-          CSS filter 없이 직접 픽셀 그리기 → mix-blend-mode overlay 정상 작동
-          imageRendering: pixelated → 80×45 픽셀이 chunky 블록으로 확대 (TV 정적)  */}
-      <canvas
-        ref={canvasRef}
+      {/* ══ 유기체 안개 Layer A — SVG feTurbulence (볼륨 있는 수증기) ══ */}
+      <svg
+        aria-hidden="true"
         style={{
           position: "absolute", inset: 0,
           width: "100%", height: "100%",
-          imageRendering: "pixelated",
-          opacity: noiseOpacity,
-          mixBlendMode: "overlay",
-          transition: "opacity 0.5s ease-out",
-          zIndex: 3,
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* ── CRT 스캔라인 (beats 1~3) ── */}
-      <div
-        style={{
-          position: "absolute", inset: 0,
-          background:
-            "repeating-linear-gradient(to bottom, oklch(0 0 0 / 0) 0px, oklch(0 0 0 / 0) 2px, oklch(0 0 0 / 0.13) 3px)",
-          opacity: beat >= 1 && beat <= 3 ? 0.55 : 0,
-          transition: "opacity 0.8s ease-out",
+          opacity: fogA,
+          transition: "opacity 1.2s ease-out",
+          mixBlendMode: "screen",
           zIndex: 4,
           pointerEvents: "none",
-          mixBlendMode: "multiply",
+          animation: beat >= 1 ? "cinemaFogBreathe 22s ease-in-out infinite alternate" : "none",
         }}
-      />
+      >
+        <defs>
+          <filter id="nhrFogTurb" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="3" seed="7" />
+            <feDisplacementMap in="SourceGraphic" scale="50" />
+            <feGaussianBlur stdDeviation="18" />
+            <feColorMatrix
+              type="matrix"
+              values="0 0 0 0 0.85   0 0 0 0 0.82   0 0 0 0 0.92   0 0 0 0.9 0"
+            />
+          </filter>
+        </defs>
+        <rect width="100%" height="100%" fill="oklch(0.85 0.04 310)" filter="url(#nhrFogTurb)" />
+      </svg>
 
-      {/* ── Vignette (beat 4) ── */}
+      {/* ══ 유기체 안개 Layer B — 중경 violet drift ══ */}
       <div
         style={{
           position: "absolute", inset: 0,
           background:
-            "radial-gradient(ellipse at center, oklch(0 0 0 / 0) 30%, oklch(0 0 0 / 0.55) 90%)",
-          opacity: beat >= 4 ? 1 : 0,
-          transition: "opacity 0.7s ease-out",
+            "linear-gradient(135deg, oklch(0.85 0.03 310 / 0.95) 0%, oklch(0.70 0.05 300 / 0.4) 50%, oklch(0.85 0.03 310 / 0.95) 100%)",
+          backgroundSize: "220% 220%",
+          opacity: fogB,
+          animation: beat >= 1 ? "cinemaFogDrift1 18s linear infinite" : "none",
+          transition: "opacity 1.2s ease-out",
+          mixBlendMode: "screen",
           zIndex: 5,
           pointerEvents: "none",
         }}
       />
 
-      {/* ── "후후..." subtle (beat 1~2) ── */}
+      {/* ══ 유기체 안개 Layer C — 후경 cool-blue drift ══ */}
+      <div
+        style={{
+          position: "absolute", inset: 0,
+          background:
+            "linear-gradient(-45deg, oklch(0.70 0.04 280 / 0.8) 0%, oklch(0.55 0.06 280 / 0.2) 50%, oklch(0.70 0.04 280 / 0.8) 100%)",
+          backgroundSize: "180% 180%",
+          opacity: fogC,
+          animation: beat >= 1 ? "cinemaFogDrift2 14s linear infinite" : "none",
+          transition: "opacity 1.2s ease-out",
+          mixBlendMode: "screen",
+          zIndex: 6,
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* ══ 시그니처 글로우 pulse — beat 2 (watch) / beat 3 (earphone) ══ */}
+      {(beat === 2 || beat === 3) && (
+        <div
+          key={`sig-${beat}`}
+          style={{
+            position: "absolute",
+            left: sigTable[beat].left,
+            top: sigTable[beat].top,
+            width: sigTable[beat].size,
+            height: sigTable[beat].size,
+            transform: "translate(-50%, -50%)",
+            background: `radial-gradient(closest-side, ${char.color} 0%, transparent 65%)`,
+            mixBlendMode: "screen",
+            animation: "cinemaSignaturePulse 1.2s ease-in-out 2",
+            zIndex: 7,
+            pointerEvents: "none",
+          }}
+        />
+      )}
+
+      {/* ══ bgMarquee — 네거티브 스페이스 채움 (bottom 30%) ══ */}
+      {beat >= 1 && (
+        <div
+          style={{
+            position: "absolute", bottom: "8%", left: 0,
+            display: "flex", width: "200%",
+            animation: "bgMarquee 45s linear infinite",
+            pointerEvents: "none",
+            zIndex: 8,
+            opacity: beat === 4 ? 0.10 : 0.05,
+            transition: "opacity 1s ease-out",
+          }}
+        >
+          {[1, 2].map((k) => (
+            <div
+              key={k}
+              style={{
+                flex: "0 0 50%",
+                fontFamily: "var(--f-display-en)",
+                fontSize: isMobile ? 36 : 64,
+                letterSpacing: "0.2em",
+                color: "oklch(0.85 0.03 310)",
+                whiteSpace: "nowrap",
+                textTransform: "uppercase",
+              }}
+            >
+              NAHARIN · ENIGMA · MIST · NAHARIN · ENIGMA · MIST ·{" "}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* ══ Vignette (beat 5+) ══ */}
+      <div
+        style={{
+          position: "absolute", inset: 0,
+          background:
+            "radial-gradient(ellipse at center, oklch(0 0 0 / 0) 30%, oklch(0 0 0 / 0.6) 90%)",
+          opacity: beat >= 5 ? 1 : 0,
+          transition: "opacity 0.8s ease-out",
+          zIndex: 9,
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* ══ CenteredQuote — quote[0] "후후..." subtle (beat 1~3) ══ */}
       <CenteredQuote
-        char={char} isMobile={isMobile}
+        char={char}
+        isMobile={isMobile}
         emphasis="subtle"
-        show={beat >= 1 && beat <= 2}
+        show={beat >= 1 && beat <= 3}
         quoteIndex={0}
       />
 
-      {/* ── "잘 부탁해?" subtle (beat 3) ── */}
+      {/* ══ CenteredQuote — quote[1] "잘 부탁해?" subtle (beat 4) ══ */}
       <CenteredQuote
-        char={char} isMobile={isMobile}
+        char={char}
+        isMobile={isMobile}
         emphasis="subtle"
-        show={beat === 3}
+        show={beat === 4}
         quoteIndex={1}
       />
 
-      {/* ── "잘 부탁해?" hero (beat 4) ── */}
+      {/* ══ CenteredQuote — quote[1] "잘 부탁해?" hero (beat 5+) ══ */}
       <CenteredQuote
-        char={char} isMobile={isMobile}
+        char={char}
+        isMobile={isMobile}
         emphasis="hero"
-        show={beat >= 4}
+        show={beat >= 5}
         quoteIndex={1}
       />
 
-      {/* ── Chapter label (beat 4+) ── */}
+      {/* ══ Chapter label (beat 5+) ══ */}
       {char.introLabel && (
         <span
           style={{
@@ -212,27 +330,33 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
             transform: "translateX(-50%)",
             fontFamily: "var(--f-display-en)",
             fontSize: isMobile ? 10 : 12,
-            letterSpacing: "0.35em", textTransform: "uppercase",
+            letterSpacing: "0.35em",
+            textTransform: "uppercase",
             color: "oklch(0.82 0 0)",
-            opacity: beat >= 4 ? 0.6 : 0,
+            opacity: beat >= 5 ? 0.6 : 0,
             transition: "opacity 0.6s ease-out 0.4s",
-            zIndex: 10, pointerEvents: "none", whiteSpace: "nowrap",
+            zIndex: 10,
+            pointerEvents: "none",
+            whiteSpace: "nowrap",
           }}
         >
           {char.introLabel}
         </span>
       )}
 
-      {/* ── Skip hint ── */}
+      {/* ══ Skip hint ══ */}
       <span
         style={{
           position: "absolute", bottom: "2.5%", right: isMobile ? 16 : 32,
-          fontFamily: "var(--f-display-en)", fontSize: isMobile ? 9 : 10,
-          letterSpacing: "0.2em", textTransform: "uppercase",
+          fontFamily: "var(--f-display-en)",
+          fontSize: isMobile ? 9 : 10,
+          letterSpacing: "0.2em",
+          textTransform: "uppercase",
           color: "oklch(0.55 0 0)",
           opacity: beat >= 1 ? 0.4 : 0,
           transition: "opacity 0.6s ease-out",
-          zIndex: 10, pointerEvents: "none",
+          zIndex: 10,
+          pointerEvents: "none",
         }}
       >
         Tap to skip

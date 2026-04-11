@@ -165,6 +165,17 @@
         0%, 100% { background-position: 100% 0%; }
         50%      { background-position: 0% 100%; }
       }
+      @keyframes cinemaFogBreathe {
+        0%   { transform: scale(1)    translate(0, 0); }
+        50%  { transform: scale(1.12) translate(-2%, -1%); }
+        100% { transform: scale(1.04) translate(1%, 2%); }
+      }
+      @keyframes cinemaSignaturePulse {
+        0%   { opacity: 0;    transform: translate(-50%, -50%) scale(0.85); }
+        30%  { opacity: 0.75; transform: translate(-50%, -50%) scale(1.05); }
+        60%  { opacity: 0.2;  transform: translate(-50%, -50%) scale(0.98); }
+        100% { opacity: 0;    transform: translate(-50%, -50%) scale(1.10); }
+      }
       @keyframes mmrCommentRise {
         0%   { transform: translateY(40px); opacity: 0; }
         15%  { opacity: 1; }
