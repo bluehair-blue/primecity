@@ -2,7 +2,7 @@
   "_comment": "Auto-extracted from NAIS2 backup. Edit as needed.",
   "base": {
     "base_prompt": "0.6::artist:ebifurya::, 0.4::artist:ixy::, 0.8::artist:dsmile::, 0.8::artist:pako (pakosun) ::, 2::artist:kurono mitsuki::, 1.2::airtst:chigusa_minori::, 1.1::artist:fuzichoco::, artist:wanke, 0.6::artist:freng::, 0.8::artist:pro-p::, 0.6::artist:ratatatat74 ::, 1.1::artist:doremi_(doremi4704) ::, 1.4::artist:yutokamizu::, artist:mx2j, 3::official_art ::, 3::game_cg ::, 2::dishwasher1910 ::, 0.8::artist:haguhagu_(rinjuu_circus) ::, 0.8::artist:henriiku_(ahemaru) ::, 0.6::artist:ie (raarami) ::, artist:rucarachi, 1.1::artist:dino (dinoartforame) ::, 0.4::artist:ama_mitsuki::, 1.2::artist:kitou_sakeru::,  rating:explicit, anime style, no text, 3::year 2024 ::, 3::year 2025 ::, -6::artist collaboration ::, -2::multiple views ::, masterpiece, best quality, best illustration, ultra-detailed, dynamic lighting, soft colors, 1.8::soft shadows ::, -2::high saturation ::, -3::production art ::, -3::reference sheet ::, -1::halo (blue archive) ::, blurry background, ",
-    "negative_prompt": "pubic hair, mosaic censoring, bar censor, lowres, artistic error, film grain, scan artifacts, worst quality, bad quality, jpeg artifacts, very displeasing, chromatic aberration, dithering, halftone, screentone, multiple views, logo, too many watermarks, negative space, blank page, text, logo, watermark, too many watermarks, blank page, text-only page, reference, username, signature, artist:xinzoruo, artist:milkpanda, artist collaboration, variant set, large variant set, 4koma, 2koma, toon (style), oekaki, chibi, turnaround, film grain, monochrome, dithering, halftone, screentones, dated, old, 1990s (style), mutation, deformed, distorted, disfigured, artistic error, distorted anatomy, anatomical structure error, asymmetrical face, unnatural hair, bad eyes, cloudy eyes, blank eyes, pointy ears, bad proportions, bad limb, bad hands, extra hands, bad hand structure, extra digits, fewer digits, bad legs, extra legs, amputee, distorted composition, bad perspective, multiple views, negative space, animation error, chromatic aberration, disorganized colors, scan artifacts, jpeg artifacts, vertical lines, vertical banding, worst quality, bad quality, lowres, blurry, upscaled, fewer details, unfinished, incomplete, amateur, cheesy, unsatisfactory, inadequate, deficient, subpar, poor, displeasing, very displeasing, bad illustration, bad portrait, lipstick, loli, child, warm, blue archive, genshin, hololive, multiple boys, gangbang, group sex, threesome, mmf threesome, ffm threesome, double handjob, spitroast, cooperative fellatio, lips",
+    "negative_prompt": "no nipples, pubic hair, mosaic censoring, bar censor, artistic error, jpeg artifacts, logo, text, watermark, too many watermarks, blank page, reference, username, signature, artist:xinzoruo, artist:milkpanda, artist collaboration, variant set, large variant set, 4koma, 2koma, toon (style), oekaki, chibi, turnaround, film grain, monochrome, dithering, halftone, screentones, dated, old, 1990s (style), mutation, deformed, distorted, disfigured, artistic error, distorted anatomy, anatomical structure error, asymmetrical face, bad eyes, cloudy eyes, blank eyes, pointy ears, bad proportions, bad limb, bad hands, extra hands, bad hand structure, extra digits, fewer digits, bad legs, extra legs, amputee, distorted composition, bad perspective, multiple views, negative space, animation error, chromatic aberration, disorganized colors, scan artifacts, vertical lines, vertical banding, worst quality, bad quality, lowres, upscaled, fewer details, unfinished, incomplete, amateur, cheesy, unsatisfactory, inadequate, deficient, subpar, poor, displeasing, very displeasing, bad illustration, bad portrait, lipstick, loli, child, warm, blue archive, genshin, hololive, multiple boys, gangbang, group sex, threesome, mmf threesome, ffm threesome, double handjob, spitroast, cooperative fellatio, lips",
     "model": "nai-diffusion-4-5-full",
     "steps": 28,
     "cfg_scale": 7.2,
@@ -206,71 +206,71 @@
       "name": "contempt",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, 1.8::arms crossed::, cold face, 1.8::disdainful::, abhorrent, 1.8::shaded face::",
+      "female_prompt": "straight on, upper body, portrait, face focus, standing, 1.8::arms crossed::, cold face, 1.8::disdainful::, abhorrent, 1.8::shaded face::",
       "male_prompt": "",
-      "_old_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, arms crossed, cold face, disdainful, abhorrent, shaded face, "
+      "_old_prompt": "straight on, upper body, portrait, face focus, standing, arms crossed, cold face, disdainful, abhorrent, shaded face, "
     },
     "3": {
       "name": "happy",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, 1.8::happy::, smile, 1.8::open mouth::",
+      "female_prompt": "straight on, upper body, portrait, face focus, standing, 1.8::happy::, smile, 1.8::open mouth::",
       "male_prompt": "",
-      "_old_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, happy, smile, open mouth, "
+      "_old_prompt": "straight on, upper body, portrait, face focus, standing, happy, smile, open mouth, "
     },
     "4": {
       "name": "sad",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, 1.8::sad::, crying",
+      "female_prompt": "straight on, upper body, portrait, face focus, standing, 1.8::sad::, crying",
       "male_prompt": "",
-      "_old_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, sad, crying, "
+      "_old_prompt": "straight on, upper body, portrait, face focus, standing, sad, crying, "
     },
     "5": {
       "name": "shy",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, 1.8::blush::, embarrassed",
+      "female_prompt": "straight on, upper body, portrait, face focus, standing, 1.8::blush::, embarrassed",
       "male_prompt": "",
-      "_old_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, blush, embarrassed, "
+      "_old_prompt": "straight on, upper body, portrait, face focus, standing, blush, embarrassed, "
     },
     "6": {
       "name": "smirk",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, 1.8::smirk::, smug, 1.8::half-closed eyes::",
+      "female_prompt": "straight on, upper body, portrait, face focus, standing, 1.8::smirk::, smug, 1.8::half-closed eyes::",
       "male_prompt": "",
-      "_old_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, smirk, smug, half-closed eyes, "
+      "_old_prompt": "straight on, upper body, portrait, face focus, standing, smirk, smug, half-closed eyes, "
     },
     "7": {
       "name": "surprised",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, 1.8::blush::, surprised, 1.8::open mouth::",
+      "female_prompt": "straight on, upper body, portrait, face focus, standing, 1.8::blush::, surprised, 1.8::open mouth::",
       "male_prompt": "",
-      "_old_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, blush, surprised, open mouth, "
+      "_old_prompt": "straight on, upper body, portrait, face focus, standing, blush, surprised, open mouth, "
     },
     "8": {
       "name": "troubled",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, 1.8::worried::, frown, 1.8::sweatdrop::",
+      "female_prompt": "straight on, upper body, portrait, face focus, standing, 1.8::worried::, frown, 1.8::sweatdrop::",
       "male_prompt": "",
-      "_old_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, worried, frown, sweatdrop, "
+      "_old_prompt": "straight on, upper body, portrait, face focus, standing, worried, frown, sweatdrop, "
     },
     "9": {
       "name": "neutral",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, 1.8::neutral expression::",
+      "female_prompt": "straight on, upper body, portrait, face focus, standing, 1.8::neutral expression::",
       "male_prompt": "",
-      "_old_prompt": "very aesthetic, masterpiece, straight on, upper body, portrait, face focus, standing, neutral expression, "
+      "_old_prompt": "straight on, upper body, portrait, face focus, standing, neutral expression, "
     },
     "10": {
       "name": "normal-chat",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, straight on, standing, smile",
+      "female_prompt": "straight on, standing, smile",
       "male_prompt": "",
       "_old_prompt": "very aesthetic, masterpiece, upper body, smile, looking at viewer, casual, relaxed, "
     },
@@ -278,7 +278,7 @@
       "name": "undressing-seduction",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, straight on, nsfw, shirt pull, spread legs, nipples, blush, embarrassed, smile, tongue out",
+      "female_prompt": "straight on, nsfw, shirt pull, spread legs, nipples, blush, embarrassed, smile, tongue out",
       "male_prompt": "",
       "_old_prompt": "very aesthetic, masterpiece, bedroom, straight on, nsfw, shirt pull, collarbone, nipples, blush, embarrassed, smile, looking at viewer, seductive, "
     },
@@ -286,126 +286,126 @@
       "name": "drinking",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, bar, sitting, leaning to the side, holding cup, blush, drunk",
+      "female_prompt": "bar, sitting, leaning to the side, holding cup, blush, drunk",
       "male_prompt": "",
-      "_old_prompt": "very aesthetic, masterpiece, bar, night, sitting, leaning forward, holding glass, wine, blush, drunk, half-closed eyes, dim lighting, "
+      "_old_prompt": "bar, night, sitting, leaning forward, holding glass, wine, blush, drunk, half-closed eyes, dim lighting, "
     },
     "13": {
       "name": "dining-chat",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, cafe, sitting, table, food, holding fork, smile, blush, open mouth",
+      "female_prompt": "cafe, sitting, table, food, holding fork, smile, blush, open mouth",
       "male_prompt": "",
-      "_old_prompt": "very aesthetic, masterpiece, restaurant, sitting, table, food, holding chopsticks, smile, open mouth, warm lighting, date, "
+      "_old_prompt": "restaurant, sitting, table, food, holding chopsticks, smile, open mouth, warm lighting, date, "
     },
     "14": {
       "name": "cafe-chat",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, cafe, sitting, table, cake, holding cup, smile, blush, open mouth",
+      "female_prompt": "cafe, sitting, table, cake, holding cup, smile, blush, open mouth",
       "male_prompt": "",
-      "_old_prompt": "very aesthetic, masterpiece, cafe, sitting, table, latte art, holding cup, smile, chin rest, looking at viewer, afternoon light, "
+      "_old_prompt": "cafe, sitting, table, latte art, holding cup, smile, chin rest, looking at viewer, afternoon light, "
     },
     "15": {
       "name": "cinema-chat",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, movie theater, sitting, holding popcorn, smile, blush",
+      "female_prompt": "movie theater, sitting, holding popcorn, smile, blush",
       "male_prompt": "",
-      "_old_prompt": "very aesthetic, masterpiece, movie theater, dark, sitting, armrest, looking at viewer, smile, popcorn, close-up, "
+      "_old_prompt": "movie theater, dark, sitting, armrest, looking at viewer, smile, popcorn, close-up, "
     },
     "16": {
       "name": "christmas-date",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, night, city lights, christmas tree, standing, holding shopping bag, smile, blush",
+      "female_prompt": "night, city lights, christmas tree, standing, holding shopping bag, smile, blush",
       "male_prompt": "",
-      "_old_prompt": "very aesthetic, masterpiece, night, city lights, illumination, christmas, winter clothes, scarf, standing, smile, blush, snow, breath, "
+      "_old_prompt": "night, city lights, illumination, christmas, winter clothes, scarf, standing, smile, blush, snow, breath, "
     },
     "17": {
       "name": "wedding",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, wedding, indoors, wedding dress, bridal veil, holding bouquet, happy",
+      "female_prompt": "wedding, indoors, wedding dress, bridal veil, holding bouquet, happy",
       "male_prompt": "",
-      "_old_prompt": "very aesthetic, masterpiece, wedding, church, wedding dress, bridal veil, holding bouquet, flowers, happy, crying, tears of joy, sunlight, "
+      "_old_prompt": "wedding, church, wedding dress, bridal veil, holding bouquet, flowers, happy, crying, tears of joy, sunlight, "
     },
     "18": {
       "name": "pregnant",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, 0.6::pregnant::",
+      "female_prompt": "0.8::pregnant::",
       "male_prompt": "",
-      "_old_prompt": "very aesthetic, masterpiece, bedroom, soft lighting, 0.6::pregnant::, maternal, gentle smile, hand on belly, looking at viewer, "
+      "_old_prompt": "bedroom, soft lighting, 0.6::pregnant::, maternal, gentle smile, hand on belly, looking at viewer, "
     },
     "19": {
       "name": "sleeping",
       "width": 1216,
       "height": 832,
-      "female_prompt": "very aesthetic, masterpiece, bedroom, on bed, sleeping, eyes closed, lying, peaceful, blanket, pillow, soft lighting",
+      "female_prompt": "bedroom, on bed, sleeping, eyes closed, lying, peaceful, blanket, pillow, soft lighting",
       "male_prompt": ""
     },
     "20": {
       "name": "cunnilingus",
       "width": 1216,
       "height": 832,
-      "female_prompt": "female focus, wet body, torogao, blush, open mouth, target# cunnilingus, pussy",
-      "male_prompt": "pov, source# cunnilingus, source# licking, tongue",
+      "female_prompt": "female focus, wet body, torogao, blush, open mouth, target# cunnilingus, target# licking pussy, pussy juice",
+      "male_prompt": "pov, source# cunnilingus, source# licking pussy, tongue, tongue on pussy",
       "_old_prompt": "boy, black hair, hair over eyes, cunnilingus, female focus, wet body, torogao, blush, open mouth, "
     },
     "21": {
       "name": "kiss",
       "width": 1216,
       "height": 832,
-      "female_prompt": "close-up, face focus, detailed face, 2::mutual# kiss::",
-      "male_prompt": "pov",
+      "female_prompt": "face focus, detailed face, 2::close-up, source# kiss::, -1::lips::",
+      "male_prompt": "pov, target# kiss",
       "_old_prompt": "pov, kiss, "
     },
     "22": {
       "name": "nude-kiss",
       "width": 1216,
       "height": 832,
-      "female_prompt": "nude, close-up, face focus, detailed face, 2::mutual# kiss::",
+      "female_prompt": "nude, face focus, detailed face, 2::close-up, source# kiss::, -1::lips::",
       "male_prompt": "pov",
-      "_old_prompt": "pov, nude, kiss, "
+      "_old_prompt": "pov, nude, target# kiss"
     },
     "23": {
       "name": "breast-grope",
       "width": 1216,
       "height": 832,
-      "female_prompt": "target# grabbing another's breast",
-      "male_prompt": "source# grabbing another's breast",
+      "female_prompt": "target# grabbing another's breasts, light blush, breath,",
+      "male_prompt": "pov, source# grabbing another's breasts",
       "_old_prompt": "grabbing girl's breasts, "
     },
     "24": {
       "name": "breast-sucking",
       "width": 1216,
       "height": 832,
-      "female_prompt": "target# breast sucking",
-      "male_prompt": "source# breast sucking",
+      "female_prompt": "nipples, target# breast sucking, breath",
+      "male_prompt": "pov, source# breast sucking",
       "_old_prompt": "breast sucking, "
     },
     "25": {
       "name": "fingering",
       "width": 1216,
       "height": 832,
-      "female_prompt": "pussy, pussy juice, target# fingering",
-      "male_prompt": "source# fingering",
+      "female_prompt": "pussy, pussy juice, target# fingering, light blush, breath",
+      "male_prompt": "pov, source# fingering",
       "_old_prompt": "fingering, pussy, pussy juice, "
     },
     "26": {
       "name": "fingering-climax",
       "width": 1216,
       "height": 832,
-      "female_prompt": "pussy, pussy juice, target# fingering, target# hug from behind, orgasm, ahegao",
-      "male_prompt": "source# fingering, source# hug from behind",
+      "female_prompt": "pussy, pussy juice, target# fingering, orgasm, ahegao, heavy breathing",
+      "male_prompt": "pov, source# fingering, finger in pussy",
       "_old_prompt": "fingering, hug from behind, pussy, pussy juice, orgasm, ahegao, "
     },
     "27": {
       "name": "ass-spanking",
       "width": 1216,
       "height": 832,
-      "female_prompt": "from behind, doggystyle, ass focus, back, pussy, pussy juice, target# spanking, motion lines, crying, tears, biting own lip",
+      "female_prompt": "from behind, doggystyle, ass focus, anal, back, pussy, pussy juice, target# spanking, motion lines, teardrop, tears, biting own lips",
       "male_prompt": "pov, source# spanking, motion lines",
       "_old_prompt": "from behind, doggystyle, ass focus, pov, spanking, motion lines, back, pussy, pussy juice, spanked, crying, tears, biting own lip, "
     },
@@ -422,7 +422,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "source# paizuri, source# clothed paizuri, source# naizuri",
-      "male_prompt": "pov, large penis, precum, target# paizuri",
+      "male_prompt": "pov, large penis, precum, target# paizuri, target# naizuri",
       "_old_prompt": "pov, large penis, precum, paizuri, clothed paizuri, naizuri, "
     },
     "30": {
@@ -430,7 +430,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "source# paizuri, source# clothed paizuri, source# naizuri, cum on breasts, facial, one eye closed",
-      "male_prompt": "pov, large penis, cum, target# paizuri",
+      "male_prompt": "pov, large penis, cum, target# paizuri, target# naizuri",
       "_old_prompt": "pov, large penis, cum, paizuri, clothed paizuri, naizuri, cum on breasts, facial, one eye closed, "
     },
     "31": {
@@ -453,39 +453,39 @@
       "name": "fellatio-3rd",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bedroom, kneeling, source# fellatio, saliva trail, blush",
-      "male_prompt": "1boy, standing, target# fellatio",
+      "female_prompt": "bedroom, kneeling, source# fellatio, saliva trail, blush, breath",
+      "male_prompt": "1boy, out of frame, cropped head, standing, target# fellatio",
       "_old_prompt": "bedroom, from side, boy, black hair, hair over eyes, standing, fellatio, kneeling, saliva trail, blush, "
     },
     "34": {
       "name": "fellatio-climax-3rd",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bedroom, kneeling, source# fellatio, saliva trail, cum in mouth, facial, one eye closed, target# grabbing another's hair",
-      "male_prompt": "1boy, standing, source# grabbing another's hair, cum, target# fellatio",
+      "female_prompt": "bedroom, kneeling, source# fellatio, saliva trail, cum in mouth, facial, one eye closed, cum in nose, target# grabbing another's hair",
+      "male_prompt": "1boy, out of frame, cropped head, standing, source# grabbing another's hair, cum, target# fellatio",
       "_old_prompt": "bedroom, from side, boy, black hair, hair over eyes, standing, fellatio, grabbing girl's hair, kneeling, saliva trail, cum in mouth, facial, one eye closed, "
     },
     "35": {
       "name": "deepthroat",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bedroom, close-up, target# deepthroat, wet body, trembling, blush, teardrop, target# grabbing another's head",
-      "male_prompt": "pov, source# grabbing another's head, source# deepthroat",
+      "female_prompt": "bedroom, face focus, close-up, source# deepthroat, wet body, trembling, blush, teardrop, target# grabbing another's head",
+      "male_prompt": "pov, source# grabbing another's head, target# deepthroat",
       "_old_prompt": "pov, bedroom, from side, close-up, boy, black hair, hair over eyes, head grab, deepthroat, wet body, trembling, blush, crying with eyes open, "
     },
     "36": {
       "name": "deepthroat-climax",
       "width": 1216,
       "height": 832,
-      "female_prompt": "close-up, target# deepthroat, source# fellatio, cum in mouth, facial, trembling, target# grabbing another's hair",
-      "male_prompt": "pov, large penis, cum, source# grabbing another's hair, source# deepthroat, target# fellatio",
+      "female_prompt": "close-up, face focus, source# deepthroat, source# fellatio, cum in mouth, cum overflow, cum in nose, facial, trembling, target# grabbing another's hair",
+      "male_prompt": "pov, large penis, cum, source# grabbing another's hair, target# deepthroat, target# fellatio",
       "_old_prompt": "close-up, pov, large penis, cum, deepthroat, fellatio, grabbing girl's hair, cum in mouth, facial, trembling, "
     },
     "37": {
       "name": "handjob",
       "width": 1216,
       "height": 832,
-      "female_prompt": "upper body, close-up, source# handjob, motion lines",
+      "female_prompt": "upper body, close-up, source# handjob, motion lines, light blush",
       "male_prompt": "pov, large penis, target# handjob, precum",
       "_old_prompt": "upper body, close-up, pov, large penis, precum, handjob, motion lines, "
     },
@@ -493,7 +493,7 @@
       "name": "handjob-cum",
       "width": 1216,
       "height": 832,
-      "female_prompt": "upper body, close-up, source# handjob, motion lines, cum on body, facial, blush",
+      "female_prompt": "upper body, close-up, source# handjob, motion lines, cum on body, facial, cum on face, one eye closed, blush",
       "male_prompt": "pov, large penis, target# handjob, cum",
       "_old_prompt": "upper body, close-up, pov, large penis, cum, handjob, motion lines, cum on body, facial, blush, "
     },
@@ -501,40 +501,40 @@
       "name": "rimjob",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bedroom, female focus, kneeling, source# anilingus, target# reverse paizuri, wet body, tongue out, saliva, blush, motion lines",
-      "male_prompt": "1boy, all fours, ass up, hetero, target# anilingus, source# reverse paizuri",
+      "female_prompt": "female focus, kneeling, source# anilingus, source# reverse paizuri, wet body, tongue out, saliva, blush, motion lines",
+      "male_prompt": "1boy, out of frame, cropped, all fours, ass up, hetero, target# anilingus, target# reverse paizuri",
       "_old_prompt": "bedroom, from side, boy, all fours, ass up, hetero, anilingus, reverse paizuri, female focus, kneeling, wet body, tongue out, saliva, blush, motion lines, "
     },
     "40": {
       "name": "rimjob-cum",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bedroom, female focus, kneeling, source# anilingus, target# reverse paizuri, wet body, tongue out, saliva, cum, overflow, blush, heart-shaped pupils, ahegao, surprised",
-      "male_prompt": "1boy, all fours, ass up, hetero, cum, target# anilingus, source# reverse paizuri",
+      "female_prompt": "female focus, kneeling, source# anilingus, source# reverse paizuri, wet body, tongue out, saliva trail, cum on breasts, blush, heart-shaped pupils, ahegao, surprised",
+      "male_prompt": "1boy, out of frame, cropped, all fours, ass up, hetero, cum, target# anilingus, target# reverse paizuri",
       "_old_prompt": "bedroom, from side, boy, all fours, ass up, hetero, anilingus, reverse paizuri, female focus, kneeling, wet body, tongue out, saliva, cum, overflow, blush, heart-shaped pupils, ahegao, surprised, "
     },
     "41": {
       "name": "footjob",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bedroom, pov, source# footjob, trembling, precum, blush, open mouth",
-      "male_prompt": "",
+      "female_prompt": "from below, 2::source# footjob, blush, feet, foot focus, thighs::, nipples",
+      "male_prompt": "pov, large penis, target# footjob, precum",
       "_old_prompt": "bedroom, pov, footjob, trembling, precum, blush, open mouth, "
     },
     "42": {
       "name": "footjob-cum",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bedroom, straight on, source# footjob, trembling, cum, overflow, cum on breasts, blush, open mouth",
-      "male_prompt": "",
+      "female_prompt": "from below, 2::source# footjob, blush, feet, foot focus, thighs::, nipples, cum on feet",
+      "male_prompt": "pov, large penis, target# footjob, cum",
       "_old_prompt": "bedroom, straight on, footjob, trembling, cum, overflow, cum on breasts, blush, open mouth, "
     },
     "43": {
       "name": "lap-pillow",
       "width": 832,
       "height": 1216,
-      "female_prompt": "lap pillow, smile, looking down, pov, head on lap, gentle, from below, upper body, breasts",
-      "male_prompt": ""
+      "female_prompt": "lap pillow, smile, looking down, head on lap, from below, upper body, breasts, face focus",
+      "male_prompt": "pov, -1::hand::"
     },
     "44": {
       "name": "hug-from-behind",
