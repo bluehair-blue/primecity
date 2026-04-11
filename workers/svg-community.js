@@ -1,7 +1,8 @@
+// ESCAPE CONTRACT: 마크업 조합 변수 → raw ${}, 리프 텍스트(URL param) → escapeXml()
+// SYNC: Keep in sync with src/data/svgTemplates.js
 function escapeXml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
-// SYNC: Keep in sync with src/data/svgTemplates.js
 function generateCommunity(p) {
   const board = p.board || "프라임시티 갤러리";
   const page = p.page || "1";
@@ -21,19 +22,20 @@ function generateCommunity(p) {
   ];
 
   // Override defaults with URL params (post1, author1, views1, votes1, comments1)
+  // n is a numeric loop index (leaf integer) — no escape needed for key construction
   const posts = [];
   for (let i = 0; i < 12; i++) {
     const n = i + 1;
-    const paramTitle = p[`post${escapeXml(n)}`];
+    const paramTitle = p[`post${n}`];
     if (paramTitle) {
       posts.push({
         title: paramTitle,
-        author: p[`author${escapeXml(n)}`] || "ㅇㅇ",
-        views: p[`views${escapeXml(n)}`] || "0",
-        votes: p[`votes${escapeXml(n)}`] || "0",
-        comments: p[`comments${escapeXml(n)}`] || "",
-        notice: p[`notice${escapeXml(n)}`] === "1",
-        img: p[`img${escapeXml(n)}`] === "1",
+        author: p[`author${n}`] || "ㅇㅇ",
+        views: p[`views${n}`] || "0",
+        votes: p[`votes${n}`] || "0",
+        comments: p[`comments${n}`] || "",
+        notice: p[`notice${n}`] === "1",
+        img: p[`img${n}`] === "1",
       });
     } else if (i < defaults.length) {
       posts.push(defaults[i]);
@@ -80,7 +82,7 @@ function generateCommunity(p) {
         <animate attributeName="opacity" values="0;0.12;0" dur="4s" begin="${i * 0.4}s" repeatCount="indefinite"/>
       </rect>
       <text x="28" y="20" text-anchor="middle" fill="${numColor}" font-size="9" font-weight="${isNotice ? 700 : 400}" font-family="sans-serif">${escapeXml(numLabel)}</text>
-      <text x="54" y="20" fill="${titleColor}" font-size="11" font-family="sans-serif">${escapeXml(truncTitle)}${escapeXml(commentTag)}${escapeXml(imgTag)}</text>
+      <text x="54" y="20" fill="${titleColor}" font-size="11" font-family="sans-serif">${escapeXml(truncTitle)}${commentTag}${imgTag}</text>
       <text x="278" y="20" text-anchor="middle" fill="#888" font-size="9.5" font-family="sans-serif">${escapeXml(post.author)}</text>
       <text x="332" y="20" text-anchor="middle" fill="#666" font-size="9" font-family="sans-serif">${escapeXml(post.views)}</text>
       <text x="375" y="20" text-anchor="middle" fill="${votesColor}" font-size="9" font-weight="700" font-family="sans-serif">${escapeXml(post.votes)}</text>
@@ -129,7 +131,7 @@ function generateCommunity(p) {
 
   <!-- Post rows -->
   <g transform="translate(0,${headerH + colH})">
-    ${escapeXml(rows)}
+    ${rows}
   </g>
 
   <!-- Pagination -->
@@ -137,7 +139,7 @@ function generateCommunity(p) {
     <rect width="400" height="${footerH}" rx="0 0 12 12" fill="#1a1a2e"/>
     <text x="140" y="28" fill="#555" font-size="11" font-family="sans-serif">&lt;</text>
     <g transform="translate(158,28)">
-      ${escapeXml(paginationItems)}
+      ${paginationItems}
     </g>
     <text x="262" y="28" fill="#555" font-size="11" font-family="sans-serif">&gt;</text>
   </g>

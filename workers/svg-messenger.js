@@ -1,7 +1,8 @@
+// ESCAPE CONTRACT: 마크업 조합 변수 → raw ${}, 리프 텍스트(URL param) → escapeXml()
+// SYNC: Keep in sync with src/data/svgTemplates.js
 function escapeXml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
-// SYNC: Keep in sync with src/data/svgTemplates.js
 function safeImageUrl(url) {
   if (!url) return null;
   try {
@@ -24,14 +25,14 @@ function generateMessenger(p) {
     ? `<defs><clipPath id="msg-avatar-clip"><circle cx="56" cy="28" r="16"/></clipPath></defs>
     <image href="${escapeXml(avatarUrl)}" x="40" y="12" width="32" height="32" clip-path="url(#msg-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
     : `<circle cx="56" cy="28" r="16" fill="#2a2a4a" stroke="#6ab0f3" stroke-width="1.5"/>
-    <text x="56" y="33" text-anchor="middle" fill="#6ab0f3" font-size="12" font-weight="bold" font-family="sans-serif">${contact[0]}</text>`;
+    <text x="56" y="33" text-anchor="middle" fill="#6ab0f3" font-size="12" font-weight="bold" font-family="sans-serif">${escapeXml(contact[0] || "?")}</text>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480">
   <rect width="400" height="480" rx="12" fill="#1a1a2e"/>
   <!-- Top bar -->
   <rect x="0" y="0" width="400" height="56" rx="12 12 0 0" fill="#12122a"/>
   <text x="16" y="32" fill="#888" font-size="16" font-family="sans-serif">←</text>
-  ${escapeXml(avatarSvg)}
+  ${avatarSvg}
   <text x="82" y="24" fill="#e8e8e8" font-size="14" font-weight="600" font-family="sans-serif">${escapeXml(contact)}</text>
   <circle cx="${82 + contact.length * 10 + 8}" cy="20" r="4" fill="#4caf50"/>
   <text x="82" y="40" fill="#4caf50" font-size="10" font-family="sans-serif">온라인</text>

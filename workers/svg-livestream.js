@@ -1,7 +1,8 @@
+// ESCAPE CONTRACT: 마크업 조합 변수 → raw ${}, 리프 텍스트(URL param) → escapeXml()
+// SYNC: Keep in sync with src/data/svgTemplates.js
 function escapeXml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
-// SYNC: Keep in sync with src/data/svgTemplates.js
 function safeImageUrl(url) {
   if (!url) return null;
   try {
@@ -26,7 +27,7 @@ function generateLivestream(p) {
     ? `<defs><clipPath id="ls-avatar-clip"><circle cx="18" cy="18" r="18"/></clipPath></defs>
     <image href="${escapeXml(avatarUrl)}" x="0" y="0" width="36" height="36" clip-path="url(#ls-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
     : `<circle cx="18" cy="18" r="18" fill="#2a2a4a" stroke="#c9a84c" stroke-width="2"/>
-    <text x="18" y="23" text-anchor="middle" fill="#c9a84c" font-size="14" font-weight="bold" font-family="sans-serif">${streamer[0]}</text>`;
+    <text x="18" y="23" text-anchor="middle" fill="#c9a84c" font-size="14" font-weight="bold" font-family="sans-serif">${escapeXml(streamer[0] || "?")}</text>`;
 
   const streamImageSvg = imageUrl
     ? `<image href="${escapeXml(imageUrl)}" x="0" y="0" width="400" height="240" clip-path="url(#stream-clip)" preserveAspectRatio="xMidYMid slice"/>
@@ -37,7 +38,7 @@ function generateLivestream(p) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480">
   <rect width="400" height="480" rx="12" fill="#0e0e1a"/>
   <!-- Stream preview area -->
-  ${escapeXml(streamImageSvg)}
+  ${streamImageSvg}
   <!-- LIVE badge (animated) -->
   <rect x="12" y="12" width="50" height="22" rx="4" fill="#e03e3e">
     <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
@@ -48,12 +49,12 @@ function generateLivestream(p) {
   <text x="110" y="27" text-anchor="middle" fill="#e8e8e8" font-size="11" font-family="sans-serif">👁 ${escapeXml(viewers)}</text>
   <!-- Streamer info -->
   <g transform="translate(16, 254)">
-    ${escapeXml(avatarSvg)}
+    ${avatarSvg}
     <text x="46" y="16" fill="#e8e8e8" font-size="14" font-weight="600" font-family="sans-serif">${escapeXml(streamer)}</text>
     <text x="46" y="32" fill="#888" font-size="10" font-family="sans-serif">${escapeXml(category)}</text>
   </g>
   <!-- Title -->
-  <text x="16" y="310" fill="#ccc" font-size="12" font-family="sans-serif">${title.substring(0, 45)}</text>
+  <text x="16" y="310" fill="#ccc" font-size="12" font-family="sans-serif">${escapeXml(title.substring(0, 45))}</text>
   <!-- Divider -->
   <line x1="16" y1="324" x2="384" y2="324" stroke="#222" stroke-width="1"/>
   <!-- Chat overlay (scrolling animation) -->

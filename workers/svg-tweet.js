@@ -1,7 +1,8 @@
+// ESCAPE CONTRACT: 마크업 조합 변수 → raw ${}, 리프 텍스트(URL param) → escapeXml()
+// SYNC: Keep in sync with src/data/svgTemplates.js
 function escapeXml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
-// SYNC: Keep in sync with src/data/svgTemplates.js
 function safeImageUrl(url) {
   if (!url) return null;
   try {
@@ -37,12 +38,12 @@ function generateTweet(p) {
     ? `<defs><clipPath id="tw-avatar-clip"><circle cx="40" cy="40" r="20"/></clipPath></defs>
   <image href="${escapeXml(avatarUrl)}" x="20" y="20" width="40" height="40" clip-path="url(#tw-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
     : `<circle cx="40" cy="40" r="20" fill="#1a3a5c" stroke="#c9a84c" stroke-width="1.5"/>
-  <text x="40" y="45" text-anchor="middle" fill="#c9a84c" font-size="16" font-weight="bold" font-family="sans-serif">${name[0]}</text>`;
+  <text x="40" y="45" text-anchor="middle" fill="#c9a84c" font-size="16" font-weight="bold" font-family="sans-serif">${escapeXml(name[0] || "?")}</text>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 ${totalHeight}">
   <rect width="400" height="${totalHeight}" rx="12" fill="#15202b"/>
   <!-- Avatar -->
-  ${escapeXml(avatarSvg)}
+  ${avatarSvg}
   <!-- Name + handle -->
   <text x="70" y="34" fill="#e8e8e8" font-size="14" font-weight="700" font-family="sans-serif">${escapeXml(name)}</text>
   <circle cx="${70 + name.length * 11 + 8}" cy="30" r="5" fill="#4a9eff"/>

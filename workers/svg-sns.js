@@ -1,7 +1,8 @@
+// ESCAPE CONTRACT: 마크업 조합 변수 → raw ${}, 리프 텍스트(URL param) → escapeXml()
+// SYNC: Keep in sync with src/data/svgTemplates.js
 function escapeXml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
-// SYNC: Keep in sync with src/data/svgTemplates.js
 function safeImageUrl(url) {
   if (!url) return null;
   try {
@@ -25,7 +26,7 @@ function generateSnsPost(p) {
     ? `<defs><clipPath id="avatar-clip"><circle cx="24" cy="24" r="18"/></clipPath></defs>
     <image href="${escapeXml(avatarUrl)}" x="6" y="6" width="36" height="36" clip-path="url(#avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
     : `<circle cx="24" cy="24" r="18" fill="#2a2a4a" stroke="#c9a84c" stroke-width="2"/>
-    <text x="24" y="28" text-anchor="middle" fill="#c9a84c" font-size="14" font-weight="bold" font-family="sans-serif">${username[0].toUpperCase()}</text>`;
+    <text x="24" y="28" text-anchor="middle" fill="#c9a84c" font-size="14" font-weight="bold" font-family="sans-serif">${escapeXml((username[0] || "?").toUpperCase())}</text>`;
 
   const imageSvg = imageUrl
     ? `<image href="${escapeXml(imageUrl)}" x="0" y="60" width="400" height="300" preserveAspectRatio="xMidYMid slice"/>`
@@ -36,14 +37,14 @@ function generateSnsPost(p) {
   <rect width="400" height="520" rx="12" fill="#1a1a2e"/>
   <!-- Header -->
   <g transform="translate(16, 12)">
-    ${escapeXml(avatarSvg)}
+    ${avatarSvg}
     <text x="52" y="22" fill="#e8e8e8" font-size="13" font-weight="600" font-family="sans-serif">${escapeXml(username)}</text>
     <text x="52" y="38" fill="#888" font-size="10" font-family="sans-serif">${escapeXml(location)}</text>
     <circle cx="${52 + username.length * 7 + 8}" cy="18" r="5" fill="#4a9eff"/>
     <text x="${52 + username.length * 7 + 5}" y="22" fill="#fff" font-size="8" font-family="sans-serif">✓</text>
   </g>
   <!-- Image area -->
-  ${escapeXml(imageSvg)}
+  ${imageSvg}
   <!-- Floating hearts animation -->
   <g transform="translate(20, 340)">
     <text font-size="12" fill="#e03e3e">♥

@@ -49,12 +49,12 @@ function generateSnsPost(p) {
 
   const avatarSvg = avatarUrl
     ? `<defs><clipPath id="avatar-clip"><circle cx="24" cy="24" r="18"/></clipPath></defs>
-    <image href="${avatarUrl}" x="6" y="6" width="36" height="36" clip-path="url(#avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
+    <image href="${escapeXml(avatarUrl)}" x="6" y="6" width="36" height="36" clip-path="url(#avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
     : `<circle cx="24" cy="24" r="18" fill="#2a2a4a" stroke="#c9a84c" stroke-width="2"/>
-    <text x="24" y="28" text-anchor="middle" fill="#c9a84c" font-size="14" font-weight="bold" font-family="sans-serif">${username[0].toUpperCase()}</text>`;
+    <text x="24" y="28" text-anchor="middle" fill="#c9a84c" font-size="14" font-weight="bold" font-family="sans-serif">${escapeXml((username[0] || "?").toUpperCase())}</text>`;
 
   const imageSvg = imageUrl
-    ? `<image href="${imageUrl}" x="0" y="60" width="400" height="300" preserveAspectRatio="xMidYMid slice"/>`
+    ? `<image href="${escapeXml(imageUrl)}" x="0" y="60" width="400" height="300" preserveAspectRatio="xMidYMid slice"/>`
     : `<rect x="0" y="60" width="400" height="300" fill="#12122a"/>
   <text x="200" y="215" text-anchor="middle" fill="#333" font-size="14" font-family="sans-serif">IMAGE</text>`;
 
@@ -63,8 +63,8 @@ function generateSnsPost(p) {
   <!-- Header -->
   <g transform="translate(16, 12)">
     ${avatarSvg}
-    <text x="52" y="22" fill="#e8e8e8" font-size="13" font-weight="600" font-family="sans-serif">${username}</text>
-    <text x="52" y="38" fill="#888" font-size="10" font-family="sans-serif">${location}</text>
+    <text x="52" y="22" fill="#e8e8e8" font-size="13" font-weight="600" font-family="sans-serif">${escapeXml(username)}</text>
+    <text x="52" y="38" fill="#888" font-size="10" font-family="sans-serif">${escapeXml(location)}</text>
     <circle cx="${52 + username.length * 8 + 10}" cy="18" r="5" fill="#4a9eff"/>
     <text x="${52 + username.length * 8 + 7}" y="22" fill="#fff" font-size="8" font-family="sans-serif">✓</text>
   </g>
@@ -96,16 +96,16 @@ function generateSnsPost(p) {
     <text x="60" y="0" fill="#e8e8e8" font-size="18">↗</text>
   </g>
   <!-- Likes -->
-  <text x="16" y="402" fill="#e8e8e8" font-size="12" font-weight="600" font-family="sans-serif">좋아요 ${likes}개</text>
+  <text x="16" y="402" fill="#e8e8e8" font-size="12" font-weight="600" font-family="sans-serif">좋아요 ${escapeXml(likes)}개</text>
   <!-- Caption -->
   <text x="16" y="424" fill="#e8e8e8" font-size="12" font-family="sans-serif">
-    <tspan font-weight="600">${username}</tspan>
-    <tspan dx="6" fill="#ccc">${caption}</tspan>
+    <tspan font-weight="600">${escapeXml(username)}</tspan>
+    <tspan dx="6" fill="#ccc">${escapeXml(caption)}</tspan>
   </text>
   <!-- Comments -->
-  <text x="16" y="448" fill="#888" font-size="11" font-family="sans-serif">댓글 ${comments}개 모두 보기</text>
+  <text x="16" y="448" fill="#888" font-size="11" font-family="sans-serif">댓글 ${escapeXml(comments)}개 모두 보기</text>
   <!-- Time -->
-  <text x="16" y="470" fill="#666" font-size="10" font-family="sans-serif">${time}</text>
+  <text x="16" y="470" fill="#666" font-size="10" font-family="sans-serif">${escapeXml(time)}</text>
   <!-- Border -->
   <rect width="400" height="520" rx="12" fill="none" stroke="#333" stroke-width="1"/>
 </svg>`;
@@ -137,30 +137,30 @@ function generateTweet(p) {
 
   const avatarSvg = avatarUrl
     ? `<defs><clipPath id="tw-avatar-clip"><circle cx="40" cy="40" r="20"/></clipPath></defs>
-  <image href="${avatarUrl}" x="20" y="20" width="40" height="40" clip-path="url(#tw-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
+  <image href="${escapeXml(avatarUrl)}" x="20" y="20" width="40" height="40" clip-path="url(#tw-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
     : `<circle cx="40" cy="40" r="20" fill="#1a3a5c" stroke="#c9a84c" stroke-width="1.5"/>
-  <text x="40" y="45" text-anchor="middle" fill="#c9a84c" font-size="16" font-weight="bold" font-family="sans-serif">${name[0]}</text>`;
+  <text x="40" y="45" text-anchor="middle" fill="#c9a84c" font-size="16" font-weight="bold" font-family="sans-serif">${escapeXml(name[0] || "?")}</text>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 ${totalHeight}">
   <rect width="400" height="${totalHeight}" rx="12" fill="#15202b"/>
   <!-- Avatar -->
   ${avatarSvg}
   <!-- Name + handle -->
-  <text x="70" y="34" fill="#e8e8e8" font-size="14" font-weight="700" font-family="sans-serif">${name}</text>
+  <text x="70" y="34" fill="#e8e8e8" font-size="14" font-weight="700" font-family="sans-serif">${escapeXml(name)}</text>
   <circle cx="${70 + name.length * 14 + 10}" cy="30" r="5" fill="#4a9eff"/>
   <text x="${70 + name.length * 14 + 7}" y="34" fill="#fff" font-size="7" font-family="sans-serif">✓</text>
-  <text x="70" y="50" fill="#8899a6" font-size="12" font-family="sans-serif">${handle}</text>
+  <text x="70" y="50" fill="#8899a6" font-size="12" font-family="sans-serif">${escapeXml(handle)}</text>
   <!-- Content -->
-  ${lines.map((line, i) => `<text x="20" y="${80 + i * 22}" fill="#e8e8e8" font-size="15" font-family="sans-serif">${line}</text>`).join("\n  ")}
+  ${lines.map((line, i) => `<text x="20" y="${80 + i * 22}" fill="#e8e8e8" font-size="15" font-family="sans-serif">${escapeXml(line)}</text>`).join("\n  ")}
   <!-- Time -->
-  <text x="20" y="${80 + contentHeight + 20}" fill="#8899a6" font-size="11" font-family="sans-serif">${time}</text>
+  <text x="20" y="${80 + contentHeight + 20}" fill="#8899a6" font-size="11" font-family="sans-serif">${escapeXml(time)}</text>
   <!-- Divider -->
   <line x1="20" y1="${80 + contentHeight + 32}" x2="380" y2="${80 + contentHeight + 32}" stroke="#2a3a4a" stroke-width="1"/>
   <!-- Engagement (animated pulse) -->
   <g transform="translate(20, ${80 + contentHeight + 52})" opacity="0.7">
     <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
-    <text x="0" y="0" fill="#8899a6" font-size="12" font-family="sans-serif"><tspan font-weight="700" fill="#e8e8e8">${retweets}</tspan> 리포스트</text>
-    <text x="130" y="0" fill="#8899a6" font-size="12" font-family="sans-serif"><tspan font-weight="700" fill="#e8e8e8">${likes}</tspan> 좋아요</text>
+    <text x="0" y="0" fill="#8899a6" font-size="12" font-family="sans-serif"><tspan font-weight="700" fill="#e8e8e8">${escapeXml(retweets)}</tspan> 리포스트</text>
+    <text x="130" y="0" fill="#8899a6" font-size="12" font-family="sans-serif"><tspan font-weight="700" fill="#e8e8e8">${escapeXml(likes)}</tspan> 좋아요</text>
   </g>
   <rect width="400" height="${totalHeight}" rx="12" fill="none" stroke="#2a3a4a" stroke-width="1"/>
 </svg>`;
@@ -181,12 +181,12 @@ function generateLivestream(p) {
 
   const avatarSvg = avatarUrl
     ? `<defs><clipPath id="ls-avatar-clip"><circle cx="18" cy="18" r="18"/></clipPath></defs>
-    <image href="${avatarUrl}" x="0" y="0" width="36" height="36" clip-path="url(#ls-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
+    <image href="${escapeXml(avatarUrl)}" x="0" y="0" width="36" height="36" clip-path="url(#ls-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
     : `<circle cx="18" cy="18" r="18" fill="#2a2a4a" stroke="#c9a84c" stroke-width="2"/>
-    <text x="18" y="23" text-anchor="middle" fill="#c9a84c" font-size="14" font-weight="bold" font-family="sans-serif">${streamer[0]}</text>`;
+    <text x="18" y="23" text-anchor="middle" fill="#c9a84c" font-size="14" font-weight="bold" font-family="sans-serif">${escapeXml(streamer[0] || "?")}</text>`;
 
   const streamImageSvg = imageUrl
-    ? `<image href="${imageUrl}" x="0" y="0" width="400" height="240" clip-path="url(#stream-clip)" preserveAspectRatio="xMidYMid slice"/>
+    ? `<image href="${escapeXml(imageUrl)}" x="0" y="0" width="400" height="240" clip-path="url(#stream-clip)" preserveAspectRatio="xMidYMid slice"/>
   <defs><clipPath id="stream-clip"><rect x="0" y="0" width="400" height="240" rx="12"/></clipPath></defs>`
     : `<rect x="0" y="0" width="400" height="240" rx="12 12 0 0" fill="#18182a"/>
   <text x="200" y="125" text-anchor="middle" fill="#444" font-size="14" font-family="sans-serif">LIVE STREAM</text>`;
@@ -202,15 +202,15 @@ function generateLivestream(p) {
   <text x="37" y="27" text-anchor="middle" fill="#fff" font-size="11" font-weight="700" font-family="sans-serif">LIVE</text>
   <!-- Viewers -->
   <rect x="70" y="12" width="80" height="22" rx="4" fill="rgba(0,0,0,0.6)"/>
-  <text x="110" y="27" text-anchor="middle" fill="#e8e8e8" font-size="11" font-family="sans-serif">👁 ${viewers}</text>
+  <text x="110" y="27" text-anchor="middle" fill="#e8e8e8" font-size="11" font-family="sans-serif">👁 ${escapeXml(viewers)}</text>
   <!-- Streamer info -->
   <g transform="translate(16, 254)">
     ${avatarSvg}
-    <text x="46" y="16" fill="#e8e8e8" font-size="14" font-weight="600" font-family="sans-serif">${streamer}</text>
-    <text x="46" y="32" fill="#888" font-size="10" font-family="sans-serif">${category}</text>
+    <text x="46" y="16" fill="#e8e8e8" font-size="14" font-weight="600" font-family="sans-serif">${escapeXml(streamer)}</text>
+    <text x="46" y="32" fill="#888" font-size="10" font-family="sans-serif">${escapeXml(category)}</text>
   </g>
   <!-- Title -->
-  <text x="16" y="310" fill="#ccc" font-size="12" font-family="sans-serif">${title.substring(0, 45)}</text>
+  <text x="16" y="310" fill="#ccc" font-size="12" font-family="sans-serif">${escapeXml(title.substring(0, 45))}</text>
   <!-- Divider -->
   <line x1="16" y1="324" x2="384" y2="324" stroke="#222" stroke-width="1"/>
   <!-- Chat overlay (scrolling animation) -->
@@ -223,28 +223,28 @@ function generateLivestream(p) {
       <animateTransform attributeName="transform" type="translate" from="0 0" to="0 -90" dur="8s" repeatCount="indefinite"/>
       <g transform="translate(16, 345)">
         <text x="0" y="0" fill="#4a9eff" font-size="11" font-family="sans-serif">유저1</text>
-        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${chat1}</text>
+        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${escapeXml(chat1)}</text>
       </g>
       <g transform="translate(16, 375)">
         <text x="0" y="0" fill="#e0a040" font-size="11" font-family="sans-serif">유저2</text>
-        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${chat2}</text>
+        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${escapeXml(chat2)}</text>
       </g>
       <g transform="translate(16, 405)">
         <text x="0" y="0" fill="#40c060" font-size="11" font-family="sans-serif">유저3</text>
-        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${chat3}</text>
+        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${escapeXml(chat3)}</text>
       </g>
       <!-- Duplicated for seamless loop -->
       <g transform="translate(16, 435)">
         <text x="0" y="0" fill="#4a9eff" font-size="11" font-family="sans-serif">유저1</text>
-        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${chat1}</text>
+        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${escapeXml(chat1)}</text>
       </g>
       <g transform="translate(16, 465)">
         <text x="0" y="0" fill="#e0a040" font-size="11" font-family="sans-serif">유저2</text>
-        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${chat2}</text>
+        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${escapeXml(chat2)}</text>
       </g>
       <g transform="translate(16, 495)">
         <text x="0" y="0" fill="#40c060" font-size="11" font-family="sans-serif">유저3</text>
-        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${chat3}</text>
+        <text x="40" y="0" fill="#ccc" font-size="11" font-family="sans-serif">${escapeXml(chat3)}</text>
       </g>
     </g>
   </g>
@@ -270,9 +270,9 @@ function generateMessenger(p) {
 
   const avatarSvg = avatarUrl
     ? `<defs><clipPath id="msg-avatar-clip"><circle cx="56" cy="28" r="16"/></clipPath></defs>
-    <image href="${avatarUrl}" x="40" y="12" width="32" height="32" clip-path="url(#msg-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
+    <image href="${escapeXml(avatarUrl)}" x="40" y="12" width="32" height="32" clip-path="url(#msg-avatar-clip)" preserveAspectRatio="xMidYMid slice"/>`
     : `<circle cx="56" cy="28" r="16" fill="#2a2a4a" stroke="#6ab0f3" stroke-width="1.5"/>
-    <text x="56" y="33" text-anchor="middle" fill="#6ab0f3" font-size="12" font-weight="bold" font-family="sans-serif">${contact[0]}</text>`;
+    <text x="56" y="33" text-anchor="middle" fill="#6ab0f3" font-size="12" font-weight="bold" font-family="sans-serif">${escapeXml(contact[0] || "?")}</text>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480">
   <rect width="400" height="480" rx="12" fill="#1a1a2e"/>
@@ -280,25 +280,25 @@ function generateMessenger(p) {
   <rect x="0" y="0" width="400" height="56" rx="12 12 0 0" fill="#12122a"/>
   <text x="16" y="32" fill="#888" font-size="16" font-family="sans-serif">←</text>
   ${avatarSvg}
-  <text x="82" y="24" fill="#e8e8e8" font-size="14" font-weight="600" font-family="sans-serif">${contact}</text>
+  <text x="82" y="24" fill="#e8e8e8" font-size="14" font-weight="600" font-family="sans-serif">${escapeXml(contact)}</text>
   <circle cx="${82 + contact.length * 14 + 10}" cy="20" r="4" fill="#4caf50"/>
   <text x="82" y="40" fill="#4caf50" font-size="10" font-family="sans-serif">온라인</text>
   <!-- Messages -->
   <g transform="translate(0, 80)">
     <!-- Incoming msg 1 -->
     <rect x="16" y="0" width="${Math.min(msg1.length * 11 + 24, 260)}" height="34" rx="16" fill="#2a2a4a"/>
-    <text x="28" y="22" fill="#e8e8e8" font-size="13" font-family="sans-serif">${msg1}</text>
+    <text x="28" y="22" fill="#e8e8e8" font-size="13" font-family="sans-serif">${escapeXml(msg1)}</text>
     <!-- Incoming msg 2 -->
     <rect x="16" y="44" width="${Math.min(msg2.length * 11 + 24, 260)}" height="34" rx="16" fill="#2a2a4a"/>
-    <text x="28" y="66" fill="#e8e8e8" font-size="13" font-family="sans-serif">${msg2}</text>
+    <text x="28" y="66" fill="#e8e8e8" font-size="13" font-family="sans-serif">${escapeXml(msg2)}</text>
     <!-- Time -->
-    <text x="200" y="102" text-anchor="middle" fill="#555" font-size="10" font-family="sans-serif">${time}</text>
+    <text x="200" y="102" text-anchor="middle" fill="#555" font-size="10" font-family="sans-serif">${escapeXml(time)}</text>
     <!-- Outgoing reply 1 -->
     <rect x="${400 - Math.min(reply1.length * 11 + 24, 260) - 16}" y="116" width="${Math.min(reply1.length * 11 + 24, 260)}" height="34" rx="16" fill="#3a5a8a"/>
-    <text x="${400 - Math.min(reply1.length * 11 + 24, 260) - 16 + 12}" y="138" fill="#e8e8e8" font-size="13" font-family="sans-serif">${reply1}</text>
+    <text x="${400 - Math.min(reply1.length * 11 + 24, 260) - 16 + 12}" y="138" fill="#e8e8e8" font-size="13" font-family="sans-serif">${escapeXml(reply1)}</text>
     <!-- Outgoing reply 2 -->
     <rect x="${400 - Math.min(reply2.length * 11 + 24, 260) - 16}" y="160" width="${Math.min(reply2.length * 11 + 24, 260)}" height="34" rx="16" fill="#3a5a8a"/>
-    <text x="${400 - Math.min(reply2.length * 11 + 24, 260) - 16 + 12}" y="182" fill="#e8e8e8" font-size="13" font-family="sans-serif">${reply2}</text>
+    <text x="${400 - Math.min(reply2.length * 11 + 24, 260) - 16 + 12}" y="182" fill="#e8e8e8" font-size="13" font-family="sans-serif">${escapeXml(reply2)}</text>
   </g>
   <!-- Typing indicator -->
   <g transform="translate(28, 290)">
@@ -333,19 +333,19 @@ function generateNews(p) {
   const imageUrl = safeImageUrl(p.image) || safeImageUrl(assets.news);
 
   const newsImageSvg = imageUrl
-    ? `<image href="${imageUrl}" x="300" y="84" width="180" height="140" preserveAspectRatio="xMidYMid slice"/>`
+    ? `<image href="${escapeXml(imageUrl)}" x="300" y="84" width="180" height="140" preserveAspectRatio="xMidYMid slice"/>`
     : "";
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 280">
   <rect width="500" height="280" rx="8" fill="#0a0a1a"/>
   <!-- Channel bar -->
   <rect x="0" y="0" width="500" height="40" fill="#1a1a2e"/>
-  <text x="16" y="26" fill="#c9a84c" font-size="14" font-weight="700" font-family="sans-serif">${channel}</text>
+  <text x="16" y="26" fill="#c9a84c" font-size="14" font-weight="700" font-family="sans-serif">${escapeXml(channel)}</text>
   <rect x="140" y="10" width="50" height="20" rx="3" fill="#e03e3e">
     <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
   </rect>
   <text x="165" y="24" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="sans-serif">LIVE</text>
-  <text x="484" y="26" text-anchor="end" fill="#888" font-size="11" font-family="sans-serif">${time}</text>
+  <text x="484" y="26" text-anchor="end" fill="#888" font-size="11" font-family="sans-serif">${escapeXml(time)}</text>
   <!-- Breaking banner (flash animation) -->
   <rect x="0" y="44" width="500" height="32" fill="#c62828">
     <animate attributeName="opacity" values="1;0.7;1" dur="1.5s" repeatCount="indefinite"/>
@@ -354,18 +354,18 @@ function generateNews(p) {
   <!-- News image -->
   ${newsImageSvg}
   <!-- Headline -->
-  <text x="16" y="108" fill="#e8e8e8" font-size="18" font-weight="700" font-family="sans-serif">${headline.substring(0, 30)}</text>
-  ${headline.length > 30 ? `<text x="16" y="132" fill="#e8e8e8" font-size="18" font-weight="700" font-family="sans-serif">${headline.substring(30, 60)}</text>` : ""}
+  <text x="16" y="108" fill="#e8e8e8" font-size="18" font-weight="700" font-family="sans-serif">${escapeXml(headline.substring(0, 30))}</text>
+  ${headline.length > 30 ? `<text x="16" y="132" fill="#e8e8e8" font-size="18" font-weight="700" font-family="sans-serif">${escapeXml(headline.substring(30, 60))}</text>` : ""}
   <!-- Sub -->
-  <text x="16" y="${headline.length > 30 ? 158 : 134}" fill="#aaa" font-size="13" font-family="sans-serif">${sub.substring(0, 42)}</text>
+  <text x="16" y="${headline.length > 30 ? 158 : 134}" fill="#aaa" font-size="13" font-family="sans-serif">${escapeXml(sub.substring(0, 42))}</text>
   <!-- Reporter -->
-  <text x="16" y="${headline.length > 30 ? 186 : 162}" fill="#888" font-size="11" font-family="sans-serif">${reporter} 기자</text>
+  <text x="16" y="${headline.length > 30 ? 186 : 162}" fill="#888" font-size="11" font-family="sans-serif">${escapeXml(reporter)} 기자</text>
   <!-- Ticker bar -->
   <rect x="0" y="240" width="500" height="40" fill="#12122a"/>
   <clipPath id="ticker-clip"><rect x="0" y="240" width="500" height="40"/></clipPath>
   <g clip-path="url(#ticker-clip)">
     <text y="264" fill="#c9a84c" font-size="12" font-family="sans-serif">
-      <tspan>${ticker}</tspan>
+      <tspan>${escapeXml(ticker)}</tspan>
       <animateTransform attributeName="transform" type="translate" from="500 0" to="-1200 0" dur="20s" repeatCount="indefinite"/>
     </text>
   </g>
@@ -388,8 +388,8 @@ function generateChart(p) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480">
   <rect width="400" height="480" rx="12" fill="#0e0e1a"/>
   <!-- Header -->
-  <text x="200" y="36" text-anchor="middle" fill="#c9a84c" font-size="16" font-weight="700" font-family="sans-serif">${chart}</text>
-  <text x="200" y="56" text-anchor="middle" fill="#666" font-size="10" font-family="sans-serif">${time}</text>
+  <text x="200" y="36" text-anchor="middle" fill="#c9a84c" font-size="16" font-weight="700" font-family="sans-serif">${escapeXml(chart)}</text>
+  <text x="200" y="56" text-anchor="middle" fill="#666" font-size="10" font-family="sans-serif">${escapeXml(time)}</text>
   <line x1="40" y1="70" x2="360" y2="70" stroke="#222" stroke-width="1"/>
   <!-- Chart rows -->
   ${songs.map((s, i) => {
@@ -402,10 +402,10 @@ function generateChart(p) {
         <animate attributeName="stroke-opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
         <animate attributeName="stroke-width" values="0.5;1.5;0.5" dur="2s" repeatCount="indefinite"/>
       </rect>` : ""}
-      <text x="36" y="18" text-anchor="middle" fill="${isFirst ? "#c9a84c" : "#888"}" font-size="${isFirst ? 24 : 18}" font-weight="700" font-family="sans-serif">${s.rank}</text>
-      <text x="68" y="12" fill="#e8e8e8" font-size="14" font-weight="${isFirst ? 700 : 500}" font-family="sans-serif">${s.song}</text>
-      <text x="68" y="32" fill="#888" font-size="11" font-family="sans-serif">${s.artist}</text>
-      <text x="360" y="18" text-anchor="end" fill="${changeColor}" font-size="12" font-weight="600" font-family="sans-serif">${s.change}</text>
+      <text x="36" y="18" text-anchor="middle" fill="${isFirst ? "#c9a84c" : "#888"}" font-size="${isFirst ? 24 : 18}" font-weight="700" font-family="sans-serif">${escapeXml(s.rank)}</text>
+      <text x="68" y="12" fill="#e8e8e8" font-size="14" font-weight="${isFirst ? 700 : 500}" font-family="sans-serif">${escapeXml(s.song)}</text>
+      <text x="68" y="32" fill="#888" font-size="11" font-family="sans-serif">${escapeXml(s.artist)}</text>
+      <text x="360" y="18" text-anchor="end" fill="${changeColor}" font-size="12" font-weight="600" font-family="sans-serif">${escapeXml(s.change)}</text>
     </g>`;
   }).join("")}
   <rect width="400" height="480" rx="12" fill="none" stroke="#222" stroke-width="1"/>
@@ -478,7 +478,7 @@ function generateCommunity(p) {
       ? post.title.substring(0, maxLen) + ".."
       : post.title;
     const commentTag = post.comments
-      ? `<tspan fill="#c9a84c" font-size="9" font-weight="700"> [${post.comments}]</tspan>`
+      ? `<tspan fill="#c9a84c" font-size="9" font-weight="700"> [${escapeXml(post.comments)}]</tspan>`
       : "";
     const imgTag = post.img
       ? `<tspan fill="#666" font-size="8"> [img]</tspan>`
@@ -490,11 +490,11 @@ function generateCommunity(p) {
       <rect width="400" height="${rowH}" fill="url(#sweep-grad)" opacity="0">
         <animate attributeName="opacity" values="0;0.12;0" dur="4s" begin="${i * 0.4}s" repeatCount="indefinite"/>
       </rect>
-      <text x="28" y="20" text-anchor="middle" fill="${numColor}" font-size="9" font-weight="${isNotice ? 700 : 400}" font-family="sans-serif">${numLabel}</text>
-      <text x="54" y="20" fill="${titleColor}" font-size="11" font-family="sans-serif">${truncTitle}${commentTag}${imgTag}</text>
-      <text x="278" y="20" text-anchor="middle" fill="#888" font-size="9.5" font-family="sans-serif">${post.author}</text>
-      <text x="332" y="20" text-anchor="middle" fill="#666" font-size="9" font-family="sans-serif">${post.views}</text>
-      <text x="375" y="20" text-anchor="middle" fill="${votesColor}" font-size="9" font-weight="700" font-family="sans-serif">${post.votes}</text>
+      <text x="28" y="20" text-anchor="middle" fill="${numColor}" font-size="9" font-weight="${isNotice ? 700 : 400}" font-family="sans-serif">${escapeXml(numLabel)}</text>
+      <text x="54" y="20" fill="${titleColor}" font-size="11" font-family="sans-serif">${escapeXml(truncTitle)}${commentTag}${imgTag}</text>
+      <text x="278" y="20" text-anchor="middle" fill="#888" font-size="9.5" font-family="sans-serif">${escapeXml(post.author)}</text>
+      <text x="332" y="20" text-anchor="middle" fill="#666" font-size="9" font-family="sans-serif">${escapeXml(post.views)}</text>
+      <text x="375" y="20" text-anchor="middle" fill="${votesColor}" font-size="9" font-weight="700" font-family="sans-serif">${escapeXml(post.votes)}</text>
       <line x1="0" y1="${rowH}" x2="400" y2="${rowH}" stroke="#1a1a2e" stroke-width="0.5"/>
     </g>`;
   }).join("");
@@ -523,8 +523,8 @@ function generateCommunity(p) {
 
   <!-- Header -->
   <rect width="400" height="${headerH}" rx="12 12 0 0" fill="#1a1a2e"/>
-  <text x="20" y="26" fill="#c9a84c" font-size="15" font-weight="700" font-family="sans-serif">📋 ${board}</text>
-  <text x="20" y="44" fill="#666" font-size="9.5" font-family="sans-serif">전체글 ${posts.length}개 · 페이지 ${page}</text>
+  <text x="20" y="26" fill="#c9a84c" font-size="15" font-weight="700" font-family="sans-serif">📋 ${escapeXml(board)}</text>
+  <text x="20" y="44" fill="#666" font-size="9.5" font-family="sans-serif">전체글 ${posts.length}개 · 페이지 ${escapeXml(page)}</text>
   <rect x="332" y="14" width="50" height="22" rx="4" fill="#c9a84c"/>
   <text x="357" y="29" text-anchor="middle" fill="#0e0e1a" font-size="9.5" font-weight="700" font-family="sans-serif">글쓰기</text>
 
