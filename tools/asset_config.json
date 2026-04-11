@@ -1,12 +1,12 @@
 {
   "_comment": "Auto-extracted from NAIS2 backup. Edit as needed.",
   "base": {
-    "base_prompt": "very aesthetic, 0.6::artist:ebifurya::, 0.4::artist:ixy::, 0.8::artist:dsmile::, 0.8::artist:pako (pakosun) ::, 2::artist:kurono mitsuki::, 1.2::airtst:chigusa_minori::, 1.1::artist:fuzichoco::, artist:wanke, 0.6::artist:freng::, 0.8::artist:pro-p::, 0.6::artist:ratatatat74 ::, 1.1::artist:doremi_(doremi4704) ::, 1.4::artist:yutokamizu::, artist:mx2j, 3::official_art ::, 3::game_cg ::, 2::dishwasher1910 ::, 0.8::artist:haguhagu_(rinjuu_circus) ::, 0.8::artist:henriiku_(ahemaru) ::, 0.6::artist:ie (raarami) ::, artist:rucarachi, 1.1::artist:dino (dinoartforame) ::, 0.4::artist:ama_mitsuki::, 1.2::artist:kitou_sakeru::,  rating:explicit, anime style, no text, 3::year 2024 ::, 3::year 2025 ::, -6::artist collaboration ::, -2::multiple views ::, masterpiece, best quality, best illustration, ultra-detailed, dynamic lighting, soft colors, 1.8::soft shadows ::, -2::high saturation ::, -3::production art ::, -3::reference sheet ::, -1::halo (blue archive) ::, blurry background, ",
-    "negative_prompt": "no nipples, pubic hair, mosaic censoring, bar censor, artistic error, jpeg artifacts, logo, text, watermark, too many watermarks, blank page, reference, username, signature, artist:xinzoruo, artist:milkpanda, artist collaboration, variant set, large variant set, 4koma, 2koma, toon (style), oekaki, chibi, turnaround, film grain, monochrome, dithering, halftone, screentones, dated, old, 1990s (style), mutation, deformed, distorted, disfigured, artistic error, distorted anatomy, anatomical structure error, asymmetrical face, bad eyes, cloudy eyes, blank eyes, pointy ears, bad proportions, bad limb, bad hands, extra hands, bad hand structure, extra digits, fewer digits, bad legs, extra legs, amputee, distorted composition, bad perspective, multiple views, negative space, animation error, chromatic aberration, disorganized colors, scan artifacts, vertical lines, vertical banding, worst quality, bad quality, lowres, upscaled, fewer details, unfinished, incomplete, amateur, cheesy, unsatisfactory, inadequate, deficient, subpar, poor, displeasing, very displeasing, bad illustration, bad portrait, lipstick, loli, child, warm, blue archive, genshin, hololive, multiple boys, gangbang, group sex, threesome, mmf threesome, ffm threesome, double handjob, spitroast, cooperative fellatio, lips",
+    "base_prompt": "0.6::artist:ebifurya::, 0.4::artist:ixy::, 0.8::artist:dsmile::, 0.8::artist:pako (pakosun) ::, 2::artist:kurono mitsuki::, 1.2::airtst:chigusa_minori::, 1.1::artist:fuzichoco::, artist:wanke, 0.6::artist:freng::, 0.8::artist:pro-p::, 0.6::artist:ratatatat74 ::, 1.1::artist:doremi_(doremi4704) ::, 1.4::artist:yutokamizu::, artist:mx2j, 3::official_art ::, 3::game_cg ::, 2::dishwasher1910 ::, 0.8::artist:haguhagu_(rinjuu_circus) ::, 0.8::artist:henriiku_(ahemaru) ::, 0.6::artist:ie (raarami) ::, artist:rucarachi, 1.1::artist:dino (dinoartforame) ::, 0.4::artist:ama_mitsuki::, 1.2::artist:kitou_sakeru::,  rating:explicit, anime style, no text, 3::year 2024 ::, 3::year 2025 ::, -6::artist collaboration ::, -2::multiple views ::, masterpiece, best quality, best illustration, ultra-detailed, very aesthetic, dynamic lighting, 1.5::soft shadows ::, -2::high saturation ::, -3::production art ::, -3::reference sheet ::, -1::halo (blue archive) ::, blurry background, ",
+    "negative_prompt": "no nipples, pubic hair, mosaic censoring, bar censor, artistic error, jpeg artifacts, logo, text, watermark, too many watermarks, blank page, reference, username, signature, artist:xinzoruo, artist:milkpanda, artist collaboration, variant set, large variant set, 4koma, 2koma, toon (style), oekaki, chibi, turnaround, film grain, monochrome, dithering, halftone, screentones, dated, old, 1990s (style), mutation, deformed, distorted, disfigured, distorted anatomy, anatomical structure error, asymmetrical face, bad eyes, cloudy eyes, blank eyes, pointy ears, bad proportions, bad limb, bad hands, extra hands, bad hand structure, extra digits, fewer digits, bad legs, extra legs, amputee, distorted composition, bad perspective, multiple views, negative space, animation error, chromatic aberration, disorganized colors, scan artifacts, vertical lines, vertical banding, worst quality, bad quality, lowres, upscaled, fewer details, unfinished, incomplete, amateur, cheesy, unsatisfactory, inadequate, deficient, subpar, poor, displeasing, very displeasing, bad illustration, bad portrait, lipstick, loli, child, warm, blue archive, genshin, hololive, multiple boys, gangbang, group sex, threesome, mmf threesome, ffm threesome, double handjob, spitroast, cooperative fellatio, lips",
     "model": "nai-diffusion-4-5-full",
     "steps": 28,
     "cfg_scale": 7.2,
-    "cfg_rescale": 0.02,
+    "cfg_rescale": 0.04,
     "sampler": "k_euler",
     "scheduler": "karras",
     "smea": false,
@@ -155,8 +155,8 @@
     },
     "JGR": {
       "name": "장그루",
-      "clothed": "1girl, gentle expression, 2::champagne blonde hair::, very long hair, straight hair, hair over face, hair covering eyes, long bangs, dull hair, matte hair, lavender eyes, almond eyes, downcast eyes, old clothes, worn clothes, simple outfit, oversized cardigan, faded colors, plain shirt, long skirt, holding notebook, old notebook, worn notebook, soft lighting",
-      "nude": "1girl, nude, gentle expression, closed mouth, 2::champagne blonde hair::, very long hair, straight hair, hair over face, hair covering eyes, long bangs, dull hair, matte hair, lavender eyes, almond eyes, downcast eyes, simple outfit, faded colors, holding notebook, old notebook, worn notebook, soft lighting"
+      "clothed": "1girl, gentle expression, 2::champagne blonde hair::, very long hair, straight hair, hair over face, hair covering eyes, long bangs, dull hair, matte hair, lavender eyes, almond eyes, downcast eyes, old clothes, worn clothes, simple outfit, oversized cardigan, faded colors, plain shirt, long skirt, holding notebook, old notebook, worn notebook",
+      "nude": "1girl, nude, gentle expression, closed mouth, 2::champagne blonde hair::, very long hair, straight hair, hair over face, hair covering eyes, long bangs, dull hair, matte hair, lavender eyes, almond eyes, downcast eyes"
     },
     "LPS": {
       "name": "한파란/라피스",
@@ -171,7 +171,7 @@
     "MMR": {
       "name": "미모리",
       "clothed": "1girl, small breasts, smile, open mouth, sparkling eyes, 2::light blue hair::, long hair, messy hair, playful hair, colorful hair clips, star hair clip, blue eyes, bright eyes, harajuku fashion, layered outfit, oversized hoodie, crop top underneath, platform shoes, mismatched kneehighs, badges, pins, keychains on bag, holding phone, winking, playful",
-      "nude": "1girl, nude, small breasts, smile, open mouth, sparkling eyes, 2::light blue hair::, long hair, messy hair, playful hair, colorful hair clips, star hair clip, blue eyes, bright eyes, mismatched kneehighs, winking, playful"
+      "nude": "1girl, nude, small breasts, smile, open mouth, sparkling eyes, 2::light blue hair::, long hair, messy hair, playful hair, colorful hair clips, star hair clip, blue eyes, bright eyes, mismatched kneehighs"
     },
     "ELA": {
       "name": "엘라",
@@ -186,7 +186,7 @@
     "NIA": {
       "name": "니아",
       "clothed": "1girl, elegant, 2::dark blue hair, bob cut, neat hair, well-groomed ::, teal eyes, big eyes, clear eyes, white blouse, high collar, lace trim, long skirt, pleated, navy skirt, mary jane shoes, pearl earrings, small brooch",
-      "nude": "nude, 1girl, elegant, 2::dark blue hair, bob cut, neat hair, well-groomed ::, teal eyes, big eyes, clear eyes, pearl earrings"
+      "nude": "nude, 1girl, elegant, 2::dark blue hair, bob cut, neat hair::, teal eyes, big eyes, clear eyes, pearl earrings"
     },
     "RAY": {
       "name": "레이",
