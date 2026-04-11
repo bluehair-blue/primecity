@@ -203,9 +203,7 @@ def is_nsfw_scene(config: dict, scene_num: int) -> bool:
     variant = config["scene_variant_map"].get(str(scene_num), "clothed")
     if variant == "nude":
         return True
-    if 70 <= scene_num <= 86:
-        return True
-    return False
+    return 70 <= scene_num <= 86
 
 
 def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str, str, int, int] | None:
@@ -267,7 +265,7 @@ def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str
     if pose_tags:
         # 씬에 이미 있는 토큰은 중복 제거
         existing = {t.strip() for t in female_scene.split(",")}
-        new_tags = [t for t in pose_tags if t not in existing]
+        new_tags = [t for t in pose_tags if t.strip() not in existing]
         if new_tags:
             if female_scene:
                 female_scene = f"{female_scene.rstrip(', ')}, " + ", ".join(new_tags)
