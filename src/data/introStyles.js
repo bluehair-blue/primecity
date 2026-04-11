@@ -38,21 +38,21 @@ export const INTRO_STYLE_CONFIG = {
     mobileFallback: null,
   },
   fog: {
-    duration: 3500,
+    duration: 4300,   // 3800ms content + 500ms fadeOut
     letterbox: false,
     requiresSvgFilter: false,
     mobileFallback: null,
     fogLayers: 2,
   },
   cardDeal: {
-    duration: 2000,
+    duration: 3600,   // 3200ms content + 400ms fadeOut
     letterbox: false,
     requiresSvgFilter: false,
     mobileFallback: null,
     perspective: 1200,
   },
   pageFlip: {
-    duration: 2200,
+    duration: 3800,   // 3400ms content + 400ms fadeOut
     letterbox: false,
     requiresSvgFilter: false,
     mobileFallback: null,

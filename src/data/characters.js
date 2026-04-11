@@ -47,8 +47,8 @@ export const characters = [
     introLabel: "Naharin / Enigma",
     quoteSequence: ["후후.", "잘 부탁해?"],
     focusBox: {
-      desktop: { cx: 50, cy: 35, w: 45, h: 65 },
-      mobile:  { cx: 50, cy: 30, w: 55, h: 60 },
+      desktop: { cx: 50, cy: 35, w: 55, h: 75 },  // v4 +10%
+      mobile:  { cx: 50, cy: 30, w: 65, h: 70 },  // v4 +10%
     },
     detailPath: "/characters/naharin",
     signature: "낡은 손목시계 + 한쪽 이어폰",
