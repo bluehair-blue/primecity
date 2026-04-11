@@ -3,8 +3,11 @@ from __future__ import annotations
 
 import argparse
 
+# ALL_CHARS: 기본 sweep 대상 캐릭터 코드.
+# JSH (진시혁) 는 유일한 남성 캐릭이며 NAI 에셋 생성 계획에 포함되지 않으므로
+# 이 목록에서 제외함. 필요 시 --chars JSH 로 명시 호출 가능.
 ALL_CHARS: list[str] = [
-    "SY", "NHR", "JSH", "ERK", "LSH", "HSR", "KHR",
+    "SY", "NHR", "ERK", "LSH", "HSR", "KHR",
     "JGR", "MIL", "ELA", "MMR", "HSE", "NIA", "RAY", "LPS",
 ]
 
