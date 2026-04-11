@@ -136,39 +136,6 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
         />
       </div>
 
-      {/* ── 바닥 reflection (70%~92%) ──
-          maskImage: white→transparent (alpha 1→0) 으로 상단 가장 진하게 하단 사라짐
-          오용 수정: oklch(1 0 0 / 0.22) 제거 → white (alpha=1) 사용               */}
-      <div
-        style={{
-          position: "absolute",
-          top: "70%", left: 0, right: 0,
-          height: "22%",
-          overflow: "hidden",
-          zIndex: 2,
-          opacity: beat >= 1 ? 1 : 0,
-          transition: "opacity 1.0s ease-out",
-        }}
-      >
-        <img
-          src={char.keyVisual}
-          alt=""
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%", height: "100%",
-            objectFit: "cover",
-            objectPosition: currentObjPos,
-            transform: "scaleY(-1)",
-            filter: imageFilter,
-            WebkitMaskImage: "linear-gradient(to bottom, white 0%, transparent 80%)",
-            maskImage: "linear-gradient(to bottom, white 0%, transparent 80%)",
-            opacity: 0.18,
-            transition: "object-position 0.35s ease-out, filter 1.0s ease-out",
-          }}
-        />
-      </div>
-
       {/* ── Canvas TV static noise ──
           CSS filter 없이 직접 픽셀 그리기 → mix-blend-mode overlay 정상 작동
           imageRendering: pixelated → 80×45 픽셀이 chunky 블록으로 확대 (TV 정적)  */}

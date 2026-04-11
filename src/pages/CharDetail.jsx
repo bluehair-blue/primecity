@@ -640,31 +640,38 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
           src={char.keyVisual}
           alt=""
           style={{
-            width: "100%", height: "100%",
+            width: "100%",
+            height: char.keyVisualStage ? "70%" : "100%",
             objectFit: char.keyVisualFit || "cover",
             objectPosition: char.keyVisualFit === "contain" ? "50% 50%" : objectPosition,
           }}
         />
-        {/* Reflection strip at bottom */}
+        {/* Reflection strip — adjacent to image bottom
+            Fix: transformOrigin "bottom" → "center" (이전 코드는 모든 콘텐츠가
+            element 밖으로 렌더링돼 overflow:hidden에 완전 클리핑됨)
+            Fix: mask white (alpha=1) + element opacity 0.18 (이전: mask alpha 0.18 cap) */}
         <div
           style={{
-            position: "absolute", bottom: 0, left: 0, right: 0,
-            height: "28%", overflow: "hidden",
+            position: "absolute",
+            ...(char.keyVisualStage ? { top: "70%" } : { bottom: 0 }),
+            left: 0, right: 0,
+            height: char.keyVisualStage ? "22%" : "28%",
+            overflow: "hidden",
           }}
         >
           <img
             src={char.keyVisual}
             alt=""
             style={{
-              position: "absolute", bottom: 0, left: 0,
+              position: "absolute", inset: 0,
               width: "100%", height: "100%",
               objectFit: char.keyVisualFit || "cover",
               objectPosition: char.keyVisualFit === "contain" ? "50% 50%" : objectPosition,
               transform: "scaleY(-1)",
-              transformOrigin: "bottom",
-              WebkitMaskImage: "linear-gradient(to top, oklch(1 0 0 / 0.18) 0%, transparent 65%)",
-              maskImage: "linear-gradient(to top, oklch(1 0 0 / 0.18) 0%, transparent 65%)",
-              opacity: phase >= 1 ? 1 : 0,
+              transformOrigin: "center",
+              WebkitMaskImage: "linear-gradient(to top, white 0%, transparent 65%)",
+              maskImage: "linear-gradient(to top, white 0%, transparent 65%)",
+              opacity: phase >= 1 ? (char.keyVisualStage ? 0.28 : 0.18) : 0,
               transition: "opacity 1s ease-out",
             }}
           />
