@@ -58,11 +58,10 @@ export const INTRO_STYLE_CONFIG = {
     perspective: 1200,
   },
   pageFlip: {
-    duration: 3800,   // 3400ms content + 400ms fadeOut
+    duration: 8100,   // 7400ms content + 700ms fadeOut (page-sweep reveal)
     letterbox: false,
     requiresSvgFilter: false,
     mobileFallback: null,
-    direction: "ltr",
   },
 };
 

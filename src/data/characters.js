@@ -406,11 +406,11 @@ export const characters = [
     introAssets: [],
     introLabel: "Ha Sieun / Diligence",
     quoteSequence: ["세상 모든것에는―...", "배울 점이 있거든요!"],
-    // TODO: focusBox 미확정 — default values, adjust after visual review
     focusBox: {
-      desktop: { cx: 50, cy: 40, w: 50, h: 60 },
-      mobile:  { cx: 50, cy: 35, w: 55, h: 60 },
+      desktop: { cx: 48, cy: 45, w: 55, h: 75 },
+      mobile:  { cx: 45, cy: 35, w: 60, h: 70 },
     },
+    keyVisualFit: "contain",
     detailPath: "/characters/hasieun",
     signature: "메모/기록 습관 — 항상 뭔가를 적고 있음",
     personality: "성실한 우등생 — 안정형 육각형",
