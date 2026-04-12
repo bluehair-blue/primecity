@@ -38,11 +38,11 @@ export const INTRO_STYLE_CONFIG = {
     mobileFallback: null,
   },
   fog: {
-    duration: 7900,   // v5 압축판: 7400ms content + 500ms fadeOut (organic fog + meaningful zoom)
+    duration: 7900,   // v6: 7400ms content + 500ms fadeOut (EM signal + flash zoom + contain reveal)
     letterbox: false,
     requiresSvgFilter: false,
     mobileFallback: null,
-    fogLayers: 3,    // v5: A(SVG turbulence) + B(violet drift) + C(cool-blue drift)
+    fogLayers: 0,    // v6: fog 폐기. 전자기 노이즈(SVG turbulence) + scanlines + crackle bars 로 교체
   },
   cardDeal: {
     duration: 3600,   // 3200ms content + 400ms fadeOut

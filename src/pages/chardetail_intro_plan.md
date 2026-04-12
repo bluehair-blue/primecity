@@ -1609,16 +1609,54 @@ const FAKE_NICKS = [
 
 > `-520px` 는 데스크톱 viewport 높이(약 800px) 기준 스트림 컨테이너를 벗어나는 offset. 모바일에선 비율상 자연스럽게 위로 빠져나감. 필요 시 `vh` 단위로 전환 가능.
 
-### F. 안개 (NHR) — v5 재설계 (2026-04-12) ⚠️ 전면 재작업
+### F. 안개 (NHR) — v6 재설계 (2026-04-12, EM 신호 튜닝) ⚠️ 현재 구현
 
-> **v4 폐기 사유**: 5회 반복 수정에도 품질 미달.
+> **v5 폐기 사유** (사용자 피드백, 5건 모두 근본적 실패):
 >
-> - ❌ TV 정적 노이즈 canvas (80×45 random pixel) — "안개" 모티프와 이질적, 허접함 유발 (v5 원칙 #4 위반)
-> - ❌ 줌 좌표 `25% 67%` · `75% 18%` — KV 의 실제 디테일과 무관한 임의값 (v5 원칙 #1 위반)
-> - ❌ Beat 2 static hold 850ms, Beat 3 static hold 200ms — v5 원칙 #2 위반
-> - ❌ CRT 스캔라인이 "안개"의 볼륨 감성과 충돌하는 디지털 감성 추가 (v5 원칙 #4 위반)
+> 1. 반투명 하얀색 레이어만 보임 — `mixBlendMode: screen` 3층이 검정 배경 위 violet gradient 를 완전 탈색
+> 2. 줌이 smooth pan 이라 역동성 0 — "fade-in/fade-out 반복" 요구 미반영
+> 3. 노이즈 효과 완전 부재 — "허접한 TV static 제거" 를 "노이즈 자체 제거" 로 오독
+> 4. 보라 pulse 비가시 — `mixBlendMode: screen` + `radial-gradient closest-side` + 하얀 fog 아래 → washed out
+> 5. KV 이미지 하단 33% 잘림 — `top-70% stage` + `linear-gradient mask-to-black` 이 크롭 효과 유발
 >
-> **v5 재설계 방향**: "안개 속에서 NHR 의 시그니처 디테일이 순차적으로 드러나다가, 마지막에 완전히 걷히며 hero 로 전환" — 핵심은 **유기체 안개(Organic Fog)** — SVG turbulence + 3층 gradient drift 조합으로 "디지털 노이즈가 아닌 볼륨 있는 수증기" 를 표현.
+> **v6 재설계 컨셉**: "**망가진 전자기 신호가 NHR 을 튜닝**"
+>
+> - 지직거리는 **전자기 노이즈** (SVG feTurbulence + scanlines + crackle bars)
+> - **번쩍이는 줌인** (fade-in → hold → crackle-out → hold → crackle-out → hold 패턴, 비트당 1.5s)
+> - **좌/우/좌 교차** 줌 position
+> - Beat 4 에서 **`objectFit: contain`** 으로 KV 전체를 한눈에 (레터박스 OK, crop 금지)
+>
+> **v6 타임라인** (7900ms, 모든 visible hold ≥ 1000ms):
+>
+> | Beat | 시간 | 길이 | 내용 | Layer |
+> |---|---|---|---|---|
+> | 0 | 0 – 100 | 100 | black | - |
+> | 1 | 100 – 1600 | 1500 | LEFT 미소 (38%/32%, scale 1.8) + flash 패턴 + EM noise + quote[0] | A cover zoom |
+> | 2 | 1600 – 3100 | 1500 | RIGHT 손목시계 (64%/58%, scale 1.9) + flash + 보라 pulse | A cover zoom |
+> | 3 | 3100 – 4600 | 1500 | LEFT-TOP 이어폰 (36%/22%, scale 1.8) + flash + 보라 pulse | A cover zoom |
+> | 4 | 4600 – 6500 | 1900 | **contain 전체 리빌** + 노이즈 감쇠 + quote[1] subtle | B contain |
+> | 5 | 6500 – 7400 | 900 | hero 대사 + vignette + chapter label | B contain |
+> | fO | 7400 – 7900 | 500 | fadeOut → Phase 1 | - |
+>
+> **v6 핵심 구현 결정**:
+>
+> - **2-layer image 구조**: Layer A (`objectFit: cover` + `transform: scale`) 는 beats 1~3 클로즈업 / Layer B (`objectFit: contain`) 는 beats 4~5 전체 리빌. Beat 4 에서 cross-fade (0.9s).
+> - **flash keyframe** (`cinemaNhrFlash`): opacity 만 애니메이션 (filter 는 static style). 패턴 0→1→1→0.18→1→1→0.22→1→1. React `key={beat}` 로 restart. Visible hold ≈ 1100ms.
+> - **EM 노이즈**: SVG `<feTurbulence baseFrequency="1.8" numOctaves="2">` 정적 + `transform translate(±2px)` 10Hz 지터 (`cinemaNhrCrackle`). `mixBlendMode: overlay` (screen 아님 — 탈색 방지).
+> - **보라 pulse**: 솔리드 `char.color` + `filter: blur(70px)` + zIndex 8 (노이즈 위) + **normal compositing** (mixBlendMode 제거). 크기 360px desktop / 260px mobile. 1.5s `cinemaNhrPulse` 키프레임.
+> - **zIndex 체인**: Layer A(2) < Layer B(3) < scanlines(4) < EM noise(5) < crackle bars(6) < flash overlay(7) < purple pulse(8) < vignette(9) < CenteredQuote(internal) < label/skip(10).
+>
+> **신규 keyframes** (`index.html`): `cinemaNhrFlash`, `cinemaNhrCrackle`, `cinemaNhrGlitchBars`, `cinemaNhrPulse`, `cinemaNhrFlashOverlay`. v5 keyframes (`cinemaFogBreathe`, `cinemaSignaturePulse`, `cinemaFogDrift1/2`) 제거.
+>
+> **`INTRO_STYLE_CONFIG.fog`**: `duration: 7900`, `fogLayers: 0` (fog 개념 폐기, EM noise 로 교체).
+>
+> **단일 진실 공급원**: 아래 F-1 ~ F-10 은 **v5 이력 (폐기)** 으로 유지. 현재 구현은 [src/components/cinematic/FogIntro.jsx](../components/cinematic/FogIntro.jsx) 코드 파일 자체가 정답. 추후 수정 시 코드와 본 v6 헤더 블록을 함께 업데이트.
+
+---
+
+### 📦 v5 이력 (폐기됨, 참고용 아카이브)
+
+⚠️ 아래 F-1 ~ F-10 은 v5 재설계안이며 **구현 결과 실패**. v6 에서 접근법 전체를 교체. 이후 읽을 땐 v6 컨셉(위 블록) 을 기준으로 할 것.
 
 ---
 

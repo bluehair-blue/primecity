@@ -2,50 +2,69 @@ import { useEffect, useState } from "react";
 import CenteredQuote from "./CenteredQuote";
 
 /* ══════════════════════════════════════════════════════════
-   FogIntro (NHR) — v5 재설계 (2026-04-12, 7.9초 압축판)
+   FogIntro (NHR) — v6 재설계 (2026-04-12)
    ------------------------------------------------------------
-   컨셉: 유기체 안개 3층 + 3점 의미 있는 줌인 + RGB 분리 reveal
+   v5 폐기 사유 (사용자 피드백 5건 모두 근본 원인):
+   1. 반투명 하얀색 레이어만 보임 (mixBlendMode:screen 오용)
+   2. Smooth pan 줌 → 역동성 0
+   3. 노이즈 효과 완전 부재 (TV static 제거를 사용자가 "허접하니까
+      제거"로 잘못 지시한 줄 알았으나, 실제로는 "허접하니까 품질을
+      올려라" 였음)
+   4. 보라 pulse 비가시 (screen 블렌딩 + 작은 gradient)
+   5. KV 이미지 하단 ~33% 잘림 (top-70% stage + mask-to-black 크롭)
 
-   Timeline: 7400ms + 500ms fadeOut = 7900ms (모든 hold ≥ 1100ms)
+   v6 컨셉: "망가진 전자기 신호가 NHR 을 튜닝"
+     - 지직거리는 전자기 노이즈 (SVG turbulence + scanlines + crackle bars)
+     - 번쩍이는 줌인 (fade-in/crackle-out/fade-in 반복 flash 패턴)
+     - L/R/L 교차 줌 position
+     - Beat 4 에서 objectFit: contain 으로 KV 전체를 한눈에
+
+   Timeline: 7400ms + 500ms fadeOut = 7900ms (모든 visible hold ≥ 1000ms)
      0    -  100  : black
-     100  - 1800  : 짙은 안개 + 미소 줌인 + quote[0] subtle         [hold 1100]
-     1800 - 3400  : 안개 1파 걷힘 + 시계 줌인 + signature pulse     [hold 1100]
-     3400 - 5000  : 안개 재확산 + 이어폰 줌인 + signature pulse     [hold 1100]
-     5000 - 6700  : 줌아웃 + chromatic aberration + quote[0→1]      [hold 1100]
-     6700 - 7400  : quote[1] hero + vignette + chapter label
+     100  - 1600  : beat 1 (LEFT 미소, flash, EM noise heavy, quote[0])
+     1600 - 3100  : beat 2 (RIGHT 손목시계, flash, purple pulse, noise)
+     3100 - 4600  : beat 3 (LEFT-TOP 이어폰, flash, purple pulse, noise)
+     4600 - 6500  : beat 4 (contain FULL reveal, noise fades, quote[1])
+     6500 - 7400  : beat 5 (hero + vignette + label)
      7400 - 7900  : fadeOut → Phase 1
 
-   zIndex 체인:
-     kvStage(2) - kvMask(3) - fogA-svg(4) - fogB(5) - fogC(6)
-     sigPulse(7) - bgMarquee(8) - vignette(9) - CenteredQuote(internal)
-     label(10) - skip(10)
+   레이어 구조 (zIndex 체인):
+     black bg          (viewport)
+     Layer A cover zoom (2)  ← beats 1-3: 클로즈업
+     Layer B contain     (3)  ← beats 4-5: 전체 리빌
+     scanlines          (4)
+     EM noise SVG       (5)
+     crackle bars       (6)
+     flash overlay      (7)
+     purple pulse       (8)
+     vignette           (9)
+     CenteredQuote      (internal)
+     label / skip       (10)
    ══════════════════════════════════════════════════════════ */
 
-// 줌 포인트 — NHR/key.webp 실물 확인 후 미세 조정 가능
-const ZOOM_POINTS = {
+// 줌 포인트 — 좌/우/좌 교차, NHR KV 실물 확인 후 미세 조정 가능
+const ZOOM_BEATS = {
   desktop: {
-    1: { pos: "50% 28%", scale: 2.0 },  // 입꼬리/미소
-    2: { pos: "38% 62%", scale: 2.1 },  // 손목시계
-    3: { pos: "62% 24%", scale: 2.0 },  // 한쪽 이어폰
-    4: { pos: "50% 35%", scale: 1.0 },  // 전체 (focusBox cx/cy)
+    1: { pos: "38% 32%", scale: 1.8 },  // LEFT — 미소 (입꼬리 + 눈매)
+    2: { pos: "64% 58%", scale: 1.9 },  // RIGHT — 손목시계 영역
+    3: { pos: "36% 22%", scale: 1.8 },  // LEFT-TOP — 한쪽 이어폰
   },
   mobile: {
-    1: { pos: "50% 32%", scale: 1.9 },
-    2: { pos: "42% 65%", scale: 2.0 },
-    3: { pos: "58% 28%", scale: 1.9 },
-    4: { pos: "50% 30%", scale: 1.0 },
+    1: { pos: "40% 34%", scale: 1.7 },
+    2: { pos: "60% 60%", scale: 1.8 },
+    3: { pos: "38% 26%", scale: 1.7 },
   },
 };
 
-// 시그니처 pulse 위치 — beat 2 (watch) / beat 3 (earphone)
-const SIG_POS = {
+// 보라 pulse 위치 (viewport % 좌표) — beat 2(watch) / beat 3(earphone)
+const PULSE_POS = {
   desktop: {
-    2: { left: "38%", top: "43%", size: 180 },
-    3: { left: "62%", top: "17%", size: 160 },
+    2: { left: "64%", top: "58%" },
+    3: { left: "36%", top: "22%" },
   },
   mobile: {
-    2: { left: "42%", top: "45%", size: 140 },
-    3: { left: "58%", top: "20%", size: 120 },
+    2: { left: "60%", top: "60%" },
+    3: { left: "38%", top: "26%" },
   },
 };
 
@@ -56,42 +75,41 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
   useEffect(() => {
     const timers = [
       setTimeout(() => setBeat(1),  100),
-      setTimeout(() => setBeat(2), 1800),
-      setTimeout(() => setBeat(3), 3400),
-      setTimeout(() => setBeat(4), 5000),
-      setTimeout(() => setBeat(5), 6700),
+      setTimeout(() => setBeat(2), 1600),
+      setTimeout(() => setBeat(3), 3100),
+      setTimeout(() => setBeat(4), 4600),
+      setTimeout(() => setBeat(5), 6500),
       setTimeout(() => setFadingOut(true), 7400),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  const zoomTable = ZOOM_POINTS[isMobile ? "mobile" : "desktop"];
-  const sigTable = SIG_POS[isMobile ? "mobile" : "desktop"];
-  const currentZoom = zoomTable[Math.min(Math.max(beat, 1), 4)] || zoomTable[1];
+  const zoomTable = ZOOM_BEATS[isMobile ? "mobile" : "desktop"];
+  const pulseTable = PULSE_POS[isMobile ? "mobile" : "desktop"];
+  const currentZoom = zoomTable[Math.min(Math.max(beat, 1), 3)] || zoomTable[1];
 
-  // 이미지 saturation/brightness : 안개 속 저채도 → reveal 복원
-  const imageFilter =
-    beat <= 1 ? "saturate(0.35) brightness(0.6)" :
-    beat === 2 ? "saturate(0.55) brightness(0.75)" :
-    beat === 3 ? "saturate(0.55) brightness(0.75)" :
-    beat === 4 ? "saturate(0.9) brightness(0.95)" :
-    "saturate(1.0) brightness(1.0)";
+  // Beat 1~3 은 flash animation + cover zoom
+  // Beat 4~5 는 stable contain reveal
+  const isZoomBeat = beat >= 1 && beat <= 3;
+  const isRevealBeat = beat >= 4;
 
-  // 안개 3층 밀도 (beat 1~4 엇갈린 감쇠)
-  const fogA = beat === 1 ? 0.92 : beat === 2 ? 0.58 : beat === 3 ? 0.68 : beat === 4 ? 0.15 : 0.05;
-  const fogB = beat === 1 ? 0.78 : beat === 2 ? 0.45 : beat === 3 ? 0.52 : beat === 4 ? 0.12 : 0.05;
-  const fogC = beat === 1 ? 0.62 : beat === 2 ? 0.35 : beat === 3 ? 0.40 : beat === 4 ? 0.08 : 0.04;
+  // EM 노이즈 intensity
+  const noiseOpacity =
+    beat === 0 ? 0 :
+    isZoomBeat ? 0.9 :
+    beat === 4 ? 0.25 :
+    0.05;
 
-  // RGB chromatic aberration (beat 4 peak → 수렴)
-  const ca = beat === 4 ? 2.5 : 0;
+  // Scanlines intensity
+  const scanlineOpacity =
+    isZoomBeat ? 0.55 :
+    beat === 4 ? 0.12 :
+    0;
 
-  // 이미지 transition: beat별 속도 분리 (압축판)
-  const imgTransition =
-    beat === 4
-      ? "transform 0.6s cubic-bezier(0.22,1,0.36,1), object-position 0.6s cubic-bezier(0.22,1,0.36,1), filter 0.6s ease-out"
-      : beat >= 2
-      ? "transform 0.5s cubic-bezier(0.33,1,0.68,1), object-position 0.5s cubic-bezier(0.33,1,0.68,1), filter 0.5s ease-out"
-      : "transform 0.6s ease-out, object-position 0.6s ease-out, filter 0.6s ease-out, opacity 0.55s ease-out";
+  // Crackle bars intensity
+  const crackleOpacity =
+    isZoomBeat ? 0.7 :
+    0;
 
   return (
     <div
@@ -104,191 +122,168 @@ export default function FogIntro({ char, isMobile, objectPosition, config, onSki
         transition: "opacity 0.5s ease-out",
       }}
     >
-      {/* ── KV STAGE: top 70%, bottom 30% 네거티브 스페이스 ── */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0, left: 0, right: 0,
-          height: "70%",
-          overflow: "hidden",
-          zIndex: 2,
-        }}
-      >
-        {/* Base KV image (ca=0 때만 표시) */}
-        <img
-          src={char.keyVisual}
-          alt=""
-          style={{
-            width: "100%", height: "100%",
-            objectFit: "cover",
-            objectPosition: currentZoom.pos,
-            transform: `scale(${currentZoom.scale})`,
-            transformOrigin: currentZoom.pos,
-            filter: imageFilter,
-            opacity: beat >= 1 ? (ca > 0 ? 0 : 1) : 0,
-            transition: imgTransition,
-            willChange: "transform",
-          }}
-        />
-
-        {/* Chromatic aberration RGB 3-layer (beat 4 only) */}
-        {ca > 0 && ["R", "G", "B"].map((channel, i) => {
-          const dx = (i - 1) * ca; // -ca, 0, +ca
-          const hue = channel === "R" ? 0 : channel === "G" ? 120 : 240;
-          return (
-            <img
-              key={channel}
-              src={char.keyVisual}
-              alt=""
-              style={{
-                position: "absolute", inset: 0,
-                width: "100%", height: "100%",
-                objectFit: "cover",
-                objectPosition: currentZoom.pos,
-                transform: `scale(${currentZoom.scale}) translate(${dx}px, 0)`,
-                transformOrigin: currentZoom.pos,
-                filter: `hue-rotate(${hue}deg) saturate(1.3) brightness(0.95)`,
-                mixBlendMode: "screen",
-                opacity: 0.45,
-                transition: "transform 0.6s cubic-bezier(0.22,1,0.36,1)",
-                pointerEvents: "none",
-              }}
-            />
-          );
-        })}
-
-        {/* KV 하단 dissipate mask (이미지 → 블랙 자연 전환) */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0, left: 0, right: 0,
-            height: "35%",
-            background: "linear-gradient(to bottom, transparent 0%, oklch(0 0 0) 100%)",
-            pointerEvents: "none",
-            zIndex: 3,
-          }}
-        />
-      </div>
-
-      {/* ══ 유기체 안개 Layer A — SVG feTurbulence (볼륨 있는 수증기) ══ */}
-      <svg
-        aria-hidden="true"
+      {/* ══ Layer A: 줌 클로즈업 (beats 1~3) ══
+          - cover fit + transform scale → 뷰포트 꽉 채우는 close-up
+          - React key={beat} 로 flash keyframe 재시작
+          - filter 는 static style, opacity 만 애니메이션     */}
+      <img
+        key={`zoom-${beat}`}
+        src={char.keyVisual}
+        alt=""
         style={{
           position: "absolute", inset: 0,
           width: "100%", height: "100%",
-          opacity: fogA,
-          transition: "opacity 1.2s ease-out",
-          mixBlendMode: "screen",
+          objectFit: "cover",
+          objectPosition: currentZoom.pos,
+          transform: `scale(${currentZoom.scale})`,
+          transformOrigin: currentZoom.pos,
+          filter: "saturate(0.7) brightness(0.82) contrast(1.12)",
+          opacity: isRevealBeat ? 0 : (beat === 0 ? 0 : 1),
+          animation: isZoomBeat ? "cinemaNhrFlash 1.5s ease-out forwards" : "none",
+          transition: isRevealBeat ? "opacity 0.7s ease-out" : "none",
+          zIndex: 2,
+          willChange: "opacity",
+        }}
+      />
+
+      {/* ══ Layer B: 전체 리빌 (beats 4~5, contain) ══
+          - contain fit → 이미지 전체가 뷰포트 안에 레터박스로 들어옴
+          - "한눈에 보이는 KV"  */}
+      <img
+        src={char.keyVisual}
+        alt=""
+        style={{
+          position: "absolute", inset: 0,
+          width: "100%", height: "100%",
+          objectFit: "contain",
+          objectPosition: "50% 50%",
+          filter: beat === 4
+            ? "saturate(0.95) brightness(0.95)"
+            : "saturate(1) brightness(1)",
+          opacity: isRevealBeat ? 1 : 0,
+          transition: "opacity 0.9s ease-out, filter 0.9s ease-out",
+          zIndex: 3,
+        }}
+      />
+
+      {/* ══ Scanlines (horizontal interference bars) ══ */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute", inset: 0,
+          background:
+            "repeating-linear-gradient(to bottom, oklch(1 0 0 / 0.12) 0px, oklch(1 0 0 / 0.12) 2px, transparent 2px, transparent 5px)",
+          opacity: scanlineOpacity,
+          transition: "opacity 0.8s ease-out",
           zIndex: 4,
           pointerEvents: "none",
-          animation: beat >= 1 ? "cinemaFogBreathe 22s ease-in-out infinite alternate" : "none",
+          mixBlendMode: "overlay",
+        }}
+      />
+
+      {/* ══ EM 노이즈 — SVG feTurbulence + CSS crackle shake ══
+          - 정적 turbulence 패턴 (한번 렌더, 재생성 없음)
+          - CSS transform 으로 10Hz 지터 → "지직거리는" 효과
+          - overlay 블렌딩 → 이미지에 노이즈 입힘, 색 탈색 X */}
+      <svg
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: "-3%",  // 엣지 짤림 방지 (transform shake 때문에)
+          width: "106%", height: "106%",
+          opacity: noiseOpacity,
+          transition: "opacity 1s ease-out",
+          mixBlendMode: "overlay",
+          zIndex: 5,
+          pointerEvents: "none",
+          animation: isZoomBeat ? "cinemaNhrCrackle 0.1s steps(4) infinite" : "none",
         }}
       >
         <defs>
-          <filter id="nhrFogTurb" x="-20%" y="-20%" width="140%" height="140%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="3" seed="7" />
-            <feDisplacementMap in="SourceGraphic" scale="50" />
-            <feGaussianBlur stdDeviation="18" />
+          <filter id="nhrEmNoise">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="1.8"
+              numOctaves="2"
+              seed="13"
+            />
             <feColorMatrix
               type="matrix"
-              values="0 0 0 0 0.85   0 0 0 0 0.82   0 0 0 0 0.92   0 0 0 0.9 0"
+              values="0 0 0 0 0.92  0 0 0 0 0.92  0 0 0 0 0.98  0 0 0 1 0"
             />
           </filter>
         </defs>
-        <rect width="100%" height="100%" fill="oklch(0.85 0.04 310)" filter="url(#nhrFogTurb)" />
+        <rect width="100%" height="100%" filter="url(#nhrEmNoise)" />
       </svg>
 
-      {/* ══ 유기체 안개 Layer B — 중경 violet drift ══ */}
+      {/* ══ Crackle glitch bars — 랜덤 수평선 이동 ══ */}
       <div
+        aria-hidden="true"
+        key={`crackle-${beat}`}
         style={{
           position: "absolute", inset: 0,
           background:
-            "linear-gradient(135deg, oklch(0.85 0.03 310 / 0.95) 0%, oklch(0.70 0.05 300 / 0.4) 50%, oklch(0.85 0.03 310 / 0.95) 100%)",
-          backgroundSize: "220% 220%",
-          opacity: fogB,
-          animation: beat >= 1 ? "cinemaFogDrift1 18s linear infinite" : "none",
-          transition: "opacity 1.2s ease-out",
-          mixBlendMode: "screen",
-          zIndex: 5,
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* ══ 유기체 안개 Layer C — 후경 cool-blue drift ══ */}
-      <div
-        style={{
-          position: "absolute", inset: 0,
-          background:
-            "linear-gradient(-45deg, oklch(0.70 0.04 280 / 0.8) 0%, oklch(0.55 0.06 280 / 0.2) 50%, oklch(0.70 0.04 280 / 0.8) 100%)",
-          backgroundSize: "180% 180%",
-          opacity: fogC,
-          animation: beat >= 1 ? "cinemaFogDrift2 14s linear infinite" : "none",
-          transition: "opacity 1.2s ease-out",
-          mixBlendMode: "screen",
+            "linear-gradient(to bottom, transparent 0%, transparent 17%, oklch(0.92 0.05 310 / 0.55) 18%, transparent 19%, transparent 44%, oklch(0.85 0.08 260 / 0.45) 45%, transparent 46%, transparent 73%, oklch(0.95 0.03 310 / 0.5) 74%, transparent 75%, transparent 100%)",
+          opacity: crackleOpacity,
+          transition: "opacity 0.6s ease-out",
+          animation: isZoomBeat ? "cinemaNhrGlitchBars 0.38s steps(3) infinite" : "none",
           zIndex: 6,
           pointerEvents: "none",
+          mixBlendMode: "screen",
         }}
       />
 
-      {/* ══ 시그니처 글로우 pulse — beat 2 (watch) / beat 3 (earphone) ══ */}
+      {/* ══ 흰 flash overlay (beat 전환 순간 번쩍) ══ */}
+      <div
+        aria-hidden="true"
+        key={`flash-${beat}`}
+        style={{
+          position: "absolute", inset: 0,
+          background: "oklch(1 0 0)",
+          opacity: 0,
+          animation: isZoomBeat || beat === 4
+            ? "cinemaNhrFlashOverlay 0.28s ease-out forwards"
+            : "none",
+          zIndex: 7,
+          pointerEvents: "none",
+          mixBlendMode: "overlay",
+        }}
+      />
+
+      {/* ══ 보라 pulse — beat 2 (watch) / beat 3 (earphone) ══
+          - 크고 짙은 솔리드 color + blur(70px) → 선명한 아우라
+          - normal compositing (no mixBlendMode)
+          - 높은 zIndex 로 노이즈 위에 표시  */}
       {(beat === 2 || beat === 3) && (
         <div
-          key={`sig-${beat}`}
+          aria-hidden="true"
+          key={`pulse-${beat}`}
           style={{
             position: "absolute",
-            left: sigTable[beat].left,
-            top: sigTable[beat].top,
-            width: sigTable[beat].size,
-            height: sigTable[beat].size,
+            left: pulseTable[beat].left,
+            top: pulseTable[beat].top,
+            width: isMobile ? 260 : 360,
+            height: isMobile ? 260 : 360,
+            borderRadius: "50%",
             transform: "translate(-50%, -50%)",
-            background: `radial-gradient(closest-side, ${char.color} 0%, transparent 65%)`,
-            mixBlendMode: "screen",
-            animation: "cinemaSignaturePulse 1.2s ease-in-out 2",
-            zIndex: 7,
+            background: char.color,
+            filter: "blur(70px)",
+            opacity: 0,
+            animation: "cinemaNhrPulse 1.5s ease-out forwards",
+            zIndex: 8,
             pointerEvents: "none",
           }}
         />
       )}
 
-      {/* ══ bgMarquee — 네거티브 스페이스 채움 (bottom 30%) ══ */}
-      {beat >= 1 && (
-        <div
-          style={{
-            position: "absolute", bottom: "8%", left: 0,
-            display: "flex", width: "200%",
-            animation: "bgMarquee 45s linear infinite",
-            pointerEvents: "none",
-            zIndex: 8,
-            opacity: beat === 4 ? 0.10 : 0.05,
-            transition: "opacity 1s ease-out",
-          }}
-        >
-          {[1, 2].map((k) => (
-            <div
-              key={k}
-              style={{
-                flex: "0 0 50%",
-                fontFamily: "var(--f-display-en)",
-                fontSize: isMobile ? 36 : 64,
-                letterSpacing: "0.2em",
-                color: "oklch(0.85 0.03 310)",
-                whiteSpace: "nowrap",
-                textTransform: "uppercase",
-              }}
-            >
-              NAHARIN · ENIGMA · MIST · NAHARIN · ENIGMA · MIST ·{" "}
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* ══ Vignette (beat 5+) ══ */}
+      {/* ══ Vignette (beat 4+) ══ */}
       <div
+        aria-hidden="true"
         style={{
           position: "absolute", inset: 0,
           background:
-            "radial-gradient(ellipse at center, oklch(0 0 0 / 0) 30%, oklch(0 0 0 / 0.6) 90%)",
-          opacity: beat >= 5 ? 1 : 0,
+            "radial-gradient(ellipse at center, oklch(0 0 0 / 0) 25%, oklch(0 0 0 / 0.65) 95%)",
+          opacity: beat >= 5 ? 1 : beat === 4 ? 0.35 : 0,
           transition: "opacity 0.8s ease-out",
           zIndex: 9,
           pointerEvents: "none",
