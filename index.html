@@ -193,6 +193,42 @@
         0%   { opacity: 0.85; }
         100% { opacity: 0; }
       }
+      /* HSR WindIntro — 바람 흩날리는 사무실 */
+      @keyframes cinemaHsrSway {
+        0%, 100% { transform: translateX(0) skewX(0deg); }
+        30%      { transform: translateX(3px) skewX(0.25deg); }
+        70%      { transform: translateX(-2px) skewX(-0.15deg); }
+      }
+      @keyframes cinemaHsrSwayStrong {
+        0%, 100% { transform: translateX(0) skewX(0deg); }
+        25%      { transform: translateX(7px) skewX(0.5deg); }
+        75%      { transform: translateX(-4px) skewX(-0.35deg); }
+      }
+      @keyframes cinemaHsrEdgeFlutter {
+        0%, 100% { transform: translateX(2px) skewX(0deg); }
+        50%      { transform: translateX(7px) skewX(0.3deg); }
+      }
+      @keyframes cinemaHsrWindStreak {
+        0%   { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+      @keyframes cinemaHsrPaperDrift {
+        0%   { transform: translateX(0) rotate(var(--r, 0deg)); opacity: 0; }
+        8%   { opacity: 1; }
+        85%  { opacity: 1; }
+        100% { transform: translateX(115vw) rotate(calc(var(--r, 0deg) + 60deg)); opacity: 0; }
+      }
+      @keyframes cinemaHsrDustDrift {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(120vw); }
+      }
+      @keyframes cinemaHsrPulse {
+        0%   { opacity: 0;    transform: translate(-50%, -50%) scale(0.5); }
+        15%  { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
+        55%  { opacity: 0.35; transform: translate(-50%, -50%) scale(1.1); }
+        85%  { opacity: 0.8;  transform: translate(-50%, -50%) scale(1); }
+        100% { opacity: 0;    transform: translate(-50%, -50%) scale(1.15); }
+      }
       @keyframes mmrCommentRise {
         0%   { transform: translateY(40px); opacity: 0; }
         15%  { opacity: 1; }

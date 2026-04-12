@@ -183,14 +183,15 @@ export const characters = [
     sign: cdnUrl("HSR/sign.webp"),
     // ── Cinematic intro ──
     keyVisual: cdnUrl("HSR/key.webp"),
-    introStyle: "cardDeal",
-    introAssets: [],
+    introStyle: "wind",
+    introAssets: [cdnUrl("HSR/intro1.webp")],
     introLabel: "Han Sori / Last Hand",
     quoteSequence: ["잘 들어.", "이번이 마지막 기회야."],
     focusBox: {
       desktop: { cx: 48, cy: 40, w: 40, h: 55 },
       mobile:  { cx: 48, cy: 36, w: 55, h: 65 },
     },
+    keyVisualFit: "contain",
     detailPath: "/characters/hansori",
     signature: "실눈 + 다크서클 (이중 장치)",
     personality: "능글능글 (내면은 절박함)",

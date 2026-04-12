@@ -4,8 +4,8 @@ import RippleIntro from "./RippleIntro";
 import GlitchIntro from "./GlitchIntro";
 import FlashIntro from "./FlashIntro";
 import FogIntro from "./FogIntro";
+import WindIntro from "./WindIntro";
 // Future styles added here as implemented:
-// import CardDealIntro from "./CardDealIntro";
 // import PageFlipIntro from "./PageFlipIntro";
 
 export const INTRO_COMPONENTS = {
@@ -15,5 +15,6 @@ export const INTRO_COMPONENTS = {
   glitch: GlitchIntro,
   flash: FlashIntro,
   fog: FogIntro,
+  wind: WindIntro,
   // Fallback: styles not yet registered render the default overlay in CinematicCharDetail
 };

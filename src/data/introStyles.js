@@ -44,6 +44,12 @@ export const INTRO_STYLE_CONFIG = {
     mobileFallback: null,
     fogLayers: 0,    // v6: fog 폐기. 전자기 노이즈(SVG turbulence) + scanlines + crackle bars 로 교체
   },
+  wind: {
+    duration: 7700,   // v6: 7200ms content + 500ms fadeOut (바람 흩날리는 사무실)
+    letterbox: false,
+    requiresSvgFilter: false,
+    mobileFallback: null,
+  },
   cardDeal: {
     duration: 3600,   // 3200ms content + 400ms fadeOut
     letterbox: false,
