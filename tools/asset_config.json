@@ -11,7 +11,7 @@
     "scheduler": "karras",
     "smea": false,
     "variety": true,
-    "nsfw_suffix": "white censor, censored pussy, censored anus, censored penis, -1::censored nipples::"
+    "nsfw_suffix": "white censor, censored pussy, censored anus, -1::censored nipples::"
   },
   "scene_variant_map": {
     "1": "clothed",
@@ -130,8 +130,8 @@
     },
     "LSH": {
       "name": "이서하",
-      "clothed": "1girl, long hair, wavy hair, messy hair, hair over shoulder, bedhead, blue eyes, round eyes, droopy eyes, tired eyes, half-closed eyes, bags under eyes, expressionless, grumpy, tsundere, short, small breasts, 0.4::petite, loli::, 1.2::thicc thighs::, oversized grey hoodie, long sleeves, sleeves past wrists, sleeves past fingers, drawstring, round silver glasses, over-rim glasses, bare legs, barefoot, standing on one leg, pigeon-toed, slouching",
-      "nude": "1girl, nude, long hair, wavy hair, messy hair, hair over shoulder, bedhead, blue eyes, round eyes, droopy eyes, tired eyes, half-closed eyes, bags under eyes, expressionless, grumpy, tsundere, short, small breasts, 0.4::petite, loli::, 1.2::thicc thighs::, bare legs, barefoot, standing on one leg, pigeon-toed, slouching"
+      "clothed": "1girl, light brown hair, long hair, wavy hair, messy hair, hair over shoulder, bedhead, blue eyes, round eyes, droopy eyes, tired eyes, half-closed eyes, bags under eyes, expressionless, grumpy, tsundere, short, small breasts, 0.4::petite::, 1.2::thicc thighs::, oversized grey hoodie, long sleeves, sleeves past wrists, sleeves past fingers, drawstring, round silver glasses, over-rim glasses, bare legs, barefoot, standing on one leg",
+      "nude": "1girl, nude, light brown hair, long hair, wavy hair, messy hair, hair over shoulder, bedhead, blue eyes, round eyes, droopy eyes, tired eyes, half-closed eyes, bags under eyes, expressionless, grumpy, tsundere, short, small breasts, 0.4::petite::, 1.2::thicc thighs::, bare legs, barefoot"
     },
     "NHR": {
       "name": "나하린",
@@ -155,7 +155,7 @@
     },
     "JGR": {
       "name": "장그루",
-      "clothed": "1girl, gentle expression, 2::champagne blonde hair::, very long hair, straight hair, hair over face, hair covering eyes, long bangs, dull hair, matte hair, lavender eyes, almond eyes, downcast eyes, old clothes, worn clothes, simple outfit, oversized cardigan, faded colors, plain shirt, long skirt, holding notebook, old notebook, worn notebook",
+      "clothed": "1girl, gentle expression, 2::champagne blonde hair::, very long hair, straight hair, hair over face, hair covering eyes, long bangs, dull hair, matte hair, lavender eyes, almond eyes, downcast eyes, old clothes, worn clothes, simple outfit, oversized cardigan, faded colors, plain shirt, long skirt",
       "nude": "1girl, nude, gentle expression, closed mouth, 2::champagne blonde hair::, very long hair, straight hair, hair over face, hair covering eyes, long bangs, dull hair, matte hair, lavender eyes, almond eyes, downcast eyes"
     },
     "LPS": {
@@ -176,7 +176,7 @@
     "ELA": {
       "name": "엘라",
       "clothed": "1girl, large breasts, glamorous, curvy, wide hips, pelvic, half-closed eyes, seductive smile, 2::wine red hair::, very long hair, wavy hair, hair over shoulder, hair flip, flowing hair, dark red eyes, crimson eyes, cat eyes, sharp eyes, upturned eyes, high fashion, black dress, off-shoulder dress, slit dress, high heels",
-      "nude": "1girl, nude, large breasts, glamorous, curvy, wide hips, pelvic, half-closed eyes, seductive smile, 2::wine red hair::, very long hair, wavy hair, hair over shoulder, hair flip, flowing hair, dark red eyes, crimson eyes, cat eyes, sharp eyes, upturned eyes"
+      "nude": "1girl, nude, large breasts, glamorous, curvy, wide hips, pelvic, half-closed eyes, seductive smile, 2::red hair::, very long hair, wavy hair, hair over shoulder, hair flip, flowing hair, dark red eyes, crimson eyes, cat eyes, sharp eyes, upturned eyes"
     },
     "HSE": {
       "name": "하시은",
@@ -423,7 +423,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "source# paizuri, source# clothed paizuri, source# naizuri",
-      "male_prompt": "pov, large penis, precum, target# paizuri, target# clothed paizuri, target# naizuri",
+      "male_prompt": "2::censored penis ::, pov, large penis, precum, target# paizuri, target# clothed paizuri, target# naizuri",
       "_old_prompt": "pov, large penis, precum, paizuri, clothed paizuri, naizuri, "
     },
     "30": {
@@ -431,7 +431,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "source# paizuri, source# clothed paizuri, source# naizuri, cum on breasts, facial, one eye closed",
-      "male_prompt": "pov, large penis, cum, target# paizuri, target# clothed paizuri, target# naizuri",
+      "male_prompt": "2::censored penis ::, pov, large penis, cum, target# paizuri, target# clothed paizuri, target# naizuri",
       "_old_prompt": "pov, large penis, cum, paizuri, clothed paizuri, naizuri, cum on breasts, facial, one eye closed, "
     },
     "31": {
@@ -439,7 +439,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "close-up, face focus, source# fellatio, saliva trail",
-      "male_prompt": "pov, large penis, target# fellatio",
+      "male_prompt": "2::censored penis ::, pov, large penis, target# fellatio",
       "_old_prompt": "close-up, face focus, pov, large penis, fellatio, saliva trail, "
     },
     "32": {
@@ -447,7 +447,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "close-up, face focus, source# fellatio, saliva trail, cum in mouth, facial, one eye closed, target# grabbing another's hair",
-      "male_prompt": "pov, large penis, cum, source# grabbing another's hair, target# fellatio",
+      "male_prompt": "2::censored penis ::, pov, large penis, cum, source# grabbing another's hair, target# fellatio",
       "_old_prompt": "close-up, face focus, pov, large penis, cum, fellatio, grabbing girl's hair, saliva trail, cum in mouth, facial, one eye closed, "
     },
     "33": {
@@ -479,7 +479,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "close-up, face focus, source# deepthroat, source# fellatio, cum in mouth, cum overflow, cum in nose, facial, target# grabbing another's hair",
-      "male_prompt": "pov, large penis, cum, source# grabbing another's hair, target# deepthroat, target# fellatio",
+      "male_prompt": "2::censored penis ::, pov, large penis, cum, source# grabbing another's hair, target# deepthroat, target# fellatio",
       "_old_prompt": "close-up, pov, large penis, cum, deepthroat, fellatio, grabbing girl's hair, cum in mouth, facial, trembling, "
     },
     "37": {
@@ -487,7 +487,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "upper body, close-up, source# handjob, motion lines",
-      "male_prompt": "pov, large penis, target# handjob, precum",
+      "male_prompt": "2::censored penis ::, pov, large penis, target# handjob, precum",
       "_old_prompt": "upper body, close-up, pov, large penis, precum, handjob, motion lines, "
     },
     "38": {
@@ -495,7 +495,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "upper body, close-up, source# handjob, motion lines, cum on body, facial, cum on face, one eye closed",
-      "male_prompt": "pov, large penis, target# handjob, cum",
+      "male_prompt": "2::censored penis ::, pov, large penis, target# handjob, cum",
       "_old_prompt": "upper body, close-up, pov, large penis, cum, handjob, motion lines, cum on body, facial, blush, "
     },
     "39": {
@@ -519,7 +519,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "from below, 2::source# footjob, blush, feet, foot focus, thighs::, nipples",
-      "male_prompt": "pov, large penis, target# footjob, precum",
+      "male_prompt": "2::censored penis ::, pov, large penis, target# footjob, precum",
       "_old_prompt": "bedroom, pov, footjob, trembling, precum, blush, open mouth, "
     },
     "42": {
@@ -527,7 +527,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "from below, 2::source# footjob, blush, feet, foot focus, thighs::, nipples, cum on feet",
-      "male_prompt": "pov, large penis, target# footjob, cum",
+      "male_prompt": "2::censored penis ::, pov, large penis, target# footjob, cum",
       "_old_prompt": "bedroom, straight on, footjob, trembling, cum, overflow, cum on breasts, blush, open mouth, "
     },
     "43": {
@@ -577,7 +577,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "69, mutual# 69, mutual# oral, source# fellatio, thighs, breasts, back, wet body, saliva trail, saliva",
-      "male_prompt": "1boy, cropped head, out of frame, mutual# 69, mutual# oral, target# fellatio, large penis"
+      "male_prompt": "2::censored penis ::, 1boy, cropped head, out of frame, mutual# 69, mutual# oral, target# fellatio, large penis"
     },
     "50": {
       "name": "nude-conversation",
@@ -592,7 +592,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, missionary, lying on back, legs apart, spread legs, thighs, knees up, mutual# sex, pussy, pussy juice, wet body, breasts, nipples",
-      "male_prompt": "pov, cropped head, out of frame, penis, large penis, mutual# sex",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, penis, large penis, mutual# sex",
       "_old_prompt": "bedroom, missionary, boy, black hair, hair over eyes, sex, penis, wet body, trembling, blush, "
     },
     "52": {
@@ -600,7 +600,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, missionary, lying on back, legs apart, spread legs, thighs, knees up, mutual# sex, pussy, cum in pussy, cum overflow, wet body, breasts, nipples",
-      "male_prompt": "pov, cropped head, out of frame, penis, large penis, mutual# sex, cum",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, penis, large penis, mutual# sex, cum",
       "_old_prompt": "bedroom, from above, missionary, boy, black hair, hair over eyes, sex, penis, cum in pussy, overflow, wet body, trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
     "53": {
@@ -608,7 +608,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, doggystyle, all fours, from behind, ass focus, back, mutual# sex, pussy, pussy juice, anal, spread legs, wet body, motion lines",
-      "male_prompt": "pov, cropped head, out of frame, penis, large penis, mutual# sex",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, penis, large penis, mutual# sex",
       "_old_prompt": "bedroom, from side, doggystyle, boy, black hair, hair over eyes, sex, penis, wet body, trembling, blush, open mouth, "
     },
     "54": {
@@ -616,7 +616,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, doggystyle, all fours, from behind, ass focus, back, mutual# sex, pussy, cum in pussy, cum overflow, anal, spread legs, wet body, target# grabbing another's hair",
-      "male_prompt": "pov, cropped head, out of frame, penis, large penis, mutual# sex, cum, source# grabbing another's hair",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, penis, large penis, mutual# sex, cum, source# grabbing another's hair",
       "_old_prompt": "bedroom, from side, doggystyle, boy, black hair, hair over eyes, grabbing girl's hair, sex, penis, cum in pussy, overflow, wet body, trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
     "55": {
@@ -624,7 +624,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, girl on top, cowgirl position, astride, sitting on penis, mutual# sex, pussy, pussy juice, wet body, breasts, nipples",
-      "male_prompt": "pov, cropped head, out of frame, penis, large penis, mutual# sex",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, penis, large penis, mutual# sex",
       "_old_prompt": "bedroom, from front, girl on top, cowgirl position, boy, black hair, hair over eyes, sex, penis, arms up, arms behind head, arched back, wet body, trembling, blush, open mouth, "
     },
     "56": {
@@ -632,7 +632,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, girl on top, cowgirl position, astride, sitting on penis, mutual# sex, pussy, cum in pussy, cum overflow, wet body, breasts, nipples",
-      "male_prompt": "pov, cropped head, out of frame, penis, large penis, mutual# sex, cum",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, penis, large penis, mutual# sex, cum",
       "_old_prompt": "bedroom, from front, girl on top, cowgirl position, boy, black hair, hair over eyes, sex, penis, cum in pussy, overflow, arms up, arms behind head, arched back, wet body, trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
     "57": {
@@ -640,7 +640,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, mutual# sex, pussy, pussy juice, wet body, breasts",
-      "male_prompt": "1boy, cropped head, out of frame, penis, large penis, mutual# sex, behind her",
+      "male_prompt": "2::censored penis ::, 1boy, cropped head, out of frame, penis, large penis, mutual# sex, behind her",
       "_old_prompt": "bedroom, from side, lying, on side, spooning, leg lift, boy, black hair, hair over eyes, sex, penis, female focus, wet body, blush, open mouth, "
     },
     "58": {
@@ -648,7 +648,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, mutual# sex, pussy, cum in pussy, cum overflow, wet body, breasts",
-      "male_prompt": "1boy, cropped head, out of frame, penis, large penis, mutual# sex, cum, behind her",
+      "male_prompt": "2::censored penis ::, 1boy, cropped head, out of frame, penis, large penis, mutual# sex, cum, behind her",
       "_old_prompt": "bedroom, from side, lying, on side, spooning, leg lift, boy, black hair, hair over eyes, sex, penis, cum in pussy, overflow, female focus, wet body, trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
     "59": {
@@ -656,7 +656,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, mutual# sex, pussy, pussy juice, wet body, breasts, from below",
-      "male_prompt": "1boy, cropped head, out of frame, penis, large penis, mutual# sex, source# leg grab",
+      "male_prompt": "2::censored penis ::, 1boy, cropped head, out of frame, penis, large penis, mutual# sex, source# leg grab",
       "_old_prompt": "bedroom, from below, standing, spread legs, leg grab, reverse suspended congress, boy, black hair, hair over eyes, sex, penis, female focus, wet body, blush, open mouth, "
     },
     "60": {
@@ -664,7 +664,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, mutual# sex, pussy, cum in pussy, cum overflow, wet body, breasts, from below",
-      "male_prompt": "1boy, cropped head, out of frame, penis, large penis, mutual# sex, cum, source# leg grab",
+      "male_prompt": "2::censored penis ::, 1boy, cropped head, out of frame, penis, large penis, mutual# sex, cum, source# leg grab",
       "_old_prompt": "bedroom, from below, standing, spread legs, leg grab, reverse suspended congress, boy, black hair, hair over eyes, sex, penis, cum in pussy, overflow, female focus, wet body, trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
     "61": {
@@ -672,7 +672,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, lying, doggystyle, from behind, ass focus, back, completely nude, anal, pussy, pussy juice, motion lines, wet body, mutual# sex, target# grabbing another's ass",
-      "male_prompt": "pov, cropped head, out of frame, penis, large penis, mutual# sex, source# grabbing another's ass",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, penis, large penis, mutual# sex, source# grabbing another's ass",
       "_old_prompt": "bedroom, on bed, lying, from behind, doggystyle, ass focus, boy, black hair, hair over eyes, grabbing girl's ass, anal, penis, back, completely nude, pussy, pussy juice, motion lines, trembling, blush, open mouth, embarrassed, "
     },
     "62": {
@@ -680,7 +680,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, lying, doggystyle, from behind, ass focus, back, completely nude, anal, pussy, pussy juice, motion lines, wet body, mutual# sex, cum in ass, cum overflow, target# grabbing another's ass, target# grabbing another's hair",
-      "male_prompt": "pov, cropped head, out of frame, penis, large penis, mutual# sex, cum, source# grabbing another's ass, source# grabbing another's hair",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, penis, large penis, mutual# sex, cum, source# grabbing another's ass, source# grabbing another's hair",
       "_old_prompt": "bedroom, on bed, lying, from behind, doggystyle, ass focus, boy, black hair, hair over eyes, grabbing girl's ass, grabbing girl's hair, anal, penis, cum in ass, overflow, back, completely nude, pussy, pussy juice, motion lines, trembling, blush, ahegao, tongue out, "
     },
     "63": {
@@ -696,7 +696,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "close-up, face focus, wet body, cum on face, cum on hair, facial, cum overflow, cum in nose, saliva trail, one eye closed",
-      "male_prompt": "pov, cropped head, out of frame, large penis, cum",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, large penis, cum",
       "_old_prompt": "bedroom, from above, close-up, pov, large penis, wet body, cum on face, cum on hair, overflow, trembling, heart-shaped pupils, ahegao, crying with eyes open, tongue out, open mouth, "
     },
     "65": {
@@ -704,7 +704,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, 0.6::pregnant::, lactation, mutual# sex, pussy, pussy juice, wet body, breasts",
-      "male_prompt": "1boy, cropped head, out of frame, penis, large penis, mutual# sex, behind her",
+      "male_prompt": "2::censored penis ::, 1boy, cropped head, out of frame, penis, large penis, mutual# sex, behind her",
       "_old_prompt": "bedroom, from side, lying, on side, spooning, leg lift, boy, black hair, hair over eyes, sex, penis, female focus, 0.6::pregnant::, wet body, lactation, blush, open mouth, "
     },
     "66": {
@@ -712,7 +712,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, 0.6::pregnant::, lactation, mutual# sex, pussy, cum in pussy, cum overflow, wet body, breasts",
-      "male_prompt": "1boy, cropped head, out of frame, penis, large penis, mutual# sex, cum, behind her",
+      "male_prompt": "2::censored penis ::, 1boy, cropped head, out of frame, penis, large penis, mutual# sex, cum, behind her",
       "_old_prompt": "bedroom, from side, lying, on side, spooning, leg lift, boy, black hair, hair over eyes, sex, penis, cum in pussy, overflow, female focus, 0.6::pregnant::, wet body, lactation, trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
     "67": {
@@ -728,100 +728,100 @@
       "width": 832,
       "height": 1216,
       "female_prompt": "standing, against wall, standing sex, from behind, doggystyle, anal, back, ass focus, pussy, pussy juice, wet body, mutual# sex, motion lines",
-      "male_prompt": "pov, cropped head, out of frame, penis, large penis, mutual# sex"
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, penis, large penis, mutual# sex"
     },
     "69": {
       "name": "standing-sex-climax",
       "width": 832,
       "height": 1216,
       "female_prompt": "standing, against wall, standing sex, leg lift, carried, from side, mutual# sex, pussy, cum in pussy, cum overflow, wet body, breasts",
-      "male_prompt": "1boy, cropped head, out of frame, penis, large penis, mutual# sex, cum"
+      "male_prompt": "2::censored penis ::, 1boy, cropped head, out of frame, penis, large penis, mutual# sex, cum"
     },
     "70": {
       "name": "clothed-missionary-bedroom",
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, missionary, lying on back, legs apart, spread legs, thighs, clothed, mutual# clothed sex, mutual# sex, pussy, pussy juice, wet body, breasts",
-      "male_prompt": "pov, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex",
       "_old_prompt": "bedroom, missionary, boy, black hair, hair over eyes, clothed sex, sex, penis, wet body, trembling, blush, "
     },
     "71": {
       "name": "clothed-missionary-climax-bedroom",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, missionary, lying on back, legs apart, spread legs, thighs, clothed, mutual# clothed sex, mutual# sex, pussy, cum in pussy, cum overflow, wet body, breasts, double v",
-      "male_prompt": "pov, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, cum",
-      "_old_prompt": "bedroom, from above, missionary, boy, black hair, hair over eyes, clothed sex, sex, penis, cum in pussy, overflow, wet body, trembling, heart-shaped pupils, ahegao, double v, tongue out, open mouth, "
+      "female_prompt": "on bed, missionary, lying on back, legs apart, spread legs, thighs, clothed, mutual# clothed sex, mutual# sex, pussy, cum in pussy, cum overflow, wet body, breasts, ",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, cum",
+      "_old_prompt": "bedroom, from above, missionary, boy, black hair, hair over eyes, clothed sex, sex, penis, cum in pussy, overflow, wet body, trembling, heart-shaped pupils, ahegao, , tongue out, open mouth, "
     },
     "72": {
       "name": "clothed-fullnelson-bedroom",
       "width": 1216,
       "height": 832,
       "female_prompt": "standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, clothed, mutual# clothed sex, mutual# sex, pussy, pussy juice, wet body, breasts, from below",
-      "male_prompt": "1boy, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, source# leg grab",
+      "male_prompt": "2::censored penis ::, 1boy, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, source# leg grab",
       "_old_prompt": "bedroom, from below, standing, spread legs, leg grab, reverse suspended congress, boy, black hair, hair over eyes, clothed sex, sex, penis, female focus, wet body, blush, open mouth, "
     },
     "73": {
       "name": "clothed-fullnelson-climax-bedroom",
       "width": 1216,
       "height": 832,
-      "female_prompt": "standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, clothed, mutual# clothed sex, mutual# sex, pussy, cum in pussy, cum overflow, wet body, breasts, double v, from below",
-      "male_prompt": "1boy, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, cum, source# leg grab",
-      "_old_prompt": "bedroom, from below, standing, spread legs, leg grab, reverse suspended congress, boy, black hair, hair over eyes, clothed sex, sex, penis, cum in pussy, overflow, female focus, wet body, trembling, heart-shaped pupils, ahegao, double v, tongue out, open mouth, "
+      "female_prompt": "standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, clothed, mutual# clothed sex, mutual# sex, pussy, cum in pussy, cum overflow, wet body, breasts, , from below",
+      "male_prompt": "2::censored penis ::, 1boy, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, cum, source# leg grab",
+      "_old_prompt": "bedroom, from below, standing, spread legs, leg grab, reverse suspended congress, boy, black hair, hair over eyes, clothed sex, sex, penis, cum in pussy, overflow, female focus, wet body, trembling, heart-shaped pupils, ahegao, , tongue out, open mouth, "
     },
     "74": {
       "name": "clothed-cowgirl",
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, girl on top, cowgirl position, astride, sitting on penis, clothed, mutual# clothed sex, mutual# sex, pussy, pussy juice, wet body, breasts",
-      "male_prompt": "pov, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex",
       "_old_prompt": "bedroom, from front, girl on top, cowgirl position, boy, black hair, hair over eyes, clothed sex, sex, penis, arched back, wet body, trembling, blush, open mouth, "
     },
     "75": {
       "name": "clothed-cowgirl-climax",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, girl on top, cowgirl position, astride, sitting on penis, clothed, mutual# clothed sex, mutual# sex, pussy, cum in pussy, cum overflow, wet body, breasts, double v",
-      "male_prompt": "pov, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, cum",
-      "_old_prompt": "bedroom, from front, girl on top, cowgirl position, boy, black hair, hair over eyes, clothed sex, sex, penis, cum in pussy, overflow, arched back, wet body, trembling, heart-shaped pupils, ahegao, double v, tongue out, open mouth, "
+      "female_prompt": "on bed, girl on top, cowgirl position, astride, sitting on penis, clothed, mutual# clothed sex, mutual# sex, pussy, cum in pussy, cum overflow, wet body, breasts, ",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, cum",
+      "_old_prompt": "bedroom, from front, girl on top, cowgirl position, boy, black hair, hair over eyes, clothed sex, sex, penis, cum in pussy, overflow, arched back, wet body, trembling, heart-shaped pupils, ahegao, , tongue out, open mouth, "
     },
     "76": {
       "name": "clothed-fellatio-bedroom",
       "width": 1216,
       "height": 832,
       "female_prompt": "kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail, wet body, breasts",
-      "male_prompt": "pov, cropped head, out of frame, large penis, clothed, target# fellatio",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, large penis, clothed, target# fellatio",
       "_old_prompt": "bedroom, from above, close-up, pov, large penis, clothed sex, fellatio, wet body, trembling, blush, crying with eyes open, open mouth, "
     },
     "77": {
       "name": "clothed-fellatio-climax-bedroom",
       "width": 1216,
       "height": 832,
-      "female_prompt": "kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail, wet body, cum on face, cum in mouth, cum overflow, facial, double v",
-      "male_prompt": "pov, cropped head, out of frame, large penis, clothed, target# fellatio, cum",
-      "_old_prompt": "bedroom, from above, close-up, pov, large penis, cum, clothed sex, fellatio, wet body, cum on face, cum in mouth, overflow, trembling, heart-shaped pupils, ahegao, double v, crying with eyes open, "
+      "female_prompt": "kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail, wet body, cum on face, cum in mouth, cum overflow, facial, ",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, large penis, clothed, target# fellatio, cum",
+      "_old_prompt": "bedroom, from above, close-up, pov, large penis, cum, clothed sex, fellatio, wet body, cum on face, cum in mouth, overflow, trembling, heart-shaped pupils, ahegao, , crying with eyes open, "
     },
     "78": {
       "name": "clothed-after-bedroom",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, lying, spread legs, clothed, after sex, afterglow, wet body, cum on face, cum in pussy, cum on body, cum overflow, used pussy, pussy, breasts, double v",
+      "female_prompt": "on bed, lying, spread legs, clothed, after sex, afterglow, wet body, cum on face, cum in pussy, cum on body, cum overflow, used pussy, pussy, breasts, ",
       "male_prompt": "pov, cropped head, out of frame, clothed",
-      "_old_prompt": "bedroom, from above, lying, spread legs, spooning, clothed sex, after sex, afterglow, wet body, cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, double v, smile, open mouth, "
+      "_old_prompt": "bedroom, from above, lying, spread legs, spooning, clothed sex, after sex, afterglow, wet body, cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, , smile, open mouth, "
     },
     "79": {
       "name": "clothed-spooning-bedroom",
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, clothed, mutual# clothed sex, mutual# sex, pussy, pussy juice, wet body, breasts",
-      "male_prompt": "1boy, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, behind her"
+      "male_prompt": "2::censored penis ::, 1boy, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, behind her"
     },
     "80": {
       "name": "clothed-doggystyle-toilet",
       "width": 1216,
       "height": 832,
       "female_prompt": "bathroom stall, toilet, doggystyle, all fours, from behind, ass focus, back, anal, pussy, pussy juice, clothed, mutual# clothed sex, mutual# sex, wet body",
-      "male_prompt": "pov, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex",
       "_old_prompt": "bathroom stall, toilet, from side, doggystyle, boy, black hair, hair over eyes, clothed sex, sex, penis, wet body, trembling, blush, open mouth, "
     },
     "81": {
@@ -829,7 +829,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "bathroom stall, toilet, doggystyle, all fours, from behind, ass focus, back, anal, pussy, cum in pussy, cum overflow, clothed, mutual# clothed sex, mutual# sex, wet body, target# chokehold",
-      "male_prompt": "pov, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, cum, source# chokehold",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, cum, source# chokehold",
       "_old_prompt": "bathroom stall, toilet, from side, doggystyle, boy, black hair, hair over eyes, chokehold, clothed sex, sex, penis, cum in pussy, overflow, wet body, trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
     "82": {
@@ -837,61 +837,61 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "bathroom stall, toilet, standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, clothed, mutual# clothed sex, mutual# sex, pussy, pussy juice, wet body, breasts, from below",
-      "male_prompt": "1boy, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, source# leg grab",
+      "male_prompt": "2::censored penis ::, 1boy, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, source# leg grab",
       "_old_prompt": "bathroom stall, toilet, from below, standing, spread legs, leg grab, reverse suspended congress, boy, black hair, hair over eyes, clothed sex, sex, penis, female focus, wet body, blush, open mouth, "
     },
     "83": {
       "name": "clothed-fullnelson-climax-toilet",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bathroom stall, toilet, standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, clothed, mutual# clothed sex, mutual# sex, pussy, cum in pussy, cum overflow, wet body, breasts, double v, from below",
-      "male_prompt": "1boy, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, cum, source# leg grab",
-      "_old_prompt": "bathroom stall, toilet, from below, standing, spread legs, leg grab, reverse suspended congress, boy, black hair, hair over eyes, clothed sex, sex, penis, cum in pussy, overflow, female focus, wet body, trembling, heart-shaped pupils, ahegao, double v, tongue out, open mouth, "
+      "female_prompt": "bathroom stall, toilet, standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, clothed, mutual# clothed sex, mutual# sex, pussy, cum in pussy, cum overflow, wet body, breasts, , from below",
+      "male_prompt": "2::censored penis ::, 1boy, cropped head, out of frame, penis, large penis, mutual# sex, clothed, mutual# clothed sex, cum, source# leg grab",
+      "_old_prompt": "bathroom stall, toilet, from below, standing, spread legs, leg grab, reverse suspended congress, boy, black hair, hair over eyes, clothed sex, sex, penis, cum in pussy, overflow, female focus, wet body, trembling, heart-shaped pupils, ahegao, , tongue out, open mouth, "
     },
     "84": {
       "name": "clothed-fellatio-toilet",
       "width": 1216,
       "height": 832,
       "female_prompt": "bathroom stall, toilet, kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail, wet body, breasts",
-      "male_prompt": "pov, cropped head, out of frame, large penis, clothed, target# fellatio",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, large penis, clothed, target# fellatio",
       "_old_prompt": "bathroom stall, toilet, from above, close-up, pov, large penis, clothed sex, fellatio, wet body, trembling, blush, crying with eyes open, open mouth, "
     },
     "85": {
       "name": "clothed-fellatio-climax-toilet",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bathroom stall, toilet, kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail, wet body, cum on face, cum in mouth, cum overflow, facial, double v",
-      "male_prompt": "pov, cropped head, out of frame, large penis, clothed, target# fellatio, cum",
-      "_old_prompt": "bathroom stall, toilet, from above, close-up, pov, large penis, cum, clothed sex, fellatio, wet body, cum on face, cum in mouth, overflow, trembling, heart-shaped pupils, ahegao, double v, crying with eyes open, "
+      "female_prompt": "bathroom stall, toilet, kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail, wet body, cum on face, cum in mouth, cum overflow, facial, ",
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, large penis, clothed, target# fellatio, cum",
+      "_old_prompt": "bathroom stall, toilet, from above, close-up, pov, large penis, cum, clothed sex, fellatio, wet body, cum on face, cum in mouth, overflow, trembling, heart-shaped pupils, ahegao, , crying with eyes open, "
     },
     "86": {
       "name": "clothed-after-toilet",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bathroom stall, toilet, lying, spread legs, clothed, after sex, afterglow, wet body, cum on face, cum in pussy, cum on body, cum overflow, used pussy, pussy, breasts, double v",
+      "female_prompt": "bathroom stall, toilet, lying, spread legs, clothed, after sex, afterglow, wet body, cum on face, cum in pussy, cum on body, cum overflow, used pussy, pussy, breasts, ",
       "male_prompt": "pov, cropped head, out of frame, clothed",
-      "_old_prompt": "bathroom stall, toilet, from above, lying, spread legs, spooning, pov, large penis, clothed sex, after sex, afterglow, wet body, cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, double v, smile, open mouth, "
+      "_old_prompt": "bathroom stall, toilet, from above, lying, spread legs, spooning, pov, large penis, clothed sex, after sex, afterglow, wet body, cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, , smile, open mouth, "
     },
     "87": {
       "name": "imminent-missionary",
       "width": 832,
       "height": 1216,
       "female_prompt": "on bed, 2::lying, on back, lying on pillow::, missionary, legs apart, spread legs, thighs, breasts, nipples, seductive smile, looking at viewer, parted lips, 1.5::pussy juice, pussy juice trail::, imminent penetration, target# penis on stomach, anticipation, blush",
-      "male_prompt": "pov, cropped head, out of frame, source# penis on stomach, penis, large penis, precum"
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, source# penis on stomach, penis, large penis, precum"
     },
     "88": {
       "name": "imminent-cowgirl",
       "width": 832,
       "height": 1216,
       "female_prompt": "astride, cowgirl position, kneeling, 2::source# looking at penis, imminent penetration, just the tip::, parted lips, tongue out, looking down, 2::pussy juice, pussy juice trail::, hands on another's stomach, source# guided penetration, breasts, nipples, thighs, seductive smile",
-      "male_prompt": "pov, pov crotch, cropped head, out of frame, from below, target# looking at penis, target# guided penetration, penis, large penis, precum"
+      "male_prompt": "2::censored penis ::, pov, pov crotch, cropped head, out of frame, from below, target# looking at penis, target# guided penetration, penis, large penis, precum"
     },
     "89": {
       "name": "imminent-doggystyle",
       "width": 832,
       "height": 1216,
       "female_prompt": "on bed, 2::from behind, all fours, ass focus, back::, doggystyle, 2::embarrassed, imminent penetration, just the tip::, parted lips, pillow, white bed, anal, pussy, 2::pussy juice, pussy juice trail::, looking back, breasts",
-      "male_prompt": "pov, cropped head, out of frame, imminent penetration, just the tip, penis, large penis, precum"
+      "male_prompt": "2::censored penis ::, pov, cropped head, out of frame, imminent penetration, just the tip, penis, large penis, precum"
     },
     "90": {
       "name": "spread-after-missionary",
@@ -994,7 +994,7 @@
   "character_scene_overrides": {
     "NHR": {
       "remove_tags": [
-        "double v"
+        ""
       ],
       "93": {
         "female_prompt": "stage, spotlight, standing, commanding presence, one hand raised, mysterious aura, backlit, dramatic lighting, crowd silhouette, full body, bokeh"
@@ -1012,7 +1012,7 @@
     },
     "JSH": {
       "remove_tags": [
-        "double v"
+        ""
       ],
       "93": {
         "female_prompt": "stage, spotlight, standing, microphone, announcing, serious, formal suit, dramatic lighting, crowd silhouette, presentation, full body, bokeh"

@@ -316,76 +316,76 @@
 
   "_character_overrides": {
     "SY": {
-      "_note": "서윤 — 고데레 탑 아이돌. 시그니처: gold choker. 연기자 특성상 표정 조절 능숙하지만 진심 드러날 때 감정 격정.",
-      "missionary":         ["gold choker emphasis"],
-      "cowgirl":             ["gold choker emphasis"]
+      "_note": "서윤 — 고데레 탑 아이돌. 시그니처: gold choker (base에 정의됨). 연기자 특성상 표정 조절 능숙하지만 진심 드러날 때 감정 격정.",
+      "missionary":         ["tearing up"],
+      "cowgirl":             ["heavy breathing"]
     },
     "NHR": {
-      "_note": "나하린 — 장난기+변덕. 시그니처: 낡은 손목시계, 한쪽 이어폰. 성숙한 여유로 장난치듯 리드.",
-      "cowgirl":             ["one earphone in ear", "playful wink"],
-      "fellatio_pov":        ["one earphone in ear"]
+      "_note": "나하린 — 장난기+변덕. 시그니처: 낡은 손목시계·한쪽 이어폰 (base에 정의됨). 성숙한 여유로 장난치듯 리드.",
+      "cowgirl":             [";)", "one eye closed"],
+      "fellatio_pov":        [";)"]
     },
     "ERK": {
-      "_note": "에리카 — 아네데레 독설가. 시그니처: 느슨한 넥타이. 겉은 독설, 속은 따뜻.",
-      "missionary":          ["loose necktie"],
-      "cowgirl":             ["loose necktie"]
+      "_note": "에리카 — 아네데레 독설가. 시그니처: 느슨한 넥타이 (base에 정의됨). 겉은 독설, 속은 따뜻.",
+      "missionary":          ["raised eyebrows"],
+      "cowgirl":             ["raised eyebrows"]
     },
     "LSH": {
-      "_note": "이서하 — 다루데레+귀차니즘. 시그니처: 둥근 안경, 다크서클. 수동적이지만 내심 몰입.",
-      "missionary":          ["round glasses", "bag under eyes"],
-      "cowgirl":             ["round glasses", "bag under eyes"]
+      "_note": "이서하 — 다루데레+귀차니즘. 시그니처: 둥근 안경·다크서클 (base에 정의됨). 수동적이지만 내심 몰입.",
+      "missionary":          ["sleepy"],
+      "cowgirl":             ["jitome"]
     },
     "HSR": {
-      "_note": "한소리 — 능글능글 대표. 시그니처: 실눈 + 다크서클. 적극적이고 여유.",
-      "missionary":          ["narrow eyes smile", "grin"],
-      "cowgirl":             ["narrow eyes smirk"]
+      "_note": "한소리 — 능글능글 대표. 시그니처: 실눈·다크서클·grin (base에 정의됨). 적극적이고 여유.",
+      "missionary":          ["smirk", "sweat"],
+      "cowgirl":             ["smirk", ";)"]
     },
     "KHR": {
-      "_note": "강하람 — 무자각 여친계 열정파. 시그니처: 손목 스크런치. 밝고 몰입형.",
-      "missionary":          ["wrist pink scrunchie", "bright smile"],
-      "cowgirl":             ["wrist pink scrunchie", "motion lines"]
+      "_note": "강하람 — 무자각 여친계 열정파. 시그니처: 손목 스크런치 (base에 정의됨). 밝고 몰입형.",
+      "missionary":          ["heart-shaped pupils"],
+      "cowgirl":             ["sweat"]
     },
     "JGR": {
-      "_note": "장그루 — 담담·단단. 시그니처: 낡은 작사 노트. 조용한 몰입.",
-      "lap_pillow":          ["old notebook"]
+      "_note": "장그루 — 담담·단단. 조용한 몰입.",
+      "lap_pillow":          ["parted lips"]
     },
     "MIL": {
       "_note": "밀라 — 자유로운 영혼, 본능적. 흥얼거림 습관. 몸으로 몰입.",
-      "cowgirl":             ["moaning", "motion lines"],
-      "missionary":          ["moaning"]
+      "cowgirl":             ["humming", "singing"],
+      "missionary":          ["humming"]
     },
     "ELA": {
-      "_note": "엘라 — 관능미 자존심. 시그니처: 머리카락 넘기기. 리드하듯 유혹.",
-      "cowgirl":             ["hair flip mid motion", "wine red hair"],
-      "missionary":          ["hair flip", "hair fanned out"]
+      "_note": "엘라 — 관능미 자존심. 시그니처: hair flip (base에 정의됨). 리드하듯 유혹.",
+      "cowgirl":             ["smirk", "hair over one eye"],
+      "missionary":          ["smirk", "floating hair"]
     },
     "MMR": {
-      "_note": "미모리 — 천연 관종+센스. 시그니처: 특이한 헤어핀. 카메라 의식.",
-      "cowgirl":             ["star shaped hair clip", "reaching toward viewer"],
-      "fellatio_pov":        ["one eye closed", "looking at viewer", "star shapeed hair clip"]
+      "_note": "미모리 — 천연 관종+센스. 시그니처: 특이한 헤어핀 (base에 정의됨). 카메라 의식.",
+      "cowgirl":             ["double v", ";)"],
+      "fellatio_pov":        ["double v", "one eye closed", "looking at viewer"]
     },
     "HSE": {
       "_note": "하시은 — 성실 우등생. 시그니처: 메모 습관. 수줍지만 진지.",
-      "missionary":          ["light blush"],
-      "cowgirl":             ["focus on", "nervous"]
+      "missionary":          ["serious"],
+      "cowgirl":             ["serious", "nervous"]
     },
     "NIA": {
       "_note": "니아 — 귀족 출신 성장형. 처음 경험의 어색함 → 점점 빠져듦.",
-      "missionary":          ["unused to this", "nervous smile"],
-      "cowgirl":             ["heavy breathing", "leaning forward", "close-up", "face focus"]
+      "missionary":          ["nervous smile", "embarrassed"],
+      "cowgirl":             ["nervous smile", "embarrassed", "heavy breathing", "heart-shaped pupils"]
     },
     "RAY": {
-      "_note": "레이 — 의족 숨김. 꺾이지 않는 밝음. nude 씬에서 의족 노출 자연스러움.",
-      "missionary":          ["2::single prosthetic leg::"],
-      "cowgirl":             ["2::single prosthetic leg::"],
-      "doggystyle":          ["2::single prosthetic leg::"],
-      "spooning":            ["2::single prosthetic leg::"],
-      "fullnelson":          ["2::single prosthetic leg::"],
-      "anal":                ["2::single prosthetic leg::"],
-      "standing_back":       ["2::single prosthetic leg::"],
-      "standing_side":       ["2::single prosthetic leg::"],
-      "lap_pillow":          ["2::single prosthetic leg::"],
-      "after_sex":           ["2::single prosthetic leg::"]
+      "_note": "레이 — 의족 base nude에 정의됨. 꺾이지 않는 밝음 — 강렬한 씬에도 투명한 미소/결연함.",
+      "missionary":          ["light smile"],
+      "cowgirl":             ["happy"],
+      "doggystyle":          ["light smile"],
+      "spooning":            ["happy"],
+      "fullnelson":          ["tearing up"],
+      "anal":                ["clenched teeth"],
+      "standing_back":       ["light smile"],
+      "standing_side":       ["happy"],
+      "lap_pillow":          ["light smile"],
+      "after_sex":           ["happy"]
     },
     "LPS": {
       "_note": "라피스 — 쿨+여유+다양성. 시그니처: V사인. 장난스럽게 다변.",
