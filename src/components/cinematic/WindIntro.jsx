@@ -7,14 +7,14 @@ import CenteredQuote from "./CenteredQuote";
    컨셉: 바람이 일다 → 정점 → 잠잠해지며 한소리 리빌
    KV: 팔짱 낀 한소리 + 종이 흩날리는 사무실 내부
 
-   Timeline: 7200ms + 500ms fadeOut = 7700ms
-     0    -  100  : black
-     100  - 1700  : beat 1 — 책상·팔짱 zoom (30% 61%), wind starts, quote[0]  [hold 1100]
-     1700 - 3300  : beat 2 — 종이·바람 zoom (75% 49%), wind peak, pulse       [hold 1100]
-     3300 - 4900  : beat 3 — 얼굴·표정 zoom (51% 34%), wind sustain          [hold 1100]
-     4900 - 6500  : beat 4 — contain reveal, wind calms, quote[1] subtle     [hold 1000]
-     6500 - 7200  : beat 5 — hero + vignette + label
-     7200 - 7700  : fadeOut → Phase 1
+   Timeline: 9000ms + 800ms fadeOut = 9800ms (v2: 여유 확보 + flash 전환)
+     0    -  150  : black
+     150  - 2150  : beat 1 — 책상·팔짱 zoom (30% 61%), wind starts, quote[0]  [hold 1400]
+     2150 - 4150  : beat 2 — 종이·바람 zoom (75% 49%), wind peak, pulse       [hold 1400]
+     4150 - 6150  : beat 3 — 얼굴·표정 zoom (51% 34%), wind sustain          [hold 1400]
+     6150 - 8150  : beat 4 — contain reveal (1.5s cross-fade), quote[1]      [hold 1400]
+     8150 - 9000  : beat 5 — hero + vignette + label
+     9000 - 9800  : fadeOut (0.8s) → Phase 1
 
    zIndex:
      sway-wrapper + Layer A cover zoom (2)
@@ -90,12 +90,12 @@ export default function WindIntro({ char, isMobile, objectPosition, config, onSk
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setBeat(1),  100),
-      setTimeout(() => setBeat(2), 1700),
-      setTimeout(() => setBeat(3), 3300),
-      setTimeout(() => setBeat(4), 4900),
-      setTimeout(() => setBeat(5), 6500),
-      setTimeout(() => setFadingOut(true), 7200),
+      setTimeout(() => setBeat(1),  150),
+      setTimeout(() => setBeat(2), 2150),
+      setTimeout(() => setBeat(3), 4150),
+      setTimeout(() => setBeat(4), 6150),
+      setTimeout(() => setBeat(5), 8150),
+      setTimeout(() => setFadingOut(true), 9000),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
@@ -128,7 +128,7 @@ export default function WindIntro({ char, isMobile, objectPosition, config, onSk
         background: "oklch(0 0 0)",
         cursor: "pointer", overflow: "hidden",
         opacity: fadingOut ? 0 : 1,
-        transition: "opacity 0.5s ease-out",
+        transition: "opacity 0.8s ease-out",
       }}
     >
       {/* ══ Layer A: 줌 클로즈업 (beats 1~3) — sway wrapper ══ */}
@@ -137,7 +137,7 @@ export default function WindIntro({ char, isMobile, objectPosition, config, onSk
           position: "absolute", inset: 0,
           animation: swayAnim,
           opacity: isReveal ? 0 : 1,
-          transition: "opacity 0.8s ease-out",
+          transition: "opacity 1.5s ease-out",
           zIndex: 2,
         }}
       >
@@ -198,7 +198,7 @@ export default function WindIntro({ char, isMobile, objectPosition, config, onSk
           objectPosition: "50% 50%",
           filter: isReveal ? "saturate(1) brightness(1)" : "saturate(0.8) brightness(0.7)",
           opacity: isReveal ? 1 : 0,
-          transition: "opacity 1s ease-out, filter 1s ease-out",
+          transition: "opacity 1.5s ease-out, filter 1.5s ease-out",
           zIndex: 4,
         }}
       />
@@ -279,6 +279,23 @@ export default function WindIntro({ char, isMobile, objectPosition, config, onSk
             opacity: 0,
             animation: "cinemaHsrPulse 1.6s ease-out forwards",
             zIndex: 7,
+            pointerEvents: "none",
+          }}
+        />
+      )}
+
+      {/* ══ 비트 전환 flash — 번쩍 (beats 2/3/4 진입) ══ */}
+      {beat >= 2 && beat <= 4 && (
+        <div
+          key={`flash-${beat}`}
+          aria-hidden="true"
+          style={{
+            position: "absolute", inset: 0,
+            background: "oklch(1 0 0)",
+            opacity: 0,
+            animation: "cinemaHsrTransFlash 0.4s ease-out forwards",
+            mixBlendMode: "overlay",
+            zIndex: 9,
             pointerEvents: "none",
           }}
         />
