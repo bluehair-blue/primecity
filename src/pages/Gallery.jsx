@@ -238,10 +238,9 @@ export default function Gallery() {
     }
   }
 
-  // NSFW toggle handler — temporarily blocked until image QC complete
-  const [nsfwComingSoon, setNsfwComingSoon] = useState(false);
   function handleNsfwToggle() {
-    setNsfwComingSoon(true);
+    if (nsfwEnabled) { setNsfwEnabled(false); return; }
+    setNsfwModal(true);
   }
 
   // Agency groups for accordion
@@ -547,8 +546,8 @@ export default function Gallery() {
                     Age Restriction
                   </p>
                   <p style={{ fontFamily: "var(--f-body)", fontSize: 14, color: C.text55, lineHeight: 1.7, marginBottom: 28, wordBreak: "keep-all" }}>
-                    이 섹션에는 성인용 콘텐츠가 포함되어 있습니다.<br />
-                    계속 진행하시겠습니까?
+                    이 섹션에는 성인용(18+) 콘텐츠가 포함되어 있습니다.<br />
+                    <span style={{ color: "oklch(0.85 0.12 15)", fontWeight: 600 }}>만 18세 이상</span>이신가요?
                   </p>
                   <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
                     <button
@@ -574,55 +573,6 @@ export default function Gallery() {
                       취소
                     </button>
                   </div>
-                </div>
-              </div>
-            )}
-
-            {/* ══════════ NSFW Coming Soon Modal ══════════ */}
-            {nsfwComingSoon && (
-              <div
-                role="dialog"
-                aria-modal="true"
-                aria-label="NSFW 이미지 출시 예정"
-                onClick={() => setNsfwComingSoon(false)}
-                style={{
-                  position: "fixed", inset: 0, zIndex: 9998,
-                  background: C.bgOverlay,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                }}
-              >
-                <div
-                  onClick={(e) => e.stopPropagation()}
-                  style={{
-                    maxWidth: 420, padding: isMobile ? "32px 24px" : "40px 36px",
-                    background: C.bgDeep,
-                    border: `1px solid ${C.gold}40`,
-                    textAlign: "center",
-                  }}
-                >
-                  <p style={{ fontFamily: "var(--f-display-en)", fontSize: 13, letterSpacing: "0.3em", color: C.gold, marginBottom: 16, textTransform: "uppercase" }}>
-                    Coming Soon
-                  </p>
-                  <p style={{ fontFamily: "var(--f-display-kr)", fontSize: 22, color: C.white, lineHeight: 1.5, marginBottom: 12, wordBreak: "keep-all", fontWeight: 600 }}>
-                    NSFW 이미지 추가 예정!
-                  </p>
-                  <p style={{ fontFamily: "var(--f-body)", fontSize: 14, color: C.text55, lineHeight: 1.8, marginBottom: 28, wordBreak: "keep-all" }}>
-                    고퀄리티 NSFW 이미지 <span style={{ color: C.gold, fontWeight: 600 }}>1,095장</span>이<br />
-                    곧 업데이트됩니다. 기대해 주세요!
-                  </p>
-                  <button
-                    onClick={() => setNsfwComingSoon(false)}
-                    style={{
-                      padding: "10px 32px", fontFamily: "var(--f-body)", fontSize: 13,
-                      color: C.bgDeep, fontWeight: 600,
-                      background: `linear-gradient(135deg, ${C.gold}, oklch(0.65 0.12 75))`,
-                      border: "none",
-                      cursor: "pointer", transition: `all 0.3s ${EASE}`,
-                      letterSpacing: "0.1em",
-                    }}
-                  >
-                    확인
-                  </button>
                 </div>
               </div>
             )}
