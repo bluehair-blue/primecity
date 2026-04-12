@@ -94,7 +94,7 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 </div>
 <!-- Hero -->
 <div class="hero">
-<div class="hbg" style="background-image:url('https://img.bluehair.blue/ent/bg5.webp?v=10');"></div>
+<div class="hbg" style="background-image:url('https://img.bluehair.blue/ent/bg5.webp?v=13');"></div>
 <div class="hgr"></div>
 <div class="hvi"></div>
 <div class="hor g"><div class="hod"></div></div>
@@ -110,12 +110,12 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 </div>
 </div>
 </div>
-<div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg3.webp?v=10');"></div>
+<div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg3.webp?v=13');"></div>
 <!-- Update Notice -->
 <div style="padding:24px;text-align:center;background:linear-gradient(135deg,oklch(0.76 0.12 80/0.08),oklch(0.62 0.20 252/0.06));border-top:1px solid oklch(0.76 0.12 80/0.15);border-bottom:1px solid oklch(0.76 0.12 80/0.15);">
-<div style="font-family:serif;font-size:13px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Coming Soon</div>
-<div style="font-family:serif;font-size:22px;font-weight:600;color:var(--txt);margin-bottom:8px;word-break:keep-all;">NSFW 이미지 1,095장 추가 예정!</div>
-<div style="font-size:15px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;max-width:480px;margin:0 auto;">고퀄리티 NSFW · 착의 · 확장 이미지가 곧 업데이트됩니다.<br>첫 번째 업데이트를 기대해 주세요.</div>
+<div style="font-family:serif;font-size:13px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Latest Update · 2026.04.12</div>
+<div style="font-family:serif;font-size:22px;font-weight:600;color:var(--txt);margin-bottom:8px;word-break:keep-all;">시네마틱 디테일 · NSFW 갤러리 해금</div>
+<div style="font-size:15px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;max-width:480px;margin:0 auto;">캐릭터 디테일 페이지에 고유 시네마틱 인트로 8종 추가.<br>NSFW · 착의 이미지 <span style="color:var(--gold);font-weight:600;">갤러리에서 열람 가능.</span></div>
 </div>
 <!-- About -->
 <div class="w">
@@ -130,7 +130,7 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div class="stb">
 <div><div class="stb-n" style="color:var(--gold);">15</div><div class="stb-l">캐릭터</div></div>
 <div><div class="stb-n" style="color:var(--blue);">5</div><div class="stb-l">구역</div></div>
-<div><div class="stb-n" style="color:oklch(0.65 0.12 340);">1,543</div><div class="stb-l">이미지</div></div>
+<div><div class="stb-n" style="color:oklch(0.65 0.12 340);">1,110+</div><div class="stb-l">이미지</div></div>
 <div><div class="stb-n" style="color:oklch(0.72 0.10 170);">13</div><div class="stb-l">모드</div></div>
 </div>
 <div class="sp"><div class="sd"></div></div>
@@ -144,30 +144,30 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div style="margin-top:20px;">
 <div class="ag">APEX Entertainment</div>
 <details class="chd"><summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/SY/thumbnail.webp?v=10');border-color:oklch(0.76 0.12 80/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/SY/thumbnail.webp?v=13');border-color:oklch(0.76 0.12 80/0.3);"></div>
 <div><div><span class="cn">서윤</span><span class="cr">톱 아이돌 겸 배우</span></div><div class="ct">"영점, 그리고 정점."</div></div>
 </summary><div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/SY/profile.webp?v=10');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/SY/profile.webp?v=13');"></div>
 <div class="pf">
 <div><b>성격</b> 고데레 — 너무 높은 곳에 있어서 내려오는 법을 모름</div>
 <div><b>배경</b> 어린 나이에 데뷔해 사람 서윤으로 살아본 적이 없다. 업계 정상에 섰지만, 정작 자기 자신은 영(零).</div>
 <div><b>목표</b> 진심으로 자신을 대해주는 사람을 만나는 것.</div>
 </div></div></details>
 <details class="chd"><summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/NHR/thumbnail.webp?v=10');border-color:oklch(0.72 0.10 310/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/NHR/thumbnail.webp?v=13');border-color:oklch(0.72 0.10 310/0.3);"></div>
 <div><div><span class="cn">나하린</span><span class="cr">치프 프로듀서</span></div><div class="ct">"안녕~. 네 이름 많이 들었어. 잘 부탁해? 후후."</div></div>
 </summary><div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/NHR/profile.webp?v=10');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/NHR/profile.webp?v=13');"></div>
 <div class="pf">
 <div><b>성격</b> 장난기 + 변덕 + 예측불가</div>
 <div><b>배경</b> APEX의 황금기를 만든 장본인. 외모는 20대 중반이나 경력과 위치가 어울리지 않는 미스터리한 존재.</div>
 <div><b>목표</b> 자신이 설계한 무대 위에서 벌어지는 드라마를 관찰하는 것.</div>
 </div></div></details>
 <details class="chd"><summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/JSH/thumbnail.webp?v=10');border-color:oklch(0.55 0.01 0/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/JSH/thumbnail.webp?v=13');border-color:oklch(0.55 0.01 0/0.3);"></div>
 <div><div><span class="cn">진시혁</span><span class="cr">프로듀서 / 심사위원</span></div><div class="ct">"탈락, 다음."</div></div>
 </summary><div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/JSH/profile.webp?v=10');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/JSH/profile.webp?v=13');"></div>
 <div class="pf">
 <div><b>성격</b> 냉정 + 직설 + 합리주의</div>
 <div><b>배경</b> APEX의 젊은 에이스로, 나하린의 후계자로 여겨진다. 결과로 자신의 판단을 증명하는 타입.</div>
@@ -175,20 +175,20 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 </div></div></details>
 <div class="ag">Blue Moon Entertainment</div>
 <details class="chd"><summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/ERK/thumbnail.webp?v=10');border-color:oklch(0.72 0.10 170/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/ERK/thumbnail.webp?v=13');border-color:oklch(0.72 0.10 170/0.3);"></div>
 <div><div><span class="cn">에리카</span><span class="cr">프로듀서 / 심사위원</span></div><div class="ct">"만만하게 보면 큰코다친다? 흐흥~."</div></div>
 </summary><div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/ERK/profile.webp?v=10');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/ERK/profile.webp?v=13');"></div>
 <div class="pf">
 <div><b>성격</b> 아네데레 — 독설가 (내면은 따뜻함)</div>
 <div><b>배경</b> 원래는 따뜻한 사람이었으나, 처음 담당한 아티스트를 잃은 트라우마로 독설이라는 방어막을 형성.</div>
 <div><b>목표</b> 과거의 실패를 보상하고, 다시 누군가를 이끌 자격을 얻는 것.</div>
 </div></div></details>
 <details class="chd"><summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/LSH/thumbnail.webp?v=10');border-color:oklch(0.70 0.10 240/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/LSH/thumbnail.webp?v=13');border-color:oklch(0.70 0.10 240/0.3);"></div>
 <div><div><span class="cn">이서하</span><span class="cr">싱어송라이터 겸 프로듀서</span></div><div class="ct">"하아... 또? 귀찮으니 빨리 끝내."</div></div>
 </summary><div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/LSH/profile.webp?v=10');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/LSH/profile.webp?v=13');"></div>
 <div class="pf">
 <div><b>성격</b> 다루데레 + 자기부정 + 귀차니즘</div>
 <div><b>배경</b> 모든 분야에서 업계 최상급이나, 자기 이름으로 곡을 발표했다가 외면당한 과거. 이후 가명으로만 작업.</div>
@@ -196,10 +196,10 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 </div></div></details>
 <div class="ag">PRISM Studio</div>
 <details class="chd"><summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/HSR/thumbnail.webp?v=10');border-color:oklch(0.72 0.12 55/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/HSR/thumbnail.webp?v=13');border-color:oklch(0.72 0.12 55/0.3);"></div>
 <div><div><span class="cn">한소리</span><span class="cr">기획사 대표</span></div><div class="ct">"잘 들어. 이게 마지막 기회야."</div></div>
 </summary><div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/HSR/profile.webp?v=10');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/HSR/profile.webp?v=13');"></div>
 <div class="pf">
 <div><b>성격</b> 능글능글 (내면은 절박함)</div>
 <div><b>배경</b> 업계 경험과 감각을 갖춘 능력자이나, 자본과 인맥의 벽에 부딪혀 현실의 어려움을 뼈저리게 배움. 현재 기획사는 재정난 중.</div>
@@ -207,10 +207,10 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 </div></div></details>
 <div class="ag">Route 0</div>
 <details class="chd"><summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/KHR/thumbnail.webp?v=10');border-color:oklch(0.65 0.12 20/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/KHR/thumbnail.webp?v=13');border-color:oklch(0.65 0.12 20/0.3);"></div>
 <div><div><span class="cn">강하람</span><span class="cr">연습생</span></div><div class="ct">"오늘도 연습! 아자아자~!"</div></div>
 </summary><div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/KHR/profile.webp?v=10');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/KHR/profile.webp?v=13');"></div>
 <div class="pf">
 <div><b>성격</b> 무자각 여친계 — 열정 넘치는 밝음 (내면은 절박함)</div>
 <div><b>배경</b> 부모님을 일찍 잃고 여동생과 단둘이 살아간다. 아르바이트와 연습을 병행하며 데뷔를 준비 중.</div>
@@ -218,57 +218,57 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 </div></div></details>
 <div class="ag">Audition Contestants</div>
 <details class="chd"><summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/JGR/thumbnail.webp?v=10');border-color:oklch(0.72 0.10 300/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/JGR/thumbnail.webp?v=13');border-color:oklch(0.72 0.10 300/0.3);"></div>
 <div><div><span class="cn">장그루</span><span class="cr">보컬·아이돌 지망</span></div><div class="ct">"이번엔 안 되면 그만둘 거예요."</div></div>
 </summary><div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/JGR/profile.webp?v=10');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/JGR/profile.webp?v=13');"></div>
 <div class="pf"><div><b>성격</b> 담담함 + 단단함 (내면: 간절함)</div><div><b>배경</b> 유저와 같은 동네 출신으로 함께 연예계를 꿈꾸던 사이. 한 번 탈락한 경험이 있는 재도전형.</div><div><b>목표</b> 자신의 감정과 전문성 사이의 균형을 찾는 것.</div></div></div></details>
 <details class="chd"><summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/MIL/thumbnail.webp?v=10');border-color:oklch(0.72 0.12 65/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/MIL/thumbnail.webp?v=13');border-color:oklch(0.72 0.12 65/0.3);"></div>
 <div><div><span class="cn">밀라</span><span class="cr">오디션 참가자</span></div><div class="ct">"그냥 좋아서."</div></div>
 </summary><div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/MIL/profile.webp?v=10');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/MIL/profile.webp?v=13');"></div>
 <div class="pf"><div><b>성격</b> 자유로운 영혼 — 음악이 본능</div><div><b>배경</b> 프라임시티 외부에서 온 야생형 천재. 음악이 본능처럼 나오는 자유로운 영혼.</div><div><b>목표</b> 음악으로 자신의 가치를 증명하는 것.</div></div></div></details>
 <details class="chd"><summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/ELA/thumbnail.webp?v=10');border-color:oklch(0.65 0.12 15/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/ELA/thumbnail.webp?v=13');border-color:oklch(0.65 0.12 15/0.3);"></div>
 <div><div><span class="cn">엘라</span><span class="cr">오디션 참가자</span></div><div class="ct">"얼굴값이라는 편견, 부숴줄게."</div></div>
 </summary><div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/ELA/profile.webp?v=10');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/ELA/profile.webp?v=13');"></div>
 <div class="pf"><div><b>성격</b> 여유로운 관능미 (내면: 자존심 + 상처)</div><div><b>배경</b> 비주얼과 실력을 모두 갖췄지만, 항상 외모로만 평가받아온 상처가 있다.</div><div><b>목표</b> 외모 편견을 부수고 실력으로 인정받는 것.</div></div></div></details>
 <details class="chd"><summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/MMR/thumbnail.webp?v=10');border-color:oklch(0.72 0.10 220/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/MMR/thumbnail.webp?v=13');border-color:oklch(0.72 0.10 220/0.3);"></div>
 <div><div><span class="cn">미모리</span><span class="cr">인플루언서 출신</span></div><div class="ct">"보여주는 게 좋으니까~!"</div></div>
 </summary><div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/MMR/profile.webp?v=10');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/MMR/profile.webp?v=13');"></div>
 <div class="pf"><div><b>성격</b> 천연 관종 + 센스 — 선은 지킴</div><div><b>배경</b> 주목받는 게 자연스러운 인플루언서 출신. 실력도 갖추고 있어 무시 못 한다.</div><div><b>목표</b> 자신의 개성을 콘텐츠로 표현하며 화제를 만드는 것.</div></div></div></details>
 <details class="chd"><summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/HSE/thumbnail.webp?v=10');border-color:oklch(0.72 0.10 85/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/HSE/thumbnail.webp?v=13');border-color:oklch(0.72 0.10 85/0.3);"></div>
 <div><div><span class="cn">하시은</span><span class="cr">오디션 참가자</span></div><div class="ct">"세상 모든 것엔 배울 점이 있거든요!"</div></div>
 </summary><div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/HSE/profile.webp?v=10');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/HSE/profile.webp?v=13');"></div>
 <div class="pf"><div><b>성격</b> 성실한 우등생 — 안정형 육각형</div><div><b>배경</b> 모든 면에서 평균 이상이지만 특출난 한 가지가 없다. 기본기가 탄탄하여 매 라운드 꾸준히 통과.</div><div><b>목표</b> 꾸준함과 기본기만으로 끝까지 갈 수 있는지 증명하는 것.</div></div></div></details>
 <details class="chd"><summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/NIA/thumbnail.webp?v=10');border-color:oklch(0.65 0.10 200/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/NIA/thumbnail.webp?v=13');border-color:oklch(0.65 0.10 200/0.3);"></div>
 <div><div><span class="cn">니아</span><span class="cr">오디션 참가자</span></div><div class="ct">"이런 내가 뭐가 좋다고..."</div></div>
 </summary><div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/NIA/profile.webp?v=10');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/NIA/profile.webp?v=13');"></div>
 <div class="pf"><div><b>성격</b> 성장형 — 늦된 출발, 흡수력 폭발</div><div><b>배경</b> 부유층 귀족 출신으로 온실 속에서 자라다가 집안의 기대를 버리고 도망쳐 나왔다.</div><div><b>목표</b> 온실을 벗어나 세상 속에서 스스로 증명하는 것.</div></div></div></details>
 <details class="chd"><summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/RAY/thumbnail.webp?v=10');border-color:oklch(0.72 0.10 290/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/RAY/thumbnail.webp?v=13');border-color:oklch(0.72 0.10 290/0.3);"></div>
 <div><div><span class="cn">레이</span><span class="cr">오디션 참가자</span></div><div class="ct">"내 무대를 내 실력으로 봐달라."</div></div>
 </summary><div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/RAY/profile.webp?v=10');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/RAY/profile.webp?v=13');"></div>
 <div class="pf"><div><b>성격</b> 꺾이지 않는 밝음 — 한계를 받아들인 단단함</div><div><b>배경</b> 한쪽 다리가 의족인 언더독. 조건이 최악이지만 꺾이지 않는 강인한 사람.</div><div><b>목표</b> 실력만으로 평가받는 공정한 아티스트가 되는 것.</div></div></div></details>
 <details class="chd" style="border-bottom:none;"><summary class="chs">
-<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/LPS/thumbnail.webp?v=10');border-color:oklch(0.60 0.12 260/0.3);"></div>
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/LPS/thumbnail.webp?v=13');border-color:oklch(0.60 0.12 260/0.3);"></div>
 <div><div><span class="cn">라피스</span><span class="cr">오디션 참가자</span></div><div class="ct">"다양한 게 나의 개성이지~"</div></div>
 </summary><div class="chx">
-<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/LPS/profile.webp?v=10');"></div>
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/LPS/profile.webp?v=13');"></div>
 <div class="pf"><div><b>성격</b> 쿨하고 여유로운 예측불가형</div><div><b>배경</b> 매 라운드마다 다른 스타일. 다재다능하지만 '나만의 것'이 없다는 것을 자각하기 시작.</div><div><b>목표</b> 다양한 매력 속에서 자신의 정체성을 찾는 것.</div></div></div></details>
 </div>
 </section>
 </div>
-<div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg7.webp?v=10');"></div>
+<div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg7.webp?v=13');"></div>
 <div class="sp"><div class="sd"></div></div>
 <!-- World Building (folding) -->
 <details class="fold" id="world">
@@ -342,7 +342,7 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <span class="fold-i">▼</span>
 </summary>
 <div style="padding:0 24px 20px;">
-<p class="ds" style="margin:0 0 14px;text-align:left;">챗봇이 상황·감정을 분석하여 대사 직전에 이미지를 자동 출력합니다. 15명 × 캐릭터당 약 103장 = 총 1,543장. 장면 1,439장 + SVG 60장 + 부속(프로필·썸네일·사인 등) 44장.</p>
+<p class="ds" style="margin:0 0 14px;text-align:left;">챗봇이 상황·감정을 분석하여 대사 직전에 이미지를 자동 출력합니다. 15명 × 캐릭터당 74장 = 총 1,110장 + SVG UI 9종 + 부속 에셋.</p>
 <div style="font-family:monospace;font-size:15px;color:var(--blue);padding:10px 14px;background:oklch(0.12 0.02 252/0.2);border:1px solid oklch(0.62 0.20 252/0.15);margin-bottom:14px;overflow-x:auto;white-space:nowrap;">img.bluehair.blue/ent/<span style="color:var(--gold);">{코드}</span>/<span style="color:var(--gold);">{번호}</span>.webp</div>
 <div style="margin-bottom:14px;">
 <div style="font-family:serif;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(1.0 0 0/0.3);margin-bottom:8px;">Character Codes</div>
@@ -367,8 +367,8 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:14px;">
 <div style="padding:8px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:15px;color:oklch(1.0 0 0/0.6);">감정</div><div style="font-family:monospace;font-size:14px;color:var(--gold);">1–9 <span style="color:var(--txt-dim);">· 9장</span></div></div>
 <div style="padding:8px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:15px;color:oklch(1.0 0 0/0.6);">일상</div><div style="font-family:monospace;font-size:14px;color:var(--blue);">10–18 <span style="color:var(--txt-dim);">· 9장</span></div></div>
-<div style="padding:8px 10px;background:oklch(0.76 0.12 80/0.06);border:1px solid oklch(0.76 0.12 80/0.15);"><div style="font-size:15px;color:oklch(0.76 0.12 80);">NSFW</div><div style="font-family:monospace;font-size:14px;color:oklch(0.76 0.12 80);font-weight:600;">추가 예정!</div></div>
-<div style="padding:8px 10px;background:oklch(0.76 0.12 80/0.06);border:1px solid oklch(0.76 0.12 80/0.15);"><div style="font-size:15px;color:oklch(0.76 0.12 80);">착의</div><div style="font-family:monospace;font-size:14px;color:oklch(0.76 0.12 80);font-weight:600;">추가 예정!</div></div>
+<div style="padding:8px 10px;background:oklch(0.76 0.12 80/0.06);border:1px solid oklch(0.76 0.12 80/0.15);"><div style="font-size:15px;color:oklch(0.76 0.12 80);">NSFW</div><div style="font-family:monospace;font-size:14px;color:oklch(0.76 0.12 80);">20–69 <span style="color:var(--txt-dim);">· 43장</span></div></div>
+<div style="padding:8px 10px;background:oklch(0.76 0.12 80/0.06);border:1px solid oklch(0.76 0.12 80/0.15);"><div style="font-size:15px;color:oklch(0.76 0.12 80);">착의</div><div style="font-family:monospace;font-size:14px;color:oklch(0.76 0.12 80);">70–86 <span style="color:var(--txt-dim);">· 16장</span></div></div>
 <div style="padding:8px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:15px;color:oklch(1.0 0 0/0.6);">확장</div><div style="font-family:monospace;font-size:14px;color:oklch(0.72 0.12 55);">87–92 <span style="color:var(--txt-dim);">· 6장</span></div></div>
 <div style="padding:8px 10px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);"><div style="font-size:15px;color:oklch(1.0 0 0/0.6);">무대</div><div style="font-family:monospace;font-size:14px;color:oklch(0.65 0.10 240);">93–96 <span style="color:var(--txt-dim);">· 4장</span></div></div>
 </div>
@@ -391,12 +391,12 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <a href="https://intro.bluehair.blue/gallery" target="_blank" rel="noopener" style="display:block;text-align:center;font-size:14px;color:var(--blue);text-decoration:none;border:1px solid oklch(0.62 0.20 252/0.2);padding:10px;transition:background 0.3s;">이미지 갤러리에서 더 보기 →</a>
 </div>
 </details>
-<div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg9.webp?v=10');"></div>
+<div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg9.webp?v=13');"></div>
 <!-- CTA -->
 <div class="w">
 <div style="text-align:center;padding:36px 0;">
 <div class="cb">
-<div class="cb-bg" style="background-image:url('https://img.bluehair.blue/ent/bg11.webp?v=10');"></div>
+<div class="cb-bg" style="background-image:url('https://img.bluehair.blue/ent/bg11.webp?v=13');"></div>
 <div class="cb-in">
 <span class="lb">Begin Your Story</span>
 <h2 class="tt" style="font-size:clamp(22px,4vw,30px);">당신의 무대는 여기서 시작된다.</h2>
