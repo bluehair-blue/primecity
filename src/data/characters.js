@@ -348,7 +348,7 @@ export const characters = [
     // ── Cinematic intro ──
     keyVisual: cdnUrl("MMR/key.webp"),
     introStyle: "flash",
-    introAssets: [],
+    introAssets: [cdnUrl("MMR/intro1.webp")],  // Phase 0 전용 정적 이미지 (key.webp 은 animated WebP)
     introLabel: "Mimori / Spotlight",
     quoteSequence: ["보여주는 게 좋으니까~!"],
     focusBox: {

@@ -115,6 +115,9 @@ export default function FlashIntro({ char, isMobile, objectPosition, config, onS
   const [fadingOut, setFadingOut] = useState(false);
 
   const comments = char.introComments || [];
+  // Phase 0 전용 정적 이미지 (key.webp 은 animated WebP 라 화질·성능 저하)
+  // Phase 1 은 CharDetail.jsx 에서 char.keyVisual 을 그대로 사용
+  const introSrc = char.introAssets?.[0] || char.keyVisual;
 
   useEffect(() => {
     const timers = [
@@ -165,9 +168,10 @@ export default function FlashIntro({ char, isMobile, objectPosition, config, onS
         accelerate={beat === 2}
       />
 
-      {/* ── KV image: blur peek at Beat 2, zooms Beat 3~5, settle Beat 6 ── */}
+      {/* ── Intro image: blur peek at Beat 2, zooms Beat 3~5, settle Beat 6 ──
+          introAssets[0] (정적) → fallback key.webp (animated). Phase 0 전용. */}
       <img
-        src={char.keyVisual}
+        src={introSrc}
         alt=""
         style={{
           position: "absolute", inset: 0,

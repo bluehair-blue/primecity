@@ -3,7 +3,7 @@
 // 브라우저 + CDN 캐시가 자동으로 갱신됩니다.
 
 const CDN_BASE = "https://img.bluehair.blue/ent";
-const ASSET_VERSION = 11;
+const ASSET_VERSION = 12;
 
 export function cdnUrl(path) {
   return `${CDN_BASE}/${path}?v=${ASSET_VERSION}`;
