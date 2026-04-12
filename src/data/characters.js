@@ -45,7 +45,7 @@ export const characters = [
     introStyle: "fog",
     introAssets: [],
     introLabel: "Naharin / Enigma",
-    keyVisualStage: true,  // Phase 1: KV 70% 높이 + 바닥 reflection
+    keyVisualFit: "contain",  // v6: Phase 1 에서 KV 전체 노출 (crop 방지, JSH/KHR/MIL 과 동일)
     quoteSequence: ["후후...", "잘 부탁해?"],
     focusBox: {
       desktop: { cx: 50, cy: 35, w: 55, h: 75 },  // v4 +10%
