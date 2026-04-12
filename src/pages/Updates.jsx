@@ -7,52 +7,69 @@ import Seo from "../components/Seo";
 
 const updates = [
   {
+    date: "2026.04.12",
+    tag: "Feature",
+    title: "시네마틱 디테일 · NSFW 갤러리",
+    items: [
+      "캐릭터 디테일 시네마틱 인트로 8종 완성 — JSH 컷어웨이 · KHR 카메라 · LSH 글리치 · MIL 물결 · MMR 댓글 스트림 · NHR 전자기 신호 · HSR 바람 · HSE 페이지 넘김",
+      "Phase 상태기계 (로딩 → 인트로 → 히어로 → 콘텐츠) + 이미지 프리로드 + reduced-motion 대응",
+      "캐릭터별 키비주얼 contain 리빌 · 마우스 틸트 · 반사 · bgMarquee 이펙트",
+      "NSFW 갤러리 탭 해금 — 18세 이상 연령 확인 팝업",
+    ],
+  },
+  {
+    date: "2026.04.09",
+    tag: "Content",
+    title: "이미지 에셋 확장 · 프롬프트 대개편",
+    items: [
+      "이미지 에셋 1,110장 — 15명 × 74장 상황별 자동 매칭 CDN 등록",
+      "챗봇 프롬프트 Phase 5 전면 개편 — 103개 로어북, POV/3인칭 분리, 상호작용 태그 체계",
+      "에덴챗 플랫폼 로어북 102개 자동 삽입 (pyautogui 매크로)",
+      "NovelAI v4 검열 파이프라인 — YOLOv11s-seg 자동 검열 252장 처리",
+    ],
+  },
+  {
     date: "2026.03.30",
-    title: "직업군 모드 & 이미지 시스템",
+    tag: "Feature",
+    title: "직업군 모드 · 이미지 시스템",
     items: [
-      "직업군 모드 5종 추가 (매니저, 연습생, 작곡가, 배우, 인플루언서)",
-      "게임 모드 UI 개편 — 메인 탭 + 직업군 카드 그리드",
-      "오디션 페이지 시작 웹툰 섹션 (6파트, 접기/펼치기)",
-      "갤러리 이미지 시스템 안내 패널 (CDN 경로 + 상황코드)",
-      "태블릿 SVG 확장 — 8모드 그리드 + Image Output System",
-      "챗봇 소개 HTML 모드·이미지 규칙 반영",
+      "직업군 모드 5종 추가 — 매니저 · 연습생 · 작곡가 · 배우 · 인플루언서",
+      "게임 모드 UI 개편 — 메인 3종 + 직업군 5종 카드 그리드",
+      "태블릿 SVG 10섹션 · 13모드 확장 + 에덴챗 소개 HTML 전면 개편",
     ],
   },
   {
-    date: "2026.03",
-    title: "메인 페이지 완성",
+    date: "2026.03.19",
+    tag: "Launch",
+    title: "사이트 런칭 · 메인 페이지",
     items: [
-      "히어로 슬라이더 (CDN 배경 9장)",
-      "캐릭터 캐러셀 15명 구현",
-      "인터랙티브 세계관 맵",
-      "게임 모드 탭 UI",
-      "프리즘 모자이크 네비게이션",
+      "히어로 슬라이더 (CDN 배경 9장) + 캐릭터 캐러셀 15명",
+      "인터랙티브 세계관 맵 (5구역 SVG 히트박스) + 프리즘 네비게이션",
+      "Cloudflare Pages 자동 배포 + R2 CDN + SVG Workers 8종",
     ],
   },
   {
-    date: "2026.02",
-    title: "디자인 시스템 구축",
+    date: "2026.01 – 02",
+    tag: "Design",
+    title: "세계관 · 디자인 시스템",
     items: [
-      "OKLCH 색상 토큰 정의",
-      "폰트 체계 확립 (Noto Serif KR, Crimson Pro, Noto Sans KR)",
-      "다크 + 골드 테마 디자인",
-      "반응형 기준점 설정 (768px)",
-    ],
-  },
-  {
-    date: "2026.01",
-    title: "세계관 & 캐릭터 설계",
-    items: [
-      "프라임시티 4구역 세계관 확정",
-      "캐릭터 15명 프로필 완성",
-      "4개 기획사 설정",
-      "오디션 4라운드 시스템 설계",
+      "프라임시티 5구역 세계관 + 캐릭터 15명 · 기획사 4곳 설정",
+      "OKLCH 색상 토큰 + Gold & Azure 이원 테마 + 다크 모드",
+      "오디션 4라운드 시스템 설계 + 반응형 768px 기준점",
     ],
   },
 ];
 
-function TimelineItem({ update, index, isMobile }) {
+const TAG_COLORS = {
+  Feature: "oklch(0.72 0.12 252)",
+  Content: "oklch(0.72 0.10 160)",
+  Launch:  C.gold,
+  Design:  "oklch(0.72 0.10 310)",
+};
+
+function TimelineItem({ update, index, isMobile, isLatest }) {
   const [ref, v] = useReveal(0.15);
+  const tagColor = TAG_COLORS[update.tag] || C.gold;
 
   return (
     <div
@@ -77,11 +94,12 @@ function TimelineItem({ update, index, isMobile }) {
       >
         <div
           style={{
-            width: 8,
-            height: 8,
-            background: C.gold,
+            width: isLatest ? 10 : 8,
+            height: isLatest ? 10 : 8,
+            background: tagColor,
             borderRadius: "50%",
             flexShrink: 0,
+            boxShadow: isLatest ? `0 0 8px ${tagColor}88, 0 0 16px ${tagColor}44` : "none",
           }}
         />
         <div
@@ -95,16 +113,35 @@ function TimelineItem({ update, index, isMobile }) {
 
       {/* Content */}
       <div style={{ paddingBottom: isMobile ? 32 : 48, flex: 1 }}>
-        <span
-          style={{
-            fontFamily: "var(--f-display-en)",
-            fontSize: 11,
-            letterSpacing: "0.2em",
-            color: C.gold,
-          }}
-        >
-          {update.date}
-        </span>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+          <span
+            style={{
+              fontFamily: "var(--f-display-en)",
+              fontSize: 11,
+              letterSpacing: "0.2em",
+              color: C.gold,
+            }}
+          >
+            {update.date}
+          </span>
+          {update.tag && (
+            <span
+              style={{
+                fontFamily: "var(--f-display-en)",
+                fontSize: 9,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: tagColor,
+                background: `color-mix(in oklch, ${tagColor} 12%, transparent)`,
+                border: `1px solid color-mix(in oklch, ${tagColor} 25%, transparent)`,
+                padding: "2px 8px",
+                lineHeight: 1.6,
+              }}
+            >
+              {update.tag}
+            </span>
+          )}
+        </div>
         <h3
           style={{
             fontFamily: "var(--f-display-kr)",
@@ -225,6 +262,7 @@ export default function Updates() {
               update={u}
               index={i}
               isMobile={isMobile}
+              isLatest={i === 0}
             />
           ))}
         </div>
