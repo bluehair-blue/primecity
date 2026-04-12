@@ -125,6 +125,9 @@ function generateCharItems(char) {
     });
   });
 
+  // JSH: 감정표현만 허용 (긴급패치)
+  if (char.cdnId === "JSH") return items;
+
   // 일상
   DAILY_CODES.forEach(({ code, label }) => {
     items.push({
