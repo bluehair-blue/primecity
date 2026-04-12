@@ -27,16 +27,12 @@ import CenteredQuote from "./CenteredQuote";
      label / skip (10)
    ══════════════════════════════════════════════════════════ */
 
-// 줌 좌표 — 2304×960 울트라와이드, cover fit 시 좌우 크롭
-const ZOOM_BEATS = {
-  desktop: {
-    1: { pos: "61% 52%", scale: 1.3 },   // 빨간 펜 + 손 (우측)
-    2: { pos: "35% 36%", scale: 1.35 },   // 얼굴 + 표정 (좌측)
-  },
-  mobile: {
-    1: { pos: "58% 50%", scale: 1.25 },
-    2: { pos: "38% 38%", scale: 1.3 },
-  },
+// 줌 좌표 — 2304×960 울트라와이드
+// beats 1~2 는 고정 포지션 (페이지 스윕이 리빌을 담당, 줌 점프 방지)
+// beat 3 에서 contain 으로 전체 리빌
+const ZOOM_FIXED = {
+  desktop: { pos: "42% 45%", scale: 1.15 },  // 얼굴 약간 좌측, 자연스러운 중심
+  mobile:  { pos: "44% 46%", scale: 1.12 },
 };
 
 export default function PageFlipIntro({ char, isMobile, objectPosition, config, onSkip }) {
@@ -56,8 +52,7 @@ export default function PageFlipIntro({ char, isMobile, objectPosition, config, 
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  const zoomTable = ZOOM_BEATS[isMobile ? "mobile" : "desktop"];
-  const currentZoom = zoomTable[Math.min(Math.max(beat, 1), 2)] || zoomTable[1];
+  const zoomFixed = ZOOM_FIXED[isMobile ? "mobile" : "desktop"];
 
   const isZoomBeat = beat >= 1 && beat <= 2;
   const isReveal = beat >= 3;
@@ -81,16 +76,13 @@ export default function PageFlipIntro({ char, isMobile, objectPosition, config, 
           position: "absolute", inset: 0,
           width: "100%", height: "100%",
           objectFit: "cover",
-          objectPosition: currentZoom.pos,
-          transform: `scale(${currentZoom.scale})`,
-          transformOrigin: currentZoom.pos,
+          objectPosition: zoomFixed.pos,
+          transform: `scale(${zoomFixed.scale})`,
+          transformOrigin: zoomFixed.pos,
           filter: "saturate(0.9) brightness(0.85) contrast(1.05)",
           opacity: isReveal ? 0 : (beat >= 1 ? 1 : 0),
-          transition: isReveal
-            ? "opacity 1.5s ease-out"
-            : "object-position 0.8s cubic-bezier(0.33,1,0.68,1), transform 0.8s cubic-bezier(0.33,1,0.68,1), opacity 0.6s ease-out",
+          transition: "opacity 1.5s ease-out",
           zIndex: 2,
-          willChange: "transform, object-position",
         }}
       />
 
@@ -110,14 +102,14 @@ export default function PageFlipIntro({ char, isMobile, objectPosition, config, 
         }}
       />
 
-      {/* ══ 시그니처 pulse — beat 1 (빨간 펜·손 영역) ══ */}
-      {beat === 1 && (
+      {/* ══ 시그니처 pulse — beat 2 (빨간 펜·손 영역, 우측 노출 후) ══ */}
+      {beat === 2 && (
         <div
           key="pulse-pen"
           style={{
             position: "absolute",
-            left: isMobile ? "58%" : "61%",
-            top: isMobile ? "50%" : "52%",
+            left: isMobile ? "62%" : "65%",
+            top: isMobile ? "48%" : "50%",
             width: isMobile ? 220 : 300,
             height: isMobile ? 220 : 300,
             borderRadius: "50%",
@@ -178,22 +170,26 @@ export default function PageFlipIntro({ char, isMobile, objectPosition, config, 
         </span>
       </div>
 
-      {/* ══ Page A — 두 번째 페이지, beat 2 에서 스윕 ══ */}
+      {/* ══ Page A — 우측 55%만 덮는 두 번째 페이지, beat 2 에서 스윕 ══
+          Page B 스윕 시 좌측 45% 가 먼저 드러남 (얼굴 영역).
+          Page A 스윕 시 나머지 우측 55% 드러남 (펜·책 영역).
+          좌측 엣지에 책등(spine) 그림자 — 북 바인딩 느낌. */}
       <div
         style={{
-          position: "absolute", inset: 0,
+          position: "absolute",
+          top: 0, bottom: 0, left: "45%", right: 0,
           background: "oklch(0.94 0.015 85)",
-          transform: beat >= 2 ? "translateX(-105%)" : "translateX(0)",
+          transform: beat >= 2 ? "translateX(-150%)" : "translateX(0)",
           transition: "transform 1.1s cubic-bezier(0.4, 0, 0.2, 1)",
-          boxShadow: "inset -14px 0 28px -8px oklch(0 0 0 / 0.10)",
+          boxShadow: "-8px 0 20px -4px oklch(0 0 0 / 0.15), inset -14px 0 28px -8px oklch(0 0 0 / 0.08)",
           zIndex: 11,
           pointerEvents: "none",
         }}
       >
-        {/* 노트 라인 텍스처 (약간 다른 간격) */}
+        {/* 노트 라인 텍스처 */}
         <div style={{
           position: "absolute",
-          top: "8%", left: "10%", right: "10%", bottom: "8%",
+          top: "8%", left: "8%", right: "10%", bottom: "8%",
           background:
             "repeating-linear-gradient(to bottom, oklch(0.78 0.02 85 / 0.20) 0px, oklch(0.78 0.02 85 / 0.20) 1px, transparent 1px, transparent 32px)",
           pointerEvents: "none",
