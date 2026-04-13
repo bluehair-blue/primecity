@@ -1,42 +1,47 @@
 #!/bin/bash
-# Deploy all 8 SVG Workers to Cloudflare
+# Deploy all SVG Workers to Cloudflare with auto route registration
 # Usage: cd workers/deploy && bash deploy.sh
 # Requires: wrangler login (run once before deploying)
 
 WORKERS_DIR=".."
+DOMAIN="bluehair.blue"
 
+# Worker name → source file → subdomain
 declare -A WORKERS
-WORKERS[svg-insta]="svg-sns.js"
-WORKERS[svg-twit]="svg-tweet.js"
-WORKERS[svg-live]="svg-livestream.js"
-WORKERS[svg-talk]="svg-messenger.js"
-WORKERS[svg-news]="svg-news.js"
-WORKERS[svg-chart]="svg-chart.js"
-WORKERS[svg-community]="svg-community.js"
-WORKERS[svg-post]="svg-post.js"
-WORKERS[svg-tablet]="svg-tablet.js"
-WORKERS[svg-schedule]="svg-schedule.js"
+declare -A ROUTES
+WORKERS[svg-insta]="svg-sns.js";        ROUTES[svg-insta]="insta"
+WORKERS[svg-twit]="svg-tweet.js";       ROUTES[svg-twit]="twit"
+WORKERS[svg-live]="svg-livestream.js";   ROUTES[svg-live]="live"
+WORKERS[svg-talk]="svg-messenger.js";   ROUTES[svg-talk]="talk"
+WORKERS[svg-news]="svg-news.js";        ROUTES[svg-news]="news"
+WORKERS[svg-chart]="svg-chart.js";      ROUTES[svg-chart]="chart"
+WORKERS[svg-community]="svg-community.js"; ROUTES[svg-community]="community"
+WORKERS[svg-post]="svg-post.js";        ROUTES[svg-post]="post"
+WORKERS[svg-tablet]="svg-tablet.js";    ROUTES[svg-tablet]="tablet"
+WORKERS[svg-schedule]="svg-schedule.js"; ROUTES[svg-schedule]="schedule"
+
+SUCCESS=0
+FAIL=0
 
 for NAME in "${!WORKERS[@]}"; do
   FILE="${WORKERS[$NAME]}"
-  echo "=== Deploying $NAME from $FILE ==="
-  npx wrangler deploy "$WORKERS_DIR/$FILE" --name "$NAME" --compatibility-date "2024-01-01"
+  SUB="${ROUTES[$NAME]}"
+  ROUTE="${SUB}.${DOMAIN}/*"
+
+  echo "=== Deploying $NAME ($FILE) → $ROUTE ==="
+  if npx wrangler deploy "$WORKERS_DIR/$FILE" --name "$NAME" --compatibility-date "2024-01-01" --route "$ROUTE"; then
+    echo "  ✓ $NAME deployed + route $ROUTE registered"
+    ((SUCCESS++))
+  else
+    echo "  ✗ $NAME FAILED"
+    ((FAIL++))
+  fi
   echo ""
 done
 
-echo "=== All workers deployed ==="
+echo "=== Deploy complete: $SUCCESS success, $FAIL failed ==="
 echo ""
-echo "Now configure Routes in Cloudflare Dashboard (domain/* pattern):"
-echo "  svg-insta       → insta.bluehair.blue/*"
-echo "  svg-twit        → twit.bluehair.blue/*"
-echo "  svg-live        → live.bluehair.blue/*"
-echo "  svg-talk        → talk.bluehair.blue/*"
-echo "  svg-news        → news.bluehair.blue/*"
-echo "  svg-chart       → chart.bluehair.blue/*"
-echo "  svg-community   → community.bluehair.blue/*"
-echo "  svg-post        → post.bluehair.blue/*"
-echo "  svg-tablet      → tablet.bluehair.blue/*"
-echo "  svg-schedule    → schedule.bluehair.blue/*"
-echo ""
-echo "Note: /ent/ path prefix is in the URL, not the route pattern."
-echo "      AI outputs: https://{subdomain}.bluehair.blue/ent/?params..."
+echo "Routes registered (domain/* pattern, /ent/ is URL path):"
+for NAME in "${!ROUTES[@]}"; do
+  echo "  $NAME → ${ROUTES[$NAME]}.${DOMAIN}/*"
+done
