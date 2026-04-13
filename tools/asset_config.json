@@ -1,17 +1,17 @@
 {
   "_comment": "Auto-extracted from NAIS2 backup. Edit as needed.",
   "base": {
-    "base_prompt": "0.6::artist:ebifurya::, 0.4::artist:ixy::, 0.8::artist:dsmile::, 0.8::artist:pako (pakosun) ::, 2::artist:kurono mitsuki::, 1.2::airtst:chigusa_minori::, 1.1::artist:fuzichoco::, artist:wanke, 0.6::artist:freng::, 0.8::artist:pro-p::, 0.6::artist:ratatatat74 ::, 1.1::artist:doremi_(doremi4704) ::, 1.4::artist:yutokamizu::, artist:mx2j, 3::official_art ::, 3::game_cg ::, 2::dishwasher1910 ::, 0.8::artist:haguhagu_(rinjuu_circus) ::, 0.8::artist:henriiku_(ahemaru) ::, 0.6::artist:ie (raarami) ::, artist:rucarachi, 1.1::artist:dino (dinoartforame) ::, 0.4::artist:ama_mitsuki::, 1.2::artist:kitou_sakeru::,  rating:explicit, anime style, no text, 3::year 2024 ::, 3::year 2025 ::, -6::artist collaboration ::, -2::multiple views ::, , best quality, best illustration, ultra-detailed, dynamic lighting, 1.6::soft shadows ::, -2::high saturation ::, -3::production art ::, -3::reference sheet ::, -1::halo (blue archive) ::",
-    "negative_prompt": "cat ears, animal ears, no nipples, pubic hair, mosaic censoring, bar censor, artistic error, jpeg artifacts, logo, text, watermark, too many watermarks, blank page, reference, username, signature, artist:xinzoruo, artist:milkpanda, artist collaboration, variant set, large variant set, 4koma, 2koma, toon (style), oekaki, chibi, turnaround, film grain, monochrome, dithering, halftone, screentones, dated, old, 1990s (style), mutation, deformed, distorted, disfigured, distorted anatomy, anatomical structure error, asymmetrical face, bad eyes, cloudy eyes, blank eyes, pointy ears, bad proportions, bad limb, bad hands, extra hands, bad hand structure, extra digits, fewer digits, bad legs, extra legs, amputee, distorted composition, bad perspective, multiple views, negative space, animation error, chromatic aberration, disorganized colors, scan artifacts, vertical lines, vertical banding, worst quality, bad quality, lowres, upscaled, fewer details, unfinished, incomplete, amateur, cheesy, unsatisfactory, inadequate, deficient, subpar, poor, displeasing, very displeasing, bad illustration, bad portrait, lipstick, loli, child, warm, blue archive, genshin, hololive, multiple boys, gangbang, group sex, threesome, mmf threesome, ffm threesome, double handjob, spitroast, cooperative fellatio, lips",
+    "base_prompt": "0.6::artist:ebifurya::, 0.4::artist:ixy::, artist:dsmile, artist:fuzichoco, 0.8::artist:pako (pakosun) ::, 2::artist:kurono mitsuki::, artist:wanke, 1.2::airtst:chigusa minori::, 0.6::artist:freng::, 0.8::artist:pro-p::, 0.6::artist:ratatatat74, artist:yutokamizu, artist:mx2j, artist:doremi (doremi4704) ::, 3::official_art, game_cg ::, 2::dishwasher1910 ::, 0.8::artist:haguhagu_(rinjuu_circus) ::, 0.8::artist:henriiku_(ahemaru) ::, 0.6::artist:ie (raarami) ::, 1.1::artist:dino (dinoartforame) ::, 0.4::artist:ama_mitsuki::, 1.2::artist:kitou_sakeru::,  rating:explicit, no text, 3::year 2024 ::, 3::year 2025 ::, solo artist, -3::artist collaboration ::, -2::multiple views ::, masterpiece, best quality, best illustration, ultra-detailed, 1.6::soft shadows ::, -3::production art ::, -3::reference sheet ::, -1::halo (blue archive) ::, ",
+    "negative_prompt": "green, cyan, cat ears, animal ears, no nipples, pubic hair, mosaic censoring, bar censor, artistic error, jpeg artifacts, logo, text, watermark, too many watermarks, blank page, reference, username, signature, artist:xinzoruo, artist:milkpanda, artist collaboration, variant set, large variant set, 4koma, 2koma, toon (style), oekaki, chibi, turnaround, film grain, monochrome, dithering, halftone, screentones, dated, old, 1990s (style), mutation, deformed, distorted, disfigured, distorted anatomy, anatomical structure error, asymmetrical face, bad eyes, cloudy eyes, blank eyes, pointy ears, bad proportions, bad limb, bad hands, extra hands, bad hand structure, extra digits, fewer digits, bad legs, extra legs, amputee, distorted composition, bad perspective, multiple views, negative space, animation error, chromatic aberration, disorganized colors, scan artifacts, vertical lines, vertical banding, worst quality, bad quality, lowres, upscaled, fewer details, unfinished, incomplete, amateur, cheesy, unsatisfactory, inadequate, deficient, subpar, poor, displeasing, very displeasing, bad illustration, bad portrait, lipstick, loli, child, warm, blue archive, genshin, hololive, multiple boys, gangbang, group sex, threesome, mmf threesome, ffm threesome, double handjob, spitroast, cooperative fellatio, lips",
     "model": "nai-diffusion-4-5-full",
     "steps": 28,
-    "cfg_scale": 7.2,
-    "cfg_rescale": 0.04,
+    "cfg_scale": 6.4,
+    "cfg_rescale": 0.06,
     "sampler": "k_euler",
     "scheduler": "karras",
     "smea": false,
     "variety": true,
-    "nsfw_suffix": "white censored pussy, white censored anus, -2::censored nipples::"
+    "nsfw_suffix": "2::white censored pussy, white censored anus ::, -2::censored nipples::"
   },
   "scene_variant_map": {
     "1": "clothed",
@@ -120,33 +120,33 @@
   "characters": {
     "SY": {
       "name": "서윤",
-      "clothed": "1girl, silver hair, grey hair, very long hair, wavy hair, loose waves, flowing hair, voluminous hair, floating hair, hair between eyes, curtained bangs, parted bangs, center parting, hair over shoulder, sidelocks, hair framing face, long sidelocks, golden eyes, cold eyes, sharp eyes, long eyelashes, thin eyebrows, closed mouth, elegant, aloof, expressionless, large breasts, black leather coat, layered clothes, layered sleeves, gold trim, gold chain, belt, white dress, black pantyhose, black half gloves, gold earrings, 2::gold choker::",
-      "nude": "1girl, silver hair, very long hair, wavy hair, loose waves, floating hair, curtained bangs, parted bangs, center parting, long sidelocks, golden eyes, cold eyes, sharp eyes, long eyelashes, thin eyebrows, elegant, aloof, expressionless, nude, large breasts, gold earrings, 2::gold choker::"
+      "clothed": "girl, silver hair, very long hair, wavy hair, loose waves, floating hair, curtained bangs, parted bangs, long sidelocks, golden eyes, cold eyes, sharp eyes, long eyelashes, thin eyebrows, elegant, expressionless, large breasts, fashion, celebrity, high fashion, oversized clothes, elegant coat, layered clothes, belt, inner white dress, black pantyhose, black half gloves, gold earrings, 2::gold choker::, ",
+      "nude": "girl, silver hair, very long hair, wavy hair, loose waves, floating hair, curtained bangs, parted bangs, long sidelocks, golden eyes, cold eyes, sharp eyes, long eyelashes, thin eyebrows, elegant, expressionless, large breasts, gold earrings, 2::gold choker::, "
     },
     "KHR": {
       "name": "강하람",
-      "clothed": "1girl, very long hair, black hair, high ponytail, ahoge, mole under eye, mole on breasts, beauty mark, single light pink wrist scrunchie, red eyes, cat eyes, slit pupils, sparkling eyes, seductive eyes, smile, open mouth, teeth, happy, cheerful, fang, large breasts, wide hips, thick thighs, 2::oversized ivory sweater, shirt overhang::, off-shoulder sweater, long sweater, long sleeves, loose sweater, bare legs, bottomless, white thighhighs, pink choker",
-      "nude": "1girl, black hair, high ponytail, ahoge, mole under eye, beauty mark, wrist light pink scrunchie, red eyes, cat eyes, slit pupils, sparkling eyes, seductive eyes, nude, large breasts, wide hips, thick thighs, pink choker"
+      "clothed": "girl, very long hair, black hair, high ponytail, ahoge, mole under eye, mole on breasts, beauty mark, single light pink wrist scrunchie, red eyes, cat eyes, slit pupils, sparkling eyes, seductive eyes, smile, open mouth, fang, large breasts, wide hips, thick thighs, 2::oversized ivory sweater, shirt overhang::, off-shoulder sweater, long sweater, long sleeves, loose sweater, bare legs, bottomless, white thighhighs, pink choker",
+      "nude": "girl, nude, very long hair, black hair, high ponytail, ahoge, mole under eye, mole on breasts, beauty mark, single light pink wrist scrunchie, red eyes, cat eyes, slit pupils, sparkling eyes, seductive eyes, smile, open mouth, fang, large breasts, wide hips, thick thighs, white thighhighs, pink choker, "
     },
     "LSH": {
       "name": "이서하",
-      "clothed": "1girl, light brown hair, long hair, wavy hair, messy hair, hair over shoulder, bedhead, blue eyes, round eyes, droopy eyes, tired eyes, half-closed eyes, bags under eyes, expressionless, grumpy, tsundere, small breasts, 0.5::petite::, 1.2::thicc thighs::, oversized grey hoodie, long sleeves, sleeves past wrists, sleeves past fingers, drawstring, round silver glasses, over-rim glasses, bare legs, barefoot, standing on one leg",
-      "nude": "1girl, nude, light brown hair, long hair, wavy hair, messy hair, hair over shoulder, bedhead, blue eyes, round eyes, droopy eyes, tired eyes, half-closed eyes, bags under eyes, expressionless, round silver glasses, over-rim glasses, grumpy, tsundere, small breasts, 0.5::petite::, 1.2::thicc thighs::, bare legs, barefoot"
+      "clothed": "girl, light brown hair, long hair, wavy hair, messy hair, hair over shoulder, blue eyes, round eyes, droopy eyes, half-closed eyes, bags under eyes, expressionless, grumpy, tsundere, small breasts, 0.5::petite::, 1.2::thicc thighs::, oversized grey hoodie, long sleeves, sleeves past wrists, sleeves past fingers, drawstring, round silver glasses, over-rim glasses, bare legs, barefoot, ",
+      "nude": "girl, nude, light brown hair, long hair, wavy hair, messy hair, hair over shoulder, blue eyes, round eyes, droopy eyes, half-closed eyes, bags under eyes, expressionless, round silver glasses, over-rim glasses, grumpy, tsundere, small breasts, 0.5::petite::, 1.2::thicc thighs::, bare legs, barefoot, "
     },
     "NHR": {
       "name": "나하린",
-      "clothed": "1girl, 0.6::mature female ::, large breasts, light smile, half-closed eyes, 2::black hair::, very long hair, blunt bangs, parted bangs, 0.4::forehead ::, 2::hair over right eye::, curtained hair, layered hair, hair over shoulder, silver eyes, droopy eyes, fox eyes, narrow eyes, long eyelashes, oversized shirt, white shirt, rolled-up sleeves, black slacks, dress pants, single earphone, earphone cord in cleavage, old wristwatch, fashionable, high fashion, charismatic, mysterious aura",
-      "nude": "1girl, 0.6::mature female ::, huge breasts, half-closed eyes, black hair, straight hair, hair over left eye, very long hair, blunt bangs, parted bangs, 0.4::forehead ::, long sidelocks, hair over shoulder, silver eyes, droopy eyes, fox eyes, narrow eyes, long eyelashes, nude"
+      "clothed": "girl, 0.8::mature female ::, huge breasts, light smile, half-closed eyes, 2::black hair::, very long hair, blunt bangs, parted bangs, 0.5::forehead ::, 2::hair over right eye::, curtained bangs, hair over shoulder, silver eyes, droopy eyes, narrow eyes, long eyelashes, oversized shirt, white shirt, rolled-up sleeves, black slacks, dress pants, single earphone, earphone cord in cleavage, old wristwatch, fashion, high fashion, charismatic",
+      "nude": "girl, 0.8::mature female ::, huge breasts, light smile, half-closed eyes, 2::black hair::, very long hair, blunt bangs, parted bangs, 0.5::forehead ::, 2::hair over right eye::, curtained bangs, hair over shoulder, silver eyes, droopy eyes, narrow eyes, long eyelashes, old wristwatch, charismatic"
     },
     "ERK": {
       "name": "에리카",
-      "clothed": "1girl, light smile, half-closed eyes, lazy eyes, 2::white hair, green-tipped hair, asymmetrical sidelocks::, short hair, two-tone hair, split-color hair, hair between eyes, side swept bangs, emerald eyes, teal eyes, long eyelashes, large breasts, shirt overhang, oversized dress shirt, white shirt, baseball cap, jacket, 2::loose necktie::, black necktie, unbuttoned collar, collarbones, rolled-up sleeves, black pants, hands in pockets, tilted head, relaxed pose, casual, disheveled",
-      "nude": "1girl, nude, light smile, half-closed eyes, lazy eyes, 2::white hair, green-tipped hair, assymmetrical sidelocks::, short hair, two-tone hair, split-color hair, hair between eyes, side swept bangs, emerald eyes, teal eyes, long eyelashes, tilted head, large breasts"
+      "clothed": "girl, light smile, half-closed eyes, lazy eyes, 2::white hair, green-tipped hair, asymmetrical sidelocks::, short hair, two-tone hair, split-color hair, hair between eyes, swept bangs, green eyes, long eyelashes, large breasts, shirt overhang, oversized clothes, white dress shirt, baseball cap, jacket, 2::loose necktie::, black necktie, unbuttoned collar, collarbones, rolled-up sleeves, black pants, relaxed pose, casual, ",
+      "nude": "girl, nude, light smile, half-closed eyes, lazy eyes, 2::white hair, green-tipped hair, assymmetrical sidelocks::, short hair, two-tone hair, split-color hair, hair between eyes, side swept bangs, emerald eyes, teal eyes, long eyelashes, tilted head, large breasts"
     },
     "HSR": {
       "name": "한소리",
-      "clothed": "1girl, medium breasts, grin, brown hair, long hair, messy hair, side-swept bangs, parted bangs, 2::closed eyes::, tired eyes, bags under eyes, black suit jacket, white dress shirt, loose necktie, wrinkled shirt, unbuttoned collar, collarbones, black pencil skirt",
-      "nude": "nude, 1girl, solo, medium breasts, grin, brown hair, long hair, messy hair, side-swept bangs, parted bangs, 2::closed eyes::, tired eyes, bags under eyes"
+      "clothed": "girl, medium breasts, grin, brown hair, long hair, messy hair, side-swept bangs, parted bangs, 2::closed eyes::, tired eyes, bags under eyes, black suit jacket, white dress shirt, loose necktie, wrinkled shirt, unbuttoned collar, collarbones, black pencil skirt",
+      "nude": "nude, girl, solo, medium breasts, grin, brown hair, long hair, messy hair, side-swept bangs, parted bangs, 2::closed eyes::, tired eyes, bags under eyes"
     },
     "JSH": {
       "name": "진시혁",
@@ -155,43 +155,43 @@
     },
     "JGR": {
       "name": "장그루",
-      "clothed": "1girl, 2::champagne blonde hair::, very long hair, straight hair, hair over face, hair covering eyes, long bangs, dull hair, matte hair, lavender eyes, almond eyes, downcast eyes, old clothes, worn clothes, simple outfit, oversized cardigan, faded colors, plain shirt, long skirt",
-      "nude": "1girl, nude, closed mouth, 2::champagne blonde hair::, very long hair, straight hair, hair over face, hair covering eyes, long bangs, dull hair, matte hair, lavender eyes, almond eyes, downcast eyes"
+      "clothed": "girl, light blonde hair, very long hair, 2::straight hair::, hair over eyes, long bangs, dull hair, matte hair, lavender eyes, almond eyes, downcast eyes, large breasts, oversized clothes, cardigan, inner shirt, long skirt",
+      "nude": "girl, light blonde hair, very long hair, 2::straight hair::, hair over eyes, long bangs, dull hair, matte hair, lavender eyes, almond eyes, downcast eyes, large breasts, "
     },
     "LPS": {
       "name": "한파란/라피스",
-      "clothed": "1girl, solo, small breasts, 3::high chroma blue hair::, royal blue hair, 3::lapis lazuli color hair, long hair, low ponytail::, blue eyes, oversized clothes, oversized coat, inner knit sweater, V",
-      "nude": "1girl, nude, solo, small breasts, 3::high chroma blue hair::, royal blue hair, 3::lapis lazuli color hair, long hair, low ponytail::, blue eyes, V"
+      "clothed": "girl, solo, small breasts, 3::high chroma blue hair::, royal blue hair, 3::lapis lazuli color hair, long hair, low ponytail::, blue eyes, oversized clothes, oversized coat, inner knit sweater, V",
+      "nude": "girl, nude, solo, small breasts, 3::high chroma blue hair::, royal blue hair, 3::lapis lazuli color hair, long hair, low ponytail::, blue eyes, V"
     },
     "MIL": {
       "name": "밀라",
-      "clothed": "1girl, solo, grin, light orange hair, long hair, messy hair, windswept hair, ahoge, headphones around neck, teal eyes, bright eyes, sharp eyes, upturned eyes, cropped hoodie, unzipped, middle breasts, sports bra, midriff, cargo pants, orange thighhighs, one leg rolled up, mismatched accessories, layered bracelets, sneakers, untied shoelaces",
-      "nude": "nude, 1girl, grin, light orange hair, long hair, messy hair, windswept hair, ahoge, headphones around neck, teal eyes, bright eyes, sharp eyes, upturned eyes, middle breasts, mismatched accessories, orange thighhighs"
+      "clothed": "girl, solo, grin, light orange hair, long hair, messy hair, windswept hair, ahoge, headphones around neck, teal eyes, bright eyes, sharp eyes, upturned eyes, cropped hoodie, unzipped, middle breasts, sports bra, midriff, cargo pants, orange thighhighs, one leg rolled up, mismatched accessories, layered bracelets, sneakers, untied shoelaces",
+      "nude": "nude, girl, grin, light orange hair, long hair, messy hair, windswept hair, ahoge, headphones around neck, teal eyes, bright eyes, sharp eyes, upturned eyes, middle breasts, mismatched accessories, orange thighhighs"
     },
     "MMR": {
       "name": "미모리",
-      "clothed": "1girl, small breasts, smile, open mouth, sparkling eyes, 2::light blue hair::, long hair, messy hair, playful hair, colorful hair clips, star hair clip, blue eyes, bright eyes, harajuku fashion, layered outfit, oversized hoodie, crop top underneath, platform shoes, mismatched kneehighs, badges, pins, keychains on bag, holding phone, winking, playful",
-      "nude": "1girl, nude, small breasts, smile, open mouth, sparkling eyes, 2::light blue hair::, long hair, messy hair, playful hair, colorful hair clips, star hair clip, blue eyes, bright eyes, mismatched kneehighs"
+      "clothed": "girl, small breasts, smile, open mouth, sparkling eyes, 2::light blue hair::, long hair, messy hair, playful hair, colorful hair clips, star hair clip, blue eyes, bright eyes, harajuku fashion, layered outfit, oversized hoodie, crop top underneath, platform shoes, mismatched kneehighs, badges, pins, keychains on bag, holding phone, winking, playful",
+      "nude": "girl, nude, small breasts, smile, open mouth, sparkling eyes, 2::light blue hair::, long hair, messy hair, playful hair, colorful hair clips, star hair clip, blue eyes, bright eyes, mismatched kneehighs"
     },
     "ELA": {
       "name": "엘라",
-      "clothed": "1girl, large breasts, glamorous, curvy, wide hips, pelvic, half-closed eyes, seductive smile, 2::wine red hair::, very long hair, wavy hair, hair over shoulder, hair flip, flowing hair, dark red eyes, crimson eyes, cat eyes, sharp eyes, upturned eyes, high fashion, black dress, off-shoulder dress, slit dress, high heels",
-      "nude": "1girl, nude, large breasts, glamorous, curvy, wide hips, pelvic, half-closed eyes, seductive smile, 2::red hair::, very long hair, wavy hair, hair over shoulder, hair flip, flowing hair, dark red eyes, crimson eyes, cat eyes, sharp eyes, upturned eyes"
+      "clothed": "girl, large breasts, glamorous, curvy, wide hips, pelvic, half-closed eyes, seductive smile, 2::wine red hair::, very long hair, wavy hair, hair over shoulder, hair flip, flowing hair, dark red eyes, crimson eyes, cat eyes, sharp eyes, upturned eyes, high fashion, black dress, off-shoulder dress, slit dress, high heels",
+      "nude": "girl, nude, large breasts, glamorous, curvy, wide hips, pelvic, half-closed eyes, seductive smile, 2::red hair::, very long hair, wavy hair, hair over shoulder, hair flip, flowing hair, dark red eyes, crimson eyes, cat eyes, sharp eyes, upturned eyes"
     },
     "HSE": {
       "name": "하시은",
-      "clothed": "1girl, medium breasts,  smile, black hair, short hair, neck lengths hair, straight hair, silver hair clip, amber eyes, soft eyes, clear eyes, fitted cropped blazer, white turtleneck, tucked in, high-waisted wide-leg black pants, thin belt, pointed toe heels, low heels, small stud earrings",
-      "nude": "1girl, medium breasts,  smile, black hair, short hair, neck lengths hair, straight hair, silver hair clip, amber eyes, soft eyes, clear eyes, small stud earrings"
+      "clothed": "girl, medium breasts,  smile, black hair, short hair, neck lengths hair, straight hair, silver hair clip, amber eyes, soft eyes, clear eyes, fitted cropped blazer, white turtleneck, tucked in, high-waisted wide-leg black pants, thin belt, pointed toe heels, low heels, small stud earrings",
+      "nude": "girl, medium breasts,  smile, black hair, short hair, neck lengths hair, straight hair, silver hair clip, amber eyes, soft eyes, clear eyes, small stud earrings"
     },
     "NIA": {
       "name": "니아",
-      "clothed": "1girl, elegant, 2::dark blue hair, bob cut, neat hair, well-groomed ::, teal eyes, big eyes, clear eyes, large breasts, white blouse, high collar, lace trim, long skirt, pleated, navy skirt, leather shoes, pearl earrings, small brooch",
-      "nude": "nude, 1girl, elegant, 2::dark blue hair, bob cut, neat hair::, teal eyes, big eyes, clear eyes, large breasts, pearl earrings"
+      "clothed": "girl, elegant, 2::dark blue hair, bob cut, neat hair, well-groomed ::, teal eyes, big eyes, clear eyes, large breasts, white blouse, high collar, lace trim, long skirt, pleated, navy skirt, leather shoes, pearl earrings, small brooch",
+      "nude": "nude, girl, elegant, 2::dark blue hair, bob cut, neat hair::, teal eyes, big eyes, clear eyes, large breasts, pearl earrings"
     },
     "RAY": {
       "name": "레이",
-      "clothed": "1girl, 1.6::small breasts ::,  serene, 2::lavender hair::, long hair, straight hair, soft hair, flowing hair, ice blue eyes, light blue eyes, pale eyes,  eyes, calm eyes, white blouse, long sleeves, fitted vest, grey vest, long pants, black pants, ankle boots",
-      "nude": "1girl, 1.6::small breasts ::, serene, 2::lavender hair::, long hair, straight hair, soft hair, flowing hair, ice blue eyes, light blue eyes, pale eyes,  eyes, calm eyes, 2::single prosthetic leg::"
+      "clothed": "girl, 1.6::small breasts ::,  serene, 2::lavender hair::, long hair, straight hair, soft hair, flowing hair, ice blue eyes, light blue eyes, pale eyes,  eyes, calm eyes, white blouse, long sleeves, fitted vest, grey vest, long pants, black pants, ankle boots",
+      "nude": "girl, 1.6::small breasts ::, serene, 2::lavender hair::, long hair, straight hair, soft hair, flowing hair, ice blue eyes, light blue eyes, pale eyes,  eyes, calm eyes, 2::single prosthetic leg::"
     }
   },
   "scenes": {
@@ -199,7 +199,7 @@
       "name": "angry",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::angry::",
+      "female_prompt": "girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::angry::",
       "male_prompt": "",
       "_old_prompt": "straight on, upper body, portrait, face focus, standing, angry, "
     },
@@ -207,7 +207,7 @@
       "name": "contempt",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::arms crossed::, cold face, 1.8::disdainful::, abhorrent, 1.8::shaded face::",
+      "female_prompt": "girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::arms crossed::, cold face, 1.8::disdainful::, abhorrent, 1.8::shaded face::",
       "male_prompt": "",
       "_old_prompt": "straight on, upper body, portrait, face focus, standing, arms crossed, cold face, disdainful, abhorrent, shaded face, "
     },
@@ -215,7 +215,7 @@
       "name": "happy",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::happy::, smile, 1.8::open mouth::",
+      "female_prompt": "girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::happy::, smile, 1.8::open mouth::",
       "male_prompt": "",
       "_old_prompt": "straight on, upper body, portrait, face focus, standing, happy, smile, open mouth, "
     },
@@ -223,7 +223,7 @@
       "name": "sad",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::sad::, crying",
+      "female_prompt": "girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::sad::, crying",
       "male_prompt": "",
       "_old_prompt": "straight on, upper body, portrait, face focus, standing, sad, crying, "
     },
@@ -231,7 +231,7 @@
       "name": "shy",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::blush::, embarrassed",
+      "female_prompt": "girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::blush::, embarrassed",
       "male_prompt": "",
       "_old_prompt": "straight on, upper body, portrait, face focus, standing, , embarrassed, "
     },
@@ -239,7 +239,7 @@
       "name": "smirk",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::smirk::, smug, 1.8::half-closed eyes::",
+      "female_prompt": "girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::smirk::, smug, 1.8::half-closed eyes::",
       "male_prompt": "",
       "_old_prompt": "straight on, upper body, portrait, face focus, standing, smirk, smug, half-closed eyes, "
     },
@@ -247,7 +247,7 @@
       "name": "surprised",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::blush::, surprised, 1.8::open mouth::",
+      "female_prompt": "girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::blush::, surprised, 1.8::open mouth::",
       "male_prompt": "",
       "_old_prompt": "straight on, upper body, portrait, face focus, standing, blush, surprised, open mouth, "
     },
@@ -255,7 +255,7 @@
       "name": "troubled",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::worried::, frown, 1.8::sweatdrop::",
+      "female_prompt": "girl, solo, straight on, upper body, portrait, face focus, standing, 1.8::worried::, frown, 1.8::sweatdrop::",
       "male_prompt": "",
       "_old_prompt": "straight on, upper body, portrait, face focus, standing, worried, frown, sweatdrop, "
     },
@@ -263,7 +263,7 @@
       "name": "neutral",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, straight on, upper body, portrait, face focus, standing",
+      "female_prompt": "girl, solo, straight on, upper body, portrait, face focus, standing",
       "male_prompt": "",
       "_old_prompt": "straight on, upper body, portrait, face focus, standing, "
     },
@@ -271,7 +271,7 @@
       "name": "normal-chat",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, straight on, standing, smile",
+      "female_prompt": "girl, solo, straight on, standing, smile",
       "male_prompt": "",
       "_old_prompt": "upper body, smile, casual, "
     },
@@ -279,7 +279,7 @@
       "name": "undressing-seduction",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, straight on, nsfw, shirt pull, spread legs, nipples, , embarrassed, smile, tongue out",
+      "female_prompt": "girl, solo, straight on, nsfw, shirt pull, spread legs, nipples, , embarrassed, smile, tongue out",
       "male_prompt": "",
       "_old_prompt": ", , bedroom, straight on, nsfw, shirt pull, collarbone, nipples, , embarrassed, smile, , seductive, "
     },
@@ -287,7 +287,7 @@
       "name": "drinking",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, bar, sitting, leaning to the side, holding cup, , drunk",
+      "female_prompt": "girl, solo, bar, sitting, leaning to the side, holding cup, , drunk",
       "male_prompt": "",
       "_old_prompt": "bar, night, sitting, leaning forward, holding glass, wine, , drunk, half-closed eyes"
     },
@@ -295,7 +295,7 @@
       "name": "dining-chat",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, cafe, sitting, table, food, holding fork, smile, , open mouth",
+      "female_prompt": "girl, solo, cafe, sitting, table, food, holding fork, smile, , open mouth",
       "male_prompt": "",
       "_old_prompt": "restaurant, sitting, table, food, holding chopsticks, smile, open mouth, date, "
     },
@@ -303,7 +303,7 @@
       "name": "cafe-chat",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, cafe, sitting, table, cake, holding cup, smile, , open mouth",
+      "female_prompt": "girl, solo, cafe, sitting, table, cake, holding cup, smile, , open mouth",
       "male_prompt": "",
       "_old_prompt": "cafe, sitting, table, latte art, holding cup, smile, chin rest, , , "
     },
@@ -311,7 +311,7 @@
       "name": "cinema-chat",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, movie theater, sitting, holding popcorn, smile, ",
+      "female_prompt": "girl, solo, movie theater, sitting, holding popcorn, smile, ",
       "male_prompt": "",
       "_old_prompt": "movie theater, dark, sitting, armrest, , smile, popcorn, close-up, "
     },
@@ -319,7 +319,7 @@
       "name": "christmas-date",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, night, city lights, christmas tree, standing, holding shopping bag, smile, ",
+      "female_prompt": "girl, solo, night, city lights, christmas tree, standing, holding shopping bag, smile, ",
       "male_prompt": "",
       "_old_prompt": "night, city lights, illumination, christmas, winter clothes, scarf, standing, smile, , snow, breath, "
     },
@@ -327,7 +327,7 @@
       "name": "wedding",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, wedding, indoors, 2::wedding dress::, bridal veil, holding bouquet, happy",
+      "female_prompt": "girl, solo, wedding, indoors, 2::wedding dress::, bridal veil, holding bouquet, happy",
       "male_prompt": "",
       "_old_prompt": "wedding, church, wedding dress, bridal veil, holding bouquet, flowers, happy, crying, tears of joy, sunlight, "
     },
@@ -335,7 +335,7 @@
       "name": "pregnant",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, 0.6::pregnant::",
+      "female_prompt": "light smile, looking at viewer, 0.8::pregnant::",
       "male_prompt": "",
       "_old_prompt": "bedroom, 0.6::pregnant::, maternal,  smile, hand on belly, , "
     },
@@ -343,15 +343,15 @@
       "name": "sleeping",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, bedroom, on bed, sleeping, eyes closed, lying, blanket, pillow",
+      "female_prompt": "girl, solo, bedroom, on bed, sleeping, eyes closed, lying, blanket, pillow",
       "male_prompt": ""
     },
     "20": {
       "name": "cunnilingus",
       "width": 1216,
       "height": 832,
-      "female_prompt": "female focus, pussy, pussy juice, pussy focus, 2::close-up::, heavy breathing",
-      "male_prompt": "pov",
+      "female_prompt": "pussy, pussy focus, pussy juice, half-closed eyes, blush, tears, on bed, from below, ",
+      "male_prompt": "",
       "_old_prompt": "boy, black hair, hair over eyes, cunnilingus, female focus, , torogao, , open mouth, "
     },
     "21": {
@@ -359,7 +359,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "face focus, detailed face, 2::close-up, kiss ::, -1::lips::, reaching towards viewer",
-      "male_prompt": "pov",
+      "male_prompt": "",
       "_old_prompt": "pov, kiss, "
     },
     "22": {
@@ -390,15 +390,15 @@
       "name": "fingering",
       "width": 1216,
       "height": 832,
-      "female_prompt": "pussy, pussy juice, target# fingering, breath",
-      "male_prompt": "pov, source# fingering",
+      "female_prompt": "pussy, pussy juice, target# fingering, breath, half-closed eyes, blush, tears, covering own mouth, from below, ",
+      "male_prompt": "pov, source# fingering, reaching one hand towards another's pussy, finger in another's pussy, ",
       "_old_prompt": "fingering, pussy, pussy juice, "
     },
     "26": {
       "name": "fingering-climax",
       "width": 1216,
       "height": 832,
-      "female_prompt": "pussy, pussy juice, target# fingering, heavy breathing",
+      "female_prompt": "pussy, pussy juice, target# fingering, breath, half-closed eyes, blush, tears, covering own mouth, from below, female ejaculation, ",
       "male_prompt": "pov, source# fingering, finger in pussy",
       "_old_prompt": "fingering, hug from behind, pussy, pussy juice, orgasm, ahegao, "
     },
@@ -562,7 +562,7 @@
       "name": "body-worship",
       "width": 832,
       "height": 1216,
-      "female_prompt": "1girl, solo, on bed, nude, , arms above head, lying on back, legs apart, , seductive smile, parted lips, breasts, nipples",
+      "female_prompt": "girl, solo, on bed, nude, , arms above head, lying on back, legs apart, , seductive smile, parted lips, breasts, nipples",
       "male_prompt": ""
     },
     "48": {
@@ -583,12 +583,12 @@
       "name": "nude-conversation",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, on bed, nude, sitting on bed, , parted lips, talking, covering breasts, embarrassed smile, knees together",
+      "female_prompt": "girl, solo, on bed, nude, sitting on bed, , parted lips, talking, covering breasts, embarrassed smile, knees together",
       "male_prompt": "",
       "_old_prompt": "bedroom, white bed, sitting on bed, nsfw, covering breasts, covering crotch, , , "
     },
     "51": {
-      "name": "missionary-sex",
+      "name": "missionary",
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, missionary, lying on back, legs apart, spread legs, thighs, knees up, mutual# sex, pussy, pussy juice, , breasts, nipples",
@@ -604,7 +604,7 @@
       "_old_prompt": "bedroom, from above, missionary, boy, black hair, hair over eyes, sex, penis, cum in pussy, overflow, , trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
     "53": {
-      "name": "doggystyle-sex",
+      "name": "doggystyle",
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, doggystyle, all fours, from behind, ass focus, back, mutual# sex, pussy, pussy juice, anal, spread legs, , motion lines",
@@ -620,7 +620,7 @@
       "_old_prompt": "bedroom, from side, doggystyle, boy, black hair, hair over eyes, grabbing girl's hair, sex, penis, cum in pussy, overflow, , trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
     "55": {
-      "name": "cowgirl-sex",
+      "name": "cowgirl",
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, girl on top, cowgirl position, astride, sitting on penis, mutual# sex, pussy, pussy juice, , breasts, nipples",
@@ -636,7 +636,7 @@
       "_old_prompt": "bedroom, from front, girl on top, cowgirl position, boy, black hair, hair over eyes, sex, penis, cum in pussy, overflow, arms up, arms behind head, arched back, , trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
     "57": {
-      "name": "spooning-sex",
+      "name": "spooning",
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, mutual# sex, pussy, pussy juice, breasts",
@@ -668,7 +668,7 @@
       "_old_prompt": "bedroom, from below, standing, spread legs, leg grab, reverse suspended congress, boy, black hair, hair over eyes, sex, penis, cum in pussy, overflow, female focus, , trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
     "61": {
-      "name": "anal-sex",
+      "name": "anal",
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, lying, doggystyle, from behind, ass focus, back, completely nude, anal, pussy, pussy juice, motion lines, , mutual# sex, target# grabbing another's ass",
@@ -676,7 +676,7 @@
       "_old_prompt": "bedroom, on bed, lying, from behind, doggystyle, ass focus, boy, black hair, hair over eyes, grabbing girl's ass, anal, penis, back, completely nude, pussy, pussy juice, motion lines, trembling, , open mouth, embarrassed, "
     },
     "62": {
-      "name": "anal-sex-cum",
+      "name": "anal-climax",
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, lying, doggystyle, from behind, ass focus, back, completely nude, anal, pussy, pussy juice, motion lines, , mutual# sex, cum in ass, cum overflow, target# grabbing another's ass, target# grabbing another's hair",
@@ -708,7 +708,7 @@
       "_old_prompt": "bedroom, from side, lying, on side, spooning, leg lift, boy, black hair, hair over eyes, sex, penis, female focus, 0.6::pregnant::, , lactation, , open mouth, "
     },
     "66": {
-      "name": "pregnant-sex-cum",
+      "name": "pregnant-sex-climax",
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, 0.6::pregnant::, lactation, mutual# sex, pussy, cum in pussy, cum overflow, , ",
@@ -716,7 +716,7 @@
       "_old_prompt": "bedroom, from side, lying, on side, spooning, leg lift, boy, black hair, hair over eyes, sex, penis, cum in pussy, overflow, female focus, 0.6::pregnant::, , lactation, trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
     "67": {
-      "name": "pregnant-after-sex",
+      "name": "pregnant-after",
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, lying, on back, spread legs, 0.6::pregnant::, after sex, , lactation, , cum on face, cum in pussy, cum on body, cum overflow, after sex, pussy, ",
@@ -738,7 +738,7 @@
       "male_prompt": "2::censored penis ::, 1boy, cropped head, out of frame, penis, large penis, mutual# sex, cum"
     },
     "70": {
-      "name": "clothed-missionary-bedroom",
+      "name": "clothed-missionary",
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, missionary, lying on back, legs apart, spread legs, thighs, clothed, mutual# clothed sex, mutual# sex, pussy, pussy juice, , ",
@@ -746,7 +746,7 @@
       "_old_prompt": "bedroom, missionary, boy, black hair, hair over eyes, clothed sex, sex, penis, , trembling, , "
     },
     "71": {
-      "name": "clothed-missionary-climax-bedroom",
+      "name": "clothed-missionary-climax",
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, missionary, lying on back, legs apart, spread legs, thighs, clothed, mutual# clothed sex, mutual# sex, pussy, cum in pussy, cum overflow, , , ",
@@ -754,7 +754,7 @@
       "_old_prompt": "bedroom, from above, missionary, boy, black hair, hair over eyes, clothed sex, sex, penis, cum in pussy, overflow, , trembling, heart-shaped pupils, ahegao, , tongue out, open mouth, "
     },
     "72": {
-      "name": "clothed-fullnelson-bedroom",
+      "name": "clothed-fullnelson",
       "width": 1216,
       "height": 832,
       "female_prompt": "standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, clothed, mutual# clothed sex, mutual# sex, pussy, pussy juice, from below",
@@ -762,7 +762,7 @@
       "_old_prompt": "bedroom, from below, standing, spread legs, leg grab, reverse suspended congress, boy, black hair, hair over eyes, clothed sex, sex, penis, female focus, , , open mouth, "
     },
     "73": {
-      "name": "clothed-fullnelson-climax-bedroom",
+      "name": "clothed-fullnelson-climax",
       "width": 1216,
       "height": 832,
       "female_prompt": "standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, clothed, mutual# clothed sex, mutual# sex, pussy, cum in pussy, cum overflow, , , , from below",
@@ -786,7 +786,7 @@
       "_old_prompt": "bedroom, from front, girl on top, cowgirl position, boy, black hair, hair over eyes, clothed sex, sex, penis, cum in pussy, overflow, arched back, , trembling, heart-shaped pupils, ahegao, , tongue out, open mouth, "
     },
     "76": {
-      "name": "clothed-fellatio-bedroom",
+      "name": "clothed-fellatio",
       "width": 1216,
       "height": 832,
       "female_prompt": "kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail, , ",
@@ -794,7 +794,7 @@
       "_old_prompt": "bedroom, from above, close-up, pov, large penis, clothed sex, fellatio, , trembling, , crying with eyes open, open mouth, "
     },
     "77": {
-      "name": "clothed-fellatio-climax-bedroom",
+      "name": "clothed-fellatio-climax",
       "width": 1216,
       "height": 832,
       "female_prompt": "kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail, , cum on face, cum in mouth, cum overflow, facial, ",
@@ -802,7 +802,7 @@
       "_old_prompt": "bedroom, from above, close-up, pov, large penis, cum, clothed sex, fellatio, , cum on face, cum in mouth, overflow, trembling, heart-shaped pupils, ahegao, , crying with eyes open, "
     },
     "78": {
-      "name": "clothed-after-bedroom",
+      "name": "clothed-after",
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, lying, spread legs, clothed, after sex, , , cum on face, cum in pussy, cum on body, cum overflow, after sex, pussy, , ",
@@ -810,7 +810,7 @@
       "_old_prompt": "bedroom, from above, lying, spread legs, spooning, clothed sex, after sex, , , cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, , smile, open mouth, "
     },
     "79": {
-      "name": "clothed-spooning-bedroom",
+      "name": "clothed-spooning",
       "width": 1216,
       "height": 832,
       "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, clothed, mutual# clothed sex, mutual# sex, pussy, pussy juice, , ",
@@ -897,54 +897,54 @@
       "name": "spread-after-missionary",
       "width": 832,
       "height": 1216,
-      "female_prompt": "solo, 1girl, on bed, 2::from above, lying, on back::, 2::seductive smile, ::, after sex, , 2::spread pussy, spreading own pussy, cum in pussy::, 2::pussy juice, pussy juice trail, cum overflow::, very sweaty, wet hair, heart, flustered, after sex, , nipples, parted lips, open mouth",
+      "female_prompt": "solo, girl, on bed, 2::from above, lying, on back::, 2::seductive smile, ::, after sex, , 2::spread pussy, spreading own pussy, cum in pussy::, 2::pussy juice, pussy juice trail, cum overflow::, very sweaty, wet hair, heart, flustered, after sex, , nipples, parted lips, open mouth",
       "male_prompt": ""
     },
     "91": {
       "name": "spread-after-cowgirl",
       "width": 832,
       "height": 1216,
-      "female_prompt": "solo, 1girl, pov crotch, 2::spread pussy, spreading own pussy, cum in pussy::, cowgirl position, 2::looking down, seductive smile::, after sex, , open mouth, , flustered, after sex, 2::sweat, wet hair, head tilt, saliva trail::, arched back, , cum overflow",
+      "female_prompt": "solo, girl, pov crotch, 2::spread pussy, spreading own pussy, cum in pussy::, cowgirl position, 2::looking down, seductive smile::, after sex, , open mouth, , flustered, after sex, 2::sweat, wet hair, head tilt, saliva trail::, arched back, , cum overflow",
       "male_prompt": ""
     },
     "92": {
       "name": "spread-after-doggystyle",
       "width": 832,
       "height": 1216,
-      "female_prompt": "solo, 1girl, 2::ass focus, flustered, cum in pussy, doggystyle, spread pussy::, 2::pussy juice, pussy juice trail, cum overflow::, spreading own pussy, pillow, 2::seductive smile::, heart, 2::very sweaty, wet hair::, after sex, , after sex, looking back, back, anal",
+      "female_prompt": "solo, girl, 2::ass focus, flustered, cum in pussy, doggystyle, spread pussy::, 2::pussy juice, pussy juice trail, cum overflow::, spreading own pussy, pillow, 2::seductive smile::, heart, 2::very sweaty, wet hair::, after sex, , after sex, looking back, back, anal",
       "male_prompt": ""
     },
     "93": {
       "name": "stage-performance",
       "width": 832,
       "height": 1216,
-      "female_prompt": "1girl, solo, stage, spotlight, performing, crowd silhouette, concert, full body, bokeh",
+      "female_prompt": "girl, solo, stage, spotlight, performing, crowd silhouette, concert, full body, bokeh",
       "male_prompt": ""
     },
     "94": {
       "name": "stage-group",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, stage, performance, concert, spotlight, crowd silhouette, full body, bokeh",
+      "female_prompt": "girl, solo, stage, performance, concert, spotlight, crowd silhouette, full body, bokeh",
       "male_prompt": ""
     },
     "95": {
       "name": "backstage",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, backstage, mirror, vanity, nervous, dressing room",
+      "female_prompt": "girl, solo, backstage, mirror, vanity, nervous, dressing room",
       "male_prompt": ""
     },
     "96": {
       "name": "off-stage",
       "width": 1216,
       "height": 832,
-      "female_prompt": "1girl, solo, casual",
+      "female_prompt": "girl, solo, casual",
       "male_prompt": ""
     },
     "901": {
       "name": "svg-avatar",
-      "female_prompt": "1girl, solo, close-up, face focus, portrait, , smile, ",
+      "female_prompt": "girl, solo, close-up, face focus, portrait, , smile, ",
       "male_prompt": "",
       "width": 1024,
       "height": 1024,
@@ -952,7 +952,7 @@
     },
     "902": {
       "name": "svg-post",
-      "female_prompt": "1girl, solo, upper body, casual, , smile, indoors, window, candid",
+      "female_prompt": "girl, solo, upper body, casual, , smile, indoors, window, candid",
       "male_prompt": "",
       "width": 1216,
       "height": 832,
@@ -960,7 +960,7 @@
     },
     "903": {
       "name": "svg-stream",
-      "female_prompt": "1girl, solo, upper body, , studio, headphones around neck, waving, smile, live broadcast, monitor, screen",
+      "female_prompt": "girl, solo, upper body, , studio, headphones around neck, waving, smile, live broadcast, monitor, screen",
       "male_prompt": "",
       "width": 1280,
       "height": 768,
@@ -968,7 +968,7 @@
     },
     "904": {
       "name": "svg-news",
-      "female_prompt": "1girl, solo, upper body, formal, press conference, microphone, interview, serious, elegant",
+      "female_prompt": "girl, solo, upper body, formal, press conference, microphone, interview, serious, elegant",
       "male_prompt": "",
       "width": 1216,
       "height": 832,
@@ -976,7 +976,7 @@
     },
     "910": {
       "name": "key-visual",
-      "female_prompt": "1girl, solo, full body, standing, official art, key visual, black background, dynamic pose, sharp details",
+      "female_prompt": "girl, solo, full body, standing, official art, key visual, black background, dynamic pose, sharp details",
       "male_prompt": "",
       "width": 832,
       "height": 1216,
@@ -984,7 +984,7 @@
     },
     "911": {
       "name": "thumbnail",
-      "female_prompt": "1girl, solo, upper body, portrait, , smile, soft focus background",
+      "female_prompt": "girl, solo, upper body, portrait, , smile, soft focus background",
       "male_prompt": "",
       "width": 832,
       "height": 832,
@@ -1191,7 +1191,7 @@
     },
     "RAY": {
       "93": {
-        "female_prompt": "stage, spotlight, dancing, ballet, graceful, flowing movement, leg up, arms extended, crowd silhouette, concert, full body, bokeh"
+        "female_prompt": "stage, spotlight, dancing, ballet, graceful, flowing movement, leg up, arms extended, crowd silhouette, concert, bokeh"
       },
       "96": {
         "female_prompt": "gym, stretching, athletic, , mirror, sports outfit, towel, water bottle, focused"
@@ -1206,10 +1206,10 @@
     },
     "LPS": {
       "93": {
-        "female_prompt": "stage, spotlight, DJ booth, turntable, headphones, mixing, one hand raised, crowd silhouette, concert, full body"
+        "female_prompt": "stage, spotlight, DJ booth, turntable, headphones, mixing, one hand raised, crowd silhouette, concert"
       },
       "96": {
-        "female_prompt": "music shop, browsing vinyl records, headphones around neck"
+        "female_prompt": "music shop, vinyl records, headphones around neck"
       },
       "_override_slots": {
         "hug_style": "POV",
