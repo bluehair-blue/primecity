@@ -1,30 +1,27 @@
 {
   "id": 0,
   "icon": "📋",
-  "enter": "🔧→📋. Ask branch: A({{user}}=manager) or B(character=manager). Default: A, artist=강하람.",
-  "overview": "Dedicated manager for an artist. Loop: schedule→execute→results→adjust.",
-  "branch": {
-    "A": "Agency assigns {{user}} as manager → first meeting. Candidates: 서윤/강하람/장그루/밀라/엘라. {{user}} decisions shape career.",
-    "B": "{{user}} is artist, NPC manages. Candidates: 한소리/에리카. Manager personality → support style."
-  },
+  "overview": "{{user}} = 아티스트 전담 매니저 또는 아티스트 본인. 스케줄 관리 → 실행 → 결과 → 조정 루프.",
   "loop": [
-    "AM: Check schedule → proceed/change/cancel",
-    "Day: Execute (broadcast/practice/filming/fan meeting)",
-    "PM: Results (컨디션/평판 Δ) + artist conversation",
-    "Night: Adjust tomorrow + event trigger",
-    "(Repeat)"
+    "AM: 스케줄 확인 → 진행/변경/취소 결정",
+    "Day: 실행 (방송/연습/촬영/팬미팅) — 결과를 구체적으로 묘사",
+    "PM: 결과 (컨디션/평판 변동) + 아티스트와 대화",
+    "Night: 내일 스케줄 조정 + 이벤트 트리거",
+    "반복"
   ],
-  "events": "broadcast(music show/variety/radio) | schedule(double booking/컨디션 vs opportunity) | scandal(rumor/SNS/paparazzi) | fan(signing/live/surprise) | brand(ad/deal/image) | crisis(health/slump/conflict/black consumer). 1-2/turn, AI selects per context.",
-  "exp": "📋\n[스케줄]: Today/Tomorrow (time/content)\n[컨디션]: ■■■■□ (5lvl, ↓overwork ↑rest)\n[평판]: ★n (0~100, Δ broadcast/scandal/fan)",
-  "goals": "Short: survive week | Mid: solo concert/album/awards | Long: guide to 더 코어 | Hidden: manager↔artist line — will {{user}} cross it?",
-  "variations": {
-    "서윤": "Top maintenance. 나하린's shadow.",
-    "강하람": "From zero. Sister's livelihood.",
-    "장그루": "Just debuted, fragile. Build up.",
-    "엘라": "Buzz but prejudice. Image strategy key."
+  "events": "broadcast(음방/예능/라디오) | schedule(이중 스케줄/컨디션 vs 기회) | scandal(루머/SNS/파파라치) | fan(사인회/라이브/서프라이즈) | brand(광고/딜/이미지) | crisis(건강/슬럼프/갈등). 턴당 1~2개, AI가 맥락에 맞게 선택.",
+  "exp": "📋\n[스케줄]: 오늘/내일 (시간/내용)\n[컨디션]: ■■■■□ (5단계, 과로↓ 휴식↑)\n[평판]: ★n (0~100, 방송/스캔들/팬 반응에 따라 변동)",
+  "conn": {
+    "서윤": "톱 유지 압박. 나하린의 그림자.",
+    "강하람": "제로에서 시작. 여동생 생계.",
+    "장그루": "갓 데뷔, 취약. 빌드업이 핵심.",
+    "엘라": "화제성은 있지만 편견. 이미지 전략이 관건.",
+    "한소리": "B분기 매니저 후보. 능글능글하지만 절박함.",
+    "에리카": "B분기 매니저 후보. 독설가이나 내면은 따뜻함."
   },
+  "goals": "단기: 이번 주 살아남기 | 중기: 단독 콘서트/앨범/시상식 | 장기: 더 코어까지 이끌기 | 히든: 매니저↔아티스트의 선 — {{user}}는 넘을 것인가?",
   "maintain": "상태창 🔧란에 📋를 유지한다."
 }
 
 // --- TRIGGER ---
-// !매니저모드, 📋
+// 📋
