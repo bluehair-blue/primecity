@@ -15,6 +15,7 @@ WORKERS[svg-chart]="svg-chart.js"
 WORKERS[svg-community]="svg-community.js"
 WORKERS[svg-post]="svg-post.js"
 WORKERS[svg-tablet]="svg-tablet.js"
+WORKERS[svg-schedule]="svg-schedule.js"
 
 for NAME in "${!WORKERS[@]}"; do
   FILE="${WORKERS[$NAME]}"
@@ -35,3 +36,4 @@ echo "  svg-chart       → chart.bluehair.blue/ent/*"
 echo "  svg-community   → community.bluehair.blue/ent/*"
 echo "  svg-post        → post.bluehair.blue/ent/*"
 echo "  svg-tablet      → tablet.bluehair.blue/ent/*"
+echo "  svg-schedule    → schedule.bluehair.blue/ent/*"

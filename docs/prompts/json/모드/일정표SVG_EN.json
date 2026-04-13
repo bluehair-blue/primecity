@@ -1,0 +1,38 @@
+{
+  "id": 0,
+  "role": "Schedule SVG output rules — universal across all modes",
+  "when": "새로운 날이 시작되거나, 유저가 일정/스케줄을 확인 또는 요청할 때. 모드 무관.",
+  "format": "![](https://schedule.bluehair.blue/ent/?user={유저명}&artist={아티스트}&date={날짜}&s1={시간}&s1name={일정명}&s1loc={장소}&s1type={유형}&...)",
+  "rules": [
+    "일정 슬롯 s1~s8: 시간순 정렬, 최소 3개 이상 채울 것",
+    "type 필수 지정: broadcast/photo/practice/event/meeting/rest",
+    "유저명은 반드시 {{user}}로 전달 (플랫폼이 치환)",
+    "아티스트명은 현재 맥락의 캐릭터 본명",
+    "condition/reputation은 현재 상태창 수치와 일치시킬 것",
+    "note는 다음 턴에 영향을 줄 수 있는 정보를 간결하게",
+    "향후 일정 u1~u3은 스토리 맥락에서 예고된 이벤트만"
+  ],
+  "context_guide": {
+    "{{user}}의 역할이 아티스트의 매니저일 시": "AM 스케줄 확인 턴에 자동 출력. 스케줄 관리→실행→조정 루프의 기점. condition/reputation 필수.",
+    "{{user}}의 역할이 오디션 심사위원일 시": "라운드 전 준비 일정 표시. 리허설·평가·대기 중심. note에 라운드 진행도 기재.",
+    "{{user}}가 자유롭게 도시를 탐색 중일 시": "유저가 하루 계획을 물을 때 출력. 자유도 높은 일정 구성. 일상+탐색 위주.",
+    "{{user}}의 역할이 프로듀서일 시": "연습·녹음·이미지메이킹 스케줄. condition 중요.",
+    "{{user}}의 역할이 연습생일 시": "훈련 스케줄 중심. practice 타입 비중 높게.",
+    "{{user}}의 역할이 작곡가일 시": "작곡·녹음·미팅 중심. meeting/practice 위주.",
+    "{{user}}의 역할이 배우일 시": "촬영 스케줄 중심. photo 타입 + 대본리딩(practice).",
+    "{{user}}의 역할이 인플루언서일 시": "콘텐츠 촬영·브랜드딜 미팅·라이브 방송 중심."
+  },
+  "type_colors": {
+    "broadcast": "방송 — 핑크",
+    "photo": "촬영 — 보라",
+    "practice": "연습/레슨 — 초록",
+    "event": "이벤트 — 골드",
+    "meeting": "미팅 — 파랑",
+    "rest": "휴식/이동 — 회색"
+  },
+  "url_encoding": "공백→%20, 콤마→%2C, +기호→%2B, 괄호→%28%29, <> 사용 금지, 한국어 그대로 가능",
+  "example": "![](https://schedule.bluehair.blue/ent/?user={{user}}&artist=강하람&date=2026.04.14%20(월)&s1=09:00&s1name=음악방송%20리허설&s1loc=KBS&s1type=broadcast&s2=12:00&s2name=점심%20%2B%20이동&s2type=rest&s3=14:00&s3name=화보%20촬영&s3loc=W%20Magazine&s3type=photo&s4=18:00&s4name=보컬%20레슨&s4loc=Studio%20A&s4type=practice&s5=21:00&s5name=자유시간&s5type=rest&condition=4&reputation=72&note=내일%20팬사인회%20준비%20필요&u1=팬사인회&u1day=%2B1d&u1loc=강남&u2=앨범%20녹음&u2day=%2B2d&u3=예능%20촬영&u3day=%2B3d&u3loc=SBS)"
+}
+
+// --- TRIGGER ---
+// 일정표, 일정, 스케줄, 스케쥴, 스캐줄, schedule, 오늘 일정, 내일 일정, 이번주, 금주, 주간 일정, 하루 일정, 하루 계획, 스케줄표, 스케쥴표, 일정 확인, 일정확인, 스케줄 확인, 스케쥴 확인
