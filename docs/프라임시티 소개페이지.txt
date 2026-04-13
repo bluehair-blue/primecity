@@ -113,9 +113,9 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg3.webp?v=13');"></div>
 <!-- Update Notice -->
 <div style="padding:24px;text-align:center;background:linear-gradient(135deg,oklch(0.76 0.12 80/0.08),oklch(0.62 0.20 252/0.06));border-top:1px solid oklch(0.76 0.12 80/0.15);border-bottom:1px solid oklch(0.76 0.12 80/0.15);">
-<div style="font-family:serif;font-size:13px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Latest Update · 2026.04.12</div>
-<div style="font-family:serif;font-size:22px;font-weight:600;color:var(--txt);margin-bottom:8px;word-break:keep-all;">시네마틱 디테일 · NSFW 갤러리 해금</div>
-<div style="font-size:15px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;max-width:480px;margin:0 auto;">캐릭터 디테일 페이지에 고유 시네마틱 인트로 8종 추가.<br>NSFW · 착의 이미지 <span style="color:var(--gold);font-weight:600;">갤러리에서 열람 가능.</span></div>
+<div style="font-family:serif;font-size:13px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Latest Update · 2026.04.14</div>
+<div style="font-family:serif;font-size:22px;font-weight:600;color:var(--txt);margin-bottom:8px;word-break:keep-all;">일정표 SVG · 디버그 모드 · 모드 개편</div>
+<div style="font-size:15px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;max-width:480px;margin:0 auto;">범용 일정표 SVG 10번째 UI 추가. !디버그 모드 신설.<br>직업군 모드 5종 <span style="color:var(--gold);font-weight:600;">규칙/시작 분리 개편.</span></div>
 </div>
 <!-- About -->
 <div class="w">
