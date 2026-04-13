@@ -29,7 +29,7 @@ const SCENE_CATEGORIES = [
   { label: "착의", en: "추가 예정!", range: "70–86", count: "추가 예정!", accent: C.distHype },
   { label: "확장", en: "Extended", range: "87–92", count: 6, accent: C.distHype },
   { label: "무대", en: "Stage", range: "93–96", count: 4, accent: C.distMid },
-  { label: "SVG", en: "Tablet Art", range: "4 per char", count: 60, accent: C.blue },
+  { label: "SVG", en: "Live UI", range: "10종", count: "10 templates", accent: C.blue },
 ];
 
 function ImageSystemInfo({ isMobile }) {
