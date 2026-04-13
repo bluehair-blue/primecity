@@ -232,8 +232,10 @@ ripple:  { duration: 6000 },  // MIL — 줌 2비트 + 물결 + hero hold
 | **파일 단위** | 로어북 엔트리 1개 = JSON 파일 1개. 합본 금지 |
 | **trigger 분리** | JSON 본문에 `trigger` 키 포함 ❌ → 파일 하단에 `// --- TRIGGER ---` 주석으로 기록 |
 | **fav 미포함** | 호감도 초기값은 JSON에 넣지 않음. 플랫폼 UI에서 직접 설정 |
-| **폴더 배치** | 캐릭터 → `캐릭터/`, 모드 → `모드/`, 오디션 라운드 → `오디션/`, 스포일러 → 루트 |
-| **파일명** | `{이름}_EN.json` (예: `강하람_EN.json`, `매니저모드_EN.json`) |
+| **폴더 배치** | 캐릭터 → `캐릭터/`, 모드 → `모드/`, 오디션 라운드 → `오디션/`, SVG 규칙 → **루트** (`SVG_` prefix), 스포일러 → 루트 |
+| **파일명** | `{이름}_EN.json` (예: `강하람_EN.json`, `매니저모드_EN.json`, `SVG_일정표_EN.json`) |
+| **SVG 로어북** | 범용 SVG 출력 규칙은 `json/SVG_{이름}_EN.json` (루트). `모드/` 하위에 넣지 않을 것 — `edenchat_clipboard.py` glob 패턴 `SVG_*_EN.json`과 매칭 필수 |
+| **모드 키워드 격리** | 범용 로어북에서 모드 이모지/키워드(📋, 🎤 등) 직접 노출 금지. `{{user}}의 역할이 ~일 시` 맥락으로 지침 제공 |
 
 ```
 // 파일 끝 형식 예시:
@@ -332,6 +334,35 @@ C:\Users\User\OneDrive\图片\챗봇 제작\캐릭터 이미지\
 > **R2에 이미지를 업로드할 때마다 반드시 `src/utils/cdn.js`의 `ASSET_VERSION`을 +1 올릴 것.** 이를 빠뜨리면 브라우저/CDN 캐시 때문에 업데이트가 반영되지 않는다.
 
 > 상세 → `research.md` §13
+
+---
+
+## SVG 워커 파이프라인
+
+**10개 워커** (workers/svg-*.js): sns, tweet, livestream, messenger, news, chart, community, post, tablet, **schedule**
+
+### 신규 워커 작성 체크리스트
+
+1. `workers/svg-{name}.js` 작성 (tablet 골격: `renderXxx(startY)` → `{ svg, height }`)
+2. `src/data/svgTemplates.js`에 `generateXxx` 함수 + 템플릿 등록
+3. `workers/deploy/deploy.sh`에 `WORKERS[svg-{name}]` + `ROUTES[svg-{name}]` 추가
+4. 로어북 `docs/prompts/json/SVG_{이름}_EN.json` 작성 (트리거 키워드 + 오타 변형 포함)
+5. `npm run build` → 빌드 검증
+6. `wrangler deploy --route "{subdomain}.bluehair.blue/*"` → 배포 + 라우트 등록
+7. **CF Dashboard → DNS → CNAME 레코드 추가** (`{subdomain}` → `post.bluehair.blue`, Proxied)
+8. 소개 사이트 + 에덴챗 실제 테스트
+
+### 이미지 포함 워커 필수 패턴 (base64 인라인)
+
+`<image href>` 가 있는 워커는 반드시:
+- `safeImageUrl()`에 `data:` prefix 통과: `if (url.startsWith("data:")) return url;`
+- `fetchAsDataUri(url)` 헬퍼 (청크 방식 btoa, 8192 bytes)
+- `fetch()` 핸들러에서 이미지 URL 선해석 → data URI 변환 → `p` 객체에 주입
+
+**이유**: 에덴챗이 SVG를 `<img>` 태그로 렌더링 → 브라우저가 SVG 내부 외부 리소스 차단.
+이미지 없는 워커(chart, tablet, community, schedule)는 불필요.
+
+> 상세 → `workers/plan_sub_image_inline.md`
 
 ---
 
