@@ -5,11 +5,29 @@ function escapeXml(s) {
 }
 function safeImageUrl(url) {
   if (!url) return null;
+  if (typeof url === "string" && url.startsWith("data:")) return url;
   try {
     const u = new URL(url);
     if (u.protocol === "http:" || u.protocol === "https:") return url;
   } catch (e) {}
   return null;
+}
+async function fetchAsDataUri(url) {
+  if (!url) return null;
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const ct = res.headers.get("content-type") || "image/webp";
+    const buf = new Uint8Array(await res.arrayBuffer());
+    let binary = "";
+    const chunk = 8192;
+    for (let i = 0; i < buf.length; i += chunk) {
+      binary += String.fromCharCode(...buf.subarray(i, i + chunk));
+    }
+    return `data:${ct};base64,${btoa(binary)}`;
+  } catch (e) {
+    return null;
+  }
 }
 // CDN asset mapping (mirrors src/data/svgTemplates.js charAssets)
 const SVG_CDN = "https://img.bluehair.blue/ent";
@@ -102,6 +120,16 @@ export default {
   async fetch(request) {
     const url = new URL(request.url);
     const p = Object.fromEntries(url.searchParams);
+    // Pre-resolve image URLs → base64 data URI for <img> context compatibility
+    const assets = charAssets(p.char);
+    const avatarUrl = safeImageUrl(p.avatar) || safeImageUrl(assets.avatar);
+    const imageUrl  = safeImageUrl(p.image)  || safeImageUrl(assets.post);
+    const [avatarDataUri, imageDataUri] = await Promise.all([
+      fetchAsDataUri(avatarUrl),
+      fetchAsDataUri(imageUrl),
+    ]);
+    if (avatarDataUri) p.avatar = avatarDataUri;
+    if (imageDataUri)  p.image  = imageDataUri;
     const svg = generateSnsPost(p);
     return new Response(svg, {
       headers: {
