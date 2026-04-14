@@ -232,18 +232,13 @@ def run_pipeline(entries: list[dict[str, Any]], start_from: int = 1, delay: floa
                 sys.exit(0)
 
         # ── 1. 로어북 제목 ──
-        if i == start_from:
-            # 첫 항목: 빈 필드에 직접 붙여넣기
-            paste(name, delay)
-        else:
-            # 후속 항목: 기존 텍스트 덮어쓰기
-            select_all_and_paste(name, delay)
+        select_all_and_paste(name, delay)
 
         # ── 2. Tab×3 → 본문 필드 ──
         tab(3, delay)
 
-        # ── 3. 본문 붙여넣기 ──
-        paste(body, delay)
+        # ── 3. 본문 붙여넣기 (Ctrl+A → 기존 내용 덮어쓰기) ──
+        select_all_and_paste(body, delay)
 
         # ── 4. Tab×1 → 트리거 필드 ──
         tab(1, delay)
