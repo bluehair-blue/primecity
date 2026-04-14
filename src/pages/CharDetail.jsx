@@ -782,7 +782,7 @@ function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency })
           <p style={{
             fontFamily: "var(--f-display-kr)", fontSize: isMobile ? 17 : 20,
             fontStyle: "italic", color: char.color,
-            lineHeight: 1.6, marginBottom: 28, wordBreak: "keep-all",
+            lineHeight: 1.6, marginBottom: 28, wordBreak: "keep-all", whiteSpace: "pre-line",
           }}>&ldquo;{char.tagline}&rdquo;</p>
           {profileFields.length > 0 && (
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -1170,7 +1170,7 @@ export default function CharDetail() {
           <h1 style={{ fontFamily: "var(--f-display-kr)", fontSize: isMobile ? "clamp(48px, 14vw, 64px)" : "clamp(64px, 8vw, 96px)", fontWeight: 700, color: C.white, margin: "0 0 12px", lineHeight: 1.1, textAlign: "center", opacity: uiReady ? 1 : 0, transform: uiReady ? "translateY(0)" : "translateY(24px)", transition: t(0.4), textShadow: `0 0 80px ${`color-mix(in oklch, ${char.color} 40%, transparent)`}` }}>
             {char.name}
           </h1>
-          <p style={{ fontFamily: "var(--f-display-kr)", fontSize: isMobile ? 15 : 18, color: C.text70, fontStyle: "italic", margin: 0, lineHeight: 1.6, textAlign: "center", opacity: uiReady ? 1 : 0, transform: uiReady ? "translateY(0)" : "translateY(16px)", transition: t(0.6) }}>
+          <p style={{ fontFamily: "var(--f-display-kr)", fontSize: isMobile ? 15 : 18, color: C.text70, fontStyle: "italic", margin: 0, lineHeight: 1.6, textAlign: "center", whiteSpace: "pre-line", opacity: uiReady ? 1 : 0, transform: uiReady ? "translateY(0)" : "translateY(16px)", transition: t(0.6) }}>
             &ldquo;{char.tagline}&rdquo;
           </p>
         </div>
@@ -1364,7 +1364,7 @@ export default function CharDetail() {
             }}
           >
             {/* Signature tagline */}
-            <p style={{ fontFamily: "var(--f-display-kr)", fontSize: isMobile ? 16 : 17, color: char.color, fontStyle: "italic", margin: "0 0 20px", lineHeight: 1.7, wordBreak: "keep-all" }}>
+            <p style={{ fontFamily: "var(--f-display-kr)", fontSize: isMobile ? 16 : 17, color: char.color, fontStyle: "italic", margin: "0 0 20px", lineHeight: 1.7, wordBreak: "keep-all", whiteSpace: "pre-line" }}>
               &ldquo;{char.tagline}&rdquo;
             </p>
 

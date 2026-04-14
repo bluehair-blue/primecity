@@ -99,6 +99,19 @@ export const careerModes = [
     location: "하입 로드",
     keyChar: "미모리 · 한소리 · 엘라",
   },
+  {
+    id: "ceo",
+    name: "대표",
+    en: "CEO",
+    trigger: "!대표모드",
+    tagline: "남을 위해 깎는 길이 결국 자신의 길이 된다.",
+    desc: "Route 0의 신임 대표가 되어 소속 아티스트(강하람·시아·노아)의 스케줄 관리, 캐스팅 협상, 위기 대응을 수행한다. 자금과 평판을 관리하며 테라스에서 더 코어까지.",
+    accent: "oklch(0.65 0.10 140)",
+    icon: "🏢",
+    detailPath: "/modes/ceo",
+    location: "테라스 · Route 0 사무실",
+    keyChar: "강하람 · 시아 · 노아",
+  },
 ];
 
 // ── Utility command modes ──

@@ -502,4 +502,60 @@ export const characters = [
     goal: "다양한 매력 속에서 자신의 정체성을 찾는 것.",
     expressions: EXPRESSION_KEYS,
   },
+  // ── 16. 시아 ── Route 0 인플루언서 (쌍둥이 동생) ──
+  {
+    id: "sia",
+    cdnId: "SIA",
+    name: "시아",
+    agency: "Route 0",
+    role: "인플루언서 / 크리에이터",
+    age: 22,
+    tagline: "...ー귀여워라~.\n으응? 장난이야, 장난~. 푸흐흣\u2661",
+    color: "oklch(0.72 0.14 250)",
+    image: cdnUrl("SIA/key.webp"),
+    thumbnail: cdnUrl("SIA/thumbnail.webp"),
+    profile: cdnUrl("SIA/profile.webp"),
+    sign: cdnUrl("SIA/sign.webp"),
+    detailPath: "/characters/sia",
+    signature: "윙크 + 장난기 가득한 미소",
+    personality: "피카레스크 인플루언서 — 장난기 뒤에 숨긴 진심",
+    description:
+      "노아의 쌍둥이 동생. SNS와 인터넷 방송으로 자체 팬덤을 구축한 인기 인플루언서. 쾌활하고 장난기 넘치지만, 화면 뒤에서는 '방송인 시아'와 '진짜 시아' 사이에서 흔들린다.",
+    brief:
+      "노아의 쌍둥이 동생. 인터넷 방송과 SNS로 자체 팬덤을 형성한 Route 0의 인플루언서. 언제나 쾌활하고 장난기 넘치지만, 완벽해야 한다는 인플루언서의 가면과 진짜 자신 사이에서 갈등한다. 낮에는 애교 넘치지만 밤에는 적극적인 여우로 돌변.",
+    job: "인플루언서 / 크리에이터",
+    background:
+      "쌍둥이 언니 노아와 함께 Route 0에 머물며 연예계에 도전 중. 정규 에이전시 없이 1인 미디어로 성장했지만, 그만큼 자본과 인맥의 한계를 체감하고 있다.",
+    taste: "맵고 단 음식, 활기찬 장소, 게임, 즉흥적인 외출. 사람들과 어울리는 것.",
+    goal: "방송인 시아가 아닌 진짜 자신을 사랑받는 것.",
+    expressions: EXPRESSION_KEYS,
+  },
+  // ── 17. 노아 ── Route 0 패션 모델 (쌍둥이 언니) ──
+  {
+    id: "noa",
+    cdnId: "NOA",
+    name: "노아",
+    agency: "Route 0",
+    role: "패션 모델",
+    age: 22,
+    tagline: "...잘 어울리네.",
+    color: "oklch(0.35 0.15 300)",
+    image: cdnUrl("NOA/key.webp"),
+    thumbnail: cdnUrl("NOA/thumbnail.webp"),
+    profile: cdnUrl("NOA/profile.webp"),
+    sign: cdnUrl("NOA/sign.webp"),
+    detailPath: "/characters/noa",
+    signature: "귀 만지기 (부끄러울 때) + 사실 기반 칭찬",
+    personality: "과묵한 수호자 — 말 대신 행동으로 표현하는 다정함",
+    description:
+      "시아의 쌍둥이 언니. 프리랜서 패션 모델로 시작하여 조용히 자기 길을 걸었던 사람. 감정 표현이 서투르지만, 행동 하나하나에 깊은 배려가 담겨 있다.",
+    brief:
+      "시아의 쌍둥이 언니. 과묵하고 감정 표현에 서투르지만, 행동으로 마음을 보여주는 사람. 표현력 넘치는 동생과 자신을 비교하며 무뚝뚝함이 오해를 살까 두려워한다. 말보다 손이 먼저 움직이는 조용한 다정함. 멋있지만 밤에는 부끄럼쟁이.",
+    job: "패션 모델",
+    background:
+      "쌍둥이 동생 시아와 함께 Route 0에 머물며 프리랜서 모델로 활동. 패션 화보 위주로 커리어를 쌓고 있지만 무대 경험은 부족하다. 체계적이고 성실한 성격.",
+    taste: "담백한 음식, 조용한 공간, 독서, 디자인. 혼자만의 시간.",
+    goal: "자신만의 방식으로 감정을 표현하고 인정받는 것.",
+    expressions: EXPRESSION_KEYS,
+  },
 ];

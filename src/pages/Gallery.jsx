@@ -20,6 +20,7 @@ const CHAR_CODES = [
   { code: "MMR", name: "미모리" }, { code: "HSE", name: "하시은" },
   { code: "NIA", name: "니아" }, { code: "RAY", name: "레이" },
   { code: "LPS", name: "라피스" },
+  { code: "SIA", name: "시아" }, { code: "NOA", name: "노아" },
 ];
 
 const SCENE_CATEGORIES = [
@@ -79,7 +80,7 @@ function ImageSystemInfo({ isMobile }) {
           {/* Character codes */}
           <div style={{ marginBottom: 16 }}>
             <span style={{ fontFamily: "var(--f-display-en)", fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: C.gold }}>
-              Character Codes — 15
+              Character Codes — {CHAR_CODES.length}
             </span>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 8 }}>
               {CHAR_CODES.map((c) => (

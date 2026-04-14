@@ -78,7 +78,7 @@ export const districts = [
     agency: "Route 0 — 무한 가능성, 무한 불확실",
     desc: "중심부를 동경하며 모여든 이들의 출발지이자, 밀려난 이들의 어중간한 안식처. 끝없는 희망과 체념이 교차하는 외곽.",
     accent: "oklch(0.65 0.10 140)",
-    characters: ["강하람"],
+    characters: ["강하람", "시아", "노아"],
     bgImage: cdnUrl("bg9.webp"),
     vibe: ["시작", "연습생", "꿈", "생존"],
     landmarks: [
