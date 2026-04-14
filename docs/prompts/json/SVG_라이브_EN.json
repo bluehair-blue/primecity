@@ -7,7 +7,7 @@
     "comma": "콤마 → %2C",
     "question": "물음표 → %3F",
     "forbidden": "<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.",
-    "char_codes": "SY,NHR,JSH,ERK,LSH,HSR,KHR,JGR,MIL,ELA,MMR,HSE,NIA,RAY,LPS"
+    "char_codes": "SY,NHR,JSH,ERK,LSH,HSR,KHR,JGR,MIL,ELA,MMR,HSE,NIA,RAY,LPS,SIA,NOA"
   },
   "prompt": "■ 라이브 방송 SVG 출력 프롬프트\n\n【라벨 설명】\n- streamer: 방송하는 캐릭터 이름\n- title: 방송 제목 (캐릭터가 설정한 제목)\n- viewers: 실시간 시청자 수\n- category: 방송 카테고리 (음악, 토크, 연습 등)\n- chat1~chat3: 실시간 채팅 메시지 3개 (시청자 반응)\n- avatar: 스트리머 프로필 이미지 URL (선택)\n- image: 방송 프리뷰/썸네일 이미지 URL (선택)\n\n【출력 위치】\n캐릭터가 라이브 방송을 시작하거나 시청하는 장면에서\n장면 전환 직후, 나레이션 최상단에 출력.\n\n【URL 규칙】\n공백 → %20 / 콤마 → %2C / 물음표 → %3F\n<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.\n\n【양식】\n![](https://live.bluehair.blue/ent/?char={캐릭터코드}&streamer={이름}&title={방송제목}&viewers={시청자수}&category={카테고리}&chat1={채팅1}&chat2={채팅2}&chat3={채팅3})\n\n【예시】\n![](https://live.bluehair.blue/ent/?char=KHR&streamer=강하람&title=데뷔%20연습%20라이브!%20오늘%20열심히%20해볼게요&viewers=12%2C847&category=음악&chat1=화이팅!!!&chat2=목소리%20너무%20좋다&chat3=앵콜%20앵콜!!!)"
 }
