@@ -192,6 +192,16 @@
       "name": "레이",
       "clothed": "girl, 1.6::small breasts ::, serene, 2::lavender hair::, long hair, straight hair, soft hair, flowing hair, ice blue eyes, light blue eyes, pale eyes,  eyes, calm eyes, white blouse, long sleeves, fitted vest, grey vest, long pants, black pants, ankle boots",
       "nude": "girl, 1.6::small breasts ::, serene, 2::lavender hair::, long hair, straight hair, soft hair, flowing hair, ice blue eyes, light blue eyes, pale eyes,  eyes, calm eyes, 2::single prosthetic leg::"
+    },
+    "SIA": {
+      "name": "시아",
+      "clothed": "girl, large breasts, grin, open mouth, 2::white hair::, short hair, messy hair, hair over one eye, long bangs, swept bangs, black hairpin, dark blue eyes, sparkling eyes, sharp eyes, upturned eyes, hoodie, oversized clothes, unzipped, crop top, midriff, denim shorts, belt, sneakers, headphones around neck, bracelet, wristband",
+      "nude": "girl, nude, large breasts, grin, open mouth, 2::white hair::, short hair, messy hair, hair over one eye, long bangs, swept bangs, black hairpin, dark blue eyes, sparkling eyes, sharp eyes, upturned eyes, headphones around neck, bracelet, wristband"
+    },
+    "NOA": {
+      "name": "노아",
+      "clothed": "girl, large breasts, serious, expressionless, 2::black hair::, short hair, straight hair, hair over eyes, long bangs, wispy bangs, white hairpin, dark blue eyes, narrow eyes, sharp eyes, long eyelashes, blazer, white blouse, high-waist skirt, long skirt, heels, stud earrings, necklace, elegant, high fashion",
+      "nude": "girl, nude, large breasts, serious, expressionless, 2::black hair::, short hair, straight hair, hair over eyes, long bangs, wispy bangs, white hairpin, dark blue eyes, narrow eyes, sharp eyes, long eyelashes, stud earrings, necklace"
     }
   },
   "scenes": {
@@ -1215,6 +1225,36 @@
         "hug_style": "POV",
         "cowgirl_variant": "squatting",
         "shower_gaze": "none",
+        "lap_pillow_chest": "default",
+        "standing_mode": "default"
+      }
+    },
+    "SIA": {
+      "93": {
+        "female_prompt": "streaming setup, ring light, microphone, peace sign, wink, energetic, playful, camera, bokeh"
+      },
+      "96": {
+        "female_prompt": "gaming chair, headset, monitor glow, relaxed, legs up, snacking, cozy room, night"
+      },
+      "_override_slots": {
+        "hug_style": "POV",
+        "cowgirl_variant": "default",
+        "shower_gaze": "sideways glance",
+        "lap_pillow_chest": "default",
+        "standing_mode": "default"
+      }
+    },
+    "NOA": {
+      "93": {
+        "female_prompt": "runway, walking, elegant pose, fashion show, spotlight, confident, model walk, audience silhouette"
+      },
+      "96": {
+        "female_prompt": "library, reading, window light, quiet, tea cup, serene, short black hair, afternoon"
+      },
+      "_override_slots": {
+        "hug_style": "POV",
+        "cowgirl_variant": "default",
+        "shower_gaze": "looking to the side",
         "lap_pillow_chest": "default",
         "standing_mode": "default"
       }
