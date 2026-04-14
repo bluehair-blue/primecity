@@ -158,25 +158,29 @@ const CHAR_CODES = [
 
 흑백쌍둥이 테마: SIA=백발+검은핀, NOA=흑발+흰핀.
 
-**SIA (시아) — 백발 숏컷, 블루+화이트 투톤:**
+**SIA (시아) — 백발 숏컷, 블루+화이트 투톤 (Danbooru 태그 검증 완료):**
 
 ```json
 "SIA": {
   "name": "시아",
-  "clothed": "girl, large breasts, playful, 2::white hair::, short hair, messy hair, hair over one eye, long bangs, swept bangs, single black hairpin, dark blue eyes, bright eyes, sharp eyes, lively expression, wink, streamer, casual fashion, oversized hoodie, crop top, denim shorts, belt accessories, sneakers, earbuds around neck, bracelet",
-  "nude": "girl, nude, large breasts, playful, 2::white hair::, short hair, messy hair, hair over one eye, long bangs, swept bangs, single black hairpin, dark blue eyes, bright eyes, sharp eyes, lively expression, earbuds around neck, bracelet"
+  "clothed": "girl, large breasts, grin, open mouth, 2::white hair::, short hair, messy hair, hair over one eye, long bangs, swept bangs, black hairpin, dark blue eyes, sparkling eyes, sharp eyes, upturned eyes, hoodie, oversized clothes, unzipped, crop top, midriff, denim shorts, belt, sneakers, headphones around neck, bracelet, wristband",
+  "nude": "girl, nude, large breasts, grin, open mouth, 2::white hair::, short hair, messy hair, hair over one eye, long bangs, swept bangs, black hairpin, dark blue eyes, sparkling eyes, sharp eyes, upturned eyes, headphones around neck, bracelet, wristband"
 }
 ```
 
-**NOA (노아) — 흑발 숏컷, 딥퍼플+블랙 투톤:**
+> clothed 27태그, nude 20태그 (기존 캐릭터 평균 ~28)
+
+**NOA (노아) — 흑발 숏컷, 딥퍼플+블랙 투톤 (Danbooru 태그 검증 완료):**
 
 ```json
 "NOA": {
   "name": "노아",
-  "clothed": "girl, large breasts, calm, composed, 2::black hair::, short hair, straight hair, hair over eyes, long bangs, wispy bangs, single white hairpin, dark blue eyes, cool eyes, narrow eyes, stoic expression, model, high fashion, fitted blazer, white blouse, high-waisted long skirt, heels, minimalist earrings, thin necklace",
-  "nude": "girl, nude, large breasts, calm, composed, 2::black hair::, short hair, straight hair, hair over eyes, long bangs, wispy bangs, single white hairpin, dark blue eyes, cool eyes, narrow eyes, stoic expression, minimalist earrings, thin necklace"
+  "clothed": "girl, large breasts, serious, expressionless, 2::black hair::, short hair, straight hair, hair over eyes, long bangs, wispy bangs, white hairpin, dark blue eyes, narrow eyes, sharp eyes, long eyelashes, blazer, white blouse, high-waist skirt, long skirt, heels, stud earrings, necklace, elegant, high fashion",
+  "nude": "girl, nude, large breasts, serious, expressionless, 2::black hair::, short hair, straight hair, hair over eyes, long bangs, wispy bangs, white hairpin, dark blue eyes, narrow eyes, sharp eyes, long eyelashes, stud earrings, necklace"
 }
 ```
+
+> clothed 25태그, nude 18태그
 
 **pose_overrides:**
 
