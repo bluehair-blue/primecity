@@ -119,7 +119,8 @@ def collect_lorebooks() -> list[dict[str, Any]]:
             list(PROMPTS_DIR.glob("캐릭터/*_과거_EN.json")) +
             list(PROMPTS_DIR.glob("캐릭터/*_위기_EN.json")) +
             list(PROMPTS_DIR.glob("캐릭터/*_가족_EN.json")) +
-            list(PROMPTS_DIR.glob("캐릭터/*_재회_EN.json")),
+            list(PROMPTS_DIR.glob("캐릭터/*_재회_EN.json")) +
+            list(PROMPTS_DIR.glob("캐릭터/*_오디션_EN.json")),
             key=lambda p: p.name)
             if (PROMPTS_DIR / "캐릭터").exists() else []),
         ("오디션", sorted((PROMPTS_DIR / "오디션").glob("*_EN.json"), key=lambda p: p.name)
@@ -143,7 +144,8 @@ def collect_lorebooks() -> list[dict[str, Any]]:
                 continue
             if category == "캐릭터 본체":
                 skip = ["_트리거_EN.json", "_초기_EN.json", "_심화_EN.json",
-                        "_과거_EN.json", "_위기_EN.json", "_가족_EN.json", "_재회_EN.json"]
+                        "_과거_EN.json", "_위기_EN.json", "_가족_EN.json", "_재회_EN.json",
+                        "_오디션_EN.json"]
                 if any(f.name.endswith(s) for s in skip):
                     continue
 
