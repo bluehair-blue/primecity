@@ -131,7 +131,7 @@
         "sixnine":            ["embarrassed", "light blush", "moaning"],
         "hug":                ["face in pillow", "nervous smile", "closed eyes", "light blush"],
         "forehead_kiss":      ["closed eyes", "light smile", "light blush"],
-        "neck_kiss":          ["half-closed eyes", "light blush", "parted lips", "goosebumps"],
+        "neck_kiss":          ["half-closed eyes", "light blush", "parted lips" ],
         "lap_pillow":         ["closed eyes", "light smile", "light blush"],
         "shower":             ["covering breasts", "sideways glance", "looking to the side", "light blush", "shy"]
       }
@@ -229,43 +229,43 @@
       "description": "관능/지배/장난 — 유혹적 미소, 시선 유도, 팔·몸을 활짝 벌리는 도발.",
       "chars": ["HSR", "ELA", "MMR", "NHR", "LPS"],
       "poses": {
-        "missionary":         ["arms behind head", "arched back", "seductive smile", "looking at viewer", "half-closed eyes", "licking lips", "tongue out", "hair flip"],
-        "missionary_climax":  ["arms behind head", "arched back", "seductive smile", "looking at viewer", "open mouth", "tongue out", "heart-shaped pupils", "moaning", "confident"],
-        "cowgirl":            ["arms behind head", "arched back", "seductive smile", "looking at viewer", "hair flip", "dominant", "licking lips"],
-        "cowgirl_climax":     ["arms behind head", "arched back", "looking at viewer", "tongue out", "heart-shaped pupils", "open mouth", "moaning"],
+        "missionary":         ["arms behind head", "arched back", "seductive smile", "half-closed eyes", "licking lips", "tongue out", "hair flip"],
+        "missionary_climax":  ["arms behind head", "arched back", "seductive smile", "open mouth", "tongue out", "heart-shaped pupils", "moaning", "confident"],
+        "cowgirl":            ["arms behind head", "arched back", "seductive smile", "hair flip", "dominant", "licking lips"],
+        "cowgirl_climax":     ["arms behind head", "arched back", "tongue out", "heart-shaped pupils", "open mouth", "moaning"],
         "doggystyle":         ["looking back", "seductive smile", "arched back", "ass", "provocative", "hair flip"],
         "doggystyle_climax":  ["looking back", "tongue out", "heart-shaped pupils", "arched back", "open mouth"],
-        "spooning":           ["leg up", "looking back", "looking at viewer", "seductive smile", "hand on own thigh", "teasing"],
-        "spooning_climax":    ["looking back", "looking at viewer", "tongue out", "heart-shaped pupils", "open mouth"],
-        "fullnelson":         ["seductive smile", "tongue out", "looking at viewer", "confident"],
+        "spooning":           ["leg up", "looking back", "seductive smile", "hand on own thigh", "teasing"],
+        "spooning_climax":    ["looking back", "tongue out", "heart-shaped pupils", "open mouth"],
+        "fullnelson":         ["seductive smile", "tongue out", "confident"],
         "fullnelson_climax":  ["tongue out", "heart-shaped pupils", "open mouth", "arms up"],
         "anal":               ["arched back", "looking back", "seductive smile", "provocative", "confident"],
         "anal_climax":        ["arched back", "looking back", "tongue out", "heart-shaped pupils"],
         "standing_back":      ["arched back", "looking back", "seductive smile", "ass", "hair flip"],
-        "standing_side":      ["leg up", "arms around neck", "seductive smile", "looking at viewer"],
-        "pregnant_sex":       ["hand on own stomach", "looking at viewer", "seductive smile", "hair flip"],
-        "pregnant_sex_climax":["hand on own stomach", "looking at viewer", "tongue out", "heart-shaped pupils"],
-        "pregnant_after":     ["hand on own stomach", "looking at viewer", "light smile", "seductive"],
-        "after_sex":          ["looking at viewer", "light smile", "licking lips", "seductive"],
-        "facial":             ["looking at viewer", "tongue out", "open mouth", "seductive"],
-        "cunnilingus":        ["looking at viewer", "seductive smile", "hand on another's head", "confident"],
+        "standing_side":      ["leg up", "arms around neck", "seductive smile" ],
+        "pregnant_sex":       ["hand on own stomach", "seductive smile", "hair flip"],
+        "pregnant_sex_climax":["hand on own stomach", "tongue out", "heart-shaped pupils"],
+        "pregnant_after":     ["hand on own stomach", "light smile", "seductive"],
+        "after_sex":          ["light smile", "licking lips", "seductive"],
+        "facial":             ["tongue out", "open mouth", "seductive"],
+        "cunnilingus":        ["seductive smile", "hand on another's head", "confident"],
         "kiss":               ["french kiss", "dominant", "half-closed eyes"],
-        "grope":              ["looking at viewer", "seductive smile", "arched back", "licking lips"],
-        "fingering":          ["looking at viewer", "seductive smile", "arched back", "half-closed eyes"],
+        "grope":              ["seductive smile", "arched back", "licking lips"],
+        "fingering":          ["seductive smile", "arched back", "half-closed eyes"],
         "spanking":           ["looking back", "smirk", "ass focus", "confident"],
         "paizuri":            ["looking up", "seductive smile", "tongue out", "grabbing own breast", "playful"],
         "fellatio_pov":       ["eye contact", "seductive smile", "tongue out", "teasing"],
         "fellatio_3rd":       ["looking up", "tongue out", "smirk"],
         "deepthroat":         ["eye contact", "confident"],
-        "handjob":            ["teasing", "looking at viewer", "seductive smile", "licking own lips"],
-        "footjob":            ["looking at viewer", "smirk", "confident", "playful"],
+        "handjob":            ["teasing", "seductive smile", "licking own lips"],
+        "footjob":            ["smirk", "confident", "playful"],
         "rimjob":             ["confident", "tongue out", "looking up"],
         "sixnine":            ["confident"],
         "hug":                ["clinging", "smirk", "playful"],
         "forehead_kiss":      ["looking up", "light smile"],
         "neck_kiss":          ["head tilt", "seductive smile", "parted lips", "head back"],
         "lap_pillow":         ["looking up", "seductive smile", "reaching", "playful"],
-        "shower":             ["arms up", "arched back", "looking at viewer", "seductive smile", "wet"]
+        "shower":             ["arms up", "arched back", "seductive smile", "wet"]
       }
     },
 
@@ -290,7 +290,7 @@
         "pregnant_sex":       ["interlocked fingers", "hand on own stomach", "smile", "heartfelt", "blush", "loving"],
         "pregnant_sex_climax":["hands on own stomach", "half-closed eyes", "open mouth", "blush", "moaning", "tears", "smile"],
         "pregnant_after":     ["hand on own stomach", "light smile", "loving", "content"],
-        "after_sex":          ["light smile", "looking at viewer", "blush", "content"],
+        "after_sex":          ["light smile", "blush", "content"],
         "facial":             ["tongue out", "open mouth", "closed eyes", "smile", "blush", "accepting"],
         "cunnilingus":        ["own hands together", "open mouth", "blush", "moaning", "devoted"],
         "kiss":               ["french kiss", "hand on another's cheek", "closed eyes", "heartfelt"],
@@ -298,10 +298,10 @@
         "fingering":          ["open mouth", "blush", "devoted", "moaning"],
         "spanking":           ["biting own lip", "open mouth", "devoted", "blush"],
         "paizuri":            ["smile", "focused", "devoted", "blush", "grabbing own breast"],
-        "fellatio_pov":       ["looking at viewer", "closed eyes", "eager", "blush", "devoted"],
+        "fellatio_pov":       ["closed eyes", "eager", "blush", "devoted"],
         "fellatio_3rd":       ["focused", "closed eyes", "eager", "blush", "devoted"],
         "deepthroat":         ["eager", "devoted", "blush", "tears"],
-        "handjob":            ["eager", "looking at viewer", "blush", "devoted"],
+        "handjob":            ["eager", "blush", "devoted"],
         "footjob":            ["focused", "devoted", "light blush"],
         "rimjob":             ["devoted", "focused", "blush"],
         "sixnine":            ["eager", "devoted", "blush", "happy sex"],
@@ -362,7 +362,7 @@
     "MMR": {
       "_note": "미모리 — 천연 관종+센스. 시그니처: 특이한 헤어핀 (base에 정의됨). 카메라 의식.",
       "cowgirl":             ["double v", ";)"],
-      "fellatio_pov":        ["double v", "one eye closed", "looking at viewer"]
+      "fellatio_pov":        ["double v", "one eye closed" ]
     },
     "HSE": {
       "_note": "하시은 — 성실 우등생. 시그니처: 메모 습관. 수줍지만 진지.",
@@ -390,7 +390,7 @@
     "LPS": {
       "_note": "라피스 — 쿨+여유+다양성. 시그니처: V사인. 장난스럽게 다변.",
       "cowgirl":             ["V", "one eye closed"],
-      "fellatio_pov":        ["V", "smirk", "looking at viewer", "one eye closed"]
+      "fellatio_pov":        ["V", "smirk", "one eye closed"]
     }
   }
 }
