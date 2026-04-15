@@ -131,7 +131,7 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div><div class="stb-n" style="color:var(--gold);">17</div><div class="stb-l">캐릭터</div></div>
 <div><div class="stb-n" style="color:var(--blue);">5</div><div class="stb-l">구역</div></div>
 <div><div class="stb-n" style="color:oklch(0.65 0.12 340);">1,700+</div><div class="stb-l">이미지</div></div>
-<div><div class="stb-n" style="color:oklch(0.72 0.10 170);">14</div><div class="stb-l">모드</div></div>
+<div><div class="stb-n" style="color:oklch(0.72 0.10 170);">16</div><div class="stb-l">모드</div></div>
 </div>
 <div class="sp"><div class="sd"></div></div>
 <!-- Characters -->
@@ -300,8 +300,8 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <!-- Stat Bridge 2 -->
 <div class="stb">
 <div><div class="stb-n" style="color:var(--gold);">3</div><div class="stb-l">기본 모드</div></div>
-<div><div class="stb-n" style="color:var(--blue);">5</div><div class="stb-l">직업군</div></div>
-<div><div class="stb-n" style="color:oklch(0.72 0.10 170);">5</div><div class="stb-l">유틸리티</div></div>
+<div><div class="stb-n" style="color:var(--blue);">6</div><div class="stb-l">직업군</div></div>
+<div><div class="stb-n" style="color:oklch(0.72 0.10 170);">7</div><div class="stb-l">유틸리티</div></div>
 </div>
 <!-- Game Modes (folding) -->
 <details class="fold">
@@ -332,7 +332,8 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div class="mdc"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><div style="font-family:serif;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.65 0.10 140);">Trainee</div><span class="utag">!연습생모드</span></div><div style="font-family:serif;font-size:19px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:var(--txt);">데뷔라는 이름의 먼 약속.</div><div style="font-size:16px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">Route 0 연습생. 일상 훈련, 주간 평가, 데뷔 게이지. 강하람과 함께 시작.</div></div>
 <div class="mdc"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><div style="font-family:serif;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.65 0.10 240);">Composer</div><span class="utag">!작곡가모드</span></div><div style="font-family:serif;font-size:19px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:var(--txt);">멜로디 하나로 세계를 뒤흔들어라.</div><div style="font-size:16px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">Blue Moon 소속/프리랜서 작곡가. 곡 작업 → 매칭 → 발매 → 차트.</div></div>
 <div class="mdc"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><div style="font-family:serif;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.65 0.12 340);">Actor</div><span class="utag">!배우모드</span></div><div style="font-family:serif;font-size:19px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:var(--txt);">카메라가 돌아간다. 증명할 시간.</div><div style="font-size:16px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">신인 배우. 캐스팅 → 촬영 → 방영. 연기력과 인지도 시스템.</div></div>
-<div class="mdc" style="border-bottom:none;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><div style="font-family:serif;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.72 0.10 220);">Influencer</div><span class="utag">!인플루언서모드</span></div><div style="font-family:serif;font-size:19px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:var(--txt);">팔로워가 곧 무대다.</div><div style="font-size:16px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">하입 로드 인플루언서. 콘텐츠 기획, 바이럴, 브랜드 딜. 미모리가 핵심.</div></div>
+<div class="mdc"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><div style="font-family:serif;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.72 0.10 220);">Influencer</div><span class="utag">!인플루언서모드</span></div><div style="font-family:serif;font-size:19px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:var(--txt);">팔로워가 곧 무대다.</div><div style="font-size:16px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">하입 로드 인플루언서. 콘텐츠 기획, 바이럴, 브랜드 딜. 미모리가 핵심.</div></div>
+<div class="mdc" style="border-bottom:none;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><div style="font-family:serif;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.65 0.12 20);">CEO</div><span class="utag">!대표모드</span></div><div style="font-family:serif;font-size:19px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:var(--txt);">에이전시를 세우고, 스타를 키워라.</div><div style="font-size:16px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">Route 0 신임 대표. 강하람·시아·노아와 함께 에이전시를 키워나간다. 경영 판단, 자금 분배, 아티스트 방향성 결정.</div></div>
 </div>
 <div style="margin-top:16px;">
 <div class="ag">Utility Modes · 유틸리티 모드</div>
