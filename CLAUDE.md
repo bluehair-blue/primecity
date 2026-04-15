@@ -58,7 +58,7 @@
 ├── tools_dist/            ← 배포용 클린 복사본
 ├── models/                ← ntd11_v5.pt (gitignore)
 ├── public/                ← favicon, icons, _headers
-├── .claude/               ← 훅 9개, 스킬 4개
+├── .claude/               ← 훅 11개, 스킬 5개
 └── .github/workflows/     ← Claude Code Actions
 ```
 
@@ -384,6 +384,7 @@ C:\Users\User\OneDrive\图片\챗봇 제작\캐릭터 이미지\
 |---|---|---|
 | `/new-page` | 사용자+Claude | 새 페이지 생성 + 라우트 등록 + 빌드 검증 |
 | `/deploy-preview` | 사용자 전용 | 빌드+배포 원커맨드 |
+| `/annotate-code` | 사용자+Claude | 코드에 상세 주석 작성 (역할/이유/연계) |
 | `frontend-design` | Claude 자동 | 디자인 가이드라인 |
 | `project-patterns` | Claude 자동 | Git 히스토리 기반 패턴 |
 
