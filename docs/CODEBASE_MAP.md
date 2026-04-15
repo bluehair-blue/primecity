@@ -2,7 +2,7 @@
 
 > 이 문서는 프로젝트 전체 구조를 빠르게 파악하기 위한 **목차 파일**입니다.
 > 각 파일의 줄 수와 역할을 기록합니다. 파일 분할/추가/삭제 시 갱신할 것.
-> 마지막 갱신: 2026-04-15
+> 마지막 갱신: 2026-04-15 (CharDetail 분할)
 
 ---
 
@@ -12,7 +12,7 @@
 
 | File | Lines | Role |
 |------|------:|------|
-| CharDetail.jsx | 663 | 캐릭터 상세 (라우팅 + DefaultCharDetail) |
+| CharDetail.jsx | 47 | 캐릭터 상세 디스패처 (라우팅 분기) |
 | Gallery.jsx | 578 | 이미지 갤러리 (필터/페이지네이션) |
 | ModeAudition.jsx | 378 | 오디션 모드 소개 |
 | Updates.jsx | 298 | 업데이트 로그 |
@@ -36,10 +36,11 @@
 |------|------:|------|
 | CharCarousel.jsx | 874 | 캐릭터 캐러셀 (메인) |
 | GameModes.jsx | 563 | 게임 모드 섹션 |
-| CinematicCharDetail.jsx | 486 | 시네마틱 인트로 공용 뼈대 |
+| DefaultCharDetail.jsx | 625 | 기본 캐릭터 상세 (홀로그램 UI) |
+| CinematicCharDetail.jsx | 481 | 시네마틱 인트로 공용 뼈대 |
 | TriangleNav.jsx | 474 | 하위 네비게이션 |
 | HeroSlider.jsx | 416 | 히어로 슬라이더 |
-| JgrCharDetail.jsx | 402 | 장그루 전용 인트로 |
+| JgrCharDetail.jsx | 397 | 장그루 전용 인트로 |
 | CityMap.jsx | 386 | 도시 지도 (인터랙티브) |
 | Navbar.jsx | 354 | 상단 네비게이션 |
 | CharExpressionsGrid.jsx | 178 | 캐릭터 표정 그리드 |
@@ -49,6 +50,7 @@
 | ImageSystemInfo.jsx | 97 | 이미지 시스템 설명 패널 |
 | Particles.jsx | 96 | 파티클 배경 |
 | DistrictTooltip.jsx | 81 | 지도 구역 툴팁 |
+| CharSign.jsx | 27 | 캐릭터 사인 이미지 (공용) |
 | CharLightbox.jsx | 69 | 이미지 라이트박스 |
 | Footer.jsx | 51 | 푸터 |
 | PageLayout.jsx | 46 | 페이지 레이아웃 래퍼 |
