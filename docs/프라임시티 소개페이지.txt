@@ -113,9 +113,9 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div class="bg" style="height:80px;background-image:url('https://img.bluehair.blue/ent/bg3.webp?v=13');"></div>
 <!-- Update Notice -->
 <div style="padding:24px;text-align:center;background:linear-gradient(135deg,oklch(0.76 0.12 80/0.08),oklch(0.62 0.20 252/0.06));border-top:1px solid oklch(0.76 0.12 80/0.15);border-bottom:1px solid oklch(0.76 0.12 80/0.15);">
-<div style="font-family:serif;font-size:13px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Latest Update · 2026.04.14</div>
-<div style="font-family:serif;font-size:22px;font-weight:600;color:var(--txt);margin-bottom:8px;word-break:keep-all;">일정표 SVG · 디버그 모드 · 모드 개편</div>
-<div style="font-size:15px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;max-width:480px;margin:0 auto;">범용 일정표 SVG 10번째 UI 추가. !디버그 모드 신설.<br>직업군 모드 5종 <span style="color:var(--gold);font-weight:600;">규칙/시작 분리 개편.</span></div>
+<div style="font-family:serif;font-size:13px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Latest Update · 2026.04.15</div>
+<div style="font-family:serif;font-size:22px;font-weight:600;color:var(--txt);margin-bottom:8px;word-break:keep-all;">시아 · 노아 합류 · 캐릭터 디자인 개편</div>
+<div style="font-size:15px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;max-width:480px;margin:0 auto;">Route 0 신규 캐릭터 <span style="color:var(--gold);font-weight:600;">시아 · 노아</span> 추가 (17명).<br>전원 캐릭터 디자인 리뉴얼 · 이미지 에셋 전면 재생성.<br>모드별 유저 자유도 보장 · 소속 강제 해제.</div>
 </div>
 <!-- About -->
 <div class="w">
@@ -128,10 +128,10 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 </div>
 <!-- Stat Bridge 1 -->
 <div class="stb">
-<div><div class="stb-n" style="color:var(--gold);">15</div><div class="stb-l">캐릭터</div></div>
+<div><div class="stb-n" style="color:var(--gold);">17</div><div class="stb-l">캐릭터</div></div>
 <div><div class="stb-n" style="color:var(--blue);">5</div><div class="stb-l">구역</div></div>
-<div><div class="stb-n" style="color:oklch(0.65 0.12 340);">1,110+</div><div class="stb-l">이미지</div></div>
-<div><div class="stb-n" style="color:oklch(0.72 0.10 170);">13</div><div class="stb-l">모드</div></div>
+<div><div class="stb-n" style="color:oklch(0.65 0.12 340);">1,700+</div><div class="stb-l">이미지</div></div>
+<div><div class="stb-n" style="color:oklch(0.72 0.10 170);">14</div><div class="stb-l">모드</div></div>
 </div>
 <div class="sp"><div class="sd"></div></div>
 <!-- Characters -->
@@ -216,6 +216,18 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div><b>배경</b> 부모님을 일찍 잃고 여동생과 단둘이 살아간다. 아르바이트와 연습을 병행하며 데뷔를 준비 중.</div>
 <div><b>목표</b> 데뷔를 통한 경제적 독립. 여동생을 부양하는 것.</div>
 </div></div></details>
+<details class="chd"><summary class="chs">
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/SIA/thumbnail.webp?v=13');border-color:oklch(0.72 0.14 250/0.3);"></div>
+<div><div><span class="cn">시아</span><span class="cr">인플루언서 / 크리에이터</span></div><div class="ct">"귀여워라~. 으응? 장난이야, 장난~♡"</div></div>
+</summary><div class="chx">
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/SIA/profile.webp?v=13');"></div>
+<div class="pf"><div><b>성격</b> 피카레스크 인플루언서 — 장난기 뒤에 숨긴 진심</div><div><b>배경</b> 노아의 쌍둥이 동생. SNS와 인터넷 방송으로 자체 팬덤을 구축한 인기 인플루언서. 완벽해야 한다는 가면과 진짜 자신 사이에서 갈등.</div><div><b>목표</b> 방송인 시아가 아닌 진짜 자신을 사랑받는 것.</div></div></div></details>
+<details class="chd"><summary class="chs">
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/NOA/thumbnail.webp?v=13');border-color:oklch(0.35 0.15 300/0.3);"></div>
+<div><div><span class="cn">노아</span><span class="cr">패션 모델</span></div><div class="ct">"...잘 어울리네."</div></div>
+</summary><div class="chx">
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/NOA/profile.webp?v=13');"></div>
+<div class="pf"><div><b>성격</b> 과묵한 수호자 — 말 대신 행동으로 표현하는 다정함</div><div><b>배경</b> 시아의 쌍둥이 언니. 프리랜서 패션 모델. 감정 표현에 서투르지만, 행동 하나하나에 깊은 배려가 담겨 있다.</div><div><b>목표</b> 자신만의 방식으로 감정을 표현하고 인정받는 것.</div></div></div></details>
 <div class="ag">Audition Contestants</div>
 <details class="chd"><summary class="chs">
 <div class="ai" style="background-image:url('https://img.bluehair.blue/ent/JGR/thumbnail.webp?v=13');border-color:oklch(0.72 0.10 300/0.3);"></div>
