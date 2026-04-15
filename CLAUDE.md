@@ -57,7 +57,7 @@
 ├── tools_dist/            ← 배포용 클린 복사본
 ├── models/                ← ntd11_v5.pt (gitignore)
 ├── public/                ← favicon, icons, _headers
-├── .claude/               ← 훅 4개, 스킬 4개
+├── .claude/               ← 훅 9개, 스킬 4개
 └── .github/workflows/     ← Claude Code Actions
 ```
 
