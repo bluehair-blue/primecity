@@ -1007,7 +1007,7 @@
         ""
       ],
       "93": {
-        "female_prompt": "standing, commanding presence, one hand raised, mysterious aura, backlit, crowd silhouette, full body, bokeh"
+        "female_prompt": "commanding presence, one hand raised, mysterious aura, backlit, half-closed eyes, smirk, controlling the stage, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "dark office, monitor glow, sitting, leaning back, mysterious, documents, chess piece on desk, scheming"
@@ -1025,7 +1025,7 @@
         ""
       ],
       "93": {
-        "female_prompt": "standing, microphone, announcing, serious, formal suit, crowd silhouette, presentation, bokeh"
+        "female_prompt": "microphone, announcing, serious, formal suit, commanding, authoritative, sharp gaze, crowd silhouette, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "office, desk, reviewing documents, serious, pen in hand, organized, professional, "
@@ -1035,7 +1035,7 @@
     },
     "SY": {
       "93": {
-        "female_prompt": "center microphone, singing, elegant, confident, arms spread, wind effect, crowd silhouette, concert, bokeh"
+        "female_prompt": "singing, confident, elegant, arms spread, wind effect, idol, determined, climax, reaching towards crowd, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "luxury lounge, elegant, sitting, legs crossed, window, city night view, wine glass, contemplative"
@@ -1050,7 +1050,7 @@
     },
     "ERK": {
       "93": {
-        "female_prompt": "headphones around neck, standing behind turntable, focused, crowd silhouette, concert, neon lights, bokeh"
+        "female_prompt": "headphones around neck, turntable, DJ, mixing, focused, neon lights, one hand raised, smirk, energetic, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "recording studio, mixing console, headphones, focused, monitor glow, soundproof room, professional"
@@ -1065,7 +1065,7 @@
     },
     "LSH": {
       "93": {
-        "female_prompt": "piano, playing piano, contemplative, glasses, concert, grand piano, elegant, bokeh"
+        "female_prompt": "piano, playing piano, contemplative, absorbed, emotional, grand piano, eyes closed, gentle smile, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "home studio, messy room, composing, laptop, headphones, glasses, tired eyes, coffee cup, sheet music scattered"
@@ -1080,7 +1080,7 @@
     },
     "HSR": {
       "93": {
-        "female_prompt": "standing, microphone, speech, , formal suit, crowd silhouette, presentation, bokeh"
+        "female_prompt": "microphone, speech, motivating, bright smile, enthusiastic, one arm raised, leading, warm glow, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "office, late night, desk, phone, documents, exhausted, dark circles, coffee cup, desk lamp, "
@@ -1095,7 +1095,7 @@
     },
     "KHR": {
       "93": {
-        "female_prompt": "dancing, dynamic pose, sweat, passionate, powerful, crowd silhouette, concert, bokeh"
+        "female_prompt": "dancing, dynamic pose, passionate, powerful, open mouth, determined, arched back, one arm raised, reaching up, exhausted, catching breath, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "practice room, mirror, stretching, sweat, towel around neck, water bottle, wooden floor"
@@ -1126,7 +1126,7 @@
     },
     "MIL": {
       "93": {
-        "female_prompt": "guitar, singing, casual, standing, carefree, smile, crowd silhouette, acoustic, bokeh"
+        "female_prompt": "guitar, singing, acoustic, carefree, smile, open mouth, eyes closed, swaying, joyful, warm light, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "rooftop, sitting on edge, guitar, sunset, wind, cityscape, carefree, humming, relaxed"
@@ -1141,7 +1141,7 @@
     },
     "ELA": {
       "93": {
-        "female_prompt": "dancing, hair flip, glamorous, elegant, crowd silhouette, concert, confident, bokeh"
+        "female_prompt": "dancing, hair flip, glamorous, confident, seductive smile, elegant, sensual, red spotlight, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "fashion magazine shoot, posing, professional camera, flash, confident, stylish outfit, studio"
@@ -1156,7 +1156,7 @@
     },
     "MMR": {
       "93": {
-        "female_prompt": "microphone, singing, wink, peace sign, energetic, cute, crowd silhouette, concert, bokeh"
+        "female_prompt": "singing, microphone, wink, peace sign, energetic, cute, playful, smile, open mouth, bright colorful lights, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "cafe, phone, taking selfie, wink, cute, colorful drink, window seat, bright, cheerful"
@@ -1171,7 +1171,7 @@
     },
     "HSE": {
       "93": {
-        "female_prompt": "dancing, focused, precise, graceful, crowd silhouette, concert, bokeh"
+        "female_prompt": "dancing, focused, precise, determined, smile, open mouth, idol, arched back, looking up, one arm raised, reaching up, climax, exhausted, catching breath, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "library, studying, notebook, pen, focused, quiet, bookshelf, alone, diligent"
@@ -1186,7 +1186,7 @@
     },
     "NIA": {
       "93": {
-        "female_prompt": "gripping microphone, singing, nervous, trembling, first performance, small crowd, intimate venue, full body, bokeh"
+        "female_prompt": "singing, gripping microphone, nervous, trembling, first performance, determined, teary eyes, emotional, intimate venue, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "garden, bench, reading, flowers, breeze, contemplative, elegant"
@@ -1201,7 +1201,7 @@
     },
     "RAY": {
       "93": {
-        "female_prompt": "dancing, ballet, graceful, flowing movement, leg up, arms extended, crowd silhouette, concert, bokeh"
+        "female_prompt": "dancing, ballet, graceful, flowing movement, arms extended, leg up, ethereal, serene, spotlight, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "gym, stretching, athletic, , mirror, sports outfit, towel, water bottle, focused"
@@ -1216,7 +1216,7 @@
     },
     "LPS": {
       "93": {
-        "female_prompt": "DJ booth, turntable, headphones, mixing, one hand raised, crowd silhouette, concert"
+        "female_prompt": "DJ booth, turntable, headphones, mixing, one hand raised, expressionless, cool, controlled, laser lights, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "music shop, vinyl records, headphones around neck, sidewyas glance, stylish, "
@@ -1231,7 +1231,7 @@
     },
     "SIA": {
       "93": {
-        "female_prompt": "streaming setup, ring light, microphone, peace sign, wink, energetic, playful, camera, bokeh"
+        "female_prompt": "performing, energetic, playful, wink, peace sign, jumping, cheerful, ring light, crowd interaction, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "gaming chair, headset, monitor glow, relaxed, legs up, snacking, cozy room, night"
@@ -1246,7 +1246,7 @@
     },
     "NOA": {
       "93": {
-        "female_prompt": "runway, walking, elegant pose, fashion show, spotlight, confident, model walk, audience silhouette"
+        "female_prompt": "runway, walking, elegant pose, fashion show, model walk, expressionless, confident, cold beauty, spotlight, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "library, reading, window light, quiet, tea cup, serene, short black hair, afternoon"
