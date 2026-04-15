@@ -9,7 +9,7 @@ import argparse
 ALL_CHARS: list[str] = [
     "SY", "NHR", "ERK", "LSH", "HSR", "KHR",
     "JGR", "MIL", "ELA", "MMR", "HSE", "NIA", "RAY", "LPS",
-    "SIA", "NOA",
+    "SIA", "NOA", "ERP",
 ]
 
 # ALL_SCENES: 모든 일반 씬 번호 (asset_config.json 의 1-96 범위 전체).

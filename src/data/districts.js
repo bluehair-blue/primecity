@@ -32,7 +32,7 @@ export const districts = [
     agency: "Blue Moon Entertainment — 업계 2위",
     desc: "스튜디오와 기획사가 밀집한 실력의 전쟁터. 운이나 배경은 통하지 않으며, 매일 새로운 스타가 탄생하고 소리 없이 무너진다.",
     accent: "oklch(0.65 0.10 240)",
-    characters: ["이서하", "에리카"],
+    characters: ["에르피", "이서하", "에리카"],
     bgImage: cdnUrl("bg7.webp"),
     vibe: ["실력", "장인", "스튜디오", "검증"],
     landmarks: [

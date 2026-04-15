@@ -558,4 +558,31 @@ export const characters = [
     goal: "자신만의 방식으로 감정을 표현하고 인정받는 것.",
     expressions: EXPRESSION_KEYS,
   },
+  // ── 18. 에르피 ── Blue Moon Entertainment 대표 (서윤 이전 전설) ──
+  {
+    id: "erpi",
+    cdnId: "ERP",
+    name: "에르피",
+    agency: "Blue Moon Entertainment",
+    role: "아이돌 겸 대표",
+    age: null,
+    tagline: "옳지~ 잘했어.",
+    color: "oklch(0.80 0.10 350)",
+    image: cdnUrl("ERP/key.webp"),
+    thumbnail: cdnUrl("ERP/thumbnail.webp"),
+    profile: cdnUrl("ERP/profile.webp"),
+    sign: cdnUrl("ERP/sign.webp"),
+    detailPath: "/characters/erpi",
+    signature: "검은색+하얀색 프릴 초커",
+    personality: "상냥한 마망 — 따뜻한 포용과 모성적 애정",
+    description:
+      "서윤 이전 시대의 전설적 아이돌이자 Blue Moon Entertainment의 현 대표. 업계에서 '마망'으로 불리며, 무대 위에서는 압도적이었고 무대 아래에서는 누구보다 따뜻했다. 은퇴 후에도 그 포용력은 변하지 않았다.",
+    brief:
+      "서윤이 '영점'이라면, 에르피는 그 영점 이전의 시대를 지배한 전설. 현역 시절 압도적인 무대와 따뜻한 인성으로 업계 전체의 사랑을 받았다. 지금은 Blue Moon의 대표로서 후배를 키우며, '마망'이라는 별명 그대로 모두의 어머니 같은 존재.",
+    job: "아이돌 겸 대표",
+    background: "서윤 이전 세대의 전설적 아이돌. 은퇴 후 Blue Moon Entertainment를 이끌며 후배를 양성하고 있다. 에리카와 이서하를 직접 발굴한 장본인.",
+    taste: "후배 챙기기, 따뜻한 말 한마디. 포옹. 누군가의 성장을 지켜보는 것.",
+    goal: "자신이 받았던 사랑을 다음 세대에 전하는 것.",
+    expressions: EXPRESSION_KEYS,
+  },
 ];
