@@ -62,6 +62,23 @@ TRACKER_PATH = TOOLS_DIR / ".r2_uploaded.json"
 sys.path.insert(0, str(TOOLS_DIR))
 from utils import ALL_CHARS  # noqa: E402
 ALLOWED_CHARS: frozenset[str] = frozenset(ALL_CHARS)
+CONFIG_PATH = TOOLS_DIR / "asset_config.json"
+
+# ─── 특수씬 output_path 매핑 (asset_config.json 에서 로드) ────
+def _load_special_paths() -> dict[int, str]:
+    """900+ 씬의 output_path 매핑을 asset_config.json 에서 로드."""
+    try:
+        cfg = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+        mapping: dict[int, str] = {}
+        for sid, s in cfg.get("scenes", {}).items():
+            op = s.get("output_path")
+            if op:
+                mapping[int(sid)] = op
+        return mapping
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+SPECIAL_OUTPUT_PATHS: dict[int, str] = _load_special_paths()
 
 # ─── R2 ──────────────────────────────────────────────────────
 BUCKET = "prime"
@@ -145,11 +162,23 @@ def collect_completed_keys(state: dict) -> list[tuple[str, int]]:
 
 
 def upload_one(char: str, num: int) -> tuple[bool, str]:
-    """wrangler r2 object put. (success, msg)."""
-    src = CHAR_IMG / char / f"{num}.webp"
+    """wrangler r2 object put. (success, msg).
+
+    특수씬(900+)은 asset_config.json 의 output_path 를 참조하여
+    로컬 파일 경로와 R2 키를 결정한다.
+    예: scene 911 → output_path="thumbnail.webp" → {char}/thumbnail.webp
+    """
+    custom = SPECIAL_OUTPUT_PATHS.get(num)
+    if custom:
+        resolved = custom.replace("{code}", char)
+        src = CHAR_IMG / char / resolved
+        r2_rel = f"{char}/{resolved}"
+    else:
+        src = CHAR_IMG / char / f"{num}.webp"
+        r2_rel = f"{char}/{num}.webp"
     if not src.exists():
         return False, f"missing local file: {src}"
-    key = f"{BUCKET}/{R2_PREFIX}/{char}/{num}.webp"
+    key = f"{BUCKET}/{R2_PREFIX}/{r2_rel}"
     cmd = [
         WRANGLER_BIN, "r2", "object", "put", key,
         "--file", str(src),
