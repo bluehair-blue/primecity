@@ -226,13 +226,16 @@ function generateTablet(p) {
       { icon: "∂", name: "작곡가", trigger: "!작곡가모드", desc: "작곡 → 매칭 → 발매 → 차트", accent: "#7ba0d4" },
       { icon: "▷", name: "배우", trigger: "!배우모드", desc: "캐스팅 → 촬영 → 방영", accent: "#d46b8a" },
       { icon: "◐", name: "인플루언서", trigger: "!인플루언서모드", desc: "콘텐츠 · 바이럴 · 브랜드딜", accent: "#6bacd4" },
+      { icon: "🏢", name: "대표", trigger: "!대표모드", desc: "에이전시 경영 · 아티스트 육성", accent: "#d46b6b" },
     ];
     const utilModes = [
+      { icon: "🧩", name: "프리플레이", trigger: "!프리플레이", desc: "커스텀 설정 오버레이", accent: "#b07ad4" },
       { icon: "📋✦", name: "선택지", trigger: "!선택지", desc: "행동 분기 명시적 제시", accent: "#d4a84c" },
       { icon: "🔍", name: "디테일", trigger: "!디테일", desc: "감각 밀도 ×1.5", accent: "#c9a84c" },
       { icon: "⏩", name: "스킵", trigger: "!스킵", desc: "몽타주 시간 가속", accent: "#888" },
       { icon: "🕶️", name: "비하인드", trigger: "!비하인드", desc: "업계 이면 포커스", accent: "#7ba0d4" },
-      { icon: "💫", name: "소꿉친구", trigger: "!소꿉친구", desc: "장그루는 이제 당신의 소꿉친구입니다.", accent: "#b07ad4" },
+      { icon: "💫", name: "소꿉친구", trigger: "!소꿉친구", desc: "장그루 소꿉친구 배경 활성화", accent: "#b07ad4" },
+      { icon: "🔧", name: "디버그", trigger: "!디버그", desc: "기술적 수정 · 코드 조정", accent: "#888" },
     ];
 
     function modeCell(m, x, y, cellH) {
