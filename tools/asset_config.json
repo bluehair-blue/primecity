@@ -233,7 +233,7 @@
       "name": "sad",
       "width": 1024,
       "height": 1024,
-      "female_prompt": "straight on, upper body, portrait, face focus, standing, 1.8::sad::, crying, tears, ",
+      "female_prompt": "straight on, upper body, portrait, face focus, standing, 1.8::sad::, crying, tears",
       "male_prompt": "",
       "_old_prompt": "straight on, upper body, portrait, face focus, standing, sad, crying, "
     },
@@ -281,7 +281,7 @@
       "name": "normal-chat",
       "width": 1024,
       "height": 1024,
-      "female_prompt": "straight on, standing, upper body, ",
+      "female_prompt": "straight on, standing, upper body",
       "male_prompt": "",
       "_old_prompt": "upper body, smile, casual, "
     },
@@ -321,7 +321,7 @@
       "name": "cinema-chat",
       "width": 1216,
       "height": 832,
-      "female_prompt": "movie theater, sitting, holding popcorn, smile, ",
+      "female_prompt": "movie theater, sitting, holding popcorn, smile",
       "male_prompt": "",
       "_old_prompt": "movie theater, dark, sitting, armrest, , smile, popcorn, close-up, "
     },
@@ -329,7 +329,7 @@
       "name": "christmas-date",
       "width": 1216,
       "height": 832,
-      "female_prompt": "night, city lights, christmas tree, standing, holding shopping bag, smile, ",
+      "female_prompt": "night, city lights, christmas tree, standing, holding shopping bag, smile",
       "male_prompt": "",
       "_old_prompt": "night, city lights, illumination, christmas, winter clothes, scarf, standing, smile, , snow, breath, "
     },
@@ -360,7 +360,7 @@
       "name": "cunnilingus",
       "width": 1216,
       "height": 832,
-      "female_prompt": "pussy, 2::white censored pussy ::, pussy focus, pussy juice, half-closed eyes, blush, tears, on bed, from below, ",
+      "female_prompt": "pussy, 2::white censored pussy ::, pussy focus, pussy juice, half-closed eyes, blush, tears, on bed, from below",
       "male_prompt": "",
       "_old_prompt": "boy, black hair, hair over eyes, cunnilingus, female focus, , torogao, , open mouth, "
     },
@@ -384,7 +384,7 @@
       "name": "breast-grope",
       "width": 1216,
       "height": 832,
-      "female_prompt": "target# grabbing another's breasts, breath, ",
+      "female_prompt": "target# grabbing another's breasts, breath",
       "male_prompt": "pov, source# grabbing another's breasts",
       "_old_prompt": "grabbing girl's breasts, "
     },
@@ -400,15 +400,15 @@
       "name": "fingering",
       "width": 1216,
       "height": 832,
-      "female_prompt": "pussy, 2::white censored pussy ::, pussy juice, target# fingering, breath, half-closed eyes, blush, tears, covering own mouth, from below, ",
-      "male_prompt": "pov, 5-fingers, source# fingering, reaching one hand towards another's pussy, finger in another's pussy, ",
+      "female_prompt": "pussy, 2::white censored pussy ::, pussy juice, target# fingering, breath, half-closed eyes, blush, tears, covering own mouth, from below",
+      "male_prompt": "pov, 5-fingers, source# fingering, reaching one hand towards another's pussy, finger in another's pussy",
       "_old_prompt": "fingering, pussy, pussy juice, "
     },
     "26": {
       "name": "fingering-climax",
       "width": 1216,
       "height": 832,
-      "female_prompt": "pussy, 2::white censored pussy ::, pussy juice, target# fingering, breath, half-closed eyes, blush, tears, covering own mouth, from below, female ejaculation, ",
+      "female_prompt": "pussy, 2::white censored pussy ::, pussy juice, target# fingering, breath, half-closed eyes, blush, tears, covering own mouth, from below, female ejaculation",
       "male_prompt": "pov, 5-fingers, source# fingering, finger in pussy",
       "_old_prompt": "fingering, hug from behind, pussy, pussy juice, orgasm, ahegao, "
     },
@@ -424,7 +424,7 @@
       "name": "ass-grabbing",
       "width": 1216,
       "height": 832,
-      "female_prompt": "from behind, doggystyle, ass focus, back, 2::white censored pussy ::, pussy, pussy juice, target# grabbing another's ass, target# spread ass, anal",
+      "female_prompt": "from behind, doggystyle, ass focus, back, 2::white censored pussy ::, pussy, pussy juice, target# grabbing another's ass, target# spread ass, anus",
       "male_prompt": "pov, source# grabbing another's ass, source# spread ass",
       "_old_prompt": "from behind, doggystyle, ass focus, pov, grabbing girl's ass, spread ass, back, pussy, pussy juice, anal, "
     },
@@ -480,7 +480,7 @@
       "name": "deepthroat",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bedroom, face focus, close-up, source# deepthroat, , target# grabbing another's head",
+      "female_prompt": "bedroom, face focus, close-up, source# deepthroat, target# grabbing another's head",
       "male_prompt": "pov, source# grabbing another's head, target# deepthroat",
       "_old_prompt": "pov, bedroom, from side, close-up, boy, black hair, hair over eyes, head grab, deepthroat, , trembling, , crying, one eye closed, "
     },
@@ -512,7 +512,7 @@
       "name": "rimjob",
       "width": 1216,
       "height": 832,
-      "female_prompt": "female focus, kneeling, source# anilingus, source# reverse paizuri, , saliva, motion lines",
+      "female_prompt": "female focus, kneeling, source# anilingus, source# reverse paizuri, saliva, motion lines",
       "male_prompt": "1boy, out of frame, cropped, all fours, ass up, hetero, target# anilingus, target# reverse paizuri",
       "_old_prompt": "bedroom, from side, boy, all fours, ass up, hetero, anilingus, reverse paizuri, female focus, kneeling, , tongue out, saliva, , motion lines, "
     },
@@ -520,7 +520,7 @@
       "name": "rimjob-cum",
       "width": 1216,
       "height": 832,
-      "female_prompt": "female focus, kneeling, source# anilingus, source# reverse paizuri, , saliva trail, cum on breasts, surprised",
+      "female_prompt": "female focus, kneeling, source# anilingus, source# reverse paizuri, saliva trail, cum on breasts, surprised",
       "male_prompt": "1boy, out of frame, cropped, all fours, ass up, hetero, cum, target# anilingus, target# reverse paizuri",
       "_old_prompt": "bedroom, from side, boy, all fours, ass up, hetero, anilingus, reverse paizuri, female focus, kneeling, , tongue out, saliva, cum, overflow, , heart-shaped pupils, ahegao, surprised, "
     },
@@ -536,7 +536,7 @@
       "name": "footjob-cum",
       "width": 1216,
       "height": 832,
-      "female_prompt": "from below, 2::source# footjob, , feet, foot focus, thighs::, nipples, cum on feet",
+      "female_prompt": "from below, 2::source# footjob, feet, foot focus, thighs::, nipples, cum on feet",
       "male_prompt": "2::white censored penis ::, pov, large penis, target# footjob, cum",
       "_old_prompt": "bedroom, straight on, footjob, trembling, cum, overflow, cum on breasts, , open mouth, "
     },
@@ -558,7 +558,7 @@
       "name": "forehead-kiss",
       "width": 1216,
       "height": 832,
-      "female_prompt": "face focus, detailed face, 2::close-up::, ",
+      "female_prompt": "face focus, detailed face, 2::close-up::",
       "male_prompt": ""
     },
     "46": {
@@ -572,28 +572,28 @@
       "name": "body-worship",
       "width": 832,
       "height": 1216,
-      "female_prompt": "on bed, nude, arms above head, lying on back, legs apart, , seductive smile, parted lips, breasts, nipples",
+      "female_prompt": "on bed, nude, arms above head, lying on back, legs apart, seductive smile, parted lips, breasts, nipples",
       "male_prompt": ""
     },
     "48": {
       "name": "shower-together",
       "width": 832,
       "height": 1216,
-      "female_prompt": "shower, bathroom, , wet hair, steam, nude, breasts, water droplets",
+      "female_prompt": "shower, bathroom, wet hair, steam, nude, breasts, water droplets",
       "male_prompt": "pov, close-up"
     },
     "49": {
       "name": "69",
       "width": 1216,
       "height": 832,
-      "female_prompt": "69, mutual# 69, mutual# oral, source# fellatio, thighs, breasts, back, , saliva trail, saliva",
+      "female_prompt": "69, mutual# 69, mutual# oral, source# fellatio, thighs, breasts, back, saliva trail, saliva",
       "male_prompt": "2::white censored penis ::, 1boy, mutual# 69, mutual# oral, target# fellatio, large penis"
     },
     "50": {
       "name": "nude-conversation",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, nude, sitting on bed, , parted lips, talking, covering breasts, embarrassed smile, knees together",
+      "female_prompt": "on bed, nude, sitting on bed, parted lips, talking, covering breasts, embarrassed smile, knees together",
       "male_prompt": "",
       "_old_prompt": "bedroom, white bed, sitting on bed, nsfw, covering breasts, covering crotch, , , "
     },
@@ -601,7 +601,7 @@
       "name": "missionary",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, missionary, lying on back, legs apart, spread legs, thighs, knees up, sex, 2::white censored pussy ::, pussy, pussy juice, , breasts, nipples",
+      "female_prompt": "on bed, missionary, lying on back, legs apart, spread legs, thighs, knees up, sex, 2::white censored pussy ::, pussy, pussy juice, breasts, nipples",
       "male_prompt": "2::white censored penis ::, pov, penis, large penis, sex",
       "_old_prompt": "bedroom, missionary, boy, black hair, hair over eyes, sex, penis, , trembling, , "
     },
@@ -617,7 +617,7 @@
       "name": "doggystyle",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, doggystyle, all fours, from behind, ass focus, back, sex, 2::white censored pussy ::, pussy, pussy juice, anal, spread legs, , motion lines",
+      "female_prompt": "on bed, doggystyle, all fours, from behind, ass focus, back, sex, 2::white censored pussy ::, pussy, pussy juice, anus, spread legs, motion lines",
       "male_prompt": "2::white censored penis ::, pov, penis, large penis, sex",
       "_old_prompt": "bedroom, from side, doggystyle, boy, black hair, hair over eyes, sex, penis, , trembling, , open mouth, "
     },
@@ -625,7 +625,7 @@
       "name": "doggystyle-climax",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, doggystyle, all fours, from behind, ass focus, back, sex, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, anal, spread legs, , target# grabbing another's hair",
+      "female_prompt": "on bed, doggystyle, all fours, from behind, ass focus, back, sex, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, anus, spread legs, target# grabbing another's hair",
       "male_prompt": "2::white censored penis ::, pov, penis, large penis, sex, cum, source# grabbing another's hair",
       "_old_prompt": "bedroom, from side, doggystyle, boy, black hair, hair over eyes, grabbing girl's hair, sex, penis, cum in pussy, overflow, , trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
@@ -633,7 +633,7 @@
       "name": "cowgirl",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, girl on top, cowgirl position, astride, sitting on penis, sex, 2::white censored pussy ::, pussy, pussy juice, , breasts, nipples",
+      "female_prompt": "on bed, girl on top, cowgirl position, astride, sitting on penis, sex, 2::white censored pussy ::, pussy, pussy juice, breasts, nipples",
       "male_prompt": "2::white censored penis ::, pov, penis, large penis, sex",
       "_old_prompt": "bedroom, from front, girl on top, cowgirl position, boy, black hair, hair over eyes, sex, penis, arms up, arms behind head, arched back, , trembling, , open mouth, "
     },
@@ -641,7 +641,7 @@
       "name": "cowgirl-climax",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, girl on top, cowgirl position, astride, sitting on penis, sex, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, , breasts, nipples",
+      "female_prompt": "on bed, girl on top, cowgirl position, astride, sitting on penis, sex, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, breasts, nipples",
       "male_prompt": "2::white censored penis ::, pov, penis, large penis, sex, cum",
       "_old_prompt": "bedroom, from front, girl on top, cowgirl position, boy, black hair, hair over eyes, sex, penis, cum in pussy, overflow, arms up, arms behind head, arched back, , trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
@@ -657,15 +657,15 @@
       "name": "spooning-climax",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, sex, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, , breasts, orgasm, female ejaculation",
-      "male_prompt": "1boy, out of frame, cropped head, 2::white censored penis ::, penis, large penis, sex, cum, ",
+      "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, sex, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, breasts, orgasm, female ejaculation",
+      "male_prompt": "1boy, out of frame, cropped head, 2::white censored penis ::, penis, large penis, sex, cum",
       "_old_prompt": "bedroom, from side, lying, on side, spooning, leg lift, boy, black hair, hair over eyes, sex, penis, cum in pussy, overflow, female focus, , trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
     "59": {
       "name": "full-nelson",
       "width": 1216,
       "height": 832,
-      "female_prompt": "standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, sex, 2::white censored pussy ::, pussy, pussy juice, , breasts, from below",
+      "female_prompt": "standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, sex, 2::white censored pussy ::, pussy, pussy juice, breasts, from below",
       "male_prompt": "2::white censored penis ::, 1boy, penis, large penis, sex, source# leg grab",
       "_old_prompt": "bedroom, from below, standing, spread legs, leg grab, reverse suspended congress, boy, black hair, hair over eyes, sex, penis, female focus, , , open mouth, "
     },
@@ -681,7 +681,7 @@
       "name": "anal",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, lying, doggystyle, from behind, ass focus, back, completely nude, anal, 2::white censored pussy ::, pussy, pussy juice, motion lines, , sex, target# grabbing another's ass",
+      "female_prompt": "on bed, lying, doggystyle, from behind, ass focus, back, completely nude, anal, 2::white censored pussy ::, pussy, pussy juice, motion lines, sex, target# grabbing another's ass",
       "male_prompt": "2::white censored penis ::, pov, penis, large penis, sex, source# grabbing another's ass",
       "_old_prompt": "bedroom, on bed, lying, from behind, doggystyle, ass focus, boy, black hair, hair over eyes, grabbing girl's ass, anal, penis, back, completely nude, pussy, pussy juice, motion lines, trembling, , open mouth, embarrassed, "
     },
@@ -689,7 +689,7 @@
       "name": "anal-climax",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, lying, doggystyle, from behind, ass focus, back, completely nude, anal, 2::white censored pussy ::, pussy, pussy juice, motion lines, , sex, cum in ass, cum overflow, target# grabbing another's ass, target# grabbing another's hair, female ejaculation",
+      "female_prompt": "on bed, lying, doggystyle, from behind, ass focus, back, completely nude, anal, 2::white censored pussy ::, pussy, pussy juice, motion lines, sex, cum in ass, cum overflow, target# grabbing another's ass, target# grabbing another's hair, female ejaculation",
       "male_prompt": "2::white censored penis ::, pov, penis, large penis, sex, cum, source# grabbing another's ass, source# grabbing another's hair",
       "_old_prompt": "bedroom, on bed, lying, from behind, doggystyle, ass focus, boy, black hair, hair over eyes, grabbing girl's ass, grabbing girl's hair, anal, penis, cum in ass, overflow, back, completely nude, pussy, pussy juice, motion lines, trembling, , ahegao, tongue out, "
     },
@@ -697,7 +697,7 @@
       "name": "after-sex",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, lying, on back, spread legs, after sex, , , cum on face, cum in pussy, cum on body, cum overflow, after sex, 2::white censored pussy ::, pussy, breasts, ",
+      "female_prompt": "on bed, lying, on back, spread legs, after sex, cum on face, cum in pussy, cum on body, cum overflow, after sex, 2::white censored pussy ::, pussy, breasts",
       "male_prompt": "pov",
       "_old_prompt": "bedroom, from above, lying, on back, spread legs, spooning, after sex, , , cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, smile, open mouth, "
     },
@@ -705,7 +705,7 @@
       "name": "facial-cum",
       "width": 1216,
       "height": 832,
-      "female_prompt": "close-up, face focus, , cum on face, cum on hair, facial, cum overflow, cum in nose, saliva trail, one eye closed",
+      "female_prompt": "close-up, face focus, cum on face, cum on hair, facial, cum overflow, cum in nose, saliva trail, one eye closed",
       "male_prompt": "2::white censored penis ::, pov, large penis, cum",
       "_old_prompt": "bedroom, from above, close-up, pov, large penis, , cum on face, cum on hair, overflow, trembling, heart-shaped pupils, ahegao, crying, one eye closed, tongue out, open mouth, "
     },
@@ -713,7 +713,7 @@
       "name": "pregnant-sex",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, 0.6::pregnant::, lactation, sex, 2::white censored pussy ::, pussy, pussy juice, , ",
+      "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, 0.6::pregnant::, lactation, sex, 2::white censored pussy ::, pussy, pussy juice",
       "male_prompt": "2::white censored penis ::, 1boy, penis, large penis, sex, behind her",
       "_old_prompt": "bedroom, from side, lying, on side, spooning, leg lift, boy, black hair, hair over eyes, sex, penis, female focus, 0.6::pregnant::, , lactation, , open mouth, "
     },
@@ -721,15 +721,15 @@
       "name": "pregnant-sex-climax",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, 0.6::pregnant::, lactation, sex, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, female ejaculation, ",
-      "male_prompt": "2::white censored penis ::, 1boy, penis, large penis, sex, cum, ",
+      "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, 0.6::pregnant::, lactation, sex, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, female ejaculation",
+      "male_prompt": "2::white censored penis ::, 1boy, penis, large penis, sex, cum",
       "_old_prompt": "bedroom, from side, lying, on side, spooning, leg lift, boy, black hair, hair over eyes, sex, penis, cum in pussy, overflow, female focus, 0.6::pregnant::, , lactation, trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
     "67": {
       "name": "pregnant-after",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, lying, on back, spread legs, 0.6::pregnant::, after sex, , lactation, , cum on face, cum in pussy, cum on body, cum overflow, after sex, 2::white censored pussy ::, pussy, ",
+      "female_prompt": "on bed, lying, on back, spread legs, 0.6::pregnant::, after sex, lactation, cum on face, cum in pussy, cum on body, cum overflow, after sex, 2::white censored pussy ::, pussy",
       "male_prompt": "pov",
       "_old_prompt": "bedroom, from above, lying, on back, spread legs, spooning, 0.6::pregnant::, after sex, , , lactation, cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, smile, open mouth, "
     },
@@ -737,21 +737,21 @@
       "name": "standing-sex",
       "width": 832,
       "height": 1216,
-      "female_prompt": "standing, against wall, standing sex, from behind, doggystyle, anal, back, ass focus, 2::white censored pussy ::, pussy, pussy juice, , sex, motion lines",
+      "female_prompt": "standing, against wall, standing sex, from behind, doggystyle, anus, back, ass focus, 2::white censored pussy ::, pussy, pussy juice, sex, motion lines",
       "male_prompt": "2::white censored penis ::, pov, penis, large penis, sex"
     },
     "69": {
       "name": "standing-sex-climax",
       "width": 832,
       "height": 1216,
-      "female_prompt": "standing, against wall, standing sex, leg lift, carried, from side, sex, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, female ejaculation, ",
+      "female_prompt": "standing, against wall, standing sex, leg lift, carried, from side, sex, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, female ejaculation",
       "male_prompt": "2::white censored penis ::, 1boy, penis, large penis, sex, cum"
     },
     "70": {
       "name": "clothed-missionary",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, missionary, lying on back, legs apart, spread legs, thighs, clothed, mutual# clothed sex, sex, 2::white censored pussy ::, pussy, pussy juice, , ",
+      "female_prompt": "on bed, missionary, lying on back, legs apart, spread legs, thighs, clothed, mutual# clothed sex, sex, 2::white censored pussy ::, pussy, pussy juice",
       "male_prompt": "2::white censored penis ::, pov, penis, large penis, sex, clothed, mutual# clothed sex",
       "_old_prompt": "bedroom, missionary, boy, black hair, hair over eyes, clothed sex, sex, penis, , trembling, , "
     },
@@ -759,7 +759,7 @@
       "name": "clothed-missionary-climax",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, missionary, lying on back, spread legs, thighs, clothed, clothed sex, sex, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, female ejaculation, , ",
+      "female_prompt": "on bed, missionary, lying on back, spread legs, thighs, clothed, clothed sex, sex, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, female ejaculation",
       "male_prompt": "2::white censored penis ::, pov, penis, large penis, sex, clothed, clothed sex, cum",
       "_old_prompt": "bedroom, from above, missionary, boy, black hair, hair over eyes, clothed sex, sex, penis, cum in pussy, overflow, , trembling, heart-shaped pupils, ahegao, , tongue out, open mouth, "
     },
@@ -783,7 +783,7 @@
       "name": "clothed-cowgirl",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, girl on top, cowgirl position, astride, sitting on penis, clothed, mutual# clothed sex, sex, 2::white censored pussy ::, pussy, pussy juice, female ejaculation, ",
+      "female_prompt": "on bed, girl on top, cowgirl position, astride, sitting on penis, clothed, mutual# clothed sex, sex, 2::white censored pussy ::, pussy, pussy juice, female ejaculation",
       "male_prompt": "2::white censored penis ::, pov, penis, large penis, sex, clothed, mutual# clothed sex",
       "_old_prompt": "bedroom, from front, girl on top, cowgirl position, boy, black hair, hair over eyes, clothed sex, sex, penis, arched back, , trembling, , open mouth, "
     },
@@ -791,7 +791,7 @@
       "name": "clothed-cowgirl-climax",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, girl on top, cowgirl position, astride, sitting on penis, clothed, mutual# clothed sex, sex, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, female ejaculation, ",
+      "female_prompt": "on bed, girl on top, cowgirl position, astride, sitting on penis, clothed, mutual# clothed sex, sex, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, female ejaculation",
       "male_prompt": "2::white censored penis ::, pov, penis, large penis, sex, clothed, mutual# clothed sex, cum",
       "_old_prompt": "bedroom, from front, girl on top, cowgirl position, boy, black hair, hair over eyes, clothed sex, sex, penis, cum in pussy, overflow, arched back, , trembling, heart-shaped pupils, ahegao, , tongue out, open mouth, "
     },
@@ -799,7 +799,7 @@
       "name": "clothed-fellatio",
       "width": 1216,
       "height": 832,
-      "female_prompt": "kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail, , ",
+      "female_prompt": "kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail",
       "male_prompt": "2::white censored penis ::, pov, large penis, clothed, target# fellatio",
       "_old_prompt": "bedroom, from above, close-up, pov, large penis, clothed sex, fellatio, , trembling, , crying, one eye closed, open mouth, "
     },
@@ -807,7 +807,7 @@
       "name": "clothed-fellatio-climax",
       "width": 1216,
       "height": 832,
-      "female_prompt": "kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail, , cum on face, cum in mouth, cum overflow, facial, ",
+      "female_prompt": "kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail, cum on face, cum in mouth, cum overflow, facial",
       "male_prompt": "2::white censored penis ::, pov, large penis, clothed, target# fellatio, cum",
       "_old_prompt": "bedroom, from above, close-up, pov, large penis, cum, clothed sex, fellatio, , cum on face, cum in mouth, overflow, trembling, heart-shaped pupils, ahegao, , crying, one eye closed, "
     },
@@ -815,7 +815,7 @@
       "name": "clothed-after",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, lying, spread legs, clothed, after sex, , , cum on face, cum in pussy, cum on body, cum overflow, after sex, 2::white censored pussy ::, pussy, , ",
+      "female_prompt": "on bed, lying, spread legs, clothed, after sex, cum on face, cum in pussy, cum on body, cum overflow, after sex, 2::white censored pussy ::, pussy",
       "male_prompt": "",
       "_old_prompt": "bedroom, from above, lying, spread legs, spooning, clothed sex, after sex, , , cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, , smile, open mouth, "
     },
@@ -823,14 +823,14 @@
       "name": "clothed-spooning",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, clothed, mutual# clothed sex, sex, 2::white censored pussy ::, pussy, pussy juice, , ",
+      "female_prompt": "on bed, lying, on side, spooning, leg lift, female focus, clothed, mutual# clothed sex, sex, 2::white censored pussy ::, pussy, pussy juice",
       "male_prompt": "1boy, out of frame, cropped head, 2::white censored penis ::, penis, large penis, sex, clothed, mutual# clothed sex, behind her"
     },
     "80": {
       "name": "clothed-doggystyle-toilet",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bathroom, leaning forward, doggystyle, from behind, ass focus, back, anal, 2::white censored pussy ::, pussy, pussy juice, clothed, mutual# clothed sex, sex, ",
+      "female_prompt": "bathroom, leaning forward, doggystyle, from behind, ass focus, back, anus, 2::white censored pussy ::, pussy, pussy juice, clothed, mutual# clothed sex, sex",
       "male_prompt": "2::white censored penis ::, pov, penis, large penis, sex, clothed, mutual# clothed sex",
       "_old_prompt": "bathroom stall, toilet, from side, doggystyle, boy, black hair, hair over eyes, clothed sex, sex, penis, , trembling, , open mouth, "
     },
@@ -838,7 +838,7 @@
       "name": "clothed-doggystyle-climax-toilet",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bathroom stall, toilet, doggystyle, from behind, ass focus, back, anal, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, clothed, mutual# clothed sex, sex, female ejaculation, target# chokehold",
+      "female_prompt": "bathroom stall, toilet, doggystyle, from behind, ass focus, back, anus, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, clothed, mutual# clothed sex, sex, female ejaculation, target# chokehold",
       "male_prompt": "2::white censored penis ::, pov, penis, large penis, sex, clothed, mutual# clothed sex, cum, source# chokehold",
       "_old_prompt": "bathroom stall, toilet, from side, doggystyle, boy, black hair, hair over eyes, chokehold, clothed sex, sex, penis, cum in pussy, overflow, , trembling, heart-shaped pupils, ahegao, tongue out, open mouth, "
     },
@@ -846,7 +846,7 @@
       "name": "clothed-fullnelson-toilet",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bathroom stall, toilet, standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, clothed, mutual# clothed sex, sex, 2::white censored pussy ::, pussy, pussy juice, , , from below",
+      "female_prompt": "bathroom stall, toilet, standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, clothed, mutual# clothed sex, sex, 2::white censored pussy ::, pussy, pussy juice, from below",
       "male_prompt": "1boy, cropped head, out of frame, 2::white censored penis ::, 1boy, penis, large penis, sex, clothed, mutual# clothed sex, source# leg grab",
       "_old_prompt": "bathroom stall, toilet, from below, standing, spread legs, leg grab, reverse suspended congress, boy, black hair, hair over eyes, clothed sex, sex, penis, female focus, , , open mouth, "
     },
@@ -862,7 +862,7 @@
       "name": "clothed-fellatio-toilet",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bathroom stall, toilet, kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail, , ",
+      "female_prompt": "bathroom stall, toilet, kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail",
       "male_prompt": "2::white censored penis ::, pov, large penis, clothed, target# fellatio",
       "_old_prompt": "bathroom stall, toilet, from above, close-up, pov, large penis, clothed sex, fellatio, , trembling, , crying, one eye closed, open mouth, "
     },
@@ -870,7 +870,7 @@
       "name": "clothed-fellatio-climax-toilet",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bathroom stall, toilet, kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail, , cum on face, cum in mouth, cum overflow, facial, ",
+      "female_prompt": "bathroom stall, toilet, kneeling, face focus, 2::close-up, source# fellatio::, clothed, saliva trail, cum on face, cum in mouth, cum overflow, facial",
       "male_prompt": "2::white censored penis ::, pov, large penis, clothed, target# fellatio, cum",
       "_old_prompt": "bathroom stall, toilet, from above, close-up, pov, large penis, cum, clothed sex, fellatio, , cum on face, cum in mouth, overflow, trembling, heart-shaped pupils, ahegao, crying, one eye closed, "
     },
@@ -878,7 +878,7 @@
       "name": "clothed-after-toilet",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bathroom stall, toilet, lying, spread legs, clothed, after sex, cum on face, cum in pussy, cum on body, cum overflow, after sex, 2::white censored pussy ::, pussy, ",
+      "female_prompt": "bathroom stall, toilet, lying, spread legs, clothed, after sex, cum on face, cum in pussy, cum on body, cum overflow, after sex, 2::white censored pussy ::, pussy",
       "male_prompt": "",
       "_old_prompt": "bathroom stall, toilet, from above, lying, spread legs, spooning, pov, large penis, clothed sex, after sex, cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, , smile, open mouth, "
     },
@@ -886,42 +886,42 @@
       "name": "imminent-missionary",
       "width": 832,
       "height": 1216,
-      "female_prompt": "on bed, 2::lying, on back, lying on pillow::, missionary, legs apart, spread legs, thighs, , nipples, seductive smile, , parted lips, 1.5::pussy juice, 2::white censored pussy ::, pussy juice trail::, imminent penetration, target# penis on stomach, anticipation, ",
+      "female_prompt": "on bed, 2::lying, on back, lying on pillow::, missionary, legs apart, spread legs, thighs, nipples, seductive smile, parted lips, 1.5::pussy juice, 2::white censored pussy ::, pussy juice trail::, imminent penetration, target# penis on stomach, anticipation",
       "male_prompt": "2::white censored penis ::, pov, source# penis on stomach, penis, large penis, precum"
     },
     "88": {
       "name": "imminent-cowgirl",
       "width": 832,
       "height": 1216,
-      "female_prompt": "astride, cowgirl position, kneeling, 2::source# looking at penis, imminent penetration, just the tip::, parted lips, tongue out, looking down, 2::pussy juice, 2::white censored pussy ::, pussy juice trail::, hands on another's stomach, source# guided penetration, , nipples, thighs, seductive smile",
+      "female_prompt": "astride, cowgirl position, kneeling, 2::source# looking at penis, imminent penetration, just the tip::, parted lips, tongue out, looking down, 2::pussy juice, 2::white censored pussy ::, pussy juice trail::, hands on another's stomach, source# guided penetration, nipples, thighs, seductive smile",
       "male_prompt": "2::white censored penis ::, pov, pov crotch, from below, target# looking at penis, target# guided penetration, penis, large penis, precum"
     },
     "89": {
       "name": "imminent-doggystyle",
       "width": 832,
       "height": 1216,
-      "female_prompt": "on bed, 2::from behind, all fours, ass focus, back::, doggystyle, 2::embarrassed, imminent penetration, just the tip::, parted lips, pillow, white bed, anal, 2::white censored pussy ::, pussy, 2::pussy juice, pussy juice trail::, looking back, ",
+      "female_prompt": "on bed, 2::from behind, all fours, ass focus, back::, doggystyle, 2::embarrassed, imminent penetration, just the tip::, parted lips, pillow, white bed, anus, 2::white censored pussy ::, pussy, 2::pussy juice, pussy juice trail::, looking back",
       "male_prompt": "2::white censored penis ::, pov, imminent penetration, just the tip, penis, large penis, precum"
     },
     "90": {
       "name": "spread-after-missionary",
       "width": 832,
       "height": 1216,
-      "female_prompt": "on bed, 2::from above, lying, on back::, 2::seductive smile, ::, after sex, , 2::spreading own pussy, cum in pussy::, 2::pussy juice, 2::white censored pussy ::, pussy juice trail, cum overflow::, very sweaty, wet hair, heart, flustered, after sex, , nipples, parted lips, open mouth",
+      "female_prompt": "on bed, 2::from above, lying, on back::, 2::seductive smile, ::, after sex, 2::spreading own pussy, cum in pussy::, 2::pussy juice, 2::white censored pussy ::, pussy juice trail, cum overflow::, very sweaty, wet hair, heart, flustered, after sex, nipples, parted lips, open mouth",
       "male_prompt": ""
     },
     "91": {
       "name": "spread-after-cowgirl",
       "width": 832,
       "height": 1216,
-      "female_prompt": "solo, pov crotch, 2::white censored pussy ::, 2::spread pussy, cum in pussy::, cowgirl position, 2::looking down, seductive smile::, after sex, , open mouth, , flustered, after sex, 2::sweat, wet hair, head tilt, saliva trail::, arched back, , cum overflow",
+      "female_prompt": "solo, pov crotch, 2::white censored pussy ::, 2::spread pussy, cum in pussy::, cowgirl position, 2::looking down, seductive smile::, after sex, open mouth, flustered, after sex, 2::sweat, wet hair, head tilt, saliva trail::, arched back, cum overflow",
       "male_prompt": ""
     },
     "92": {
       "name": "spread-after-doggystyle",
       "width": 832,
       "height": 1216,
-      "female_prompt": "solo, 2::ass focus, flustered, cum in pussy, doggystyle, 2::white censored pussy ::, pussy juice, pussy juice trail, cum overflow::, spreading own pussy, pillow, 2::seductive smile::, heart, 2::very sweaty, wet hair::, after sex, looking back, back, anal",
+      "female_prompt": "solo, 2::ass focus, flustered, cum in pussy, doggystyle, 2::white censored pussy ::, pussy juice, pussy juice trail, cum overflow::, spreading own pussy, pillow, 2::seductive smile::, heart, 2::very sweaty, wet hair::, after sex, looking back, back, anus",
       "male_prompt": ""
     },
     "93": {
@@ -954,7 +954,7 @@
     },
     "901": {
       "name": "svg-avatar",
-      "female_prompt": "close-up, face focus, portrait, , smile, ",
+      "female_prompt": "close-up, face focus, portrait, smile",
       "male_prompt": "",
       "width": 1024,
       "height": 1024,
@@ -962,7 +962,7 @@
     },
     "902": {
       "name": "svg-post",
-      "female_prompt": "upper body, casual, , smile, indoors, window, candid",
+      "female_prompt": "upper body, casual, smile, indoors, window, candid",
       "male_prompt": "",
       "width": 1216,
       "height": 832,
@@ -970,7 +970,7 @@
     },
     "903": {
       "name": "svg-stream",
-      "female_prompt": "upper body, , studio, headphones around neck, waving, smile, live broadcast, monitor, screen",
+      "female_prompt": "upper body, studio, headphones around neck, waving, smile, live broadcast, monitor, screen",
       "male_prompt": "",
       "width": 1280,
       "height": 768,
@@ -994,7 +994,7 @@
     },
     "911": {
       "name": "thumbnail",
-      "female_prompt": "upper body, portrait, , smile, soft focus background",
+      "female_prompt": "upper body, portrait, smile, soft focus background",
       "male_prompt": "",
       "width": 832,
       "height": 832,
