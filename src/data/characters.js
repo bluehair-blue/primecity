@@ -375,7 +375,7 @@ export const characters = [
       "미모리 보고 입덕함",
     ],
     detailPath: "/characters/mimori",
-    signature: "특이한 헤어핀 — 인플루언서 브랜딩의 일부",
+    signature: "컬러풀 헤어클립 — 인플루언서 브랜딩의 일부",
     personality: "천연 관종 + 센스 — 선은 지킴",
     description:
       "걸어다니는 콘텐츠. 오디션도 콘텐츠. 근데 무대에서는 진심이고, 실력도 있어서 무시 못 한다.",
