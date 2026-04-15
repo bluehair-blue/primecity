@@ -35,7 +35,7 @@ function safeImageUrl(url) {
   return null;
 }
 
-// ── 1. SNS Post (Instagram-style) ──
+// ── 1. SNS Post (PRISMGRAM-style) ──
 function generateSnsPost(p) {
   const username = p.username || "seoyun_official";
   const caption = p.caption || "프라임시티의 밤은 끝나지 않는다.";
@@ -412,7 +412,7 @@ function generateChart(p) {
 </svg>`;
 }
 
-// ── 7. Community Board (DCInside-style) ──
+// ── 7. Community Board (CITY BOARD-style) ──
 function generateCommunity(p) {
   const board = p.board || "프라임시티 갤러리";
   const page = p.page || "1";
@@ -558,7 +558,7 @@ function generateCommunity(p) {
 </svg>`;
 }
 
-// ── 8. Community Post (DCInside-style single post) ──
+// ── 8. Community Post (CITY BOARD-style single post) ──
 // SYNC: Keep in sync with workers/svg-post.js
 function wrapBodyPost(text, maxChars, maxLines) {
   if (!text) return [];
@@ -1452,7 +1452,7 @@ export const svgTemplates = [
     en: "SNS Post",
     category: "SNS",
     animated: true,
-    desc: "Instagram 스타일 SNS 포스트. 프로필, 이미지 영역, 좋아요/댓글 수, 캡션을 표시합니다. 떠오르는 하트 애니메이션 포함.",
+    desc: "PRISMGRAM(프리즘그램) 스타일 SNS 포스트. 프로필, 이미지 영역, 좋아요/댓글 수, 캡션을 표시합니다. 떠오르는 하트 애니메이션 포함.",
     params: [
       { name: "username", desc: "유저네임", example: "seoyun_official" },
       { name: "caption", desc: "캡션 텍스트", example: "프라임시티의 밤은 끝나지 않는다." },
@@ -1512,7 +1512,7 @@ export const svgTemplates = [
     en: "Tweet",
     category: "SNS",
     animated: true,
-    desc: "X(Twitter) 스타일 트윗. 프로필, 본문, 리포스트/좋아요 수를 표시합니다. 인게이지먼트 수치 펄스 애니메이션 포함.",
+    desc: "SIGNAL(시그널) 스타일 트윗. 프로필, 본문, 리포스트/좋아요 수를 표시합니다. 인게이지먼트 수치 펄스 애니메이션 포함.",
     params: [
       { name: "name", desc: "표시 이름", example: "나하린" },
       { name: "handle", desc: "핸들", example: "@naharin_apex" },
@@ -1799,7 +1799,7 @@ export const svgTemplates = [
     en: "Community Board",
     category: "유틸리티",
     animated: true,
-    desc: "DCInside 스타일 커뮤니티 게시판. 다크 테마, 게시글 5개, 페이지네이션, 행 하이라이트 스윕 애니메이션.",
+    desc: "CITY BOARD(시티보드) 스타일 커뮤니티 게시판. 다크 테마, 게시글 5개, 페이지네이션, 행 하이라이트 스윕 애니메이션.",
     params: [
       { name: "board", desc: "게시판 이름", example: "프라임시티 갤러리" },
       { name: "post1~5", desc: "게시글 제목 5개", example: "서윤 신곡 뮤비 떴다" },
@@ -1855,7 +1855,7 @@ export const svgTemplates = [
     en: "Community Post",
     category: "유틸리티",
     animated: true,
-    desc: "DCInside 스타일 단일 게시글. 제목/작성자(IP)/날짜/조회·추천/본문(8줄)/이미지/추천비추 버튼/댓글 5개(ㄴ대댓글). 게시글 내부를 정독하는 장면용.",
+    desc: "CITY BOARD(시티보드) 스타일 단일 게시글. 제목/작성자(IP)/날짜/조회·추천/본문(8줄)/이미지/추천비추 버튼/댓글 5개(ㄴ대댓글). 게시글 내부를 정독하는 장면용.",
     params: [
       { name: "board", desc: "갤러리 이름", example: "프라임시티 갤러리" },
       { name: "num", desc: "게시글 번호", example: "1024" },
