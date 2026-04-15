@@ -1,7 +1,7 @@
 {
   "_comment": "Auto-extracted from NAIS2 backup. Edit as needed.",
   "base": {
-    "base_prompt": "0.6::artist:ebifurya::, 0.4::artist:ixy::, artist:dsmile, artist:fuzichoco, 0.8::artist:pako (pakosun) ::, 2::artist:kurono mitsuki::, artist:wanke, 1.2::airtst:chigusa minori::, 0.6::artist:freng::, 0.8::artist:pro-p::, 0.6::artist:ratatatat74, artist:yutokamizu, artist:mx2j, artist:doremi (doremi4704) ::, 3::official_art, game_cg ::, 2::dishwasher1910 ::, 0.8::artist:haguhagu_(rinjuu_circus) ::, 0.8::artist:henriiku_(ahemaru) ::, 0.6::artist:ie (raarami) ::, 1.1::artist:dino (dinoartforame) ::, 0.4::artist:ama_mitsuki::, 1.2::artist:kitou_sakeru::,  rating:explicit, no text, 3::year 2024 ::, 3::year 2025 ::, solo artist, -3::artist collaboration ::, -2::multiple views ::, masterpiece, best quality, best illustration, ultra-detailed, 1.6::soft shadows ::, -3::production art ::, -3::reference sheet ::, -1::halo (blue archive) ::, -1::yellow light:: ",
+    "base_prompt": "0.6::artist:ebifurya::, 0.4::artist:ixy::, artist:dsmile, artist:fuzichoco, 0.8::artist:pako (pakosun) ::, 2::artist:kurono mitsuki::, artist:wanke, 1.2::airtst:chigusa minori::, 0.8::artist:freng::, 0.8::artist:pro-p::, 0.6::artist:ratatatat74, artist:yutokamizu, artist:mx2j, artist:doremi (doremi4704) ::, 3::official_art, game_cg ::, 2::dishwasher1910 ::, 0.8::artist:haguhagu_(rinjuu_circus) ::, 0.8::artist:henriiku_(ahemaru) ::, 0.6::artist:ie (raarami) ::, 1.1::artist:dino (dinoartforame) ::, 0.4::artist:ama_mitsuki::, 1.2::artist:kitou_sakeru::,  rating:explicit, no text, 3::year 2024 ::, 3::year 2025 ::, solo artist, -3::artist collaboration ::, -2::multiple views ::, masterpiece, best quality, best illustration, ultra-detailed, 1.6::soft shadows ::, -3::production art ::, -3::reference sheet ::, -1::halo (blue archive) ::, -1::yellow light:: ",
     "negative_prompt": "yellow light, purple, green, cyan, cat ears, animal ears, no nipples, pubic hair, mosaic censoring, bar censor, artistic error, jpeg artifacts, logo, text, watermark, too many watermarks, blank page, reference, username, signature, artist:xinzoruo, artist:milkpanda, artist collaboration, variant set, large variant set, 4koma, 2koma, toon (style), oekaki, chibi, turnaround, film grain, monochrome, dithering, halftone, screentones, dated, old, 1990s (style), mutation, deformed, distorted, disfigured, distorted anatomy, anatomical structure error, asymmetrical face, bad eyes, cloudy eyes, blank eyes, pointy ears, bad proportions, bad limb, bad hands, extra hands, bad hand structure, extra digits, fewer digits, bad legs, extra legs, amputee, distorted composition, bad perspective, multiple views, negative space, animation error, chromatic aberration, disorganized colors, scan artifacts, vertical lines, vertical banding, worst quality, bad quality, lowres, upscaled, fewer details, unfinished, incomplete, amateur, cheesy, unsatisfactory, inadequate, deficient, subpar, poor, displeasing, very displeasing, bad illustration, bad portrait, lipstick, loli, child, warm, blue archive, genshin, hololive, multiple boys, gangbang, group sex, threesome, mmf threesome, ffm threesome, double handjob, spitroast, cooperative fellatio, lips",
     "model": "nai-diffusion-4-5-full",
     "steps": 28,
@@ -11,7 +11,7 @@
     "scheduler": "karras",
     "smea": false,
     "variety": true,
-    "nsfw_suffix": "2::white censored pussy, white censored anus ::, -2::censored nipples::"
+    "nsfw_suffix": "-2::censored nipples::"
   },
   "scene_variant_map": {
     "1": "clothed",
@@ -120,33 +120,33 @@
   "characters": {
     "SY": {
       "name": "서윤",
-      "clothed": "girl, silver hair, very long hair, wavy hair, loose waves, floating hair, curtained bangs, parted bangs, long sidelocks, golden eyes, cold eyes, sharp eyes, long eyelashes, thin eyebrows, elegant, expressionless, large breasts, fashion, celebrity, high fashion, oversized clothes, elegant coat, layered clothes, belt, inner white dress, black pantyhose, black half gloves, gold earrings, 2::gold choker::, ",
-      "nude": "girl, silver hair, very long hair, wavy hair, loose waves, floating hair, curtained bangs, parted bangs, long sidelocks, golden eyes, cold eyes, sharp eyes, long eyelashes, thin eyebrows, elegant, expressionless, large breasts, gold earrings, 2::gold choker::, "
+      "clothed": "1girl, silver hair, very long hair, wavy hair, loose waves, floating hair, curtained bangs, parted bangs, long sidelocks, golden eyes, cold eyes, sharp eyes, long eyelashes, thin eyebrows,  expressionless, large breasts, fashion, celebrity, high fashion, oversized clothes, elegant coat, layered clothes, belt, inner white dress, black pantyhose, black half gloves, gold earrings, 2::gold choker::, ",
+      "nude": "1girl, silver hair, very long hair, wavy hair, loose waves, floating hair, curtained bangs, parted bangs, long sidelocks, golden eyes, cold eyes, sharp eyes, long eyelashes, thin eyebrows,  expressionless, large breasts, gold earrings, 2::gold choker::, "
     },
     "KHR": {
       "name": "강하람",
-      "clothed": "girl, very long hair, black hair, high ponytail, messy hair, ahoge, mole under eye, mole on breasts, beauty mark, single light pink wrist scrunchie, red eyes, cat eyes, slit pupils, sparkling eyes, seductive eyes, smile, open mouth, fang, large breasts, wide hips, thick thighs, 2::oversized ivory sweater, shirt overhang::, off-shoulder sweater, long sweater, long sleeves, loose sweater, bare legs, bottomless, white thighhighs, pink choker",
-      "nude": "girl, nude, very long hair, black hair, high ponytail, messy hair, ahoge, mole under eye, mole on breasts, beauty mark, single light pink wrist scrunchie, red eyes, cat eyes, slit pupils, sparkling eyes, seductive eyes, smile, open mouth, fang, large breasts, wide hips, thick thighs, white thighhighs, pink choker, "
+      "clothed": "1girl, very long hair, black hair, high ponytail, messy hair, ahoge, mole under eye, mole on breasts, beauty mark, single light pink wrist scrunchie, red eyes, cat eyes, slit pupils, sparkling eyes, seductive eyes, smile, open mouth, fang, large breasts, wide hips, thick thighs, 2::oversized clothes, ivory sweater, shirt overhang::, off-shoulder sweater, long sweater, long sleeves, loose sweater, bare legs, bottomless, white thighhighs, pink choker",
+      "nude": "1girl, nude, very long hair, black hair, high ponytail, messy hair, ahoge, mole under eye, mole on breasts, beauty mark, single light pink wrist scrunchie, red eyes, cat eyes, slit pupils, sparkling eyes, seductive eyes, fang, large breasts, wide hips, thick thighs, white thighhighs, pink choker, "
     },
     "LSH": {
       "name": "이서하",
-      "clothed": "girl, light brown hair, long hair, wavy hair, messy hair, hair over shoulder, blue eyes, round eyes, droopy eyes, half-closed eyes, bags under eyes, expressionless, grumpy, tsundere, small breasts, 0.5::petite::, 1.2::thicc thighs::, oversized grey hoodie, long sleeves, sleeves past wrists, sleeves past fingers, drawstring, round silver glasses, over-rim glasses, bare legs, barefoot, ",
-      "nude": "girl, nude, light brown hair, long hair, wavy hair, messy hair, hair over shoulder, blue eyes, round eyes, droopy eyes, half-closed eyes, bags under eyes, expressionless, round silver glasses, over-rim glasses, grumpy, tsundere, small breasts, 0.5::petite::, 1.2::thicc thighs::, bare legs, barefoot, "
+      "clothed": "1girl, light brown hair, long hair, wavy hair, messy hair, hair over shoulder, blue eyes, round eyes, droopy eyes, half-closed eyes, bags under eyes, expressionless, grumpy, tsundere, small breasts, 0.6::petite::, 1.2::thicc thighs::, oversized clothes, grey hoodie, sleeves past wrists, sleeves past fingers, drawstring, round silver glasses, over-rim glasses, bare legs, bare foot, ",
+      "nude": "1girl, nude, light brown hair, long hair, wavy hair, messy hair, hair over shoulder, blue eyes, round eyes, droopy eyes, half-closed eyes, bags under eyes, expressionless, round silver glasses, over-rim glasses, grumpy, tsundere, small breasts, 0.6::petite::, 1.2::thicc thighs::, "
     },
     "NHR": {
       "name": "나하린",
-      "clothed": "girl, 0.8::mature female ::, huge breasts, light smile, half-closed eyes, 2::black hair::, very long hair, blunt bangs, parted bangs, 0.5::forehead ::, 2::hair over right eye::, curtained bangs, hair over shoulder, silver eyes, droopy eyes, narrow eyes, long eyelashes, oversized shirt, white shirt, rolled-up sleeves, black slacks, dress pants, single earphone, earphone cord in cleavage, old wristwatch, fashion, high fashion, charismatic",
-      "nude": "girl, 0.8::mature female ::, huge breasts, light smile, half-closed eyes, 2::black hair::, very long hair, blunt bangs, parted bangs, 0.5::forehead ::, 2::hair over right eye::, curtained bangs, hair over shoulder, silver eyes, droopy eyes, narrow eyes, long eyelashes, old wristwatch, charismatic"
+      "clothed": "1girl, 0.8::mature female ::, huge breasts, light smile, half-closed eyes, 2::black hair::, very long hair, blunt bangs, parted bangs, swept bangs, 0.5::forehead ::, 2::hair over one eye, curtained bangs ::, hair over shoulder, silver eyes, droopy eyes, narrow eyes, long eyelashes, oversized shirt, white shirt, rolled-up sleeves, black slacks, dress pants, single earphone, earphone cord in cleavage, old wristwatch, fashion, high fashion, charismatic",
+      "nude": "1girl, 0.8::mature female ::, huge breasts, light smile, half-closed eyes, 2::black hair::, very long hair, blunt bangs, parted bangs, 0.5::forehead ::, 2::hair over right eye::, curtained bangs, hair over shoulder, silver eyes, droopy eyes, narrow eyes, long eyelashes, old wristwatch, "
     },
     "ERK": {
       "name": "에리카",
-      "clothed": "girl, light smile, half-closed eyes, lazy eyes, 2::white hair, green-tipped hair, asymmetrical sidelocks::, short hair, two-tone hair, split-color hair, hair between eyes, swept bangs, green eyes, long eyelashes, large breasts, shirt overhang, oversized clothes, white dress shirt, baseball cap, jacket, 2::loose necktie::, black necktie, unbuttoned collar, collarbones, rolled-up sleeves, black pants, relaxed pose, casual, ",
-      "nude": "girl, nude, light smile, half-closed eyes, lazy eyes, 2::white hair, green-tipped hair, assymmetrical sidelocks::, short hair, two-tone hair, split-color hair, hair between eyes, side swept bangs, emerald eyes, teal eyes, long eyelashes, tilted head, large breasts"
+      "clothed": "1girl, light smile, half-closed eyes, lazy eyes, 2::white hair, green-tipped hair, asymmetrical sidelocks::, very short hair, messy hair, pixie cut, two-tone hair, split-color hair, hair between eyes, swept bangs, green eyes, long eyelashes, huge breasts, shirt overhang, oversized clothes, white dress shirt, baseball cap, jacket, 2::loose necktie::, black necktie, unbuttoned collar, collarbones, rolled-up sleeves, black pants, casual, ",
+      "nude": "1girl, light smile, half-closed eyes, lazy eyes, 2::white hair, green-tipped hair, asymmetrical sidelocks::, very short hair, messy hair, pixie cut, two-tone hair, split-color hair, hair between eyes, swept bangs, green eyes, long eyelashes, huge breasts, "
     },
     "HSR": {
       "name": "한소리",
-      "clothed": "girl, medium breasts, grin, brown hair, long hair, messy hair, side-swept bangs, parted bangs, 2::closed eyes::, tired eyes, bags under eyes, black suit jacket, white dress shirt, loose necktie, wrinkled shirt, unbuttoned collar, collarbones, black pencil skirt",
-      "nude": "girl, medium breasts, grin, brown hair, long hair, messy hair, side-swept bangs, parted bangs, 2::closed eyes::, tired eyes, bags under eyes"
+      "clothed": "1girl, large breasts, grin, brown hair, long hair, messy hair, swept bangs, parted bangs, 2::closed eyes::, bags under eyes, black suit jacket, white dress shirt, loose necktie, wrinkled shirt, unbuttoned collar, collarbones, black pencil skirt",
+      "nude": "1girl, large breasts, grin, brown hair, long hair, messy hair, swept bangs, parted bangs, 2::closed eyes::, bags under eyes"
     },
     "JSH": {
       "name": "진시혁",
@@ -155,53 +155,53 @@
     },
     "JGR": {
       "name": "장그루",
-      "clothed": "girl, light blonde hair, very long hair, 2::straight hair::, hair over eyes, long bangs, dull hair, matte hair, lavender eyes, almond eyes, downcast eyes, large breasts, oversized clothes, cardigan, inner shirt, long skirt",
-      "nude": "girl, light blonde hair, very long hair, 2::straight hair::, hair over eyes, long bangs, dull hair, matte hair, lavender eyes, almond eyes, downcast eyes, large breasts, "
+      "clothed": "1girl, light blonde hair, very long hair, 2::straight hair, hair over eyes, very long bangs::, choppy bangs, dull hair, matte hair, lavender eyes, almond eyes, downcast eyes, large breasts, oversized clothes, cardigan, white inner sweater, long skirt",
+      "nude": "1girl, light blonde hair, very long hair, 2::straight hair, hair over eyes, very long bangs::, choppy bangs, dull hair, matte hair, lavender eyes, almond eyes, downcast eyes, large breasts, "
     },
     "LPS": {
       "name": "한파란/라피스",
-      "clothed": "girl, small breasts, 3::high chroma blue hair::, royal blue hair, 3::lapis lazuli color hair, long hair, low ponytail::, blue eyes, oversized clothes, oversized coat, inner knit sweater, V",
-      "nude": "girl, nude, solo, small breasts, 3::high chroma blue hair::, royal blue hair, 3::lapis lazuli color hair, long hair, low ponytail::, blue eyes, V"
+      "clothed": "1girl, small breasts, seductive, 3::high chroma blue hair::, royal blue hair, 3::lapis lazuli color hair, very long hair, low ponytail::, long sidelocks, gold hair ornament, blue eyes, half-closed eyes, expressionless, oversized clothes, layered clothes, oversized clothes, navy jacket, jacket partially removed, bare shoulders, sleeveless inner sweater, oversized belt, chest belt, chest harness, V, ear piercing",
+      "nude": "1girl, small breasts, nipple rings, 3::high chroma blue hair::, royal blue hair, 3::lapis lazuli color hair, very long hair, low ponytail::, long sidelocks, gold hair ornament, blue eyes, half-closed eyes, expressionless, oversized belt, chest belt, chest harness, V, ear piercing"
     },
     "MIL": {
       "name": "밀라",
-      "clothed": "girl, grin, light orange hair, long hair, messy hair, floating hair, ahoge, headphones around neck, green eyes, bright eyes, sharp eyes, upturned eyes, cropped hoodie, unzipped, middle breasts, sports bra, midriff, assymetrical cargo pants, orange thighhighs, pants rolled up, mismatched accessories, layered bracelets, sneakers, untied shoelaces",
-      "nude": "girl, nude, grin, light orange hair, long hair, messy hair, floating hair, ahoge, headphones around neck, green eyes, bright eyes, sharp eyes, upturned eyes, middle breasts, mismatched accessories, orange thighhighs"
+      "clothed": "1girl, grin, light orange hair, long hair, messy hair, long sidelocks, forehead, floating hair, ahoge, headphones around neck, green eyes, bright eyes, sharp eyes, upturned eyes, cropped hoodie, unzipped, middle breasts, underboob, midriff, assymetrical cargo pants, orange thighhighs, pants rolled up, mismatched accessories, layered bracelets, sneakers, untied shoelaces",
+      "nude": "1girl, grin, light orange hair, long hair, messy hair, long sidelocks, forehead, floating hair, ahoge, headphones around neck, green eyes, bright eyes, sharp eyes, upturned eyes, middle breasts, orange thighhighs, "
     },
     "MMR": {
       "name": "미모리",
-      "clothed": "girl, small breasts, smile, open mouth, sparkling eyes, 2::light blue hair::, long hair, messy hair, playful hair, colorful hair clips, star hair clip, blue eyes, bright eyes, harajuku fashion, layered outfit, oversized hoodie, crop top underneath, platform shoes, mismatched kneehighs, badges, pins, keychains on bag, holding phone, winking, playful",
-      "nude": "girl, nude, small breasts, smile, open mouth, sparkling eyes, 2::light blue hair::, long hair, messy hair, playful hair, colorful hair clips, star hair clip, blue eyes, bright eyes, mismatched kneehighs"
+      "clothed": "1girl, small breasts, smirk, open mouth, sparkling eyes, 2::light blue hair::, long hair, messy hair, two side up, blunt bangs, colorful hairclips, star-shaped hairclips, blue eyes, bright eyes, harajuku fashion, layered clothes, oversized clothes, cropped hoodie, crop top underneath, platform shoes, mismatched kneehighs, badges, pins, keychains on bag, holding phones, playful",
+      "nude": "1girl, small breasts, smirk, open mouth, sparkling eyes, 2::light blue hair::, long hair, messy hair, two side up, blunt bags, colorful hairclips, star-shaped hairclips, blue eyes, bright eyes, kneehighs, playful "
     },
     "ELA": {
       "name": "엘라",
-      "clothed": "girl, large breasts, glamorous, curvy, wide hips, pelvic, half-closed eyes, seductive smile, 2::wine red hair::, very long hair, wavy hair, hair over shoulder, hair flip, flowing hair, dark red eyes, crimson eyes, cat eyes, sharp eyes, upturned eyes, high fashion, black dress, off-shoulder dress, side slit dress, high heels",
-      "nude": "girl, nude, large breasts, glamorous, curvy, wide hips, pelvic, half-closed eyes, seductive smile, 2::red hair::, very long hair, wavy hair, hair over shoulder, hair flip, flowing hair, dark red eyes, crimson eyes, cat eyes, sharp eyes, upturned eyes"
+      "clothed": "1girl, large breasts, glamorous, curvy, wide hips, pelvic, half-closed eyes, seductive smile, 2::red hair::, very long hair, wavy hair, hair over shoulder, hair flip, flowing hair, dark red eyes, crimson eyes, cat eyes, sharp eyes, upturned eyes, high fashion, black dress, off-shoulder dress, side slit dress, high heels",
+      "nude": "1girl, large breasts, inverted nipples, glamorous, curvy, wide hips, pelvic, half-closed eyes, seductive smile, 2::red hair::, very long hair, wavy hair, hair over shoulder, hair flip, flowing hair, dark red eyes, crimson eyes, cat eyes, sharp eyes, upturned eyes"
     },
     "HSE": {
       "name": "하시은",
-      "clothed": "girl, medium breasts,  smile, black hair, short hair, straight hair, swept bangs, silver hair clip, amber eyes, soft eyes, clear eyes, fitted cropped blazer, white turtleneck, tucked in, high-waisted wide black pants, thin belt, pointed toe heels, low heels, small stud earrings",
-      "nude": "girl, medium breasts,  smile, black hair, short hair, neck lengths hair, straight hair, silver hair clip, amber eyes, soft eyes, clear eyes, small stud earrings"
+      "clothed": "1girl, large breasts,  light smile, black hair, long hair, straight hair, swept bangs, silver hair clip, amber eyes, soft eyes, clear eyes, fitted cropped blazer, white turtleneck, tucked in, high-waisted wide black pants, thin belt, chest harness, small stud silver earrings",
+      "nude": "1girl, large breasts,  light smile, black hair, long hair, straight hair, swept bangs, silver hair clip, amber eyes, soft eyes, clear eyes, small stud silver earrings"
     },
     "NIA": {
       "name": "니아",
-      "clothed": "girl, elegant, 2::dark blue hair, bob cut, neat hair::, teal eyes, big eyes, clear eyes, large breasts, white blouse, high collar, lace trim, long skirt, pleated, navy skirt, leather shoes, pearl earrings, small brooch",
-      "nude": "nude, girl, elegant, 2::dark blue hair, bob cut, neat hair::, teal eyes, big eyes, clear eyes, large breasts, pearl earrings"
+      "clothed": "1girl, 2::dark blue hair, bob cut, short hair, neat hair::, teal eyes, big eyes, clear eyes, large breasts, white blouse, high collar, lace trim, long skirt, pleated, navy skirt, leather shoes, pearl earrings, small brooch",
+      "nude": "1girl, 2::dark blue hair, bob cut, neat hair::, teal eyes, big eyes, clear eyes, large breasts, pearl earrings"
     },
     "RAY": {
       "name": "레이",
-      "clothed": "girl, 1.6::small breasts ::, serene, 2::lavender hair::, long hair, straight hair, soft hair, flowing hair, ice blue eyes, light blue eyes, pale eyes,  eyes, calm eyes, white blouse, long sleeves, fitted vest, grey vest, long pants, black pants, ankle boots",
-      "nude": "girl, 1.6::small breasts ::, serene, 2::lavender hair::, long hair, straight hair, soft hair, flowing hair, ice blue eyes, light blue eyes, pale eyes,  eyes, calm eyes, 2::single prosthetic leg::"
+      "clothed": "1girl, small breasts, serene, 2::lavender hair::, very long hair, sidelocks, straight hair, soft hair, floating hair, ice blue eyes, light blue eyes, pale eyes,  eyes, calm eyes, white blouse, long sleeves, fitted vest, grey vest, long pants, black pants, ankle boots",
+      "nude": "1girl, small breasts, serene, 2::lavender hair::, very long hair, sidelocks, straight hair, soft hair, floating hair, ice blue eyes, light blue eyes, pale eyes,  eyes, calm eyes, 2::single prosthetic leg::"
     },
     "SIA": {
       "name": "시아",
-      "clothed": "girl, large breasts, grin, open mouth, white hair, very short hair, pixie cut, messy hair, hair over one eye, long bangs, swept bangs, black hairclip, dark blue eyes, sparkling eyes, sharp eyes, upturned eyes, half-closed eyes, purple choker, hoodie, oversized clothes, unzipped, crop top, midriff, denim shorts, belt, sneakers, headphones around neck, bracelet, wristband",
-      "nude": "girl, large breasts, grin, open mouth, white hair, very short hair, pixie cut, messy hair, hair over one eye, long bangs, swept bangs, black hairclip, dark blue eyes, sparkling eyes, sharp eyes, upturned eyes, half-closed eyes, purple choker, belt, headphones around neck, bracelet, wristband"
+      "clothed": "girl, large breasts, grin, open mouth, white hair, very short hair, pixie cut, messy hair, hair over one eye, long bangs, swept bangs, black hairclip, dark blue eyes, sparkling eyes, sharp eyes, upturned eyes, half-closed eyes, purple choker, cropped vest, oversized clothes, unzipped, crop top, midriff, denim shorts, oversized belt, sneakers, headphones around neck, bracelet, wristband, thigh strap",
+      "nude": "girl, large breasts, grin, open mouth, white hair, very short hair, pixie cut, messy hair, hair over one eye, long bangs, swept bangs, black hairclip, dark blue eyes, sparkling eyes, sharp eyes, upturned eyes, half-closed eyes, purple choker, belt, headphones around neck, bracelet, wristband, thigh strap"
     },
     "NOA": {
       "name": "노아",
-      "clothed": "girl, large breasts, expressionless, black hair, very short hair, pixie cut, hair over eyes, long bangs, sidelocks, wispy bangs, white hairclip, dark blue eyes, half-closed eyes, expressionless, long eyelashes, blazer, white blouse, high-waist skirt, long skirt, heels, white stud earrings, necklace, white choker",
-      "nude": "girl, large breasts, expressionless, black hair, very short hair, pixie cut, hair over eyes, long bangs, sidelocks, wispy bangs, white hairclip, dark blue eyes, half-closed eyes, expressionless, long eyelashes, white choker"
+      "clothed": "girl, large breasts, expressionless, black hair, very short hair, pixie cut, hair over eyes, long bangs, sidelocks, wispy bangs, white hairclip, dark blue eyes, half-closed eyes, expressionless, long eyelashes, blazer, white blouse, high-waist skirt, long skirt, heels, white stud earrings, necklace, white choker, thigh strap",
+      "nude": "girl, large breasts, expressionless, black hair, very short hair, pixie cut, hair over eyes, long bangs, sidelocks, wispy bangs, white hairclip, dark blue eyes, half-closed eyes, expressionless, long eyelashes, white choker, thigh strap"
     }
   },
   "scenes": {
@@ -233,7 +233,7 @@
       "name": "sad",
       "width": 1024,
       "height": 1024,
-      "female_prompt": "straight on, upper body, portrait, face focus, standing, 1.8::sad::, crying",
+      "female_prompt": "straight on, upper body, portrait, face focus, standing, 1.8::sad::, crying, tears, ",
       "male_prompt": "",
       "_old_prompt": "straight on, upper body, portrait, face focus, standing, sad, crying, "
     },
@@ -281,7 +281,7 @@
       "name": "normal-chat",
       "width": 1024,
       "height": 1024,
-      "female_prompt": "straight on, standing, smile",
+      "female_prompt": "straight on, standing, upper body, ",
       "male_prompt": "",
       "_old_prompt": "upper body, smile, casual, "
     },
@@ -289,7 +289,7 @@
       "name": "undressing-seduction",
       "width": 1216,
       "height": 832,
-      "female_prompt": "straight on, nsfw, shirt pull, spread legs, nipples, , embarrassed, smile, tongue out",
+      "female_prompt": "straight on, nsfw, shirt pull, spread legs, nipples, embarrassed, smile, tongue out",
       "male_prompt": "",
       "_old_prompt": ", , bedroom, straight on, nsfw, shirt pull, collarbone, nipples, , embarrassed, seductive smile, , seductive, "
     },
@@ -376,7 +376,7 @@
       "name": "nude-kiss",
       "width": 1216,
       "height": 832,
-      "female_prompt": "nude, face focus, detailed face, 2::close-up, kiss::, -2::pussy::, face to face, very aesthetic, reaching towards viewer",
+      "female_prompt": "face focus, detailed face, 2::close-up, kiss::, -2::pussy::, face to face, very aesthetic, reaching towards viewer",
       "male_prompt": "",
       "_old_prompt": "pov, nude, target# kiss"
     },
@@ -393,7 +393,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "nipples, target# breast sucking, breath",
-      "male_prompt": "pov, source# breast sucking",
+      "male_prompt": "1boy, black hair, hair over eyes, faceless men, source# breast sucking",
       "_old_prompt": "breast sucking, "
     },
     "25": {
@@ -416,7 +416,7 @@
       "name": "ass-spanking",
       "width": 1216,
       "height": 832,
-      "female_prompt": "from behind, doggystyle, ass focus, anal, back, 2::white censored pussy ::, pussy, pussy juice, target# spanking, motion lines",
+      "female_prompt": "from behind, doggystyle, ass focus, anus, back, 2::white censored pussy ::, pussy, pussy juice, target# spanking, motion lines",
       "male_prompt": "pov, source# spanking, motion lines",
       "_old_prompt": "from behind, doggystyle, ass focus, pov, spanking, motion lines, back, pussy, pussy juice, spanked, crying, tears, biting own lip, "
     },
@@ -432,7 +432,7 @@
       "name": "paizuri",
       "width": 1216,
       "height": 832,
-      "female_prompt": "source# paizuri, source# clothed paizuri, source# naizuri",
+      "female_prompt": "close-up, source# paizuri, source# clothed paizuri, source# naizuri",
       "male_prompt": "2::white censored penis ::, pov, large penis, precum, target# paizuri, target# clothed paizuri, target# naizuri",
       "_old_prompt": "pov, large penis, precum, paizuri, clothed paizuri, naizuri, "
     },
@@ -528,9 +528,9 @@
       "name": "footjob",
       "width": 1216,
       "height": 832,
-      "female_prompt": "from below, 2::source# footjob, , feet, foot focus, thighs::, nipples",
+      "female_prompt": "from below, 2::source# footjob, feet, foot focus, thighs::, nipples",
       "male_prompt": "2::white censored penis ::, pov, large penis, target# footjob, precum",
-      "_old_prompt": "bedroom, pov, footjob, trembling, precum, , open mouth, "
+      "_old_prompt": "bedroom, pov, footjob, trembling, precum, open mouth, "
     },
     "42": {
       "name": "footjob-cum",
