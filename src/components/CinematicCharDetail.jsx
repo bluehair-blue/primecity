@@ -1,3 +1,39 @@
+/* ══════════════════════════════════════════════════════════
+   CinematicCharDetail — 시네마틱 인트로 공용 뼈대
+   ─────────────────────────────────────────────��────────────
+   역할: introStyle을 가진 캐릭터(NHR, JSH, LSH, HSR, KHR,
+   MIL, MMR, HSE — 8명)의 시네마틱 인트로 + KeyVisual 히어로
+   + 하단 콘텐츠를 렌더한다.
+
+   Phase 상태기계:
+     Phase -1  LoadingShell — 프로그레스 바 (keyVisual + introAssets 프리로드)
+     Phase  0  Intro overlay — INTRO_COMPONENTS 레지스트리에서 스타일별 컴포넌트 로드
+     Phase  1  KeyVisual hero — fixed 배경 + 프로필 텍스트 + 마우스 틸트 + 반사
+     Phase  2  하단 콘텐츠 — Expressions → Sign → Navigation → Footer
+
+   Phase 전환 우선순위 (Phase -1에서):
+     1) prefers-reduced-motion → Phase 1 직행 (인트로 건너뜀)
+     2) 에셋 로드 완료 → Phase 0 (���트로 재생)
+     3) 타임아웃 (500ms 기본) → Phase 1 (fall-open 안전장치)
+
+   시각 레이어 (Phase 0+):
+     z:0   — fixed keyVisual 배경 (틸트 + 반사 + 그래디언트 오버레이)
+     z:2   — Phase 1 히어로 섹션 (이름 + 프로필 + bgMarquee)
+     z:2   — 하단 섹션 (bgDeep 커버)
+     z:100 — Navbar (Phase 2 IntersectionObserver 트리거 후)
+     z:150 — Back 버튼 (Phase 1+)
+     z:200 — Phase 0 인트로 오버레이 (StyleComponent)
+
+   연계 파일:
+   - src/pages/CharDetail.jsx:45 — char.introStyle 존재 시 디스패치
+   - src/data/introStyles.js — INTRO_STYLE_CONFIG (duration, letterbox 등)
+   - src/components/cinematic/index.js — INTRO_COMPONENTS 레지스트리
+   - src/components/cinematic/*.jsx — 8개 스타일별 인트로 (CutawayIntro, SunriseIntro 등)
+   - src/hooks/useImagePreloader.js — keyVisual + introAssets 프리로드
+   - src/data/characters.js — keyVisual, introStyle, focusBox, quoteSequence 등
+   - src/components/CharSign.jsx — 공용 사인 섹션
+   - index.html — @keyframes: bgMarquee, bgMarqueeReverse, scrollPulse
+   ══════════════════════════════════════════════════════════ */
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import C from "../styles/tokens";
@@ -13,26 +49,16 @@ import { useImagePreloader } from "../hooks/useImagePreloader";
 import { INTRO_STYLE_CONFIG, PRELOAD_BUDGET_OVERRIDE, DEFAULT_PRELOAD_BUDGET } from "../data/introStyles";
 import { INTRO_COMPONENTS } from "./cinematic";
 
+/* 프로젝트 전역 이징 — CLAUDE.md 디자인 시스템 규칙 */
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
-
-/* ══════════════════════════════════════════════════════════
-   CinematicCharDetail — Step 4 skeleton (module scope)
-   ------------------------------------------------------------
-   Phase state machine + LoadingShell for characters with
-   `introStyle`. Actual cinematic transitions come in Steps 5-7;
-   Phase 0 here is a placeholder keyVisual fade + quote.
-
-   Phases:
-     -1  LoadingShell (progress bar)
-      0  Cinematic intro overlay (placeholder)
-      1  KeyVisual hero (fixed bg + profile column)
-      2  CharSections (Expressions / Navigation / Footer)
-   ══════════════════════════════════════════════════════════ */
 export default function CinematicCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
   const { name } = useParams();
   const navigate = useNavigate();
 
-  // ── Config ──
+  /* ── 인트로 스타일 설정 ──
+     config.duration: Phase 0 총 시간 (fadeOut 500ms 포함). 예: cutaway=6400ms
+     preloadBudget: 에셋 로��� 타임아웃. 초과 시 Phase 1 직행 (fall-open).
+     → src/data/introStyles.js에서 스타일별 설정 관리 */
   const config = INTRO_STYLE_CONFIG[char.introStyle] || {};
   const preloadBudget = PRELOAD_BUDGET_OVERRIDE[char.cdnId] ?? DEFAULT_PRELOAD_BUDGET;
 
@@ -47,7 +73,10 @@ export default function CinematicCharDetail({ char, isMobile, prevChar, nextChar
   const phase1Ref = useRef(null);
   const exprSectionRef = useRef(null);
 
-  // ── Preload list: keyVisual + introAssets ──
+  /* ── 이미지 프리로드 (Phase -1 LoadingShell) ──
+     keyVisual + introAssets를 병렬 로드. progress(0~1)는 프로그레스 바에 반영.
+     전부 로드 완료 → Phase 0, 타임아웃 → Phase 1 (fall-open).
+     → src/hooks/useImagePreloader.js */
   const preloadUrls = [char.keyVisual, ...(char.introAssets || [])].filter(Boolean);
   const { loaded, total, timedOut, progress } = useImagePreloader(preloadUrls, { timeoutMs: preloadBudget });
 
@@ -166,7 +195,12 @@ export default function CinematicCharDetail({ char, isMobile, prevChar, nextChar
     return () => obs.disconnect();
   }, [phase]);
 
-  // ── focusBox → objectPosition derivation ──
+  /* ── focusBox → objectPosition 변환 ──
+     characters.js의 focusBox(cx/cy %)를 CSS objectPosition으로 변환.
+     모바일/데스크톱 각각 다른 크롭 포인트 사용 가능.
+     keyVisualFit:"contain" 캐릭터(JSH/KHR/MIL/NHR)는
+     CinematicCharDetail 내부에서 objectPosition을 "50% 50%"로 오버라이드.
+     → CLAUDE.md "focusBox 규칙" 참조 */
   const fb = char.focusBox || {};
   const focus = isMobile ? (fb.mobile || fb.desktop) : (fb.desktop || fb.mobile);
   const objectPosition = focus ? `${focus.cx}% ${focus.cy}%` : "center 30%";
@@ -213,10 +247,14 @@ export default function CinematicCharDetail({ char, isMobile, prevChar, nextChar
     );
   }
 
-  // ════════ PHASE 0+ : Hero + (conditional) cinematic overlay ════════
-  // Phase 0 renders the intro overlay ON TOP of Phase 1 hero so the
-  // overlay can fadeOut naturally to reveal the final keyVisual+hero.
-  // (JGR pattern — overlay layer, not a separate render branch.)
+  /* ════════ PHASE 0+: Hero + (conditional) cinematic overlay ════════
+     핵심 설계: Phase 0에서 인트로 오버레이를 Phase 1 히어로 위에 렌더.
+     이렇게 하면 오버레이가 fadeOut될 때 자연스럽게 아래의 keyVisual이 드러남.
+     (JGR 패턴에서 차용한 "overlay layer, not separate render branch" 접근)
+
+     StyleComponent: INTRO_COMPONENTS 레지스트리에서 introStyle로 조회.
+     미등록 스타일 → StyleComponent = undefined → Phase 0 건너뜀 (안전장치).
+     → src/components/cinematic/index.js */
   const StyleComponent = INTRO_COMPONENTS[char.introStyle];
 
   return (
@@ -233,7 +271,11 @@ export default function CinematicCharDetail({ char, isMobile, prevChar, nextChar
         <Navbar scrolled={scrolled} isMobile={isMobile} />
       </div>
 
-      {/* Fixed keyVisual background (z:0) — tilt applied on desktop Phase 1 */}
+      {/* Fixed keyVisual 배경 (z:0) — 3개 레이어:
+           1) keyVisual 이미지 (cover/contain, focusBox 기반 objectPosition)
+           2) 반사 스트립 (scaleY(-1) + mask gradient, Phase 1+ 시 opacity 0.18)
+           3) 그래디언트 오버레이 (모바일: 하단→상단, 데스크톱: 좌→우)
+           마우스 틸트: perspective(1400px) + rotateX/Y ±1.5도 (데스크톱 전용) */}
       <div
         style={{
           position: "fixed", inset: 0, zIndex: 0,
@@ -439,8 +481,11 @@ export default function CinematicCharDetail({ char, isMobile, prevChar, nextChar
         )}
       </section>
 
-      {/* Lower sections — always rendered so the page is scrollable
-           and the cinematic overlay can fadeOut onto real content */}
+      {/* ══════════ 하단 섹션 ══════════
+           항상 렌더됨 — Phase 0에서도 DOM에 존재해야
+           인트로 오버레이가 fadeOut될 때 아래 콘텐츠가 즉시 보임.
+           Expressions → Sign → Navigation → Footer 순서 (프로젝트 관례).
+           paddingTop:80 → Phase 1 히어로와 하단 콘텐츠 사이 여백. */}
       <div style={{ position: "relative", zIndex: 2, background: C.bgDeep, paddingTop: 80 }}>
         <CharExpressionsGrid
           char={char}
@@ -466,7 +511,11 @@ export default function CinematicCharDetail({ char, isMobile, prevChar, nextChar
         isMobile={isMobile}
       />
 
-      {/* Phase 0: cinematic overlay layered on top of everything */}
+      {/* Phase 0: 시네마틱 인트로 오버레이 (z:200, 전체 화면)
+           StyleComponent는 INTRO_COMPONENTS 레지스트리에서 조회한 인트로 컴포넌트.
+           예: cutaway → CutawayIntro, sunrise → SunriseIntro.
+           onSkip → skipIntro(): Phase 0을 즉시 종료하고 Phase 1로 전환.
+           config.duration만큼 재생 후 자동으로 Phase 1 전환 (Phase 0→1 auto-advance). */}
       {phase === 0 && StyleComponent && (
         <StyleComponent
           char={char}

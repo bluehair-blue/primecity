@@ -1,3 +1,32 @@
+/* ══════════════════════════════════════════════════════════
+   DefaultCharDetail — 기본 캐릭터 상세 (홀로그램 UI)
+   ──────────────────────────────────────────────────────────
+   역할: introStyle이 없는 캐릭터(SY, ERK, ELA, NIA, RAY, LPS,
+   SIA, NOA)에 적용되는 사이버펑크 홀로그램 인트로 + 프로필 뷰.
+
+   Phase 상태기계 (3단계):
+     Phase 0 — 초기 (100ms 대기, DOM 마운트)
+     Phase 1 — 이름+태그라인 중앙 표시 + 홀로그램 이미지 (2.1초)
+     Phase 2 — 프로필 카드 전환 (이미지 축소 + 텍스트 슬라이드인)
+
+   시각 레이어 구조 (z-index 순):
+     z:0  — Particles 배경 (파티클 애니메이션)
+     z:1  — Cyberpunk Background (fixed, 마키 + 그리드 + 워터마크)
+     z:2  — Hero 섹션 (홀로그램 이미지 + 프로필 패널)
+     z:2  — Lower sections (Expressions → Sign → Navigation → Footer)
+     z:5  — Phase 1 오버레이 (이름+태그라인, phase 2에서 0으로 전환)
+     top  — Lightbox (이미지 확대 시)
+
+   연계 파일:
+   - src/pages/CharDetail.jsx — 디스패처에서 introStyle 없는 캐릭터일 때 이 컴포넌트 렌더
+   - src/data/characters.js — char 객체 (image, profile, color, expressions 등)
+   - src/hooks/useReveal.js — IntersectionObserver 기반 스크롤 등장 애니메이션
+   - src/hooks/useCharLightbox.js — 이미지 확대 라이트박스 상태
+   - src/components/CharSign.jsx — 공용 사인 이미지 섹션
+   - index.html — 전역 @keyframes: charGlitch, charGlowPulse, charScanline,
+                  holoRingSpin, holoRingSpinReverse, bgMarquee, bgMarqueeReverse,
+                  scrollPulse
+   ══════════════════════════════════════════════════════════ */
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import C from "../styles/tokens";
@@ -12,11 +41,22 @@ import CharExpressionsGrid from "./CharExpressionsGrid";
 import CharNavigation from "./CharNavigation";
 import CharSign from "./CharSign";
 
+/* 프로젝트 전역 이징 — CLAUDE.md 디자인 시스템 규칙.
+   모든 CharDetail 뷰(Default/JGR/Cinematic)에서 동일한 값 사용. */
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
 export default function DefaultCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
-  const { name } = useParams();
+  const { name } = useParams();   // URL의 :name 파라미터 (캐릭터 id)
   const navigate = useNavigate();
+
+  /* ── State ──
+     scrolled       — Navbar 배경 전환용 (50px 기준)
+     uiReady        — 100ms 후 true → Phase 1 진입 트리거
+     phase          — 0(초기) → 1(홀로그램) → 2(프로필 카드). 전체 UX 흐름 제어
+     glitchDone     — 600ms 후 true → 프로필 이미지의 charGlitch 애니메이션 종료
+     imgError       — 이미지 로드 실패 시 "IMAGE COMING SOON" 폴백
+     tilt           — 데스크톱 Phase 2에서 마우스 위치 → 3D 기울기 (perspective)
+     contentReached — Phase 2 seam cue 표시/숨김 (Expressions 진입 시 해제) */
   const [scrolled, setScrolled] = useState(false);
   const [uiReady, setUiReady] = useState(false);
   const [phase, setPhase] = useState(0);
@@ -26,11 +66,15 @@ export default function DefaultCharDetail({ char, isMobile, prevChar, nextChar, 
   const [exprErrors, setExprErrors] = useState({});
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [contentReached, setContentReached] = useState(false);
-  const timerRefs = useRef([]);
-  const imgRef = useRef(null);
-  const contentRef = useRef(null);
+  const timerRefs = useRef([]);  // 타이머 정리용 — cleanup에서 forEach(clearTimeout)
+  const imgRef = useRef(null);   // 이미지 컨테이너 — 마우스 틸트 좌표 계산용
+  const contentRef = useRef(null); // Expressions/Navigation 섹션 — seam cue IntersectionObserver용
 
-  // Reset + animation sequence
+  /* ── 캐릭터 전환 시 전체 리셋 + Phase 타이밍 시퀀스 ──
+     [name] 의존 → /characters/seoyun → /characters/ella 이동 시 재실행.
+     t1(100ms): Phase 0→1 (홀로그램 표시), t2(600ms): 글리치 종료,
+     t3(2200ms): Phase 1→2 (프로필 카드 전환).
+     cleanup에서 모든 타이머 해제 → 빠른 페이지 이동 시 메모리 누수 방지. */
   useEffect(() => {
     window.scrollTo(0, 0);
     setImgError(false); setUiReady(false); setPhase(0);
@@ -52,7 +96,11 @@ export default function DefaultCharDetail({ char, isMobile, prevChar, nextChar, 
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // Content section observer (seam cue dismissal)
+  /* ── Seam cue 해제 옵저버 ──
+     Phase 2에서 "Expressions Below" 안내 문구가 표시되는데,
+     사용자가 스크롤하여 콘텐츠(Expressions 또는 Navigation)에 도달하면
+     contentReached=true → 안내 문구 fade-out.
+     → contentRef는 CharExpressionsGrid 또는 CharNavigation에 할당됨 (L586, L606) */
   useEffect(() => {
     if (!contentRef.current) return;
     const observer = new IntersectionObserver(
@@ -63,7 +111,10 @@ export default function DefaultCharDetail({ char, isMobile, prevChar, nextChar, 
     return () => observer.disconnect();
   }, [name]);
 
-  // Mouse tilt (desktop only, phase 2)
+  /* ─�� 마우스 틸트 (데스크톱, Phase 2 전용) ──
+     이미지 컨테이너 중심으로부터의 거리를 ±3도로 변환.
+     perspective(1000px) + rotateX/Y로 3D 카드 효과.
+     모바일/Phase 1에서는 무시 → 홀로그램 표시 중 개입 방지. */
   function handleMouseMove(e) {
     if (isMobile || phase !== 2 || !imgRef.current) return;
     const rect = imgRef.current.getBoundingClientRect();
@@ -77,14 +128,24 @@ export default function DefaultCharDetail({ char, isMobile, prevChar, nextChar, 
     setTilt({ x: 0, y: 0 });
   }
 
+  /* ── 스크롤 등장 애니메이션 (useReveal) ──
+     IntersectionObserver로 요소가 뷰포트에 진입하면 exprV/navV = true.
+     → opacity 0→1, translateY 30px→0 전환. threshold 0.1 = 10% 노출 시 트리거.
+     연계: src/hooks/useReveal.js */
   const [exprRef, exprV] = useReveal(0.1);
   const [navRef, navV] = useReveal(0.1);
 
+  /* showPhase2Cue: Phase 2 진입 후, 사용자가 아직 콘텐츠에 도달하지 않았을 때
+     "Expressions Below" 또는 "Continue Below" 안내 표시 */
   const showPhase2Cue = phase === 2 && !contentReached;
   const cueCopy = char.expressions?.length ? "Expressions Below" : "Continue Below";
 
   const hasImage = char.image && !imgError;
-  const profileSrc = char.profile || char.image; // Phase 2 uses profile if available
+  /* profileSrc: Phase 2에서 프로필 카드용 이미지. profile이 있으면 얼굴 클로즈업,
+     없으면 key 이미지(전신)를 objectFit:cover로 사용. */
+  const profileSrc = char.profile || char.image;
+  /* t(): Phase 1 오버레이의 staggered 등장 애니메이션 딜레이 생성 헬퍼.
+     agency→name→tagline 순서로 0.2s, 0.4s, 0.6s 딜레이. */
   const t = (delay) => `all 1s ${EASE} ${delay}s`;
 
   const profileFields = [
@@ -94,7 +155,10 @@ export default function DefaultCharDetail({ char, isMobile, prevChar, nextChar, 
     { label: "목표", en: "GOAL", value: char.goal },
   ].filter((f) => f.value);
 
-  // Image container styles
+  /* ── 이미지 컨테이너 반응형 스타일 ──
+     Phase 1: 큰 홀로그램 (70vw / clamp), Phase 2: 프로필 카드 (280px / 300px).
+     aspectRatio 2:3 — 캐릭터 이미지의 표준 비율.
+     transition으로 Phase 전환 시 크기 애니메이션. */
   const imgContainerStyle = isMobile
     ? {
         width: "100%",
@@ -579,7 +643,10 @@ export default function DefaultCharDetail({ char, isMobile, prevChar, nextChar, 
         </div>
       </section>
 
-      {/* ══════════ Concept Art & Expressions Preview ══════════ */}
+      {/* ══════════ 하단 섹션 ══════════
+           Expressions → Sign → Navigation → Footer 순서.
+           이 순서는 JgrCharDetail, CinematicCharDetail과 동일 (프로젝트 관례).
+           sectionRef에 exprRef + contentRef를 동시 할당 → useReveal + seam cue 동시 동작. */}
       <CharExpressionsGrid
         char={char}
         isMobile={isMobile}

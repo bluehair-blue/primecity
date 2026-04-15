@@ -1,3 +1,35 @@
+/* ══════════════════════════════════════════════════════════
+   JgrCharDetail — 장그루(JGR) 전용 시네마틱 인트로
+   ──────────────────────────────────────────────────────────
+   역할: 장그루 캐릭터만의 영화적 인트로(세피아→풀컬러 2비트)와
+   크레딧 스타일 프로필을 표시한다.
+
+   왜 독립 컴포넌트인가?
+   - JGR은 intro1/intro2 이미지 기반의 레거시 비트 시스템을 사용.
+     CinematicCharDetail의 keyVisual + INTRO_COMPONENTS 레지스트리와 구조가 다름.
+   - CLAUDE.md 관례: "JGR 이후 모든 시네마틱은 CinematicCharDetail 패턴으로 통일"
+     → JGR만 예외적으로 독립 유지 (코드 특수성 + 안정 검증 완료).
+
+   Phase/Beat 상태기계:
+     Phase 0  — 초기 (에셋 프리로드 대기)
+     Phase 1  — 시네마틱 오버레이 재생 (z:200, 전체 화면)
+       Beat 0 — 블랙 스크린
+       Beat 1 — intro1 세피아 (Ken Burns + 필름 그레인 + 비네트)
+       Beat 2 — intro2 풀컬러 (블룸 이펙트)
+     Phase 2  — 크레딧 프로필 (intro2 배경 + 슬라이드인 텍스트)
+
+   시각 레이어 (Phase 1 오버레이):
+     z:0  — intro1/intro2 이미지
+     z:1  — 필름 그레인 + 비네트 + burn edge
+     z:2  — 레터박스 (상하 7%)
+     z:3  — Chapter 라벨 + 대사 텍스트
+
+   연계 파일:
+   - src/pages/CharDetail.jsx:44 — char.id === "janggru" 일 때 디스패치
+   - src/data/characters.js — char.intro1, char.intro2 (CDN 이미지)
+   - src/components/CharSign.jsx — 공용 사인 섹션
+   - index.html — @keyframes: jgrKenBurns, charGlowPulse
+   ══════════════════════════════════════════════════════════ */
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import C from "../styles/tokens";
@@ -10,12 +42,9 @@ import CharExpressionsGrid from "./CharExpressionsGrid";
 import CharNavigation from "./CharNavigation";
 import CharSign from "./CharSign";
 
+/* 프로젝트 전역 이징 — CLAUDE.md 디자인 시스템 규칙 */
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
-/* ══════════════════════════════════════════════════════════
-   JGR — 완전 분리 렌더 블록 (module scope)
-   state/effect/JSX 전부 여기. parent에 JGR 코드 0줄.
-   ══════════════════════════════════════════════════════════ */
 export default function JgrCharDetail({ char, isMobile, prevChar, nextChar, sameAgency }) {
   const { name } = useParams();
   const navigate = useNavigate();
@@ -32,6 +61,8 @@ export default function JgrCharDetail({ char, isMobile, prevChar, nextChar, same
   const timerRefs = useRef([]);
   const exprSectionRef = useRef(null);
 
+  /* showJgrIntro: 에셋 준비 + Phase 2 미진입 + 폴백 아님 → 인트로 오버레이 표시
+     showJgrOverlay: fadeOut 중에도 오버레이 DOM 유지 (opacity 전환용) */
   const showJgrIntro = jgrAssetsReady && phase < 2 && !jgrFallback;
   const showJgrOverlay = showJgrIntro || jgrFadingOut;
 
@@ -60,7 +91,10 @@ export default function JgrCharDetail({ char, isMobile, prevChar, nextChar, same
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // Preload
+  /* ── intro1/intro2 이미지 프리로드 ──
+     두 이미지 모두 로드 성공 → jgrAssetsReady=true → Phase 1 진입.
+     하나라도 실패 → jgrFallback=true → 이름+태그라인만 표시하는 폴백 렌더.
+     alive 플래그: 컴포넌트 언마운트 후 setState 방지. */
   useEffect(() => {
     if (!char?.intro1 || !char?.intro2) { setJgrFallback(true); return; }
     let alive = true;
@@ -89,7 +123,12 @@ export default function JgrCharDetail({ char, isMobile, prevChar, nextChar, same
     return () => clearTimeout(t);
   }, [jgrFallback]);
 
-  // Beat timing (after preload)
+  /* ── 비트 타이밍 시퀀스 ──
+     에셋 준비 완료 후:
+       300ms  → Beat 1 (세피아 이미지 + "보고있어? 이게―...")
+       3400ms → Beat 2 (풀컬러 + "내 마지막 꿈이야.")
+       7400ms → fadeOut 시작 → Phase 2 (크레딧 프로필)
+     document.body.overflow = "hidden" → 인트로 중 스크롤 차단 */
   useEffect(() => {
     if (!jgrAssetsReady) return;
     setPhase(1);
@@ -124,7 +163,9 @@ export default function JgrCharDetail({ char, isMobile, prevChar, nextChar, same
     document.body.style.overflow = "";
   }
 
-  // Skip listeners
+  /* ── 인트로 스킵 리스너 ──
+     오버레이 표시 중 wheel/touchmove/Escape → skipIntro() 호출.
+     passive:false → preventDefault()로 스크롤 차단 유지. */
   useEffect(() => {
     if (!showJgrOverlay) return;
     function onWheel(e) { e.preventDefault(); skipIntro(); }
@@ -140,6 +181,8 @@ export default function JgrCharDetail({ char, isMobile, prevChar, nextChar, same
     };
   }, [showJgrOverlay]);
 
+  /* d(): 스킵 시 모든 transition-delay를 0s로 → 즉시 Phase 2 프로필 표시.
+     정상 재생 시에는 각 요소에 stagger delay 적용. */
   const d = (s) => skipped ? "0s" : `${s}s`;
   const show = phase === 2;
 
@@ -358,7 +401,10 @@ export default function JgrCharDetail({ char, isMobile, prevChar, nextChar, same
         </div>
       </section>
 
-      {/* ══════════ bgDeep 커버 (cinematic 종료) ══════════ */}
+      {/* ══════════ 하단 섹션 (bgDeep 커버) ══════════
+           background: C.bgDeep로 fixed intro2 배경을 덮는다.
+           Expressions → Sign → Navigation → Footer 순서 (프로젝트 관례).
+           Navbar는 exprSectionRef IntersectionObserver 트리거 후에만 표시. */}
       <div style={{ position: "relative", zIndex: 2, background: C.bgDeep }}>
         {/* Expressions */}
         <CharExpressionsGrid
