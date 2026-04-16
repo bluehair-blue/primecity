@@ -84,6 +84,7 @@ SPECIAL_OUTPUT_PATHS: dict[int, str] = _load_special_paths()
 BUCKET = "prime"
 R2_PREFIX = "ent"
 POLL_INTERVAL = 30  # 초
+NOTIFY_EVERY = 30   # 누적 N장 업로드마다 강조 알림 출력
 
 def _find_wrangler() -> str:
     """프로젝트 로컬 (node_modules/.bin) 우선, fallback 으로 PATH 검색.
@@ -207,8 +208,14 @@ def upload_one(char: str, num: int) -> tuple[bool, str]:
     return False, last_line
 
 
-def sync_once(uploaded: set[str], dry_run: bool = False) -> tuple[int, int]:
-    """Returns (newly_uploaded, failed)."""
+def sync_once(uploaded: set[str], dry_run: bool = False,
+              session_state: dict | None = None) -> tuple[int, int]:
+    """Returns (newly_uploaded, failed).
+
+    session_state: {'cumulative': int, 'milestone': int} — 30장 단위 알림용.
+    호출자가 dict를 전달하면 sync_once 내부에서 누적 카운터를 갱신하고,
+    매 NOTIFY_EVERY 장마다 강조 로그를 출력한다.
+    """
     state = load_state()
     pending = []
     for char, num in collect_completed_keys(state):
@@ -233,6 +240,13 @@ def sync_once(uploaded: set[str], dry_run: bool = False) -> tuple[int, int]:
             ok += 1
             if ok % 10 == 0:
                 save_tracker(uploaded)  # 10장마다 트래커 저장 (interrupt 방어)
+            # ── 30장 누적마다 강조 알림 ──
+            # session_state 가 전달된 경우에만 동작 (지속 실행 모드)
+            if session_state is not None:
+                session_state["cumulative"] += 1
+                if session_state["cumulative"] >= session_state["milestone"]:
+                    log(f"🎯 ━━━━━━ 누적 {session_state['cumulative']}장 업로드 완료 ━━━━━━")
+                    session_state["milestone"] += NOTIFY_EVERY
         else:
             fail += 1
             log(f"  ✖ {key} — {msg[:80]}")
@@ -291,11 +305,16 @@ def main() -> None:
     signal.signal(signal.SIGINT, graceful_exit)
     signal.signal(signal.SIGTERM, graceful_exit)
 
+    # 30장 누적 알림용 세션 상태 — sync_once 가 카운터를 증가시키며
+    # milestone 도달 시 강조 로그를 출력하고 다음 milestone 으로 전진
+    session_state = {"cumulative": 0, "milestone": NOTIFY_EVERY}
+
     cycles = 0
     while True:
         cycles += 1
         try:
-            ok, fail = sync_once(uploaded, dry_run=args.dry_run)
+            ok, fail = sync_once(uploaded, dry_run=args.dry_run,
+                                 session_state=session_state)
             if ok == 0 and fail == 0 and cycles % 10 == 0:
                 log(f"  [cycle {cycles}] no new files (uploaded total: {len(uploaded)})")
         except Exception as e:
