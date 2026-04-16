@@ -63,6 +63,24 @@ export const INTRO_STYLE_CONFIG = {
     requiresSvgFilter: false,
     mobileFallback: null,
   },
+  embrace: {
+    duration: 7000,   // 6500ms content + 500ms fadeOut (warm bloom → gentle zoom)
+    letterbox: false,
+    requiresSvgFilter: false,
+    mobileFallback: null,
+  },
+  neon: {
+    duration: 7300,   // 6800ms content + 500ms fadeOut (neon ring → notification pop)
+    letterbox: false,
+    requiresSvgFilter: false,
+    mobileFallback: null,
+  },
+  silence: {
+    duration: 6700,   // 6200ms content + 500ms fadeOut (slit reveal)
+    letterbox: false,
+    requiresSvgFilter: false,
+    mobileFallback: null,
+  },
 };
 
 /**
