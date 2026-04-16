@@ -115,7 +115,7 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div style="padding:24px;text-align:center;background:linear-gradient(135deg,oklch(0.76 0.12 80/0.08),oklch(0.62 0.20 252/0.06));border-top:1px solid oklch(0.76 0.12 80/0.15);border-bottom:1px solid oklch(0.76 0.12 80/0.15);">
 <div style="font-family:serif;font-size:13px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Latest Update · 2026.04.15</div>
 <div style="font-family:serif;font-size:22px;font-weight:600;color:var(--txt);margin-bottom:8px;word-break:keep-all;">시아 · 노아 합류 · 캐릭터 디자인 개편</div>
-<div style="font-size:15px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;max-width:480px;margin:0 auto;">Route 0 신규 캐릭터 <span style="color:var(--gold);font-weight:600;">시아 · 노아</span> 추가 (17명).<br>전원 캐릭터 디자인 리뉴얼 · 이미지 에셋 전면 재생성.<br>모드별 유저 자유도 보장 · 소속 강제 해제.</div>
+<div style="font-size:15px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;max-width:480px;margin:0 auto;">신규 캐릭터 <span style="color:var(--gold);font-weight:600;">시아 · 노아 · 에르피</span> 추가 (18명).<br>전원 캐릭터 디자인 리뉴얼 · 이미지 에셋 전면 재생성.<br>모드별 유저 자유도 보장 · 소속 강제 해제.</div>
 </div>
 <!-- About -->
 <div class="w">
@@ -128,7 +128,7 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 </div>
 <!-- Stat Bridge 1 -->
 <div class="stb">
-<div><div class="stb-n" style="color:var(--gold);">17</div><div class="stb-l">캐릭터</div></div>
+<div><div class="stb-n" style="color:var(--gold);">18</div><div class="stb-l">캐릭터</div></div>
 <div><div class="stb-n" style="color:var(--blue);">5</div><div class="stb-l">구역</div></div>
 <div><div class="stb-n" style="color:oklch(0.65 0.12 340);">1,700+</div><div class="stb-l">이미지</div></div>
 <div><div class="stb-n" style="color:oklch(0.72 0.10 170);">16</div><div class="stb-l">모드</div></div>
@@ -174,6 +174,16 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div><b>목표</b> 더 빠르고 직접적인 방법으로 정점에 이르는 것.</div>
 </div></div></details>
 <div class="ag">Blue Moon Entertainment</div>
+<details class="chd"><summary class="chs">
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/ERP/thumbnail.webp?v=18');border-color:oklch(0.80 0.10 350/0.3);"></div>
+<div><div><span class="cn">에르피</span><span class="cr">아이돌 겸 대표</span></div><div class="ct">"옳지~ 잘했어."</div></div>
+</summary><div class="chx">
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/ERP/profile.webp?v=18');"></div>
+<div class="pf">
+<div><b>성격</b> 상냥한 마망 — 따뜻한 포용과 모성적 애정</div>
+<div><b>배경</b> 서윤 이전 시대의 전설적 아이돌. 은퇴 후 Blue Moon을 이끌며 에리카와 이서하를 직접 발굴.</div>
+<div><b>목표</b> 자신이 받았던 사랑을 다음 세대에 전하는 것.</div>
+</div></div></details>
 <details class="chd"><summary class="chs">
 <div class="ai" style="background-image:url('https://img.bluehair.blue/ent/ERK/thumbnail.webp?v=13');border-color:oklch(0.72 0.10 170/0.3);"></div>
 <div><div><span class="cn">에리카</span><span class="cr">프로듀서 / 심사위원</span></div><div class="ct">"만만하게 보면 큰코다친다? 흐흥~."</div></div>
@@ -291,7 +301,7 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div style="padding:0 24px 20px;">
 <p style="font-size:16px;color:var(--txt-dim);margin-bottom:16px;font-weight:300;">중심부일수록 자원과 기회가 집중되는 동심원 구조.</p>
 <div class="dst"><div class="da" style="background:oklch(0.76 0.12 80/0.15);color:oklch(0.76 0.12 80);">C</div><div><div style="font-family:serif;font-size:14px;letter-spacing:.15em;text-transform:uppercase;color:oklch(0.76 0.12 80);">정상 · 지배층</div><div style="font-family:serif;font-size:20px;font-weight:600;margin:3px 0;color:var(--txt);">더 코어 <span style="font-size:15px;color:var(--txt-dim);letter-spacing:.1em;">The Core</span></div><div style="font-size:15px;color:var(--txt-sub);margin-bottom:5px;">APEX Entertainment — 업계 1위</div><div style="font-size:16px;color:oklch(1.0 0 0/0.4);line-height:1.7;word-break:keep-all;">프라임 돔과 초거대 방송국이 군림하는 도시의 절대적 심장부.</div><div style="font-size:14px;color:var(--txt-dim);margin-top:5px;">서윤 · 나하린 · 진시혁</div></div></div>
-<div class="dst"><div class="da" style="background:oklch(0.65 0.10 240/0.15);color:oklch(0.65 0.10 240);">M</div><div><div style="font-family:serif;font-size:14px;letter-spacing:.15em;text-transform:uppercase;color:oklch(0.65 0.10 240);">검증된 실력자</div><div style="font-family:serif;font-size:20px;font-weight:600;margin:3px 0;color:var(--txt);">미들 링 <span style="font-size:15px;color:var(--txt-dim);letter-spacing:.1em;">Middle Ring</span></div><div style="font-size:15px;color:var(--txt-sub);margin-bottom:5px;">Blue Moon Entertainment — 업계 2위</div><div style="font-size:16px;color:oklch(1.0 0 0/0.4);line-height:1.7;word-break:keep-all;">스튜디오와 기획사가 밀집한 실력의 전쟁터.</div><div style="font-size:14px;color:var(--txt-dim);margin-top:5px;">이서하 · 에리카</div></div></div>
+<div class="dst"><div class="da" style="background:oklch(0.65 0.10 240/0.15);color:oklch(0.65 0.10 240);">M</div><div><div style="font-family:serif;font-size:14px;letter-spacing:.15em;text-transform:uppercase;color:oklch(0.65 0.10 240);">검증된 실력자</div><div style="font-family:serif;font-size:20px;font-weight:600;margin:3px 0;color:var(--txt);">미들 링 <span style="font-size:15px;color:var(--txt-dim);letter-spacing:.1em;">Middle Ring</span></div><div style="font-size:15px;color:var(--txt-sub);margin-bottom:5px;">Blue Moon Entertainment — 업계 2위</div><div style="font-size:16px;color:oklch(1.0 0 0/0.4);line-height:1.7;word-break:keep-all;">스튜디오와 기획사가 밀집한 실력의 전쟁터.</div><div style="font-size:14px;color:var(--txt-dim);margin-top:5px;">에르피 · 이서하 · 에리카</div></div></div>
 <div class="dst"><div class="da" style="background:oklch(0.65 0.12 340/0.15);color:oklch(0.65 0.12 340);">H</div><div><div style="font-family:serif;font-size:14px;letter-spacing:.15em;text-transform:uppercase;color:oklch(0.65 0.12 340);">트렌드 최전선</div><div style="font-family:serif;font-size:20px;font-weight:600;margin:3px 0;color:var(--txt);">하입 로드 <span style="font-size:15px;color:var(--txt-dim);letter-spacing:.1em;">Hype Road</span></div><div style="font-size:15px;color:var(--txt-sub);margin-bottom:5px;">PRISM Studio — 개성으로 승부</div><div style="font-size:16px;color:oklch(1.0 0 0/0.4);line-height:1.7;word-break:keep-all;">언더그라운드 클럽과 스트리트 문화가 살아 숨 쉬는 진원지.</div><div style="font-size:14px;color:var(--txt-dim);margin-top:5px;">한소리 · 유저(플레이어)</div></div></div>
 <div class="dst"><div class="da" style="background:oklch(0.65 0.10 140/0.15);color:oklch(0.65 0.10 140);">T</div><div><div style="font-family:serif;font-size:14px;letter-spacing:.15em;text-transform:uppercase;color:oklch(0.65 0.10 140);">시작과 안주의 경계</div><div style="font-family:serif;font-size:20px;font-weight:600;margin:3px 0;color:var(--txt);">테라스 <span style="font-size:15px;color:var(--txt-dim);letter-spacing:.1em;">Terrace</span></div><div style="font-size:15px;color:var(--txt-sub);margin-bottom:5px;">Route 0 — 무한 가능성, 무한 불확실</div><div style="font-size:16px;color:oklch(1.0 0 0/0.4);line-height:1.7;word-break:keep-all;">중심부를 동경하며 모여든 이들의 출발지이자, 밀려난 이들의 안식처.</div><div style="font-size:14px;color:var(--txt-dim);margin-top:5px;">강하람</div></div></div>
 <div class="dst" style="border-bottom:none;"><div class="da" style="background:oklch(0.50 0.05 265/0.15);color:oklch(0.50 0.05 265);">I</div><div><div style="font-family:serif;font-size:14px;letter-spacing:.15em;text-transform:uppercase;color:oklch(0.50 0.05 265);">외곽 · 생산기지</div><div style="font-family:serif;font-size:20px;font-weight:600;margin:3px 0;color:var(--txt);">산업단지 <span style="font-size:15px;color:var(--txt-dim);letter-spacing:.1em;">Industrial</span></div><div style="font-size:16px;color:oklch(1.0 0 0/0.4);line-height:1.7;word-break:keep-all;">도시 인프라의 뒷배경. 자동화 공장과 물류 시설이 가동되는 외곽 구역.</div></div></div>
@@ -376,6 +386,7 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--gold);font-family:monospace;font-weight:600;">NIA<span style="color:var(--txt-dim);font-weight:300;"> 니아</span></span>
 <span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--gold);font-family:monospace;font-weight:600;">RAY<span style="color:var(--txt-dim);font-weight:300;"> 레이</span></span>
 <span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--gold);font-family:monospace;font-weight:600;">LPS<span style="color:var(--txt-dim);font-weight:300;"> 라피스</span></span>
+<span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--gold);font-family:monospace;font-weight:600;">ERP<span style="color:var(--txt-dim);font-weight:300;"> 에르피</span></span>
 </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:14px;">
