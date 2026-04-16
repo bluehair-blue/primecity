@@ -89,7 +89,8 @@
     "NHR": "seductive",
     "LPS": "seductive",
     "KHR": "passionate",
-    "MIL": "passionate"
+    "MIL": "passionate",
+    "ERP": "gentle"
   },
 
   "_archetypes": {
@@ -311,6 +312,50 @@
         "lap_pillow":         ["smile", "looking up", "light blush", "content"],
         "shower":             ["reaching", "smile", "blush", "splashing", "wet"]
       }
+    },
+
+    "gentle": {
+      "description": "상냥/포용/모성 — 따뜻한 미소, 부드러운 수용, 감싸안는 반응. 초커: 검은색+하얀색 프릴.",
+      "chars": ["ERP"],
+      "poses": {
+        "missionary":         ["gentle smile", "closed eyes", "arms around neck", "warm", "accepting", "content"],
+        "missionary_climax":  ["half-closed eyes", "gentle smile", "tears", "blush", "trembling", "accepting"],
+        "cowgirl":            ["gentle smile", "hands on another's chest", "closed eyes", "warm", "content"],
+        "cowgirl_climax":     ["half-closed eyes", "gentle smile", "tears", "blush", "moaning", "accepting"],
+        "doggystyle":         ["looking back", "gentle smile", "blush", "warm"],
+        "doggystyle_climax":  ["looking back", "half-closed eyes", "tears", "blush", "trembling", "gentle smile"],
+        "spooning":           ["holding hands", "gentle smile", "closed eyes", "content", "warm"],
+        "spooning_climax":    ["holding hands", "half-closed eyes", "blush", "moaning", "gentle smile"],
+        "fullnelson":         ["accepting", "half-closed eyes", "blush", "parted lips", "gentle"],
+        "fullnelson_climax":  ["half-closed eyes", "tears", "blush", "moaning", "accepting"],
+        "anal":               ["closed eyes", "accepting", "blush", "parted lips"],
+        "anal_climax":        ["half-closed eyes", "tears", "blush", "trembling", "accepting"],
+        "standing_back":      ["looking back", "gentle smile", "blush", "warm"],
+        "standing_side":      ["clinging", "gentle smile", "blush", "content"],
+        "pregnant_sex":       ["hand on own stomach", "gentle smile", "maternal", "blush", "loving"],
+        "pregnant_sex_climax":["hands on own stomach", "half-closed eyes", "tears", "blush", "gentle smile"],
+        "pregnant_after":     ["hand on own stomach", "gentle smile", "serene", "maternal", "content"],
+        "after_sex":          ["gentle smile", "blush", "content", "warm", "afterglow"],
+        "facial":             ["closed eyes", "gentle smile", "accepting", "blush"],
+        "cunnilingus":        ["gentle smile", "hand on another's head", "blush", "parted lips", "warm"],
+        "kiss":               ["gentle kiss", "closed eyes", "warm smile", "tender"],
+        "grope":              ["accepting", "light blush", "parted lips", "warm"],
+        "fingering":          ["half-closed eyes", "blush", "parted lips", "gentle"],
+        "spanking":           ["accepting", "blush", "light tears", "gentle"],
+        "paizuri":            ["gentle smile", "looking down", "warm", "caring"],
+        "fellatio_pov":       ["gentle smile", "closed eyes", "caring", "devoted"],
+        "fellatio_3rd":       ["gentle", "caring", "closed eyes", "devoted"],
+        "deepthroat":         ["devoted", "tears", "accepting", "blush"],
+        "handjob":            ["gentle smile", "caring", "focused", "warm"],
+        "footjob":            ["gentle", "caring", "light blush", "warm"],
+        "rimjob":             ["devoted", "gentle", "blush", "accepting"],
+        "sixnine":            ["gentle", "devoted", "blush", "warm"],
+        "hug":                ["warm embrace", "gentle smile", "closed eyes", "content"],
+        "forehead_kiss":      ["gentle smile", "closed eyes", "warm"],
+        "neck_kiss":          ["half-closed eyes", "gentle smile", "parted lips", "warm"],
+        "lap_pillow":         ["gentle smile", "looking up", "warm", "maternal"],
+        "shower":             ["gentle smile", "relaxed", "warm", "wet"]
+      }
     }
   },
 
@@ -391,6 +436,11 @@
       "_note": "라피스 — 쿨+여유+다양성. 시그니처: V사인. 장난스럽게 다변.",
       "cowgirl":             ["V", "one eye closed"],
       "fellatio_pov":        ["V", "smirk", "one eye closed"]
+    },
+    "ERP": {
+      "_note": "에르피 — 상냥한 아이돌+대표 (Blue Moon Ent.). 시그니처: 검은색+하얀색 프릴 초커, 가슴 사이 벨트. P컵. 따뜻한 포용.",
+      "missionary":          ["head pat"],
+      "cowgirl":             ["hand on another's cheek"]
     }
   }
 }

@@ -202,6 +202,11 @@
       "name": "노아",
       "clothed": "girl, large breasts, expressionless, black hair, very short hair, pixie cut, hair over eyes, long bangs, sidelocks, wispy bangs, white hairclip, dark blue eyes, half-closed eyes, expressionless, long eyelashes, blazer, white blouse, high-waist skirt, long skirt, heels, white stud earrings, necklace, white choker, thigh strap",
       "nude": "girl, large breasts, expressionless, black hair, very short hair, pixie cut, hair over eyes, long bangs, sidelocks, wispy bangs, white hairclip, dark blue eyes, half-closed eyes, expressionless, long eyelashes, white choker, thigh strap"
+    },
+    "ERP": {
+      "name": "에르피",
+      "clothed": "girl, 0.2::mature female ::, pink hair, hair between eyes, hair over eyes, very long hair, sidelocks, floating hair, long bangs, antenna hair, wavy hair, gigantic breasts, mole on breast, blue eyes, light smile, half-closed eyes, tareme, narrowed eyes, silver hairclip, garter strap, wide hips, curvy, garter belt, white collared shirt, shirt tucked in, partially unbuttoned shirt, short pants, asymmetrical pants, frilled choker, belt between breasts, ",
+      "nude": "girl, 0.2::mature female ::, pink hair, hair between eyes, hair over eyes, very long hair, sidelocks, floating hair, long bangs, antenna hair, wavy hair, gigantic breasts, mole on breast, inverted nipples, blue eyes, light smile, half-closed eyes, tareme, narrowed eyes, silver hairclip, wide hips, curvy, frilled choker, belt between breasts"
     }
   },
   "scenes": {
@@ -1256,6 +1261,21 @@
         "cowgirl_variant": "default",
         "shower_gaze": "looking to the side",
         "lap_pillow_chest": "default",
+        "standing_mode": "default"
+      }
+    },
+    "ERP": {
+      "93": {
+        "female_prompt": "singing, gentle smile, arms open, warm aura, embracing audience, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+      },
+      "96": {
+        "female_prompt": "office, window, city view, sitting, gentle smile, paperwork, tea cup, warm light, professional"
+      },
+      "_override_slots": {
+        "hug_style": "POV",
+        "cowgirl_variant": "default",
+        "shower_gaze": "none",
+        "lap_pillow_chest": "underboob",
         "standing_mode": "default"
       }
     }
