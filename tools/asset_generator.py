@@ -36,6 +36,7 @@ import json
 import logging
 import os
 import random
+import re
 import sys
 import time
 import zipfile
@@ -206,6 +207,48 @@ def is_nsfw_scene(config: dict, scene_num: int) -> bool:
     return 70 <= scene_num <= 86
 
 
+def _dedupe_prompt(prompt: str) -> str:
+    """콤마로 구분된 프롬프트에서 중복 태그 제거. NAI weight syntax 보존.
+
+    ──────────────────────────────────────────────────────────
+    역할: 캐릭터 프롬프트 + 씬 프롬프트 + pose 오버라이드를 순차 조합할 때
+    발생하는 중복 태그를 제거하여 토큰 예산을 확보한다.
+
+    왜 필요한가:
+      - `cleaned_char` + `female_scene` 단순 문자열 결합 시 중복 체크 없음
+      - 캐릭터 프롬프트에 `light smile`이 이미 있는데 씬/오버라이드에서
+        또 `light smile`이 나오면 토큰만 낭비되고 가중치만 2배가 됨
+
+    매칭 규칙:
+      - weight prefix/suffix 제거 후 소문자로 비교
+        → "2::light smile::" == "light smile" == "LIGHT SMILE"
+      - 첫 등장 순서 유지 (선등장 우선, 가중치 보존)
+      - 캐릭터 프롬프트 → 씬 프롬프트 → pose 순으로 우선됨
+
+    연계: build_prompt() 에서 female_caption / male_caption 최종 조합 시 호출
+    ──────────────────────────────────────────────────────────
+    """
+    if not prompt:
+        return prompt
+    seen: set[str] = set()
+    out: list[str] = []
+    for raw in prompt.split(","):
+        tag = raw.strip()
+        if not tag:
+            continue
+        # weight prefix 제거: "2::", "0.6::", "-3::"
+        key = re.sub(r"^-?\d+\.?\d*::", "", tag)
+        # weight suffix 제거: 끝의 "::"
+        key = re.sub(r"::$", "", key).strip().lower()
+        if not key:
+            continue
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(tag)
+    return ", ".join(out)
+
+
 def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str, str, int, int] | None:
     """Build prompts with proper NAI V4 char_captions separation.
 
@@ -273,6 +316,12 @@ def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str
                 female_scene = ", ".join(new_tags)
 
     female_caption = f"{cleaned_char}, {female_scene}" if female_scene else cleaned_char
+
+    # 최종 중복 제거 — 캐릭터/씬/오버라이드/pose 조합 후 동일 태그 병합
+    # (선등장 우선, 가중치 있는 버전이 나중에 나와도 첫 등장 유지)
+    female_caption = _dedupe_prompt(female_caption)
+    if male_caption:
+        male_caption = _dedupe_prompt(male_caption)
 
     return base, female_caption, male_caption, scene["width"], scene["height"]
 
