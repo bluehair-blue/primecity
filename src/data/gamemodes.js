@@ -45,7 +45,7 @@ export const careerModes = [
     icon: "📋",
     detailPath: "/modes/manager",
     location: "소속사 배정",
-    keyChar: "서윤 · 강하람 · 한소리",
+    keyChar: "서윤 · 강하람 · 한소리 · 에르피",
   },
   {
     id: "trainee",
