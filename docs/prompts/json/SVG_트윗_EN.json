@@ -7,7 +7,7 @@
     "comma": "콤마 → %2C",
     "question": "물음표 → %3F",
     "forbidden": "<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.",
-    "char_codes": "SY,NHR,JSH,ERK,LSH,HSR,KHR,JGR,MIL,ELA,MMR,HSE,NIA,RAY,LPS,SIA,NOA"
+    "char_codes": "SY,NHR,JSH,ERK,LSH,HSR,KHR,JGR,MIL,ELA,MMR,HSE,NIA,RAY,LPS,SIA,NOA,ERP"
   },
   "prompt": "■ 트윗 SVG 출력 프롬프트\n\n【라벨 설명】\n- name: 트윗 작성자 이름 (캐릭터 본명)\n- handle: @핸들 (영문, 캐릭터 설정에 맞게)\n- content: 트윗 본문 (캐릭터의 말투와 성격 반영)\n- retweets: 리포스트 수\n- likes: 좋아요 수\n- time: 게시 시간\n- char: 캐릭터코드 (SY, NHR 등) → 아바타 자동 매핑\n- avatar: 프로필 이미지 직접 지정 (선택, char보다 우선)\n\n【출력 위치】\n캐릭터의 SNS 발언이 화제가 되거나, 트윗을 확인하는 장면에서\n나레이션 상단 또는 대사 직전에 출력.\n\n【URL 규칙】\n공백 → %20 / 콤마 → %2C / 물음표 → %3F\n<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.\n\n【양식】\n![](https://twit.bluehair.blue/ent/?char={캐릭터코드}&name={이름}&handle={핸들}&content={본문}&retweets={리포수}&likes={좋아요수}&time={시간})\n\n【예시】\n![](https://twit.bluehair.blue/ent/?char=NHR&name=나하린&handle=@naharin_apex&content=재능%20있는%20사람이%20어디까지%20가는지...%20구경하는%20게%20제일%20재밌지%20않아%3F&retweets=3%2C847&likes=18%2C291&time=오후%2011:42)"
 }

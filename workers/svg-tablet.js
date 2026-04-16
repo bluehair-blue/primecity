@@ -297,7 +297,7 @@ function generateTablet(p) {
   function renderImageOutput(startY) {
     const charLines = [
       { label: "APEX", codes: "SY  NHR  JSH" },
-      { label: "BLUE MOON", codes: "ERK  LSH" },
+      { label: "BLUE MOON", codes: "ERP  ERK  LSH" },  // ERP: 에르피 (Blue Moon 대표, 서윤 이전 전설)
       { label: "PRISM", codes: "HSR" },
       { label: "ROUTE 0", codes: "KHR" },
       { label: "CONTESTANTS", codes: "JGR  MIL  ELA  MMR  HSE  NIA  RAY  LPS" },
