@@ -120,13 +120,13 @@
   "characters": {
     "SY": {
       "name": "서윤",
-      "clothed": "1girl, silver hair, very long hair, wavy hair, loose waves, floating hair, curtained bangs, parted bangs, long sidelocks, golden eyes, cold eyes, sharp eyes, long eyelashes, thin eyebrows,  expressionless, large breasts, fashion, celebrity, high fashion, oversized clothes, elegant coat, layered clothes, belt, inner white dress, black pantyhose, black half gloves, gold earrings, 2::gold choker::, ",
-      "nude": "1girl, silver hair, very long hair, wavy hair, loose waves, floating hair, curtained bangs, parted bangs, long sidelocks, golden eyes, cold eyes, sharp eyes, long eyelashes, thin eyebrows,  expressionless, large breasts, gold earrings, 2::gold choker::, "
+      "clothed": "1girl, silver hair, very long hair, wavy hair, loose waves, floating hair, curtained bangs, parted bangs, long sidelocks, golden eyes, cold eyes, sharp eyes, long eyelashes, thin eyebrows, expressionless, large breasts, fashion, celebrity, high fashion, oversized clothes, elegant coat, layered clothes, belt, inner white dress, black pantyhose, black half gloves, gold earrings, 2::gold choker::",
+      "nude": "1girl, silver hair, very long hair, wavy hair, loose waves, floating hair, curtained bangs, parted bangs, long sidelocks, golden eyes, cold eyes, sharp eyes, long eyelashes, thin eyebrows, expressionless, large breasts, gold earrings, 2::gold choker::"
     },
     "KHR": {
       "name": "강하람",
       "clothed": "1girl, very long hair, black hair, high ponytail, messy hair, ahoge, mole under eye, mole on breasts, beauty mark, single light pink wrist scrunchie, red eyes, cat eyes, slit pupils, sparkling eyes, seductive eyes, smile, open mouth, fang, large breasts, wide hips, thick thighs, 2::oversized clothes, ivory sweater, shirt overhang::, off-shoulder sweater, long sweater, long sleeves, loose sweater, bare legs, bottomless, white thighhighs, pink choker",
-      "nude": "1girl, very long hair, black hair, high ponytail, messy hair, ahoge, mole under eye, mole on breasts, beauty mark, single light pink wrist scrunchie, red eyes, cat eyes, slit pupils, sparkling eyes, seductive eyes, fang, large breasts, inverted nipples, wide hips, thick thighs, white thighhighs, pink choker, "
+      "nude": "1girl, very long hair, black hair, high ponytail, messy hair, ahoge, mole under eye, mole on breasts, beauty mark, single light pink wrist scrunchie, red eyes, cat eyes, slit pupils, sparkling eyes, seductive eyes, fang, large breasts, inverted nipples, wide hips, thick thighs, white thighhighs, pink choker"
     },
     "LSH": {
       "name": "이서하",
@@ -140,8 +140,8 @@
     },
     "ERK": {
       "name": "에리카",
-      "clothed": "girl, 0.6:: mature female ::, light smile, half-closed eyes, lazy eyes, 2::white hair, green colored inner hair, asymmetrical sidelocks::, hair behind ear, long hair, messy hair, two-tone hair, split-color hair, hair between eyes, swept bangs, green eyes, long eyelashes, huge breasts, shirt overhang, oversized clothes, white dress shirt, jacket, 2::loose necktie::, black necktie, unbuttoned collar, collarbones, rolled-up sleeves, black pants, casual, green choker",
-      "nude": "girl, 0.6:: mature female ::, light smile, half-closed eyes, lazy eyes, 2::white hair, green colored inner hair, asymmetrical sidelocks::, hair behind ear, long hair, messy hair, two-tone hair, split-color hair, hair between eyes, swept bangs, green eyes, long eyelashes, huge breasts, green choker"
+      "clothed": "girl, 0.6:: mature female ::, light smile, half-closed eyes, lazy eyes, 2::white hair, green colored inner hair, asymmetrical sidelocks ::, hair behind ear, long hair, two-tone hair, split-color hair, hair between eyes, swept bangs, green eyes, long eyelashes, huge breasts, shirt overhang, oversized clothes, white dress shirt, jacket, 2::loose necktie ::, black necktie, unbuttoned collar, collarbones, rolled-up sleeves, black pants, casual, green choker",
+      "nude": "girl, 0.6:: mature female ::, light smile, half-closed eyes, lazy eyes, 2::white hair, green colored inner hair, asymmetrical sidelocks ::, hair behind ear, long hair, two-tone hair, split-color hair, hair between eyes, swept bangs, green eyes, long eyelashes, huge breasts, green choker"
     },
     "HSR": {
       "name": "한소리",
@@ -151,17 +151,17 @@
     "JSH": {
       "name": "진시혁",
       "clothed": "1boy, 2::sharp eyes, muscular, broad shoulders::, narrow eyes, grey hair, short hair, slicked back hair, undercut, black eyes, dark eyes, looking down, head raised, 2::all black suit::, black dress shirt, black necktie, black suit jacket, buttoned up, black pants, black leather shoes, holding pen, ballpoint pen, crossed arms, confident, expressionless, condescending, grey choker",
-      "nude": ", grey choker"
+      "nude": "grey choker"
     },
     "JGR": {
       "name": "장그루",
-      "clothed": "girl, light blonde hair, 2::very long hair, straight hair, hair over eyes, very long bangs ::, 0.4::eyes visible through hair ::, choppy bangs, long sidelocks, dull hair, matte hair, lavender eyes, half-closed eyes, downcast eyes, large breasts, curvy, light purple choker, light blush, serene, wide hips, wide hips, oversized clothes, cardigan, white collared sweater, puffy sleeves, long skirt, -1::cleavage ::, ",
-      "nude": "1girl, light blonde hair, 2::very long hair, straight hair, hair over eyes, very long bangs ::, 0.4::eyes visible through hair ::, choppy bangs, long sidelocks, dull hair, matte hair, lavender eyes, half-closed eyes, downcast eyes, large breasts, curvy, light purple choker, light blush, serene, wide hips, navel"
+      "clothed": "girl, light blonde hair, 2::very long hair, straight hair, hair over eyes, very long bangs ::, 0.4::eyes visible through hair ::, choppy bangs, long sidelocks, dull hair, matte hair, lavender eyes, half-closed eyes, downcast eyes, large breasts, curvy, light purple choker, light blush, wide hips, oversized clothes, cardigan, white collared sweater, puffy sleeves, long skirt, -1::cleavage ::",
+      "nude": "1girl, light blonde hair, 2::very long hair, straight hair, hair over eyes, very long bangs ::, 0.4::eyes visible through hair ::, choppy bangs, long sidelocks, dull hair, matte hair, lavender eyes, half-closed eyes, downcast eyes, large breasts, curvy, light purple choker, light blush, wide hips, navel"
     },
     "LPS": {
       "name": "라피스",
-      "clothed": "1girl, huge breasts, seductive, 3::high chroma blue hair, royal blue hair, lapis lazuli color hair, very long hair, half up braid, long braided ponytail, straight hair, ::, -1::inner colored hair, navy hair ::, swept bangs, long sidelocks, blue eyes, half-closed eyes, expressionless, gold hairclip, blue choker, oversized clothes, layered clothes, white jacket, jacket partially removed, gold arm strap, sleeveless inner navy sweater, chest belt, chest harness, asymmetrical black pants, side slit, gold thigh strap, wide hips, ",
-      "nude": "girl, naked, huge breasts, seductive, 3::high chroma blue hair, royal blue hair, lapis lazuli color hair, very long hair, half up braid, long braided ponytail, straight hair, ::, -1::inner colored hair, navy hair ::, swept bangs, long sidelocks, blue eyes, half-closed eyes, expressionless, gold hairclip, blue choker, chest belt, chest harness, gold thigh strap, wide hips, "
+      "clothed": "1girl, huge breasts, seductive, 3::high chroma blue hair, royal blue hair, lapis lazuli color hair, very long hair, half up braid, long braided ponytail, straight hair, ::, -1::inner colored hair, navy hair ::, swept bangs, long sidelocks, blue eyes, half-closed eyes, expressionless, gold hairclip, blue choker, oversized clothes, layered clothes, white jacket, jacket partially removed, gold arm strap, sleeveless inner navy sweater, chest belt, chest harness, asymmetrical black pants, side slit, gold thigh strap, wide hips",
+      "nude": "girl, naked, huge breasts, seductive, 3::high chroma blue hair, royal blue hair, lapis lazuli color hair, very long hair, half up braid, long braided ponytail, straight hair, ::, -1::inner colored hair, navy hair ::, swept bangs, long sidelocks, blue eyes, half-closed eyes, expressionless, gold hairclip, blue choker, chest belt, chest harness, gold thigh strap, wide hips"
     },
     "MIL": {
       "name": "밀라",
@@ -175,13 +175,13 @@
     },
     "ELA": {
       "name": "엘라",
-      "clothed": "1girl, large breasts, mole on breast, glamorous, curvy, wide hips, pelvic, half-closed eyes, seductive smile, red hair, very long hair, wavy hair,curtained bangs, hair over shoulder, hair flip, floating hair, red eyes, cat eyes, sharp eyes, upturned eyes, high fashion, black dress, off-shoulder dress, side slit dress, high heels, red choker",
-      "nude": "1girl, large breasts, mole on breast, glamorous, curvy, wide hips, pelvic, half-closed eyes, seductive smile, red hair, very long hair, wavy hair,curtained bangs, hair over shoulder, hair flip, floating hair, red eyes, cat eyes, sharp eyes, upturned eyes, red choker"
+      "clothed": "1girl, large breasts, mole on breast, glamorous, curvy, wide hips, pelvic, half-closed eyes, seductive smile, red hair, very long hair, wavy hair, curtained bangs, hair over shoulder, hair flip, floating hair, red eyes, cat eyes, sharp eyes, upturned eyes, high fashion, black dress, off-shoulder dress, side slit dress, high heels, red choker",
+      "nude": "1girl, large breasts, mole on breast, glamorous, curvy, wide hips, pelvic, half-closed eyes, seductive smile, red hair, very long hair, wavy hair, curtained bangs, hair over shoulder, hair flip, floating hair, red eyes, cat eyes, sharp eyes, upturned eyes, red choker"
     },
     "HSE": {
       "name": "하시은",
-      "clothed": "girl, large breasts,  light smile, black hair, long hair, straight hair, swept bangs, choppy bangs, silver hairclip, pink eyes, soft eyes, clear eyes, black cropped blazer, white turtleneck, tucked in, side slit, high-waisted wide black pants, chest belt, chest harness, small stud silver earrings, dark yellow choker, wide hips, ",
-      "nude": "girl, large breasts,  light smile, black hair, long hair, straight hair, swept bangs, choppy bangs, silver hairclip, pink eyes, soft eyes, clear eyes, chest belt, chest harness, small stud silver earrings, dark yellow choker, wide hips, "
+      "clothed": "girl, large breasts, light smile, black hair, long hair, straight hair, swept bangs, choppy bangs, silver hairclip, pink eyes, soft eyes, clear eyes, black cropped blazer, white turtleneck, tucked in, side slit, high-waisted wide black pants, chest belt, chest harness, small stud silver earrings, dark yellow choker, wide hips",
+      "nude": "girl, large breasts, light smile, black hair, long hair, straight hair, swept bangs, choppy bangs, silver hairclip, pink eyes, soft eyes, clear eyes, chest belt, chest harness, small stud silver earrings, dark yellow choker, wide hips"
     },
     "NIA": {
       "name": "니아",
@@ -190,8 +190,8 @@
     },
     "RAY": {
       "name": "레이",
-      "clothed": "1girl, small breasts, serene, 2::lavender hair::, very long hair, sidelocks, straight hair, soft hair, floating hair, ice blue eyes, light blue eyes, pale eyes,  eyes, calm eyes, white blouse, long sleeves, fitted vest, grey vest, long pants, black pants, ankle boots, silver choker",
-      "nude": "1girl, small breasts, serene, 2::lavender hair::, very long hair, sidelocks, straight hair, soft hair, floating hair, ice blue eyes, light blue eyes, pale eyes,  eyes, calm eyes, 2::single prosthetic leg::, silver choker"
+      "clothed": "1girl, small breasts, 2::lavender hair::, very long hair, sidelocks, straight hair, soft hair, floating hair, ice blue eyes, light blue eyes, pale eyes, eyes, calm eyes, white blouse, long sleeves, fitted vest, grey vest, long pants, black pants, ankle boots, silver choker",
+      "nude": "1girl, small breasts, 2::lavender hair::, very long hair, sidelocks, straight hair, soft hair, floating hair, ice blue eyes, light blue eyes, pale eyes, eyes, calm eyes, 2::single prosthetic leg::, silver choker"
     },
     "SIA": {
       "name": "시아",
@@ -200,13 +200,13 @@
     },
     "NOA": {
       "name": "노아",
-      "clothed": "girl, large breasts, expressionless, black hair, very short hair, pixie cut, hair over eyes, long bangs, sidelocks, wispy bangs, white hairclip, dark blue eyes, half-closed eyes, expressionless, long eyelashes, blazer, white blouse, high-waist skirt, long skirt, heels, white stud earrings, necklace, white choker, thigh strap",
-      "nude": "girl, large breasts, expressionless, black hair, very short hair, pixie cut, hair over eyes, long bangs, sidelocks, wispy bangs, white hairclip, dark blue eyes, half-closed eyes, expressionless, long eyelashes, white choker, thigh strap"
+      "clothed": "girl, large breasts, expressionless, black hair, very short hair, pixie cut, hair over eyes, long bangs, sidelocks, wispy bangs, white hairclip, dark blue eyes, half-closed eyes, long eyelashes, blazer, white blouse, high-waist skirt, long skirt, heels, white stud earrings, necklace, white choker, thigh strap",
+      "nude": "girl, large breasts, expressionless, black hair, very short hair, pixie cut, hair over eyes, long bangs, sidelocks, wispy bangs, white hairclip, dark blue eyes, half-closed eyes, long eyelashes, white choker, thigh strap"
     },
     "ERP": {
       "name": "에르피",
-      "clothed": "girl, 0.2::mature female ::, pink hair, hair between eyes, hair over eyes, very long hair, sidelocks, floating hair, long bangs, antenna hair, wavy hair, gigantic breasts, mole on breast, blue eyes, light smile, half-closed eyes, tareme, narrowed eyes, silver hairclip, garter strap, wide hips, curvy, garter belt, white collared shirt, shirt tucked in, partially unbuttoned shirt, short pants, asymmetrical pants, frilled choker, belt between breasts, ",
-      "nude": "girl, 0.2::mature female ::, pink hair, hair between eyes, hair over eyes, very long hair, sidelocks, floating hair, long bangs, antenna hair, wavy hair, gigantic breasts, mole on breast, inverted nipples, blue eyes, light smile, half-closed eyes, tareme, narrowed eyes, silver hairclip, wide hips, curvy, frilled choker, belt between breasts"
+      "clothed": "girl, 0.2::mature female ::, pink hair, hair between eyes, hair over eyes, very long hair, sidelocks, floating hair, long bangs, antenna hair, wavy hair, gigantic breasts, mole on breast, blue eyes, light smile, half-closed eyes, tareme, narrowed eyes, silver hairclip, garter strap, wide hips, curvy, garter belt, white collared shirt, shirt tucked in, collarless white shirt, black asymmetrical denim pants, white frilled black choker, black belt between breasts",
+      "nude": "girl, 0.2::mature female ::, pink hair, hair between eyes, hair over eyes, very long hair, sidelocks, floating hair, long bangs, antenna hair, wavy hair, gigantic breasts, mole on breast, inverted nipples, blue eyes, light smile, half-closed eyes, tareme, narrowed eyes, silver hairclip, wide hips, curvy, white frilled black choker, black belt between breasts"
     }
   },
   "scenes": {
@@ -413,7 +413,7 @@
       "name": "fingering-climax",
       "width": 1216,
       "height": 832,
-      "female_prompt": "pussy, 2::white censored pussy ::, pussy juice, target# fingering, breath, half-closed eyes, blush, tears, covering own mouth, from below, target# reaching one hand towards another's pussy, target# fingers in another's pussy, female orgasm, ",
+      "female_prompt": "pussy, 2::white censored pussy ::, pussy juice, target# fingering, breath, half-closed eyes, blush, tears, covering own mouth, from below, target# reaching one hand towards another's pussy, target# fingers in another's pussy, female orgasm",
       "male_prompt": "pov, 5-fingers, source# fingering, finger in pussy",
       "_old_prompt": "fingering, hug from behind, pussy, pussy juice, orgasm, ahegao, "
     },
@@ -702,7 +702,7 @@
       "name": "after-sex",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, lying, on back, spread legs, after sex, cum on face, cum in pussy, cum on body, cum overflow, after sex, 2::white censored pussy ::, pussy, breasts",
+      "female_prompt": "on bed, lying, on back, spread legs, after sex, cum on face, cum in pussy, cum on body, cum overflow, 2::white censored pussy ::, pussy, breasts",
       "male_prompt": "pov",
       "_old_prompt": "bedroom, from above, lying, on back, spread legs, spooning, after sex, , , cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, smile, open mouth, "
     },
@@ -734,7 +734,7 @@
       "name": "pregnant-after",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, lying, on back, spread legs, 0.6::pregnant::, after sex, lactation, cum on face, cum in pussy, cum on body, cum overflow, after sex, 2::white censored pussy ::, pussy",
+      "female_prompt": "on bed, lying, on back, spread legs, 0.6::pregnant::, after sex, lactation, cum on face, cum in pussy, cum on body, cum overflow, 2::white censored pussy ::, pussy",
       "male_prompt": "pov",
       "_old_prompt": "bedroom, from above, lying, on back, spread legs, spooning, 0.6::pregnant::, after sex, , , lactation, cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, smile, open mouth, "
     },
@@ -742,7 +742,7 @@
       "name": "standing-sex",
       "width": 832,
       "height": 1216,
-      "female_prompt": "standing, against wall, standing sex, from behind, doggystyle, anus, back, ass focus, 2::white censored pussy ::, pussy, pussy juice, sex, motion lines, ",
+      "female_prompt": "standing, against wall, standing sex, from behind, doggystyle, anus, back, ass focus, 2::white censored pussy ::, pussy, pussy juice, sex, motion lines",
       "male_prompt": "2::white censored penis ::, pov, large penis, sex"
     },
     "69": {
@@ -820,7 +820,7 @@
       "name": "clothed-after",
       "width": 1216,
       "height": 832,
-      "female_prompt": "on bed, lying, spread legs, clothed, after sex, cum on face, cum in pussy, cum on body, cum overflow, after sex, 2::white censored pussy ::, pussy",
+      "female_prompt": "on bed, lying, spread legs, clothed, after sex, cum on face, cum in pussy, cum on body, cum overflow, 2::white censored pussy ::, pussy",
       "male_prompt": "",
       "_old_prompt": "bedroom, from above, lying, spread legs, spooning, clothed sex, after sex, , , cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, , smile, open mouth, "
     },
@@ -852,7 +852,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "bathroom stall, toilet, standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, clothed, mutual# clothed sex, sex, 2::white censored pussy ::, pussy, pussy juice, from below",
-      "male_prompt": "1boy, cropped head, out of frame, 2::white censored penis ::, 1boy, large penis, sex, clothed, mutual# clothed sex, source# leg grab",
+      "male_prompt": "1boy, cropped head, out of frame, 2::white censored penis ::, large penis, sex, clothed, mutual# clothed sex, source# leg grab",
       "_old_prompt": "bathroom stall, toilet, from below, standing, spread legs, leg grab, reverse suspended congress, boy, black hair, hair over eyes, clothed sex, sex, penis, female focus, , , open mouth, "
     },
     "83": {
@@ -860,7 +860,7 @@
       "width": 1216,
       "height": 832,
       "female_prompt": "bathroom stall, toilet, standing, spread legs, reverse suspended congress, full nelson, target# leg grab, held up, female focus, clothed, mutual# clothed sex, sex, 2::white censored pussy ::, pussy, cum in pussy, cum overflow, female ejaculation, from below",
-      "male_prompt": "1boy, cropped head, out of frame, 2::white censored penis ::, 1boy, large penis, sex, clothed, mutual# clothed sex, cum, source# leg grab",
+      "male_prompt": "1boy, cropped head, out of frame, 2::white censored penis ::, large penis, sex, clothed, mutual# clothed sex, cum, source# leg grab",
       "_old_prompt": "bathroom stall, toilet, from below, standing, spread legs, leg grab, reverse suspended congress, boy, black hair, hair over eyes, clothed sex, sex, penis, cum in pussy, overflow, female focus, , trembling, heart-shaped pupils, ahegao, , tongue out, open mouth, "
     },
     "84": {
@@ -883,7 +883,7 @@
       "name": "clothed-after-toilet",
       "width": 1216,
       "height": 832,
-      "female_prompt": "bathroom stall, toilet, lying, spread legs, clothed, after sex, cum on face, cum in pussy, cum on body, cum overflow, after sex, 2::white censored pussy ::, pussy",
+      "female_prompt": "bathroom stall, toilet, lying, spread legs, clothed, after sex, cum on face, cum in pussy, cum on body, cum overflow, 2::white censored pussy ::, pussy",
       "male_prompt": "",
       "_old_prompt": "bathroom stall, toilet, from above, lying, spread legs, spooning, pov, large penis, clothed sex, after sex, cum on face, cum in pussy, cum on body, trembling, heart-shaped pupils, , smile, open mouth, "
     },
@@ -912,21 +912,21 @@
       "name": "spread-after-missionary",
       "width": 832,
       "height": 1216,
-      "female_prompt": "on bed, 2::from above, lying, on back::, 2::seductive smile, ::, after sex, 2::spreading own pussy, cum in pussy::, 2::pussy juice, 2::white censored pussy ::, pussy juice trail, cum overflow::, very sweaty, wet hair, heart, flustered, after sex, nipples, parted lips, open mouth",
+      "female_prompt": "on bed, 2::from above, lying, on back::, 2::seductive smile, ::, after sex, 2::spreading own pussy, cum in pussy::, 2::pussy juice, 2::white censored pussy ::, pussy juice trail, cum overflow::, very sweaty, wet hair, heart, embarrassed, nipples, parted lips, open mouth",
       "male_prompt": ""
     },
     "91": {
       "name": "spread-after-cowgirl",
       "width": 832,
       "height": 1216,
-      "female_prompt": "solo, pov crotch, 2::white censored pussy ::, 2::spread pussy, cum in pussy::, cowgirl position, 2::looking down, seductive smile::, after sex, open mouth, flustered, after sex, 2::sweat, wet hair, head tilt, saliva trail::, arched back, cum overflow",
+      "female_prompt": "solo, pov crotch, 2::white censored pussy ::, 2::spread pussy, cum in pussy::, cowgirl position, 2::looking down, seductive smile::, after sex, open mouth, embarrassed, 2::sweat, wet hair, head tilt, saliva trail::, arched back, cum overflow",
       "male_prompt": ""
     },
     "92": {
       "name": "spread-after-doggystyle",
       "width": 832,
       "height": 1216,
-      "female_prompt": "solo, 2::ass focus, flustered, cum in pussy, doggystyle, 2::white censored pussy ::, pussy juice, pussy juice trail, cum overflow::, spreading own pussy, pillow, 2::seductive smile::, heart, 2::very sweaty, wet hair::, after sex, looking back, back, anus",
+      "female_prompt": "solo, 2::ass focus, embarrassed, cum in pussy, doggystyle, 2::white censored pussy ::, pussy juice, pussy juice trail, cum overflow::, spreading own pussy, pillow, 2::seductive smile::, heart, 2::very sweaty, wet hair::, after sex, looking back, back, anus",
       "male_prompt": ""
     },
     "93": {
@@ -967,7 +967,7 @@
     },
     "902": {
       "name": "svg-post",
-      "female_prompt": "upper body, casual, smile, indoors, window, candid",
+      "female_prompt": "upper body, casual, smile, indoors, window",
       "male_prompt": "",
       "width": 1216,
       "height": 832,
@@ -999,7 +999,7 @@
     },
     "911": {
       "name": "thumbnail",
-      "female_prompt": "upper body, portrait, smile, soft focus background",
+      "female_prompt": "upper body, portrait, smile, blurry background",
       "male_prompt": "",
       "width": 832,
       "height": 832,
@@ -1008,15 +1008,15 @@
   },
   "character_scene_overrides": {
     "NHR": {
-      "remove_tags": [
-        ""
-      ],
       "93": {
-        "female_prompt": "commanding presence, one hand raised, mysterious aura, backlit, half-closed eyes, smirk, controlling the stage, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "commanding presence, one hand raised, backlit, half-closed eyes, smirk, controlling the stage, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "dark office, monitor glow, sitting, leaning back, mysterious, documents, chess piece on desk, scheming"
       },
+      "remove_tags": [
+        ""
+      ],
       "_override_slots": {
         "hug_style": "POV",
         "cowgirl_variant": "squatting",
@@ -1026,21 +1026,21 @@
       }
     },
     "JSH": {
+      "93": {
+        "female_prompt": "microphone, announcing, serious, formal suit, commanding, authoritative, sharp gaze, crowd silhouette, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
+      },
+      "96": {
+        "female_prompt": "office, desk, reviewing documents, serious, pen in hand, organized, professional"
+      },
       "remove_tags": [
         ""
       ],
-      "93": {
-        "female_prompt": "microphone, announcing, serious, formal suit, commanding, authoritative, sharp gaze, crowd silhouette, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
-      },
-      "96": {
-        "female_prompt": "office, desk, reviewing documents, serious, pen in hand, organized, professional, "
-      },
       "_override_slots": null,
       "_note": "남성 캐릭터 - NSFW 씬 전체 생성 제외"
     },
     "SY": {
       "93": {
-        "female_prompt": "singing, confident, elegant, arms spread, wind effect, idol, determined, climax, reaching towards crowd, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "singing, confident, elegant, arms spread, wind effect, idol, determined, climax, reaching towards crowd, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "luxury lounge, elegant, sitting, legs crossed, window, city night view, wine glass, contemplative"
@@ -1055,7 +1055,7 @@
     },
     "ERK": {
       "93": {
-        "female_prompt": "headphones around neck, turntable, DJ, mixing, focused, neon lights, one hand raised, smirk, energetic, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "headphones around neck, turntable, DJ, mixing, focused, neon lights, one hand raised, smirk, energetic, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "recording studio, mixing console, headphones, focused, monitor glow, soundproof room, professional"
@@ -1070,7 +1070,7 @@
     },
     "LSH": {
       "93": {
-        "female_prompt": "piano, playing piano, contemplative, absorbed, emotional, grand piano, eyes closed, gentle smile, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "piano, playing piano, contemplative, absorbed, emotional, grand piano, eyes closed, light smile, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "home studio, messy room, composing, laptop, headphones, glasses, tired eyes, coffee cup, sheet music scattered"
@@ -1085,10 +1085,10 @@
     },
     "HSR": {
       "93": {
-        "female_prompt": "microphone, speech, motivating, bright smile, enthusiastic, one arm raised, leading, warm glow, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "microphone, speech, motivating, bright smile, enthusiastic, one arm raised, leading, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
-        "female_prompt": "office, late night, desk, phone, documents, exhausted, dark circles, coffee cup, desk lamp, "
+        "female_prompt": "office, late night, desk, phone, documents, exhausted, dark circles, coffee cup, desk lamp"
       },
       "_override_slots": {
         "hug_style": "POV",
@@ -1100,7 +1100,7 @@
     },
     "KHR": {
       "93": {
-        "female_prompt": "dancing, dynamic pose, passionate, powerful, open mouth, determined, arched back, one arm raised, reaching up, exhausted, catching breath, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "dancing, dynamic pose, passionate, powerful, open mouth, determined, arched back, one arm raised, reaching up, exhausted, catching breath, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "practice room, mirror, stretching, sweat, towel around neck, water bottle, wooden floor"
@@ -1131,7 +1131,7 @@
     },
     "MIL": {
       "93": {
-        "female_prompt": "guitar, singing, acoustic, carefree, smile, open mouth, eyes closed, swaying, joyful, warm light, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "guitar, singing, acoustic, carefree, smile, open mouth, eyes closed, swaying, joyful, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "rooftop, sitting on edge, guitar, sunset, wind, cityscape, carefree, humming, relaxed"
@@ -1146,7 +1146,7 @@
     },
     "ELA": {
       "93": {
-        "female_prompt": "dancing, hair flip, glamorous, confident, seductive smile, elegant, sensual, red spotlight, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "dancing, hair flip, glamorous, confident, seductive smile, elegant, sensual, red spotlight, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "fashion magazine shoot, posing, professional camera, flash, confident, stylish outfit, studio"
@@ -1161,7 +1161,7 @@
     },
     "MMR": {
       "93": {
-        "female_prompt": "singing, microphone, wink, peace sign, energetic, cute, playful, smile, open mouth, bright colorful lights, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "singing, microphone, wink, peace sign, energetic, cute, playful, smile, open mouth, bright colorful lights, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "cafe, phone, taking selfie, wink, cute, colorful drink, window seat, bright, cheerful"
@@ -1176,7 +1176,7 @@
     },
     "HSE": {
       "93": {
-        "female_prompt": "dancing, focused, precise, determined, smile, open mouth, idol, arched back, looking up, one arm raised, reaching up, climax, exhausted, catching breath, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "dancing, focused, precise, determined, smile, open mouth, idol, arched back, looking up, one arm raised, reaching up, climax, exhausted, catching breath, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "library, studying, notebook, pen, focused, quiet, bookshelf, alone, diligent"
@@ -1191,7 +1191,7 @@
     },
     "NIA": {
       "93": {
-        "female_prompt": "singing, gripping microphone, nervous, trembling, first performance, determined, teary eyes, emotional, intimate venue, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "singing, gripping microphone, nervous, trembling, first performance, determined, teary eyes, emotional, intimate venue, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "garden, bench, reading, flowers, breeze, contemplative, elegant"
@@ -1206,10 +1206,10 @@
     },
     "RAY": {
       "93": {
-        "female_prompt": "dancing, ballet, graceful, flowing movement, arms extended, leg up, ethereal, serene, spotlight, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "dancing, ballet, graceful, flowing movement, arms extended, leg up, serene, spotlight, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
-        "female_prompt": "gym, stretching, athletic, , mirror, sports outfit, towel, water bottle, focused"
+        "female_prompt": "gym, stretching, athletic, mirror, sports outfit, towel, water bottle, focused"
       },
       "_override_slots": {
         "hug_style": "POV",
@@ -1221,10 +1221,10 @@
     },
     "LPS": {
       "93": {
-        "female_prompt": "DJ booth, turntable, headphones, mixing, one hand raised, expressionless, cool, controlled, laser lights, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "DJ booth, turntable, headphones, mixing, one hand raised, expressionless, cool, controlled, laser lights, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
-        "female_prompt": "music shop, vinyl records, headphones around neck, sidewyas glance, stylish, "
+        "female_prompt": "music shop, vinyl records, headphones around neck, sidewyas glance, stylish"
       },
       "_override_slots": {
         "hug_style": "POV",
@@ -1236,7 +1236,7 @@
     },
     "SIA": {
       "93": {
-        "female_prompt": "performing, energetic, playful, wink, peace sign, jumping, cheerful, ring light, crowd interaction, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "performing, energetic, playful, wink, peace sign, jumping, cheerful, ring light, crowd interaction, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
         "female_prompt": "gaming chair, headset, monitor glow, relaxed, legs up, snacking, cozy room, night"
@@ -1251,10 +1251,10 @@
     },
     "NOA": {
       "93": {
-        "female_prompt": "runway, walking, elegant pose, fashion show, model walk, expressionless, confident, cold beauty, spotlight, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "runway, walking, elegant pose, fashion show, model walk, expressionless, confident, cold beauty, spotlight, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
-        "female_prompt": "library, reading, window light, quiet, tea cup, serene, short black hair, afternoon"
+        "female_prompt": "library, reading, window light, quiet, tea cup, short black hair, afternoon"
       },
       "_override_slots": {
         "hug_style": "POV",
@@ -1266,10 +1266,10 @@
     },
     "ERP": {
       "93": {
-        "female_prompt": "singing, gentle smile, arms open, warm aura, embracing audience, on stage, concert, face focus, heavy breathing, sweat, glistening skin, sparkling light, soft glow, cinematic, dynamic lighting, volumetric lighting, 1.2::subtle lens flare::, 1.1::dreamlike::, 0.9::candid::, 0.8::backlight::, full body shot, distant view, camera perspective, stage outfit, live performance"
+        "female_prompt": "singing, light smile, arms open, embracing audience, on stage, concert, face focus, heavy breathing, sweat, glistening skin, cinematic, 1.1::dreamlike::, 0.9::candid::, full body shot, distant view, camera perspective, stage outfit, live performance"
       },
       "96": {
-        "female_prompt": "office, window, city view, sitting, gentle smile, paperwork, tea cup, warm light, professional"
+        "female_prompt": "office, window, city view, sitting, light smile, paperwork, tea cup, professional"
       },
       "_override_slots": {
         "hug_style": "POV",
