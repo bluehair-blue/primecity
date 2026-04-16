@@ -1,3 +1,9 @@
+> ⚠️ **DEPRECATED v1** — 이 보고서의 "축약 권장" 항목 다수가 잘못된 방향이었음.
+> 메인 서사의 디렉션 구체성이 AI 편향 억제 장치임을 간과한 검토.
+> 정정된 검토는 [_review_v2_corrected.md](_review_v2_corrected.md) 참조.
+
+---
+
 # Phase 4 검토 — 모드 29파일
 
 ## 분류
