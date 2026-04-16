@@ -65,8 +65,8 @@ PROJECT_ROOT = TOOLS_DIR.parent                          # 연예계/
 OUTPUT_BASE = PROJECT_ROOT / "char_img"                  # 연예계/char_img/
 
 # ── Timing ──
-DELAY_NORMAL = 2        # 정상 생성 간 대기 (초)
-DELAY_COOLDOWN = 10     # 10장마다 추가 쿨다운
+DELAY_NORMAL = 1        # 정상 생성 간 대기 (초) — 사용자 요청 2→1
+DELAY_COOLDOWN = 1      # 10장마다 추가 쿨다운 — 사용자 요청 10→1
 DELAY_429_BASE = 60     # 429 에러 시 기본 대기
 DELAY_429_MAX = 300     # 429 최대 대기
 MAX_RETRIES = 3         # 일반 에러 재시도 횟수
