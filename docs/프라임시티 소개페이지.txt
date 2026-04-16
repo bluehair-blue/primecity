@@ -386,6 +386,8 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--gold);font-family:monospace;font-weight:600;">NIA<span style="color:var(--txt-dim);font-weight:300;"> 니아</span></span>
 <span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--gold);font-family:monospace;font-weight:600;">RAY<span style="color:var(--txt-dim);font-weight:300;"> 레이</span></span>
 <span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--gold);font-family:monospace;font-weight:600;">LPS<span style="color:var(--txt-dim);font-weight:300;"> 라피스</span></span>
+<span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--gold);font-family:monospace;font-weight:600;">SIA<span style="color:var(--txt-dim);font-weight:300;"> 시아</span></span>
+<span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--gold);font-family:monospace;font-weight:600;">NOA<span style="color:var(--txt-dim);font-weight:300;"> 노아</span></span>
 <span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--gold);font-family:monospace;font-weight:600;">ERP<span style="color:var(--txt-dim);font-weight:300;"> 에르피</span></span>
 </div>
 </div>
