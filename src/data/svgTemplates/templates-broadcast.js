@@ -439,7 +439,7 @@ function generateTablet(p) {
   function renderImageOutput(startY) {
     const charLines = [
       { label: "APEX", codes: "SY  NHR  JSH" },
-      { label: "BLUE MOON", codes: "ERK  LSH" },
+      { label: "BLUE MOON", codes: "ERP  ERK  LSH" },
       { label: "PRISM", codes: "HSR" },
       { label: "ROUTE 0", codes: "KHR  SIA  NOA" },
       { label: "CONTESTANTS", codes: "JGR  MIL  ELA  MMR  HSE  NIA  RAY  LPS" },
@@ -450,7 +450,7 @@ function generateTablet(p) {
     // CDN 경로 — 2줄로 분리
     const cdnLine = `
     <text x="${L}" y="${cy}" fill="#666" font-size="10" font-family="sans-serif">CDN: img.bluehair.blue/ent/</text>
-    <text x="${R}" y="${cy}" text-anchor="end" fill="#555" font-size="10" font-family="sans-serif">17명 × ~102 = 1,670장+</text>`;
+    <text x="${R}" y="${cy}" text-anchor="end" fill="#555" font-size="10" font-family="sans-serif">18명 × ~102 = 1,836장+</text>`;
     cy += 18;
     const cdnFormat = `
     <text x="${L}" y="${cy}" fill="#c9a84c" font-size="10" font-family="monospace" font-weight="600">{CODE}/{NUM}.webp</text>`;
