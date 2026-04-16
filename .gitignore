@@ -48,3 +48,33 @@ research.md
 *.bak
 docs/ntd11_feedback_reference.zip
 docs/ntd11_refactoring_feedback.html
+
+# IDE
+.vs/
+.vscode/
+
+# Image backups (large, local only)
+char_img_backup/
+char_img_bak_*/
+
+# Cover art / banner drafts (large binary)
+banner*.png
+banner*.webp
+표지*
+섹스웅.json
+
+# Feedback / test images (local only)
+img-for-feedback/
+tools/test_samples/
+ent/
+
+# Generation logs (runtime, not source)
+tools/generation_log_*.txt
+tools/generation_state.bak*.json
+tools/generation_state_backup.json
+tools/asset_config.bak.json
+tools/run_remaining.sh
+tools/run_sequential.sh
+
+# NAI backup configs
+docs/image-rules/nais2-backup-*.json
