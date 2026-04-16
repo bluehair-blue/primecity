@@ -5,23 +5,32 @@ import useReveal from "../hooks/useReveal";
 import PageLayout from "../components/PageLayout";
 import Seo from "../components/Seo";
 
+const branches = [
+  { emoji: "🎭", name: "PRISM Studio", en: "Hype Road", desc: "독립영화·인디 드라마·실험작 중심. 작품성 우선.", accent: "oklch(0.72 0.12 55)" },
+  { emoji: "🎬", name: "Blue Moon", en: "Middle Ring", desc: "정통 상업 드라마·메인 스트림. 안정적 캐스팅 풀.", accent: "oklch(0.65 0.10 240)" },
+  { emoji: "🎞️", name: "APEX Entertainment", en: "The Core", desc: "대형 영화·해외 진출작. 나하린 캐스팅 영향력.", accent: "oklch(0.76 0.12 80)" },
+  { emoji: "📜", name: "Route 0", en: "Terrace", desc: "프리랜서·신생 라인. 자유도 높음, 자기 마케팅 필수.", accent: "oklch(0.65 0.10 140)" },
+];
+
 const loop = [
-  { title: "캐스팅", en: "Casting", desc: "오디션 공고 확인 → 역할 선택 → 오디션 장면 연기" },
-  { title: "촬영", en: "Filming", desc: "현장 분위기, 감독/상대 배우 케미, 연기 묘사" },
-  { title: "방영/개봉", en: "Premiere", desc: "시청률/흥행 결과, 대중 반응, 평론" },
-  { title: "커리어 관리", en: "Career", desc: "차기작 선택, 이미지 전략, 스캔들 관리" },
+  { title: "오디션", en: "Audition", desc: "공고 확인 → 역할 선택 → 오디션 장면 연기 → 캐스팅 결과" },
+  { title: "촬영", en: "Filming", desc: "현장 분위기, 감독/상대 배우 케미, 즉흥 디렉션 대응" },
+  { title: "방영/개봉", en: "Premiere", desc: "시청률/흥행 결과, 평론, 대중 반응 — 인지도 변동" },
+  { title: "홍보", en: "Promotion", desc: "예능 출연, 인터뷰, SNS 라이브 — 캐릭터 본질 노출 vs 톤 관리" },
+  { title: "스캔들", en: "Scandal", desc: "루머·열애설·과거 발언 발굴. 위기 대응이 커리어를 가른다." },
 ];
 
 const connections = [
-  { name: "서윤", role: "연기 선배", desc: "같은 작품에 캐스팅될 수 있다. 현장에서 만나는 연기 선배. '...대사를 외우지 마. 느껴.'", accent: "oklch(0.76 0.12 80)" },
+  { name: "서윤", role: "연기 선배 (APEX)", desc: "같은 작품에 캐스팅될 수 있다. '...대사를 외우지 마. 느껴.'", accent: "oklch(0.76 0.12 80)" },
   { name: "엘라", role: "모델→배우 전환", desc: "같은 오디션에서 경쟁할 수 있다. 패션/뷰티 크로스오버.", accent: "oklch(0.65 0.12 15)" },
-  { name: "나하린", role: "캐스팅 영향력", desc: "APEX가 대형 제작에 관여. 나하린의 영향력이 캐스팅에 작용할 수 있다.", accent: "oklch(0.72 0.10 310)" },
-  { name: "한소리", role: "매니저/기획사 대표", desc: "캐스팅을 서포트하는 역할.", accent: "oklch(0.72 0.12 55)" },
+  { name: "나하린", role: "APEX 캐스팅 영향력", desc: "APEX 분기 시 대형 제작 캐스팅에 직접 영향.", accent: "oklch(0.72 0.10 310)" },
+  { name: "한소리", role: "PRISM 대표", desc: "PRISM 분기 시 작가주의 작품 매칭 + 캐릭터 분석.", accent: "oklch(0.72 0.12 55)" },
 ];
 
 export default function ModeActor() {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const [refBranch, vBranch] = useReveal(0.12);
   const [refLoop, vLoop] = useReveal(0.12);
   const [refConn, vConn] = useReveal(0.12);
 
@@ -42,7 +51,7 @@ export default function ModeActor() {
                 카메라가 돌아간다. 증명할 시간.
               </h1>
               <p style={{ fontFamily: "var(--f-body)", fontSize: isMobile ? 13 : 15, lineHeight: 1.9, color: C.text45, fontWeight: 300, maxWidth: 520, marginLeft: "auto", marginRight: "auto", wordBreak: "keep-all" }}>
-                신인 배우로 캐스팅, 촬영, 방영/개봉의 커리어를 쌓아간다. 연기력과 인지도 시스템으로 성장을 체감한다.
+                4기획사 분기 × 5페이즈(오디션·촬영·방영·홍보·스캔들). 분기에 따라 작품성/상업성/규모/자유도가 달라진다.
               </p>
               <div style={{ display: "inline-block", marginTop: 16, fontFamily: "monospace", fontSize: 12, color: "oklch(0.65 0.12 340)", padding: "4px 14px", border: `1px solid oklch(0.65 0.12 340 / 0.3)`, background: "oklch(0.65 0.12 340 / 0.08)" }}>
                 !배우모드
@@ -54,17 +63,38 @@ export default function ModeActor() {
             <div style={{ padding: isMobile ? "20px 16px" : "24px 24px", background: C.bgCard, border: `1px solid ${C.border06}`, marginBottom: isMobile ? 36 : 48 }}>
               <div style={{ fontFamily: "var(--f-display-en)", fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: C.gold, marginBottom: 12 }}>Expansion Zone Preview</div>
               <pre style={{ fontFamily: "monospace", fontSize: 12, color: C.text45, margin: 0, lineHeight: 1.8, whiteSpace: "pre-wrap" }}>
-{`▷
-[현재 작품]: (제목) — (역할) — (상태: 캐스팅/촬영중/후반작업/방영)
+{`▷ + 분기 이모지(🎭🎬🎞️📜)
+[기획사]: (4기획사 중 1)
+[현재 작품]: (제목) — (역할) — (상태: 오디션/촬영중/후반작업/방영/홍보)
 [연기력]: ■■□□□ (오디션/촬영 결과로 변동)
 [인지도]: ★n (방영 성적/화제성에 따라 변동)`}
               </pre>
             </div>
 
+            {/* Agency Branches */}
+            <div ref={refBranch}>
+              <div style={{ textAlign: "center", marginBottom: isMobile ? 20 : 28, fontFamily: "var(--f-display-en)", fontSize: 9, letterSpacing: "0.25em", textTransform: "uppercase", color: C.text25 }}>
+                Agency Branches · 4기획사 분기
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: isMobile ? 10 : 14, marginBottom: isMobile ? 36 : 48 }}>
+                {branches.map((b, i) => (
+                  <div key={b.name} style={{ padding: "16px 18px", background: C.bgCard, border: `1px solid ${C.border06}`, position: "relative", overflow: "hidden", opacity: vBranch ? 1 : 0, transform: vBranch ? "translateY(0)" : "translateY(20px)", transition: `all 0.7s cubic-bezier(0.22,1,0.36,1) ${i * 0.08}s` }}>
+                    <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${b.accent}, transparent 70%)`, opacity: 0.5 }} />
+                    <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 6 }}>
+                      <span style={{ fontSize: 18 }}>{b.emoji}</span>
+                      <span style={{ fontFamily: "var(--f-display-kr)", fontSize: 15, fontWeight: 600, color: C.white }}>{b.name}</span>
+                      <span style={{ fontFamily: "var(--f-display-en)", fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase", color: b.accent }}>{b.en}</span>
+                    </div>
+                    <p style={{ fontFamily: "var(--f-body)", fontSize: 11, color: C.text35, margin: 0, fontWeight: 300, lineHeight: 1.7, wordBreak: "keep-all" }}>{b.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Loop */}
             <div ref={refLoop}>
               <div style={{ textAlign: "center", marginBottom: isMobile ? 20 : 28, fontFamily: "var(--f-display-en)", fontSize: 9, letterSpacing: "0.25em", textTransform: "uppercase", color: C.text25 }}>
-                Career Loop
+                Career Phase · 5단계
               </div>
               <div style={{ marginBottom: isMobile ? 40 : 56 }}>
                 {loop.map((l, i) => (

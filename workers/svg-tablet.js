@@ -299,7 +299,7 @@ function generateTablet(p) {
       { label: "APEX", codes: "SY  NHR  JSH" },
       { label: "BLUE MOON", codes: "ERP  ERK  LSH" },  // ERP: 에르피 (Blue Moon 대표, 서윤 이전 전설)
       { label: "PRISM", codes: "HSR" },
-      { label: "ROUTE 0", codes: "KHR" },
+      { label: "ROUTE 0", codes: "KHR  SIA  NOA" },  // SIA·NOA: 흑백쌍둥이, Route 0 소속
       { label: "CONTESTANTS", codes: "JGR  MIL  ELA  MMR  HSE  NIA  RAY  LPS" },
     ];
 
@@ -308,7 +308,7 @@ function generateTablet(p) {
     // CDN 경로 — 2줄로 분리
     const cdnLine = `
     <text x="${L}" y="${cy}" fill="#666" font-size="10" font-family="sans-serif">CDN: img.bluehair.blue/ent/</text>
-    <text x="${R}" y="${cy}" text-anchor="end" fill="#555" font-size="10" font-family="sans-serif">15명 × ~103 = 1,543장</text>`;
+    <text x="${R}" y="${cy}" text-anchor="end" fill="#555" font-size="10" font-family="sans-serif">18명 × 102 = 1,836장+</text>`;
     cy += 18;
     const cdnFormat = `
     <text x="${L}" y="${cy}" fill="#c9a84c" font-size="10" font-family="monospace" font-weight="600">{CODE}/{NUM}.webp</text>`;
@@ -344,7 +344,7 @@ function generateTablet(p) {
       <rect x="${x}" y="${cy + 5}" width="${w}" height="22" fill="${sc.color}" opacity="0.2"/>
       <rect x="${x}" y="${cy + 5}" width="${w}" height="22" fill="none" stroke="${sc.color}" stroke-width="0.5" opacity="0.3"/>`;
     }).join("");
-    const barEnd = `<text x="${L + barW + 8}" y="${cy + 18}" fill="#555" font-size="9" font-family="sans-serif">103/char</text>`;
+    const barEnd = `<text x="${L + barW + 8}" y="${cy + 18}" fill="#555" font-size="9" font-family="sans-serif">102/char</text>`;
     cy += 36;
 
     const h = cy - startY;

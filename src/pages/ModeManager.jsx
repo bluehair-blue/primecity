@@ -18,8 +18,8 @@ const branches = [
     label: "B",
     title: "캐릭터가 매니저",
     en: "Character is Manager",
-    desc: "유저가 아티스트, NPC가 매니저로 배정. 매니저의 성격에 따라 서포트 스타일이 달라진다.",
-    candidates: "한소리 · 에리카",
+    desc: "유저가 아티스트, NPC가 매니저로 배정. 7명 후보 각자의 톤·간섭도·감정선이 모두 다르다.",
+    candidates: "강하람 · 나하린 · 노아 · 시아 · 에르피 · 에리카 · 한소리",
     accent: "oklch(0.72 0.12 55)",
   },
 ];
