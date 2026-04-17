@@ -321,9 +321,9 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 </summary>
 <div style="padding:0 24px 20px;">
 <div class="mdc">
-<div style="font-family:serif;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;">Produce · Prime · Priority</div>
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap;"><div style="font-family:serif;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);">Produce · Prime · Priority</div><span class="utag">!오디션모드</span><span class="utag">!오디션참가모드</span></div>
 <div style="font-family:serif;font-size:19px;font-weight:600;margin-bottom:6px;word-break:keep-all;color:var(--txt);">증명하라. 세계가 당신을 알게 된다.</div>
-<div style="font-size:16px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">프로듀스 · 프라임 · 프라이오리티 — 스테이지 부문. 아이돌, 가수, 댄서, 싱어송라이터를 위한 서바이벌 오디션.</div>
+<div style="font-size:16px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;">프로듀스 · 프라임 · 프라이오리티 — 스테이지 부문. 아이돌, 가수, 댄서, 싱어송라이터를 위한 서바이벌 오디션. <b style="color:var(--gold);">!오디션모드</b>=유저가 프로듀서/심사위원으로 참여. <b style="color:var(--gold);">!오디션참가모드</b>=유저가 9번째 참가자로 무대에 오른다.</div>
 </div>
 <div class="mdc">
 <div style="font-family:serif;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:oklch(0.65 0.10 240);margin-bottom:5px;">Free Play</div>
