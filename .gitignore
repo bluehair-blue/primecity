@@ -33,6 +33,8 @@ tools/r2_sync.log
 tools/r2_sync.pid
 tools/asset_gen_bg.pid
 tools/asset_gen_bg_*.log
+tools/r2_fullsync*.log
+tools/.r2_fullsync_failed.json
 
 # Models (large binary, download separately)
 models/
