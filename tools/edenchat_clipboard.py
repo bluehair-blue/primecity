@@ -134,6 +134,7 @@ def collect_lorebooks() -> list[dict[str, Any]]:
             key=lambda p: p.name)
             if (PROMPTS_DIR / "모드").exists() else []),
         ("구역", sorted(PROMPTS_DIR.glob("구역_*_EN.json"), key=lambda p: p.name)),
+        ("이벤트", sorted(PROMPTS_DIR.glob("이벤트_*_EN.json"), key=lambda p: p.name)),
         ("SVG", sorted(PROMPTS_DIR.glob("SVG_*_EN.json"), key=lambda p: p.name)),
         ("이미지", [PROMPTS_DIR / "이미지_NSFW_EN.json"]),
     ]
