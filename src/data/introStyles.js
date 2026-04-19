@@ -82,7 +82,7 @@ export const INTRO_STYLE_CONFIG = {
     mobileFallback: null,
   },
   flow: {
-    duration: 7000,   // 6500ms content + 500ms fadeOut (3-pan + water dissolve + 1s hero hold)
+    duration: 5900,   // 5400ms content + 500ms fadeOut (2 snap cuts + water dissolve + 1s hero hold)
     letterbox: false,
     requiresSvgFilter: true,
     mobileFallback: "waveShimmer",

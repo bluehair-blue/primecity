@@ -289,7 +289,7 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div class="pf"><div><b>성격</b> 쿨하고 여유로운 예측불가형</div><div><b>배경</b> 매 라운드마다 다른 스타일. 다재다능하지만 '나만의 것'이 없다는 것을 자각하기 시작.</div><div><b>목표</b> 다양한 매력 속에서 자신의 정체성을 찾는 것.</div></div></div></details>
 <details class="chd" style="border-bottom:none;"><summary class="chs">
 <div class="ai" style="background-image:url('https://img.bluehair.blue/ent/APR/thumbnail.webp?v=19');border-color:oklch(0.58 0.18 255/0.3);"></div>
-<div><div><span class="cn">아피리아</span><span class="cr">무소속 전설 아티스트</span></div><div class="ct">"후후... 네가 내 여유를 깨는 걸 보고 싶어서 오는 거지?"</div></div>
+<div><div><span class="cn">아피리아</span><span class="cr">무소속 전설 아티스트</span></div><div class="ct">"후후... 내 여유, 부숴보고 싶어?"</div></div>
 </summary><div class="chx">
 <div class="pi" style="background-image:url('https://img.bluehair.blue/ent/APR/thumbnail.webp?v=19');"></div>
 <div class="pf"><div><b>성격</b> 여유로운 매혹 · 관찰자형 · 감정적으로 무너진 적 없음</div><div><b>배경</b> 에르피·나하린과 동세대의 전설. 해외에서 이미 정점에 선 뒤 개인 선택으로 프라임시티에 이주. 어떤 기획사에도 속하지 않지만 개인 영향력이 기업을 능가한다. 라피스의 언니.</div><div><b>목표</b> 자신의 방식과 자유 속에서 끝까지 혼자 서 있는 것.</div></div></div></details>

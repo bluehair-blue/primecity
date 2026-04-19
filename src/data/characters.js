@@ -626,7 +626,7 @@ export const characters = [
     agency: "무소속",
     role: "전설 아티스트 (세부 미정)",
     age: null,
-    tagline: "후후... 네가 내 여유를 깨는 걸 보고 싶어서 오는 거지?",
+    tagline: "후후... 내 여유, 부숴보고 싶어?",
     color: "oklch(0.58 0.18 255)",
     image: cdnUrl("APR/key.webp"),
     thumbnail: cdnUrl("APR/thumbnail.webp"),
@@ -637,7 +637,7 @@ export const characters = [
     introStyle: "flow",
     introAssets: [cdnUrl("APR/intro1.webp")],
     introLabel: "Apiria / Flow",
-    quoteSequence: ["후후...", "네가 내 여유를 깨는 걸 보고 싶어서 오는 거지?"],
+    quoteSequence: ["후후...", "내 여유, 부숴보고 싶어?"],
     focusBox: {
       desktop: { cx: 50, cy: 50, w: 60, h: 75 },  // key.webp landscape bed scene — 중앙
       mobile:  { cx: 50, cy: 45, w: 70, h: 70 },
