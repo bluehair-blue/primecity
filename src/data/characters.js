@@ -630,7 +630,7 @@ export const characters = [
     color: "oklch(0.58 0.18 255)",
     image: cdnUrl("APR/intro1.webp"),       // 수중 전설 장면을 대표 비주얼로
     thumbnail: cdnUrl("APR/thumbnail.webp"),
-    profile: cdnUrl("APR/thumbnail.webp"),
+    profile: cdnUrl("APR/profile.webp"),
     sign: cdnUrl("APR/sign.webp"),
     // ── Cinematic intro ──
     // role swap: intro1(수중 전설) → keyVisual / key(침대 개인) → Phase 0 Ken Burns
@@ -640,9 +640,9 @@ export const characters = [
     introLabel: "Apiria / Flow",
     quoteSequence: ["후후...", "내 여유, 부숴보고 싶어?"],
     focusBox: {
-      // 수중 씬 — 수면 빛 + 평온한 얼굴 + 가오리 실루엣 구도 (사용자 권장값)
-      desktop: { cx: 50, cy: 40, w: 45, h: 65 },
-      mobile:  { cx: 50, cy: 35, w: 45, h: 65 },
+      // 수중 씬 — 캐릭터를 뷰포트 우측으로 당겨 좌측에 수면 빛·가오리 영역 확장
+      desktop: { cx: 20, cy: 40, w: 45, h: 65 },
+      mobile:  { cx: 20, cy: 35, w: 45, h: 65 },
     },
     keyVisualFit: "contain",
     detailPath: "/characters/apiria",
