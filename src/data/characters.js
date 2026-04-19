@@ -640,9 +640,9 @@ export const characters = [
     introLabel: "Apiria / Flow",
     quoteSequence: ["후후...", "내 여유, 부숴보고 싶어?"],
     focusBox: {
-      // 수중 씬 — 캐릭터를 뷰포트 우측으로 당겨 좌측에 수면 빛·가오리 영역 확장
-      desktop: { cx: 20, cy: 40, w: 45, h: 65 },
-      mobile:  { cx: 20, cy: 35, w: 45, h: 65 },
+      // 수중 씬 — 캐릭터를 뷰포트 우측 끝으로 당김 (좌측 수면 빛·가오리 영역 최대 확장)
+      desktop: { cx: 0, cy: 40, w: 45, h: 65 },
+      mobile:  { cx: 0, cy: 35, w: 45, h: 65 },
     },
     keyVisualFit: "contain",
     detailPath: "/characters/apiria",
