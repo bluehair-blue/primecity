@@ -281,12 +281,18 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 </summary><div class="chx">
 <div class="pi" style="background-image:url('https://img.bluehair.blue/ent/RAY/profile.webp?v=19');"></div>
 <div class="pf"><div><b>성격</b> 꺾이지 않는 밝음 — 한계를 받아들인 단단함</div><div><b>배경</b> 한쪽 다리가 의족인 언더독. 조건이 최악이지만 꺾이지 않는 강인한 사람.</div><div><b>목표</b> 실력만으로 평가받는 공정한 아티스트가 되는 것.</div></div></div></details>
-<details class="chd" style="border-bottom:none;"><summary class="chs">
+<details class="chd"><summary class="chs">
 <div class="ai" style="background-image:url('https://img.bluehair.blue/ent/LPS/thumbnail.webp?v=19');border-color:oklch(0.60 0.12 260/0.3);"></div>
 <div><div><span class="cn">라피스</span><span class="cr">오디션 참가자</span></div><div class="ct">"다양한 게 나의 개성이지~"</div></div>
 </summary><div class="chx">
 <div class="pi" style="background-image:url('https://img.bluehair.blue/ent/LPS/profile.webp?v=19');"></div>
 <div class="pf"><div><b>성격</b> 쿨하고 여유로운 예측불가형</div><div><b>배경</b> 매 라운드마다 다른 스타일. 다재다능하지만 '나만의 것'이 없다는 것을 자각하기 시작.</div><div><b>목표</b> 다양한 매력 속에서 자신의 정체성을 찾는 것.</div></div></div></details>
+<details class="chd" style="border-bottom:none;"><summary class="chs">
+<div class="ai" style="background-image:url('https://img.bluehair.blue/ent/APR/thumbnail.webp?v=19');border-color:oklch(0.58 0.18 255/0.3);"></div>
+<div><div><span class="cn">아피리아</span><span class="cr">무소속 전설 아티스트</span></div><div class="ct">"후후... 네가 내 여유를 깨는 걸 보고 싶어서 오는 거지?"</div></div>
+</summary><div class="chx">
+<div class="pi" style="background-image:url('https://img.bluehair.blue/ent/APR/thumbnail.webp?v=19');"></div>
+<div class="pf"><div><b>성격</b> 여유로운 매혹 · 관찰자형 · 감정적으로 무너진 적 없음</div><div><b>배경</b> 에르피·나하린과 동세대의 전설. 해외에서 이미 정점에 선 뒤 개인 선택으로 프라임시티에 이주. 어떤 기획사에도 속하지 않지만 개인 영향력이 기업을 능가한다. 라피스의 언니.</div><div><b>목표</b> 자신의 방식과 자유 속에서 끝까지 혼자 서 있는 것.</div></div></div></details>
 </div>
 </section>
 </div>
@@ -366,7 +372,7 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <span class="fold-i">▼</span>
 </summary>
 <div style="padding:0 24px 20px;">
-<p class="ds" style="margin:0 0 14px;text-align:left;">챗봇이 상황·감정을 분석하여 대사 직전에 이미지를 자동 출력합니다. 18명 × 캐릭터당 102장 = 총 1,836장+ + SVG UI 10종 + 부속 에셋.</p>
+<p class="ds" style="margin:0 0 14px;text-align:left;">챗봇이 상황·감정을 분석하여 대사 직전에 이미지를 자동 출력합니다. 19명 × 캐릭터당 102장 = 총 1,938장+ + SVG UI 10종 + 부속 에셋.</p>
 <div style="font-family:monospace;font-size:15px;color:var(--blue);padding:10px 14px;background:oklch(0.12 0.02 252/0.2);border:1px solid oklch(0.62 0.20 252/0.15);margin-bottom:14px;overflow-x:auto;white-space:nowrap;">img.bluehair.blue/ent/<span style="color:var(--gold);">{코드}</span>/<span style="color:var(--gold);">{번호}</span>.webp</div>
 <div style="margin-bottom:14px;">
 <div style="font-family:serif;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(1.0 0 0/0.3);margin-bottom:8px;">Character Codes</div>
@@ -389,6 +395,7 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--gold);font-family:monospace;font-weight:600;">SIA<span style="color:var(--txt-dim);font-weight:300;"> 시아</span></span>
 <span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--gold);font-family:monospace;font-weight:600;">NOA<span style="color:var(--txt-dim);font-weight:300;"> 노아</span></span>
 <span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--gold);font-family:monospace;font-weight:600;">ERP<span style="color:var(--txt-dim);font-weight:300;"> 에르피</span></span>
+<span style="font-size:13px;padding:3px 8px;background:oklch(1.0 0 0/0.03);border:1px solid oklch(1.0 0 0/0.06);color:var(--gold);font-family:monospace;font-weight:600;">APR<span style="color:var(--txt-dim);font-weight:300;"> 아피리아</span></span>
 </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:14px;">

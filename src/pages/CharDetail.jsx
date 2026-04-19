@@ -16,7 +16,7 @@
 
    연계 파일:
    - App.jsx:55 — lazy(() => import("./pages/CharDetail"))로 로딩
-   - src/data/characters.js — 17명 캐릭터 데이터 (id, introStyle 등)
+   - src/data/characters.js — 19명 캐릭터 데이터 (id, introStyle 등)
    - src/components/JgrCharDetail.jsx — 장그루 전용 뷰 (397줄)
    - src/components/CinematicCharDetail.jsx — 시네마틱 인트로 뷰 (481줄)
    - src/components/DefaultCharDetail.jsx — 기본 홀로그램 뷰 (625줄)

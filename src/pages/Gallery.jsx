@@ -183,7 +183,7 @@ export default function Gallery() {
               </h1>
               <p style={{ fontFamily: "var(--f-body)", fontSize: 12, color: C.text35, margin: "8px auto 0", maxWidth: 480, lineHeight: 1.7, fontWeight: 300, wordBreak: "keep-all" }}>
                 챗봇이 대화 중 상황·감정을 분석하여 자동으로 출력하는 이미지 컬렉션.
-                <br />18명 × 102장 = 총 1,800장+.
+                <br />19명 × 102장 = 총 1,900장+.
               </p>
               <div style={{ width: 56, height: 1, margin: isMobile ? "20px auto 0" : "28px auto 0", background: `linear-gradient(90deg, transparent, ${C.gold}, transparent)` }} />
             </div>

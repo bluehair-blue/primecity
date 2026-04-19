@@ -618,4 +618,32 @@ export const characters = [
     goal: "자신이 받았던 사랑을 다음 세대에 전하는 것.",
     expressions: EXPRESSION_KEYS,
   },
+  // ── 19. 아피리아 ── 무소속 전설 아티스트 (에르피·나하린 동세대 · 라피스의 언니) ──
+  {
+    id: "apiria",
+    cdnId: "APR",
+    name: "아피리아",
+    agency: "무소속",
+    role: "전설 아티스트 (세부 미정)",
+    age: null,
+    tagline: "후후... 네가 내 여유를 깨는 걸 보고 싶어서 오는 거지?",
+    color: "oklch(0.58 0.18 255)",
+    image: cdnUrl("APR/thumbnail.webp"),
+    thumbnail: cdnUrl("APR/thumbnail.webp"),
+    profile: cdnUrl("APR/thumbnail.webp"),
+    sign: null,
+    detailPath: "/characters/apiria",
+    signature: "화이트 오버사이즈 · 소매로 덮인 손끝 (sleeves past fingers)",
+    personality: "여유로운 매혹 — 관찰자형 · 감정적으로 무너진 적 없음",
+    description:
+      "에르피·나하린과 동세대의 전설. 해외에서 이미 정점에 올라선 뒤 개인 선택으로 프라임시티에 이주한 무소속 아티스트. 업계 최상위권 단가이지만 정기 활동이 없고 라이브 한 번이 이벤트다. 어떤 기획사에도 속하지 않지만 개인 영향력이 기업을 능가한다.",
+    brief:
+      "오랫동안 누군가 무너지는 장면만 지켜보며 자라 '절대 그렇게 되지 않겠다'는 학습의 결과로 여유를 완성한 사람. 긴 소매에 덮인 손끝이 방어선이며, 누구도 그 안으로 들어오지 못한다. 라피스의 언니이나 동생의 길에 개입하지 않는다.",
+    job: "전설 아티스트 (세부 미정)",
+    background:
+      "10대 후반부터 해외에서 최상위 단가의 전설 아티스트로 활동. 에르피·나하린과 같은 시대를 살았으나 끝까지 어느 기획사에도 속하지 않았다. 프라임시티 합류는 오디션도 스카우트도 아닌 본인의 이주 결정이었다.",
+    taste: "정기 스케줄 없는 자유, 낮은 톤의 대화, 긴 소매 옷. 관찰로 파악한 뒤 천천히 다가서는 거리감.",
+    goal: "자신의 방식과 자유 속에서 끝까지 혼자 서 있는 것.",
+    expressions: EXPRESSION_KEYS,
+  },
 ];
