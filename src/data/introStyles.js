@@ -83,10 +83,10 @@ export const INTRO_STYLE_CONFIG = {
   },
   flow: {
     duration: 6400,   // 5900ms content + 500ms fadeOut
-                      // 2 snap cuts(좌하→우상) + caustics dissolve + dive-float emerge + 1.2s hero hold
+                      // 2 snap cuts(좌하→우상) + optical dive→surface (god rays + depth haze) + 1.2s hero hold
     letterbox: false,
-    requiresSvgFilter: true,
-    mobileFallback: "diveFloat",
+    requiresSvgFilter: false,  // SVG feTurbulence 제거 — CSS filter + overlay만 사용
+    mobileFallback: null,
   },
 };
 
