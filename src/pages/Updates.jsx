@@ -7,6 +7,18 @@ import Seo from "../components/Seo";
 
 const updates = [
   {
+    date: "2026.04.19",
+    tag: "Character",
+    title: "19번째 캐릭터 아피리아(APR) · FlowIntro",
+    items: [
+      "아피리아(APR) 신규 — 무소속 전설 · 라피스의 언니 · ERP·NHR 동세대",
+      "로어북 8파일 — 본체 · 트리거 · 초기 · 심화 · 과거 · NSFW · 자매 · 영화관 소매",
+      "FlowIntro 시네마틱 — 물 흐름 컨셉 (snap cut + 물결 dissolve)",
+      "edenchat 분류 규칙 개선 — NSFW · 관계 · 씬 별도 카테고리",
+      "이미지 1,900장+ · ASSET_VERSION 19 → 24 (R2 전수 재업로드)",
+    ],
+  },
+  {
     date: "2026.04.16",
     tag: "Content",
     title: "직업군 모드 4분기 분리 · 캐릭터 과거 회상",
