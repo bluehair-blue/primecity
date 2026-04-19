@@ -34,7 +34,7 @@
     "44": "hug",
     "45": "forehead_kiss",
     "46": "neck_kiss",
-    "48": "shower",
+    "48": "showering",
     "49": "sixnine",
     "51": "missionary",
     "52": "missionary_climax",
@@ -71,7 +71,9 @@
     "83": "fullnelson_climax",
     "84": "fellatio_pov",
     "85": "fellatio_pov",
-    "86": "after_sex"
+    "86": "after_sex",
+    "97": "smata",
+    "98": "post_handjob"
   },
   "_character_archetype": {
     "SY": "aloof",
@@ -81,11 +83,11 @@
     "JGR": "aloof_tsun",
     "ERK": "tsundere",
     "LSH": "tsundere",
-    "HSR": "seductive",
-    "ELA": "seductive",
-    "MMR": "seductive",
-    "NHR": "seductive",
-    "LPS": "seductive",
+    "HSR": "seductive smile",
+    "ELA": "seductive smile",
+    "MMR": "seductive smile",
+    "NHR": "seductive smile",
+    "LPS": "seductive smile",
     "KHR": "passionate",
     "MIL": "passionate",
     "ERP": "gentle"
@@ -367,6 +369,23 @@
           "looking to the side",
           "light blush",
           "shy"
+        ],
+        "smata": [
+          "embarrassed",
+          "light blush",
+          "sideways glance",
+          "looking to the side",
+          "covering own mouth",
+          "parted lips",
+          "knees together feet apart"
+        ],
+        "post_handjob": [
+          "sideways glance",
+          "looking to the side",
+          "embarrassed",
+          "light blush",
+          "parted lips",
+          "looking at hand"
         ]
       }
     },
@@ -399,7 +418,8 @@
           "tsundere",
           "blush",
           "pout",
-          "annoyed smile"
+          "clenched teeth",
+          "light smile"
         ],
         "cowgirl_climax": [
           "half-closed eyes",
@@ -413,7 +433,7 @@
           "covering face",
           "grumpy",
           "blush",
-          "muffled annoyance"
+          "clenched teeth"
         ],
         "doggystyle_climax": [
           "face in pillow",
@@ -423,7 +443,6 @@
           "trembling"
         ],
         "spooning": [
-          "grumbling",
           "looking to the side",
           "blush",
           "annoyed"
@@ -437,7 +456,7 @@
         "fullnelson": [
           "embarrassed",
           "blush",
-          "angry embarrassment",
+          "frown",
           "sideways glance",
           "looking to the side"
         ],
@@ -462,15 +481,13 @@
         "standing_back": [
           "sideways glance",
           "looking to the side",
-          "blush",
-          "grip"
+          "blush"
         ],
         "standing_side": [
           "blush",
           "annoyed"
         ],
         "pregnant_sex": [
-          "grumbling",
           "blush",
           "hand on own stomach",
           "annoyed"
@@ -483,7 +500,8 @@
         "pregnant_after": [
           "looking to the side",
           "hand on own stomach",
-          "grumpy smile"
+          "frown",
+          "light smile"
         ],
         "after_sex": [
           "pout",
@@ -495,8 +513,7 @@
           "half-closed eyes",
           "blush",
           "open mouth",
-          "annoyed",
-          "indignant"
+          "annoyed"
         ],
         "cunnilingus": [
           "half-closed eyes",
@@ -505,7 +522,7 @@
           "moaning"
         ],
         "kiss": [
-          "aggressive kiss",
+          "french kiss",
           "tsundere",
           "closed eyes",
           "blush"
@@ -513,8 +530,7 @@
         "grope": [
           "embarrassed",
           "half-closed eyes",
-          "blush",
-          "indignant"
+          "blush"
         ],
         "fingering": [
           "half-closed eyes",
@@ -523,17 +539,17 @@
           "annoyed"
         ],
         "spanking": [
-          "annoyed glare",
+          "frown",
           "blush",
           "tears",
           "biting own lip"
         ],
         "paizuri": [
-          "reluctant",
+          "frown",
+          "closed mouth",
           "sideways glance",
           "looking to the side",
-          "blush",
-          "frown"
+          "blush"
         ],
         "fellatio_pov": [
           "sideways glance",
@@ -543,7 +559,8 @@
         ],
         "fellatio_3rd": [
           "blush",
-          "reluctant"
+          "frown",
+          "closed mouth"
         ],
         "deepthroat": [
           "tearing up",
@@ -551,9 +568,11 @@
           "blush"
         ],
         "handjob": [
-          "annoyed gaze",
+          "clenched teeth",
+          "sideways glance",
           "blush",
-          "reluctant"
+          "frown",
+          "closed mouth"
         ],
         "footjob": [
           "sideways glance",
@@ -562,20 +581,20 @@
           "blush"
         ],
         "rimjob": [
-          "reluctant",
+          "frown",
+          "closed mouth",
           "blush",
           "annoyed"
         ],
         "sixnine": [
-          "grumbling",
           "blush",
-          "muffled complaints"
+          "biting own lip"
         ],
         "hug": [
-          "grumbling",
           "covering face",
           "blush",
-          "reluctant"
+          "frown",
+          "closed mouth"
         ],
         "forehead_kiss": [
           "half-closed eyes",
@@ -588,7 +607,7 @@
           "biting own lip"
         ],
         "lap_pillow": [
-          "grumpy expression",
+          "frown",
           "light blush",
           "annoyed"
         ],
@@ -598,6 +617,21 @@
           "looking to the side",
           "blush",
           "annoyed"
+        ],
+        "smata": [
+          "sideways glance",
+          "looking to the side",
+          "blush",
+          "clenched teeth",
+          "pursed lips"
+        ],
+        "post_handjob": [
+          "sideways glance",
+          "looking to the side",
+          "blush",
+          "pursed lips",
+          "biting own lip",
+          "looking at hand"
         ]
       }
     },
@@ -608,7 +642,6 @@
       ],
       "poses": {
         "missionary": [
-          "expression",
           "closed eyes",
           "parted lips",
           "light blush",
@@ -620,13 +653,14 @@
           "tears",
           "blush",
           "trembling",
-          "silent orgasm"
+          "closed mouth"
         ],
         "cowgirl": [
-          "focus",
+          "half-closed eyes",
+          "looking down",
           "closed eyes",
           "light blush",
-          "faint smile"
+          "light smile"
         ],
         "cowgirl_climax": [
           "half-closed eyes",
@@ -639,7 +673,7 @@
           "sheet grab",
           "closed eyes",
           "light blush",
-          "quiet"
+          "closed mouth"
         ],
         "doggystyle_climax": [
           "hair over one eye",
@@ -651,7 +685,7 @@
         "spooning": [
           "sideways glance",
           "closed eyes",
-          "faint smile",
+          "light smile",
           "light blush"
         ],
         "spooning_climax": [
@@ -736,7 +770,7 @@
         "grope": [
           "half-closed eyes",
           "light blush",
-          "small reaction"
+          "parted lips"
         ],
         "fingering": [
           "half-closed eyes",
@@ -745,48 +779,52 @@
           "covering own mouth"
         ],
         "spanking": [
-          "silent endurance",
+          "clenched teeth",
+          "closed mouth",
           "tears",
           "half-closed eyes",
           "blush"
         ],
         "paizuri": [
-          "focus",
+          "half-closed eyes",
           "looking down",
           "light blush"
         ],
         "fellatio_pov": [
-          "focus",
+          "half-closed eyes",
+          "looking down",
           "closed eyes",
           "light blush"
         ],
         "fellatio_3rd": [
-          "focus",
+          "half-closed eyes",
+          "looking down",
           "closed eyes",
           "light blush"
         ],
         "deepthroat": [
           "tearing up",
-          "endurance",
+          "clenched teeth",
           "blush"
         ],
         "handjob": [
-          "focus",
+          "half-closed eyes",
           "looking down",
           "light blush"
         ],
         "footjob": [
-          "quiet",
+          "closed mouth",
           "looking down",
           "light blush"
         ],
         "rimjob": [
-          "focus",
-          "blush",
-          "dedication"
+          "half-closed eyes",
+          "looking down",
+          "blush"
         ],
         "sixnine": [
-          "focus",
+          "half-closed eyes",
+          "looking down",
           "blush",
           "wavy mouth"
         ],
@@ -794,7 +832,7 @@
           "smile",
           "closed eyes",
           "light blush",
-          "relaxed"
+          "light smile"
         ],
         "forehead_kiss": [
           "smile",
@@ -813,6 +851,16 @@
         "shower": [
           "sideways glance",
           "light blush"
+        ],
+        "smata": [
+          "closed eyes",
+          "light blush",
+          "parted lips"
+        ],
+        "post_handjob": [
+          "looking down",
+          "light blush",
+          "parted lips"
         ]
       }
     },
@@ -850,7 +898,8 @@
           "arched back",
           "seductive smile",
           "hair flip",
-          "dominant",
+          "smirk",
+          "half-closed eyes",
           "licking lips"
         ],
         "cowgirl_climax": [
@@ -866,7 +915,8 @@
           "seductive smile",
           "arched back",
           "ass",
-          "provocative",
+          "smirk",
+          "tongue out",
           "hair flip"
         ],
         "doggystyle_climax": [
@@ -904,7 +954,8 @@
           "arched back",
           "looking back",
           "seductive smile",
-          "provocative",
+          "smirk",
+          "tongue out",
           "confident"
         ],
         "anal_climax": [
@@ -938,17 +989,17 @@
         "pregnant_after": [
           "hand on own stomach",
           "light smile",
-          "seductive"
+          "seductive smile"
         ],
         "after_sex": [
           "light smile",
           "licking lips",
-          "seductive"
+          "seductive smile"
         ],
         "facial": [
           "tongue out",
           "open mouth",
-          "seductive"
+          "seductive smile"
         ],
         "cunnilingus": [
           "seductive smile",
@@ -957,7 +1008,7 @@
         ],
         "kiss": [
           "french kiss",
-          "dominant",
+          "smirk",
           "half-closed eyes"
         ],
         "grope": [
@@ -981,7 +1032,7 @@
           "seductive smile",
           "tongue out",
           "grabbing own breast",
-          "playful"
+          "smile"
         ],
         "fellatio_pov": [
           "eye contact",
@@ -1001,12 +1052,13 @@
         "handjob": [
           "teasing",
           "seductive smile",
-          "licking own lips"
+          "licking lips"
         ],
         "footjob": [
           "smirk",
           "confident",
-          "playful"
+          "tongue out",
+          "smile"
         ],
         "rimjob": [
           "confident",
@@ -1019,7 +1071,8 @@
         "hug": [
           "clinging",
           "smirk",
-          "playful"
+          "tongue out",
+          "smile"
         ],
         "forehead_kiss": [
           "looking up",
@@ -1035,13 +1088,29 @@
           "looking up",
           "seductive smile",
           "reaching",
-          "playful"
+          "tongue out",
+          "smile"
         ],
         "shower": [
           "arms up",
           "arched back",
           "seductive smile",
           "wet"
+        ],
+        "smata": [
+          "seductive smile",
+          "licking lips",
+          "tongue out",
+          "looking down",
+          "half-closed eyes",
+          "confident"
+        ],
+        "post_handjob": [
+          "seductive smile",
+          "licking lips",
+          "tongue out",
+          "half-closed eyes",
+          "looking down"
         ]
       }
     },
@@ -1074,7 +1143,8 @@
           "closed eyes",
           "smile",
           "blush",
-          "lost in pleasure"
+          "half-closed eyes",
+          "open mouth"
         ],
         "cowgirl_climax": [
           "hands on another's chest",
@@ -1208,40 +1278,49 @@
         ],
         "paizuri": [
           "smile",
-          "focused",
+          "half-closed eyes",
+          "looking down",
           "blush",
           "grabbing own breast"
         ],
         "fellatio_pov": [
           "closed eyes",
-          "eager",
+          "open mouth",
+          "smile",
           "blush"
         ],
         "fellatio_3rd": [
-          "focused",
+          "half-closed eyes",
+          "looking down",
           "closed eyes",
-          "eager",
+          "open mouth",
+          "smile",
           "blush"
         ],
         "deepthroat": [
-          "eager",
+          "open mouth",
+          "smile",
           "blush",
           "tears"
         ],
         "handjob": [
-          "eager",
+          "open mouth",
+          "smile",
           "blush"
         ],
         "footjob": [
-          "focused",
+          "half-closed eyes",
+          "looking down",
           "light blush"
         ],
         "rimjob": [
-          "focused",
+          "half-closed eyes",
+          "looking down",
           "blush"
         ],
         "sixnine": [
-          "eager",
+          "open mouth",
+          "smile",
           "blush",
           "happy sex"
         ],
@@ -1271,6 +1350,18 @@
           "blush",
           "splashing",
           "wet"
+        ],
+        "smata": [
+          "open mouth",
+          "blush",
+          "moaning",
+          "heavy breathing"
+        ],
+        "post_handjob": [
+          "open mouth",
+          "blush",
+          "smile",
+          "looking down"
         ]
       }
     },
@@ -1416,7 +1507,7 @@
         "spanking": [
           "seductive smile",
           "blush",
-          "light tears"
+          "tears"
         ],
         "paizuri": [
           "light smile",
@@ -1436,7 +1527,8 @@
         ],
         "handjob": [
           "light smile",
-          "focused"
+          "half-closed eyes",
+          "looking down"
         ],
         "footjob": [
           "light blush"
@@ -1467,8 +1559,18 @@
         ],
         "shower": [
           "light smile",
-          "relaxed",
+          "closed eyes",
           "wet"
+        ],
+        "smata": [
+          "light smile",
+          "closed eyes",
+          "light blush"
+        ],
+        "post_handjob": [
+          "light smile",
+          "looking down",
+          "light blush"
         ]
       }
     }
@@ -1539,12 +1641,8 @@
     },
     "MIL": {
       "_note": "밀라 — 자유로운 영혼, 본능적. 흥얼거림 습관. 몸으로 몰입.",
-      "cowgirl": [
-        ""
-      ],
-      "missionary": [
-        ""
-      ]
+      "cowgirl": [],
+      "missionary": []
     },
     "ELA": {
       "_note": "엘라 — 관능미 자존심. 시그니처: hair flip (base에 정의됨). 리드하듯 유혹.",
@@ -1627,11 +1725,11 @@
     "LPS": {
       "_note": "라피스 — 쿨+여유+다양성. 시그니처: V사인. 장난스럽게 다변.",
       "cowgirl": [
-        "V",
+        "v",
         "one eye closed"
       ],
       "fellatio_pov": [
-        "V",
+        "v",
         "smirk",
         "one eye closed"
       ]
@@ -1639,10 +1737,66 @@
     "ERP": {
       "_note": "에르피 — 상냥한 아이돌+대표 (Blue Moon Ent.). 시그니처: 검은색+하얀색 프릴 초커, 가슴 사이 벨트. P컵. 따뜻한 포용.",
       "missionary": [
-        "head pat"
+        "hand on another's head"
       ],
       "cowgirl": [
         "hand on another's cheek"
+      ]
+    },
+    "APR": {
+      "_note": "아피리아 — 여유로운 seductive (sleeves past fingers 시그니처). Non-climax 씬에서는 seductive 아키타입 기본 pose 유지(seductive smile/half-closed eyes/confident). Climax 씬에서는 가중치 2+ 그룹으로 ahegao/fucked silly/torogao/heart-shaped pupils/tongue out/open mouth 를 강제 발동하여 평상시 표정을 완전히 덮어씀. post_handjob 에 cum in sleeves + shushing + finger to mouth 시그니처.",
+      "missionary": [
+        "sleeves past fingers"
+      ],
+      "missionary_climax": [
+        "2::ahegao, fucked silly, torogao, heart-shaped pupils, tongue out, open mouth::",
+        "tears"
+      ],
+      "cowgirl": [
+        "hair flip",
+        "sleeves past fingers"
+      ],
+      "cowgirl_climax": [
+        "2::ahegao, fucked silly, torogao, heart-shaped pupils, tongue out, open mouth::",
+        "tears"
+      ],
+      "doggystyle": [
+        "looking back",
+        "ass"
+      ],
+      "doggystyle_climax": [
+        "2::ahegao, fucked silly, torogao, heart-shaped pupils, tongue out::",
+        "looking back"
+      ],
+      "spooning_climax": [
+        "2::torogao, heart-shaped pupils, tongue out, open mouth::",
+        "looking back"
+      ],
+      "fullnelson_climax": [
+        "2::ahegao, fucked silly, torogao, heart-shaped pupils, tongue out, open mouth::",
+        "arms up"
+      ],
+      "anal_climax": [
+        "2::fucked silly, torogao, heart-shaped pupils, tears::",
+        "arched back"
+      ],
+      "fellatio_pov": [
+        "eye contact",
+        "sleeves past fingers"
+      ],
+      "paizuri": [
+        "sleeves past fingers",
+        "grabbing own breast"
+      ],
+      "facial": [
+        "2::torogao, heart-shaped pupils, tongue out, open mouth::"
+      ],
+      "post_handjob": [
+        "cum in sleeves",
+        "shushing",
+        "finger to mouth",
+        "sleeves past fingers",
+        "half-closed eyes"
       ]
     }
   }

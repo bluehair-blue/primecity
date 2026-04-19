@@ -7,7 +7,7 @@
     "comma": "콤마 → %2C",
     "question": "물음표 → %3F",
     "forbidden": "<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.",
-    "char_codes": "SY,NHR,JSH,ERK,LSH,HSR,KHR,JGR,MIL,ELA,MMR,HSE,NIA,RAY,LPS,SIA,NOA,ERP"
+    "char_codes": "SY,NHR,JSH,ERK,LSH,HSR,KHR,JGR,MIL,ELA,MMR,HSE,NIA,RAY,LPS,SIA,NOA,ERP,APR"
   },
   "prompt": "■ 음원 차트 SVG 출력 프롬프트\n\n【라벨 설명】\n- chart: 차트명 (예: PRIME CHART)\n- song1~song5: 1위~5위 곡명\n- artist1~artist5: 각 곡의 아티스트명\n- change1~change5: 순위 변동 (▲숫자, ▼숫자, —, NEW)\n- time: 차트 기준 시각\n\n【출력 위치】\n음원 차트 순위가 발표되거나, 캐릭터의 곡이 차트에 진입하는 장면에서\n나레이션 하단 또는 장면 전환 시 출력.\n\n【URL 규칙】\n공백 → %20 / 콤마 → %2C / 물음표 → %3F\n<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.\n\n【양식】\n![](https://chart.bluehair.blue/ent/?chart={차트명}&song1={곡명1}&artist1={아티스트1}&change1={변동1}&song2={곡명2}&artist2={아티스트2}&change2={변동2}&...&time={기준시각})\n\n【예시】\n![](https://chart.bluehair.blue/ent/?chart=PRIME%20CHART&song1=Zero%20Point&artist1=서윤&change1=—&song2=Midnight%20Signal&artist2=이서하&change2=▲2&song3=불꽃처럼&artist3=강하람&change3=NEW&song4=Masquerade&artist4=엘라&change4=▼1&song5=자유낙하&artist5=밀라&change5=▲5&time=2026.03.22%2020:00%20기준)"
 }

@@ -61,6 +61,55 @@ PROMPTS_DIR = Path(__file__).resolve().parent.parent / "docs" / "prompts" / "jso
 
 
 # ═══════════════════════════════════════════════════════════════
+#  캐릭터 파일 분류 규칙
+# ═══════════════════════════════════════════════════════════════
+
+# {이름}_{suffix}_EN.json → 카테고리 매핑
+CHAR_VARIANT_CATEGORY = {
+    "트리거": "캐릭터 트리거",
+    "초기": "캐릭터 초기",
+    "심화": "캐릭터 심화",
+    "nsfw": "캐릭터 NSFW",
+    "과거": "캐릭터 특수",
+    "위기": "캐릭터 특수",
+    "가족": "캐릭터 특수",
+    "재회": "캐릭터 특수",
+    "오디션": "캐릭터 특수",
+}
+
+# {이름A}_{이름B}_{관계}_EN.json 의 관계 suffix
+CHAR_RELATION_SUFFIXES = {"자매", "라이벌", "짠꿉공", "작품"}
+
+
+def classify_char_file(filepath: Path) -> str:
+    """캐릭터 폴더 내 파일의 카테고리 판정.
+
+    규칙:
+      {이름}_EN.json                  → 캐릭터 본체
+      {이름}_{variant}_EN.json        → CHAR_VARIANT_CATEGORY 매핑
+      {이름A}_{이름B}_{관계}_EN.json → 캐릭터 관계
+      그 외 (특수 씬)                → 캐릭터 씬
+    """
+    stem = filepath.stem  # "아피리아_EN" 같은 형태
+    parts = stem.split("_")
+    if parts[-1] != "EN":
+        return "캐릭터 씬"
+    core = parts[:-1]
+
+    if len(core) == 1:
+        return "캐릭터 본체"
+
+    last = core[-1]
+    if last in CHAR_VARIANT_CATEGORY:
+        return CHAR_VARIANT_CATEGORY[last]
+    if last in CHAR_RELATION_SUFFIXES:
+        return "캐릭터 관계"
+
+    # 캐릭터명_씬명_EN (예: 아피리아_영화관소매_EN)
+    return "캐릭터 씬"
+
+
+# ═══════════════════════════════════════════════════════════════
 #  키보드 시뮬레이션 헬퍼
 # ═══════════════════════════════════════════════════════════════
 
@@ -97,32 +146,55 @@ def select_all_and_paste(text: str, delay: float = 0.1):
 # ═══════════════════════════════════════════════════════════════
 
 def collect_lorebooks() -> list[dict[str, Any]]:
-    """모든 로어북 JSON을 삽입 우선순위 순으로 수집."""
+    """모든 로어북 JSON을 삽입 우선순위 순으로 수집.
+
+    우선순위 설계 (에덴챗에서는 먼저 삽입된 블록이 상단 노출):
+      1. 메인 프롬프트        (상시 로드)
+      2. 캐릭터 본체          (정체성 기반)
+      3. 나하린 심리·냉각·분기 (루트의 특수 분기)
+      4. 캐릭터 트리거        (상황 활성화)
+      5. 캐릭터 초기          (❤️1-3)
+      6. 캐릭터 심화          (❤️6-9)
+      7. 캐릭터 NSFW          (❤️7+ 친밀)
+      8. 캐릭터 관계          (복수 등장)
+      9. 캐릭터 특수          (과거/위기/가족/재회/오디션)
+     10. 캐릭터 씬            (영화관소매 등 핀포인트 씬)
+     11. 오디션 / 프리플레이 / 모드 / 구역 / 이벤트 / SVG / 이미지
+    """
     entries: list[dict[str, Any]] = []
     freeplay_mode_files = {
         "프리플레이_시작_EN.json",
         "프리플레이_유지_EN.json",
     }
 
+    # 캐릭터 폴더 파일을 규칙 기반으로 버킷 분류
+    char_dir = PROMPTS_DIR / "캐릭터"
+    char_buckets: dict[str, list[Path]] = {
+        "캐릭터 본체": [],
+        "캐릭터 트리거": [],
+        "캐릭터 초기": [],
+        "캐릭터 심화": [],
+        "캐릭터 NSFW": [],
+        "캐릭터 관계": [],
+        "캐릭터 특수": [],
+        "캐릭터 씬": [],
+    }
+    if char_dir.exists():
+        for f in sorted(char_dir.glob("*_EN.json"), key=lambda p: p.name):
+            cat = classify_char_file(f)
+            char_buckets.setdefault(cat, []).append(f)
+
     order = [
         ("메인", [PROMPTS_DIR / "메인_프롬프트_EN.json"]),
-        ("캐릭터 본체", sorted(PROMPTS_DIR.glob("캐릭터/*_EN.json"), key=lambda p: p.name)
-            if (PROMPTS_DIR / "캐릭터").exists() else []),
+        ("캐릭터 본체", char_buckets["캐릭터 본체"]),
         ("나하린", sorted(PROMPTS_DIR.glob("나하린*_EN.json"), key=lambda p: p.name)),
-        ("캐릭터 트리거", sorted(PROMPTS_DIR.glob("캐릭터/*_트리거_EN.json"), key=lambda p: p.name)
-            if (PROMPTS_DIR / "캐릭터").exists() else []),
-        ("캐릭터 초기", sorted(PROMPTS_DIR.glob("캐릭터/*_초기_EN.json"), key=lambda p: p.name)
-            if (PROMPTS_DIR / "캐릭터").exists() else []),
-        ("캐릭터 심화", sorted(PROMPTS_DIR.glob("캐릭터/*_심화_EN.json"), key=lambda p: p.name)
-            if (PROMPTS_DIR / "캐릭터").exists() else []),
-        ("캐릭터 특수", sorted(
-            list(PROMPTS_DIR.glob("캐릭터/*_과거_EN.json")) +
-            list(PROMPTS_DIR.glob("캐릭터/*_위기_EN.json")) +
-            list(PROMPTS_DIR.glob("캐릭터/*_가족_EN.json")) +
-            list(PROMPTS_DIR.glob("캐릭터/*_재회_EN.json")) +
-            list(PROMPTS_DIR.glob("캐릭터/*_오디션_EN.json")),
-            key=lambda p: p.name)
-            if (PROMPTS_DIR / "캐릭터").exists() else []),
+        ("캐릭터 트리거", char_buckets["캐릭터 트리거"]),
+        ("캐릭터 초기", char_buckets["캐릭터 초기"]),
+        ("캐릭터 심화", char_buckets["캐릭터 심화"]),
+        ("캐릭터 NSFW", char_buckets["캐릭터 NSFW"]),
+        ("캐릭터 관계", char_buckets["캐릭터 관계"]),
+        ("캐릭터 특수", char_buckets["캐릭터 특수"]),
+        ("캐릭터 씬", char_buckets["캐릭터 씬"]),
         ("오디션", sorted((PROMPTS_DIR / "오디션").glob("*_EN.json"), key=lambda p: p.name)
             if (PROMPTS_DIR / "오디션").exists() else []),
         ("프리플레이", [
@@ -143,13 +215,6 @@ def collect_lorebooks() -> list[dict[str, Any]]:
         for f in files:
             if not f.exists():
                 continue
-            if category == "캐릭터 본체":
-                skip = ["_트리거_EN.json", "_초기_EN.json", "_심화_EN.json",
-                        "_과거_EN.json", "_위기_EN.json", "_가족_EN.json", "_재회_EN.json",
-                        "_오디션_EN.json"]
-                if any(f.name.endswith(s) for s in skip):
-                    continue
-
             parsed = parse_lorebook(f)
             if parsed:
                 parsed["category"] = category

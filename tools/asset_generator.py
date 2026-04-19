@@ -249,13 +249,15 @@ def _dedupe_prompt(prompt: str) -> str:
     return ", ".join(out)
 
 
-def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str, str, int, int] | None:
+def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str, str, str, str, int, int] | None:
     """Build prompts with proper NAI V4 char_captions separation.
 
-    Returns (base_prompt, female_caption, male_caption, width, height).
-    - base_prompt:    global artists + quality → v4_prompt.base_caption
-    - female_caption: character appearance + Female Part → char_captions[0]
-    - male_caption:   Male Part (if any) → char_captions[1]
+    Returns (base_prompt, female_caption, male_caption, female_negative, male_negative, width, height).
+    - base_prompt:      global artists + quality → v4_prompt.base_caption
+    - female_caption:   character appearance + Female Part → char_captions[0]
+    - male_caption:     Male Part (if any) → char_captions[1]
+    - female_negative:  character-specific negative → v4_negative_prompt.char_captions[0]
+    - male_negative:    currently always empty string (no male-specific negative yet)
 
     NSFW scenes get base.nsfw_suffix appended to base_prompt.
     """
@@ -301,6 +303,14 @@ def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str
         female_scene = female_scene.replace(f", {tag},", ",").replace(f", {tag}", "").replace(f"{tag}, ", "")
         male_caption = male_caption.replace(f", {tag},", ",").replace(f", {tag}", "").replace(f"{tag}, ", "")
 
+    # Per-scene append (tags appended AFTER any full override, BEFORE pose tags)
+    if scene_ovr.get("append_female"):
+        extra = scene_ovr["append_female"]
+        female_scene = f"{female_scene.rstrip(', ')}, {extra}" if female_scene else extra
+    if scene_ovr.get("append_male"):
+        extra = scene_ovr["append_male"]
+        male_caption = f"{male_caption.rstrip(', ')}, {extra}" if male_caption else extra
+
     # Character × pose overrides (archetype base + character-specific)
     # 씬 female_prompt 끝에 append하여 체위 본질 태그 뒤에 성격/포즈 디테일이 오도록 함
     pose_ovr = load_pose_overrides()
@@ -317,13 +327,24 @@ def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str
 
     female_caption = f"{cleaned_char}, {female_scene}" if female_scene else cleaned_char
 
+    # Scene-level remove_tags (씬 단위 blacklist — pose 태그 적용 이후 적용됨)
+    # 예: scene 80/81 에서 'face in pillow' 제거 (toilet 문맥 부조화 방지)
+    scene_remove = scene.get("remove_tags", [])
+    for tag in scene_remove:
+        female_caption = female_caption.replace(f", {tag},", ",").replace(f", {tag}", "").replace(f"{tag}, ", "")
+        male_caption = male_caption.replace(f", {tag},", ",").replace(f", {tag}", "").replace(f"{tag}, ", "")
+
     # 최종 중복 제거 — 캐릭터/씬/오버라이드/pose 조합 후 동일 태그 병합
     # (선등장 우선, 가중치 있는 버전이 나중에 나와도 첫 등장 유지)
     female_caption = _dedupe_prompt(female_caption)
     if male_caption:
         male_caption = _dedupe_prompt(male_caption)
 
-    return base, female_caption, male_caption, scene["width"], scene["height"]
+    # 캐릭터별 네거티브 (NAI v4 char_captions 네거티브 슬롯)
+    female_negative = char.get("negative", "") or ""
+    male_negative = ""  # male은 현재 별도 캐릭터 엔트리가 없어 전역 네거티브에 의존
+
+    return base, female_caption, male_caption, female_negative, male_negative, scene["width"], scene["height"]
 
 
 # ═══════════════════════════════════════════════════════
@@ -331,28 +352,32 @@ def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str
 # ═══════════════════════════════════════════════════════
 
 def call_nai_api(token: str, base_prompt: str, female_caption: str, male_caption: str,
-                 negative: str, width: int, height: int) -> "Image.Image":
+                 negative: str, female_negative: str, male_negative: str,
+                 width: int, height: int) -> "Image.Image":
     """Call NAI image generation API. Returns PIL Image or raises.
 
     NAI V4 prompt structure:
-    - base_caption:      global (artists + quality) → base_prompt
-    - char_captions[0]:  female character appearance + Female Part actions → female_caption
-    - char_captions[1]:  Male Part (if present) → male_caption
+    - base_caption:                global (artists + quality) → base_prompt
+    - char_captions[0]:            female character appearance + Female Part → female_caption
+    - char_captions[1]:            Male Part (if present) → male_caption
+    - neg base_caption:            global negative
+    - neg char_captions[0]:        female character-specific negative → female_negative
+    - neg char_captions[1]:        male character-specific negative → male_negative
+
+    centers 는 use_coords=False 이면 NAI 가 무시하므로 생략.
     """
     seed = random.randint(0, 2**32 - 1)  # noqa: S311  (image seed, not crypto)
 
     # Build char_captions: female always present, male only when needed
+    # centers 생략 (use_coords=False 이므로 좌표 불필요)
     char_captions = []
+    neg_char_captions = []
     if female_caption:
-        char_captions.append({
-            "char_caption": female_caption,
-            "centers": [{"x": 0.5, "y": 0.5}],
-        })
+        char_captions.append({"char_caption": female_caption})
+        neg_char_captions.append({"char_caption": female_negative})
     if male_caption:
-        char_captions.append({
-            "char_caption": male_caption,
-            "centers": [{"x": 0.5, "y": 0.5}],
-        })
+        char_captions.append({"char_caption": male_caption})
+        neg_char_captions.append({"char_caption": male_negative})
 
     payload = {
         "input": base_prompt,
@@ -417,7 +442,7 @@ def call_nai_api(token: str, base_prompt: str, female_caption: str, male_caption
             "v4_negative_prompt": {
                 "caption": {
                     "base_caption": negative,
-                    "char_captions": [],
+                    "char_captions": neg_char_captions,
                 },
                 "use_coords": False,
                 "use_order": False,
@@ -525,10 +550,11 @@ def _generate_one(token: str, config: dict, state: dict,
                 log.info(f"  Skipped {char_code}/{scene_num} (override _skip)")
                 mark_completed(state, char_code, scene_num)
                 return True
-            base_prompt, female_cap, male_cap, w, h = result
+            base_prompt, female_cap, male_cap, female_neg, male_neg, w, h = result
             log.info(f"  Generating {char_code}/{scene_num}.webp ({scene_name}) (attempt {attempt})")
 
-            img = call_nai_api(token, base_prompt, female_cap, male_cap, negative, w, h)
+            img = call_nai_api(token, base_prompt, female_cap, male_cap, negative,
+                                female_neg, male_neg, w, h)
             save_image(img, char_code, scene_num, config)
             mark_completed(state, char_code, scene_num)
             return True
@@ -600,11 +626,12 @@ def generate_batch(token, config, state, char_codes=None, scene_nums=None,
             if result is None:
                 log.info(f"  [{done}/{total}] DRY-RUN {char_code}/{scene_num} — SKIPPED (override)")
                 continue
-            base_prompt, female_cap, male_cap, w, h = result
+            base_prompt, female_cap, male_cap, female_neg, male_neg, w, h = result
             log.info(f"  [{done}/{total}] DRY-RUN {char_code}/{scene_num} ({scene_name}) {w}×{h}")
             log.info(f"    base:    {base_prompt[:80]}...")
             log.info(f"    female:  {female_cap[:80]}...")
             log.info(f"    male:    {male_cap or '(none)'}")
+            log.info(f"    f_neg:   {female_neg or '(none)'}")
             continue
 
         log.info(f"  [{done}/{total}]")
