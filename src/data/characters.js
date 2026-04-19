@@ -631,7 +631,7 @@ export const characters = [
     image: cdnUrl("APR/intro1.webp"),       // 수중 전설 장면을 대표 비주얼로
     thumbnail: cdnUrl("APR/thumbnail.webp"),
     profile: cdnUrl("APR/thumbnail.webp"),
-    sign: null,
+    sign: cdnUrl("APR/sign.webp"),
     // ── Cinematic intro ──
     // role swap: intro1(수중 전설) → keyVisual / key(침대 개인) → Phase 0 Ken Burns
     keyVisual: cdnUrl("APR/intro1.webp"),
