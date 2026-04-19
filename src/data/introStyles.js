@@ -81,6 +81,12 @@ export const INTRO_STYLE_CONFIG = {
     requiresSvgFilter: false,
     mobileFallback: null,
   },
+  flow: {
+    duration: 7000,   // 6500ms content + 500ms fadeOut (3-pan + water dissolve + 1s hero hold)
+    letterbox: false,
+    requiresSvgFilter: true,
+    mobileFallback: "waveShimmer",
+  },
 };
 
 /**

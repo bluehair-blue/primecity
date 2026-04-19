@@ -628,10 +628,21 @@ export const characters = [
     age: null,
     tagline: "후후... 네가 내 여유를 깨는 걸 보고 싶어서 오는 거지?",
     color: "oklch(0.58 0.18 255)",
-    image: cdnUrl("APR/thumbnail.webp"),
+    image: cdnUrl("APR/key.webp"),
     thumbnail: cdnUrl("APR/thumbnail.webp"),
     profile: cdnUrl("APR/thumbnail.webp"),
     sign: null,
+    // ── Cinematic intro ──
+    keyVisual: cdnUrl("APR/key.webp"),
+    introStyle: "flow",
+    introAssets: [cdnUrl("APR/intro1.webp")],
+    introLabel: "Apiria / Flow",
+    quoteSequence: ["후후...", "네가 내 여유를 깨는 걸 보고 싶어서 오는 거지?"],
+    focusBox: {
+      desktop: { cx: 50, cy: 50, w: 60, h: 75 },  // key.webp landscape bed scene — 중앙
+      mobile:  { cx: 50, cy: 45, w: 70, h: 70 },
+    },
+    keyVisualFit: "contain",  // key가 landscape라 Phase 1에서 crop 방지
     detailPath: "/characters/apiria",
     signature: "화이트 오버사이즈 · 소매로 덮인 손끝 (sleeves past fingers)",
     personality: "여유로운 매혹 — 관찰자형 · 감정적으로 무너진 적 없음",
