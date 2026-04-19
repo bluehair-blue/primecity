@@ -2,38 +2,50 @@ import { useEffect, useRef, useState } from "react";
 import CenteredQuote from "./CenteredQuote";
 
 /* ══════════════════════════════════════════════════════════
-   FlowIntro (APR) — snap-cut pair → water dissolve → bed hero
+   FlowIntro (APR) — snap-cut pair → water dissolve → surface
    ------------------------------------------------------------
-   Concept: 2개의 focal(좌하/우상)이 "딱, 딱" cut으로 교체된 뒤
-   물결이 이미지를 녹여 key 이미지(침대)로 전환된다.
-   대각선 관찰 → 물 흐름 → 휴식.
+   Concept: 침대 씬의 두 focal(좌하/우상)이 "딱, 딱" cut으로 교체된 뒤,
+   수중 빛과 물결이 이미지를 녹이고, 새 이미지(수중 전설 씬)가 깊은
+   곳에서 수면으로 부상한다.
+   개인의 평온 → 전설의 현시.
 
-   Sequence: 5900ms total
+   Sequence: 6400ms total
      0    -  300ms : black (ring opening)
-     300  - 1700ms : Beat 1 — intro1 좌하 (25% 75%, scale 1.6) snap-in
-     1700 - 3100ms : Beat 2 — intro1 우상 (75% 25%, scale 1.6) snap-cut
-     3100 - 4400ms : Beat 3 — water dissolve
-                              feTurbulence 왜곡 + intro1 opacity 1→0
-                              key opacity 0→1
-     4400 - 5400ms : Beat 4 — key hero + hero quote (1s hold)
-     5400 - 5900ms : fadeOut → Phase 1 keyVisual
+     300  - 1600ms : Beat 1 — intro1 좌하 (25% 75%, scale 1.6) snap-in
+     1600 - 2900ms : Beat 2 — intro1 우상 (75% 25%, scale 1.6) snap-cut
+     2900 - 4700ms : Beat 3 — water transition (1800ms)
+                              intro1: 수면 아래로 가라앉음 (blur↑ brightness↓ scale↑ translateY↓)
+                              key   : 깊은 곳에서 부상 (blur↓ brightness↑ scale↓ translateY↑)
+                              caustics feTurbulence displacement (수평 0.01 0.05)
+                              wave wipe 장식 1회 (블루 밴드 top→bottom)
+     4700 - 5900ms : Beat 4 — key hero + hero quote (1.2s breathing)
+     5900 - 6400ms : fadeOut → Phase 1 keyVisual
 
-   Snap 연출 원칙: 각 beat별 img를 별도 요소로 분리하고 각자 fixed
-   focal에 배치. beat 전환은 opacity 120ms 교체 (사실상 cut).
-   object-position 트랜지션 금지 — 부드러운 pan은 "싸구려" 느낌.
+   Snap 연출 원칙: object-position 트랜지션 금지. 별도 img + opacity 120ms 교체.
+   Surface 연출 원칙: CSS filter 체이닝 (url + blur + brightness) + transform 연동.
 
-   Mobile: SVG filter 없음, CSS wave shimmer fallback.
-   zIndex: ring(1) < intro1 beats(2) < key dissolve(3) < vignette(4) < quote(6)
+   Mobile: SVG filter 없음, CSS dive-float만 사용.
+   zIndex: ring(1) < intro1 beats(2) < key surface(3) < wave wipe(4) < vignette(5) < quote(6)
    ══════════════════════════════════════════════════════════ */
 
 const FILTER_ID = "cinemaFlowFilter";
 
-// Beat별 focal — 사용자 확정 (좌하 → 우상 대각선)
+// Beat별 focal — 좌하 → 우상 대각선 snap
 const BEAT1_FOCAL = { objectPosition: "25% 75%", scale: 1.6 };
 const BEAT2_FOCAL = { objectPosition: "75% 25%", scale: 1.6 };
 
+// CSS filter 유틸 — SVG caustics + native blur/brightness 체이닝
+function buildFilter({ caustics, blur = 0, brightness = 1 }) {
+  const parts = [];
+  if (caustics) parts.push(`url(#${FILTER_ID})`);
+  if (blur > 0) parts.push(`blur(${blur}px)`);
+  if (brightness !== 1) parts.push(`brightness(${brightness})`);
+  return parts.length ? parts.join(" ") : "none";
+}
+
 export default function FlowIntro({ char, isMobile, objectPosition, config, onSkip }) {
   const [beat, setBeat] = useState(0);
+  const [surfacing, setSurfacing] = useState(false);
   const [fadingOut, setFadingOut] = useState(false);
   const [filterActive, setFilterActive] = useState(!isMobile);
   const rafRef = useRef(null);
@@ -45,11 +57,12 @@ export default function FlowIntro({ char, isMobile, objectPosition, config, onSk
   useEffect(() => {
     const timers = [
       setTimeout(() => setBeat(1), 300),
-      setTimeout(() => setBeat(2), 1700),
-      setTimeout(() => setBeat(3), 3100),   // water dissolve
-      setTimeout(() => setBeat(4), 4400),   // key hero
-      setTimeout(() => setFilterActive(false), 4400),
-      setTimeout(() => setFadingOut(true), 5400),
+      setTimeout(() => setBeat(2), 1600),
+      setTimeout(() => setBeat(3), 2900),        // water transition begins
+      setTimeout(() => setSurfacing(true), 3300), // 400ms in — key starts rising from deep
+      setTimeout(() => setBeat(4), 4700),         // key fully surfaced + hero quote
+      setTimeout(() => setFilterActive(false), 4700),
+      setTimeout(() => setFadingOut(true), 5900),
     ];
     return () => {
       timers.forEach(clearTimeout);
@@ -57,13 +70,13 @@ export default function FlowIntro({ char, isMobile, objectPosition, config, onSk
     };
   }, []);
 
-  // ── rAF: water displacement envelope during Beat 3 (desktop only) ──
-  // 물결 확산→잦아듦 sin 반주기. MIL ripple의 역방향 패턴 (displacement는 상승→하강).
+  // ── Caustics displacement envelope (Beat 3, desktop only) ──
+  // sin 반주기: 0 → peak(40) → 0 over 1800ms
   useEffect(() => {
     if (isMobile || beat !== 3) return;
     const startMs = performance.now();
-    const DURATION = 1300;
-    const MAX_SCALE = 56;
+    const DURATION = 1800;
+    const MAX_SCALE = 40;
 
     const tick = (now) => {
       const t = Math.min(1, (now - startMs) / DURATION);
@@ -89,6 +102,17 @@ export default function FlowIntro({ char, isMobile, objectPosition, config, onSk
     objectFit: "cover",
   };
 
+  // ── 필터 상태 계산 ──
+  const introFilter = beat === 3
+    ? buildFilter({ caustics: !isMobile, blur: 15, brightness: 0.35 })
+    : "none";
+
+  const keyFilter = beat === 3 && !surfacing
+    ? buildFilter({ caustics: !isMobile, blur: 20, brightness: 0.4 })
+    : beat === 3 && surfacing
+    ? buildFilter({ caustics: !isMobile, blur: 0, brightness: 1 })
+    : "none";
+
   return (
     <div
       onClick={onSkip}
@@ -100,16 +124,17 @@ export default function FlowIntro({ char, isMobile, objectPosition, config, onSk
         transition: "opacity 0.5s ease-out",
       }}
     >
-      {/* ── SVG filter (desktop, Beat 3 only) ── */}
+      {/* ── SVG filter (desktop only, Beat 3 active) ── */}
       {filterActive && !isMobile && (
         <svg width="0" height="0" style={{ position: "absolute", pointerEvents: "none" }} aria-hidden="true">
           <defs>
             <filter id={FILTER_ID} x="-10%" y="-10%" width="120%" height="120%">
+              {/* 수평 방향성 물결 (x 0.01 wider, y 0.05 tighter = 옆으로 흐르는 파동) */}
               <feTurbulence
                 type="fractalNoise"
-                baseFrequency="0.014 0.022"
-                numOctaves="3"
-                seed="7"
+                baseFrequency="0.01 0.05"
+                numOctaves="2"
+                seed="9"
                 result="noise"
               />
               <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" />
@@ -147,61 +172,62 @@ export default function FlowIntro({ char, isMobile, objectPosition, config, onSk
           objectPosition: BEAT1_FOCAL.objectPosition,
           transform: `scale(${BEAT1_FOCAL.scale})`,
           opacity: beat === 1 ? 1 : 0,
-          transition: "opacity 0.12s linear",  // snap cut (120ms = 거의 하드 컷)
+          transition: "opacity 0.12s linear",
           zIndex: 2,
         }}
       />
 
-      {/* ── Beat 2: 우상 focal (snap in, stays through Beat 3 dissolve) ── */}
+      {/* ── Beat 2: 우상 focal (snap in, then sinks during Beat 3) ── */}
       <img
         src={introSrc}
         alt=""
         style={{
           ...commonImg,
           objectPosition: BEAT2_FOCAL.objectPosition,
-          transform: `scale(${BEAT2_FOCAL.scale})`,
+          transform: beat === 3
+            ? "scale(1.75) translateY(8%)"            // 수면 아래로 가라앉음
+            : `scale(${BEAT2_FOCAL.scale})`,
           opacity: beat === 2 ? 1 : beat === 3 ? 0 : 0,
-          filter: beat === 3 && !isMobile ? `url(#${FILTER_ID})` : "none",
-          // Beat 1→2 snap: 120ms. Beat 2→3 dissolve: 1300ms water fade.
+          filter: introFilter,
           transition: beat === 3
-            ? "opacity 1.3s ease-out"
+            ? "opacity 1.6s ease-in, filter 1.6s ease-in, transform 1.8s ease-in"
             : "opacity 0.12s linear",
           zIndex: 2,
         }}
       />
 
-      {/* ── Beat 3+: key dissolve-in (underneath intro1 during dissolve) ── */}
+      {/* ── Beat 3+: key 이미지 (깊이에서 부상) ── */}
       <img
         src={keySrc}
         alt=""
         style={{
           ...commonImg,
           objectPosition,
+          // Beat 3 submerged 초기 → surfacing 트리거 시 surface 상태로 CSS 트랜지션
+          transform: beat === 3 && !surfacing
+            ? "scale(1.1) translateY(-8%)"            // 깊은 곳 (아래에서 떠오르기 시작)
+            : "none",                                  // 수면 위 (surfaced)
           opacity: beat >= 3 ? 1 : 0,
-          filter: beat === 3 && !isMobile ? `url(#${FILTER_ID})` : "none",
-          transform: isMobile && beat === 3 ? "scaleY(1.04) skewX(1deg)" : "none",
-          transition: "opacity 1.3s ease-out, transform 1.3s cubic-bezier(0.22,1,0.36,1)",
+          filter: keyFilter,
+          transition: "opacity 1.6s ease-out, filter 1.4s ease-out, transform 1.6s ease-out",
           zIndex: 3,
         }}
       />
 
-      {/* ── Mobile: water shimmer (Beat 3 fallback for missing SVG filter) ── */}
-      {isMobile && (
-        <div
-          style={{
-            position: "absolute",
-            left: 0, right: 0, top: "35%", height: "30%",
-            background:
-              "linear-gradient(180deg, oklch(0.62 0.20 252 / 0) 0%, oklch(0.62 0.20 252 / 0.18) 50%, oklch(0.62 0.20 252 / 0) 100%)",
-            mixBlendMode: "screen",
-            opacity: beat === 3 ? 1 : 0,
-            transform: beat === 3 ? "translateY(8%)" : "translateY(-10%)",
-            transition: "transform 1.3s cubic-bezier(0.22,1,0.36,1), opacity 0.6s ease-out",
-            zIndex: 4,
-            pointerEvents: "none",
-          }}
-        />
-      )}
+      {/* ── Wave wipe 장식 (Beat 3) — 블루 라이트 밴드 top→bottom 1회 스윕 ── */}
+      <div
+        style={{
+          position: "absolute", inset: 0,
+          background: "linear-gradient(180deg, transparent 0%, transparent 45%, oklch(0.65 0.18 250 / 0.28) 50%, transparent 55%, transparent 100%)",
+          backgroundSize: "100% 300%",
+          backgroundPosition: beat === 3 ? "0% 100%" : "0% -100%",
+          mixBlendMode: "screen",
+          opacity: beat === 3 ? 1 : 0,
+          transition: "background-position 1.8s cubic-bezier(0.22,1,0.36,1), opacity 0.4s ease-out",
+          zIndex: 4,
+          pointerEvents: "none",
+        }}
+      />
 
       {/* ── Vignette (Beat 1+) ── */}
       <div
@@ -222,7 +248,7 @@ export default function FlowIntro({ char, isMobile, objectPosition, config, onSk
         show={beat >= 1 && beat < 4}
       />
 
-      {/* ── CenteredQuote hero (Beat 4+) — 1s hero hold ── */}
+      {/* ── CenteredQuote hero (Beat 4+) — 1.2s hero hold ── */}
       <CenteredQuote
         char={char} isMobile={isMobile}
         emphasis="hero"

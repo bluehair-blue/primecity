@@ -628,21 +628,23 @@ export const characters = [
     age: null,
     tagline: "후후... 내 여유, 부숴보고 싶어?",
     color: "oklch(0.58 0.18 255)",
-    image: cdnUrl("APR/key.webp"),
+    image: cdnUrl("APR/intro1.webp"),       // 수중 전설 장면을 대표 비주얼로
     thumbnail: cdnUrl("APR/thumbnail.webp"),
     profile: cdnUrl("APR/thumbnail.webp"),
     sign: null,
     // ── Cinematic intro ──
-    keyVisual: cdnUrl("APR/key.webp"),
+    // role swap: intro1(수중 전설) → keyVisual / key(침대 개인) → Phase 0 Ken Burns
+    keyVisual: cdnUrl("APR/intro1.webp"),
     introStyle: "flow",
-    introAssets: [cdnUrl("APR/intro1.webp")],
+    introAssets: [cdnUrl("APR/key.webp")],
     introLabel: "Apiria / Flow",
     quoteSequence: ["후후...", "내 여유, 부숴보고 싶어?"],
     focusBox: {
-      desktop: { cx: 50, cy: 50, w: 60, h: 75 },  // key.webp landscape bed scene — 중앙
-      mobile:  { cx: 50, cy: 45, w: 70, h: 70 },
+      // 수중 씬 — 수면 빛 + 평온한 얼굴 + 가오리 실루엣 구도 (사용자 권장값)
+      desktop: { cx: 50, cy: 40, w: 45, h: 65 },
+      mobile:  { cx: 50, cy: 35, w: 45, h: 65 },
     },
-    keyVisualFit: "contain",  // key가 landscape라 Phase 1에서 crop 방지
+    keyVisualFit: "contain",
     detailPath: "/characters/apiria",
     signature: "화이트 오버사이즈 · 소매로 덮인 손끝 (sleeves past fingers)",
     personality: "여유로운 매혹 — 관찰자형 · 감정적으로 무너진 적 없음",

@@ -82,10 +82,11 @@ export const INTRO_STYLE_CONFIG = {
     mobileFallback: null,
   },
   flow: {
-    duration: 5900,   // 5400ms content + 500ms fadeOut (2 snap cuts + water dissolve + 1s hero hold)
+    duration: 6400,   // 5900ms content + 500ms fadeOut
+                      // 2 snap cuts(좌하→우상) + caustics dissolve + dive-float emerge + 1.2s hero hold
     letterbox: false,
     requiresSvgFilter: true,
-    mobileFallback: "waveShimmer",
+    mobileFallback: "diveFloat",
   },
 };
 
