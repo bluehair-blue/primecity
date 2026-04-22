@@ -253,7 +253,7 @@ ripple:  { duration: 6000 },  // MIL — 줌 2비트 + 물결 + hero hold
 ```
 [1] HeroSlider (bg3~11, 이중 오빗 링)
  → [2] IntroSection (캐치프레이즈)
- → [3] CharCarousel (15명)
+ → [3] CharCarousel (20명)
  → [4] CityMap (5구역 인터랙티브)
  → [5] GameModes (3+5 모드)
  → [6] TriangleNav (하위 5종)
@@ -270,7 +270,7 @@ ripple:  { duration: 6000 },  // MIL — 줌 2비트 + 물결 + hero hold
 
 동심원 구조: **더 코어**(APEX) → **미들 링**(Blue Moon) → **하입 로드**(PRISM) → **테라스**(Route 0) → **산업단지**
 
-15명 캐릭터 (CDN코드): SY, NHR, JSH, ERK, LSH, HSR, KHR, JGR, MIL, ELA, MMR, HSE, NIA, RAY, LPS
+20명 캐릭터 (CDN코드): SY, NHR, JSH, ERK, LSH, HSR, KHR, JGR, MIL, ELA, MMR, HSE, NIA, RAY, LPS, SIA, NOA, ERP, APR, SPA
 
 > 상세 → `research.md` §10, `docs/worldbuilding/캐릭터 프로필.md`, `docs/worldbuilding/프라임시티 세계관.md`
 
@@ -431,7 +431,7 @@ C:\Users\User\OneDrive\图片\챗봇 제작\연예계\char_img\
 
 ## 작업 현황 (요약)
 
-**완료**: 사이트 16페이지, 디자인 시스템, 에셋 1,215장+, 보안, 파일 정리, tools/ 파이프라인 개선 (18항목), NSFW 검열 배치 (264/855장), 캐릭터 사인/썸네일 15명 CDN 통일, CharDetail seam cue, **장그루 전용 시네마틱 인트로 (JgrCharDetail v4)**, 사이트 총체적 최적화 ①②③④, CityMap 히트박스 등각 보정, **챗봇 프롬프트 Phase 5 전면 개편 완료 (103개 로어북, 최종 검증 A~E PASS)**, **태블릿 SVG 개편 (10섹션, 13모드, escapeXml 수정, 상대좌표 리팩터링)**, 이미지 에셋 재생성 1,125장 완료 (char_img/), **에덴챗 로어북 102개 플랫폼 삽입 완료** (edenchat_clipboard.py 매크로), char_img/ 검열 배치 완료 (conf=0.7, 252장 검열/603장 클린), **이미지 에셋 확장 완료 (21코드×15캐릭 = 314장 + 검열 53장)** — 코드 1-96 빈번호 해소 + NSFW 확장(섹스웅 패턴) + 라이브씬/무대씬, **에덴챗 소개 HTML 개편 완료** (폰트 +4px, 15명 전체 썸네일 이미지, Prism→Prime, ?v=3, 섹션 재배치, stat bridge 2개, 산업단지 추가, 유틸리티 모드 5개, Image System 6카테고리+캐릭터코드란, CTA 배경이미지+챗봇 시작 버튼, confirm 팝업 제거), **15명 sign 이미지 전원 등록** (ASSET_VERSION 11, CharDetail 3곳 Sign 섹션 추가), **CinematicCharDetail 인트로 시스템 Step 5a/5b/6 완료** (JSH CutawayIntro v4 · KHR CameraIntro · MIL RippleIntro), **CinematicCharDetail Phase 1 이펙트 추가** (마우스 틸트 · 반사 · bgMarquee)
+**완료**: **20번째 캐릭터 사피아(SPA) 추가 · 라피스 디자인 롤백** (2026-04-23, 자매 이상의 애정 설정 · APPAIREL & DESIGN · ASSET_VERSION 28), **이미지 원본 경로 통일 연예계/char_img/ · Apphireah 교정** (2026-04-23), 사이트 16페이지, 디자인 시스템, 에셋 2,000장+, 보안, 파일 정리, tools/ 파이프라인 개선 (18항목), NSFW 검열 배치 (264/855장), 캐릭터 사인/썸네일 15명 CDN 통일, CharDetail seam cue, **장그루 전용 시네마틱 인트로 (JgrCharDetail v4)**, 사이트 총체적 최적화 ①②③④, CityMap 히트박스 등각 보정, **챗봇 프롬프트 Phase 5 전면 개편 완료 (103개 로어북, 최종 검증 A~E PASS)**, **태블릿 SVG 개편 (10섹션, 13모드, escapeXml 수정, 상대좌표 리팩터링)**, 이미지 에셋 재생성 1,125장 완료 (char_img/), **에덴챗 로어북 102개 플랫폼 삽입 완료** (edenchat_clipboard.py 매크로), char_img/ 검열 배치 완료 (conf=0.7, 252장 검열/603장 클린), **이미지 에셋 확장 완료 (21코드×15캐릭 = 314장 + 검열 53장)** — 코드 1-96 빈번호 해소 + NSFW 확장(섹스웅 패턴) + 라이브씬/무대씬, **에덴챗 소개 HTML 개편 완료** (폰트 +4px, 15명 전체 썸네일 이미지, Prism→Prime, ?v=3, 섹션 재배치, stat bridge 2개, 산업단지 추가, 유틸리티 모드 5개, Image System 6카테고리+캐릭터코드란, CTA 배경이미지+챗봇 시작 버튼, confirm 팝업 제거), **15명 sign 이미지 전원 등록** (ASSET_VERSION 11, CharDetail 3곳 Sign 섹션 추가), **CinematicCharDetail 인트로 시스템 Step 5a/5b/6 완료** (JSH CutawayIntro v4 · KHR CameraIntro · MIL RippleIntro), **CinematicCharDetail Phase 1 이펙트 추가** (마우스 틸트 · 반사 · bgMarquee)
 **진행 중**: **CharDetail 시네마틱 인트로 시스템** — Step 7a(LSH 글리치), 7b(MMR 플래시+댓글), 7c(NHR 안개), 7d(HSR 카드딜), 7e(HSE 페이지넘김), 8(전수 테스트). 아키텍처: `CinematicCharDetail` + `INTRO_COMPONENTS` 레지스트리 + Phase -1/0/1/2 상태기계 + `CenteredQuote.jsx` 공용 컴포넌트. 상세 → `src/pages/chardetail_intro_plan.md`
 **미완**: **에덴챗 소개 HTML 사용자 피드백 반영** (에덴챗 플랫폼 삽입 후 확인 필요), **에덴챗 삽입 테스트** (실제 챗봇 동작 검증), Works 확장, 최적화 ⑤ 접근성(사용자 디자인 판단 대기), svgTemplates.js 고유명사 반영, char_img/ CDN 비교+반영
 **최후순위**: PyTorch CPU→CUDA 교체 + ntd11 YOLO 파인튜닝 (귀두/작은 성기 미감지 개선, 라벨링 40장 필요, GPU 활성화 후 학습 5-10분)

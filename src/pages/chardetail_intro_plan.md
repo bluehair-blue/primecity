@@ -22,7 +22,7 @@
 | 한소리 | HSR | `cardDeal` | `CardDealIntro.jsx` | 3600ms | ⏳ 미구현 |
 | 하시은 | HSE | `pageFlip` | `PageFlipIntro.jsx` | 3800ms | ⏳ 미구현 |
 
-**미보유 키비주얼** (시네마틱 인트로 없이 DefaultCharDetail): SY · ERK · ELA · NIA · RAY · LPS
+**미보유 키비주얼** (시네마틱 인트로 없이 DefaultCharDetail): SY · ERK · ELA · NIA · RAY · LPS · SPA
 
 ---
 
