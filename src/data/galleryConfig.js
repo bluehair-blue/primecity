@@ -10,7 +10,8 @@ export const CHAR_CODES = [
   { code: "NIA", name: "니아" }, { code: "RAY", name: "레이" },
   { code: "LPS", name: "라피스" },
   { code: "SIA", name: "시아" }, { code: "NOA", name: "노아" },
-  { code: "ERP", name: "에르피" },
+  { code: "ERP", name: "에르피" }, { code: "APR", name: "아피리아" },
+  { code: "SPA", name: "사피아" },
 ];
 
 export const SCENE_CATEGORIES = [

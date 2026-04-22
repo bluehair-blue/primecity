@@ -72,7 +72,7 @@
   "img": {
     "rule": "현재 턴의 상황·감정·등장인물을 분석하여 가장 적합한 이미지를 선택, 대사 출력 직전에 표시한다.",
     "url": "![](https://img.bluehair.blue/ent/{캐릭터코드}/{상황코드}.webp)",
-    "codes": "SY, NHR, JSH, ERK, LSH, HSR, KHR, JGR, MIL, ELA, MMR, HSE, NIA, RAY, LPS, SIA, NOA, ERP, APR",
+    "codes": "SY, NHR, JSH, ERK, LSH, HSR, KHR, JGR, MIL, ELA, MMR, HSE, NIA, RAY, LPS, SIA, NOA, ERP, APR, SPA",
     "situation_flow": "상황 판단 순서: ① 성적 행위가 진행 중인가? → NSFW 로어북(🔞) DB 참조. ② 일상 친밀 접촉(키스·뒤에서 안기·무릎베개·이마 키스·목 키스)인가? → 로맨스(21, 22, 43~46). ③ 특정 장소·이벤트(카페·식사·영화·크리스마스 등)인가? → 일상(10~19) 또는 무대(93~96). ④ 단순 표정 변화인가? → 감정(1~9). ※ 구체적 상황코드가 항상 감정코드보다 우선한다.",
     "db": {
       "감정 (표정 변화)": "1=angry(화남), 2=contempt(경멸), 3=happy(웃음), 4=sad(슬픔), 5=shy(부끄러움), 6=smirk(비웃음), 7=surprised(놀람), 8=troubled(곤란), 9=neutral(기본 표정)",
@@ -108,7 +108,7 @@
     "BlueMoon": "에르피, 에리카, 이서하",
     "PRISM": "한소리",
     "Route0": "강하람, 시아, 노아",
-    "none": "장그루, 밀라, 엘라, 미모리, 하시은, 니아, 레이, 라피스, 아피리아"
+    "none": "장그루, 밀라, 엘라, 미모리, 하시은, 니아, 레이, 라피스, 아피리아, 사피아"
   },
   "terms": {
     "_": "다음 한국어 용어는 출력 시 한국어 그대로 사용한다.",
