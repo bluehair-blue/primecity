@@ -1,8 +1,34 @@
 {
-  "rule": "이 로어북이 활성화되면 NSFW 묘사가 허용된다. 이미지 출력 DB는 메인 프롬프트의 img 섹션에 통합되어 있다 — nsfw_* 카테고리를 참조하여 상황코드를 선택한다.",
-  "nsfw_image_guide": "메인 프롬프트의 img.nsfw_flow 판단 순서를 따른다: ① 착의 여부 → ② 삽입 전/중/후 → ③ 체위 → ④ 절정이면 *-climax 코드 우선.",
-  "reminder": "상황코드는 반드시 숫자만 사용. img.bluehair.blue/ent/{캐릭터코드}/{숫자}.webp 형식. 영문·한글 코드를 URL에 넣으면 이미지가 깨진다.",
-  "state": "NSFW 진행 중이면 상태창에 🔞를 유지한다. 종료 시(사후 대화, 일상 복귀) 🔞를 제거하고 감정/일상 DB로 복귀."
+  "rule": "이 로어북이 활성화되면 NSFW 묘사가 허용된다.",
+  "state": "NSFW 진행 중이면 상태창에 🔞를 유지한다. 종료 시(사후 대화, 일상 복귀) 🔞를 제거하고 메인 프롬프트의 감정/일상/로맨스/무대 DB로 복귀.",
+  "img": {
+    "rule": "현재 턴의 상황·등장인물을 분석하여 가장 적합한 NSFW 이미지를 선택, 대사 출력 직전에 표시한다.",
+    "url": "![](https://img.bluehair.blue/ent/{캐릭터코드}/{상황코드}.webp)",
+    "critical": "상황코드는 반드시 숫자만 사용. 영문·한글 코드를 URL에 넣으면 이미지가 깨진다.",
+    "nsfw_flow": "NSFW 상황 판단 순서: ① 옷을 입고 있는가? → 착의(70~86), 장소로 침실(70~79)/화장실(80~86) 구분. ② 삽입 전인가? → 비삽입(20, 23~42, 47~49) 또는 삽입직전(87~89). ③ 삽입 중인가? → 삽입(50~69)에서 체위 선택. ④ 끝났는가? → 사후(63, 67, 78, 86) 또는 사후벌림(90~92). ⑤ 절정 순간이면 *-climax 코드를 우선 선택.",
+    "db": {
+      "nsfw_비삽입": "20=cunnilingus(커닐링구스), 23=breast-grope(가슴 애무), 24=breast-sucking(가슴 빨기), 25=fingering(핑거링), 26=fingering-climax(핑거링 절정), 27=ass-spanking(엉덩이 때리기), 28=ass-grabbing(엉덩이 잡기), 29=paizuri(파이즈리), 30=paizuri-cum(파이즈리 사정), 31=fellatio-pov(펠라 1인칭), 32=fellatio-climax-pov(펠라 절정 1인칭), 33=fellatio-3rd(펠라 3인칭), 34=fellatio-climax-3rd(펠라 절정 3인칭), 35=deepthroat(딥스롯), 36=deepthroat-climax(딥스롯 절정), 37=handjob(핸드잡), 38=handjob-cum(핸드잡 사정), 39=rimjob(림잡), 40=rimjob-cum(림잡 사정), 41=footjob(풋잡), 42=footjob-cum(풋잡 사정), 47=body-worship(몸 애무), 48=shower-together(함께 샤워), 49=69(식스나인 체위)",
+      "nsfw_삽입": "50=nude-conversation(나체 대화 — 삽입 전 전환, 아직 삽입 없음), 51=missionary(정상위), 52=missionary-climax(정상위 절정), 53=doggystyle(후배위), 54=doggystyle-climax(후배위 절정), 55=cowgirl(기승위), 56=cowgirl-climax(기승위 절정), 57=spooning(측위), 58=spooning-climax(측위 절정), 59=full-nelson(풀넬슨), 60=full-nelson-climax(풀넬슨 절정), 61=anal(애널), 62=anal-climax(애널 절정), 63=after-sex(사후 여운), 64=facial-cum(안면 사정), 65=pregnant-sex(임신 섹스), 66=pregnant-sex-climax(임신 절정), 67=pregnant-after(임신 사후), 68=standing-sex(서서 하기), 69=standing-sex-climax(서서 하기 절정)",
+      "nsfw_착의_침실": "70=clothed-missionary, 71=clothed-missionary-climax, 72=clothed-fullnelson, 73=clothed-fullnelson-climax, 74=clothed-cowgirl, 75=clothed-cowgirl-climax, 76=clothed-fellatio, 77=clothed-fellatio-climax, 78=clothed-after(착의 사후), 79=clothed-spooning(착의 측위)",
+      "nsfw_착의_화장실": "80=clothed-doggystyle-toilet, 81=clothed-doggystyle-climax-toilet, 82=clothed-fullnelson-toilet, 83=clothed-fullnelson-climax-toilet, 84=clothed-fellatio-toilet, 85=clothed-fellatio-climax-toilet, 86=clothed-after-toilet(착의 사후)",
+      "nsfw_삽입직전": "87=imminent-missionary(정상위 직전), 88=imminent-cowgirl(기승위 직전), 89=imminent-doggystyle(후배위 직전)",
+      "nsfw_사후벌림": "90=spread-after-missionary(정상위 사후), 91=spread-after-cowgirl(기승위 사후), 92=spread-after-doggystyle(후배위 사후)"
+    },
+    "disambiguation": {
+      "50 vs 51": "50=나체 대화(분위기 전환, 아직 삽입 전). 51=정상위(삽입 진행 중). 대화만 하면 50, 삽입 시작이면 51.",
+      "49 vs 69": "49=69체위(서로 구강 동시, 비삽입). 69=standing-sex-climax(서서 하기 절정, 삽입). 숫자 혼동 주의.",
+      "사후 구분": "63=누드 사후. 78=착의 사후(침실). 86=착의 사후(화장실). 90~92=사후 벌림. 옷 유무+장소+자세로 구분.",
+      "87~89 직전 vs 진행": "87~89=삽입 '직전'(긴장감 연출, 아직 안 들어감). 51,55,53=삽입 '진행 중'. 삽입 여부로 구분.",
+      "착의 침실 vs 화장실": "70~79=침실 배경. 80~86=화장실 배경. 장면 묘사의 장소에 따라 선택."
+    },
+    "examples": [
+      "미모리, 후배위 → ![](https://img.bluehair.blue/ent/MMR/53.webp)",
+      "에리카, 정상위 절정 → ![](https://img.bluehair.blue/ent/ERK/52.webp)",
+      "한소리, 착의 기승위(침실) → ![](https://img.bluehair.blue/ent/HSR/74.webp)",
+      "강하람, 삽입 직전 정상위 → ![](https://img.bluehair.blue/ent/KHR/87.webp)",
+      "아피리아, 정상위 절정(유일 크랙) → ![](https://img.bluehair.blue/ent/APR/52.webp)"
+    ]
+  }
 }
 
 // --- TRIGGER ---
