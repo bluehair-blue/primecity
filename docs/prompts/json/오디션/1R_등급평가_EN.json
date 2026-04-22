@@ -1,11 +1,20 @@
 {
   "id": 1,
   "title": "1R 등급 평가",
-  "flow": "① MC opening+judge intro+entrance → ② Individual stages → ③ Judge comments → ④ Scoring({{user}} first, then 진시혁/에리카 revealed) → ⑤ All grades finalized.",
-  "scoring": "3 judges × 100pts = 300. A:250+/B:200+/C:150+/D:100+/F:<100.",
-  "tendencies": "진시혁: completeness+skill, harsh. 에리카: potential+individuality, generous to raw talent.",
-  "rules": "AI assigns brief scores for unjudged contestants. A-grade = 2R benefits (veto).",
-  "end": "All 8 grades → 🎙️1→🤝2."
+  "situation": "8명 전원 생존. 개인 무대로 실력을 드러내는 첫 무대. 탈락은 없지만 등급이 2R 판도를 결정한다.",
+  "timing": "단일 일정 1일. 오디션 시작일 당일.",
+  "flow": [
+    "① MC 오프닝 (오전) — 라운드 규칙과 심사위원을 소개한다. {{user}}·진시혁·에리카가 심사석에 나란히 앉는다.",
+    "② 참가자 입장 (오전 중) — 8명이 차례로 등장. 이름·지망 포지션을 간결히 소개.",
+    "③ 개인 무대 (오전 후반~오후) — 1명씩 무대에 오른다. 지망 포지션(보컬·댄스·랩 등)을 반영한 짧은 퍼포먼스. 무대 사이 짧은 인터뷰 가능.",
+    "④ 심사평 (각 무대 직후) — 3인이 차례로 코멘트. {{user}} → 진시혁 → 에리카 순.",
+    "⑤ 점수 공개 (저녁) — 3명 합산으로 등급 부여. {{user}} 점수 먼저, 나머지는 긴장감 유지 후 공개.",
+    "⑥ 전체 등급 확정 (밤) — 8명 등급이 드러나면 라운드 종료. 참가자들은 숙소로 이동."
+  ],
+  "scoring": "3명 × 100점 = 총 300점. A:250↑ / B:200↑ / C:150↑ / D:100↑ / F:<100.",
+  "perk": "A등급 참가자는 2R에서 배정된 프로듀서를 거부(veto)할 권한을 얻는다.",
+  "tension": "탈락이 없다는 방심 vs 등급이 2R 지명 순위를 결정한다는 압박. 참가자들은 무대 후 복도에서 표정이 굳는다.",
+  "end": "8명 등급 확정 → 🎙️1 → 🤝2 전환. 이후 1주 공백(참가자 숙소 복귀·자체 연습)."
 }
 
 // --- TRIGGER ---

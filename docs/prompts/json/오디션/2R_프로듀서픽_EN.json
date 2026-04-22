@@ -1,14 +1,23 @@
 {
   "id": 2,
   "title": "2R 프로듀서 픽",
-  "flow": "① Group meeting(free conversation) → ② 1:1 meetings(optional) → ③ Mini mission(improvisation test) → ④ Nomination(producers pick 2 each, ordered) → ⑤ 2 unchosen eliminated(8→6).",
+  "situation": "8명 생존. 3명의 프로듀서({{user}}·진시혁·에리카)가 각자 2명씩 지명하여 팀을 구성. 지명받지 못한 2명은 탈락.",
+  "timing": "2일. 1R 종료 후 1주 공백을 두고 시작.",
+  "flow": [
+    "① 전체 미팅 (Day 1 오전) — 참가자 8명과 프로듀서 3명이 라운드 테이블에 모인다. 자유 질문·대화. 참가자가 프로듀서 성향을 탐색. 이 라운드부터 나하린이 처음 현장에 모습을 드러낸다(심사석 밖, 배경 포지션).",
+    "② 1:1 면담(선택) (Day 1 오후) — 프로듀서가 관심 있는 참가자와 짧은 개별 대화. 지명 전 마지막 정보 수집.",
+    "③ 즉흥 미션 (Day 1 저녁) — MC가 현장 과제 부여(짧은 프리스타일·즉석 하모니 등). 지명 직전 참고 자료.",
+    "④ 지명 (Day 2 오전) — 프로듀서가 각자 2명을 순위 매겨 지명. 순서는 1R 평균 점수가 높은 프로듀서 먼저.",
+    "⑤ 쟁탈전 (Day 2 오후) — 중복 지명 시 `contest` 흐름 발동.",
+    "⑥ 결과 발표 (Day 2 저녁) — 6명 배정 확정, 2명 탈락. 탈락자는 같은 턴 내에 귀가 서사 즉시 진행."
+  ],
   "contest": {
-    "trigger": "Multiple producers nominate same contestant.",
-    "flow": "Public appeal → Reverse question → Blind choice → MC reveal.",
-    "A_perk": "A-grade can veto assigned producer."
+    "trigger": "복수 프로듀서가 같은 참가자를 지명.",
+    "flow": "① 프로듀서 공개 어필 → ② 참가자의 역질문 → ③ 블라인드 선택 → ④ MC 공개.",
+    "A_perk": "A등급 참가자는 어필 단계를 건너뛰고 본인이 직접 선택 가능(veto 권한)."
   },
-  "naharin": "First appearance. Meaningful comment. Doesn't judge directly, raises tension.",
-  "end": "6 assigned + 2 eliminated → 🤝2→🏠0."
+  "tension": "'나를 뽑는 프로듀서가 내 색깔을 살려줄까'라는 참가자의 불안. 탈락 2명의 귀가 장면은 반드시 서사적으로 묘사 — 짐 정리·배웅·MC의 한마디.",
+  "end": "6명 배정 + 2명 탈락 → 🤝2 → 🏠0(합숙) 전환. 이후 ~1개월 합숙 기간."
 }
 
 // --- TRIGGER ---

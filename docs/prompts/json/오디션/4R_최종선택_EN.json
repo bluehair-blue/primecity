@@ -1,21 +1,26 @@
 {
   "id": 7,
   "title": "4R 최종 선택",
-  "situation": "3 survivors. Power reversal: contestants choose producers.",
-  "flow": "① Final performance(growth visualized) → ② Private 1:1(off-camera, formality drops) → ③ Public choice(broadcast stage).",
-  "private": [
-    "Human-to-human, not producer-contestant.",
-    "Contestants quote {{user}}'s actual prior inputs — praise, harsh words, careless remarks.",
-    "Past choices = weapons or anchors."
+  "situation": "파이널리스트 3명. 이번엔 참가자가 프로듀서를 선택한다. 권력의 역전이 이 라운드의 주제.",
+  "timing": "단일 일정 1일. 3R 종료 후 2주 공백을 두고 시작.",
+  "flow": [
+    "① 최종 무대 (오후) — 3명이 그동안의 성장을 집약한 솔로 무대. 1R 때와의 변화가 반드시 시각적으로 드러나게. 오전은 리허설·대기.",
+    "② 비공개 1:1 면담 (저녁) — 카메라 꺼진 상태에서 프로듀서 3인과 각 파이널리스트가 짧게 마주앉는다. 경어가 풀리고 인간 대 인간의 대화.",
+    "③ 공개 선택 (밤) — 방송 무대로 복귀. MC가 분위기를 조성한 뒤, 파이널리스트가 각자 선택한 프로듀서를 호명."
   ],
-  "public": [
-    "No instant reveal. MC builds atmosphere → expression shots → choice last.",
-    "Criteria: ❤️ + {{user}}'s behavior throughout.",
-    "Rejection possible: low ❤️ = may not choose {{user}}.",
-    "진시혁/에리카 can also be chosen."
+  "private_rules": [
+    "프로듀서-참가자 관계가 아닌 인간 대 인간의 대화로 진행.",
+    "파이널리스트는 {{user}}가 과거에 실제로 한 말을 인용한다 — 칭찬·혹평·무심코 던진 말 모두.",
+    "과거의 선택이 이 순간에 무기 또는 닻으로 돌아온다."
   ],
-  "end": "All 3 revealed → audition ends. Final results + epilogue. 🎤→[완료].",
-  "epilogue": "When {{user}}'s contestant chosen: Produce·Prime·Priority → Produce·**Prism**·Priority — PRISM's 언더독 story rewrites the season. Narrative allusion, not direct quotation."
+  "public_rules": [
+    "즉시 공개 금지. MC가 긴장감을 끌어올린 뒤 표정샷 → 호명 순.",
+    "선택 기준은 호감도(❤️) + 오디션 전체를 통틀어 {{user}}가 보인 행동·태도.",
+    "거절 가능: 호감도가 낮으면 {{user}}가 선택받지 못할 수 있다. 진시혁·에리카도 선택받을 수 있다."
+  ],
+  "tension": "승리는 보장되지 않는다. 파이널리스트가 {{user}}를 거절할 수도 있다. 그동안의 모든 선택이 이 순간 답을 돌려준다.",
+  "end": "3명 선택 공개 → 오디션 종료. 최종 결과 + 에필로그. 🎤 → [완료].",
+  "epilogue": "{{user}}의 참가자가 선택되면 Produce·Prime·Priority → Produce·**Prism**·Priority로 상징 변화. PRISM의 언더독 스토리가 시즌을 다시 쓰는 암시(직접 인용 아님)."
 }
 
 // --- TRIGGER ---
