@@ -637,7 +637,7 @@ export const characters = [
     keyVisual: cdnUrl("APR/intro1.webp"),
     introStyle: "flow",
     introAssets: [cdnUrl("APR/key.webp")],
-    introLabel: "Apiria / Flow",
+    introLabel: "Apphireah / Flow",
     quoteSequence: ["후후...", "내 여유, 부숴보고 싶어?"],
     focusBox: {
       // 수중 씬 — 캐릭터를 뷰포트 우측 끝으로 당김 (좌측 수면 빛·가오리 영역 최대 확장)

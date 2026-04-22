@@ -241,24 +241,24 @@ asset_config.json scenes 키 + 특수 이미지. 정확한 씬 수는 asset_conf
 ```bash
 # 1. asset_config.json에 SIA, NOA 프롬프트 등록
 # 2. 로컬 폴더 생성
-mkdir -p "C:/Users/User/OneDrive/图片/챗봇 제작/캐릭터 이미지/SIA/svg"
-mkdir -p "C:/Users/User/OneDrive/图片/챗봇 제작/캐릭터 이미지/NOA/svg"
+mkdir -p "C:/Users/User/OneDrive/图片/챗봇 제작/연예계/char_img/SIA/svg"
+mkdir -p "C:/Users/User/OneDrive/图片/챗봇 제작/연예계/char_img/NOA/svg"
 
 # 3. 이미지 생성
 python tools/asset_generator.py --char SIA
 python tools/asset_generator.py --char NOA
 
 # 4. 검열
-python tools/auto_censor.py --input "C:/Users/User/OneDrive/图片/챗봇 제작/캐릭터 이미지/SIA" --conf 0.7
-python tools/auto_censor.py --input "C:/Users/User/OneDrive/图片/챗봇 제작/캐릭터 이미지/NOA" --conf 0.7
+python tools/auto_censor.py --input "C:/Users/User/OneDrive/图片/챗봇 제작/연예계/char_img/SIA" --conf 0.7
+python tools/auto_censor.py --input "C:/Users/User/OneDrive/图片/챗봇 제작/연예계/char_img/NOA" --conf 0.7
 
 # 5. R2 업로드 (원본 폴더에서!)
 for code in SIA NOA; do
-  for f in "C:/Users/User/OneDrive/图片/챗봇 제작/캐릭터 이미지/$code"/*.webp; do
+  for f in "C:/Users/User/OneDrive/图片/챗봇 제작/연예계/char_img/$code"/*.webp; do
     npx wrangler r2 object put "prime/ent/$code/$(basename "$f")" \
       --file "$f" --content-type "image/webp" --remote
   done
-  for f in "C:/Users/User/OneDrive/图片/챗봇 제작/캐릭터 이미지/$code/svg"/*.webp; do
+  for f in "C:/Users/User/OneDrive/图片/챗봇 제작/연예계/char_img/$code/svg"/*.webp; do
     npx wrangler r2 object put "prime/ent/$code/svg/$(basename "$f")" \
       --file "$f" --content-type "image/webp" --remote
   done
@@ -546,7 +546,7 @@ CityMap Route 0 히트박스 확인. 시네마틱 인트로는 보류.
 
 ### 6-1. R2 업로드
 
-원본 폴더(`캐릭터 이미지/`)에서 업로드 (CLAUDE.md 규칙).
+원본 폴더(`연예계/char_img/`)에서 업로드 (CLAUDE.md 규칙).
 
 ### 6-2. ASSET_VERSION 갱신
 

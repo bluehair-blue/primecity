@@ -1,11 +1,12 @@
 """
 extract_char_prompts.py
 =======================
+[레거시 1회용 스크립트]
 백업 이미지의 NAI EXIF 메타데이터에서 캐릭터 외형 프롬프트(char_caption)를 추출하고,
 asset_config.json의 characters.{CODE}.clothed / nude 필드를 재생성한다.
 
-소스:
-  C:\\Users\\User\\OneDrive\\图片\\챗봇 제작\\캐릭터 이미지\\_backup_20260331_212520\\
+소스 (레거시 폴더 — 2026-04-23 rename됨):
+  C:\\Users\\User\\OneDrive\\图片\\챗봇 제작\\_OLD_DO_NOT_USE_캐릭터이미지_use_char_img\\_backup_20260331_212520\\
 
 전략:
   1. clothed 프롬프트: {CODE}/profile.png 의 char_captions[0]
@@ -40,7 +41,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 TOOLS_DIR = Path(__file__).parent
 CONFIG_PATH = TOOLS_DIR / "asset_config.json"
-BACKUP_DIR = TOOLS_DIR.parent.parent / "캐릭터 이미지" / "_backup_20260331_212520"
+BACKUP_DIR = TOOLS_DIR.parent.parent / "_OLD_DO_NOT_USE_캐릭터이미지_use_char_img" / "_backup_20260331_212520"
 
 CHARS = [
     "SY", "NHR", "JSH", "ERK", "LSH", "HSR", "KHR",

@@ -46,7 +46,7 @@ git push origin main
         └─► wrangler deploy (SVG Workers, per-worker config)
 
 R2 업로드 (수동):
-  npx wrangler r2 object put "prime/ent/{path}" --file "캐릭터 이미지/{path}"
+  npx wrangler r2 object put "prime/ent/{path}" --file "char_img/{path}"
   → ASSET_VERSION++ in src/utils/cdn.js
 ```
 

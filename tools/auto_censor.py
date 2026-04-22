@@ -65,7 +65,7 @@ log = logging.getLogger("censor")
 
 _TOOLS_DIR = Path(__file__).resolve().parent                   # 연예계/tools/
 _PROJECT_ROOT = _TOOLS_DIR.parent                              # 연예계/
-BASE_DIR = _PROJECT_ROOT.parent / "캐릭터 이미지"              # 챗봇 제작/캐릭터 이미지/
+BASE_DIR = _PROJECT_ROOT / "char_img"                          # 연예계/char_img/ (이미지 원본)
 MODEL_PATH = _PROJECT_ROOT / "models" / "ntd11_v5.pt"         # 연예계/models/ntd11_v5.pt
 from utils import ALL_CHARS, parse_scene_range as _parse_scene_range  # noqa: E402
 

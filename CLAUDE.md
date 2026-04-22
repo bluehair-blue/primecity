@@ -296,10 +296,12 @@ ripple:  { duration: 6000 },  // MIL — 줌 2비트 + 물결 + hero hold
 ### 로컬 원본 경로 (절대경로)
 
 ```
-C:\Users\User\OneDrive\图片\챗봇 제작\캐릭터 이미지\
+C:\Users\User\OneDrive\图片\챗봇 제작\연예계\char_img\
 ```
 
 > **모든 이미지 업로드는 반드시 이 폴더에서 가져온다.** 테스트 복사본이나 백업 폴더에서 가져오지 않는다.
+>
+> ⚠️ **레거시 경고**: 과거 프로젝트에는 `OneDrive/图片/챗봇 제작/캐릭터 이미지/` 라는 외부 폴더가 있었으나, 2026-04-23 이후 `_OLD_DO_NOT_USE_캐릭터이미지_use_char_img/` 로 이름이 변경되어 사용 금지. **어떤 경우에도 이 레거시 폴더를 참조하지 말 것.** 실제 원본은 `연예계/char_img/` 뿐이다.
 
 ### CDN 경로 구조 (혼동 금지)
 
@@ -314,8 +316,9 @@ C:\Users\User\OneDrive\图片\챗봇 제작\캐릭터 이미지\
 | **도시 배경** | `bg3~11.webp` | `ent/bg3~11.webp` | `cdnUrl("bg{N}.webp")` |
 
 **새 캐릭터 사인 이미지 추가 시 체크리스트:**
-1. 로컬: `캐릭터 이미지/{CHAR}/sign.webp` 에 파일 배치
-2. R2: `npx wrangler r2 object put "prime/ent/{CHAR}/sign.webp" --file "...\{CHAR}\sign.webp" --content-type "image/webp" --remote`
+
+1. 로컬: `연예계/char_img/{CHAR}/sign.webp` 에 파일 배치
+2. R2: `npx wrangler r2 object put "prime/ent/{CHAR}/sign.webp" --file "...\char_img\{CHAR}\sign.webp" --content-type "image/webp" --remote`
 3. 코드: `src/data/characters.js` 해당 캐릭터의 `sign: null` → `sign: cdnUrl("{CHAR}/sign.webp")`
 4. 연쇄 확인: CharCarousel.jsx + CharDetail.jsx 에서 `char.sign`으로 자동 표시 (추가 수정 불필요)
 
@@ -329,9 +332,9 @@ C:\Users\User\OneDrive\图片\챗봇 제작\캐릭터 이미지\
 |---|---|
 | 사이트 | `git push origin main` → Cloudflare Pages 자동 |
 | SVG Worker | `cd workers && wrangler deploy --config wrangler.toml` (Worker별) |
-| R2 이미지 | `npx wrangler r2 object put "prime/ent/{path}" --file "C:\...\캐릭터 이미지\{path}"` |
+| R2 이미지 | `npx wrangler r2 object put "prime/ent/{path}" --file "C:\...\연예계\char_img\{path}"` |
 
-> **R2 업로드 시 반드시 로컬 원본 폴더(`캐릭터 이미지/`)에서 파일을 지정할 것.** 테스트/백업 폴더 사용 금지.
+> **R2 업로드 시 반드시 로컬 원본 폴더(`연예계/char_img/`)에서 파일을 지정할 것.** 레거시 폴더(`_OLD_DO_NOT_USE_캐릭터이미지_use_char_img/`) 및 테스트/백업 폴더 사용 금지.
 > **R2에 이미지를 업로드할 때마다 반드시 `src/utils/cdn.js`의 `ASSET_VERSION`을 +1 올릴 것.** 이를 빠뜨리면 브라우저/CDN 캐시 때문에 업데이트가 반영되지 않는다.
 
 > 상세 → `research.md` §13
