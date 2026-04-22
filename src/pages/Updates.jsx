@@ -7,6 +7,19 @@ import Seo from "../components/Seo";
 
 const updates = [
   {
+    date: "2026.04.23",
+    tag: "Character",
+    title: "20번째 캐릭터 사피아(SPA) · 라피스 디자인 롤백",
+    items: [
+      "사피아(SPA) 신규 — APPAIREL & DESIGN 오너 · 디자이너·모델·스타일리스트 · 아피리아의 자매(자매 이상의 애정)",
+      "로어북 6파일 — 본체 · 트리거 · 초기 · 심화 · NSFW · 아피리아-사피아 자매",
+      "시그니처 — 손목 잡기(긴장)·소매 끝 만지기(관찰) 두 제스처 · 플래티넘 초커(언니 은색과 자매 표식)",
+      "라피스 디자인 롤백 — 로우 포니테일 · 빈유 · 스트리트 룩 · 쿨한 반말 복귀",
+      "이미지 2,000장+ · ASSET_VERSION 26 → 28 (LPS 98 재업로드 + SPA 104 신규)",
+      "이미지 원본 경로 통일 — 연예계/char_img/ 단일화 + 아피리아 영문 표기 Apphireah로 교정",
+    ],
+  },
+  {
     date: "2026.04.19",
     tag: "Character",
     title: "19번째 캐릭터 아피리아(APR) · FlowIntro",

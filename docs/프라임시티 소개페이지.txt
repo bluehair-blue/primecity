@@ -128,9 +128,9 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 </div>
 <!-- Stat Bridge 1 -->
 <div class="stb">
-<div><div class="stb-n" style="color:var(--gold);">19</div><div class="stb-l">캐릭터</div></div>
+<div><div class="stb-n" style="color:var(--gold);">20</div><div class="stb-l">캐릭터</div></div>
 <div><div class="stb-n" style="color:var(--blue);">5</div><div class="stb-l">구역</div></div>
-<div><div class="stb-n" style="color:oklch(0.65 0.12 340);">1,900+</div><div class="stb-l">이미지</div></div>
+<div><div class="stb-n" style="color:oklch(0.65 0.12 340);">2,000+</div><div class="stb-l">이미지</div></div>
 <div><div class="stb-n" style="color:oklch(0.72 0.10 170);">16</div><div class="stb-l">모드</div></div>
 </div>
 <div class="sp"><div class="sd"></div></div>
@@ -378,7 +378,7 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <span class="fold-i">▼</span>
 </summary>
 <div style="padding:0 24px 20px;">
-<p class="ds" style="margin:0 0 14px;text-align:left;">챗봇이 상황·감정을 분석하여 대사 직전에 이미지를 자동 출력합니다. 19명 × 캐릭터당 102장 = 총 1,938장+ + SVG UI 10종 + 부속 에셋.</p>
+<p class="ds" style="margin:0 0 14px;text-align:left;">챗봇이 상황·감정을 분석하여 대사 직전에 이미지를 자동 출력합니다. 20명 × 캐릭터당 102장 = 총 2,040장+ + SVG UI 10종 + 부속 에셋.</p>
 <div style="font-family:monospace;font-size:15px;color:var(--blue);padding:10px 14px;background:oklch(0.12 0.02 252/0.2);border:1px solid oklch(0.62 0.20 252/0.15);margin-bottom:14px;overflow-x:auto;white-space:nowrap;">img.bluehair.blue/ent/<span style="color:var(--gold);">{코드}</span>/<span style="color:var(--gold);">{번호}</span>.webp</div>
 <div style="margin-bottom:14px;">
 <div style="font-family:serif;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(1.0 0 0/0.3);margin-bottom:8px;">Character Codes</div>
