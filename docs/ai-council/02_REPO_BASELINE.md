@@ -1,58 +1,86 @@
-# Repository Baseline
+# Repo Baseline
 
-> 레포지토리 기준선 스냅샷. 리뷰 시작 전 현황을 고정하는 문서.
+Snapshot taken: 2026-04-25 · branch: main · commit: bd7ccf6
 
-## 파일 통계
+## package.json
 
-| 카테고리 | 파일 수 | 총 줄 수 |
-|----------|---------|---------|
-| src/pages/ | 17 | ~3,500 |
-| src/components/ | 21 | ~7,000 |
-| src/components/cinematic/ | 10 | ~2,900 |
-| src/data/ | 8 | ~1,200 |
-| workers/ | 10 | ~1,900 |
-| tools/ | 8 | ~2,600 |
-| docs/prompts/json/ | 194 | — |
+- React: `^18.3.1`
+- Router: `react-router-dom ^6.28.0`
+- Helmet: `react-helmet-async ^3.0.0`
+- Vite: `^6.0.0` (plugin-react `^4.3.4`, cloudflare-vite-plugin `^1.29.1`)
+- Wrangler: `^4.75.0`
 
-## 핵심 파일 목록
+## Counts
 
-### src/data/characters.js
-- 20명 캐릭터 데이터
-- CDN 코드: SY, NHR, JSH, ERK, LSH, HSR, KHR, JGR, MIL, ELA, MMR, HSE, NIA, RAY, LPS, SIA, NOA, ERP, APR, SPA
+| Category | Count |
+| -------- | ----- |
+| `src/` JS/JSX files | 74 |
+| `workers/` JS files | 10 |
+| `tools/` Python files | 10 |
+| `docs/prompts/json/` lorebook files | 211 |
+| Characters registered in `characters.js` | 20 |
 
-### src/data/gamemodes.js
-- 16종 게임 모드 정의
+### Lorebook Breakdown
 
-### docs/prompts/json/
-- 캐릭터/ 103개
-- 모드/ 53개
-- 오디션/ 12개
-- 루트 26개
+| Folder | Files |
+| ------ | ----- |
+| `캐릭터/` | 103 |
+| `모드/` | 53 |
+| `오디션/` | 12 |
+| Root (events, SVG rules, world) | 43 |
 
-## 의존성
+### Character CDN Codes (20)
 
-```json
-{
-  "react": "^18.3.1",
-  "react-dom": "^18.3.1",
-  "react-helmet-async": "^3.0.0",
-  "react-router-dom": "^6.28.0",
-  "@vitejs/plugin-react": "^4.3.4",
-  "@cloudflare/vite-plugin": "^1.29.1",
-  "vite": "^6.0.0",
-  "wrangler": "^4.75.0"
-}
+`SY NHR JSH ERK LSH HSR KHR JGR MIL ELA MMR HSE NIA RAY LPS SIA NOA ERP APR SPA`
+
+## Important Constants
+
+- **ASSET_VERSION:** `28` — `src/utils/cdn.js`
+- **CDN_BASE:** `https://img.bluehair.blue/ent` — `src/utils/cdn.js`
+
+### Routes (18)
+
+| Path | Component |
+| ---- | --------- |
+| `/` | Home |
+| `/characters/:name` | CharDetail |
+| `/gallery` | Gallery |
+| `/svg` | SvgIntro |
+| `/updates` | Updates |
+| `/contact` | Contact |
+| `/works` | Works |
+| `/modes/audition` | ModeAudition |
+| `/modes/freeplay` | ModeFreeplay |
+| `/modes/producer` | ModeProducer |
+| `/modes/manager` | ModeManager |
+| `/modes/trainee` | ModeTrainee |
+| `/modes/composer` | ModeComposer |
+| `/modes/actor` | ModeActor |
+| `/modes/influencer` | ModeInfluencer |
+| `/districts/:id` | DistrictDetail |
+| `*` | NotFound |
+
+### Workers (10)
+
+`chart` · `community` · `livestream` · `messenger` · `news` · `post` · `schedule` · `sns` · `tablet` · `tweet`
+
+All served under `*.bluehair.blue`.
+
+## Verification Commands
+
+```bash
+# Confirm the build passes cleanly
+npm run build
+
+# List all lorebook entries and their trigger keywords
+python tools/edenchat_clipboard.py --list
+
+# Count current src files
+find src -name "*.jsx" -o -name "*.js" | wc -l
+
+# Confirm ASSET_VERSION
+grep "ASSET_VERSION" src/utils/cdn.js
+
+# Check lorebook file count
+find docs/prompts/json -name "*.json" | wc -l
 ```
-
-## CDN 현황
-
-- ASSET_VERSION: 28
-- R2 버킷: prime/ent/
-- 이미지 수: 2,000장+
-
-## 마지막 갱신
-
-<!-- 이 섹션은 baseline 재측정 시 갱신할 것 -->
-- 날짜: 2026-04-25
-- 브랜치: main
-- 커밋: c82070c

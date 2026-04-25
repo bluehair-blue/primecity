@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Council Review"
+  short_description: "Run Prime City council audits and write evidence-backed findings."
+  default_prompt: "Use $ai-council-review to run the requested Prime City AI Council round and write the moderator-specified markdown file."

@@ -1,45 +1,75 @@
-# Domain 04 — Image · SVG · R2 Pipeline
+# Domain 04 — Image / SVG / R2 Pipeline
 
-> 이미지 생성·검열·업로드·SVG 워커 파이프라인 감사.
+Audit image generation, censorship, CDN versioning, SVG workers, and R2 upload integrity.
 
-## 범위
+## Review Files
 
-- `tools/asset_generator.py`
-- `tools/auto_censor.py`
-- `tools/r2_sync_loop.py`
-- `workers/svg-*.js` (10개)
 - `src/utils/cdn.js`
+- `src/data/gallery.js`
+- `src/data/galleryConfig.js`
+- `src/components/ImageSystemInfo.jsx`
+- `src/data/svgTemplates.js`
+- `src/data/svgTemplates/**`
+- `workers/svg-*.js`
+- `tools/asset_generator.py`
+- `tools/r2_sync_loop.py`
+- `tools/auto_censor.py`
 
-## 파이프라인 흐름
+## Questions
 
+- Is the ASSET_VERSION policy consistent between documentation and code?
+- Do SVG workers and frontend templates share the same output rules?
+- Is the R2 upload / cache / missing-asset verification process sufficient?
+- Does the gallery description match the actual asset structure on R2?
+
+## Pipeline Flow
+
+```text
+NAI API → char_img/{CHAR}/ → auto_censor.py → r2_sync_loop.py → R2: prime/ent/
+                                                                       ↓
+                                                          cdnUrl() → browser
+                                                          svg-*.js → EdenChat <img>
 ```
-NAI API → char_img/ → auto_censor → r2_sync → R2 버킷
-                                                    ↓
-                                         cdnUrl() → 브라우저
-```
 
-## 감사 포인트
+## Audit Points
 
-### ASSET_VERSION 관리
-- 현재 값: 28
-- R2 업로드 시 버전 증가 누락 가능성
+### ASSET_VERSION Policy
 
-### base64 인라인 SVG 워커
-- `fetchAsDataUri()` 미구현 워커 확인
-- `safeImageUrl()` data: prefix 통과 여부
+- Current value: check `grep "ASSET_VERSION" src/utils/cdn.js`.
+- Is the value in `cdn.js` consistent with the value mentioned in `CLAUDE.md` and `02_REPO_BASELINE.md`?
+- Is there a documented rule for when to bump (after every R2 upload)?
+- Is the bump ever forgotten? Look for recent commits that upload to R2 without a corresponding cdn.js change.
 
-### 검열 파이프라인
-- conf=0.7 임계값 적정성
-- false negative 패턴 (귀두/소형 성기)
-- 252장 검열 / 603장 클린 비율 검토
+### SVG Worker vs Frontend Template Parity
 
-### 레거시 경로 오염
-- `_OLD_DO_NOT_USE_캐릭터이미지_use_char_img/` 참조 여부
+- For each worker in `workers/svg-*.js`, is there a corresponding function in `src/data/svgTemplates/`?
+- Are the field names, escaping rules, and output structure consistent?
+- Workers are the canonical EdenChat runtime. Frontend templates are preview-only. Is this distinction documented in both locations?
 
-## 발견 이슈
+### Base64 Inline Images
 
-_감사 후 채워진다_
+- Which workers use `<image href>`? List them.
+- For those workers: does `safeImageUrl()` pass `data:` prefix without modification?
+- Is `fetchAsDataUri()` implemented with chunked btoa (8192-byte chunks)?
+- Workers without images (chart, tablet, community, schedule) do not need this — confirm they don't have dead `fetchAsDataUri` calls.
 
-## 권고사항
+### R2 Verification
 
-_감사 후 채워진다_
+- Is there a command or script to verify which characters have all required assets (`thumbnail`, `profile`, `sign`, `key.webp`) on R2?
+- Is there a way to detect orphaned R2 objects (uploaded but no longer referenced in code)?
+- Does `r2_sync_loop.py` log which files were newly uploaded vs already present?
+
+### Gallery Accuracy
+
+- Does `src/data/gallery.js` reflect the current number of images on R2?
+- Does `ImageSystemInfo.jsx` display accurate asset counts?
+- Are there category descriptions that no longer match the actual scene code structure?
+
+### Legacy Path Guard
+
+- Confirm no tool references `_OLD_DO_NOT_USE_캐릭터이미지_use_char_img/`.
+- Run: `grep -r "OLD_DO_NOT_USE" tools/` — result should be empty.
+
+## Findings
+
+_Populate with Finding Cards after review. Use IDs: `PC-IMG-NNN`._

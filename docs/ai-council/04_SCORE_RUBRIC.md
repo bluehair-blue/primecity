@@ -1,41 +1,103 @@
 # Score Rubric
 
-> 이슈 심각도 및 개선 우선순위 평가 기준.
+Score each accepted issue from 1 to 5.
 
-## 심각도 등급
+## Impact
 
-| 등급 | 코드 | 기준 |
-|------|------|------|
-| Critical | P0 | 서비스 중단·보안 취약점·데이터 손실 가능 |
-| High | P1 | UX 심각 훼손·퍼널 이탈·기능 오작동 |
-| Medium | P2 | 기술 부채·일관성 위반·성능 저하 |
-| Low | P3 | 개선 권고·코드 품질·문서 누락 |
+How strongly this improves EdenChat launch success, user conversion, branding, maintainability, or monetization.
 
-## 평가 차원
+| Score | Meaning |
+| ----- | ------- |
+| 5 | Directly unblocks launch or prevents user loss |
+| 4 | Significantly improves conversion, branding, or retention |
+| 3 | Noticeable improvement to UX or maintainability |
+| 2 | Minor quality or consistency gain |
+| 1 | Cosmetic or negligible effect |
 
-각 이슈는 아래 5개 차원으로 평가한다 (각 1-5점):
+## Urgency
 
-| 차원 | 설명 |
-|------|------|
-| Impact | 사용자/시스템에 미치는 영향 |
-| Likelihood | 실제 발생 확률 |
-| Reversibility | 수정 난이도 (낮을수록 쉬움) |
-| Scope | 영향 범위 (파일 수, 컴포넌트 수) |
-| Urgency | 시간 압박 (다른 작업 블로킹 여부) |
+How much this blocks the next meaningful project step.
 
-**종합 점수** = (Impact × 2 + Likelihood + Urgency) / 4
+| Score | Meaning |
+| ----- | ------- |
+| 5 | Blocks EdenChat launch or another P0 task right now |
+| 4 | Blocks a planned milestone within one week |
+| 3 | Should be resolved before the next release |
+| 2 | Can wait until the next sprint |
+| 1 | No time pressure |
 
-## 우선순위 결정 기준
+## Evidence
 
-| 종합 점수 | 권장 행동 |
-|----------|----------|
-| 4.5+ | 즉시 수정 |
-| 3.0–4.4 | 다음 스프린트 내 |
-| 1.5–2.9 | 백로그 등록 |
-| <1.5 | 모니터링만 |
+How strong the supporting evidence is.
 
-## 에이전트별 신뢰도 가중치
+| Score | Meaning |
+| ----- | ------- |
+| 5 | Reproduced with exact file path, line number, or error output |
+| 4 | Observed behavior with partial file evidence |
+| 3 | Credible hypothesis supported by related findings |
+| 2 | Educated guess, no direct evidence |
+| 1 | Speculation only |
 
-- **합의된 이슈** (양쪽 모두 발견): ×1.5
-- **단독 발견** (한쪽만): ×1.0
-- **반박됨** (상대가 반박): ×0.7
+## Confidence
+
+How likely the proposed solution is to work.
+
+| Score | Meaning |
+| ----- | ------- |
+| 5 | Solution is well-understood; similar fix has worked before |
+| 4 | High confidence; minor unknowns remain |
+| 3 | Moderate confidence; some experimentation likely needed |
+| 2 | Uncertain; multiple approaches may be needed |
+| 1 | Experimental; outcome is unclear |
+
+## Effort
+
+How much work it requires.
+
+| Score | Meaning |
+| ----- | ------- |
+| 1 | Under 30 minutes; single file change |
+| 2 | 1–2 hours; a few files |
+| 3 | Half day; moderate scope |
+| 4 | Full day; multi-file refactor |
+| 5 | Multiple days; architectural change |
+
+## Risk
+
+How likely it is to break existing behavior or distract from launch.
+
+| Score | Meaning |
+| ----- | ------- |
+| 1 | Isolated change; no user-facing side effects |
+| 2 | Low risk; easy to revert |
+| 3 | Moderate risk; requires testing |
+| 4 | High risk; touches shared components or data |
+| 5 | Critical path risk; could destabilize launch |
+
+## Formula
+
+```text
+Priority Score = (Impact + Urgency + Evidence + Confidence) / (Effort + Risk)
+```
+
+Effort and Risk are costs — higher values lower the score.
+Impact, Urgency, Evidence, and Confidence are benefits — higher values raise the score.
+
+## Decision Bands
+
+| Score      | Action            |
+| ---------- | ----------------- |
+| 3.00+      | Do now            |
+| 2.00–2.99  | Plan soon         |
+| 1.00–1.99  | Defer             |
+| Below 1.00 | Reject or archive |
+
+## Agreement Multiplier
+
+Apply after scoring to reflect cross-agent validation:
+
+| Status                         | Multiplier |
+| ------------------------------ | ---------- |
+| Agreed (both agents found it)  | ×1.5       |
+| Solo finding (one agent only)  | ×1.0       |
+| Rebutted (other agent objects) | ×0.7       |

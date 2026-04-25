@@ -1,39 +1,63 @@
-# Domain 05 — Branding · Monetization
+# Domain 05 — Branding & Monetization
 
-> 프라임시티 브랜딩 일관성 및 챗봇 유입 전환 전략 감사.
+Audit Prime City's identity as a flagship work, the creator's positioning, and the path toward portfolio expansion and commissions.
 
-## 범위
+## Review Files
 
+- `src/pages/Works.jsx`
+- `src/pages/Contact.jsx`
 - `src/pages/Home.jsx`
-- `src/components/HeroSlider.jsx`
-- `src/components/GameModes.jsx`
-- `docs/에덴챗소개.html` (에덴챗 소개 HTML)
-- Works 페이지 (`src/pages/Works.jsx`)
+- `src/pages/Updates.jsx`
+- `docs/plan_intro_html.md`
+- `idea.md`
+- `plan.md`
 
-## 브랜딩 체크포인트
+## Questions
 
-### 캐릭터 브랜딩 일관성
-- 20명 캐릭터의 색상·폰트·아이콘 통일성
-- CharCarousel vs CharDetail 외모 설명 일치
+- Does Prime City read as a flagship "representative work"?
+- Is the creator's identity and role clearly communicated?
+- Is there a path for commissions, collaborations, or inquiries?
+- Does the Updates log build credibility and demonstrate active development?
+- Can the site evolve from a single EdenChat showcase into a full portfolio hub?
 
-### 시각 아이덴티티
-- Gold(hue 80) / Blue(hue 252) 듀얼리즘 준수
-- 에덴챗 소개 HTML과 소개 사이트 톤 일치
+## Audit Points
 
-## 전환 퍼널 평가
+### Prime City as Flagship Work
 
-### 챗봇 유입 CTA
-- CTA 버튼 위치·복사·색상 효과
-- 에덴챗 링크 클릭 유도 강도
+- Does the home page communicate that Prime City is a substantial, intentional project — not a demo?
+- Is the worldbuilding depth (20 characters, 5 districts, 8+ modes) surfaced anywhere outside of CharDetail?
+- Is the EdenChat chatbot presented as the primary deliverable, with the site as its showcase?
 
-### Works 페이지 공백
-- 미완료로 인한 신뢰도 저하 가능성
-- 빠른 채우기 옵션 (플레이스홀더 vs 실제 작품)
+### Creator Positioning
 
-## 발견 이슈
+- Where does the creator's name, role, or identity appear on the site?
+- Is the creator's background (AI-generated character design, chatbot narrative, simulation systems) communicated?
+- Is there a bio, artist statement, or "about" section? If not, is that a deliberate choice or an omission?
 
-_감사 후 채워진다_
+### Commission / Collaboration Path
 
-## 권고사항
+- Does `Contact.jsx` include a clear inquiry form, email, or external link?
+- Is the type of work available for commission communicated (character design? chatbot systems? worldbuilding)?
+- Is the tone professional enough for a potential client or collaborator?
 
-_감사 후 채워진다_
+### Updates Log as Trust Signal
+
+- Does `Updates.jsx` show a consistent cadence of work?
+- Are any entries outdated, inaccurate, or misleading (e.g., wrong character counts)?
+- Could the Updates log double as a devlog or portfolio evidence for potential clients?
+
+### Portfolio Hub Expansion
+
+- Is the site structured to add new projects alongside Prime City?
+- Does `Works.jsx` function as a portfolio index, or is it effectively empty?
+- What is the minimum viable state for `Works.jsx` to be a credible portfolio page rather than a placeholder?
+
+### Visual Identity Consistency
+
+- Gold (hue 80) / Blue (hue 252) dualism: check HeroSlider, GameModes, CharDetail for deviations.
+- Does the EdenChat introduction HTML (`docs/프라임시티 소개페이지.txt`) match the site's tone and visual language?
+- Are character color tokens in `characters.js` used consistently across all display surfaces?
+
+## Findings
+
+_Populate with Finding Cards after review. Use IDs: `PC-BRD-NNN`._

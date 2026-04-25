@@ -1,41 +1,60 @@
-# Domain 06 — Security · Content Policy
+# Domain 06 — Security & Content Policy
 
-> XSS, 콘텐츠 노출, R2 접근 정책, CSP 헤더 감사.
+Audit XSS defenses, HTTP headers, R2 access policy, NSFW content gating, and sensitive file handling.
 
-## 범위
+## Review Files
 
-- `workers/svg-*.js` (escapeXml 적용 여부)
-- `public/_headers` (HTTP 헤더 정책)
-- `tools/auto_censor.py` (NSFW 검열)
-- R2 버킷 설정
+- `workers/svg-*.js`
+- `public/_headers`
+- `tools/auto_censor.py`
+- `src/utils/cdn.js`
+- `.gitignore`
+- `tools_dist/`
 
-## 감사 포인트
+## Questions
 
-### XSS 방어
-- `escapeXml()` 102곳 적용 확인
-- 사용자 입력이 SVG에 직접 삽입되는 경로 존재 여부
+- Is `escapeXml()` applied to all user-controlled inputs in SVG workers?
+- Does the CSP in `_headers` correctly cover all 10 worker subdomains and the CDN?
+- Is the R2 bucket locked against directory listing and unauthorized path traversal?
+- Can an uncensored image be accessed directly via CDN URL?
+- Are sensitive files (API tokens, NAI credentials) reliably excluded from version control?
 
-### CSP 헤더
-- `public/_headers` 현재 CSP 값
-- Workers 10개 서브도메인 모두 허용 여부
-- `img.bluehair.blue` CDN 허용 여부
+## Audit Points
 
-### R2 버킷 보안
-- 디렉토리 리스팅 비활성 확인
-- `ent/` 경로 외 접근 차단 여부
+### XSS Defense (SVG Workers)
 
-### NSFW 콘텐츠 정책
-- 검열 파이프라인 우회 가능성
-- CDN에서 미검열 이미지 직접 접근 경로
+- `escapeXml()` should wrap every user-supplied string before it enters SVG markup.
+- Run: `grep -c "escapeXml" workers/svg-*.js` — verify count per file.
+- Check for any interpolation pattern (`${param}`) inside SVG strings that bypasses `escapeXml()`.
+- Confirm workers that accept no user input (e.g., chart, schedule) don't expose unnecessary parameters.
 
-### 민감 파일
-- `.env`, `tools/.nai_token` gitignore 확인
-- `tools_dist/` 토큰 제외 확인
+### CSP Header Coverage
 
-## 발견 이슈
+- Read `public/_headers` and extract the `Content-Security-Policy` value.
+- Verify it includes:
+  - `img-src` covering `img.bluehair.blue` and `*.bluehair.blue`
+  - `connect-src` or `worker-src` if Workers fetch external resources
+  - No `unsafe-inline` or `unsafe-eval` unless intentionally scoped
+- Check that all 10 worker subdomains (`chart`, `community`, `live`, `msg`, `news`, `post`, `schedule`, `insta`, `tablet`, `twit`) are allowed.
 
-_감사 후 채워진다_
+### R2 Bucket Access
 
-## 권고사항
+- Confirm directory listing is disabled on the `prime` bucket.
+- Confirm only `ent/` path objects are publicly readable.
+- Check if there is a wildcard rule that could expose `tools/`, `models/`, or other non-public paths.
 
-_감사 후 채워진다_
+### NSFW Content Gating
+
+- Can an uncensored image be accessed by constructing a CDN URL directly (e.g., `img.bluehair.blue/ent/{CHAR}/20.webp`)?
+- Is the Gallery NSFW confirmation modal enforced server-side, or is it purely client-side?
+- Is the censorship pipeline (auto_censor.py, conf=0.7) producing false negatives for small or partially obscured regions?
+
+### Sensitive File Exclusion
+
+- Check `.gitignore` includes: `tools/.nai_token`, `.env`, `generation_state.json`, `.r2_uploaded.json`, `models/*.pt`.
+- Check `tools_dist/` does not contain any token or credential files.
+- Run: `git ls-files tools/.nai_token` — result should be empty.
+
+## Findings
+
+_Populate with Finding Cards after review. Use IDs: `PC-SEC-NNN`._

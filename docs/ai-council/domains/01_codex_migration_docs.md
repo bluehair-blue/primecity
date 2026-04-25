@@ -1,32 +1,58 @@
-# Domain 01 — Codex Migration Docs
+# Domain 01 — Codex Migration & Docs
 
-> AGENTS.md, CLAUDE.md 등 AI 에이전트 마이그레이션 문서 감사.
+Audit agent documentation, workflow configuration, and developer onboarding materials.
 
-## 범위
+## Review Files
 
-- `.agents/` 폴더
-- `AGENTS.md`
 - `CLAUDE.md`
-- `.claude/` 훅·스킬 설정
+- `AGENTS.md` (if it exists)
+- `README.md`
+- `SECURITY.md`
+- `docs/CODEBASE_MAP.md`
+- `docs/CODEMAPS/*`
+- `.github/workflows/*`
+- `.agents/skills/*` / `.claude/skills/*`
+- `package.json`
 
-## 감사 포인트
+## Questions
 
-### 1. 문서 간 일관성
-- AGENTS.md와 CLAUDE.md 중복 또는 충돌 항목
-- 최신 상태 반영 여부 (최근 커밋 기준)
+- What is the minimum essential guidance that must go into a Codex-facing `AGENTS.md`?
+- What information in `CLAUDE.md` is stale, wrong, or Claude-specific and should be marked as such?
+- Where does `docs/CODEMAPS/` diverge from the actual codebase structure?
+- Should the Claude GitHub Actions workflow be kept active, deactivated, or archived?
 
-### 2. 온보딩 완전성
-- 새 에이전트가 프로젝트를 이해하는 데 필요한 정보 누락 여부
-- 파일 경로·CDN 경로 정확성
+## Audit Points
 
-### 3. 훅·스킬 동작
-- 9개 훅이 의도대로 동작하는가
-- 스킬 4개 중 미작동 또는 오래된 항목
+### AGENTS.md Completeness
 
-## 발견 이슈
+- Does `AGENTS.md` exist? If not, what is missing from `CLAUDE.md` that Codex needs?
+- Minimum required: project overview, tech stack, file structure, CDN rules, commit conventions, build command.
+- Does the file distinguish between Claude-specific guidance and agent-neutral guidance?
 
-_감사 후 채워진다_
+### CLAUDE.md Accuracy
 
-## 권고사항
+- Cross-check character count, image count, lorebook count, ASSET_VERSION against actual code.
+- Check if any referenced files or paths no longer exist.
+- Identify any section that describes planned work as if it were complete.
 
-_감사 후 채워진다_
+### CODEBASE_MAP Drift
+
+- Compare `docs/CODEBASE_MAP.md` line counts against actual files.
+- Flag any file listed but deleted, or any file present but unlisted.
+- Check if the cinematic intro registry (`src/components/cinematic/index.js`) matches the map.
+
+### GitHub Workflows
+
+- List all files under `.github/workflows/`.
+- For each workflow: is it triggered, passing, and still relevant?
+- Flag any workflow that references a deprecated token, action version, or removed branch.
+
+### Skills & Hooks
+
+- List skills under `.agents/skills/` (or `.claude/skills/`).
+- For each skill: does the trigger description match current codebase behavior?
+- List hooks under `.claude/hooks/` or equivalent. Verify each hook's regex or file pattern is still accurate.
+
+## Findings
+
+_Populate with Finding Cards after review. Use IDs: `PC-DOC-NNN`._

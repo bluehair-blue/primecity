@@ -1,41 +1,69 @@
-# Domain 02 — Frontend UX Funnel
+# Domain 02 — Frontend / UX Funnel
 
-> 메인 페이지부터 챗봇 시작까지의 사용자 퍼널 감사.
+Audit the user journey from landing to EdenChat entry, and the site's effectiveness as a portfolio showcase.
 
-## 범위
+## Review Files
 
-- `src/pages/` (17개 페이지)
-- `src/components/` (캐러셀, 히어로슬라이더, 게임모드 등)
-- CharDetail 시네마틱 인트로 시스템
+- `src/pages/Home.jsx`
+- `src/pages/Works.jsx`
+- `src/pages/Updates.jsx`
+- `src/pages/Gallery.jsx`
+- `src/pages/Contact.jsx`
+- `src/components/HeroSlider.jsx`
+- `src/components/GameModes.jsx`
+- `src/components/ImageSystemInfo.jsx`
+- `src/data/characters.js`
+- `src/data/gamemodes.js`
 
-## 퍼널 단계
+## Questions
+
+- Does a first-time visitor understand what Prime City is within 5 seconds?
+- Is the CTA to enter EdenChat clear and prominent enough?
+- Do the character / mode / gallery / update sections connect as a coherent "showcase of work"?
+- From a personal branding and monetization perspective, are Works and Contact sufficient?
+
+## Funnel Map
 
 ```
-[1] 랜딩 (HeroSlider)
-[2] 캐릭터 탐색 (CharCarousel)
-[3] 캐릭터 상세 (CharDetail / CinematicCharDetail)
-[4] 챗봇 유입 CTA
-[5] 에덴챗 시작
+[1] Landing     — HeroSlider: does the headline and visual communicate the concept?
+[2] Explore     — CharCarousel / CityMap / GameModes: does the user know what to do?
+[3] Deep Dive   — CharDetail / CinematicCharDetail: is the character depth compelling?
+[4] CTA         — Is there a clear path to EdenChat from every major section?
+[5] Conversion  — Does the user actually click into EdenChat?
 ```
 
-## 감사 포인트
+## Audit Points
 
-### 이탈 지점
-- 각 단계에서 사용자가 이탈할 수 있는 UX 문제
-- CTA 버튼 가시성·클릭 유도력
+### First Impression (5-second test)
 
-### 모바일 UX
-- `useIsMobile(768)` 분기 처리 누락 컴포넌트
-- 터치 인터랙션 (캐러셀 스와이프, 지도 탭)
+- Does the hero headline communicate "AI chatbot" or "simulation" without prior context?
+- Is the EdenChat CTA above the fold on both desktop and mobile?
+- Is the site's language (Korean) a barrier or an intentional choice?
 
-### 성능
-- 이미지 지연 로딩 미적용 구간
-- 불필요한 리렌더링
+### EdenChat CTA Coverage
 
-## 발견 이슈
+- List every location in the site where an EdenChat link or button appears.
+- For each: is it labeled clearly? Is the destination obvious (external link)?
+- Is there a dead zone — a section the user might read for a long time with no path to EdenChat?
 
-_감사 후 채워진다_
+### Showcase Coherence
 
-## 권고사항
+- Does the sequence Character → Mode → Gallery → Updates tell a story?
+- Is `GameModes.jsx` up to date with all released modes including CEO mode?
+- Does `gamemodes.js` include `detailPath` for all modes that have a page?
 
-_감사 후 채워진다_
+### Works / Contact as Portfolio
+
+- Does `Works.jsx` present a completed project or a visible placeholder?
+- Does `Contact.jsx` include a commission or collaboration inquiry path?
+- Is the creator's identity (name, role, links) findable within 2 clicks?
+
+### Mobile & Accessibility
+
+- Test `useIsMobile(768)` branch coverage in HeroSlider, GameModes, CharCarousel.
+- Check touch interaction on carousel and city map.
+- Check `aria-label` on CTA buttons, especially external links.
+
+## Findings
+
+_Populate with Finding Cards after review. Use IDs: `PC-FE-NNN`._

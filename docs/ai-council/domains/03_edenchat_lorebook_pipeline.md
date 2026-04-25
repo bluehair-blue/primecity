@@ -1,42 +1,69 @@
-# Domain 03 — Edenchat Lorebook Pipeline
+# Domain 03 — EdenChat Lorebook Pipeline
 
-> 에덴챗 로어북 103개 파일 및 삽입 파이프라인 감사.
+Audit the lorebook file set, insertion tooling, and QA readiness for EdenChat launch.
 
-## 범위
+## Review Files
 
-- `docs/prompts/json/` (194개 파일)
+- `docs/prompts/json/**`
+- `docs/prompts/_review_*.md`
 - `tools/edenchat_clipboard.py`
-- `tools/extract_char_prompts.py`
+- `docs/plan_intro_html.md`
+- `docs/prompts/plan_sub*.md`
 
-## 로어북 구조
+## Questions
 
-| 폴더 | 수량 | 역할 |
-|------|------|------|
-| 캐릭터/ | 103 | 캐릭터 본체·트리거·초기·심화 등 |
-| 모드/ | 53 | 모드 본체·시나리오·기획사 분기 |
-| 오디션/ | 12 | 라운드별·막간 |
-| 루트 | 26 | 메인·구역·SVG·이벤트 |
+- Is the lorebook insertion order clearly defined?
+- Is the trigger separation rule applied consistently across all files?
+- Does a first-10-turns QA checklist exist?
+- Is there a designated location to record EdenChat upload and test logs?
+- What must be verified before attempting any prompt improvement?
 
-## 감사 포인트
+## Lorebook Structure
 
-### 트리거 충돌
-- 동일 키워드가 복수 로어북에 매핑된 경우
-- 한국어·영어 키워드 일관성
+| Folder | Count | Role |
+| ------ | ----- | ---- |
+| `캐릭터/` | 103 | Character body, trigger, initial, deep, past, crisis, family entries |
+| `모드/` | 53 | Mode body, scenario, agency branch |
+| `오디션/` | 12 | Rounds and interludes |
+| Root | 43 | Main prompt, district, SVG rules, events, world |
 
-### AI 편향 패턴 (feedback_ai_writing_bias.md 참조)
-- em dash (`—`) 남용
-- "~하지 않는다" 부정 정의
-- "A가 아니라 B" 대조 구조 과다
+Run `python tools/edenchat_clipboard.py --list` to get current parsed count and verify against 211 total files.
 
-### 파일명 규칙 준수
-- `{이름}_EN.json` 패턴
-- SVG 로어북 루트 배치 여부 (`SVG_` prefix)
-- trigger 분리 (`// --- TRIGGER ---` 주석)
+## Audit Points
 
-## 발견 이슈
+### Insertion Order
 
-_감사 후 채워진다_
+- Is there a canonical sequence document (what goes in first, what triggers what)?
+- Does `edenchat_clipboard.py --list` output a deterministic ordered list?
+- Are any entries that must load before others (main prompt, world rules) clearly marked?
 
-## 권고사항
+### Trigger Separation
 
-_감사 후 채워진다_
+- Rule: trigger keywords must not appear inside the JSON body; they must be in a `// --- TRIGGER ---` comment at the end of the file.
+- Sample 10 random files and verify the rule is followed.
+- Check for any file where the trigger comment is inside the JSON structure.
+
+### Filename Convention
+
+- Pattern: `{이름}_EN.json`
+- SVG lorebooks must be in root with `SVG_` prefix.
+- Run: `find docs/prompts/json -name "*.json" | grep -v "_EN.json"` to find violations.
+
+### AI Writing Bias
+
+- Flag any lorebook that contains: em dash (`—`), "~하지 않는다" definitions, "A가 아니라 B" contrasts.
+- These patterns create unnatural AI outputs.
+
+### First-10-Turns QA
+
+- Is there a checklist covering: character voice consistency, trigger activation, NSFW gating, mode switching?
+- If not, what are the minimum test cases needed before launch?
+
+### Upload Log Location
+
+- Where should successful EdenChat uploads be recorded? (`DECISION_LOG.md`? A dedicated log file?)
+- Is there a way to verify which entries are live vs not yet inserted?
+
+## Findings
+
+_Populate with Finding Cards after review. Use IDs: `PC-LB-NNN`._
