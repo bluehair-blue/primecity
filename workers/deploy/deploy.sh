@@ -5,6 +5,16 @@
 
 WORKERS_DIR=".."
 DOMAIN="bluehair.blue"
+COMPATIBILITY_DATE="${COMPATIBILITY_DATE:-2024-01-01}"
+REAL_DEPLOY="${REAL_DEPLOY:-0}"
+
+if [ "$REAL_DEPLOY" != "1" ]; then
+  echo "DRY RUN MODE: set REAL_DEPLOY=1 only after validating the Workers locally or reviewing this dry run."
+  DEPLOY_MODE_ARGS=(--dry-run)
+else
+  echo "REAL DEPLOY MODE: proceeding with Cloudflare deploys after explicit REAL_DEPLOY=1."
+  DEPLOY_MODE_ARGS=()
+fi
 
 # Worker name → source file → subdomain
 declare -A WORKERS
@@ -29,7 +39,7 @@ for NAME in "${!WORKERS[@]}"; do
   ROUTE="${SUB}.${DOMAIN}/*"
 
   echo "=== Deploying $NAME ($FILE) → $ROUTE ==="
-  if npx wrangler deploy "$WORKERS_DIR/$FILE" --name "$NAME" --compatibility-date "2024-01-01" --route "$ROUTE"; then
+  if npx wrangler deploy "$WORKERS_DIR/$FILE" --name "$NAME" --compatibility-date "$COMPATIBILITY_DATE" --route "$ROUTE" "${DEPLOY_MODE_ARGS[@]}"; then
     echo "  ✓ $NAME deployed + route $ROUTE registered"
     ((SUCCESS++))
   else

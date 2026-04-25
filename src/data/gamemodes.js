@@ -108,7 +108,7 @@ export const careerModes = [
     desc: "Route 0의 신임 대표가 되어 소속 아티스트(강하람·시아·노아)의 스케줄 관리, 캐스팅 협상, 위기 대응을 수행한다. 자금과 평판을 관리하며 테라스에서 더 코어까지.",
     accent: "oklch(0.65 0.10 140)",
     icon: "🏢",
-    detailPath: null,  // TODO: ModeCeo.jsx 구현 후 "/modes/ceo" 활성화
+    detailPath: "/modes/ceo",
     location: "테라스 · Route 0 사무실",
     keyChar: "강하람 · 시아 · 노아",
   },

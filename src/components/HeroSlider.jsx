@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import C from "../styles/tokens";
+import { EDENCHAT_PLAYER_URL } from "../data/links";
 import { cdnUrl } from "../utils/cdn";
 
 const BG_IMAGES = Array.from({ length: 9 }, (_, i) =>
@@ -328,7 +329,7 @@ export default function HeroSlider({ isMobile }) {
         }}
       >
         <a
-          href="https://www.eden-chat.com/works/35e68463-aba5-488e-ac42-1ea15234df1f"
+          href={EDENCHAT_PLAYER_URL}
           target="_blank"
           rel="noopener noreferrer"
           style={{

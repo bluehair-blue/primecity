@@ -1,5 +1,7 @@
 // ── SVG Template Helpers ──
 // ESCAPE CONTRACT: 마크업 조합 변수 → raw ${}, 리프 텍스트(URL param) → escapeXml()
+// Preview/runtime asymmetry is intentional: this site helper rejects data: images,
+// while deployed Workers may inline images as data URIs for EdenChat <img> rendering.
 
 export function escapeXml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');

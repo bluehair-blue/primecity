@@ -1,5 +1,7 @@
 // ESCAPE CONTRACT: 마크업 조합 변수 → raw ${}, 리프 텍스트(URL param) → escapeXml()
 // SYNC: Keep in sync with src/data/svgTemplates.js
+// Worker runtime is canonical for EdenChat output; site templates are preview-only
+// and may intentionally differ around image inlining and data: URL handling.
 function escapeXml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }

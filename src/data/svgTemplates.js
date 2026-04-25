@@ -1,4 +1,5 @@
 // ── SVG Templates — slim re-export ──
+// Site SVG templates are preview-only; deployed Workers are the canonical EdenChat runtime.
 // Source split into:
 //   src/data/svgTemplates/helpers.js           — escapeXml, charAssets, safeImageUrl, TYPE_COLORS, typeColor, wrapBodyPost
 //   src/data/svgTemplates/templates-sns.js     — generateSnsPost, generateTweet, generateMessenger

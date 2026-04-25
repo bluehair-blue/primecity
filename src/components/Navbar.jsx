@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import C from "../styles/tokens";
+import { EDENCHAT_PLAYER_URL } from "../data/links";
 
 export default function Navbar({ scrolled, isMobile }) {
   const [open, setOpen] = useState(false);
@@ -160,7 +161,11 @@ export default function Navbar({ scrolled, isMobile }) {
                 transition: "color 0.3s",
               })
             )}
-            <button
+            <a
+              href={EDENCHAT_PLAYER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="플레이 (외부 링크)"
               style={{
                 padding: "7px 22px",
                 background: "transparent",
@@ -173,6 +178,7 @@ export default function Navbar({ scrolled, isMobile }) {
                 fontFamily: "var(--f-body)",
                 fontWeight: 500,
                 transition: "background 0.3s, border-color 0.3s",
+                textDecoration: "none",
               }}
               onMouseEnter={(e) => (e.target.style.background = C.primeBlueDim)}
               onMouseLeave={(e) =>
@@ -180,7 +186,7 @@ export default function Navbar({ scrolled, isMobile }) {
               }
             >
               플레이
-            </button>
+            </a>
           </div>
         )}
 
@@ -264,7 +270,11 @@ export default function Navbar({ scrolled, isMobile }) {
           <div
             style={{ width: 36, height: 1, background: C.goldText }}
           />
-          <button
+          <a
+            href={EDENCHAT_PLAYER_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="플레이 (외부 링크)"
             onClick={() => setOpen(false)}
             style={{
               padding: "11px 32px",
@@ -281,10 +291,11 @@ export default function Navbar({ scrolled, isMobile }) {
               transform: open ? "translateY(0)" : "translateY(16px)",
               transition:
                 "opacity 0.5s cubic-bezier(0.22,1,0.36,1) 0.35s, transform 0.5s cubic-bezier(0.22,1,0.36,1) 0.35s",
+              textDecoration: "none",
             }}
           >
             플레이
-          </button>
+          </a>
         </div>
       )}
       {/* External link confirmation modal */}

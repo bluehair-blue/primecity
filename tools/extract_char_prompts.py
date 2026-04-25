@@ -31,12 +31,6 @@ import re
 import sys
 from pathlib import Path
 
-try:
-    from PIL import Image
-except ImportError:
-    print("pip install pillow 필요")
-    sys.exit(1)
-
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 TOOLS_DIR = Path(__file__).parent
@@ -278,7 +272,21 @@ def main() -> None:
     parser.add_argument("--apply", action="store_true", help="asset_config.json에 반영")
     parser.add_argument("--chars", help="특정 캐릭터만 (쉼표 구분)")
     parser.add_argument("--output", help="결과 JSON 저장 경로", default=None)
+    parser.add_argument("--allow-legacy", action="store_true", help="레거시 백업 이미지 경로 사용을 명시적으로 허용")
     args = parser.parse_args()
+
+    if not args.allow_legacy:
+        print("[BLOCKED] 이 스크립트는 레거시 백업 이미지 경로를 읽는 1회용 도구입니다.")
+        print("현재 원본 이미지는 연예계/char_img/만 사용합니다.")
+        print("정말 레거시 추출이 필요하면 --allow-legacy 를 함께 지정하세요.")
+        sys.exit(2)
+
+    global Image
+    try:
+        from PIL import Image
+    except ImportError:
+        print("pip install pillow 필요")
+        sys.exit(1)
 
     if not args.dry_run and not args.apply:
         print("--dry-run 또는 --apply 중 하나 필수")

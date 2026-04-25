@@ -17,6 +17,7 @@ const ModeTrainee = lazy(() => import("./pages/ModeTrainee"));
 const ModeComposer = lazy(() => import("./pages/ModeComposer"));
 const ModeActor = lazy(() => import("./pages/ModeActor"));
 const ModeInfluencer = lazy(() => import("./pages/ModeInfluencer"));
+const ModeCeo = lazy(() => import("./pages/ModeCeo"));
 const DistrictDetail = lazy(() => import("./pages/DistrictDetail"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -66,6 +67,7 @@ export default function App() {
           <Route path="/modes/composer" element={<ModeComposer />} />
           <Route path="/modes/actor" element={<ModeActor />} />
           <Route path="/modes/influencer" element={<ModeInfluencer />} />
+          <Route path="/modes/ceo" element={<ModeCeo />} />
           <Route path="/districts/:id" element={<DistrictDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -42,19 +42,31 @@ if sys.stdout.encoding != "utf-8":
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 os.environ.setdefault("PYTHONIOENCODING", "utf-8")
 
-try:
-    import pyperclip
-except ImportError:
-    print("pip install pyperclip 필요")
-    sys.exit(1)
+pyperclip = None
+pyautogui = None
 
-try:
-    import pyautogui
-    pyautogui.PAUSE = 0.05  # 기본 동작 간 최소 딜레이
-    pyautogui.FAILSAFE = True  # 마우스를 좌상단으로 → 긴급 중단
-except ImportError:
-    print("pip install pyautogui 필요")
-    sys.exit(1)
+
+def ensure_gui_dependencies() -> None:
+    """Load clipboard/GUI packages only for automation actions."""
+    global pyperclip, pyautogui
+
+    if pyperclip is None:
+        try:
+            import pyperclip as _pyperclip
+        except ImportError:
+            print("pip install pyperclip 필요")
+            sys.exit(1)
+        pyperclip = _pyperclip
+
+    if pyautogui is None:
+        try:
+            import pyautogui as _pyautogui
+        except ImportError:
+            print("pip install pyautogui 필요")
+            sys.exit(1)
+        _pyautogui.PAUSE = 0.05  # 기본 동작 간 최소 딜레이
+        _pyautogui.FAILSAFE = True  # 마우스를 좌상단으로 → 긴급 중단
+        pyautogui = _pyautogui
 
 
 PROMPTS_DIR = Path(__file__).resolve().parent.parent / "docs" / "prompts" / "json"
@@ -206,6 +218,7 @@ def collect_lorebooks() -> list[dict[str, Any]]:
             key=lambda p: p.name)
             if (PROMPTS_DIR / "모드").exists() else []),
         ("구역", sorted(PROMPTS_DIR.glob("구역_*_EN.json"), key=lambda p: p.name)),
+        ("세계관", sorted(PROMPTS_DIR.glob("세계관*_EN.json"), key=lambda p: p.name)),
         ("이벤트", sorted(PROMPTS_DIR.glob("이벤트_*_EN.json"), key=lambda p: p.name)),
         ("SVG", sorted(PROMPTS_DIR.glob("SVG_*_EN.json"), key=lambda p: p.name)),
         ("이미지", [PROMPTS_DIR / "이미지_NSFW_EN.json"]),
@@ -263,6 +276,7 @@ def parse_lorebook(filepath: Path) -> dict[str, Any] | None:
 # ═══════════════════════════════════════════════════════════════
 
 def run_pipeline(entries: list[dict[str, Any]], start_from: int = 1, delay: float = 0.15, pause_each: bool = False):
+    ensure_gui_dependencies()
     total = len(entries)
 
     print(f"\n{'=' * 60}")
@@ -352,7 +366,7 @@ def print_list(entries: list[dict[str, Any]]):
         print(f"  {i:3d}. {e['name']:<30s} {e['size']:>6,}ch  {kw_count:2d}kw  | {kw_preview}")
 
     total_kw = sum(len(e["keywords"]) for e in entries)
-    print(f"\n  총 {len(entries)}개 lorebook, {sum(e['size'] for e in entries):,} chars, {total_kw} keywords")
+    print(f"\n  총 {len(entries)}개 lorebook ({len(entries)} non-combined), {sum(e['size'] for e in entries):,} chars, {total_kw} keywords")
 
 
 # ═══════════════════════════════════════════════════════════════
