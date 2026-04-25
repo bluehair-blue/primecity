@@ -1,4 +1,4 @@
-<style>
+ <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:oklch(0.08 0.01 265);--bg-card:oklch(0.12 0.005 265/0.4);--gold:oklch(0.76 0.12 80);--gold-dim:oklch(0.76 0.12 80/0.15);--blue:oklch(0.62 0.20 252);--blue-dim:oklch(0.62 0.20 252/0.15);--txt:oklch(1.0 0 0);--txt-sub:oklch(1.0 0 0/0.45);--txt-dim:oklch(1.0 0 0/0.25);--bdr:oklch(0.76 0.12 80/0.08)}
 .w{padding:0 24px}
@@ -115,7 +115,7 @@ details[open]>.fold-s .fold-i{transform:rotate(180deg);color:var(--blue)}
 <div style="padding:24px;text-align:center;background:linear-gradient(135deg,oklch(0.76 0.12 80/0.08),oklch(0.62 0.20 252/0.06));border-top:1px solid oklch(0.76 0.12 80/0.15);border-bottom:1px solid oklch(0.76 0.12 80/0.15);">
 <div style="font-family:serif;font-size:13px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Latest Update · 2026.04.23</div>
 <div style="font-family:serif;font-size:22px;font-weight:600;color:var(--txt);margin-bottom:8px;word-break:keep-all;">20번째 캐릭터 사피아(SPA) · 라피스 롤백</div>
-<div style="font-size:15px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;max-width:480px;margin:0 auto;"><span style="color:var(--gold);font-weight:600;">사피아(SPA)</span> 추가 — APPAIREL & DESIGN 디자이너 · 아피리아의 자매(자매 이상의 애정).<br><span style="color:var(--gold);font-weight:600;">라피스</span> 디자인 롤백 — 로우 포니테일·빈유·스트리트 복귀.<br>이미지 에셋 2,000장+ (ASSET v28).</div>
+<div style="font-size:15px;color:var(--txt-sub);line-height:1.8;word-break:keep-all;max-width:480px;margin:0 auto;"><span style="color:var(--gold);font-weight:600;">사피아(SPA)</span> 추가 — APPAIREL & DESIGN 디자이너 · 아피리아의 여동생.<br><span style="color:var(--gold);font-weight:600;">라피스</span> 디자인 롤백.<br>이미지 에셋 2,000장+ (ASSET v28).</div>
 </div>
 <!-- About -->
 <div class="w">

@@ -1,4 +1,4 @@
-# CLAUDE.md — Prime City 프로젝트 가이드
+# AGENTS.md — Prime City 프로젝트 가이드
 
 > 이 파일은 **표지판**입니다. 상세 내용은 각 전문 문서를 참조하세요.
 > | 문서 | 역할 |
@@ -8,7 +8,7 @@
 > | `idea.md` | 브레인스토밍 & 개선 아이디어 |
 > | `{폴더}/research_sub.md` | 폴더별 상세 분석 |
 > | `docs/CODEBASE_MAP.md` | **코드베이스 목차** (파일별 줄 수 + 역할, 분할 구조) |
-> | `.claude/plans/*.md` | 세부 작업 계획서 |
+> | `.Codex/plans/*.md` | 세부 작업 계획서 |
 
 ---
 
@@ -34,7 +34,7 @@
 | 인프라 | Cloudflare Pages + R2 + Workers 10개 |
 | 이미지 생성 | NovelAI API v4 (tools/asset_generator.py) |
 | 이미지 검열 | ntd11 v5 YOLOv11s-seg (tools/auto_censor.py) |
-| CI/CD | GitHub Actions (Claude Code Action + PR Review) |
+| CI/CD | GitHub Actions (Codex Action + PR Review) |
 
 > 상세 → `research.md` §2
 
@@ -58,8 +58,8 @@
 ├── tools_dist/            ← 배포용 클린 복사본
 ├── models/                ← ntd11_v5.pt (gitignore)
 ├── public/                ← favicon, icons, _headers
-├── .claude/               ← 훅 11개, 스킬 5개
-└── .github/workflows/     ← Claude Code Actions
+├── .Codex/               ← 훅 11개, 스킬 5개
+└── .github/workflows/     ← Codex Actions
 ```
 
 > 상세 → `research.md` §3, 각 폴더 `research_sub.md`
@@ -381,22 +381,22 @@ C:\Users\User\OneDrive\图片\챗봇 제작\연예계\char_img\
 
 ---
 
-## Claude Code Skills
+## Codex Skills
 
 | 스킬 | 호출 | 설명 |
 |---|---|---|
-| `/new-page` | 사용자+Claude | 새 페이지 생성 + 라우트 등록 + 빌드 검증 |
+| `/new-page` | 사용자+Codex | 새 페이지 생성 + 라우트 등록 + 빌드 검증 |
 | `/deploy-preview` | 사용자 전용 | 빌드+배포 원커맨드 |
-| `/annotate-code` | 사용자+Claude | 코드에 상세 주석 작성 (역할/이유/연계) |
-| `frontend-design` | Claude 자동 | 디자인 가이드라인 |
-| `project-patterns` | Claude 자동 | Git 히스토리 기반 패턴 |
+| `/annotate-code` | 사용자+Codex | 코드에 상세 주석 작성 (역할/이유/연계) |
+| `frontend-design` | Codex 자동 | 디자인 가이드라인 |
+| `project-patterns` | Codex 자동 | Git 히스토리 기반 패턴 |
 
 ---
 
 ## 개발 워크플로우
 
 ```
- 1. CLAUDE.md 읽기              ← 표지판 (이 파일)
+ 1. AGENTS.md 읽기              ← 표지판 (이 파일)
  2. research_sub.md 읽기/수정    ← 해당 폴더 상세 분석
  3. research.md 읽기/수정        ← 전체 프로젝트 종합
  4. plan.md 읽기/수정            ← 상세 기획 (접근방식, 코드 스니펫, 파일 경로, 트레이드오프)
@@ -407,7 +407,7 @@ C:\Users\User\OneDrive\图片\챗봇 제작\연예계\char_img\
  8. 빌드 검증                    ← npm run build
  9. 커밋                         ← 서술형 (Add/Fix/Update/Redesign)
 10. 푸시                         ← git push origin main
-11. CLAUDE.md 업데이트            ← 요약만 갱신
+11. AGENTS.md 업데이트            ← 요약만 갱신
 12. research/plan 업데이트        ← 변경 내용 반영
 ```
 
@@ -415,13 +415,13 @@ C:\Users\User\OneDrive\图片\챗봇 제작\연예계\char_img\
 - **구현 전 반드시 plan.md에 상세 기획을 작성할 것** — 접근 방식, 코드 스니펫, 변경 파일, 트레이드오프 포함
 - **사용자가 plan.md 내부에서 피드백 주석을 달고 명시적으로 승인하기 전까지 코드 구현 금지**
 - **커밋 전 반드시 빌드 검증** (`npm run build`)
-- **CLAUDE.md는 표지판** — 상세 내용은 research.md/plan.md/idea.md에
+- **AGENTS.md는 표지판** — 상세 내용은 research.md/plan.md/idea.md에
 - **파일 수정 시 연쇄 영향 전수 조사 필수** — 하나의 파일을 수정할 때, 해당 파일을 import/참조/소비하는 모든 파일을 grep으로 찾아 연쇄 영향을 분석한 후 함께 수정할 것. 데이터 파일(characters.js, cdn.js 등) 변경 시 이를 소비하는 컴포넌트/페이지를 반드시 확인. CDN 경로 변경 시 R2 업로드 경로·코드 참조·로컬 파일 구조 3곳이 일치하는지 교차 검증. "한 곳만 고치고 나머지는 안 고치는" 실수를 절대 반복하지 않는다.
 
 ### 문서 체계
 | 문서 | 역할 | 갱신 주기 |
 |---|---|---|
-| CLAUDE.md | 표지판 (요약 + 안내) | 매 세션 (가볍게) |
+| AGENTS.md | 표지판 (요약 + 안내) | 매 세션 (가볍게) |
 | research.md | 총체적 분석 보고서 | 구조 변경 시 |
 | research_sub.md | 폴더별 상세 | 해당 폴더 변경 시 |
 | plan.md | 구현 기획서 (승인 전까지 코드 금지) | 기획 시작/승인/완료 시 |
