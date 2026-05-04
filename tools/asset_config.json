@@ -1042,9 +1042,7 @@
       "96": {
         "female_prompt": "dark office, monitor glow, sitting, leaning back, mysterious, documents, chess piece on desk, scheming"
       },
-      "remove_tags": [
-        ""
-      ],
+      "remove_tags": [],
       "_override_slots": {
         "hug_style": "POV",
         "cowgirl_variant": "squatting",
@@ -1060,9 +1058,7 @@
       "96": {
         "female_prompt": "office, desk, reviewing documents, serious, pen in hand, organized, professional"
       },
-      "remove_tags": [
-        ""
-      ],
+      "remove_tags": [],
       "_override_slots": null,
       "_note": "남성 캐릭터 - NSFW 씬 전체 생성 제외"
     },

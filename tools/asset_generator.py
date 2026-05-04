@@ -236,6 +236,12 @@ def _dedupe_prompt(prompt: str) -> str:
         tag = raw.strip()
         if not tag:
             continue
+        # 닫는 :: 토큰 (예: "3::tag1, tag2, ::" 에서 분리된 " ::")
+        # 이전 태그에 재연결하여 NAI 가중치 그룹 구조 보존
+        if tag == "::":
+            if out:
+                out[-1] = out[-1] + ", ::"
+            continue
         # weight prefix 제거: "2::", "0.6::", "-3::"
         key = re.sub(r"^-?\d+\.?\d*::", "", tag)
         # weight suffix 제거: 끝의 "::"
@@ -298,7 +304,7 @@ def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str
         male_caption = scene_ovr.get("male_prompt", male_caption)
 
     # Global remove_tags (e.g., remove "double v" for NHR/JSH)
-    remove_tags = overrides.get("remove_tags", [])
+    remove_tags = [t for t in overrides.get("remove_tags", []) if t.strip()]
     for tag in remove_tags:
         female_scene = female_scene.replace(f", {tag},", ",").replace(f", {tag}", "").replace(f"{tag}, ", "")
         male_caption = male_caption.replace(f", {tag},", ",").replace(f", {tag}", "").replace(f"{tag}, ", "")
@@ -329,7 +335,7 @@ def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str
 
     # Scene-level remove_tags (씬 단위 blacklist — pose 태그 적용 이후 적용됨)
     # 예: scene 80/81 에서 'face in pillow' 제거 (toilet 문맥 부조화 방지)
-    scene_remove = scene.get("remove_tags", [])
+    scene_remove = [t for t in scene.get("remove_tags", []) if t.strip()]
     for tag in scene_remove:
         female_caption = female_caption.replace(f", {tag},", ",").replace(f", {tag}", "").replace(f"{tag}, ", "")
         male_caption = male_caption.replace(f", {tag},", ",").replace(f", {tag}", "").replace(f"{tag}, ", "")
