@@ -2,7 +2,7 @@
 
 > 이 문서는 프로젝트 전체 구조를 빠르게 파악하기 위한 **목차 파일**입니다.
 > 각 파일의 줄 수와 역할을 기록합니다. 파일 분할/추가/삭제 시 갱신할 것.
-> 마지막 갱신: 2026-04-18 (6개 직업군 모드 본체 충실화 + 이벤트 5·관계 3 신규)
+> 마지막 갱신: 2026-04-25 (Round 4 구현 게이트 + Dependabot postcss 취약점 해결)
 
 ---
 
@@ -28,6 +28,7 @@
 | ModeTrainee.jsx | 106 | 연습생 모드 소개 |
 | ModeComposer.jsx | 106 | 작곡가 모드 소개 |
 | ModeActor.jsx | 105 | 배우 모드 소개 |
+| ModeCeo.jsx | 204 | CEO 모드 소개 |
 | NotFound.jsx | 102 | 404 페이지 |
 
 ### Components (src/components/)
@@ -39,10 +40,10 @@
 | DefaultCharDetail.jsx | 625 | 기본 캐릭터 상세 (홀로그램 UI) |
 | CinematicCharDetail.jsx | 481 | 시네마틱 인트로 공용 뼈대 |
 | TriangleNav.jsx | 474 | 하위 네비게이션 |
-| HeroSlider.jsx | 416 | 히어로 슬라이더 |
+| HeroSlider.jsx | 417 | 히어로 슬라이더 + EdenChat CTA |
 | JgrCharDetail.jsx | 397 | 장그루 전용 인트로 |
 | CityMap.jsx | 386 | 도시 지도 (인터랙티브) |
-| Navbar.jsx | 354 | 상단 네비게이션 |
+| Navbar.jsx | 361 | 상단 네비게이션 + EdenChat Play 링크 |
 | CharExpressionsGrid.jsx | 178 | 캐릭터 표정 그리드 |
 | ScrollNav.jsx | 160 | 스크롤 네비게이션 |
 | CharNavigation.jsx | 125 | 캐릭터 간 이동 |
@@ -82,7 +83,7 @@
 
 | File | Lines | Role |
 |------|------:|------|
-| characters.js | 561 | 17명 캐릭터 데이터 |
+| characters.js | 561 | 20명 캐릭터 데이터 |
 | gamemodes.js | 176 | 게임 모드 정의 (16종) |
 | gallery.js | 166 | 갤러리 아이템 |
 | cityMapGeometry.js | 124 | 도시 지도 좌표/도형 |
@@ -90,6 +91,7 @@
 | introStyles.js | 75 | 시네마틱 인트로 설정 |
 | galleryConfig.js | 23 | 갤러리 상수 |
 | svgTemplates.js | 17 | SVG 템플릿 re-export |
+| links.js | 2 | 외부 링크 상수 (EdenChat player URL) |
 
 #### SVG Templates (src/data/svgTemplates/)
 
@@ -120,7 +122,7 @@
 
 | File | Lines | Role |
 |------|------:|------|
-| App.jsx | 75 | 라우트 정의 |
+| App.jsx | 77 | 라우트 정의 |
 | main.jsx | 43 | React 마운트 |
 
 ---
@@ -148,12 +150,14 @@
 |------|------:|------|
 | asset_generator.py | 731 | NAI API 이미지 생성 배치 |
 | auto_censor.py | 577 | YOLO 기반 NSFW 검열 |
-| extract_char_prompts.py | 339 | 캐릭터 프롬프트 추출 |
-| edenchat_clipboard.py | 322 | 에덴챗 로어북 삽입 매크로 |
+| edenchat_clipboard.py | 383 | 에덴챗 로어북 삽입 매크로 (`--list` GUI 의존성 없음, 207 non-combined) |
+| extract_char_prompts.py | 343 | 레거시 캐릭터 프롬프트 추출 (`--allow-legacy` 필수) |
 | r2_sync_loop.py | 283 | char_img → R2 동기화 루프 |
 | extract_config.py | 233 | NAIS2 설정 추출 |
 | verify_danbooru_tags.py | 61 | Danbooru 태그 검증 |
 | utils.py | 60 | 공용 상수 (ALL_CHARS 등) |
+| audit_image_count_surfaces.ps1 | 73 | 이미지 수치 표면 read-only 감사 |
+| audit_trigger_keys.ps1 | 21 | prompt JSON body `trigger` audit-only 가드 |
 
 **주요 설정 파일:**
 - `asset_config.json` — 캐릭터 프롬프트 + 씬 정의 + 오버라이드
@@ -163,16 +167,29 @@
 
 ---
 
-## docs/prompts/json/ — Lorebook System (194개)
+## docs/prompts/json/ — Lorebook System (207 non-combined, as of 2026-04-25)
 
 | Folder | Count | Role |
 |--------|------:|------|
 | 캐릭터/ | 103 | 캐릭터 본체/트리거/초기/심화/과거/위기/가족/재회/오디션/관계(자매·짠꿉공·라이벌·작품) |
 | 모드/ | 53 | 모드 본체(6) + 시작 시나리오 + 기획사 분기(APEX/BlueMoon/PRISM/Route0) + B분기(7) + 서브이벤트 |
 | 오디션/ | 12 | 오디션 모드(프로듀서/참가자) · 라운드(1R/2R/3R-A/3R-B/3R-C/4R) · 막간(초반/중반/후반/합숙) |
-| 루트 | 26 | 메인 프롬프트, 구역(5), SVG(10), 이벤트(5), 이미지, 세계관 |
+| 루트 | 39 | 메인 프롬프트, 구역(4), SVG(10), 이벤트(5), 이미지, 세계관, 나하린 분기 |
+| **lite** | 2 | 경량화 프롬프트: `메인_프롬프트_lite_EN.json` + `플랫폼_캐릭터프롬프트_lite_EN.md` |
 
 **파일 규칙:** `{이름}_EN.json` · 트리거는 `// --- TRIGGER ---` 주석 · 1엔트리=1파일
+
+---
+
+## .github/workflows/ — CI Pipeline
+
+| File | Lines | Role |
+|------|------:|------|
+| build.yml | 31 | Node 22.11.0, `npm ci --prefer-offline`, `npm audit --audit-level=moderate`, `npm run build` |
+| claude.yml | 68 | Claude workflow |
+| claude-code-review.yml | 49 | Claude code review workflow |
+
+**Dependency security:** Dependabot moderate advisory GHSA-qx2v-qp2m-jg93 was resolved on 2026-04-25 by updating lockfile `postcss` from `8.5.8` to `8.5.10`; `npm audit --audit-level=moderate` reports 0 vulnerabilities.
 
 ---
 

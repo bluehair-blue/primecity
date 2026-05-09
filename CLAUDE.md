@@ -246,6 +246,28 @@ ripple:  { duration: 6000 },  // MIL — 줌 2비트 + 물결 + hero hold
 // 강하람
 ```
 
+### 라이트 프롬프트 운영 가이드
+
+API 토큰 비용 절감을 위한 경량화 버전. Opus 4.6/4.7 타겟.
+
+| 파일 | 대응 풀버전 | 용도 |
+|---|---|---|
+| `docs/prompts/json/메인_프롬프트_lite_EN.json` | `메인_프롬프트_EN.json` | 메인 프롬프트 경량화 |
+| `docs/prompts/플랫폼_캐릭터프롬프트_lite_EN.md` | `플랫폼_캐릭터프롬프트_EN_풀어쓰기.md` | 캐릭터 프롬프트 경량화 (20명) |
+
+**운영 규칙:**
+- 풀버전 수정 시 라이트 버전도 수동 동기화 (PostToolUse hook이 리마인더 제공)
+- 풀버전과 라이트 버전을 혼용하지 않을 것
+- `_secure` 4행, `status.fmt` 양식, `hidden.format` 양식은 풀버전과 동일 유지 필수
+
+**수정 전 체크리스트:**
+1. `.bak` 백업 생성 (PreToolUse hook이 강제)
+2. 수정 후: 필수 키 8개 존재 확인 (`_secure`, `abs`, `rule`, `nar`, `out`, `status`, `hidden`, `img`)
+3. 수정 후: 캐릭터 20명 전원 존재 확인
+4. 커밋 전: 풀버전과의 의미적 일관성 확인
+
+> 상세 → `docs/prompts/plan_sub_lite_prompt.md`
+
 ---
 
 ## 사이트 구조 (섹션 흐름)
@@ -374,6 +396,7 @@ C:\Users\User\OneDrive\图片\챗봇 제작\연예계\char_img\
 
 - SVG Workers: escapeXml() 102곳 (XSS 방지)
 - HTTP 헤더: CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy
+- 의존성 보안: GitHub Actions Build가 `npm audit --audit-level=moderate` 실행. 2026-04-25 기준 `postcss` GHSA-qx2v-qp2m-jg93 해결 (`postcss 8.5.10`, audit 0건)
 - R2: 디렉토리 리스팅 비활성, 소스맵 미생성
 - 토큰: tools/.nai_token gitignore + tools_dist 제외
 
@@ -404,7 +427,7 @@ C:\Users\User\OneDrive\图片\챗봇 제작\연예계\char_img\
  6. 사용자의 plan 주석/피드백 분석 ← 사용자가 plan.md 내부에 주석으로 피드백
  7. 사용자의 명시적 승인 후 구현   ← "이 기획을 구현해도 된다"는 승인이 있어야만 코드 작성
  7.5 연쇄 영향 전수 조사          ← 수정 파일을 참조하는 모든 파일을 grep으로 찾아 함께 수정
- 8. 빌드 검증                    ← npm run build
+ 8. 빌드/보안 검증                ← npm audit --audit-level=moderate + npm run build
  9. 커밋                         ← 서술형 (Add/Fix/Update/Redesign)
 10. 푸시                         ← git push origin main
 11. CLAUDE.md 업데이트            ← 요약만 갱신
@@ -414,7 +437,7 @@ C:\Users\User\OneDrive\图片\챗봇 제작\연예계\char_img\
 ### 핵심 규칙
 - **구현 전 반드시 plan.md에 상세 기획을 작성할 것** — 접근 방식, 코드 스니펫, 변경 파일, 트레이드오프 포함
 - **사용자가 plan.md 내부에서 피드백 주석을 달고 명시적으로 승인하기 전까지 코드 구현 금지**
-- **커밋 전 반드시 빌드 검증** (`npm run build`)
+- **커밋 전 반드시 보안/빌드 검증** (`npm audit --audit-level=moderate`, `npm run build`)
 - **CLAUDE.md는 표지판** — 상세 내용은 research.md/plan.md/idea.md에
 - **파일 수정 시 연쇄 영향 전수 조사 필수** — 하나의 파일을 수정할 때, 해당 파일을 import/참조/소비하는 모든 파일을 grep으로 찾아 연쇄 영향을 분석한 후 함께 수정할 것. 데이터 파일(characters.js, cdn.js 등) 변경 시 이를 소비하는 컴포넌트/페이지를 반드시 확인. CDN 경로 변경 시 R2 업로드 경로·코드 참조·로컬 파일 구조 3곳이 일치하는지 교차 검증. "한 곳만 고치고 나머지는 안 고치는" 실수를 절대 반복하지 않는다.
 
@@ -431,7 +454,7 @@ C:\Users\User\OneDrive\图片\챗봇 제작\연예계\char_img\
 
 ## 작업 현황 (요약)
 
-**완료**: **20번째 캐릭터 사피아(SPA) 추가 · 라피스 디자인 롤백** (2026-04-23, 자매 이상의 애정 설정 · APPAIREL & DESIGN · ASSET_VERSION 28), **이미지 원본 경로 통일 연예계/char_img/ · Apphireah 교정** (2026-04-23), 사이트 16페이지, 디자인 시스템, 에셋 2,000장+, 보안, 파일 정리, tools/ 파이프라인 개선 (18항목), NSFW 검열 배치 (264/855장), 캐릭터 사인/썸네일 15명 CDN 통일, CharDetail seam cue, **장그루 전용 시네마틱 인트로 (JgrCharDetail v4)**, 사이트 총체적 최적화 ①②③④, CityMap 히트박스 등각 보정, **챗봇 프롬프트 Phase 5 전면 개편 완료 (103개 로어북, 최종 검증 A~E PASS)**, **태블릿 SVG 개편 (10섹션, 13모드, escapeXml 수정, 상대좌표 리팩터링)**, 이미지 에셋 재생성 1,125장 완료 (char_img/), **에덴챗 로어북 102개 플랫폼 삽입 완료** (edenchat_clipboard.py 매크로), char_img/ 검열 배치 완료 (conf=0.7, 252장 검열/603장 클린), **이미지 에셋 확장 완료 (21코드×15캐릭 = 314장 + 검열 53장)** — 코드 1-96 빈번호 해소 + NSFW 확장(섹스웅 패턴) + 라이브씬/무대씬, **에덴챗 소개 HTML 개편 완료** (폰트 +4px, 15명 전체 썸네일 이미지, Prism→Prime, ?v=3, 섹션 재배치, stat bridge 2개, 산업단지 추가, 유틸리티 모드 5개, Image System 6카테고리+캐릭터코드란, CTA 배경이미지+챗봇 시작 버튼, confirm 팝업 제거), **15명 sign 이미지 전원 등록** (ASSET_VERSION 11, CharDetail 3곳 Sign 섹션 추가), **CinematicCharDetail 인트로 시스템 Step 5a/5b/6 완료** (JSH CutawayIntro v4 · KHR CameraIntro · MIL RippleIntro), **CinematicCharDetail Phase 1 이펙트 추가** (마우스 틸트 · 반사 · bgMarquee)
+**완료**: **Round 4 구현 게이트 + 보안 파이프라인** (Build CI, `npm audit --audit-level=moderate`, CEO `/modes/ceo`, Navbar Play, audit scripts, `postcss 8.5.10`), **20번째 캐릭터 사피아(SPA) 추가 · 라피스 디자인 롤백** (2026-04-23, 자매 이상의 애정 설정 · APPAIREL & DESIGN · ASSET_VERSION 28), **이미지 원본 경로 통일 연예계/char_img/ · Apphireah 교정** (2026-04-23), 사이트 16페이지, 디자인 시스템, 에셋 2,000장+, 보안, 파일 정리, tools/ 파이프라인 개선 (18항목), NSFW 검열 배치 (264/855장), 캐릭터 사인/썸네일 15명 CDN 통일, CharDetail seam cue, **장그루 전용 시네마틱 인트로 (JgrCharDetail v4)**, 사이트 총체적 최적화 ①②③④, CityMap 히트박스 등각 보정, **챗봇 프롬프트 Phase 5 전면 개편 완료 (103개 로어북, 최종 검증 A~E PASS)**, **태블릿 SVG 개편 (10섹션, 13모드, escapeXml 수정, 상대좌표 리팩터링)**, 이미지 에셋 재생성 1,125장 완료 (char_img/), **에덴챗 로어북 102개 플랫폼 삽입 완료** (edenchat_clipboard.py 매크로), char_img/ 검열 배치 완료 (conf=0.7, 252장 검열/603장 클린), **이미지 에셋 확장 완료 (21코드×15캐릭 = 314장 + 검열 53장)** — 코드 1-96 빈번호 해소 + NSFW 확장(섹스웅 패턴) + 라이브씬/무대씬, **에덴챗 소개 HTML 개편 완료** (폰트 +4px, 15명 전체 썸네일 이미지, Prism→Prime, ?v=3, 섹션 재배치, stat bridge 2개, 산업단지 추가, 유틸리티 모드 5개, Image System 6카테고리+캐릭터코드란, CTA 배경이미지+챗봇 시작 버튼, confirm 팝업 제거), **15명 sign 이미지 전원 등록** (ASSET_VERSION 11, CharDetail 3곳 Sign 섹션 추가), **CinematicCharDetail 인트로 시스템 Step 5a/5b/6 완료** (JSH CutawayIntro v4 · KHR CameraIntro · MIL RippleIntro), **CinematicCharDetail Phase 1 이펙트 추가** (마우스 틸트 · 반사 · bgMarquee)
 **진행 중**: **CharDetail 시네마틱 인트로 시스템** — Step 7a(LSH 글리치), 7b(MMR 플래시+댓글), 7c(NHR 안개), 7d(HSR 카드딜), 7e(HSE 페이지넘김), 8(전수 테스트). 아키텍처: `CinematicCharDetail` + `INTRO_COMPONENTS` 레지스트리 + Phase -1/0/1/2 상태기계 + `CenteredQuote.jsx` 공용 컴포넌트. 상세 → `src/pages/chardetail_intro_plan.md`
 **미완**: **에덴챗 소개 HTML 사용자 피드백 반영** (에덴챗 플랫폼 삽입 후 확인 필요), **에덴챗 삽입 테스트** (실제 챗봇 동작 검증), Works 확장, 최적화 ⑤ 접근성(사용자 디자인 판단 대기), svgTemplates.js 고유명사 반영, char_img/ CDN 비교+반영
 **최후순위**: PyTorch CPU→CUDA 교체 + ntd11 YOLO 파인튜닝 (귀두/작은 성기 미감지 개선, 라벨링 40장 필요, GPU 활성화 후 학습 5-10분)
