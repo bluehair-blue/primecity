@@ -9,6 +9,8 @@ const Gallery = lazy(() => import("./pages/Gallery"));
 const Updates = lazy(() => import("./pages/Updates"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Works = lazy(() => import("./pages/Works"));
+const PersonaForgePage = lazy(() => import("./pages/persona-cyoa/PersonaForgePage"));
+const ChatPersonaDraftPage = lazy(() => import("./pages/ChatPersonaDraftPage"));
 const ModeAudition = lazy(() => import("./pages/ModeAudition"));
 const ModeFreeplay = lazy(() => import("./pages/ModeFreeplay"));
 const ModeProducer = lazy(() => import("./pages/ModeProducer"));
@@ -59,6 +61,9 @@ export default function App() {
           <Route path="/updates" element={<Updates />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/works" element={<Works />} />
+          <Route path="/persona-forge" element={<PersonaForgePage />} />
+          <Route path="/persona-cyoa" element={<PersonaForgePage />} />
+          <Route path="/chat" element={<ChatPersonaDraftPage />} />
           <Route path="/modes/audition" element={<ModeAudition />} />
           <Route path="/modes/freeplay" element={<ModeFreeplay />} />
           <Route path="/modes/producer" element={<ModeProducer />} />

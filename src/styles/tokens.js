@@ -62,4 +62,17 @@ const C = {
   black:     "oklch(0.08 0.01 265)",
 };
 
+export const PERSONA_FORGE_COLORS = {
+  bgDeep: "oklch(12% 0.025 265)",
+  bgPanel: "oklch(16% 0.035 265 / 0.82)",
+  bgPanelSoft: "oklch(20% 0.04 265 / 0.58)",
+  textWhite: "oklch(98% 0.006 95)",
+  textSoft: "oklch(87% 0.018 90)",
+  textMuted: "oklch(68% 0.018 90)",
+  gold: "oklch(82% 0.14 82)",
+  goldSoft: "oklch(82% 0.11 82 / 0.34)",
+  cyan: "oklch(78% 0.12 215)",
+  danger: "oklch(67% 0.18 28)",
+};
+
 export default C;

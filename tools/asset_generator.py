@@ -31,15 +31,19 @@ NAI API를 사용하여 캐릭터별 장면 이미지를 자동 생성합니다.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import io
 import json
 import logging
 import os
 import random
 import re
+import shutil
 import sys
 import time
 import zipfile
+import subprocess
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -49,6 +53,11 @@ try:
 except ImportError:
     print("pip install requests pillow 필요")
     sys.exit(1)
+
+try:
+    from image_metadata_release import save_sanitized_webp
+except ImportError:  # imported as tools.asset_generator
+    from tools.image_metadata_release import save_sanitized_webp
 
 sys.stdout.reconfigure(encoding="utf-8")
 
@@ -62,7 +71,16 @@ LOG_PATH = TOOLS_DIR / "generation.log"
 
 # Output base: 프로젝트 내부 char_img/ (CDN 구조와 동일)
 PROJECT_ROOT = TOOLS_DIR.parent                          # 연예계/
-OUTPUT_BASE = PROJECT_ROOT / "char_img"                  # 연예계/char_img/
+OUTPUT_BASE = PROJECT_ROOT / "char_img"                  # project-root/char_img/
+METADATA_BASE = PROJECT_ROOT / "char_img_metadata"       # project-root/char_img_metadata/
+METADATA_SCHEMA = "prime-city-asset-prompt-metadata/v1"
+
+# R2 defaults follow AGENTS.md / existing r2_sync scripts.
+DEFAULT_R2_BUCKET = "prime"
+DEFAULT_R2_IMAGE_PREFIX = "ent"
+DEFAULT_R2_METADATA_BUCKET = "prime-metadata"
+DEFAULT_R2_METADATA_PREFIX = "ent"
+DEFAULT_CLEAN_BLUR_RADIUS = 0.5
 
 # ── Timing ──
 DELAY_NORMAL = 1        # 정상 생성 간 대기 (초) — 사용자 요청 2→1
@@ -82,6 +100,32 @@ logging.basicConfig(
     ],
 )
 log = logging.getLogger("asset_gen")
+
+
+@dataclass(frozen=True)
+class NaiGenerationResult:
+    """Decoded NAI result plus the exact request payload used for sidecar JSON."""
+
+    image: "Image.Image"
+    request_payload: dict
+    response_files: list[str]
+    source_image_sha256: str
+    source_image_bytes: int
+    source_image_info: dict
+
+
+@dataclass(frozen=True)
+class OutputOptions:
+    """Controls final asset materialization and optional R2 upload."""
+
+    clean_blur_radius: float = DEFAULT_CLEAN_BLUR_RADIUS
+    r2_upload: bool = False
+    r2_dry_run: bool = False
+    r2_bucket: str = DEFAULT_R2_BUCKET
+    r2_prefix: str = DEFAULT_R2_IMAGE_PREFIX
+    r2_metadata_bucket: str = DEFAULT_R2_METADATA_BUCKET
+    r2_metadata_prefix: str = DEFAULT_R2_METADATA_PREFIX
+    r2_upload_metadata: bool = True
 
 
 # ═══════════════════════════════════════════════════════
@@ -357,10 +401,10 @@ def build_prompt(config: dict, char_code: str, scene_num: int) -> tuple[str, str
 #  NAI API Call
 # ═══════════════════════════════════════════════════════
 
-def call_nai_api(token: str, base_prompt: str, female_caption: str, male_caption: str,
-                 negative: str, female_negative: str, male_negative: str,
-                 width: int, height: int) -> "Image.Image":
-    """Call NAI image generation API. Returns PIL Image or raises.
+def build_nai_payload(base_prompt: str, female_caption: str, male_caption: str,
+                      negative: str, female_negative: str, male_negative: str,
+                      width: int, height: int, seed: int | None) -> dict:
+    """Build the exact NAI v4 request payload.
 
     NAI V4 prompt structure:
     - base_caption:                global (artists + quality) → base_prompt
@@ -370,22 +414,21 @@ def call_nai_api(token: str, base_prompt: str, female_caption: str, male_caption
     - neg char_captions[0]:        female character-specific negative → female_negative
     - neg char_captions[1]:        male character-specific negative → male_negative
 
-    centers 는 use_coords=False 이면 NAI 가 무시하므로 생략.
+    centers 는 use_coords=False 여도 각 char_caption 에 포함한다.
     """
-    seed = random.randint(0, 2**32 - 1)  # noqa: S311  (image seed, not crypto)
-
-    # Build char_captions: female always present, male only when needed
-    # centers 생략 (use_coords=False 이므로 좌표 불필요)
+    # NAID4/4.5 expects centers on each char_caption even when use_coords is
+    # false. Omitting it returns HTTP 500 from the image API.
+    default_center = [{"x": 0.5, "y": 0.5}]
     char_captions = []
     neg_char_captions = []
     if female_caption:
-        char_captions.append({"char_caption": female_caption})
-        neg_char_captions.append({"char_caption": female_negative})
+        char_captions.append({"char_caption": female_caption, "centers": default_center})
+        neg_char_captions.append({"char_caption": female_negative, "centers": default_center})
     if male_caption:
-        char_captions.append({"char_caption": male_caption})
-        neg_char_captions.append({"char_caption": male_negative})
+        char_captions.append({"char_caption": male_caption, "centers": default_center})
+        neg_char_captions.append({"char_caption": male_negative, "centers": default_center})
 
-    payload = {
+    return {
         "input": base_prompt,
         "model": "nai-diffusion-4-5-full",
         "action": "generate",
@@ -458,6 +501,17 @@ def call_nai_api(token: str, base_prompt: str, female_caption: str, male_caption
         },
     }
 
+
+def call_nai_api(token: str, base_prompt: str, female_caption: str, male_caption: str,
+                 negative: str, female_negative: str, male_negative: str,
+                 width: int, height: int) -> NaiGenerationResult:
+    """Call NAI image generation API. Returns decoded image and request metadata."""
+    seed = random.randint(0, 2**32 - 1)  # noqa: S311  (image seed, not crypto)
+    payload = build_nai_payload(
+        base_prompt, female_caption, male_caption, negative,
+        female_negative, male_negative, width, height, seed,
+    )
+
     headers = {
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json",
@@ -482,7 +536,16 @@ def call_nai_api(token: str, base_prompt: str, female_caption: str, male_caption
             if not names:
                 raise APIError("API returned an empty ZIP archive")
             img_data = zf.read(names[0])
-            return Image.open(io.BytesIO(img_data))
+            img = Image.open(io.BytesIO(img_data))
+            img.load()
+            return NaiGenerationResult(
+                image=img,
+                request_payload=payload,
+                response_files=names,
+                source_image_sha256=hashlib.sha256(img_data).hexdigest(),
+                source_image_bytes=len(img_data),
+                source_image_info=summarize_pil_info(img.info),
+            )
     except (zipfile.BadZipFile, KeyError, OSError) as e:
         raise APIError(f"Failed to decode image: {e}") from e
 
@@ -499,31 +562,222 @@ class AuthError(Exception):
 class APIError(Exception):
     pass
 
+class R2UploadError(Exception):
+    pass
+
 
 # ═══════════════════════════════════════════════════════
-#  Image Saving
+#  Output Pipeline: clean image, sidecar metadata, optional R2 upload
 # ═══════════════════════════════════════════════════════
 
-def save_image(img: "Image.Image", char_code: str, scene_num: int, config: dict | None = None) -> Path:
-    """Save as WebP in the CDN-matching folder structure.
-
-    Special assets (900+) use custom output_path from config.
-    """
-    # Check for custom output path (SVG assets, key visual, thumbnail)
+def resolve_output_path(char_code: str, scene_num: int, config: dict | None = None) -> Path:
+    """Resolve the local CDN-style image path for normal and special scenes."""
     custom_path = None
     if config and str(scene_num) in config.get("scenes", {}):
         custom_path = config["scenes"][str(scene_num)].get("output_path")
 
     if custom_path:
-        # e.g. "svg/avatar.webp" → {char}/svg/avatar.webp
-        #      "{code}.webp"     → {char}/{code}.webp (key visual/thumbnail)
         resolved = custom_path.replace("{code}", char_code)
-        out_path = OUTPUT_BASE / char_code / resolved
-    else:
-        out_path = OUTPUT_BASE / char_code / f"{scene_num}.webp"
+        return OUTPUT_BASE / char_code / resolved
+    return OUTPUT_BASE / char_code / f"{scene_num}.webp"
 
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    img.save(out_path, "WEBP", quality=92)
+
+def resolve_metadata_path(image_path: Path) -> Path:
+    """Map char_img/{rel}.webp to char_img_metadata/{rel}.json."""
+    rel = image_path.relative_to(OUTPUT_BASE)
+    return METADATA_BASE / rel.with_suffix(".json")
+
+
+def _r2_prefix(prefix: str) -> str:
+    return prefix.strip("/")
+
+
+def r2_object_key(prefix: str, rel_path: str) -> str:
+    prefix = _r2_prefix(prefix)
+    rel_path = rel_path.replace("\\", "/").lstrip("/")
+    return f"{prefix}/{rel_path}" if prefix else rel_path
+
+
+def summarize_pil_info(info: dict) -> dict:
+    """JSON-safe summary of source image info without embedding binary chunks."""
+    out = {}
+    for key, value in info.items():
+        if isinstance(value, bytes):
+            out[key] = {
+                "type": "bytes",
+                "length": len(value),
+                "sha256": hashlib.sha256(value).hexdigest(),
+            }
+        elif isinstance(value, (str, int, float, bool)) or value is None:
+            out[key] = value
+        else:
+            out[key] = repr(value)
+    return out
+
+
+def save_release_webp(img: "Image.Image", out_path: Path, blur_radius: float) -> None:
+    """Write a deep-cleaned WebP with the canonical bluehair.blue rights XMP."""
+    save_sanitized_webp(img, out_path, blur_radius)
+
+
+def build_generation_metadata(config: dict, char_code: str, scene_num: int,
+                              prompt_parts: tuple[str, str, str, str, str, int, int],
+                              output_options: OutputOptions, image_path: Path,
+                              metadata_path: Path, request_payload: dict,
+                              source: str,
+                              result: NaiGenerationResult | None = None) -> dict:
+    """Create a sidecar JSON payload containing prompts and generation settings."""
+    base_prompt, female_cap, male_cap, female_neg, male_neg, width, height = prompt_parts
+    scene = config["scenes"][str(scene_num)]
+    char = config["characters"][char_code]
+    variant = config.get("scene_variant_map", {}).get(str(scene_num), "clothed")
+    image_rel = image_path.relative_to(OUTPUT_BASE).as_posix()
+    metadata_rel = metadata_path.relative_to(METADATA_BASE).as_posix()
+    image_key = r2_object_key(output_options.r2_prefix, image_rel)
+    metadata_key = r2_object_key(output_options.r2_metadata_prefix, metadata_rel)
+
+    metadata = {
+        "schema": METADATA_SCHEMA,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "source": source,
+        "character": {"code": char_code, "name": char.get("name")},
+        "scene": {
+            "number": scene_num,
+            "name": scene.get("name"),
+            "variant": variant,
+            "width": width,
+            "height": height,
+            "output_path": scene.get("output_path"),
+        },
+        "image": {
+            "relative_path": image_rel,
+            "local_path": str(image_path),
+            "format": "image/webp",
+            "metadata_stripped": True,
+            "stealth_pnginfo_mitigation": {
+                "alpha_background": "#000000",
+                "gaussian_blur_radius": output_options.clean_blur_radius,
+            },
+        },
+        "sidecar": {
+            "relative_path": metadata_rel,
+            "local_path": str(metadata_path),
+        },
+        "r2": {
+            "image_bucket": output_options.r2_bucket,
+            "metadata_bucket": output_options.r2_metadata_bucket,
+            "image_key": image_key,
+            "metadata_key": metadata_key,
+            "image_target": f"{output_options.r2_bucket}/{image_key}",
+            "metadata_target": f"{output_options.r2_metadata_bucket}/{metadata_key}",
+            "metadata_public": False,
+        },
+        "prompts": {
+            "base_prompt": base_prompt,
+            "female_caption": female_cap,
+            "male_caption": male_cap,
+            "negative_prompt": config["base"]["negative_prompt"],
+            "female_negative": female_neg,
+            "male_negative": male_neg,
+            "char_caption_centers": [{"x": 0.5, "y": 0.5}],
+        },
+        "nai_request_payload": request_payload,
+    }
+    if result is not None:
+        metadata["source_image"] = {
+            "response_files": result.response_files,
+            "bytes": result.source_image_bytes,
+            "sha256": result.source_image_sha256,
+            "pil_info": result.source_image_info,
+        }
+    else:
+        metadata["source_image"] = {
+            "reconstructed_from_config": True,
+            "note": "Original random seed and original response bytes are unavailable for pre-existing local images.",
+        }
+    return metadata
+
+
+def save_generation_metadata(metadata_path: Path, metadata: dict) -> None:
+    metadata_path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = metadata_path.with_name(f"{metadata_path.stem}.tmp{metadata_path.suffix}")
+    tmp.write_text(json.dumps(metadata, ensure_ascii=False, indent=2), encoding="utf-8")
+    tmp.replace(metadata_path)
+
+
+_WRANGLER_BIN: str | None = None
+
+
+def find_wrangler() -> str:
+    """Find project-local wrangler first, matching existing R2 sync scripts."""
+    global _WRANGLER_BIN
+    if _WRANGLER_BIN:
+        return _WRANGLER_BIN
+    local_dir = PROJECT_ROOT / "node_modules" / ".bin"
+    for candidate in [local_dir / "wrangler.cmd", local_dir / "wrangler"]:
+        if candidate.exists():
+            _WRANGLER_BIN = str(candidate)
+            return _WRANGLER_BIN
+    fallback = shutil.which("wrangler") or shutil.which("wrangler.cmd")
+    if fallback:
+        _WRANGLER_BIN = fallback
+        return _WRANGLER_BIN
+    raise R2UploadError("wrangler not found. Run npm install in the project root or install wrangler.")
+
+
+def upload_file_to_r2(local_path: Path, bucket: str, object_key: str,
+                      content_type: str, dry_run: bool = False) -> None:
+    target = f"{bucket}/{object_key}"
+    if dry_run:
+        log.info(f"  DRY R2: {target} ← {local_path}")
+        return
+    cmd = [
+        find_wrangler(), "r2", "object", "put", target,
+        "--file", str(local_path),
+        "--content-type", content_type,
+        "--remote",
+    ]
+    proc = subprocess.run(
+        cmd,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=180,
+    )
+    if proc.returncode != 0:
+        out = (proc.stdout or "") + (proc.stderr or "")
+        last = out.strip().splitlines()[-1] if out.strip() else f"exit {proc.returncode}"
+        raise R2UploadError(f"{target}: {last}")
+    log.info(f"  Uploaded R2: {target}")
+
+
+def upload_asset_bundle(image_path: Path, metadata_path: Path,
+                        output_options: OutputOptions) -> None:
+    image_rel = image_path.relative_to(OUTPUT_BASE).as_posix()
+    metadata_rel = metadata_path.relative_to(METADATA_BASE).as_posix()
+    image_key = r2_object_key(output_options.r2_prefix, image_rel)
+    metadata_key = r2_object_key(output_options.r2_metadata_prefix, metadata_rel)
+    upload_file_to_r2(
+        image_path, output_options.r2_bucket, image_key,
+        "image/webp", output_options.r2_dry_run,
+    )
+    if output_options.r2_upload_metadata:
+        upload_file_to_r2(
+            metadata_path, output_options.r2_metadata_bucket, metadata_key,
+            "application/json", output_options.r2_dry_run,
+        )
+
+def save_image(img: "Image.Image", char_code: str, scene_num: int,
+               config: dict | None = None,
+               blur_radius: float = DEFAULT_CLEAN_BLUR_RADIUS) -> Path:
+    """Save as WebP in the CDN-matching folder structure.
+
+    Special assets (900+) use custom output_path from config.
+    Final files are flattened/re-encoded and stripped before publication.
+    """
+    out_path = resolve_output_path(char_code, scene_num, config)
+    save_release_webp(img, out_path, blur_radius)
     log.info(f"  Saved: {out_path.relative_to(OUTPUT_BASE)}")
     return out_path
 
@@ -543,7 +797,8 @@ def save_image_png(img: "Image.Image", char_code: str, scene_num: int) -> Path:
 # ═══════════════════════════════════════════════════════
 
 def _generate_one(token: str, config: dict, state: dict,
-                  char_code: str, scene_num: int, negative: str) -> bool:
+                  char_code: str, scene_num: int, negative: str,
+                  output_options: OutputOptions) -> bool:
     """Single image generation with retry. Returns True on success.
 
     AccountBannedError/AuthError/KeyboardInterrupt propagate to caller.
@@ -551,17 +806,28 @@ def _generate_one(token: str, config: dict, state: dict,
     for attempt in range(1, MAX_RETRIES + 1):
         try:
             scene_name = config["scenes"][str(scene_num)]["name"]
-            result = build_prompt(config, char_code, scene_num)
-            if result is None:
+            prompt_parts = build_prompt(config, char_code, scene_num)
+            if prompt_parts is None:
                 log.info(f"  Skipped {char_code}/{scene_num} (override _skip)")
                 mark_completed(state, char_code, scene_num)
                 return True
-            base_prompt, female_cap, male_cap, female_neg, male_neg, w, h = result
+            base_prompt, female_cap, male_cap, female_neg, male_neg, w, h = prompt_parts
             log.info(f"  Generating {char_code}/{scene_num}.webp ({scene_name}) (attempt {attempt})")
 
-            img = call_nai_api(token, base_prompt, female_cap, male_cap, negative,
-                                female_neg, male_neg, w, h)
-            save_image(img, char_code, scene_num, config)
+            nai_result = call_nai_api(token, base_prompt, female_cap, male_cap, negative,
+                                      female_neg, male_neg, w, h)
+            image_path = save_image(nai_result.image, char_code, scene_num, config,
+                                    output_options.clean_blur_radius)
+            metadata_path = resolve_metadata_path(image_path)
+            metadata = build_generation_metadata(
+                config, char_code, scene_num, prompt_parts, output_options,
+                image_path, metadata_path, nai_result.request_payload,
+                source="generated", result=nai_result,
+            )
+            save_generation_metadata(metadata_path, metadata)
+            log.info(f"  Saved metadata: {metadata_path.relative_to(METADATA_BASE)}")
+            if output_options.r2_upload:
+                upload_asset_bundle(image_path, metadata_path, output_options)
             mark_completed(state, char_code, scene_num)
             return True
 
@@ -570,7 +836,7 @@ def _generate_one(token: str, config: dict, state: dict,
             log.warning(f"  ⚠ 429 Rate Limit. {wait}초 대기...")
             time.sleep(wait)
 
-        except (APIError, requests.RequestException) as e:
+        except (APIError, R2UploadError, requests.RequestException) as e:
             log.exception(f"  ✖ Attempt {attempt}/{MAX_RETRIES}")
             if attempt < MAX_RETRIES:
                 time.sleep(30)
@@ -581,7 +847,8 @@ def _generate_one(token: str, config: dict, state: dict,
 
 
 def generate_batch(token, config, state, char_codes=None, scene_nums=None,
-                   retry_tasks=None, dry_run=False, delay=DELAY_NORMAL):
+                   retry_tasks=None, dry_run=False, delay=DELAY_NORMAL,
+                   output_options: OutputOptions | None = None):
     """Main generation loop.
 
     Args:
@@ -594,6 +861,7 @@ def generate_batch(token, config, state, char_codes=None, scene_nums=None,
         sys.exit(1)
 
     negative = config["base"]["negative_prompt"]
+    output_options = output_options or OutputOptions()
 
     # Build task list
     if retry_tasks:
@@ -642,7 +910,8 @@ def generate_batch(token, config, state, char_codes=None, scene_nums=None,
 
         log.info(f"  [{done}/{total}]")
         try:
-            success = _generate_one(token, config, state, char_code, scene_num, negative)
+            success = _generate_one(token, config, state, char_code, scene_num,
+                                    negative, output_options)
         except AccountBannedError as e:
             log.critical(f"  ✖ {e}")
             log.critical("  즉시 중단합니다. NAI 계정을 확인하세요.")
@@ -677,6 +946,104 @@ def generate_batch(token, config, state, char_codes=None, scene_nums=None,
     completed_total = sum(len(v) for v in state.get("completed", {}).values())
     failed_total = sum(len(v) for v in state.get("failed", {}).values())
     log.info(f"\n═══ 완료: {completed_total}장 성공, {failed_total}장 실패 ═══")
+
+
+def _publish_existing_one(config: dict, char_code: str, scene_num: int,
+                          negative: str, output_options: OutputOptions) -> bool:
+    """Clean an existing local asset, write sidecar JSON, and optionally upload."""
+    prompt_parts = build_prompt(config, char_code, scene_num)
+    if prompt_parts is None:
+        log.info(f"  Skipped {char_code}/{scene_num} (override _skip)")
+        return True
+
+    base_prompt, female_cap, male_cap, female_neg, male_neg, width, height = prompt_parts
+    image_path = resolve_output_path(char_code, scene_num, config)
+    if not image_path.exists():
+        log.error(f"  ✖ Missing local image: {image_path}")
+        return False
+
+    request_payload = build_nai_payload(
+        base_prompt, female_cap, male_cap, negative,
+        female_neg, male_neg, width, height, seed=None,
+    )
+
+    with Image.open(image_path) as src_img:
+        src_img.load()
+        img = src_img.copy()
+    save_image(img, char_code, scene_num, config, output_options.clean_blur_radius)
+
+    metadata_path = resolve_metadata_path(image_path)
+    metadata = build_generation_metadata(
+        config, char_code, scene_num, prompt_parts, output_options,
+        image_path, metadata_path, request_payload,
+        source="reconstructed_existing", result=None,
+    )
+    save_generation_metadata(metadata_path, metadata)
+    log.info(f"  Saved metadata: {metadata_path.relative_to(METADATA_BASE)}")
+    if output_options.r2_upload:
+        upload_asset_bundle(image_path, metadata_path, output_options)
+    return True
+
+
+def publish_existing_batch(config: dict, state: dict, char_codes=None, scene_nums=None,
+                           retry_tasks=None, dry_run=False,
+                           output_options: OutputOptions | None = None) -> None:
+    """Post-process already completed local assets without calling NAI."""
+    if not dry_run and not OUTPUT_BASE.exists():
+        log.error(f"Image directory not found: {OUTPUT_BASE.resolve()}")
+        sys.exit(1)
+
+    negative = config["base"]["negative_prompt"]
+    output_options = output_options or OutputOptions()
+
+    if retry_tasks:
+        tasks = retry_tasks
+    else:
+        tasks = [(c, s) for c in (char_codes or []) for s in (scene_nums or [])]
+
+    total = len(tasks)
+    ok = 0
+    fail = 0
+    log.info(f"═══ Publish Existing Start: {total} tasks ═══")
+    for idx, (char_code, scene_num) in enumerate(tasks, start=1):
+        if char_code not in config["characters"]:
+            log.error(f"Character {char_code} not found in config, skipping")
+            fail += 1
+            continue
+        if str(scene_num) not in config["scenes"]:
+            log.warning(f"  Scene {scene_num} not in config, skipping")
+            continue
+        if not is_done(state, char_code, scene_num):
+            log.info(f"  [{idx}/{total}] {char_code}/{scene_num} not completed in state, skipping")
+            continue
+
+        image_path = resolve_output_path(char_code, scene_num, config)
+        metadata_path = resolve_metadata_path(image_path)
+        if dry_run:
+            image_rel = image_path.relative_to(OUTPUT_BASE).as_posix()
+            meta_rel = metadata_path.relative_to(METADATA_BASE).as_posix()
+            log.info(
+                f"  [{idx}/{total}] DRY publish {char_code}/{scene_num} "
+                f"image={image_rel} metadata={meta_rel}"
+            )
+            if output_options.r2_upload:
+                log.info(f"    DRY R2 image: {output_options.r2_bucket}/{r2_object_key(output_options.r2_prefix, image_rel)}")
+                if output_options.r2_upload_metadata:
+                    log.info(f"    DRY R2 metadata: {output_options.r2_metadata_bucket}/{r2_object_key(output_options.r2_metadata_prefix, meta_rel)}")
+            ok += 1
+            continue
+
+        log.info(f"  [{idx}/{total}] Publishing {char_code}/{scene_num}")
+        try:
+            if _publish_existing_one(config, char_code, scene_num, negative, output_options):
+                ok += 1
+            else:
+                fail += 1
+        except (OSError, R2UploadError) as e:
+            fail += 1
+            log.exception(f"  ✖ Publish failed: {char_code}/{scene_num} — {e}")
+
+    log.info(f"\n═══ publish-existing 완료: {ok}장 처리, {fail}장 실패 ═══")
 
 
 # ═══════════════════════════════════════════════════════
@@ -750,10 +1117,35 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="Print prompts without API calls")
     parser.add_argument("--status", action="store_true", help="Show generation progress")
     parser.add_argument("--retry-failed", action="store_true", help="Retry only failed items")
+    parser.add_argument("--publish-existing", action="store_true",
+                        help="Legacy pre-release path; use image_metadata_release.py after a v2 manifest exists")
     parser.add_argument("--include-special", action="store_true",
                         help=f"Also queue SPECIAL_SCENES ({SPECIAL_SCENES}) — opt-in for the 901+ series.")
     parser.add_argument("--delay", type=float, default=DELAY_NORMAL, help=f"Delay between generations in seconds (default: {DELAY_NORMAL}s, min: 1s)")
+    parser.add_argument("--clean-blur-radius", type=float, default=DEFAULT_CLEAN_BLUR_RADIUS,
+                        help=f"Gaussian blur radius for stealth pnginfo mitigation (default: {DEFAULT_CLEAN_BLUR_RADIUS}; 0 disables blur)")
+    parser.add_argument("--r2-upload", action="store_true",
+                        help="Upload cleaned image and prompt metadata JSON to Cloudflare R2 after save")
+    parser.add_argument("--r2-dry-run", action="store_true",
+                        help="Print R2 upload targets without executing wrangler; implies --r2-upload")
+    parser.add_argument("--r2-bucket", default=DEFAULT_R2_BUCKET,
+                        help=f"Cloudflare R2 bucket name (default: {DEFAULT_R2_BUCKET})")
+    parser.add_argument("--r2-prefix", default=DEFAULT_R2_IMAGE_PREFIX,
+                        help=f"R2 image key prefix (default: {DEFAULT_R2_IMAGE_PREFIX})")
+    parser.add_argument("--r2-metadata-bucket", default=DEFAULT_R2_METADATA_BUCKET,
+                        help=f"Private R2 metadata bucket (default: {DEFAULT_R2_METADATA_BUCKET})")
+    parser.add_argument("--r2-metadata-prefix", default=DEFAULT_R2_METADATA_PREFIX,
+                        help=f"R2 prompt metadata JSON key prefix (default: {DEFAULT_R2_METADATA_PREFIX})")
+    parser.add_argument("--no-r2-metadata", action="store_true",
+                        help="When uploading images to R2, do not upload prompt metadata JSON sidecars")
     args = parser.parse_args()
+
+    if (args.publish_existing and not args.dry_run
+            and (METADATA_BASE / "_manifest.after.json").exists()):
+        parser.error(
+            "--publish-existing is disabled after a v2 release to prevent cumulative blur; "
+            "use `py tools/image_metadata_release.py release` instead"
+        )
 
     if args.status:
         show_status()
@@ -761,6 +1153,16 @@ def main():
 
     config = load_config()
     state = load_state()
+    output_options = OutputOptions(
+        clean_blur_radius=max(0.0, args.clean_blur_radius),
+        r2_upload=bool(args.r2_upload or args.r2_dry_run),
+        r2_dry_run=bool(args.r2_dry_run),
+        r2_bucket=args.r2_bucket,
+        r2_prefix=args.r2_prefix,
+        r2_metadata_bucket=args.r2_metadata_bucket,
+        r2_metadata_prefix=args.r2_metadata_prefix,
+        r2_upload_metadata=not args.no_r2_metadata,
+    )
 
     # Determine characters
     if args.chars:
@@ -791,8 +1193,13 @@ def main():
             log.info("No failed items to retry. All clear!")
             return
         log.info(f"Retrying {len(retry_tasks)} failed tasks")
-        generate_batch(token, config, state, retry_tasks=retry_tasks,
-                       dry_run=args.dry_run, delay=delay)
+        if args.publish_existing:
+            publish_existing_batch(config, state, retry_tasks=retry_tasks,
+                                   dry_run=args.dry_run, output_options=output_options)
+        else:
+            generate_batch(token, config, state, retry_tasks=retry_tasks,
+                           dry_run=args.dry_run, delay=delay,
+                           output_options=output_options)
     else:
         if args.scenes:
             scene_nums = parse_scene_range(args.scenes)
@@ -801,12 +1208,19 @@ def main():
             if args.include_special:
                 scene_nums = scene_nums + list(SPECIAL_SCENES)
 
+        if args.publish_existing:
+            publish_existing_batch(config, state, char_codes=char_codes,
+                                   scene_nums=scene_nums, dry_run=args.dry_run,
+                                   output_options=output_options)
+            return
+
         if not token and not args.dry_run:
             print("ERROR: --token, --token-file, or NAI_TOKEN env required (or use --dry-run)")
             return
 
         generate_batch(token, config, state, char_codes=char_codes,
-                       scene_nums=scene_nums, dry_run=args.dry_run, delay=delay)
+                       scene_nums=scene_nums, dry_run=args.dry_run, delay=delay,
+                       output_options=output_options)
 
 
 if __name__ == "__main__":

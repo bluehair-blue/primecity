@@ -55,6 +55,7 @@ os.environ.setdefault("PYTHONIOENCODING", "utf-8")
 TOOLS_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = TOOLS_DIR.parent
 CHAR_IMG = PROJECT_ROOT / "char_img"
+CHAR_METADATA = PROJECT_ROOT / "char_img_metadata"
 STATE_PATH = TOOLS_DIR / "generation_state.json"
 TRACKER_PATH = TOOLS_DIR / ".r2_uploaded.json"
 
@@ -83,6 +84,8 @@ SPECIAL_OUTPUT_PATHS: dict[int, str] = _load_special_paths()
 # ─── R2 ──────────────────────────────────────────────────────
 BUCKET = "prime"
 R2_PREFIX = "ent"
+METADATA_BUCKET = "prime-metadata"
+R2_METADATA_PREFIX = "ent"
 POLL_INTERVAL = 30  # 초
 NOTIFY_EVERY = 30   # 누적 N장 업로드마다 강조 알림 출력
 
@@ -112,6 +115,34 @@ def _find_wrangler() -> str:
 
 
 WRANGLER_BIN = _find_wrangler()
+
+
+def _run_wrangler_put(src: Path, key: str, content_type: str) -> tuple[bool, str]:
+    cmd = [
+        WRANGLER_BIN, "r2", "object", "put", key,
+        "--file", str(src),
+        "--content-type", content_type,
+        "--remote",
+    ]
+    try:
+        proc = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",     # Windows cp949 회피 — wrangler 는 UTF-8 출력
+            errors="replace",
+            timeout=60,
+        )
+    except subprocess.TimeoutExpired:
+        return False, "wrangler timeout (60s)"
+    except FileNotFoundError:
+        return False, f"binary not found: {WRANGLER_BIN}"
+
+    if proc.returncode == 0:
+        return True, "ok"
+    out = (proc.stdout or "") + (proc.stderr or "")
+    last_line = out.strip().splitlines()[-1] if out.strip() else f"exit {proc.returncode}"
+    return False, last_line
 
 
 def log(msg: str) -> None:
@@ -180,32 +211,18 @@ def upload_one(char: str, num: int) -> tuple[bool, str]:
     if not src.exists():
         return False, f"missing local file: {src}"
     key = f"{BUCKET}/{R2_PREFIX}/{r2_rel}"
-    cmd = [
-        WRANGLER_BIN, "r2", "object", "put", key,
-        "--file", str(src),
-        "--content-type", "image/webp",
-        "--remote",
-    ]
-    try:
-        proc = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            encoding="utf-8",     # Windows cp949 회피 — wrangler 는 UTF-8 출력
-            errors="replace",
-            timeout=60,
-        )
-    except subprocess.TimeoutExpired:
-        return False, "wrangler timeout (60s)"
-    except FileNotFoundError:
-        return False, f"binary not found: {WRANGLER_BIN}"
+    success, msg = _run_wrangler_put(src, key, "image/webp")
+    if not success:
+        return False, msg
 
-    # 성공 판정은 returncode 만 신뢰. wrangler 는 성공 시 0, 실패 시 0 이 아닌 코드를 반환.
-    if proc.returncode == 0:
-        return True, "ok"
-    out = (proc.stdout or "") + (proc.stderr or "")
-    last_line = out.strip().splitlines()[-1] if out.strip() else f"exit {proc.returncode}"
-    return False, last_line
+    meta_src = CHAR_METADATA / Path(r2_rel).with_suffix(".json")
+    if meta_src.exists():
+        meta_rel = meta_src.relative_to(CHAR_METADATA).as_posix()
+        meta_key = f"{METADATA_BUCKET}/{R2_METADATA_PREFIX}/{meta_rel}"
+        success, msg = _run_wrangler_put(meta_src, meta_key, "application/json")
+        if not success:
+            return False, f"metadata upload failed: {msg}"
+    return True, "ok"
 
 
 def sync_once(uploaded: set[str], dry_run: bool = False,
@@ -232,6 +249,11 @@ def sync_once(uploaded: set[str], dry_run: bool = False,
     for char, num, key in pending:
         if dry_run:
             log(f"  DRY {key}")
+            custom = SPECIAL_OUTPUT_PATHS.get(num)
+            r2_rel = f"{char}/{custom.replace('{code}', char)}" if custom else f"{char}/{num}.webp"
+            meta_src = CHAR_METADATA / Path(r2_rel).with_suffix(".json")
+            if meta_src.exists():
+                log(f"  DRY metadata {METADATA_BUCKET}/{R2_METADATA_PREFIX}/{meta_src.relative_to(CHAR_METADATA).as_posix()}")
             ok += 1
             continue
         success, msg = upload_one(char, num)

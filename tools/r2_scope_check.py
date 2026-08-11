@@ -17,7 +17,6 @@ uploaded: set[str] = set(tracker_data.get("uploaded", []))
 
 total = 0
 skip_tracker = 0
-skip_jgr93 = 0
 pending: list[str] = []
 by_char: dict[str, dict[str, int]] = {}
 non_scene: list[str] = []  # thumbnail/key/sign/profile 같은 특수 파일
@@ -31,9 +30,6 @@ for char_dir in sorted(CHAR_IMG.iterdir()):
         rel = f.relative_to(CHAR_IMG).as_posix()
         total += 1
         by_char[c]["total"] += 1
-        if c == "JGR" and rel.endswith("/93.webp"):
-            skip_jgr93 += 1
-            continue
         # 트래커 키는 확장자 없는 형태 (r2_sync_loop.py 관례)
         key = rel[:-len(".webp")]
         # 특수 파일 (thumbnail/key/sign/profile/svg/*) 은 tracker 관례와 다를 수 있음
@@ -49,7 +45,6 @@ for char_dir in sorted(CHAR_IMG.iterdir()):
 
 print(f"총 .webp 파일: {total}")
 print(f"트래커 기록 기업로드: {skip_tracker}")
-print(f"JGR/93 제외: {skip_jgr93}")
 print(f"업로드 대상: {len(pending)}")
 print(f"특수 파일 (thumb/key/sign/profile/svg 등): {len(non_scene)}")
 print()

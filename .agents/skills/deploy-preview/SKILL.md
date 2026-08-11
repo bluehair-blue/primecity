@@ -1,6 +1,6 @@
 ---
 name: deploy-preview
-description: 프라임시티 프로젝트를 빌드하고 Cloudflare Pages에 배포합니다
+description: 프라임시티 프로젝트를 빌드하고 Cloudflare Worker 정적 자산으로 배포합니다
 disable-model-invocation: true
 ---
 
@@ -15,7 +15,7 @@ disable-model-invocation: true
 ## 배포 대상
 
 - **도메인**: intro.bluehair.blue
-- **플랫폼**: Cloudflare Pages
+- **플랫폼**: Cloudflare Workers Static Assets
 - **빌드 출력**: `dist/`
 - **SPA 라우팅**: wrangler.jsonc의 `not_found_handling: "single-page-application"` 설정으로 자동 처리
 

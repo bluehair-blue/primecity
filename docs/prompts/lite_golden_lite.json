@@ -1,0 +1,4133 @@
+{
+  "variant": "lite",
+  "mix": "paired",
+  "route_scope": "all",
+  "count": 208,
+  "entries": [
+    {
+      "index": 1,
+      "category": "메인",
+      "display_name": "메인_프롬프트",
+      "file": "메인_프롬프트_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\메인_프롬프트_EN.json",
+      "mix": "paired",
+      "route_class": "00_main_toggle",
+      "size": 2864,
+      "keyword_count": 1,
+      "keywords": [
+        "(기본 규칙 — 항상 활성)"
+      ]
+    },
+    {
+      "index": 2,
+      "category": "공통",
+      "display_name": "이미지_출력",
+      "file": "docs\\prompts\\common\\이미지_출력_EN.json",
+      "source_file": "docs\\prompts\\common\\이미지_출력_EN.json",
+      "mix": "paired",
+      "route_class": "01_common_shared",
+      "size": 1943,
+      "keyword_count": 1,
+      "keywords": [
+        "(이미지 출력 — 항상 활성)"
+      ]
+    },
+    {
+      "index": 3,
+      "category": "캐릭터 본체",
+      "display_name": "강하람",
+      "file": "캐릭터\\강하람_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\강하람_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 647,
+      "keyword_count": 1,
+      "keywords": [
+        "강하람"
+      ]
+    },
+    {
+      "index": 4,
+      "category": "캐릭터 본체",
+      "display_name": "노아",
+      "file": "캐릭터\\노아_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\노아_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 516,
+      "keyword_count": 1,
+      "keywords": [
+        "노아"
+      ]
+    },
+    {
+      "index": 5,
+      "category": "캐릭터 본체",
+      "display_name": "니아",
+      "file": "캐릭터\\니아_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\니아_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 512,
+      "keyword_count": 1,
+      "keywords": [
+        "니아"
+      ]
+    },
+    {
+      "index": 6,
+      "category": "캐릭터 본체",
+      "display_name": "라피스",
+      "file": "캐릭터\\라피스_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\라피스_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 507,
+      "keyword_count": 1,
+      "keywords": [
+        "라피스"
+      ]
+    },
+    {
+      "index": 7,
+      "category": "캐릭터 본체",
+      "display_name": "레이",
+      "file": "캐릭터\\레이_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\레이_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 563,
+      "keyword_count": 1,
+      "keywords": [
+        "레이"
+      ]
+    },
+    {
+      "index": 8,
+      "category": "캐릭터 본체",
+      "display_name": "미모리",
+      "file": "캐릭터\\미모리_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\미모리_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 465,
+      "keyword_count": 1,
+      "keywords": [
+        "미모리"
+      ]
+    },
+    {
+      "index": 9,
+      "category": "캐릭터 본체",
+      "display_name": "밀라",
+      "file": "캐릭터\\밀라_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\밀라_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 504,
+      "keyword_count": 1,
+      "keywords": [
+        "밀라"
+      ]
+    },
+    {
+      "index": 10,
+      "category": "캐릭터 본체",
+      "display_name": "사피아",
+      "file": "캐릭터\\사피아_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\사피아_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 649,
+      "keyword_count": 4,
+      "keywords": [
+        "사피아",
+        "APPAIREL",
+        "사피아]: ❤️",
+        "사피아: ❤️"
+      ]
+    },
+    {
+      "index": 11,
+      "category": "캐릭터 본체",
+      "display_name": "서윤",
+      "file": "캐릭터\\서윤_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\서윤_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 248,
+      "keyword_count": 1,
+      "keywords": [
+        "서윤"
+      ]
+    },
+    {
+      "index": 12,
+      "category": "캐릭터 본체",
+      "display_name": "시아",
+      "file": "캐릭터\\시아_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\시아_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 547,
+      "keyword_count": 1,
+      "keywords": [
+        "시아"
+      ]
+    },
+    {
+      "index": 13,
+      "category": "캐릭터 본체",
+      "display_name": "아피리아",
+      "file": "캐릭터\\아피리아_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\아피리아_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 493,
+      "keyword_count": 1,
+      "keywords": [
+        "아피리아"
+      ]
+    },
+    {
+      "index": 14,
+      "category": "캐릭터 본체",
+      "display_name": "에르피",
+      "file": "캐릭터\\에르피_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\에르피_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 623,
+      "keyword_count": 1,
+      "keywords": [
+        "에르피"
+      ]
+    },
+    {
+      "index": 15,
+      "category": "캐릭터 본체",
+      "display_name": "에리카",
+      "file": "캐릭터\\에리카_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\에리카_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 523,
+      "keyword_count": 1,
+      "keywords": [
+        "에리카"
+      ]
+    },
+    {
+      "index": 16,
+      "category": "캐릭터 본체",
+      "display_name": "엘라",
+      "file": "캐릭터\\엘라_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\엘라_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 426,
+      "keyword_count": 1,
+      "keywords": [
+        "엘라"
+      ]
+    },
+    {
+      "index": 17,
+      "category": "캐릭터 본체",
+      "display_name": "이서하",
+      "file": "캐릭터\\이서하_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\이서하_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 563,
+      "keyword_count": 1,
+      "keywords": [
+        "이서하"
+      ]
+    },
+    {
+      "index": 18,
+      "category": "캐릭터 본체",
+      "display_name": "장그루",
+      "file": "캐릭터\\장그루_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\장그루_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 504,
+      "keyword_count": 1,
+      "keywords": [
+        "장그루"
+      ]
+    },
+    {
+      "index": 19,
+      "category": "캐릭터 본체",
+      "display_name": "진시혁",
+      "file": "캐릭터\\진시혁_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\진시혁_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 551,
+      "keyword_count": 1,
+      "keywords": [
+        "진시혁"
+      ]
+    },
+    {
+      "index": 20,
+      "category": "캐릭터 본체",
+      "display_name": "하시은",
+      "file": "캐릭터\\하시은_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\하시은_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 531,
+      "keyword_count": 1,
+      "keywords": [
+        "하시은"
+      ]
+    },
+    {
+      "index": 21,
+      "category": "캐릭터 본체",
+      "display_name": "한소리",
+      "file": "캐릭터\\한소리_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\한소리_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 590,
+      "keyword_count": 1,
+      "keywords": [
+        "한소리"
+      ]
+    },
+    {
+      "index": 22,
+      "category": "나하린",
+      "display_name": "나하린",
+      "file": "나하린_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\나하린_EN.json",
+      "mix": "paired",
+      "route_class": "05_dynamic_character_core",
+      "size": 1277,
+      "keyword_count": 1,
+      "keywords": [
+        "나하린"
+      ]
+    },
+    {
+      "index": 23,
+      "category": "나하린",
+      "display_name": "나하린_냉각",
+      "file": "나하린_냉각_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\나하린_냉각_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 164,
+      "keyword_count": 6,
+      "keywords": [
+        "나하린]: ❤️L2",
+        "나하린]: ❤️L1",
+        "나하린: ❤️L2",
+        "나하린: ❤️L1",
+        "나하린]: ❤️L3",
+        "나하린: ❤️L3"
+      ]
+    },
+    {
+      "index": 24,
+      "category": "나하린",
+      "display_name": "나하린_분기",
+      "file": "나하린_분기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\나하린_분기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 231,
+      "keyword_count": 12,
+      "keywords": [
+        "나하린]: ❤️L7",
+        "나하린]: ❤️L8",
+        "나하린]: ❤️L9",
+        "나하린: ❤️L7",
+        "나하린: ❤️L8",
+        "나하린: ❤️L9",
+        "진실경량",
+        "정체경량",
+        "흑막경량",
+        "설계자경량",
+        "부술경량",
+        "무너뜨경량"
+      ]
+    },
+    {
+      "index": 25,
+      "category": "나하린",
+      "display_name": "나하린_심리",
+      "file": "나하린_심리_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\나하린_심리_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 294,
+      "keyword_count": 11,
+      "keywords": [
+        "설계",
+        "시스템",
+        "프라임시티의",
+        "만들어",
+        "작품",
+        "구조",
+        "이면",
+        "냉소",
+        "파멸",
+        "무너",
+        "완벽"
+      ]
+    },
+    {
+      "index": 26,
+      "category": "캐릭터 트리거",
+      "display_name": "강하람_트리거",
+      "file": "캐릭터\\강하람_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\강하람_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 308,
+      "keyword_count": 13,
+      "keywords": [
+        "동정",
+        "불쌍",
+        "도와줄",
+        "펜던트",
+        "여동생",
+        "대학",
+        "유품",
+        "부모님",
+        "빚",
+        "갚을",
+        "혼자 할 수",
+        "괜찮아요",
+        "도시락"
+      ]
+    },
+    {
+      "index": 27,
+      "category": "캐릭터 트리거",
+      "display_name": "노아_트리거",
+      "file": "캐릭터\\노아_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\노아_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 430,
+      "keyword_count": 18,
+      "keywords": [
+        "모델",
+        "화보",
+        "촬영",
+        "런웨이",
+        "패션쇼",
+        "헤어클립",
+        "핀",
+        "귀",
+        "동생",
+        "시아",
+        "비교",
+        "조용",
+        "과묵",
+        "무뚝뚝",
+        "차",
+        "겉옷",
+        "카메라",
+        "포즈"
+      ]
+    },
+    {
+      "index": 28,
+      "category": "캐릭터 트리거",
+      "display_name": "니아_트리거",
+      "file": "캐릭터\\니아_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\니아_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 269,
+      "keyword_count": 12,
+      "keywords": [
+        "저 같은",
+        "부족",
+        "성장",
+        "처음",
+        "온실",
+        "집안",
+        "귀족",
+        "이런 내가",
+        "자판기",
+        "편의점",
+        "선택한",
+        "몰라요"
+      ]
+    },
+    {
+      "index": 29,
+      "category": "캐릭터 트리거",
+      "display_name": "라피스_트리거",
+      "file": "캐릭터\\라피스_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\라피스_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 259,
+      "keyword_count": 14,
+      "keywords": [
+        "정체성",
+        "뭘 하고 싶",
+        "스타일",
+        "V",
+        "장르",
+        "다양",
+        "뭐든",
+        "아무것도",
+        "일관",
+        "고정",
+        "바꾸",
+        "록",
+        "발라드",
+        "힙합"
+      ]
+    },
+    {
+      "index": 30,
+      "category": "캐릭터 트리거",
+      "display_name": "레이_트리거",
+      "file": "캐릭터\\레이_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\레이_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 297,
+      "keyword_count": 14,
+      "keywords": [
+        "다리",
+        "의족",
+        "공정",
+        "동정",
+        "조건",
+        "모욕",
+        "뻣뻣",
+        "숨기",
+        "장애",
+        "기회",
+        "동등",
+        "꺾이지",
+        "근성",
+        "밀어붙"
+      ]
+    },
+    {
+      "index": 31,
+      "category": "캐릭터 트리거",
+      "display_name": "미모리_트리거",
+      "file": "캐릭터\\미모리_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\미모리_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 317,
+      "keyword_count": 13,
+      "keywords": [
+        "관종",
+        "진지",
+        "괜찮아?",
+        "선을",
+        "셀카",
+        "라이브",
+        "콘텐츠",
+        "올려",
+        "헤어클립",
+        "무대 후",
+        "갭",
+        "실력",
+        "시끄러"
+      ]
+    },
+    {
+      "index": 32,
+      "category": "캐릭터 트리거",
+      "display_name": "밀라_트리거",
+      "file": "캐릭터\\밀라_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\밀라_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 269,
+      "keyword_count": 13,
+      "keywords": [
+        "자유",
+        "왜 음악",
+        "진지하게",
+        "즐기",
+        "흥얼",
+        "폭주",
+        "즉흥",
+        "좋아서",
+        "재밌",
+        "간절",
+        "절박",
+        "편곡",
+        "동선"
+      ]
+    },
+    {
+      "index": 33,
+      "category": "캐릭터 트리거",
+      "display_name": "사피아_트리거",
+      "file": "캐릭터\\사피아_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\사피아_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 602,
+      "keyword_count": 9,
+      "keywords": [
+        "손목을 잡으며",
+        "소매 끝을 쓰다듬으며",
+        "APPAIREL",
+        "사피아]: ❤️2",
+        "사피아]: ❤️5",
+        "사피아]: ❤️8",
+        "사피아: ❤️2",
+        "사피아: ❤️5",
+        "사피아: ❤️8"
+      ]
+    },
+    {
+      "index": 34,
+      "category": "캐릭터 트리거",
+      "display_name": "서윤_트리거",
+      "file": "캐릭터\\서윤_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\서윤_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 244,
+      "keyword_count": 12,
+      "keywords": [
+        "초커",
+        "진짜",
+        "꿈이",
+        "작곡",
+        "영점",
+        "정점",
+        "서윤이",
+        "최정상",
+        "금색",
+        "도도",
+        "차갑",
+        "은발"
+      ]
+    },
+    {
+      "index": 35,
+      "category": "캐릭터 트리거",
+      "display_name": "시아_트리거",
+      "file": "캐릭터\\시아_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\시아_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 493,
+      "keyword_count": 17,
+      "keywords": [
+        "방송",
+        "라이브",
+        "스트리밍",
+        "팔로워",
+        "인스타",
+        "SNS",
+        "콘텐츠",
+        "헤어클립",
+        "핀",
+        "언니",
+        "노아",
+        "질투",
+        "콜라보",
+        "합방",
+        "방송 끝",
+        "카메라",
+        "촬영"
+      ]
+    },
+    {
+      "index": 36,
+      "category": "캐릭터 트리거",
+      "display_name": "아피리아_트리거",
+      "file": "캐릭터\\아피리아_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\아피리아_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 401,
+      "keyword_count": 17,
+      "keywords": [
+        "아피리아",
+        "여유",
+        "소매",
+        "한쪽 눈",
+        "흰눈",
+        "은 초커",
+        "전설",
+        "무소속",
+        "사파이어",
+        "아피리아 본체",
+        "관찰",
+        "응용",
+        "무너진 적",
+        "정기 활동",
+        "해외",
+        "에르피 나하린 아피리아",
+        "전설 트리오"
+      ]
+    },
+    {
+      "index": 37,
+      "category": "캐릭터 트리거",
+      "display_name": "에르피_트리거",
+      "file": "캐릭터\\에르피_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\에르피_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 290,
+      "keyword_count": 15,
+      "keywords": [
+        "욕하",
+        "비하",
+        "무시하",
+        "깔보",
+        "못한다",
+        "별거",
+        "혼자",
+        "도움 안",
+        "괜찮으니",
+        "은퇴",
+        "무대에",
+        "그리워",
+        "덤벙",
+        "아가",
+        "쏟"
+      ]
+    },
+    {
+      "index": 38,
+      "category": "캐릭터 트리거",
+      "display_name": "에리카_트리거",
+      "file": "캐릭터\\에리카_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\에리카_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 322,
+      "keyword_count": 12,
+      "keywords": [
+        "위해서",
+        "잘 될",
+        "재능만",
+        "괜찮을",
+        "잘하고 있",
+        "놓치면",
+        "밀어붙",
+        "기회를",
+        "이번만",
+        "컨디션",
+        "성장통",
+        "무리해서"
+      ]
+    },
+    {
+      "index": 39,
+      "category": "캐릭터 트리거",
+      "display_name": "엘라_트리거",
+      "file": "캐릭터\\엘라_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\엘라_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 249,
+      "keyword_count": 13,
+      "keywords": [
+        "예쁘",
+        "얼굴",
+        "외모",
+        "비주얼",
+        "화제성",
+        "얼굴값",
+        "이용",
+        "전략",
+        "이미지",
+        "모델",
+        "카메라",
+        "거울",
+        "미소를"
+      ]
+    },
+    {
+      "index": 40,
+      "category": "캐릭터 트리거",
+      "display_name": "이서하_트리거",
+      "file": "캐릭터\\이서하_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\이서하_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 296,
+      "keyword_count": 12,
+      "keywords": [
+        "곡을",
+        "멜로디",
+        "발표",
+        "네 이름으로",
+        "누가 쓴",
+        "가명",
+        "작곡",
+        "미발표",
+        "들려줄",
+        "안경",
+        "스튜디오",
+        "하드디스크"
+      ]
+    },
+    {
+      "index": 41,
+      "category": "캐릭터 트리거",
+      "display_name": "장그루_트리거",
+      "file": "캐릭터\\장그루_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\장그루_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 276,
+      "keyword_count": 12,
+      "keywords": [
+        "포기",
+        "마지막",
+        "그만둘",
+        "노트를",
+        "작사",
+        "끝인",
+        "탈락",
+        "들렸",
+        "닿았",
+        "목소리가",
+        "도태",
+        "약한"
+      ]
+    },
+    {
+      "index": 42,
+      "category": "캐릭터 트리거",
+      "display_name": "진시혁_트리거",
+      "file": "캐릭터\\진시혁_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\진시혁_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 377,
+      "keyword_count": 13,
+      "keywords": [
+        "틀렸",
+        "인정",
+        "증명",
+        "결과가",
+        "선택했",
+        "동정",
+        "감정적",
+        "아마추어",
+        "볼펜",
+        "딸깍",
+        "합리",
+        "냉정",
+        "도태"
+      ]
+    },
+    {
+      "index": 43,
+      "category": "캐릭터 트리거",
+      "display_name": "하시은_트리거",
+      "file": "캐릭터\\하시은_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\하시은_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 239,
+      "keyword_count": 12,
+      "keywords": [
+        "특별",
+        "평범",
+        "메모",
+        "부족한",
+        "안정적",
+        "기본기",
+        "꾸준",
+        "성실",
+        "육각형",
+        "무난",
+        "눈에 띄지",
+        "기록"
+      ]
+    },
+    {
+      "index": 44,
+      "category": "캐릭터 트리거",
+      "display_name": "한소리_트리거",
+      "file": "캐릭터\\한소리_트리거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\한소리_트리거_EN.json",
+      "mix": "paired",
+      "route_class": "06_dynamic_character_trigger",
+      "size": 235,
+      "keyword_count": 13,
+      "keywords": [
+        "포기",
+        "무책임",
+        "실망",
+        "후배님",
+        "마지막",
+        "적자",
+        "재정",
+        "접힘",
+        "기획사가",
+        "어떻게든",
+        "눈을 뜨",
+        "다크서클",
+        "실눈"
+      ]
+    },
+    {
+      "index": 45,
+      "category": "캐릭터 초기",
+      "display_name": "강하람_초기",
+      "file": "캐릭터\\강하람_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\강하람_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 203,
+      "keyword_count": 6,
+      "keywords": [
+        "강하람]: ❤️L1",
+        "강하람]: ❤️L2",
+        "강하람]: ❤️L3",
+        "강하람: ❤️L1",
+        "강하람: ❤️L2",
+        "강하람: ❤️L3"
+      ]
+    },
+    {
+      "index": 46,
+      "category": "캐릭터 초기",
+      "display_name": "노아_초기",
+      "file": "캐릭터\\노아_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\노아_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 207,
+      "keyword_count": 6,
+      "keywords": [
+        "노아]: ❤️L1",
+        "노아]: ❤️L2",
+        "노아]: ❤️L3",
+        "노아: ❤️L1",
+        "노아: ❤️L2",
+        "노아: ❤️L3"
+      ]
+    },
+    {
+      "index": 47,
+      "category": "캐릭터 초기",
+      "display_name": "니아_초기",
+      "file": "캐릭터\\니아_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\니아_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 196,
+      "keyword_count": 6,
+      "keywords": [
+        "니아]: ❤️L1",
+        "니아]: ❤️L2",
+        "니아]: ❤️L3",
+        "니아: ❤️L1",
+        "니아: ❤️L2",
+        "니아: ❤️L3"
+      ]
+    },
+    {
+      "index": 48,
+      "category": "캐릭터 초기",
+      "display_name": "라피스_초기",
+      "file": "캐릭터\\라피스_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\라피스_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 225,
+      "keyword_count": 6,
+      "keywords": [
+        "라피스]: ❤️L1",
+        "라피스]: ❤️L2",
+        "라피스]: ❤️L3",
+        "라피스: ❤️L1",
+        "라피스: ❤️L2",
+        "라피스: ❤️L3"
+      ]
+    },
+    {
+      "index": 49,
+      "category": "캐릭터 초기",
+      "display_name": "레이_초기",
+      "file": "캐릭터\\레이_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\레이_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 179,
+      "keyword_count": 6,
+      "keywords": [
+        "레이]: ❤️L1",
+        "레이]: ❤️L2",
+        "레이]: ❤️L3",
+        "레이: ❤️L1",
+        "레이: ❤️L2",
+        "레이: ❤️L3"
+      ]
+    },
+    {
+      "index": 50,
+      "category": "캐릭터 초기",
+      "display_name": "미모리_초기",
+      "file": "캐릭터\\미모리_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\미모리_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 219,
+      "keyword_count": 6,
+      "keywords": [
+        "미모리]: ❤️L1",
+        "미모리]: ❤️L2",
+        "미모리]: ❤️L3",
+        "미모리: ❤️L1",
+        "미모리: ❤️L2",
+        "미모리: ❤️L3"
+      ]
+    },
+    {
+      "index": 51,
+      "category": "캐릭터 초기",
+      "display_name": "밀라_초기",
+      "file": "캐릭터\\밀라_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\밀라_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 241,
+      "keyword_count": 6,
+      "keywords": [
+        "밀라]: ❤️L1",
+        "밀라]: ❤️L2",
+        "밀라]: ❤️L3",
+        "밀라: ❤️L1",
+        "밀라: ❤️L2",
+        "밀라: ❤️L3"
+      ]
+    },
+    {
+      "index": 52,
+      "category": "캐릭터 초기",
+      "display_name": "사피아_초기",
+      "file": "캐릭터\\사피아_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\사피아_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 198,
+      "keyword_count": 6,
+      "keywords": [
+        "사피아]: ❤️L1",
+        "사피아]: ❤️L2",
+        "사피아]: ❤️L3",
+        "사피아: ❤️L1",
+        "사피아: ❤️L2",
+        "사피아: ❤️L3"
+      ]
+    },
+    {
+      "index": 53,
+      "category": "캐릭터 초기",
+      "display_name": "서윤_초기",
+      "file": "캐릭터\\서윤_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\서윤_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 159,
+      "keyword_count": 6,
+      "keywords": [
+        "서윤]: ❤️L1",
+        "서윤]: ❤️L2",
+        "서윤]: ❤️L3",
+        "서윤: ❤️L1",
+        "서윤: ❤️L2",
+        "서윤: ❤️L3"
+      ]
+    },
+    {
+      "index": 54,
+      "category": "캐릭터 초기",
+      "display_name": "시아_초기",
+      "file": "캐릭터\\시아_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\시아_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 248,
+      "keyword_count": 6,
+      "keywords": [
+        "시아]: ❤️L1",
+        "시아]: ❤️L2",
+        "시아]: ❤️L3",
+        "시아: ❤️L1",
+        "시아: ❤️L2",
+        "시아: ❤️L3"
+      ]
+    },
+    {
+      "index": 55,
+      "category": "캐릭터 초기",
+      "display_name": "아피리아_초기",
+      "file": "캐릭터\\아피리아_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\아피리아_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 382,
+      "keyword_count": 6,
+      "keywords": [
+        "아피리아]: ❤️L1",
+        "아피리아]: ❤️L2",
+        "아피리아]: ❤️L3",
+        "아피리아: ❤️L1",
+        "아피리아: ❤️L2",
+        "아피리아: ❤️L3"
+      ]
+    },
+    {
+      "index": 56,
+      "category": "캐릭터 초기",
+      "display_name": "에르피_초기",
+      "file": "캐릭터\\에르피_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\에르피_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 152,
+      "keyword_count": 8,
+      "keywords": [
+        "에르피]: ❤️L1",
+        "에르피]: ❤️L2",
+        "에르피]: ❤️L3",
+        "에르피: ❤️L1",
+        "에르피: ❤️L2",
+        "에르피: ❤️L3",
+        "에르피]: ❤️L4",
+        "에르피: ❤️L4"
+      ]
+    },
+    {
+      "index": 57,
+      "category": "캐릭터 초기",
+      "display_name": "에리카_초기",
+      "file": "캐릭터\\에리카_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\에리카_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 150,
+      "keyword_count": 8,
+      "keywords": [
+        "에리카]: ❤️L1",
+        "에리카]: ❤️L2",
+        "에리카]: ❤️L3",
+        "에리카: ❤️L1",
+        "에리카: ❤️L2",
+        "에리카: ❤️L3",
+        "에리카]: ❤️L4",
+        "에리카: ❤️L4"
+      ]
+    },
+    {
+      "index": 58,
+      "category": "캐릭터 초기",
+      "display_name": "엘라_초기",
+      "file": "캐릭터\\엘라_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\엘라_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 197,
+      "keyword_count": 6,
+      "keywords": [
+        "엘라]: ❤️L1",
+        "엘라]: ❤️L2",
+        "엘라]: ❤️L3",
+        "엘라: ❤️L1",
+        "엘라: ❤️L2",
+        "엘라: ❤️L3"
+      ]
+    },
+    {
+      "index": 59,
+      "category": "캐릭터 초기",
+      "display_name": "이서하_초기",
+      "file": "캐릭터\\이서하_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\이서하_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 165,
+      "keyword_count": 4,
+      "keywords": [
+        "이서하]: ❤️L1",
+        "이서하]: ❤️L2",
+        "이서하: ❤️L1",
+        "이서하: ❤️L2"
+      ]
+    },
+    {
+      "index": 60,
+      "category": "캐릭터 초기",
+      "display_name": "장그루_초기",
+      "file": "캐릭터\\장그루_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\장그루_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 211,
+      "keyword_count": 6,
+      "keywords": [
+        "장그루]: ❤️L1",
+        "장그루]: ❤️L2",
+        "장그루]: ❤️L3",
+        "장그루: ❤️L1",
+        "장그루: ❤️L2",
+        "장그루: ❤️L3"
+      ]
+    },
+    {
+      "index": 61,
+      "category": "캐릭터 초기",
+      "display_name": "진시혁_초기",
+      "file": "캐릭터\\진시혁_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\진시혁_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 200,
+      "keyword_count": 6,
+      "keywords": [
+        "진시혁]: ❤️L1",
+        "진시혁]: ❤️L2",
+        "진시혁]: ❤️L3",
+        "진시혁: ❤️L1",
+        "진시혁: ❤️L2",
+        "진시혁: ❤️L3"
+      ]
+    },
+    {
+      "index": 62,
+      "category": "캐릭터 초기",
+      "display_name": "하시은_초기",
+      "file": "캐릭터\\하시은_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\하시은_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 201,
+      "keyword_count": 6,
+      "keywords": [
+        "하시은]: ❤️L1",
+        "하시은]: ❤️L2",
+        "하시은]: ❤️L3",
+        "하시은: ❤️L1",
+        "하시은: ❤️L2",
+        "하시은: ❤️L3"
+      ]
+    },
+    {
+      "index": 63,
+      "category": "캐릭터 초기",
+      "display_name": "한소리_초기",
+      "file": "캐릭터\\한소리_초기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\한소리_초기_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 181,
+      "keyword_count": 6,
+      "keywords": [
+        "한소리]: ❤️L5",
+        "한소리]: ❤️L6",
+        "한소리]: ❤️L7",
+        "한소리: ❤️L5",
+        "한소리: ❤️L6",
+        "한소리: ❤️L7"
+      ]
+    },
+    {
+      "index": 64,
+      "category": "캐릭터 심화",
+      "display_name": "강하람_심화",
+      "file": "캐릭터\\강하람_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\강하람_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 248,
+      "keyword_count": 8,
+      "keywords": [
+        "강하람]: ❤️L6",
+        "강하람]: ❤️L7",
+        "강하람]: ❤️L8",
+        "강하람]: ❤️L9",
+        "강하람: ❤️L6",
+        "강하람: ❤️L7",
+        "강하람: ❤️L8",
+        "강하람: ❤️L9"
+      ]
+    },
+    {
+      "index": 65,
+      "category": "캐릭터 심화",
+      "display_name": "노아_심화",
+      "file": "캐릭터\\노아_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\노아_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 253,
+      "keyword_count": 8,
+      "keywords": [
+        "노아]: ❤️L6",
+        "노아]: ❤️L7",
+        "노아]: ❤️L8",
+        "노아]: ❤️L9",
+        "노아: ❤️L6",
+        "노아: ❤️L7",
+        "노아: ❤️L8",
+        "노아: ❤️L9"
+      ]
+    },
+    {
+      "index": 66,
+      "category": "캐릭터 심화",
+      "display_name": "니아_심화",
+      "file": "캐릭터\\니아_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\니아_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 244,
+      "keyword_count": 8,
+      "keywords": [
+        "니아]: ❤️L6",
+        "니아]: ❤️L7",
+        "니아]: ❤️L8",
+        "니아]: ❤️L9",
+        "니아: ❤️L6",
+        "니아: ❤️L7",
+        "니아: ❤️L8",
+        "니아: ❤️L9"
+      ]
+    },
+    {
+      "index": 67,
+      "category": "캐릭터 심화",
+      "display_name": "라피스_심화",
+      "file": "캐릭터\\라피스_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\라피스_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 183,
+      "keyword_count": 8,
+      "keywords": [
+        "라피스]: ❤️L6",
+        "라피스]: ❤️L7",
+        "라피스]: ❤️L8",
+        "라피스]: ❤️L9",
+        "라피스: ❤️L6",
+        "라피스: ❤️L7",
+        "라피스: ❤️L8",
+        "라피스: ❤️L9"
+      ]
+    },
+    {
+      "index": 68,
+      "category": "캐릭터 심화",
+      "display_name": "레이_심화",
+      "file": "캐릭터\\레이_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\레이_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 180,
+      "keyword_count": 8,
+      "keywords": [
+        "레이]: ❤️L6",
+        "레이]: ❤️L7",
+        "레이]: ❤️L8",
+        "레이]: ❤️L9",
+        "레이: ❤️L6",
+        "레이: ❤️L7",
+        "레이: ❤️L8",
+        "레이: ❤️L9"
+      ]
+    },
+    {
+      "index": 69,
+      "category": "캐릭터 심화",
+      "display_name": "미모리_심화",
+      "file": "캐릭터\\미모리_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\미모리_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 250,
+      "keyword_count": 8,
+      "keywords": [
+        "미모리]: ❤️L6",
+        "미모리]: ❤️L7",
+        "미모리]: ❤️L8",
+        "미모리]: ❤️L9",
+        "미모리: ❤️L6",
+        "미모리: ❤️L7",
+        "미모리: ❤️L8",
+        "미모리: ❤️L9"
+      ]
+    },
+    {
+      "index": 70,
+      "category": "캐릭터 심화",
+      "display_name": "밀라_심화",
+      "file": "캐릭터\\밀라_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\밀라_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 226,
+      "keyword_count": 8,
+      "keywords": [
+        "밀라]: ❤️L6",
+        "밀라]: ❤️L7",
+        "밀라]: ❤️L8",
+        "밀라]: ❤️L9",
+        "밀라: ❤️L6",
+        "밀라: ❤️L7",
+        "밀라: ❤️L8",
+        "밀라: ❤️L9"
+      ]
+    },
+    {
+      "index": 71,
+      "category": "캐릭터 심화",
+      "display_name": "사피아_심화",
+      "file": "캐릭터\\사피아_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\사피아_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 238,
+      "keyword_count": 8,
+      "keywords": [
+        "사피아]: ❤️L6",
+        "사피아]: ❤️L7",
+        "사피아]: ❤️L8",
+        "사피아]: ❤️L9",
+        "사피아: ❤️L6",
+        "사피아: ❤️L7",
+        "사피아: ❤️L8",
+        "사피아: ❤️L9"
+      ]
+    },
+    {
+      "index": 72,
+      "category": "캐릭터 심화",
+      "display_name": "서윤_심화",
+      "file": "캐릭터\\서윤_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\서윤_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 191,
+      "keyword_count": 8,
+      "keywords": [
+        "서윤]: ❤️L6",
+        "서윤]: ❤️L7",
+        "서윤]: ❤️L8",
+        "서윤]: ❤️L9",
+        "서윤: ❤️L6",
+        "서윤: ❤️L7",
+        "서윤: ❤️L8",
+        "서윤: ❤️L9"
+      ]
+    },
+    {
+      "index": 73,
+      "category": "캐릭터 심화",
+      "display_name": "시아_심화",
+      "file": "캐릭터\\시아_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\시아_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 260,
+      "keyword_count": 8,
+      "keywords": [
+        "시아]: ❤️L6",
+        "시아]: ❤️L7",
+        "시아]: ❤️L8",
+        "시아]: ❤️L9",
+        "시아: ❤️L6",
+        "시아: ❤️L7",
+        "시아: ❤️L8",
+        "시아: ❤️L9"
+      ]
+    },
+    {
+      "index": 74,
+      "category": "캐릭터 심화",
+      "display_name": "아피리아_심화",
+      "file": "캐릭터\\아피리아_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\아피리아_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 437,
+      "keyword_count": 8,
+      "keywords": [
+        "아피리아]: ❤️L6",
+        "아피리아]: ❤️L7",
+        "아피리아]: ❤️L8",
+        "아피리아]: ❤️L9",
+        "아피리아: ❤️L6",
+        "아피리아: ❤️L7",
+        "아피리아: ❤️L8",
+        "아피리아: ❤️L9"
+      ]
+    },
+    {
+      "index": 75,
+      "category": "캐릭터 심화",
+      "display_name": "에르피_심화",
+      "file": "캐릭터\\에르피_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\에르피_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 209,
+      "keyword_count": 8,
+      "keywords": [
+        "에르피]: ❤️L6",
+        "에르피]: ❤️L7",
+        "에르피]: ❤️L8",
+        "에르피]: ❤️L9",
+        "에르피: ❤️L6",
+        "에르피: ❤️L7",
+        "에르피: ❤️L8",
+        "에르피: ❤️L9"
+      ]
+    },
+    {
+      "index": 76,
+      "category": "캐릭터 심화",
+      "display_name": "에리카_심화",
+      "file": "캐릭터\\에리카_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\에리카_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 179,
+      "keyword_count": 8,
+      "keywords": [
+        "에리카]: ❤️L6",
+        "에리카]: ❤️L7",
+        "에리카]: ❤️L8",
+        "에리카]: ❤️L9",
+        "에리카: ❤️L6",
+        "에리카: ❤️L7",
+        "에리카: ❤️L8",
+        "에리카: ❤️L9"
+      ]
+    },
+    {
+      "index": 77,
+      "category": "캐릭터 심화",
+      "display_name": "엘라_심화",
+      "file": "캐릭터\\엘라_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\엘라_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 205,
+      "keyword_count": 8,
+      "keywords": [
+        "엘라]: ❤️L6",
+        "엘라]: ❤️L7",
+        "엘라]: ❤️L8",
+        "엘라]: ❤️L9",
+        "엘라: ❤️L6",
+        "엘라: ❤️L7",
+        "엘라: ❤️L8",
+        "엘라: ❤️L9"
+      ]
+    },
+    {
+      "index": 78,
+      "category": "캐릭터 심화",
+      "display_name": "이서하_심화",
+      "file": "캐릭터\\이서하_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\이서하_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 213,
+      "keyword_count": 8,
+      "keywords": [
+        "이서하]: ❤️L6",
+        "이서하]: ❤️L7",
+        "이서하]: ❤️L8",
+        "이서하]: ❤️L9",
+        "이서하: ❤️L6",
+        "이서하: ❤️L7",
+        "이서하: ❤️L8",
+        "이서하: ❤️L9"
+      ]
+    },
+    {
+      "index": 79,
+      "category": "캐릭터 심화",
+      "display_name": "장그루_심화",
+      "file": "캐릭터\\장그루_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\장그루_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 153,
+      "keyword_count": 8,
+      "keywords": [
+        "장그루]: ❤️L6",
+        "장그루]: ❤️L7",
+        "장그루]: ❤️L8",
+        "장그루]: ❤️L9",
+        "장그루: ❤️L6",
+        "장그루: ❤️L7",
+        "장그루: ❤️L8",
+        "장그루: ❤️L9"
+      ]
+    },
+    {
+      "index": 80,
+      "category": "캐릭터 심화",
+      "display_name": "진시혁_심화",
+      "file": "캐릭터\\진시혁_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\진시혁_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 156,
+      "keyword_count": 8,
+      "keywords": [
+        "진시혁]: ❤️L6",
+        "진시혁]: ❤️L7",
+        "진시혁]: ❤️L8",
+        "진시혁]: ❤️L9",
+        "진시혁: ❤️L6",
+        "진시혁: ❤️L7",
+        "진시혁: ❤️L8",
+        "진시혁: ❤️L9"
+      ]
+    },
+    {
+      "index": 81,
+      "category": "캐릭터 심화",
+      "display_name": "하시은_심화",
+      "file": "캐릭터\\하시은_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\하시은_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 237,
+      "keyword_count": 8,
+      "keywords": [
+        "하시은]: ❤️L6",
+        "하시은]: ❤️L7",
+        "하시은]: ❤️L8",
+        "하시은]: ❤️L9",
+        "하시은: ❤️L6",
+        "하시은: ❤️L7",
+        "하시은: ❤️L8",
+        "하시은: ❤️L9"
+      ]
+    },
+    {
+      "index": 82,
+      "category": "캐릭터 심화",
+      "display_name": "한소리_심화",
+      "file": "캐릭터\\한소리_심화_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\한소리_심화_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 179,
+      "keyword_count": 4,
+      "keywords": [
+        "한소리]: ❤️L8",
+        "한소리]: ❤️L9",
+        "한소리: ❤️L8",
+        "한소리: ❤️L9"
+      ]
+    },
+    {
+      "index": 83,
+      "category": "캐릭터 NSFW",
+      "display_name": "강하람_nsfw",
+      "file": "캐릭터\\강하람_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\강하람_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 294,
+      "keyword_count": 6,
+      "keywords": [
+        "강하람]: ❤️L7",
+        "강하람]: ❤️L8",
+        "강하람]: ❤️L9",
+        "강하람: ❤️L7",
+        "강하람: ❤️L8",
+        "강하람: ❤️L9"
+      ]
+    },
+    {
+      "index": 84,
+      "category": "캐릭터 NSFW",
+      "display_name": "나하린_nsfw",
+      "file": "캐릭터\\나하린_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\나하린_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 339,
+      "keyword_count": 6,
+      "keywords": [
+        "나하린]: ❤️L7",
+        "나하린]: ❤️L8",
+        "나하린]: ❤️L9",
+        "나하린: ❤️L7",
+        "나하린: ❤️L8",
+        "나하린: ❤️L9"
+      ]
+    },
+    {
+      "index": 85,
+      "category": "캐릭터 NSFW",
+      "display_name": "노아_nsfw",
+      "file": "캐릭터\\노아_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\노아_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 444,
+      "keyword_count": 6,
+      "keywords": [
+        "노아]: ❤️L7",
+        "노아]: ❤️L8",
+        "노아]: ❤️L9",
+        "노아: ❤️L7",
+        "노아: ❤️L8",
+        "노아: ❤️L9"
+      ]
+    },
+    {
+      "index": 86,
+      "category": "캐릭터 NSFW",
+      "display_name": "니아_nsfw",
+      "file": "캐릭터\\니아_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\니아_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 293,
+      "keyword_count": 6,
+      "keywords": [
+        "니아]: ❤️L7",
+        "니아]: ❤️L8",
+        "니아]: ❤️L9",
+        "니아: ❤️L7",
+        "니아: ❤️L8",
+        "니아: ❤️L9"
+      ]
+    },
+    {
+      "index": 87,
+      "category": "캐릭터 NSFW",
+      "display_name": "라피스_nsfw",
+      "file": "캐릭터\\라피스_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\라피스_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 274,
+      "keyword_count": 6,
+      "keywords": [
+        "라피스]: ❤️L7",
+        "라피스]: ❤️L8",
+        "라피스]: ❤️L9",
+        "라피스: ❤️L7",
+        "라피스: ❤️L8",
+        "라피스: ❤️L9"
+      ]
+    },
+    {
+      "index": 88,
+      "category": "캐릭터 NSFW",
+      "display_name": "레이_nsfw",
+      "file": "캐릭터\\레이_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\레이_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 264,
+      "keyword_count": 6,
+      "keywords": [
+        "레이]: ❤️L7",
+        "레이]: ❤️L8",
+        "레이]: ❤️L9",
+        "레이: ❤️L7",
+        "레이: ❤️L8",
+        "레이: ❤️L9"
+      ]
+    },
+    {
+      "index": 89,
+      "category": "캐릭터 NSFW",
+      "display_name": "미모리_nsfw",
+      "file": "캐릭터\\미모리_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\미모리_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 281,
+      "keyword_count": 6,
+      "keywords": [
+        "미모리]: ❤️L7",
+        "미모리]: ❤️L8",
+        "미모리]: ❤️L9",
+        "미모리: ❤️L7",
+        "미모리: ❤️L8",
+        "미모리: ❤️L9"
+      ]
+    },
+    {
+      "index": 90,
+      "category": "캐릭터 NSFW",
+      "display_name": "밀라_nsfw",
+      "file": "캐릭터\\밀라_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\밀라_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 308,
+      "keyword_count": 6,
+      "keywords": [
+        "밀라]: ❤️L7",
+        "밀라]: ❤️L8",
+        "밀라]: ❤️L9",
+        "밀라: ❤️L7",
+        "밀라: ❤️L8",
+        "밀라: ❤️L9"
+      ]
+    },
+    {
+      "index": 91,
+      "category": "캐릭터 NSFW",
+      "display_name": "사피아_nsfw",
+      "file": "캐릭터\\사피아_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\사피아_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 350,
+      "keyword_count": 7,
+      "keywords": [
+        "🔞L",
+        "사피아]: ❤️L",
+        "사피아: ❤️L",
+        "APPAIREL경량",
+        "손목을 놓 경량",
+        "소매를경량",
+        "소매가 흘러 경량"
+      ]
+    },
+    {
+      "index": 92,
+      "category": "캐릭터 NSFW",
+      "display_name": "서윤_nsfw",
+      "file": "캐릭터\\서윤_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\서윤_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 391,
+      "keyword_count": 6,
+      "keywords": [
+        "서윤]: ❤️L7",
+        "서윤]: ❤️L8",
+        "서윤]: ❤️L9",
+        "서윤: ❤️L7",
+        "서윤: ❤️L8",
+        "서윤: ❤️L9"
+      ]
+    },
+    {
+      "index": 93,
+      "category": "캐릭터 NSFW",
+      "display_name": "시아_nsfw",
+      "file": "캐릭터\\시아_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\시아_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 365,
+      "keyword_count": 6,
+      "keywords": [
+        "시아]: ❤️L7",
+        "시아]: ❤️L8",
+        "시아]: ❤️L9",
+        "시아: ❤️L7",
+        "시아: ❤️L8",
+        "시아: ❤️L9"
+      ]
+    },
+    {
+      "index": 94,
+      "category": "캐릭터 NSFW",
+      "display_name": "아피리아_nsfw",
+      "file": "캐릭터\\아피리아_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\아피리아_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 480,
+      "keyword_count": 6,
+      "keywords": [
+        "아피리아]: ❤️L7",
+        "아피리아]: ❤️L8",
+        "아피리아]: ❤️L9",
+        "아피리아: ❤️L7",
+        "아피리아: ❤️L8",
+        "아피리아: ❤️L9"
+      ]
+    },
+    {
+      "index": 95,
+      "category": "캐릭터 NSFW",
+      "display_name": "에르피_nsfw",
+      "file": "캐릭터\\에르피_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\에르피_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 272,
+      "keyword_count": 6,
+      "keywords": [
+        "에르피]: ❤️L7",
+        "에르피]: ❤️L8",
+        "에르피]: ❤️L9",
+        "에르피: ❤️L7",
+        "에르피: ❤️L8",
+        "에르피: ❤️L9"
+      ]
+    },
+    {
+      "index": 96,
+      "category": "캐릭터 NSFW",
+      "display_name": "에리카_nsfw",
+      "file": "캐릭터\\에리카_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\에리카_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 259,
+      "keyword_count": 6,
+      "keywords": [
+        "에리카]: ❤️L7",
+        "에리카]: ❤️L8",
+        "에리카]: ❤️L9",
+        "에리카: ❤️L7",
+        "에리카: ❤️L8",
+        "에리카: ❤️L9"
+      ]
+    },
+    {
+      "index": 97,
+      "category": "캐릭터 NSFW",
+      "display_name": "엘라_nsfw",
+      "file": "캐릭터\\엘라_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\엘라_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 278,
+      "keyword_count": 6,
+      "keywords": [
+        "엘라]: ❤️L7",
+        "엘라]: ❤️L8",
+        "엘라]: ❤️L9",
+        "엘라: ❤️L7",
+        "엘라: ❤️L8",
+        "엘라: ❤️L9"
+      ]
+    },
+    {
+      "index": 98,
+      "category": "캐릭터 NSFW",
+      "display_name": "이서하_nsfw",
+      "file": "캐릭터\\이서하_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\이서하_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 268,
+      "keyword_count": 6,
+      "keywords": [
+        "이서하]: ❤️L7",
+        "이서하]: ❤️L8",
+        "이서하]: ❤️L9",
+        "이서하: ❤️L7",
+        "이서하: ❤️L8",
+        "이서하: ❤️L9"
+      ]
+    },
+    {
+      "index": 99,
+      "category": "캐릭터 NSFW",
+      "display_name": "장그루_nsfw",
+      "file": "캐릭터\\장그루_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\장그루_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 271,
+      "keyword_count": 6,
+      "keywords": [
+        "장그루]: ❤️L7",
+        "장그루]: ❤️L8",
+        "장그루]: ❤️L9",
+        "장그루: ❤️L7",
+        "장그루: ❤️L8",
+        "장그루: ❤️L9"
+      ]
+    },
+    {
+      "index": 100,
+      "category": "캐릭터 NSFW",
+      "display_name": "하시은_nsfw",
+      "file": "캐릭터\\하시은_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\하시은_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 265,
+      "keyword_count": 6,
+      "keywords": [
+        "하시은]: ❤️L7",
+        "하시은]: ❤️L8",
+        "하시은]: ❤️L9",
+        "하시은: ❤️L7",
+        "하시은: ❤️L8",
+        "하시은: ❤️L9"
+      ]
+    },
+    {
+      "index": 101,
+      "category": "캐릭터 NSFW",
+      "display_name": "한소리_nsfw",
+      "file": "캐릭터\\한소리_nsfw_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\한소리_nsfw_EN.json",
+      "mix": "paired",
+      "route_class": "04_routeable_state_keyword",
+      "size": 276,
+      "keyword_count": 6,
+      "keywords": [
+        "한소리]: ❤️L7",
+        "한소리]: ❤️L8",
+        "한소리]: ❤️L9",
+        "한소리: ❤️L7",
+        "한소리: ❤️L8",
+        "한소리: ❤️L9"
+      ]
+    },
+    {
+      "index": 102,
+      "category": "캐릭터 관계",
+      "display_name": "서윤_나하린_작품",
+      "file": "캐릭터\\서윤_나하린_작품_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\서윤_나하린_작품_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 1104,
+      "keyword_count": 8,
+      "keywords": [
+        "서윤 나하린",
+        "나하린 서윤",
+        "영점",
+        "서윤의 과거",
+        "서윤을 만든",
+        "작품으로서의",
+        "서윤의 데뷔",
+        "나하린과 서윤"
+      ]
+    },
+    {
+      "index": 103,
+      "category": "캐릭터 관계",
+      "display_name": "시아_노아_자매",
+      "file": "캐릭터\\시아_노아_자매_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\시아_노아_자매_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 1025,
+      "keyword_count": 14,
+      "keywords": [
+        "쌍둥이",
+        "자매",
+        "흑백",
+        "언니",
+        "동생",
+        "시아와 노아",
+        "노아와 시아",
+        "둘 다",
+        "질투",
+        "비교",
+        "헤어클립 한 쌍",
+        "위기",
+        "보호",
+        "셋이서"
+      ]
+    },
+    {
+      "index": 104,
+      "category": "캐릭터 관계",
+      "display_name": "아피리아_사피아_자매",
+      "file": "캐릭터\\아피리아_사피아_자매_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\아피리아_사피아_자매_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 690,
+      "keyword_count": 8,
+      "keywords": [
+        "아피리아 사피아",
+        "사피아 아피리아",
+        "두 자매",
+        "언니 손끝",
+        "APPAIREL",
+        "자매 이상",
+        "언니께서",
+        "동생 브랜드"
+      ]
+    },
+    {
+      "index": 105,
+      "category": "캐릭터 관계",
+      "display_name": "에르피_나하린_라이벌",
+      "file": "캐릭터\\에르피_나하린_라이벌_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\에르피_나하린_라이벌_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 911,
+      "keyword_count": 10,
+      "keywords": [
+        "에르피 나하린",
+        "나하린 에르피",
+        "두 대표",
+        "공동 설계",
+        "전설",
+        "황금기",
+        "같이 설계",
+        "프라임시티 초기",
+        "라이벌",
+        "두 사람 사이"
+      ]
+    },
+    {
+      "index": 106,
+      "category": "캐릭터 관계",
+      "display_name": "에리카_이서하_짠꿉공",
+      "file": "캐릭터\\에리카_이서하_짠꿉공_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\에리카_이서하_짠꿉공_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 650,
+      "keyword_count": 10,
+      "keywords": [
+        "짠꿉공",
+        "에리카 이서하",
+        "이서하 에리카",
+        "두 사람",
+        "오래된 친구",
+        "대학 시절",
+        "신인 시절",
+        "사이에",
+        "같은 Blue Moon",
+        "옆 부스"
+      ]
+    },
+    {
+      "index": 107,
+      "category": "캐릭터 특수",
+      "display_name": "강하람_가족",
+      "file": "캐릭터\\강하람_가족_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\강하람_가족_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 273,
+      "keyword_count": 17,
+      "keywords": [
+        "강하람]: ❤️5",
+        "강하람]: ❤️6",
+        "강하람]: ❤️7",
+        "강하람]: ❤️8",
+        "강하람]: ❤️9",
+        "강하람: ❤️5",
+        "강하람: ❤️6",
+        "강하람: ❤️7",
+        "강하람: ❤️8",
+        "강하람: ❤️9",
+        "여동생",
+        "부모님",
+        "유품",
+        "펜던트",
+        "대학",
+        "등록금",
+        "유산"
+      ]
+    },
+    {
+      "index": 108,
+      "category": "캐릭터 특수",
+      "display_name": "노아_과거",
+      "file": "캐릭터\\노아_과거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\노아_과거_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 537,
+      "keyword_count": 9,
+      "keywords": [
+        "노아 과거",
+        "노아 어릴 때",
+        "노아 시아 어린",
+        "모델 시작",
+        "첫 화보 촬영",
+        "길거리 캐스팅",
+        "카메라 앞 변신",
+        "노아 표현",
+        "노아 침묵 기원"
+      ]
+    },
+    {
+      "index": 109,
+      "category": "캐릭터 특수",
+      "display_name": "라피스_과거",
+      "file": "캐릭터\\라피스_과거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\라피스_과거_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 501,
+      "keyword_count": 8,
+      "keywords": [
+        "라피스 과거",
+        "라피스 어린 시절",
+        "라피스 본체",
+        "V사인 의미",
+        "V사인 기원",
+        "일관된 것",
+        "라피스 정체성",
+        "다재다능 어디서"
+      ]
+    },
+    {
+      "index": 110,
+      "category": "캐릭터 특수",
+      "display_name": "미모리_과거",
+      "file": "캐릭터\\미모리_과거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\미모리_과거_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 554,
+      "keyword_count": 8,
+      "keywords": [
+        "미모리 과거",
+        "미모리 어린 시절",
+        "인플루언서 시작",
+        "헤어클립 기원",
+        "헤어클립 시작",
+        "컨텐츠 시작",
+        "첫 만 팔로워",
+        "관종 시작"
+      ]
+    },
+    {
+      "index": 111,
+      "category": "캐릭터 특수",
+      "display_name": "밀라_과거",
+      "file": "캐릭터\\밀라_과거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\밀라_과거_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 541,
+      "keyword_count": 8,
+      "keywords": [
+        "밀라 과거",
+        "밀라 어디서 왔",
+        "밀라 외부",
+        "밀라 출신",
+        "밀라 어린 시절",
+        "본능적 음악",
+        "강가 흥얼",
+        "처음 왔을 때"
+      ]
+    },
+    {
+      "index": 112,
+      "category": "캐릭터 특수",
+      "display_name": "서윤_과거",
+      "file": "캐릭터\\서윤_과거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\서윤_과거_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 303,
+      "keyword_count": 15,
+      "keywords": [
+        "서윤]: ❤️6",
+        "서윤]: ❤️7",
+        "서윤]: ❤️8",
+        "서윤]: ❤️9",
+        "서윤: ❤️6",
+        "서윤: ❤️7",
+        "서윤: ❤️8",
+        "서윤: ❤️9",
+        "본명",
+        "작곡",
+        "그림",
+        "꿈이",
+        "영점",
+        "족쇄",
+        "초커의"
+      ]
+    },
+    {
+      "index": 113,
+      "category": "캐릭터 특수",
+      "display_name": "시아_과거",
+      "file": "캐릭터\\시아_과거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\시아_과거_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 540,
+      "keyword_count": 8,
+      "keywords": [
+        "시아 과거",
+        "시아 어릴 때",
+        "시아 노아 어린",
+        "인플루언서 시작",
+        "첫 라이브 방송",
+        "댓글창 습관",
+        "장난기 기원",
+        "쌍둥이 어린 시절"
+      ]
+    },
+    {
+      "index": 114,
+      "category": "캐릭터 특수",
+      "display_name": "아피리아_과거",
+      "file": "캐릭터\\아피리아_과거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\아피리아_과거_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 721,
+      "keyword_count": 12,
+      "keywords": [
+        "아피리아 과거",
+        "아피리아 어린 시절",
+        "아피리아 해외",
+        "아피리아 본체",
+        "아피리아 가족",
+        "아피리아 정체성",
+        "무너진 적 없는",
+        "관찰의 기원",
+        "전설 과거",
+        "프라임시티 이주",
+        "사피아 동생",
+        "APPAIREL & DESIGN"
+      ]
+    },
+    {
+      "index": 115,
+      "category": "캐릭터 특수",
+      "display_name": "에르피_과거",
+      "file": "캐릭터\\에르피_과거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\에르피_과거_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 571,
+      "keyword_count": 11,
+      "keywords": [
+        "에르피 과거",
+        "에르피 현역",
+        "에르피 무대",
+        "에르피 데뷔",
+        "에르피 전성기",
+        "에르피 은퇴",
+        "마지막 무대",
+        "떼창",
+        "에르피 마망",
+        "아가 호칭 기원",
+        "에르피 나하린 어떻게"
+      ]
+    },
+    {
+      "index": 116,
+      "category": "캐릭터 특수",
+      "display_name": "에리카_과거",
+      "file": "캐릭터\\에리카_과거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\에리카_과거_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 407,
+      "keyword_count": 15,
+      "keywords": [
+        "에리카]: ❤️5",
+        "에리카]: ❤️6",
+        "에리카]: ❤️7",
+        "에리카]: ❤️8",
+        "에리카]: ❤️9",
+        "에리카: ❤️5",
+        "에리카: ❤️6",
+        "에리카: ❤️7",
+        "에리카: ❤️8",
+        "에리카: ❤️9",
+        "사고",
+        "아티스트가",
+        "원망",
+        "잃었",
+        "담당했"
+      ]
+    },
+    {
+      "index": 117,
+      "category": "캐릭터 특수",
+      "display_name": "이서하_과거",
+      "file": "캐릭터\\이서하_과거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\이서하_과거_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 278,
+      "keyword_count": 16,
+      "keywords": [
+        "이서하]: ❤️5",
+        "이서하]: ❤️6",
+        "이서하]: ❤️7",
+        "이서하]: ❤️8",
+        "이서하]: ❤️9",
+        "이서하: ❤️5",
+        "이서하: ❤️6",
+        "이서하: ❤️7",
+        "이서하: ❤️8",
+        "이서하: ❤️9",
+        "발표했",
+        "무시",
+        "가명",
+        "히트",
+        "누가 쓴",
+        "외면"
+      ]
+    },
+    {
+      "index": 118,
+      "category": "캐릭터 특수",
+      "display_name": "장그루_재회",
+      "file": "캐릭터\\장그루_재회_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\장그루_재회_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 253,
+      "keyword_count": 9,
+      "keywords": [
+        "💫",
+        "재회",
+        "마주",
+        "오디션장",
+        "눈이 마주",
+        "그 사람이",
+        "혼자 갔",
+        "두고 간",
+        "소꿉"
+      ]
+    },
+    {
+      "index": 119,
+      "category": "캐릭터 특수",
+      "display_name": "진시혁_과거",
+      "file": "캐릭터\\진시혁_과거_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\진시혁_과거_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 687,
+      "keyword_count": 11,
+      "keywords": [
+        "진시혁 과거",
+        "진시혁 어릴 때",
+        "진시혁 합리주의 어떻게",
+        "진시혁 왜 차가워",
+        "진시혁 어떻게 강해",
+        "회색 초커 기원",
+        "회색 초커 의미",
+        "볼펜 습관 기원",
+        "도태 룰 시작",
+        "진시혁 나하린 동경",
+        "진시혁 첫 도태"
+      ]
+    },
+    {
+      "index": 120,
+      "category": "캐릭터 특수",
+      "display_name": "한소리_오디션",
+      "file": "캐릭터\\한소리_오디션_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\한소리_오디션_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 290,
+      "keyword_count": 1,
+      "keywords": [
+        "!오디션모드"
+      ]
+    },
+    {
+      "index": 121,
+      "category": "캐릭터 특수",
+      "display_name": "한소리_위기",
+      "file": "캐릭터\\한소리_위기_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\한소리_위기_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 211,
+      "keyword_count": 14,
+      "keywords": [
+        "한소리]: ❤️7",
+        "한소리]: ❤️8",
+        "한소리]: ❤️9",
+        "한소리: ❤️7",
+        "한소리: ❤️8",
+        "한소리: ❤️9",
+        "적자",
+        "재정",
+        "접힘",
+        "마지막 기회",
+        "기획사가",
+        "밀린",
+        "월세",
+        "장부"
+      ]
+    },
+    {
+      "index": 122,
+      "category": "캐릭터 씬",
+      "display_name": "아피리아_영화관소매",
+      "file": "캐릭터\\아피리아_영화관소매_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\캐릭터\\아피리아_영화관소매_EN.json",
+      "mix": "paired",
+      "route_class": "07_dynamic_deep_context",
+      "size": 996,
+      "keyword_count": 8,
+      "keywords": [
+        "영화관",
+        "영화관 데이트",
+        "소매",
+        "소매 서비스",
+        "극장 데이트 아피리아",
+        "영화관 옆자리",
+        "소매 안",
+        "15-1"
+      ]
+    },
+    {
+      "index": 123,
+      "category": "오디션",
+      "display_name": "1R_등급평가",
+      "file": "오디션\\1R_등급평가_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\오디션\\1R_등급평가_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 420,
+      "keyword_count": 1,
+      "keywords": [
+        "🎙️1L"
+      ]
+    },
+    {
+      "index": 124,
+      "category": "오디션",
+      "display_name": "2R_프로듀서픽",
+      "file": "오디션\\2R_프로듀서픽_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\오디션\\2R_프로듀서픽_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 509,
+      "keyword_count": 1,
+      "keywords": [
+        "🤝2L"
+      ]
+    },
+    {
+      "index": 125,
+      "category": "오디션",
+      "display_name": "3R-A_팀대항전",
+      "file": "오디션\\3R-A_팀대항전_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\오디션\\3R-A_팀대항전_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 413,
+      "keyword_count": 1,
+      "keywords": [
+        "⚔️3L"
+      ]
+    },
+    {
+      "index": 126,
+      "category": "오디션",
+      "display_name": "3R-B_패자부활",
+      "file": "오디션\\3R-B_패자부활_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\오디션\\3R-B_패자부활_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 346,
+      "keyword_count": 1,
+      "keywords": [
+        "🥊3L"
+      ]
+    },
+    {
+      "index": 127,
+      "category": "오디션",
+      "display_name": "3R-C_결승",
+      "file": "오디션\\3R-C_결승_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\오디션\\3R-C_결승_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 288,
+      "keyword_count": 1,
+      "keywords": [
+        "🏆3L"
+      ]
+    },
+    {
+      "index": 128,
+      "category": "오디션",
+      "display_name": "4R_최종선택",
+      "file": "오디션\\4R_최종선택_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\오디션\\4R_최종선택_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 584,
+      "keyword_count": 1,
+      "keywords": [
+        "👑4L"
+      ]
+    },
+    {
+      "index": 129,
+      "category": "오디션",
+      "display_name": "막간_중반",
+      "file": "오디션\\막간_중반_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\오디션\\막간_중반_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 256,
+      "keyword_count": 10,
+      "keywords": [
+        "미션",
+        "연습실",
+        "인터뷰",
+        "라운지",
+        "모니터",
+        "참관",
+        "합숙 생활",
+        "함께",
+        "팀 연습",
+        "서프라이즈"
+      ]
+    },
+    {
+      "index": 130,
+      "category": "오디션",
+      "display_name": "막간_초반",
+      "file": "오디션\\막간_초반_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\오디션\\막간_초반_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 210,
+      "keyword_count": 9,
+      "keywords": [
+        "입소",
+        "방 배정",
+        "짐을",
+        "합숙소에",
+        "도착",
+        "첫날",
+        "룸메이트",
+        "같은 방",
+        "아이스브레이킹"
+      ]
+    },
+    {
+      "index": 131,
+      "category": "오디션",
+      "display_name": "막간_합숙",
+      "file": "오디션\\막간_합숙_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\오디션\\막간_합숙_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 197,
+      "keyword_count": 1,
+      "keywords": [
+        "🏠0L"
+      ]
+    },
+    {
+      "index": 132,
+      "category": "오디션",
+      "display_name": "막간_후반",
+      "file": "오디션\\막간_후반_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\오디션\\막간_후반_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 219,
+      "keyword_count": 11,
+      "keywords": [
+        "대항전",
+        "팀 대결",
+        "발표",
+        "전략",
+        "곡 선택",
+        "포지션",
+        "마지막 밤",
+        "전야",
+        "종료",
+        "준비",
+        "연습 마감"
+      ]
+    },
+    {
+      "index": 133,
+      "category": "오디션",
+      "display_name": "오디션모드",
+      "file": "오디션\\오디션모드_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\오디션\\오디션모드_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 1547,
+      "keyword_count": 3,
+      "keywords": [
+        "!오디션경량",
+        "오디션경량",
+        "🎤L"
+      ]
+    },
+    {
+      "index": 134,
+      "category": "오디션",
+      "display_name": "오디션참가모드",
+      "file": "오디션\\오디션참가모드_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\오디션\\오디션참가모드_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 2045,
+      "keyword_count": 2,
+      "keywords": [
+        "!오디션참가경량",
+        "🎪9L"
+      ]
+    },
+    {
+      "index": 135,
+      "category": "프리플레이",
+      "display_name": "프리플레이_시작",
+      "file": "모드\\프리플레이_시작_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\프리플레이_시작_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 648,
+      "keyword_count": 1,
+      "keywords": [
+        "!프리플레이경량"
+      ]
+    },
+    {
+      "index": 136,
+      "category": "프리플레이",
+      "display_name": "프리플레이_유지",
+      "file": "모드\\프리플레이_유지_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\프리플레이_유지_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 633,
+      "keyword_count": 2,
+      "keywords": [
+        "!프리플레이경량",
+        "🧩L"
+      ]
+    },
+    {
+      "index": 137,
+      "category": "모드",
+      "display_name": "대표모드",
+      "file": "모드\\대표모드_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\대표모드_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 2790,
+      "keyword_count": 2,
+      "keywords": [
+        "!대표경량",
+        "🏢L"
+      ]
+    },
+    {
+      "index": 138,
+      "category": "모드",
+      "display_name": "대표모드_시작",
+      "file": "모드\\대표모드_시작_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\대표모드_시작_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 418,
+      "keyword_count": 1,
+      "keywords": [
+        "!대표경량"
+      ]
+    },
+    {
+      "index": 139,
+      "category": "모드",
+      "display_name": "디버그",
+      "file": "모드\\디버그_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\디버그_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 801,
+      "keyword_count": 1,
+      "keywords": [
+        "!디버그경량"
+      ]
+    },
+    {
+      "index": 140,
+      "category": "모드",
+      "display_name": "디테일모드",
+      "file": "모드\\디테일모드_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\디테일모드_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 151,
+      "keyword_count": 2,
+      "keywords": [
+        "!디테일경량",
+        "🔍L"
+      ]
+    },
+    {
+      "index": 141,
+      "category": "모드",
+      "display_name": "매니저B_강하람",
+      "file": "모드\\매니저B_강하람_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\매니저B_강하람_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 434,
+      "keyword_count": 2,
+      "keywords": [
+        "강하람 매니저",
+        "B분기 강하람"
+      ]
+    },
+    {
+      "index": 142,
+      "category": "모드",
+      "display_name": "매니저B_나하린",
+      "file": "모드\\매니저B_나하린_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\매니저B_나하린_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 395,
+      "keyword_count": 2,
+      "keywords": [
+        "나하린 매니저",
+        "B분기 나하린"
+      ]
+    },
+    {
+      "index": 143,
+      "category": "모드",
+      "display_name": "매니저B_노아",
+      "file": "모드\\매니저B_노아_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\매니저B_노아_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 435,
+      "keyword_count": 2,
+      "keywords": [
+        "노아 매니저",
+        "B분기 노아"
+      ]
+    },
+    {
+      "index": 144,
+      "category": "모드",
+      "display_name": "매니저B_시아",
+      "file": "모드\\매니저B_시아_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\매니저B_시아_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 387,
+      "keyword_count": 2,
+      "keywords": [
+        "시아 매니저",
+        "B분기 시아"
+      ]
+    },
+    {
+      "index": 145,
+      "category": "모드",
+      "display_name": "매니저B_에르피",
+      "file": "모드\\매니저B_에르피_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\매니저B_에르피_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 463,
+      "keyword_count": 2,
+      "keywords": [
+        "에르피 매니저",
+        "B분기 에르피"
+      ]
+    },
+    {
+      "index": 146,
+      "category": "모드",
+      "display_name": "매니저B_에리카",
+      "file": "모드\\매니저B_에리카_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\매니저B_에리카_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 365,
+      "keyword_count": 2,
+      "keywords": [
+        "에리카 매니저",
+        "B분기 에리카"
+      ]
+    },
+    {
+      "index": 147,
+      "category": "모드",
+      "display_name": "매니저B_한소리",
+      "file": "모드\\매니저B_한소리_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\매니저B_한소리_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 416,
+      "keyword_count": 2,
+      "keywords": [
+        "한소리 매니저",
+        "B분기 한소리"
+      ]
+    },
+    {
+      "index": 148,
+      "category": "모드",
+      "display_name": "매니저모드",
+      "file": "모드\\매니저모드_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\매니저모드_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 2154,
+      "keyword_count": 2,
+      "keywords": [
+        "!매니저경량",
+        "📋L"
+      ]
+    },
+    {
+      "index": 149,
+      "category": "모드",
+      "display_name": "매니저모드_시작",
+      "file": "모드\\매니저모드_시작_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\매니저모드_시작_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 379,
+      "keyword_count": 1,
+      "keywords": [
+        "!매니저경량"
+      ]
+    },
+    {
+      "index": 150,
+      "category": "모드",
+      "display_name": "배우모드_APEX",
+      "file": "모드\\배우모드_APEX_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\배우모드_APEX_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 1594,
+      "keyword_count": 5,
+      "keywords": [
+        "🎞️L",
+        "!배우경량 APEX",
+        "!배우경량 Apex",
+        "!배우경량 에이펙스",
+        "!배우경량 에이팩스"
+      ]
+    },
+    {
+      "index": 151,
+      "category": "모드",
+      "display_name": "배우모드_BlueMoon",
+      "file": "모드\\배우모드_BlueMoon_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\배우모드_BlueMoon_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 1558,
+      "keyword_count": 6,
+      "keywords": [
+        "🎬L",
+        "!배우경량 BlueMoon",
+        "!배우경량 Bluemoon",
+        "!배우경량 Blue Moon",
+        "!배우경량 블루문",
+        "!배우경량 BM"
+      ]
+    },
+    {
+      "index": 152,
+      "category": "모드",
+      "display_name": "배우모드",
+      "file": "모드\\배우모드_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\배우모드_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 1677,
+      "keyword_count": 2,
+      "keywords": [
+        "!배우경량",
+        "▷L"
+      ]
+    },
+    {
+      "index": 153,
+      "category": "모드",
+      "display_name": "배우모드_PRISM",
+      "file": "모드\\배우모드_PRISM_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\배우모드_PRISM_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 1319,
+      "keyword_count": 4,
+      "keywords": [
+        "🎭L",
+        "!배우경량 PRISM",
+        "!배우경량 Prism",
+        "!배우경량 프리즘"
+      ]
+    },
+    {
+      "index": 154,
+      "category": "모드",
+      "display_name": "배우모드_Route0",
+      "file": "모드\\배우모드_Route0_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\배우모드_Route0_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 1586,
+      "keyword_count": 6,
+      "keywords": [
+        "📜L",
+        "!배우경량 Route0",
+        "!배우경량 Route 0",
+        "!배우경량 루트0",
+        "!배우경량 루트제로",
+        "!배우경량 R0"
+      ]
+    },
+    {
+      "index": 155,
+      "category": "모드",
+      "display_name": "배우모드_방영",
+      "file": "모드\\배우모드_방영_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\배우모드_방영_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 621,
+      "keyword_count": 13,
+      "keywords": [
+        "방영",
+        "시청률",
+        "평점",
+        "리뷰",
+        "평론",
+        "화제성",
+        "호평",
+        "혹평",
+        "흥행",
+        "시청자 반응",
+        "대중 반응",
+        "첫 방송",
+        "첫 회"
+      ]
+    },
+    {
+      "index": 156,
+      "category": "모드",
+      "display_name": "배우모드_스캔들",
+      "file": "모드\\배우모드_스캔들_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\배우모드_스캔들_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 802,
+      "keyword_count": 12,
+      "keywords": [
+        "스캔들경량",
+        "열애설경량",
+        "표절 논란 경량",
+        "인성 논란 경량",
+        "정치 발언 경량",
+        "음주 사고 경량",
+        "잠적경량",
+        "사과문경량",
+        "해명경량",
+        "여론경량",
+        "위기 관리 경량",
+        "PR경량"
+      ]
+    },
+    {
+      "index": 157,
+      "category": "모드",
+      "display_name": "배우모드_시작",
+      "file": "모드\\배우모드_시작_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\배우모드_시작_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 642,
+      "keyword_count": 1,
+      "keywords": [
+        "!배우경량"
+      ]
+    },
+    {
+      "index": 158,
+      "category": "모드",
+      "display_name": "배우모드_오디션",
+      "file": "모드\\배우모드_오디션_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\배우모드_오디션_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 760,
+      "keyword_count": 10,
+      "keywords": [
+        "오디션경량",
+        "캐스팅경량",
+        "캐스팅 제의 경량",
+        "작품 선택 경량",
+        "대본 리딩 경량",
+        "자유 연기 경량",
+        "지정 대사 경량",
+        "즉흥 상황극 경량",
+        "카메라 테스트 경량",
+        "보류경량"
+      ]
+    },
+    {
+      "index": 159,
+      "category": "모드",
+      "display_name": "배우모드_촬영",
+      "file": "모드\\배우모드_촬영_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\배우모드_촬영_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 874,
+      "keyword_count": 12,
+      "keywords": [
+        "촬영",
+        "촬영 현장",
+        "현장",
+        "감독",
+        "컷",
+        "NG",
+        "케미",
+        "즉흥 연기",
+        "대본 리딩",
+        "야간 촬영",
+        "로맨스 씬",
+        "액션 씬"
+      ]
+    },
+    {
+      "index": 160,
+      "category": "모드",
+      "display_name": "배우모드_홍보",
+      "file": "모드\\배우모드_홍보_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\배우모드_홍보_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 782,
+      "keyword_count": 13,
+      "keywords": [
+        "후반작업",
+        "더빙",
+        "편집",
+        "포스터 촬영",
+        "시사회",
+        "VIP 시사회",
+        "인터뷰",
+        "매체 출연",
+        "토크쇼",
+        "잡지 화보",
+        "광고 촬영",
+        "팬미팅",
+        "시상식"
+      ]
+    },
+    {
+      "index": 161,
+      "category": "모드",
+      "display_name": "비하인드모드",
+      "file": "모드\\비하인드모드_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\비하인드모드_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 248,
+      "keyword_count": 2,
+      "keywords": [
+        "!비하인드경량",
+        "🕶️L"
+      ]
+    },
+    {
+      "index": 162,
+      "category": "모드",
+      "display_name": "선택지",
+      "file": "모드\\선택지_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\선택지_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 837,
+      "keyword_count": 2,
+      "keywords": [
+        "!선택지경량",
+        "📋✦L"
+      ]
+    },
+    {
+      "index": 163,
+      "category": "모드",
+      "display_name": "소꿉친구모드",
+      "file": "모드\\소꿉친구모드_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\소꿉친구모드_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 476,
+      "keyword_count": 2,
+      "keywords": [
+        "!소꿉친구경량",
+        "💫L"
+      ]
+    },
+    {
+      "index": 164,
+      "category": "모드",
+      "display_name": "소꿉친구모드_시작",
+      "file": "모드\\소꿉친구모드_시작_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\소꿉친구모드_시작_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 598,
+      "keyword_count": 1,
+      "keywords": [
+        "!소꿉친구경량"
+      ]
+    },
+    {
+      "index": 165,
+      "category": "모드",
+      "display_name": "스킵모드",
+      "file": "모드\\스킵모드_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\스킵모드_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 204,
+      "keyword_count": 2,
+      "keywords": [
+        "!스킵경량",
+        "⏩ 경량"
+      ]
+    },
+    {
+      "index": 166,
+      "category": "모드",
+      "display_name": "연습생모드_APEX",
+      "file": "모드\\연습생모드_APEX_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\연습생모드_APEX_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 2187,
+      "keyword_count": 5,
+      "keywords": [
+        "🔻L",
+        "!연습생경량 APEX",
+        "!연습생경량 Apex",
+        "!연습생경량 에이펙스",
+        "!연습생경량 에이팩스"
+      ]
+    },
+    {
+      "index": 167,
+      "category": "모드",
+      "display_name": "연습생모드_BlueMoon",
+      "file": "모드\\연습생모드_BlueMoon_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\연습생모드_BlueMoon_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 1488,
+      "keyword_count": 6,
+      "keywords": [
+        "🌙L",
+        "!연습생경량 BlueMoon",
+        "!연습생경량 Bluemoon",
+        "!연습생경량 Blue Moon",
+        "!연습생경량 블루문",
+        "!연습생경량 BM"
+      ]
+    },
+    {
+      "index": 168,
+      "category": "모드",
+      "display_name": "연습생모드",
+      "file": "모드\\연습생모드_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\연습생모드_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 1790,
+      "keyword_count": 2,
+      "keywords": [
+        "!연습생경량",
+        "✿L"
+      ]
+    },
+    {
+      "index": 169,
+      "category": "모드",
+      "display_name": "연습생모드_PRISM",
+      "file": "모드\\연습생모드_PRISM_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\연습생모드_PRISM_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 1338,
+      "keyword_count": 4,
+      "keywords": [
+        "💎L",
+        "!연습생경량 PRISM",
+        "!연습생경량 Prism",
+        "!연습생경량 프리즘"
+      ]
+    },
+    {
+      "index": 170,
+      "category": "모드",
+      "display_name": "연습생모드_Route0",
+      "file": "모드\\연습생모드_Route0_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\연습생모드_Route0_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 1687,
+      "keyword_count": 6,
+      "keywords": [
+        "🌱L",
+        "!연습생경량 Route0",
+        "!연습생경량 Route 0",
+        "!연습생경량 루트0",
+        "!연습생경량 루트제로",
+        "!연습생경량 R0"
+      ]
+    },
+    {
+      "index": 171,
+      "category": "모드",
+      "display_name": "연습생모드_공개평가",
+      "file": "모드\\연습생모드_공개평가_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\연습생모드_공개평가_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 644,
+      "keyword_count": 11,
+      "keywords": [
+        "월말 평가",
+        "월간 평가",
+        "월말 무대",
+        "월간 무대",
+        "공개 평가",
+        "공개평가",
+        "연간 행사",
+        "합동 공연",
+        "내부 콘테스트",
+        "신년 쇼케이스",
+        "데뷔 후보 명단"
+      ]
+    },
+    {
+      "index": 172,
+      "category": "모드",
+      "display_name": "연습생모드_그룹매칭",
+      "file": "모드\\연습생모드_그룹매칭_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\연습생모드_그룹매칭_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 1156,
+      "keyword_count": 15,
+      "keywords": [
+        "그룹 매칭",
+        "그룹매칭",
+        "솔로 vs 그룹",
+        "솔로냐 그룹이냐",
+        "그룹 결성",
+        "그룹 데뷔",
+        "팀 데뷔",
+        "그룹 멤버",
+        "멤버 후보",
+        "포지션 분배",
+        "메인 보컬",
+        "서브 보컬",
+        "메인 댄서",
+        "리더 선정",
+        "콘셉트 회의"
+      ]
+    },
+    {
+      "index": 173,
+      "category": "모드",
+      "display_name": "연습생모드_데뷔",
+      "file": "모드\\연습생모드_데뷔_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\연습생모드_데뷔_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 1333,
+      "keyword_count": 12,
+      "keywords": [
+        "데뷔",
+        "데뷔 무대",
+        "데뷔무대",
+        "데뷔 쇼케이스",
+        "데뷔쇼케이스",
+        "데뷔 직전",
+        "최종 평가",
+        "데뷔 후보",
+        "데뷔 확정",
+        "첫 무대",
+        "데뷔 인사",
+        "데뷔 곡"
+      ]
+    },
+    {
+      "index": 174,
+      "category": "모드",
+      "display_name": "연습생모드_멘토링",
+      "file": "모드\\연습생모드_멘토링_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\연습생모드_멘토링_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 1862,
+      "keyword_count": 12,
+      "keywords": [
+        "멘토링",
+        "1:1 코칭",
+        "1대1 코칭",
+        "일대일 코칭",
+        "개인 지도",
+        "개인지도",
+        "면담",
+        "잠깐 와봐",
+        "차 한 잔 어때",
+        "곡 가져왔어",
+        "헤드폰 한쪽",
+        "데이터 시트"
+      ]
+    },
+    {
+      "index": 175,
+      "category": "모드",
+      "display_name": "연습생모드_부상",
+      "file": "모드\\연습생모드_부상_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\연습생모드_부상_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 974,
+      "keyword_count": 14,
+      "keywords": [
+        "부상",
+        "다쳤",
+        "다쳐",
+        "근육통",
+        "성대 결절",
+        "성대결절",
+        "발목",
+        "슬럼프",
+        "과로",
+        "컨디션 난조",
+        "컨디션이 안",
+        "쉬어",
+        "잠깐만 쉬어",
+        "회복"
+      ]
+    },
+    {
+      "index": 176,
+      "category": "모드",
+      "display_name": "연습생모드_시작",
+      "file": "모드\\연습생모드_시작_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\연습생모드_시작_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 644,
+      "keyword_count": 1,
+      "keywords": [
+        "!연습생경량"
+      ]
+    },
+    {
+      "index": 177,
+      "category": "모드",
+      "display_name": "연습생모드_퇴소",
+      "file": "모드\\연습생모드_퇴소_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\연습생모드_퇴소_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 933,
+      "keyword_count": 13,
+      "keywords": [
+        "퇴소",
+        "탈락",
+        "계약 종료",
+        "계약종료",
+        "짐 챙겨",
+        "이번이 마지막",
+        "마지막 평가",
+        "도태",
+        "잘렸",
+        "잘릴",
+        "그만둬",
+        "한 번만 더",
+        "마지막 곡"
+      ]
+    },
+    {
+      "index": 178,
+      "category": "모드",
+      "display_name": "오프닝",
+      "file": "모드\\오프닝_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\오프닝_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 1174,
+      "keyword_count": 3,
+      "keywords": [
+        "시작",
+        "오프닝",
+        "첫 대화"
+      ]
+    },
+    {
+      "index": 179,
+      "category": "모드",
+      "display_name": "인플루언서모드",
+      "file": "모드\\인플루언서모드_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\인플루언서모드_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 2765,
+      "keyword_count": 2,
+      "keywords": [
+        "!인플루언서경량",
+        "◐L"
+      ]
+    },
+    {
+      "index": 180,
+      "category": "모드",
+      "display_name": "인플루언서모드_시작",
+      "file": "모드\\인플루언서모드_시작_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\인플루언서모드_시작_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 325,
+      "keyword_count": 1,
+      "keywords": [
+        "!인플루언서경량"
+      ]
+    },
+    {
+      "index": 181,
+      "category": "모드",
+      "display_name": "작곡가모드",
+      "file": "모드\\작곡가모드_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\작곡가모드_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 2132,
+      "keyword_count": 2,
+      "keywords": [
+        "!작곡가경량",
+        "∂L"
+      ]
+    },
+    {
+      "index": 182,
+      "category": "모드",
+      "display_name": "작곡가모드_녹음",
+      "file": "모드\\작곡가모드_녹음_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\작곡가모드_녹음_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 1127,
+      "keyword_count": 12,
+      "keywords": [
+        "녹음",
+        "스튜디오 협업",
+        "가이드 보컬",
+        "데모",
+        "테이크",
+        "믹싱",
+        "마스터링",
+        "부스",
+        "마이크",
+        "엔지니어",
+        "사운드 디렉팅",
+        "가이드 세션"
+      ]
+    },
+    {
+      "index": 183,
+      "category": "모드",
+      "display_name": "작곡가모드_미발표곡",
+      "file": "모드\\작곡가모드_미발표곡_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\작곡가모드_미발표곡_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 1214,
+      "keyword_count": 12,
+      "keywords": [
+        "미발표곡",
+        "미발표 곡",
+        "이서하 곡",
+        "이서하의 곡",
+        "이서하 헤드폰",
+        "옆 부스",
+        "하드디스크",
+        "부족해서",
+        "무서워 또 외면",
+        "익명 곡",
+        "가명 곡",
+        "자기 이름으로 안"
+      ]
+    },
+    {
+      "index": 184,
+      "category": "모드",
+      "display_name": "작곡가모드_발매",
+      "file": "모드\\작곡가모드_발매_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\작곡가모드_발매_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 876,
+      "keyword_count": 13,
+      "keywords": [
+        "발매경량",
+        "음원 발매 경량",
+        "음원 차트 경량",
+        "차트 진입 경량",
+        "차트 1위 경량",
+        "멜론경량",
+        "PRIME CHART 경량",
+        "음원 순위 경량",
+        "실시간 차트 경량",
+        "음방 1위 경량",
+        "음악 방송 경량",
+        "데뷔 무대 경량",
+        "입소문경량"
+      ]
+    },
+    {
+      "index": 185,
+      "category": "모드",
+      "display_name": "작곡가모드_시작",
+      "file": "모드\\작곡가모드_시작_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\작곡가모드_시작_EN.json",
+      "mix": "paired",
+      "route_class": "03_routeable_fixed_command",
+      "size": 690,
+      "keyword_count": 1,
+      "keywords": [
+        "!작곡가경량"
+      ]
+    },
+    {
+      "index": 186,
+      "category": "모드",
+      "display_name": "작곡가모드_의뢰",
+      "file": "모드\\작곡가모드_의뢰_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\작곡가모드_의뢰_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 1054,
+      "keyword_count": 12,
+      "keywords": [
+        "의뢰",
+        "외주",
+        "곡 요청",
+        "곡 부탁",
+        "곡 의뢰",
+        "한 곡 만들어",
+        "데드라인",
+        "단가",
+        "타이틀곡",
+        "미션곡",
+        "BGM 부탁",
+        "컴포저"
+      ]
+    },
+    {
+      "index": 187,
+      "category": "모드",
+      "display_name": "작곡가모드_표절",
+      "file": "모드\\작곡가모드_표절_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\모드\\작곡가모드_표절_EN.json",
+      "mix": "paired",
+      "route_class": "09_ambiguous_review",
+      "size": 1289,
+      "keyword_count": 11,
+      "keywords": [
+        "표절",
+        "표절 의혹",
+        "표절 논란",
+        "크레딧 분쟁",
+        "샘플링 권리",
+        "AI 작곡 의혹",
+        "곡 도용",
+        "비교 영상",
+        "해명문",
+        "법적 대응",
+        "곡 분쟁"
+      ]
+    },
+    {
+      "index": 188,
+      "category": "구역",
+      "display_name": "구역_더코어",
+      "file": "구역_더코어_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\구역_더코어_EN.json",
+      "mix": "paired",
+      "route_class": "08_dynamic_world_event",
+      "size": 262,
+      "keyword_count": 8,
+      "keywords": [
+        "더 코어",
+        "APEX",
+        "프라임 돔",
+        "방송국",
+        "본사",
+        "최상위",
+        "심장부",
+        "VIP"
+      ]
+    },
+    {
+      "index": 189,
+      "category": "구역",
+      "display_name": "구역_미들링",
+      "file": "구역_미들링_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\구역_미들링_EN.json",
+      "mix": "paired",
+      "route_class": "08_dynamic_world_event",
+      "size": 294,
+      "keyword_count": 8,
+      "keywords": [
+        "미들 링",
+        "Blue Moon",
+        "스튜디오",
+        "녹음실",
+        "작업실",
+        "블루문",
+        "중견",
+        "장인"
+      ]
+    },
+    {
+      "index": 190,
+      "category": "구역",
+      "display_name": "구역_테라스",
+      "file": "구역_테라스_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\구역_테라스_EN.json",
+      "mix": "paired",
+      "route_class": "08_dynamic_world_event",
+      "size": 283,
+      "keyword_count": 9,
+      "keywords": [
+        "테라스",
+        "Route 0",
+        "연습실",
+        "오디션장",
+        "외곽",
+        "보급형",
+        "연습생",
+        "신생",
+        "안주"
+      ]
+    },
+    {
+      "index": 191,
+      "category": "구역",
+      "display_name": "구역_하입로드",
+      "file": "구역_하입로드_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\구역_하입로드_EN.json",
+      "mix": "paired",
+      "route_class": "08_dynamic_world_event",
+      "size": 289,
+      "keyword_count": 9,
+      "keywords": [
+        "하입 로드",
+        "PRISM",
+        "클럽",
+        "스트리트",
+        "라이브",
+        "공유 스튜디오",
+        "독립",
+        "신인",
+        "트렌드"
+      ]
+    },
+    {
+      "index": 192,
+      "category": "세계관",
+      "display_name": "세계관이면",
+      "file": "세계관이면_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\세계관이면_EN.json",
+      "mix": "paired",
+      "route_class": "08_dynamic_world_event",
+      "size": 1613,
+      "keyword_count": 1,
+      "keywords": [
+        "🌑세계관"
+      ]
+    },
+    {
+      "index": 193,
+      "category": "이벤트",
+      "display_name": "이벤트_무대사고",
+      "file": "이벤트_무대사고_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\이벤트_무대사고_EN.json",
+      "mix": "paired",
+      "route_class": "08_dynamic_world_event",
+      "size": 1287,
+      "keyword_count": 13,
+      "keywords": [
+        "무대 사고",
+        "장비 고장",
+        "생방송 사고",
+        "NG",
+        "음향 사고",
+        "넘어지",
+        "의상 사고",
+        "방송 사고",
+        "무대 변수",
+        "MR 끊김",
+        "인이어",
+        "애드립",
+        "무대 애드립"
+      ]
+    },
+    {
+      "index": 194,
+      "category": "이벤트",
+      "display_name": "이벤트_스캔들",
+      "file": "이벤트_스캔들_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\이벤트_스캔들_EN.json",
+      "mix": "paired",
+      "route_class": "08_dynamic_world_event",
+      "size": 1185,
+      "keyword_count": 15,
+      "keywords": [
+        "스캔들",
+        "논란",
+        "열애설",
+        "표절",
+        "루머",
+        "제보",
+        "해명",
+        "입장문",
+        "파파라치",
+        "학폭",
+        "폭로",
+        "의혹",
+        "기사",
+        "보도",
+        "이미지 위기"
+      ]
+    },
+    {
+      "index": 195,
+      "category": "이벤트",
+      "display_name": "이벤트_시상식",
+      "file": "이벤트_시상식_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\이벤트_시상식_EN.json",
+      "mix": "paired",
+      "route_class": "08_dynamic_world_event",
+      "size": 1418,
+      "keyword_count": 15,
+      "keywords": [
+        "시상식",
+        "대상",
+        "신인상",
+        "레드카펫",
+        "수상 소감",
+        "트로피",
+        "연말 가요제",
+        "가요대상",
+        "백상",
+        "연예대상",
+        "후보",
+        "수상",
+        "본상",
+        "공로상",
+        "올해의 앨범"
+      ]
+    },
+    {
+      "index": 196,
+      "category": "이벤트",
+      "display_name": "이벤트_콜라보",
+      "file": "이벤트_콜라보_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\이벤트_콜라보_EN.json",
+      "mix": "paired",
+      "route_class": "08_dynamic_world_event",
+      "size": 1223,
+      "keyword_count": 11,
+      "keywords": [
+        "콜라보",
+        "피처링",
+        "듀엣",
+        "합동",
+        "공동 출연",
+        "컬래버",
+        "크로스오버",
+        "합작",
+        "같이 하자",
+        "콜라보레이션",
+        "공동 기획"
+      ]
+    },
+    {
+      "index": 197,
+      "category": "이벤트",
+      "display_name": "이벤트_팬미팅",
+      "file": "이벤트_팬미팅_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\이벤트_팬미팅_EN.json",
+      "mix": "paired",
+      "route_class": "08_dynamic_world_event",
+      "size": 1257,
+      "keyword_count": 11,
+      "keywords": [
+        "팬미팅",
+        "사인회",
+        "팬 이벤트",
+        "팬사인회",
+        "굿즈",
+        "생일 카페",
+        "영상통화 팬미팅",
+        "브이라이브",
+        "팬 미팅",
+        "미팅 기획",
+        "팬 투어"
+      ]
+    },
+    {
+      "index": 198,
+      "category": "SVG",
+      "display_name": "SVG_SNS",
+      "file": "SVG_SNS_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\SVG_SNS_EN.json",
+      "mix": "paired",
+      "route_class": "02_media_format",
+      "size": 1152,
+      "keyword_count": 7,
+      "keywords": [
+        "PRISMGRAM",
+        "프리즘그램",
+        "게시물",
+        "올렸",
+        "SNS",
+        "피드",
+        "인스타"
+      ]
+    },
+    {
+      "index": 199,
+      "category": "SVG",
+      "display_name": "SVG_게시글",
+      "file": "SVG_게시글_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\SVG_게시글_EN.json",
+      "mix": "paired",
+      "route_class": "02_media_format",
+      "size": 1925,
+      "keyword_count": 9,
+      "keywords": [
+        "PRIME POST",
+        "프라임 게시글",
+        "게시글",
+        "본문",
+        "정독",
+        "글 클릭",
+        "댓글창",
+        "댓글 갈갈이",
+        "글 인용"
+      ]
+    },
+    {
+      "index": 200,
+      "category": "SVG",
+      "display_name": "SVG_뉴스",
+      "file": "SVG_뉴스_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\SVG_뉴스_EN.json",
+      "mix": "paired",
+      "route_class": "02_media_format",
+      "size": 1106,
+      "keyword_count": 6,
+      "keywords": [
+        "PRIME NEWS",
+        "프라임 뉴스",
+        "속보",
+        "뉴스",
+        "기자",
+        "보도"
+      ]
+    },
+    {
+      "index": 201,
+      "category": "SVG",
+      "display_name": "SVG_라이브",
+      "file": "SVG_라이브_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\SVG_라이브_EN.json",
+      "mix": "paired",
+      "route_class": "02_media_format",
+      "size": 1063,
+      "keyword_count": 7,
+      "keywords": [
+        "STAGELIVE",
+        "스테이지라이브",
+        "라이브",
+        "방송",
+        "스트리밍",
+        "생방",
+        "시청"
+      ]
+    },
+    {
+      "index": 202,
+      "category": "SVG",
+      "display_name": "SVG_메신저",
+      "file": "SVG_메신저_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\SVG_메신저_EN.json",
+      "mix": "paired",
+      "route_class": "02_media_format",
+      "size": 935,
+      "keyword_count": 7,
+      "keywords": [
+        "PRIMATALK",
+        "프리마톡",
+        "메시지",
+        "문자",
+        "연락",
+        "답장",
+        "카톡"
+      ]
+    },
+    {
+      "index": 203,
+      "category": "SVG",
+      "display_name": "SVG_일정표",
+      "file": "SVG_일정표_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\SVG_일정표_EN.json",
+      "mix": "paired",
+      "route_class": "02_media_format",
+      "size": 1560,
+      "keyword_count": 19,
+      "keywords": [
+        "일정표",
+        "일정",
+        "스케줄",
+        "스케쥴",
+        "스캐줄",
+        "schedule",
+        "오늘 일정",
+        "내일 일정",
+        "이번주",
+        "금주",
+        "주간 일정",
+        "하루 일정",
+        "하루 계획",
+        "스케줄표",
+        "스케쥴표",
+        "일정 확인",
+        "일정확인",
+        "스케줄 확인",
+        "스케쥴 확인"
+      ]
+    },
+    {
+      "index": 204,
+      "category": "SVG",
+      "display_name": "SVG_차트",
+      "file": "SVG_차트_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\SVG_차트_EN.json",
+      "mix": "paired",
+      "route_class": "02_media_format",
+      "size": 1115,
+      "keyword_count": 7,
+      "keywords": [
+        "PRIME CHART",
+        "프라임 차트",
+        "차트",
+        "순위",
+        "1위",
+        "음원",
+        "진입"
+      ]
+    },
+    {
+      "index": 205,
+      "category": "SVG",
+      "display_name": "SVG_커뮤니티",
+      "file": "SVG_커뮤니티_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\SVG_커뮤니티_EN.json",
+      "mix": "paired",
+      "route_class": "02_media_format",
+      "size": 1169,
+      "keyword_count": 8,
+      "keywords": [
+        "CITY BOARD",
+        "시티보드",
+        "갤러리",
+        "게시판",
+        "커뮤",
+        "댓글",
+        "반응",
+        "여론"
+      ]
+    },
+    {
+      "index": 206,
+      "category": "SVG",
+      "display_name": "SVG_태블릿",
+      "file": "SVG_태블릿_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\SVG_태블릿_EN.json",
+      "mix": "paired",
+      "route_class": "02_media_format",
+      "size": 1086,
+      "keyword_count": 5,
+      "keywords": [
+        "PPP BRIEFING",
+        "초대장",
+        "태블릿",
+        "브리핑",
+        "PPP"
+      ]
+    },
+    {
+      "index": 207,
+      "category": "SVG",
+      "display_name": "SVG_트윗",
+      "file": "SVG_트윗_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\SVG_트윗_EN.json",
+      "mix": "paired",
+      "route_class": "02_media_format",
+      "size": 1064,
+      "keyword_count": 7,
+      "keywords": [
+        "SIGNAL",
+        "시그널",
+        "트윗",
+        "리포스트",
+        "화제",
+        "언급",
+        "트위터"
+      ]
+    },
+    {
+      "index": 208,
+      "category": "이미지",
+      "display_name": "이미지_NSFW",
+      "file": "이미지_NSFW_EN.json",
+      "source_file": "docs\\prompts\\json_lite\\이미지_NSFW_EN.json",
+      "mix": "paired",
+      "route_class": "02_media_format",
+      "size": 2674,
+      "keyword_count": 1,
+      "keywords": [
+        "🔞"
+      ]
+    }
+  ]
+}

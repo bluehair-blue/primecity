@@ -19,6 +19,13 @@ const navItems = [
     path: "/gallery",
   },
   {
+    id: "photo-booth",
+    label: "네컷 포토부스",
+    en: "Four Cut Booth",
+    accent: "oklch(0.78 0.12 210)",
+    path: "/photo-booth",
+  },
+  {
     id: "update-log",
     label: "업데이트 로그",
     en: "Update Log",
@@ -38,6 +45,13 @@ const navItems = [
     en: "Other Works",
     accent: "oklch(0.65 0.10 140)",
     path: "/works",
+  },
+  {
+    id: "prism-priority-test",
+    label: "프리즘 테스트",
+    en: "Prism Test",
+    accent: "oklch(0.70 0.16 252)",
+    path: "/prism-priority-test",
   },
 ];
 
@@ -66,9 +80,9 @@ const shards = [
   { keys: ["t2", "t3", "m4", "m3"], item: 2 },
   { keys: ["t3", "tr", "br", "m4"], item: 3 },
   { keys: ["tl", "m1", "bl"], item: -1 },
-  { keys: ["m1", "m2", "m3", "m5", "b1", "bl"], item: -1 },
+  { keys: ["m1", "m2", "m3", "m5", "b1", "bl"], item: 5 },
   { keys: ["m3", "m4", "br", "b3", "b2", "m5"], item: 4 },
-  { keys: ["bl", "b1", "m5", "b2", "b3", "br"], item: -1 },
+  { keys: ["bl", "b1", "m5", "b2", "b3", "br"], item: 6 },
 ];
 
 function centroid(keys) {
@@ -280,6 +294,8 @@ function MobilePrismNav() {
     "polygon(0% 0%, 100% 8%, 100% 95%, 0% 100%)",
     "polygon(0% 5%, 100% 0%, 100% 100%, 0% 92%)",
     "polygon(0% 0%, 100% 6%, 100% 100%, 0% 100%)",
+    "polygon(0% 6%, 100% 0%, 100% 94%, 0% 100%)",
+    "polygon(0% 0%, 100% 4%, 100% 100%, 0% 94%)",
   ];
 
   return (

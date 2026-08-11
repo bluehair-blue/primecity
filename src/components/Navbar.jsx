@@ -19,6 +19,7 @@ export default function Navbar({ scrolled, isMobile }) {
     { label: "캐릭터", href: "/#characters" },
     { label: "세계관", href: "/#world" },
     { label: "갤러리", href: "/gallery", route: true },
+    { label: "포지", href: "/persona-forge", route: true },
     { label: "더 알아보기", href: "/#explore" },
     { label: "문의", href: "https://arca.live/b/lapislazuli", external: true },
   ];

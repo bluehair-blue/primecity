@@ -1,0 +1,16 @@
+{
+  "context_check": "현재 서사에서 PRIMATALK (프리마톡) 관련 장면이라면 참고한다.",
+  "platform": "PRIMATALK (프리마톡)",
+  "worker_domain": "talk.bluehair.blue",
+  "url_rules": {
+    "space": "공백 → %20",
+    "comma": "콤마 → %2C",
+    "question": "물음표 → %3F",
+    "forbidden": "<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.",
+    "char_codes": "SY,NHR,JSH,ERK,LSH,HSR,KHR,JGR,MIL,ELA,MMR,HSE,NIA,RAY,LPS,SIA,NOA,ERP,APR"
+  },
+  "prompt": "■ 메신저 SVG 출력 프롬프트\n\n【라벨 설명】\n- contact: 대화 상대 캐릭터 이름\n- msg1, msg2: 상대방이 보낸 메시지 2개 (캐릭터 말투 반영)\n- reply1, reply2: 유저의 답장 2개\n- time: 대화 시각\n- avatar: 상대방 프로필 이미지 URL (선택)\n\n【출력 위치】\n캐릭터와 메시지를 주고받는 장면에서\n대사 블록 사이 또는 나레이션 하단에 출력.\n\n【URL 규칙】\n공백 → %20 / 콤마 → %2C / 물음표 → %3F\n<, >, 괄호 사용 금지. 한국어는 그대로 사용 가능.\n\n【양식】\n![](https://talk.bluehair.blue/ent/?char={캐릭터코드}&contact={이름}&msg1={메시지1}&msg2={메시지2}&reply1={답장1}&reply2={답장2}&time={시각})\n\n【예시】\n![](https://talk.bluehair.blue/ent/?char=LSH&contact=이서하&msg1=내일%20스튜디오%20올%20수%20있어&msg2=새%20곡%20작업하려고%20하는데&reply1=네!%20몇%20시에%20갈까요&reply2=기대돼요&time=오후%209:15)"
+}
+
+// --- TRIGGER ---
+// PRIMATALK, 프리마톡, 메시지, 문자, 연락, 답장, 카톡

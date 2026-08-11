@@ -1,6 +1,6 @@
 {
   "_desc": "SVG 동적 템플릿 프롬프트 — 챗봇이 상황에 맞는 SVG를 출력하기 위한 규칙과 URL 양식",
-  "_note": "AI는 서사 맥락에 맞는 템플릿을 골라 ![](URL) 형식으로 출력. 각 Worker 도메인은 Cloudflare Workers에서 SVG를 실시간 렌더.",
+  "_note": "Edenchat은 서사 맥락에 맞는 템플릿을 골라 ![](URL) 형식으로 출력. 각 Worker 도메인은 Cloudflare Workers에서 SVG를 실시간 렌더.",
   "url_rules": {
     "space": "공백 → %20",
     "comma": "콤마 → %2C",

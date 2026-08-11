@@ -1,98 +1,45 @@
 ---
 name: project-patterns
-description: 프라임시티 코드베이스 패턴 — git 히스토리에서 추출한 개발 워크플로우, 컴포넌트 구조, 커밋 관례
-version: 1.0.0
-source: local-git-analysis
-analyzed_commits: 84
+description: Prime City의 코드·콘텐츠·이미지·Cloudflare 변경 규칙
 user-invocable: false
-metadata:
-  filePattern: "src/**/*.{jsx,js}"
-  bashPattern: "git (commit|log|diff)"
 ---
 
-# Prime City Development Patterns
+# Prime City Project Patterns
 
-Git 히스토리 84개 커밋에서 추출한 개발 패턴.
+작업 전 `docs/INDEX.md`와 해당 `docs/workflows/*.md`를 읽는다.
 
-## 커밋 컨벤션
+## 공통
 
-이 프로젝트는 **서술형 커밋 메시지**를 사용합니다 (Conventional Commits 아님).
+- 실제 참조자를 `rg`로 찾은 뒤 공용 지점에서 한 번 수정한다.
+- 컴포넌트는 `function` 선언을 사용한다.
+- 색상은 `src/styles/tokens.js`의 OKLCH 토큰을 사용한다.
+- CDN URL은 `src/utils/cdn.js`의 `cdnUrl()`·`cdnExprUrl()`로 만든다.
+- 완료 전 `npm run validate:persona`와 `npm run build`를 실행한다.
 
-**패턴:**
-- 동사로 시작: `Add`, `Fix`, `Update`, `Redesign`, `Replace`, `Upgrade`
-- 컴포넌트명 포함: `Fix CharCarousel: useEffect deps...`, `CityMap: fix hover bug...`
-- AGENTS.md 변경 시 별도 커밋: `Update AGENTS.md with ...`
+## 이미지와 R2
 
-**빈도 높은 접두사:**
-| 접두사 | 용도 | 비율 |
-|--------|------|------|
-| Add | 새 기능/파일 | ~30% |
-| Fix | 버그 수정 | ~20% |
-| Update | 기존 파일 갱신 | ~15% |
-| Redesign | 시각 리뉴얼 | ~10% |
-| Merge | PR 머지 | ~15% |
+1. 생성: `tools/asset_generator.py`
+2. 검열: `tools/auto_censor.py`
+3. 메타데이터 정화: `tools/image_metadata_release.py`
+4. dry-run: `py tools/r2_fullsync.py --dry-run`
+5. 공개 WebP는 `prime/ent/**`, private sidecar는 `prime-metadata/ent/**`
+6. 실제 업로드와 원격 검증 후에만 `ASSET_VERSION`을 1 올린다.
 
-## 핵심 변경 패턴 (파일 공변)
+`char_img/`, `char_img_metadata/`, 모델과 secret은 Git에 올리지 않는다.
 
-### 1. 새 컴포넌트 추가
-항상 함께 변경:
-- `src/components/NewComponent.jsx` (생성)
-- `src/pages/Home.jsx` (섹션 추가)
-- `AGENTS.md` (파일 구조 + 상태 업데이트)
+## 로어북
 
-### 2. 새 페이지 추가
-항상 함께 변경:
-- `src/pages/PageName.jsx` (생성)
-- `src/App.jsx` (Route 추가)
-- `src/data/*.js` (데이터 파일 추가/수정)
-- `AGENTS.md` (라우트 목록 + 상태 업데이트)
+- 정식 원본은 `docs/prompts/json/`이다.
+- 1엔트리=1 JSON, trigger는 파일 하단 `// --- TRIGGER ---`에 둔다.
+- lite → routing → unified 순서는 `docs/workflows/PROMPT_PIPELINE.md`를 따른다.
 
-### 3. 캐릭터 데이터 변경
-`src/data/characters.js`가 11회 변경 — 가장 빈번하게 수정되는 데이터 파일.
-변경 시 확인할 것:
-- CharCarousel.jsx (렌더링)
-- CharDetail.jsx (상세 페이지)
-- 캐릭터 수가 변경되면 페이지네이션 (3페이지 × 5명)
+## Worker
 
-### 4. 시각 리뉴얼 사이클
-반복 패턴:
-1. 컴포넌트 리디자인 (`Redesign CharCarousel`, `Redesign TriangleNav`)
-2. 버그 수정 (`Fix hover bug`, `Fix tooltip position`)
-3. 미세 조정 (`Faster glow`, `instant glow`)
-4. AGENTS.md 업데이트
+- 사이트 설정은 `wrangler.jsonc` 하나만 사용한다.
+- SVG Worker는 `workers/svg-*.js`와 `workers/deploy/deploy.sh`를 함께 확인한다.
+- 배포 스크립트는 기본 dry-run이다. 실제 배포는 `REAL_DEPLOY=1`을 명시한다.
+- 이미지 포함 SVG Worker는 외부 이미지를 data URI로 인라인한다.
 
-## 컴포넌트 구조 패턴
+## 커밋
 
-### 핫 컴포넌트 (수정 빈도 Top 5)
-1. `CharCarousel.jsx` (10회) — 가장 복잡, 리디자인 반복
-2. `HeroSlider.jsx` (9회)
-3. `CityMap.jsx` (9회) — 인터랙션 복잡도 높음
-4. `Home.jsx` (9회) — 섹션 추가/조정
-5. `TriangleNav.jsx` (3회)
-
-### 안정 컴포넌트
-- `PageLayout.jsx` — 변경 1회 후 안정
-- `Footer.jsx` — 변경 1회
-- `Particles.jsx` — 변경 2회
-
-### 컴포넌트 생명주기
-1. 초기 생성 → 2. 리디자인 1~2회 → 3. 버그 수정 → 4. 안정화
-- `CharCard.jsx`는 생성 후 `CharCarousel.jsx`로 대체되어 삭제됨 (리팩토링 패턴)
-
-## 디버깅 패턴
-
-이 코드베이스에서 자주 발생하는 버그 유형:
-1. **hover/pointer 이벤트 버그** — CityMap 애니메이션 중 pointer-events 충돌 (3회 수정)
-2. **tooltip 위치 문제** — fixed vs absolute, containing block (2회 수정)
-3. **이미지 로딩 실패** — crossOrigin, CDN 경로, fallback (2회 수정)
-4. **useEffect 경쟁 조건** — setTimeout cleanup, deps 배열 (1회 수정)
-
-## 배포 워크플로우
-
-```
-코드 수정 → npm run build (Vite) → wrangler deploy → Cloudflare Pages
-```
-
-- GitHub PR 기반 작업 (Codex/ 브랜치)
-- 자동 배포: GitHub → Cloudflare Pages 연동
-- 수동 배포: `npm run deploy` (build + wrangler deploy)
+서술형 `{동사} {대상} — {근거}` 형식을 사용한다. 대규모 변경은 무엇을 남기고 제외했는지와 검증 명령을 본문에 기록한다.

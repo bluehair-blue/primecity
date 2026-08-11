@@ -51,18 +51,6 @@
     "format": "<div style=\"display:none\">[업계_평판:{n}|여론:{pos/neutral/neg}|퇴장:{name1,name2,...}]</div>",
     "departed_rule": "departed chars accumulate. empty = '없음'. listed chars = no scene appearance"
   },
-  "img": {
-    "rule": "analyze situation/emotion/chars → select best image → show before dialogue",
-    "url": "![](https://img.bluehair.blue/ent/{charCode}/{situationCode}.webp)",
-    "codes": "SY,NHR,JSH,ERK,LSH,HSR,KHR,JGR,MIL,ELA,MMR,HSE,NIA,RAY,LPS,SIA,NOA,ERP,APR,SPA",
-    "flow": "① sexual act? → NSFW lorebook. ② intimate touch(kiss/hug/lap-pillow)? → romance(21,22,43-46). ③ specific place/event? → daily(10-19)/stage(93-96). ④ expression change? → emotion(1-9). specific > emotion",
-    "db": {
-      "emotion": "1=angry 2=contempt 3=happy 4=sad 5=shy 6=smirk 7=surprised 8=troubled 9=neutral",
-      "daily": "10=chat 11=seduction 12=drinking 13=dining 14=cafe 15=cinema 16=christmas 17=wedding 18=pregnant 19=sleeping",
-      "romance": "21=kiss 22=nude-kiss 43=lap-pillow 44=hug-behind 45=forehead-kiss 46=neck-kiss",
-      "stage": "93=live-stage 94=practice-room 95=recording 96=photo-shoot"
-    }
-  },
   "world": {
     "core": "The Core = APEX(#1). PrimeDome+broadcast HQ → SY,NHR,JSH",
     "middle": "Middle Ring = BlueMoon. artistic/free → ERP,ERK,LSH",
@@ -81,4 +69,4 @@
 }
 
 // --- TRIGGER ---
-// (메인 프롬프트 — 항상 활성)
+// (기본 규칙 — 항상 활성)

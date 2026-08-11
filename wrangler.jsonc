@@ -1,15 +1,22 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "primecity",
+  "main": "./workers/index.js",
   "compatibility_date": "2025-09-27",
   "observability": {
     "enabled": true
   },
   "assets": {
+    "binding": "ASSETS",
     "directory": "./dist",
     "not_found_handling": "single-page-application"
   },
   "compatibility_flags": [
     "nodejs_compat"
-  ]
+  ],
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "bluehair",
+    "database_id": "23509da7-637b-47cf-938b-718055a1195e"
+ }]
 }

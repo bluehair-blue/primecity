@@ -1,0 +1,193 @@
+{
+  "id": "cyber-noir",
+  "title": "사이버 누아르",
+  "publicTitle": "페르소나 포지 - 네온 뒤의 첫 의뢰",
+  "subtitle": "정보, 침묵, 추적을 중심으로 한 어두운 시작 페르소나.",
+  "startNodeId": "appearance",
+  "resultNodeId": "result",
+  "defaultPlayerName": "의뢰인",
+  "heroImage": "/bg6.webp",
+  "characters": {
+    "naharin": { "label": "나하린", "role": "정보망을 설계한 관찰자" },
+    "jinshihyuk": { "label": "진시혁", "role": "결과만 믿는 추적자" },
+    "erika": { "label": "에리카", "role": "웃으며 독설하는 프로듀서" }
+  },
+  "nodes": {
+    "appearance": {
+      "id": "appearance",
+      "stage": "Appearance",
+      "title": "비 오는 네온 유리",
+      "body": "유리창에 비친 얼굴은 선명하지 않다. 대신 손목 단말의 불빛만 정확하다.",
+      "image": "/bg6.webp",
+      "choices": [
+        {
+          "id": "old_coat_terminal",
+          "label": "낡은 코트 안쪽에 단말을 숨긴다",
+          "description": "정보는 주머니보다 깊은 곳에 있어야 한다.",
+          "next": "strength",
+          "add": { "appearance": ["낡은 코트 안쪽에 오래된 손목 단말을 숨기고 다닌다."], "traits": ["낮은 목소리", "말보다 기록을 먼저 확인함"], "tags": ["noir"] },
+          "vector": { "mystery": 10, "tension": 4 }
+        },
+        {
+          "id": "neon_umbrella",
+          "label": "투명 우산 아래 표정을 숨기지 않는다",
+          "description": "비를 피하는 척, 네온 속 표정을 읽는다.",
+          "next": "strength",
+          "add": { "appearance": ["투명 우산 아래에서도 시선을 피하지 않는다."], "traits": ["침착함", "거리감 있는 친절"], "tags": ["noir"] },
+          "vector": { "intimacy": 4, "mystery": 7 }
+        }
+      ]
+    },
+    "strength": {
+      "id": "strength",
+      "stage": "Strengths",
+      "title": "삭제된 로그를 읽는 법",
+      "body": "삭제된 기록은 사라지지 않는다. 누가 지웠는지 모를 뿐이다.",
+      "image": "/bg7.webp",
+      "choices": [
+        {
+          "id": "pattern_trace",
+          "label": "빈칸의 패턴을 추적한다",
+          "description": "남은 기록보다 지워진 간격을 더 믿는다.",
+          "next": "flaw",
+          "add": { "strengths": ["삭제된 기록의 빈칸에서 사건의 패턴을 찾는다."], "promptNotes": ["정보를 직접 설명하기보다 흔적과 간격으로 추론한다."] },
+          "vector": { "mystery": 9, "discipline": 4 }
+        },
+        {
+          "id": "reads_lies",
+          "label": "거짓말의 리듬을 듣는다",
+          "description": "문장보다 문장 사이의 대기 시간이 더 많은 말을 한다.",
+          "next": "flaw",
+          "add": { "strengths": ["상대의 거짓말과 망설임을 리듬처럼 읽는다."], "promptNotes": ["대화 중 침묵의 길이를 단서처럼 다룬다."] },
+          "vector": { "tension": 7, "intimacy": 3 }
+        }
+      ]
+    },
+    "flaw": {
+      "id": "flaw",
+      "stage": "Flaws",
+      "title": "신뢰의 방화벽",
+      "body": "모든 문이 잠겨 있으면 안전하다. 하지만 아무도 들어오지 못한다.",
+      "image": "/bg8.webp",
+      "choices": [
+        {
+          "id": "keeps_backup_exit",
+          "label": "언제나 탈출로를 먼저 찾는다",
+          "description": "좋은 대화 중에도 문 위치를 확인한다.",
+          "next": "backstory",
+          "add": { "flaws": ["가까워지는 순간에도 탈출로와 보험을 먼저 계산한다."], "promptNotes": ["관계 진전에는 경계심이 늦게 풀리는 리듬을 둔다."] },
+          "vector": { "mystery": 5, "intimacy": -2 }
+        },
+        {
+          "id": "cannot_drop_case",
+          "label": "끝난 사건을 내려놓지 못한다",
+          "description": "이미 결론 난 파일도 다시 연다.",
+          "next": "backstory",
+          "add": { "flaws": ["끝난 사건도 의문점이 남으면 계속 파고든다."], "promptNotes": ["집착은 능력과 약점이 동시에 되게 한다."] },
+          "vector": { "discipline": 6, "tension": 5 }
+        }
+      ]
+    },
+    "backstory": {
+      "id": "backstory",
+      "stage": "Backstory",
+      "title": "네온 서버의 유령",
+      "body": "네 이름은 한 번 사라졌다. 지금 쓰는 이름이 진짜인지는 너도 가끔 헷갈린다.",
+      "image": "/bg9.webp",
+      "choices": [
+        {
+          "id": "erased_identity",
+          "label": "신원을 한 번 삭제당했다",
+          "description": "시스템은 너를 모른다. 그래서 누구보다 시스템을 잘 안다.",
+          "next": "start",
+          "add": { "backstory": ["과거 신원이 시스템에서 삭제되어, 공식 기록과 실제 기억이 맞지 않는다."], "goals": ["자신의 삭제 기록을 추적하며 첫 의뢰의 진짜 목적을 밝힌다."] },
+          "vector": { "mystery": 10, "tension": 5 }
+        },
+        {
+          "id": "failed_guard",
+          "label": "지켜야 할 데이터를 잃었다",
+          "description": "백업은 있었지만, 사람은 백업되지 않았다.",
+          "next": "start",
+          "add": { "backstory": ["지켜야 할 데이터를 잃고 누군가의 커리어를 무너뜨린 죄책감이 있다."], "goals": ["이번 의뢰에서는 데이터보다 사람을 먼저 지킨다."] },
+          "vector": { "empathy": 7, "tension": 6 }
+        }
+      ]
+    },
+    "start": {
+      "id": "start",
+      "stage": "Start Point",
+      "title": "첫 의뢰 알림",
+      "body": "새벽 3시 17분. 발신자 없는 메시지가 도착한다.",
+      "image": "/bg10.webp",
+      "choices": [
+        {
+          "id": "anonymous_contract",
+          "label": "익명 계약서를 연다",
+          "description": "보수는 높고 조건은 짧다. 너무 짧아서 위험하다.",
+          "next": "target",
+          "add": { "startPoint": ["발신자 없는 익명 계약서를 열며 첫 의뢰가 시작된다."], "openingLines": ["조건이 짧을수록 숨은 비용은 길어지죠. 그래도 열어보겠습니다."] },
+          "vector": { "mystery": 6, "ambition": 4 }
+        },
+        {
+          "id": "rain_meeting",
+          "label": "비 내리는 육교에서 기다린다",
+          "description": "약속 장소엔 카메라가 없고, 그래서 더 의심스럽다.",
+          "next": "target",
+          "add": { "startPoint": ["비 내리는 육교 아래, 카메라 사각지대에서 첫 만남이 시작된다."], "openingLines": ["여긴 카메라가 없네요. 당신이 고른 장소라면 이유가 있겠죠."] },
+          "vector": { "tension": 7, "mystery": 4 }
+        }
+      ]
+    },
+    "target": {
+      "id": "target",
+      "stage": "Target Character",
+      "title": "의뢰인의 얼굴",
+      "body": "네온이 꺼질 때, 진짜 표정이 보인다.",
+      "image": "/bg11.webp",
+      "choices": [
+        {
+          "id": "meet_jin",
+          "label": "진시혁이 결과 파일만 건넨다",
+          "description": "설명은 없다. 실패하면 필요 없다는 표정이다.",
+          "next": "goal",
+          "add": { "targetCharacter": "jinshihyuk", "targetCharacterLabel": "진시혁 - 결과만 믿는 추적자", "goals": ["진시혁의 결과 파일에 없는 동기를 찾아낸다."] },
+          "vector": { "tension": 10, "discipline": 5 }
+        },
+        {
+          "id": "meet_naharin",
+          "label": "나하린이 이미 네 답을 알고 있다",
+          "description": "처음 만났는데, 대화는 두 번째처럼 시작된다.",
+          "next": "goal",
+          "add": { "targetCharacter": "naharin", "targetCharacterLabel": "나하린 - 정보망을 설계한 관찰자", "goals": ["나하린이 일부러 흘린 단서와 숨긴 단서를 구분한다."] },
+          "vector": { "mystery": 10, "intimacy": 2 }
+        }
+      ]
+    },
+    "goal": {
+      "id": "goal",
+      "stage": "Goal",
+      "title": "첫 파일에서 빼낼 것",
+      "body": "정보는 사람을 지키거나 망친다. 이번에는 어느 쪽인지 정해야 한다.",
+      "image": "/bg11.webp",
+      "choices": [
+        {
+          "id": "find_missing_name",
+          "label": "삭제된 이름 하나를 복구한다",
+          "description": "파일의 주인보다 지운 사람이 더 중요할 수 있다.",
+          "next": "result",
+          "add": { "goals": ["첫 의뢰에서 삭제된 이름 하나를 복구하고 그 이름을 지운 사람을 찾는다."], "openingLines": ["파일은 깨끗하네요. 너무 깨끗해서, 지운 사람의 습관이 남았습니다."] },
+          "vector": { "mystery": 6, "discipline": 3 }
+        },
+        {
+          "id": "protect_source",
+          "label": "제보자를 숨긴다",
+          "description": "진실은 밝혀야 하지만, 사람까지 드러낼 필요는 없다.",
+          "next": "result",
+          "add": { "goals": ["진실을 확보하면서도 첫 제보자의 정체를 보호한다."], "openingLines": ["증거는 드리죠. 하지만 이걸 준 사람의 이름은 거래 대상이 아닙니다."] },
+          "vector": { "empathy": 6, "tension": 4 }
+        }
+      ]
+    },
+    "result": { "id": "result", "stage": "Result", "title": "누아르 페르소나 완성", "body": "파일은 닫혔고, 첫 대화는 열렸다.", "image": "/bg11.webp", "choices": [] }
+  }
+}

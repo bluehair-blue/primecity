@@ -24,6 +24,11 @@ ROI 제한 → closing → flood fill → best component → contour fill
   python auto_censor.py KHR/64.webp --preview
   python auto_censor.py --batch-all
   python auto_censor.py --batch SY --style mosaic
+  python auto_censor.py --folder char_img/NHR --output-dir char_img_censor_tests/NHR_anus --target-classes anus
+
+운영 메모:
+  docs/anus-censor-pipeline.md 는 이 파일과 모델, 테스트 산출물의 상호작용을
+  설명한다. 검열 워크플로우를 바꾸기 전에 해당 문서를 함께 확인한다.
 """
 
 from __future__ import annotations
@@ -31,6 +36,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import shutil
 import sys
 import tempfile
 from pathlib import Path
@@ -65,11 +71,31 @@ log = logging.getLogger("censor")
 
 _TOOLS_DIR = Path(__file__).resolve().parent                   # 연예계/tools/
 _PROJECT_ROOT = _TOOLS_DIR.parent                              # 연예계/
-BASE_DIR = _PROJECT_ROOT / "char_img"                          # 연예계/char_img/ (이미지 원본)
+BASE_DIR = _PROJECT_ROOT / "char_img"                          # project-root/char_img/ (canonical images)
 MODEL_PATH = _PROJECT_ROOT / "models" / "ntd11_v5.pt"         # 연예계/models/ntd11_v5.pt
 from utils import ALL_CHARS, parse_scene_range as _parse_scene_range  # noqa: E402
 
 TARGET_CLASSES = {"pussy", "penis", "anus"}
+IMAGE_EXTENSIONS = {".webp", ".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff"}
+
+
+def parse_target_classes(raw: str | None) -> set[str]:
+    """Parse a comma-separated class list while preserving the legacy default."""
+    if raw is None:
+        return set(TARGET_CLASSES)
+    classes = {part.strip().lower() for part in raw.split(",") if part.strip()}
+    if not classes:
+        raise argparse.ArgumentTypeError("--target-classes must include at least one class")
+    return classes
+
+
+def iter_image_files(input_dir: Path, recursive: bool = False) -> list[Path]:
+    """Return stable image paths for folder-wide censorship and coverage runs."""
+    pattern = "**/*" if recursive else "*"
+    return sorted(
+        p for p in input_dir.glob(pattern)
+        if p.is_file() and p.suffix.lower() in IMAGE_EXTENSIONS
+    )
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -266,25 +292,33 @@ def refine_segmentation_mask(
 
 _model_cache = {}
 
-def get_model() -> Optional["YOLO"]:
-    if not HAS_YOLO or not MODEL_PATH.exists():
+def get_model(model_path: str | Path | None = None) -> Optional["YOLO"]:
+    resolved_model_path = Path(model_path) if model_path else MODEL_PATH
+    if not HAS_YOLO or not resolved_model_path.exists():
         return None
-    if "m" not in _model_cache:
-        _model_cache["m"] = YOLO(str(MODEL_PATH))
-    return _model_cache["m"]
+    cache_key = str(resolved_model_path.resolve())
+    if cache_key not in _model_cache:
+        _model_cache[cache_key] = YOLO(str(resolved_model_path))
+    return _model_cache[cache_key]
 
 
-def yolo_detect(image: np.ndarray, conf: float = 0.5) -> tuple[np.ndarray, list[dict], str]:
+def yolo_detect(
+    image: np.ndarray,
+    conf: float = 0.5,
+    target_classes: Optional[set[str]] = None,
+    model_path: str | Path | None = None,
+) -> tuple[np.ndarray, list[dict], str]:
     """YOLO genital detection with robust mask refinement.
 
     Returns (mask, detections, status) where status is:
       "ok"       — inference ran successfully
       "no_model" — model unavailable (path error or missing)
     """
-    model = get_model()
+    model = get_model(model_path)
     if model is None:
         return np.zeros(image.shape[:2], dtype=np.uint8), [], "no_model"
 
+    active_classes = target_classes or TARGET_CLASSES
     h, w = image.shape[:2]
 
     with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as tf:
@@ -306,7 +340,7 @@ def yolo_detect(image: np.ndarray, conf: float = 0.5) -> tuple[np.ndarray, list[
         cls_name = model.names[int(box.cls[0])]
         conf_val = float(box.conf[0])
 
-        if cls_name not in TARGET_CLASSES:
+        if cls_name not in active_classes:
             continue
 
         detections.append({"class": cls_name, "conf": conf_val})
@@ -381,6 +415,8 @@ def process_single(
     style: str = "solid",
     color: tuple[int, int, int] = (255, 255, 255),
     edge_blur: int = 0,
+    target_classes: Optional[set[str]] = None,
+    model_path: str | Path | None = None,
     preview: bool = False,
     verbose: bool = True,
 ) -> dict:
@@ -394,18 +430,30 @@ def process_single(
         p = Path(input_path)
         output_path = str(p.parent / f"{p.stem}_censored{p.suffix}")
 
-    mask, detections, status = yolo_detect(image, conf=yolo_conf)
+    mask, detections, status = yolo_detect(
+        image,
+        conf=yolo_conf,
+        target_classes=target_classes,
+        model_path=model_path,
+    )
 
     if status == "no_model":
         log.warning(f"  {Path(input_path).name} → MODEL UNAVAILABLE (not censored!)")
-        return {"path": input_path, "success": False, "reason": "no_model"}
+        return {"path": input_path, "success": False, "reason": "no_model", "detections": []}
 
     total_px = int(np.sum(mask > 0))
 
     if total_px == 0:
         if verbose:
             log.info(f"  {Path(input_path).name} → clean (skip)")
-        return {"path": input_path, "success": True, "detected": False}
+        return {
+            "path": input_path,
+            "success": True,
+            "detected": False,
+            "pixels": 0,
+            "detections": detections,
+            "output_path": output_path,
+        }
 
     result = apply_censor(image, mask, style, color, edge_blur)
 
@@ -434,20 +482,39 @@ def process_single(
         if verbose:
             log.info(f"    preview → {Path(pp).name}")
 
-    return {"path": input_path, "success": True, "detected": True, "pixels": total_px}
+    return {
+        "path": input_path,
+        "success": True,
+        "detected": True,
+        "pixels": total_px,
+        "detections": detections,
+        "output_path": output_path,
+    }
 
 
 def _worker(args: tuple) -> dict:
-    path, out, conf, style, color, eblur = args
+    path, out, conf, style, color, eblur, target_classes, model_path = args
     try:
-        return process_single(path, out, conf, style, color, edge_blur=eblur, verbose=False)
+        return process_single(
+            path,
+            out,
+            conf,
+            style,
+            color,
+            edge_blur=eblur,
+            target_classes=target_classes,
+            model_path=model_path,
+            verbose=False,
+        )
     except (cv2.error, OSError, ValueError, RuntimeError, PILUnidentifiedImageError) as e:
         log.exception(f"Worker failed: {path}")
         return {"path": path, "success": False, "error": str(e)}
 
 
 def process_batch(char_codes, scene_nums, yolo_conf=0.5, style="solid", color=(255,255,255),
-                  edge_blur=0, preview_first=0, verbose=True):
+                  edge_blur=0, preview_first=0, verbose=True,
+                  target_classes: Optional[set[str]] = None,
+                  model_path: str | Path | None = None):
     # Path validation — only when actual I/O is needed
     if not BASE_DIR.exists():
         log.error(f"Image directory not found: {BASE_DIR.resolve()}")
@@ -458,14 +525,23 @@ def process_batch(char_codes, scene_nums, yolo_conf=0.5, style="solid", color=(2
         for num in scene_nums:
             src = BASE_DIR / code / f"{num}.webp"
             if src.exists():
-                tasks.append((str(src), str(src), yolo_conf, style, color, edge_blur))
+                tasks.append((
+                    str(src), str(src), yolo_conf, style, color, edge_blur,
+                    target_classes, model_path,
+                ))
 
     if verbose:
         log.info(f"{len(tasks)} images, conf={yolo_conf}, style={style}, edge_blur={edge_blur}")
 
     if preview_first > 0:
         for t in tasks[:preview_first]:
-            process_single(t[0], t[1], yolo_conf, style, color, edge_blur=edge_blur, preview=True)
+            process_single(
+                t[0], t[1], yolo_conf, style, color,
+                edge_blur=edge_blur,
+                target_classes=target_classes,
+                model_path=model_path,
+                preview=True,
+            )
         log.info(f"Previewed {min(preview_first, len(tasks))}.")
         return
 
@@ -481,16 +557,23 @@ def process_batch(char_codes, scene_nums, yolo_conf=0.5, style="solid", color=(2
             log.error(f"⚠ {no_model} images skipped: model unavailable!")
 
 
-def run_coverage_test(input_dir: str | Path, result_dir: str | Path, yolo_conf: float = 0.5) -> None:
+def run_coverage_test(
+    input_dir: str | Path,
+    result_dir: str | Path,
+    yolo_conf: float = 0.5,
+    target_classes: Optional[set[str]] = None,
+    model_path: str | Path | None = None,
+    recursive: bool = False,
+) -> None:
     """Coverage test: read-only on originals, all output to result_dir."""
     input_dir = Path(input_dir)
     result_dir = Path(result_dir)
     result_dir.mkdir(parents=True, exist_ok=True)
     manifest = []
 
-    sources = sorted(input_dir.glob("*.webp"))
+    sources = iter_image_files(input_dir, recursive=recursive)
     if not sources:
-        log.warning(f"No .webp files found in {input_dir}")
+        log.warning(f"No supported image files found in {input_dir}")
         return
 
     for src in sources:
@@ -500,9 +583,14 @@ def run_coverage_test(input_dir: str | Path, result_dir: str | Path, yolo_conf: 
             manifest.append({"file": src.name, "detected": False, "mask_area_px": 0, "status": "load_error"})
             continue
 
-        mask, detections, status = yolo_detect(image, conf=yolo_conf)
+        mask, detections, status = yolo_detect(
+            image,
+            conf=yolo_conf,
+            target_classes=target_classes,
+            model_path=model_path,
+        )
         area = int(np.sum(mask > 0))
-        stem = src.stem
+        stem = "__".join(src.relative_to(input_dir).with_suffix("").parts)
 
         # Preview: mask contour overlay (green)
         preview = image.copy()
@@ -515,11 +603,12 @@ def run_coverage_test(input_dir: str | Path, result_dir: str | Path, yolo_conf: 
         cv2.imwrite(str(result_dir / f"{stem}_mask.png"), mask)
 
         manifest.append({
-            "file": src.name,
+            "file": str(src.relative_to(input_dir)),
             "detected": bool(detections),
             "mask_area_px": area,
             "detections": [{"class": d["class"], "conf": round(d["conf"], 3)} for d in detections],
             "status": status,
+            "target_classes": sorted(target_classes or TARGET_CLASSES),
         })
         det_str = ", ".join(f"{d['class']}({d['conf']:.2f})" for d in detections) if detections else "none"
         log.info(f"  {src.name} → {area:,}px² [{det_str}] ({status})")
@@ -528,6 +617,95 @@ def run_coverage_test(input_dir: str | Path, result_dir: str | Path, yolo_conf: 
     (result_dir / "stats.json").write_text(
         json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
     log.info(f"Coverage test: {len(manifest)} images → {result_dir}")
+
+
+def process_folder(
+    input_dir: str | Path,
+    output_dir: str | Path | None = None,
+    yolo_conf: float = 0.5,
+    style: str = "solid",
+    color: tuple[int, int, int] = (255, 255, 255),
+    edge_blur: int = 0,
+    target_classes: Optional[set[str]] = None,
+    model_path: str | Path | None = None,
+    recursive: bool = False,
+    copy_clean: bool = True,
+    report_json: str | Path | None = None,
+    verbose: bool = True,
+) -> list[dict]:
+    """Process every image in a folder, preserving originals when output_dir is set.
+
+    This is the test-pipeline entrypoint for copied asset folders: outputs mirror the
+    input tree so clean and censored files can be reviewed as one complete set.
+    """
+    input_dir = Path(input_dir)
+    output_root = Path(output_dir) if output_dir else None
+
+    if not input_dir.exists():
+        raise FileNotFoundError(f"Input directory not found: {input_dir}")
+    if output_root:
+        output_root.mkdir(parents=True, exist_ok=True)
+
+    sources = iter_image_files(input_dir, recursive=recursive)
+    if verbose:
+        target_label = ",".join(sorted(target_classes or TARGET_CLASSES))
+        log.info(
+            f"Folder run: {len(sources)} images, conf={yolo_conf}, "
+            f"classes={target_label}, style={style}"
+        )
+
+    manifest = []
+    for src in sources:
+        rel = src.relative_to(input_dir)
+        out_path = (output_root / rel) if output_root else src
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+
+        result = process_single(
+            str(src),
+            str(out_path),
+            yolo_conf,
+            style,
+            color,
+            edge_blur=edge_blur,
+            target_classes=target_classes,
+            model_path=model_path,
+            verbose=verbose,
+        )
+
+        if output_root and result.get("success") and not result.get("detected") and copy_clean:
+            shutil.copy2(src, out_path)
+
+        manifest.append({
+            "file": str(rel),
+            "source": str(src),
+            "output": str(out_path),
+            "success": bool(result.get("success")),
+            "censored": bool(result.get("detected")),
+            "mask_area_px": int(result.get("pixels", 0) or 0),
+            "detections": [
+                {"class": d["class"], "conf": round(float(d["conf"]), 3)}
+                for d in result.get("detections", [])
+            ],
+            "reason": result.get("reason") or result.get("error"),
+            "target_classes": sorted(target_classes or TARGET_CLASSES),
+        })
+
+    if report_json:
+        report_path = Path(report_json)
+    elif output_root:
+        report_path = output_root / "censor_report.json"
+    else:
+        report_path = input_dir / "censor_report.json"
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    censored = sum(1 for item in manifest if item["censored"])
+    failed = sum(1 for item in manifest if not item["success"])
+    if verbose:
+        log.info(f"Folder done. {censored} censored, {len(manifest) - censored - failed} copied clean, {failed} failed")
+        log.info(f"Report → {report_path}")
+
+    return manifest
 
 
 parse_scene_range = _parse_scene_range
@@ -541,9 +719,23 @@ def main():
     group.add_argument("--batch-all", action="store_true")
     group.add_argument("--coverage-test", metavar="INPUT_DIR",
                        help="Run coverage test on input dir (read-only), output to --result-dir")
+    group.add_argument("--folder", metavar="INPUT_DIR",
+                       help="Process every supported image in a folder. Use --output-dir for copied results.")
 
     parser.add_argument("--result-dir", metavar="DIR",
                         help="Output directory for --coverage-test results")
+    parser.add_argument("--output-dir", metavar="DIR",
+                        help="Output directory for --folder copied/censored results")
+    parser.add_argument("--report-json", metavar="PATH",
+                        help="JSON report path for --folder")
+    parser.add_argument("--recursive", action="store_true",
+                        help="Include images in nested folders for --folder/--coverage-test")
+    parser.add_argument("--target-classes", default="pussy,penis,anus",
+                        help="Comma-separated model classes to censor (default: pussy,penis,anus)")
+    parser.add_argument("--model-path", default=str(MODEL_PATH),
+                        help="YOLO segmentation model path")
+    parser.add_argument("--skip-clean-copy", action="store_true",
+                        help="With --folder --output-dir, do not copy images with no target detection")
     parser.add_argument("--scenes", default="20-42,50-67,70-78,80-86")
     parser.add_argument("--yolo-conf", type=float, default=0.5)
     parser.add_argument("--style", choices=["solid", "mosaic"], default="solid")
@@ -556,19 +748,72 @@ def main():
 
     args = parser.parse_args()
     color = tuple(args.color)
+    target_classes = parse_target_classes(args.target_classes)
+    model_path = Path(args.model_path)
 
     eblur = args.edge_blur
 
     if args.coverage_test:
         result_dir = args.result_dir or str(Path(args.coverage_test).parent / "results")
-        run_coverage_test(args.coverage_test, result_dir, args.yolo_conf)
+        run_coverage_test(
+            args.coverage_test,
+            result_dir,
+            args.yolo_conf,
+            target_classes=target_classes,
+            model_path=model_path,
+            recursive=args.recursive,
+        )
+    elif args.folder:
+        process_folder(
+            args.folder,
+            args.output_dir,
+            args.yolo_conf,
+            args.style,
+            color,
+            eblur,
+            target_classes=target_classes,
+            model_path=model_path,
+            recursive=args.recursive,
+            copy_clean=not args.skip_clean_copy,
+            report_json=args.report_json,
+        )
     elif args.batch_all:
-        process_batch(ALL_CHARS, parse_scene_range(args.scenes), args.yolo_conf, args.style, color, eblur, args.preview_first)
+        process_batch(
+            ALL_CHARS,
+            parse_scene_range(args.scenes),
+            args.yolo_conf,
+            args.style,
+            color,
+            eblur,
+            args.preview_first,
+            target_classes=target_classes,
+            model_path=model_path,
+        )
     elif args.batch:
         chars = [c.strip().upper() for c in args.batch.split(",")]
-        process_batch(chars, parse_scene_range(args.scenes), args.yolo_conf, args.style, color, eblur, args.preview_first)
+        process_batch(
+            chars,
+            parse_scene_range(args.scenes),
+            args.yolo_conf,
+            args.style,
+            color,
+            eblur,
+            args.preview_first,
+            target_classes=target_classes,
+            model_path=model_path,
+        )
     elif args.input:
-        process_single(args.input, args.output, args.yolo_conf, args.style, color, edge_blur=eblur, preview=args.preview)
+        process_single(
+            args.input,
+            args.output,
+            args.yolo_conf,
+            args.style,
+            color,
+            edge_blur=eblur,
+            target_classes=target_classes,
+            model_path=model_path,
+            preview=args.preview,
+        )
     else:
         parser.print_help()
 

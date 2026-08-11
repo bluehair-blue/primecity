@@ -1,0 +1,201 @@
+{
+  "id": "academy-darkfantasy",
+  "title": "아카데미 다크판타지",
+  "publicTitle": "페르소나 포지 - 봉인된 아카데미의 첫 계약",
+  "subtitle": "프라임시티 바깥, 금지된 예술학교의 규칙으로 시작하는 페르소나.",
+  "startNodeId": "appearance",
+  "resultNodeId": "result",
+  "defaultPlayerName": "전학생",
+  "heroImage": "/bg4.webp",
+  "characters": {
+    "seoyun": { "label": "서윤", "role": "완벽한 무대의 상징" },
+    "naharin": { "label": "나하린", "role": "교칙 뒤의 설계자" },
+    "hansori": { "label": "한소리", "role": "무너진 팀을 붙잡는 선배" }
+  },
+  "nodes": {
+    "appearance": {
+      "id": "appearance",
+      "stage": "Appearance",
+      "title": "검은 교복과 금색 실",
+      "body": "입학식 전날 밤, 교복 안감에 네 이름이 아닌 문장이 수놓인다.",
+      "image": "/bg4.webp",
+      "choices": [
+        {
+          "id": "gold_thread",
+          "label": "금색 실을 뜯지 않는다",
+          "description": "이 학교의 금기를 몸에 걸치고 입학한다.",
+          "next": "strength",
+          "add": {
+            "appearance": ["검은 교복 안감에 금색 실로 새겨진 문장을 숨기고 있다."],
+            "traits": ["정중함", "금기를 확인하려는 호기심"],
+            "tags": ["academy"]
+          },
+          "vector": { "mystery": 8, "ambition": 6 }
+        },
+        {
+          "id": "broken_pin",
+          "label": "부러진 배지를 단다",
+          "description": "완벽한 교칙보다 깨진 약속이 더 잘 어울린다.",
+          "next": "strength",
+          "add": {
+            "appearance": ["부러진 학교 배지를 일부러 가슴에 달고 다닌다."],
+            "traits": ["담담한 반항심", "낮은 목소리"],
+            "tags": ["academy"]
+          },
+          "vector": { "tension": 9, "mystery": 5 }
+        }
+      ]
+    },
+    "strength": {
+      "id": "strength",
+      "stage": "Strengths",
+      "title": "금지된 복도에서 살아남는 법",
+      "body": "종이 울렸는데 아무도 움직이지 않는다. 움직이는 사람만 규칙을 알게 된다.",
+      "image": "/bg5.webp",
+      "choices": [
+        {
+          "id": "ritual_memory",
+          "label": "의식의 순서를 한 번에 외운다",
+          "description": "실수하지 않는 사람은 오래 산다.",
+          "next": "flaw",
+          "add": { "strengths": ["복잡한 규칙과 의식 순서를 빠르게 기억한다."], "promptNotes": ["장면마다 작은 규칙과 예외를 확인한다."] },
+          "vector": { "discipline": 9, "mystery": 4 }
+        },
+        {
+          "id": "forbidden_names",
+          "label": "불러서는 안 되는 이름을 알아듣는다",
+          "description": "누군가 이름을 삼킬 때, 그 침묵을 듣는다.",
+          "next": "flaw",
+          "add": { "strengths": ["말해지지 않은 이름과 관계의 흔적을 눈치챈다."], "promptNotes": ["침묵과 호칭을 중요한 단서로 쓴다."] },
+          "vector": { "mystery": 9, "intimacy": 3 }
+        }
+      ]
+    },
+    "flaw": {
+      "id": "flaw",
+      "stage": "Flaws",
+      "title": "계약서 아래의 작은 글씨",
+      "body": "가장 바라는 것을 적으라는 칸 아래에, 잃을 것을 적는 칸도 있다.",
+      "image": "/bg6.webp",
+      "choices": [
+        {
+          "id": "keeps_secrets",
+          "label": "비밀을 너무 오래 보관한다",
+          "description": "말해야 할 때조차 기록장만 닫는다.",
+          "next": "backstory",
+          "add": { "flaws": ["위험한 비밀을 혼자 오래 보관한다."], "promptNotes": ["상대가 비밀을 발견할 때 긴장감을 높인다."] },
+          "vector": { "mystery": 5, "tension": 6 }
+        },
+        {
+          "id": "answers_challenge",
+          "label": "도발을 그냥 넘기지 못한다",
+          "description": "부당한 규칙 앞에서는 목소리가 먼저 나온다.",
+          "next": "backstory",
+          "add": { "flaws": ["권위적인 도발에 쉽게 반응한다."], "promptNotes": ["충돌 뒤에는 후회보다 책임을 먼저 보여준다."] },
+          "vector": { "tension": 8, "ambition": 4 }
+        }
+      ]
+    },
+    "backstory": {
+      "id": "backstory",
+      "stage": "Backstory",
+      "title": "전학 사유는 봉인되어 있다",
+      "body": "기록부 첫 장은 찢겨 있고, 마지막 장에는 네 서명만 남아 있다.",
+      "image": "/bg7.webp",
+      "choices": [
+        {
+          "id": "lost_duet",
+          "label": "사라진 듀엣 파트너를 찾고 있다",
+          "description": "마지막으로 들은 건 반주가 끊기는 소리였다.",
+          "next": "start",
+          "add": { "backstory": ["사라진 듀엣 파트너의 흔적을 찾기 위해 전학 왔다."], "goals": ["파트너의 실종과 아카데미의 금지곡 사이의 연결을 밝힌다."] },
+          "vector": { "intimacy": 7, "mystery": 7 }
+        },
+        {
+          "id": "sealed_scholarship",
+          "label": "봉인 장학생으로 불렸다",
+          "description": "장학금은 재능이 아니라 대가를 보고 지급됐다.",
+          "next": "start",
+          "add": { "backstory": ["대가가 적힌 봉인 장학 계약서에 서명했다."], "goals": ["계약의 대가를 알아내고 스스로 조건을 다시 쓴다."] },
+          "vector": { "ambition": 8, "tension": 4 }
+        }
+      ]
+    },
+    "start": {
+      "id": "start",
+      "stage": "Start Point",
+      "title": "금지곡 보관실",
+      "body": "문은 잠겨 있지 않다. 대신 들어온 사람의 이름을 문이 기억한다.",
+      "image": "/bg8.webp",
+      "choices": [
+        {
+          "id": "music_archive",
+          "label": "보관실 악보를 펼친다",
+          "description": "첫 마디가 네 심장 박자와 맞아떨어진다.",
+          "next": "target",
+          "add": { "startPoint": ["금지곡 보관실에서 이름 없는 악보를 펼친 순간."], "openingLines": ["이 악보, 제 이름을 먼저 알고 있었던 것 같아요."] },
+          "vector": { "mystery": 6, "intimacy": 4 }
+        },
+        {
+          "id": "clock_tower",
+          "label": "시계탑 열세 번째 종을 기다린다",
+          "description": "열두 번 이후에도 종이 울리는 밤이 있다.",
+          "next": "target",
+          "add": { "startPoint": ["아카데미 시계탑 아래, 열세 번째 종이 울린 직후."], "openingLines": ["방금 들었죠. 이 학교는 열두 번에서 끝나지 않아요."] },
+          "vector": { "tension": 7, "mystery": 5 }
+        }
+      ]
+    },
+    "target": {
+      "id": "target",
+      "stage": "Target Character",
+      "title": "누가 금기를 먼저 말하는가",
+      "body": "금지된 이름은 누군가의 입술에서 가장 자연스럽게 흘러나온다.",
+      "image": "/bg9.webp",
+      "choices": [
+        {
+          "id": "meet_seoyun",
+          "label": "서윤이 완벽한 박자로 틀린 음을 낸다",
+          "description": "모두가 박수를 치지만, 너만 이상함을 알아차린다.",
+          "next": "goal",
+          "add": { "targetCharacter": "seoyun", "targetCharacterLabel": "서윤 - 완벽한 무대의 상징", "goals": ["서윤의 완벽함 뒤에 숨은 금지곡의 흔적을 찾는다."] },
+          "vector": { "mystery": 5, "ambition": 5 }
+        },
+        {
+          "id": "meet_hansori",
+          "label": "한소리가 찢어진 출석부를 숨긴다",
+          "description": "선배의 손은 따뜻하지만 파일은 너무 차갑다.",
+          "next": "goal",
+          "add": { "targetCharacter": "hansori", "targetCharacterLabel": "한소리 - 무너진 팀을 붙잡는 선배", "goals": ["한소리가 지키려는 이름을 알아낸다."] },
+          "vector": { "empathy": 8, "intimacy": 5 }
+        }
+      ]
+    },
+    "goal": {
+      "id": "goal",
+      "stage": "Goal",
+      "title": "첫 계약의 조건",
+      "body": "서명은 이미 끝났다. 이제 조건을 누가 읽느냐가 중요하다.",
+      "image": "/bg10.webp",
+      "choices": [
+        {
+          "id": "read_hidden_clause",
+          "label": "숨은 조항을 소리 내 읽는다",
+          "description": "규칙은 읽는 순간 약해진다.",
+          "next": "result",
+          "add": { "goals": ["첫 장면에서 계약의 숨은 조항 하나를 밝혀낸다."], "openingLines": ["이 조항, 작게 쓰인 게 아니라 일부러 들키지 않게 쓰인 거죠."] },
+          "vector": { "mystery": 4, "tension": 5 }
+        },
+        {
+          "id": "protect_name",
+          "label": "누군가의 이름을 지운다",
+          "description": "기록에서 지우는 것이 오히려 살리는 길일 수 있다.",
+          "next": "result",
+          "add": { "goals": ["위험한 출석부에서 한 사람의 이름을 보호한다."], "openingLines": ["이 이름은 제가 봤어요. 그러니까 이제 아무도 못 본 걸로 해요."] },
+          "vector": { "empathy": 7, "intimacy": 4 }
+        }
+      ]
+    },
+    "result": { "id": "result", "stage": "Result", "title": "봉인된 페르소나 완성", "body": "첫 계약은 끝났고, 이제 첫 대화가 시작된다.", "image": "/bg11.webp", "choices": [] }
+  }
+}

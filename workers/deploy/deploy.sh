@@ -4,6 +4,7 @@
 # Requires: wrangler login (run once before deploying)
 
 WORKERS_DIR=".."
+WRANGLER_CONFIG="$WORKERS_DIR/wrangler.svg.jsonc"
 DOMAIN="bluehair.blue"
 COMPATIBILITY_DATE="${COMPATIBILITY_DATE:-2024-01-01}"
 REAL_DEPLOY="${REAL_DEPLOY:-0}"
@@ -39,7 +40,7 @@ for NAME in "${!WORKERS[@]}"; do
   ROUTE="${SUB}.${DOMAIN}/*"
 
   echo "=== Deploying $NAME ($FILE) → $ROUTE ==="
-  if npx wrangler deploy "$WORKERS_DIR/$FILE" --name "$NAME" --compatibility-date "$COMPATIBILITY_DATE" --route "$ROUTE" "${DEPLOY_MODE_ARGS[@]}"; then
+  if npx wrangler deploy "$WORKERS_DIR/$FILE" --config "$WRANGLER_CONFIG" --name "$NAME" --compatibility-date "$COMPATIBILITY_DATE" --route "$ROUTE" "${DEPLOY_MODE_ARGS[@]}"; then
     echo "  ✓ $NAME deployed + route $ROUTE registered"
     ((SUCCESS++))
   else

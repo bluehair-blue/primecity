@@ -1,0 +1,193 @@
+{
+  "id": "idol-backstage",
+  "title": "아이돌 백스테이지",
+  "publicTitle": "페르소나 포지 - 라이브 직전의 첫 장면",
+  "subtitle": "조명 뒤에서 만들어지는 즉흥성과 관계의 페르소나.",
+  "startNodeId": "appearance",
+  "resultNodeId": "result",
+  "defaultPlayerName": "스태프",
+  "heroImage": "/bg5.webp",
+  "characters": {
+    "mimori": { "label": "미모리", "role": "인플루언서형 스타" },
+    "seoyun": { "label": "서윤", "role": "정점의 아이돌" },
+    "mila": { "label": "밀라", "role": "무대 위 자유로운 영혼" }
+  },
+  "nodes": {
+    "appearance": {
+      "id": "appearance",
+      "stage": "Appearance",
+      "title": "대기실 거울의 스티커",
+      "body": "네 이름표는 삐뚤게 붙었지만, 이상하게 카메라에는 잘 잡힌다.",
+      "image": "/bg5.webp",
+      "choices": [
+        {
+          "id": "lanyard_staff",
+          "label": "목걸이 명찰을 뒤집어 찬다",
+          "description": "이름보다 역할이 먼저 보이는 사람이 된다.",
+          "next": "strength",
+          "add": { "appearance": ["스태프 목걸이 명찰을 뒤집어 차고 다닌다."], "traits": ["조용한 실무감", "필요할 때만 말함"], "tags": ["backstage"] },
+          "vector": { "discipline": 7, "mystery": 4 }
+        },
+        {
+          "id": "borrowed_glitter",
+          "label": "남은 글리터를 손등에 바른다",
+          "description": "주인공은 아니지만 조명에 닿는 법을 안다.",
+          "next": "strength",
+          "add": { "appearance": ["손등에 남은 무대 글리터가 희미하게 반짝인다."], "traits": ["재치", "카메라 앞에서 긴장하지 않음"], "tags": ["backstage"] },
+          "vector": { "spotlight": 9, "intimacy": 3 }
+        }
+      ]
+    },
+    "strength": {
+      "id": "strength",
+      "stage": "Strengths",
+      "title": "라이브 3분 전",
+      "body": "이어마이크가 하나 사라지고, 스태프 무전이 동시에 울린다.",
+      "image": "/bg6.webp",
+      "choices": [
+        {
+          "id": "fixes_live_problem",
+          "label": "말없이 예비 장비를 꺼낸다",
+          "description": "눈에 띄지 않게 장면을 살린다.",
+          "next": "flaw",
+          "add": { "strengths": ["라이브 직전 돌발 문제를 빠르게 수습한다."], "promptNotes": ["주인공이 아니어도 장면의 흐름을 바꿀 수 있다."] },
+          "vector": { "discipline": 8, "tension": 4 }
+        },
+        {
+          "id": "turns_panic_to_clip",
+          "label": "패닉을 쇼츠 각도로 바꾼다",
+          "description": "사고가 터져도 표정부터 살린다.",
+          "next": "flaw",
+          "add": { "strengths": ["위기 상황을 콘텐츠로 재구성한다."], "promptNotes": ["댓글 반응과 카메라 위치를 함께 묘사한다."] },
+          "vector": { "spotlight": 10, "tension": 3 }
+        }
+      ]
+    },
+    "flaw": {
+      "id": "flaw",
+      "stage": "Flaws",
+      "title": "박수 뒤의 피로",
+      "body": "환호가 커질수록, 네가 못 들은 척한 말도 커진다.",
+      "image": "/bg7.webp",
+      "choices": [
+        {
+          "id": "too_available",
+          "label": "항상 괜찮다고 말한다",
+          "description": "불려가면 가고, 맡기면 맡는다. 그래서 한계가 늦게 온다.",
+          "next": "backstory",
+          "add": { "flaws": ["자기 한계를 늦게 인정하고 과로한다."], "promptNotes": ["상대가 피로를 알아차리는 장면을 관계 전환점으로 쓴다."] },
+          "vector": { "empathy": 5, "tension": 5 }
+        },
+        {
+          "id": "chases_reaction",
+          "label": "반응이 없으면 불안해진다",
+          "description": "조회수, 표정, 답장 속도가 마음을 흔든다.",
+          "next": "backstory",
+          "add": { "flaws": ["즉각적인 반응이 없으면 자신이 틀렸다고 느낀다."], "promptNotes": ["SNS 수치와 실제 감정의 차이를 갈등으로 둔다."] },
+          "vector": { "spotlight": 5, "intimacy": -2 }
+        }
+      ]
+    },
+    "backstory": {
+      "id": "backstory",
+      "stage": "Backstory",
+      "title": "삭제된 리허설 영상",
+      "body": "네 휴대폰에는 업로드하지 못한 영상 하나가 남아 있다.",
+      "image": "/bg8.webp",
+      "choices": [
+        {
+          "id": "saved_someone",
+          "label": "누군가의 실수를 일부러 잘라냈다",
+          "description": "진실보다 사람을 먼저 살린 밤이었다.",
+          "next": "start",
+          "add": { "backstory": ["리허설 영상에서 누군가의 큰 실수를 잘라내고 혼자 책임졌다."], "goals": ["그날 보호한 사람이 다시 무대에 설 수 있게 돕는다."] },
+          "vector": { "empathy": 8, "intimacy": 5 }
+        },
+        {
+          "id": "viral_before",
+          "label": "한 번 바이럴의 중심에 섰다",
+          "description": "사람들은 이름을 외웠지만, 네가 어떤 사람이었는지는 몰랐다.",
+          "next": "start",
+          "add": { "backstory": ["과거 의도치 않게 바이럴 영상의 중심이 되었고, 그 이후 시선에 예민해졌다."], "goals": ["이번에는 시선에 끌려가지 않고 장면을 직접 선택한다."] },
+          "vector": { "spotlight": 8, "tension": 5 }
+        }
+      ]
+    },
+    "start": {
+      "id": "start",
+      "stage": "Start Point",
+      "title": "라이브 버튼이 켜진다",
+      "body": "카운트다운은 기다려주지 않는다. 셋, 둘, 하나.",
+      "image": "/bg9.webp",
+      "choices": [
+        {
+          "id": "greenroom_live",
+          "label": "대기실 라이브에 잘못 들어간다",
+          "description": "문을 여는 순간, 이미 만 명이 보고 있다.",
+          "next": "target",
+          "add": { "startPoint": ["대기실 라이브 방송에 잘못 들어가며 첫 장면이 시작된다."], "openingLines": ["죄송해요. 그런데 지금 나가면 더 이상해질 것 같아서요."] },
+          "vector": { "spotlight": 7, "tension": 4 }
+        },
+        {
+          "id": "broken_in_ear",
+          "label": "고장난 인이어를 건네받는다",
+          "description": "소리가 끊긴 사람은 노래보다 먼저 눈빛으로 도움을 청한다.",
+          "next": "target",
+          "add": { "startPoint": ["라이브 직전 고장난 인이어를 수습하며 첫 대화가 시작된다."], "openingLines": ["소리가 안 들리면 제 손만 봐요. 박자는 제가 세어줄게요."] },
+          "vector": { "discipline": 6, "intimacy": 4 }
+        }
+      ]
+    },
+    "target": {
+      "id": "target",
+      "stage": "Target Character",
+      "title": "조명 아래 첫 시선",
+      "body": "첫 번째로 너를 보는 사람이 오늘의 장르를 결정한다.",
+      "image": "/bg10.webp",
+      "choices": [
+        {
+          "id": "meet_mimori",
+          "label": "미모리가 댓글을 보며 웃는다",
+          "description": "농담처럼 가볍지만, 상황 판단은 누구보다 빠르다.",
+          "next": "goal",
+          "add": { "targetCharacter": "mimori", "targetCharacterLabel": "미모리 - 인플루언서형 스타", "goals": ["미모리와 사고를 흥행 장면으로 바꾼다."] },
+          "vector": { "spotlight": 10, "intimacy": 3 }
+        },
+        {
+          "id": "meet_mila",
+          "label": "밀라가 반주 없이 먼저 움직인다",
+          "description": "음악이 끊겨도 몸이 장면을 이어간다.",
+          "next": "goal",
+          "add": { "targetCharacter": "mila", "targetCharacterLabel": "밀라 - 무대 위 자유로운 영혼", "goals": ["밀라가 음악 없이도 무대를 이어갈 수 있게 호흡을 맞춘다."] },
+          "vector": { "intimacy": 6, "spotlight": 5 }
+        }
+      ]
+    },
+    "goal": {
+      "id": "goal",
+      "stage": "Goal",
+      "title": "방송 종료 전 남길 것",
+      "body": "꺼지는 빨간 불 앞에서, 한 문장이 다음 이야기를 부른다.",
+      "image": "/bg11.webp",
+      "choices": [
+        {
+          "id": "turn_accident",
+          "label": "사고를 공식 장면으로 만든다",
+          "description": "실수였다고 말하지 않는다. 오늘의 선택이었다고 말한다.",
+          "next": "result",
+          "add": { "goals": ["첫 장면의 사고를 두 사람이 함께 선택한 장면으로 바꾼다."], "openingLines": ["방금 건 사고가 아니라, 오늘 라이브에서만 볼 수 있는 버전으로 해두죠."] },
+          "vector": { "spotlight": 6, "tension": 3 }
+        },
+        {
+          "id": "protect_off_camera",
+          "label": "카메라 밖에서 진짜 말을 듣는다",
+          "description": "방송이 꺼진 뒤에도 이야기는 남아야 한다.",
+          "next": "result",
+          "add": { "goals": ["방송 종료 후 카메라 밖에서 상대의 진짜 감정을 듣는다."], "openingLines": ["이제 아무도 안 봐요. 그러니까 방금 못 한 말부터 해도 돼요."] },
+          "vector": { "intimacy": 7, "empathy": 4 }
+        }
+      ]
+    },
+    "result": { "id": "result", "stage": "Result", "title": "백스테이지 페르소나 완성", "body": "라이브는 끝났지만, 첫 장면은 이제 막 시작된다.", "image": "/bg11.webp", "choices": [] }
+  }
+}

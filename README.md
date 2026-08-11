@@ -1,16 +1,16 @@
-# React + Vite
+# PRODUCE PRISM PRIORITY
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Prime City의 런타임, 핵심 콘텐츠, 이미지 파이프라인과 Cloudflare 운영 파일만 남긴 우선 작업본입니다.
 
-Currently, two official plugins are available:
+```powershell
+npm ci
+npm run validate:persona
+npm run build
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+문서 진입점은 [`docs/INDEX.md`](docs/INDEX.md)입니다. `char_img/`, `char_img_metadata/`, `models/ntd11_v5.pt`는 중요한 로컬 전용 자산이며 Git에는 올리지 않습니다.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 사이트: `intro.bluehair.blue`
+- 이미지 CDN: `img.bluehair.blue/ent/`
+- 공개 이미지 R2: `prime/ent/**`
+- 비공개 sidecar R2: `prime-metadata/ent/**`

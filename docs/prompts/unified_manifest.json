@@ -1,0 +1,4303 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-06-23T01:20:00.660317+00:00",
+  "purpose": "Hybrid single lorebooks for non-branchable original/lite routing classes.",
+  "source_roots": {
+    "original": "docs/prompts/json",
+    "lite": "docs/prompts/json_lite",
+    "unified": "docs/prompts/json_unified"
+  },
+  "policy": {
+    "excluded_route_classes": [
+      "00_main_toggle",
+      "01_common_shared",
+      "03_routeable_fixed_command",
+      "04_routeable_state_keyword"
+    ],
+    "integrated_route_classes": [
+      "02_media_format",
+      "05_dynamic_character_core",
+      "06_dynamic_character_trigger",
+      "07_dynamic_deep_context",
+      "08_dynamic_world_event",
+      "09_ambiguous_review"
+    ],
+    "footer_policy": "Use original trigger footer; report if lite footer differs.",
+    "format_policy": "Preserve protected output-format/url/template strings exactly under keep."
+  },
+  "summary": {
+    "count": 106,
+    "by_route_class": {
+      "02_media_format": 11,
+      "05_dynamic_character_core": 20,
+      "06_dynamic_character_trigger": 19,
+      "07_dynamic_deep_context": 21,
+      "08_dynamic_world_event": 10,
+      "09_ambiguous_review": 25
+    },
+    "chars": {
+      "original": 151125,
+      "lite": 72326,
+      "unified": 117176
+    },
+    "compression_vs_original": 0.2246,
+    "compression_vs_lite": -0.6201,
+    "compression_vs_original_plus_lite": 0.4756,
+    "warning_count": 0
+  },
+  "warnings": [],
+  "entries": [
+    {
+      "id": "캐릭터/강하람_EN.json",
+      "index": 3,
+      "display_name": "강하람",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\강하람_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\강하람_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\강하람_EN.json",
+      "source_sha256": "96e25775c7cb4b90d9921876ae9710f4c490657150132f22c43b2437d473769c",
+      "lite_sha256": "afc3d426ec7ac6944d9d6be1aa31f212158ebafe35d3fd9abdd2f620d5ce5a1d",
+      "unified_sha256": "bbe0f7cebf7c4666e06f3f57bfbac692da22fc22680201753d3185fb58b8e6b8",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "강하람"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1526,
+        "lite": 647,
+        "unified": 991
+      },
+      "compression": {
+        "vs_original": 0.3506,
+        "vs_lite": -0.5317
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/노아_EN.json",
+      "index": 4,
+      "display_name": "노아",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\노아_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\노아_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\노아_EN.json",
+      "source_sha256": "7bfff65798e14e29b51ffe447a1f177b4a012416bb3dd1ee7b5e90daa2cb440e",
+      "lite_sha256": "3ad3eaf424a63b9fbfa22537bd7171ce1d9083403695736defcbf68f4c55d252",
+      "unified_sha256": "e579fbba936efb7306c60aa2ead297ad0b09ce3998c0e49461125bf30d4073ae",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "노아"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1904,
+        "lite": 516,
+        "unified": 1105
+      },
+      "compression": {
+        "vs_original": 0.4196,
+        "vs_lite": -1.1415
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/니아_EN.json",
+      "index": 5,
+      "display_name": "니아",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\니아_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\니아_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\니아_EN.json",
+      "source_sha256": "3bebf40ffb73f64c2b9ce8100178b694a98dcb1fa8ed7399e034b3c9ac0f29fc",
+      "lite_sha256": "f72362985d55e4e91b6b89d627ff4c9c65c8e3bff7f5a67a2fedc04d18123ccc",
+      "unified_sha256": "d3344a132fbf57da6de5574b76df55128d969a76e5c1275c93f330567ddad67d",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "니아"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1319,
+        "lite": 512,
+        "unified": 882
+      },
+      "compression": {
+        "vs_original": 0.3313,
+        "vs_lite": -0.7227
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/라피스_EN.json",
+      "index": 6,
+      "display_name": "라피스",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\라피스_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\라피스_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\라피스_EN.json",
+      "source_sha256": "81e7cad05c0e2d9155fef3075363b5abe46914072a91a0cfa206f4056cb410b1",
+      "lite_sha256": "448fda27aa282bfd00750bbc519688d0e2f512042f8962b4dc2e755cef10c24a",
+      "unified_sha256": "2c6fa886e9498dfcd5f2c19ebdb4b2e6919e6fd1888c6897071d19b77b0c568d",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "라피스"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1239,
+        "lite": 507,
+        "unified": 825
+      },
+      "compression": {
+        "vs_original": 0.3341,
+        "vs_lite": -0.6272
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/레이_EN.json",
+      "index": 7,
+      "display_name": "레이",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\레이_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\레이_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\레이_EN.json",
+      "source_sha256": "659fc5a6f5c5878b4ff148a0517ae332d40bddc1cac505814df3a050d3299ab9",
+      "lite_sha256": "ad0b7700d26b1d1d5db785c0884f359577baecdeb2c85199d54d6622c1b85787",
+      "unified_sha256": "e8037eff107aec1664457cda606c5a587aea4213e79ec9270f8d74ba3bb7087c",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "레이"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1394,
+        "lite": 563,
+        "unified": 855
+      },
+      "compression": {
+        "vs_original": 0.3867,
+        "vs_lite": -0.5187
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/미모리_EN.json",
+      "index": 8,
+      "display_name": "미모리",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\미모리_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\미모리_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\미모리_EN.json",
+      "source_sha256": "d3a2b948f370d6ec54ef5ee43be7f30b29db3c612d1043a008abda8550b5f37d",
+      "lite_sha256": "6cd80b96da61dca2ee00e9695491247ce9f73eb08183e096b691998f89ffdfa9",
+      "unified_sha256": "9c9117d1c1857ebf64ce36fc4539300e052ea99e16633302d9f7f61506b63fa6",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "미모리"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1206,
+        "lite": 465,
+        "unified": 829
+      },
+      "compression": {
+        "vs_original": 0.3126,
+        "vs_lite": -0.7828
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/밀라_EN.json",
+      "index": 9,
+      "display_name": "밀라",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\밀라_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\밀라_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\밀라_EN.json",
+      "source_sha256": "91b5e56409e667f0b094015410beda7e0077f9ee6251b463ebbc45eaa117272f",
+      "lite_sha256": "82a0a83c9e2b857e9e3518ad40761d6400443edb128e2833a5e70921cc389556",
+      "unified_sha256": "199ad5363c9d390f3dcd80472b1ea4b4cdb23fc1a54077215b3e24a447f335b4",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "밀라"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1181,
+        "lite": 504,
+        "unified": 809
+      },
+      "compression": {
+        "vs_original": 0.315,
+        "vs_lite": -0.6052
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/사피아_EN.json",
+      "index": 10,
+      "display_name": "사피아",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\사피아_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\사피아_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\사피아_EN.json",
+      "source_sha256": "1df8f6905f1baaa593adbf5c4f95bb6b2a954b81d2d2d46dbe809dcb9f9ae2ef",
+      "lite_sha256": "3257d892e022efe639b1cff2ea2deca9ed805b5f33679a55ade1b5e6668537c4",
+      "unified_sha256": "72dc995e05995a6d44327a8e5150a453f5eb382f4308c87930b8c31120210d08",
+      "trigger_delta": "same",
+      "keyword_count": 4,
+      "keyword_sample": [
+        "사피아",
+        "APPAIREL",
+        "사피아]: ❤️",
+        "사피아: ❤️"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1805,
+        "lite": 649,
+        "unified": 1154
+      },
+      "compression": {
+        "vs_original": 0.3607,
+        "vs_lite": -0.7781
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/서윤_EN.json",
+      "index": 11,
+      "display_name": "서윤",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\서윤_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\서윤_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\서윤_EN.json",
+      "source_sha256": "e7fd4767197600a098f179ac803bf8b9685cbd3dfd713a617996111e92b8abd3",
+      "lite_sha256": "db1a698081dd8641ecb49b778b83c32af822533c77300b1b44725598f1fec076",
+      "unified_sha256": "3b96799933e5cab92a46ca8af80b5174ee32f4c1a86efaa4fc16d96dbb385d22",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "서윤"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 580,
+        "lite": 248,
+        "unified": 320
+      },
+      "compression": {
+        "vs_original": 0.4483,
+        "vs_lite": -0.2903
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/시아_EN.json",
+      "index": 12,
+      "display_name": "시아",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\시아_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\시아_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\시아_EN.json",
+      "source_sha256": "96ef0aa8fb53778781d872c6af849138e7deb07c504afdb7cb54d719f2a5e9e8",
+      "lite_sha256": "02f381f9b082a7cc62ddf0a142ba90ff0f5d154365c9722d6e817b5182dd81c5",
+      "unified_sha256": "849dfb6dd4dea17ccd7d5bee793a18d342322bb261822653250fd36f4ba56de5",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "시아"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 2049,
+        "lite": 547,
+        "unified": 1260
+      },
+      "compression": {
+        "vs_original": 0.3851,
+        "vs_lite": -1.3035
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/아피리아_EN.json",
+      "index": 13,
+      "display_name": "아피리아",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\아피리아_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\아피리아_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\아피리아_EN.json",
+      "source_sha256": "90008abb94cd67213e53ce4465539081cebf50ab46a5c1294f812109bbac622d",
+      "lite_sha256": "edff052c132dc1545b8ccdda71863cefa10fc52726726afb26d83262de946f82",
+      "unified_sha256": "57ea0a498b71b47275670115e3186426b212055465253f48985520d0a64ac584",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "아피리아"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1357,
+        "lite": 493,
+        "unified": 931
+      },
+      "compression": {
+        "vs_original": 0.3139,
+        "vs_lite": -0.8884
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/에르피_EN.json",
+      "index": 14,
+      "display_name": "에르피",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\에르피_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\에르피_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\에르피_EN.json",
+      "source_sha256": "aab54e0622711550f8e5decbf4d37e2214899360fa71a9554153993f8977424a",
+      "lite_sha256": "026b17ee40c1c90c60b1794454563c25d4cb79b7323db6dd3cda911086af691c",
+      "unified_sha256": "642797c1c4f89656d28c813483ec033050a470ee3db52b1e07aa290e347b5c7c",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "에르피"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 2124,
+        "lite": 623,
+        "unified": 1348
+      },
+      "compression": {
+        "vs_original": 0.3653,
+        "vs_lite": -1.1637
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/에리카_EN.json",
+      "index": 15,
+      "display_name": "에리카",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\에리카_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\에리카_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\에리카_EN.json",
+      "source_sha256": "0f60c3d4a6184d95e19042856847d231308686361134ed2ea142720f1838ab6a",
+      "lite_sha256": "cb53641f9e62653d50c4ba225a66622e860409580719b6f1856f7d4c7ebb4968",
+      "unified_sha256": "5311b27a743bc6de83547a28a51ec2eb12f7af353554ba0381c5897118ff37b1",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "에리카"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1529,
+        "lite": 523,
+        "unified": 947
+      },
+      "compression": {
+        "vs_original": 0.3806,
+        "vs_lite": -0.8107
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/엘라_EN.json",
+      "index": 16,
+      "display_name": "엘라",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\엘라_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\엘라_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\엘라_EN.json",
+      "source_sha256": "b286e07bd25828fe6bacf4903f41e4fc8ed4abdb2c620bb555f1c2f8f5b7108d",
+      "lite_sha256": "4d74eda51fbde62c6ad6d2b771be922385b32d1c82ff41391d6835e38c193d0b",
+      "unified_sha256": "d2eddd37a325fadc4b57aa82ea69aa3af34dd322c87325d70a147f98f72caf72",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "엘라"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1185,
+        "lite": 426,
+        "unified": 821
+      },
+      "compression": {
+        "vs_original": 0.3072,
+        "vs_lite": -0.9272
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/이서하_EN.json",
+      "index": 17,
+      "display_name": "이서하",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\이서하_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\이서하_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\이서하_EN.json",
+      "source_sha256": "6a9b2a8653ed5ca55ee3610c83035d76d809fc95659645e51ed59d5ae34ab3b3",
+      "lite_sha256": "0736e53ad5ce624c3f12aa9adae482db9d01c388b307cbca7d939cca3824f617",
+      "unified_sha256": "53561a940d83c93cb97c1c786b51fd23892774712560dbdb272b984f4d286f40",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "이서하"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1627,
+        "lite": 563,
+        "unified": 1051
+      },
+      "compression": {
+        "vs_original": 0.354,
+        "vs_lite": -0.8668
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/장그루_EN.json",
+      "index": 18,
+      "display_name": "장그루",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\장그루_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\장그루_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\장그루_EN.json",
+      "source_sha256": "766c3a01e240650cc00f1292d6044c5b9ad20f09202b2455a67642dbe9d363a5",
+      "lite_sha256": "b2b03914d916444c97f80081064bf7bf08681e9a1973eee0c32615d4b65a02e1",
+      "unified_sha256": "75f7b458ca46c429b0c35248e38f70a43aea7bf417b795bdce5a5b1ca6254394",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "장그루"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1154,
+        "lite": 504,
+        "unified": 702
+      },
+      "compression": {
+        "vs_original": 0.3917,
+        "vs_lite": -0.3929
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/진시혁_EN.json",
+      "index": 19,
+      "display_name": "진시혁",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\진시혁_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\진시혁_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\진시혁_EN.json",
+      "source_sha256": "030b74b00899ae5e29bc8c9a07ffa74ae26d049891e57c506b93d92bd4311e73",
+      "lite_sha256": "9ca6df0e500c6db0d68eb986507295c563c4cbafa27be18ef121ded182056bf1",
+      "unified_sha256": "a21748e39f19e1afafde413fdf236160b29066f8b436525fb7106a78770af7a5",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "진시혁"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1469,
+        "lite": 551,
+        "unified": 963
+      },
+      "compression": {
+        "vs_original": 0.3445,
+        "vs_lite": -0.7477
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/하시은_EN.json",
+      "index": 20,
+      "display_name": "하시은",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\하시은_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\하시은_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\하시은_EN.json",
+      "source_sha256": "62a6e009247eebcc09acd145f8cd1886836b366cef553452cf1bdac83842c056",
+      "lite_sha256": "be07051945244832898a14bad366a8eb0f6c43e6f5aa1a35a5530f16db76d2f8",
+      "unified_sha256": "ba04e408557ed95d92a4944895342af15129419fbba9ca702256ed1dd6a93cb1",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "하시은"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1214,
+        "lite": 531,
+        "unified": 829
+      },
+      "compression": {
+        "vs_original": 0.3171,
+        "vs_lite": -0.5612
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/한소리_EN.json",
+      "index": 21,
+      "display_name": "한소리",
+      "category": "캐릭터 본체",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\한소리_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\한소리_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\한소리_EN.json",
+      "source_sha256": "5276db47866ded317b1323f83411a99ef740476f4847f8ed7f5e67ee24ba777d",
+      "lite_sha256": "a2b08776a56a7bea0eab19c1ce064e3988a1144df0f8f3659ca50c2390015a78",
+      "unified_sha256": "383c1ffef796a99d9c2b11317e6806db572fce2a9987eef6e6ea197e5ebeef71",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "한소리"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1491,
+        "lite": 590,
+        "unified": 892
+      },
+      "compression": {
+        "vs_original": 0.4017,
+        "vs_lite": -0.5119
+      },
+      "warnings": []
+    },
+    {
+      "id": "나하린_EN.json",
+      "index": 22,
+      "display_name": "나하린",
+      "category": "나하린",
+      "route_class": "05_dynamic_character_core",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\나하린_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\나하린_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\나하린_EN.json",
+      "source_sha256": "dffd595b7da3449832431b4546b3c6710c3c81716cf214bb6653506ee53b5662",
+      "lite_sha256": "66732b2e08676328f5f7f9d48a5e2fedfb34034dca9c4135b2d2e2cb7048341c",
+      "unified_sha256": "d7a31c2ff400b4bfddee71135bbd299ad266305ad59af6bc5cfe6629627bcee1",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "나하린"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 3382,
+        "lite": 1277,
+        "unified": 1905
+      },
+      "compression": {
+        "vs_original": 0.4367,
+        "vs_lite": -0.4918
+      },
+      "warnings": []
+    },
+    {
+      "id": "나하린_심리_EN.json",
+      "index": 25,
+      "display_name": "나하린_심리",
+      "category": "나하린",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\나하린_심리_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\나하린_심리_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\나하린_심리_EN.json",
+      "source_sha256": "e80091275225e49ce1b82e74a04f6ce21f4a6255e2b53200d35b6172b91fcc67",
+      "lite_sha256": "45df2fb79c3d4c37919ee74320e753223a42af394518734e68cc577bb648f1d5",
+      "unified_sha256": "da28313941be8b8990f0d7f6fa33f836032f0d077f306c8d27d72d9dc637b5f9",
+      "trigger_delta": "same",
+      "keyword_count": 11,
+      "keyword_sample": [
+        "설계",
+        "시스템",
+        "프라임시티의",
+        "만들어",
+        "작품",
+        "구조",
+        "이면",
+        "냉소"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 593,
+        "lite": 294,
+        "unified": 554
+      },
+      "compression": {
+        "vs_original": 0.0658,
+        "vs_lite": -0.8844
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/강하람_트리거_EN.json",
+      "index": 26,
+      "display_name": "강하람_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\강하람_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\강하람_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\강하람_트리거_EN.json",
+      "source_sha256": "db15479023b2877988082c31b54b46fe753c539e7ebe2d0ec6ce80c6284ef87b",
+      "lite_sha256": "8e08bebddc0695a361d3527ba65a094a5546eb1339cb85214a744b9c3e033642",
+      "unified_sha256": "4c7e9013fb1e9a62f7b724e1a9d8fe97bcc724b8468a87d0bcf8c18d2a3ca95f",
+      "trigger_delta": "same",
+      "keyword_count": 13,
+      "keyword_sample": [
+        "동정",
+        "불쌍",
+        "도와줄",
+        "펜던트",
+        "여동생",
+        "대학",
+        "유품",
+        "부모님"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 715,
+        "lite": 308,
+        "unified": 565
+      },
+      "compression": {
+        "vs_original": 0.2098,
+        "vs_lite": -0.8344
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/노아_트리거_EN.json",
+      "index": 27,
+      "display_name": "노아_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\노아_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\노아_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\노아_트리거_EN.json",
+      "source_sha256": "606bbbd370fd4418a4d5346e65b1570739ecbbe23ac14f7266a35cfef683199c",
+      "lite_sha256": "f4a8bf5796381b0b6196a263f65aca1279febe2ab3552b19d1a5fab5ff6b5483",
+      "unified_sha256": "542f6c4eb523f50b539a5acb1b61f65be17e9d657ba18b5830ae644a97206488",
+      "trigger_delta": "same",
+      "keyword_count": 18,
+      "keyword_sample": [
+        "모델",
+        "화보",
+        "촬영",
+        "런웨이",
+        "패션쇼",
+        "헤어클립",
+        "핀",
+        "귀"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1055,
+        "lite": 430,
+        "unified": 911
+      },
+      "compression": {
+        "vs_original": 0.1365,
+        "vs_lite": -1.1186
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/니아_트리거_EN.json",
+      "index": 28,
+      "display_name": "니아_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\니아_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\니아_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\니아_트리거_EN.json",
+      "source_sha256": "cd2adf3b80038f6233202e4c7b5a98953eb4541d3f02469e82f7f3cc8e54df4c",
+      "lite_sha256": "b0cc7809c1dd24e628443678bdfcf78542b3e5aa4929cd40e0d6a4c6b5f4d6e0",
+      "unified_sha256": "ed857d4af28eef4df2e0f9426ea39750d17fe979c5c956854688953fb3579ee4",
+      "trigger_delta": "same",
+      "keyword_count": 12,
+      "keyword_sample": [
+        "저 같은",
+        "부족",
+        "성장",
+        "처음",
+        "온실",
+        "집안",
+        "귀족",
+        "이런 내가"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 603,
+        "lite": 269,
+        "unified": 514
+      },
+      "compression": {
+        "vs_original": 0.1476,
+        "vs_lite": -0.9108
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/라피스_트리거_EN.json",
+      "index": 29,
+      "display_name": "라피스_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\라피스_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\라피스_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\라피스_트리거_EN.json",
+      "source_sha256": "c8dd31ae009890c4e06afc10490d9d002ba557fa441a910b24fda18b3f5b0e9f",
+      "lite_sha256": "daf0eaa301d53e0e858ed3b1bce2eb0e7672917dde2225113c9a1fe6170c507b",
+      "unified_sha256": "777c107efd9f871ab23ba9887f6d8637b747c0ce45cdba9179ad2491d489521f",
+      "trigger_delta": "same",
+      "keyword_count": 14,
+      "keyword_sample": [
+        "정체성",
+        "뭘 하고 싶",
+        "스타일",
+        "V",
+        "장르",
+        "다양",
+        "뭐든",
+        "아무것도"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 553,
+        "lite": 259,
+        "unified": 483
+      },
+      "compression": {
+        "vs_original": 0.1266,
+        "vs_lite": -0.8649
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/레이_트리거_EN.json",
+      "index": 30,
+      "display_name": "레이_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\레이_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\레이_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\레이_트리거_EN.json",
+      "source_sha256": "f28dfb8b8aed16fbf2fa2f086014aaf44d0f633d518d740e4798e08c6b0eb6f1",
+      "lite_sha256": "08f7cbfd4ba74bf712452625e126c1631f71927fb13f8bfba193f9ba6c532aef",
+      "unified_sha256": "9eb44ebd29f2ff4c07949b8872e98a5d5a7d46da5b2010d53e95d15dacca8662",
+      "trigger_delta": "same",
+      "keyword_count": 14,
+      "keyword_sample": [
+        "다리",
+        "의족",
+        "공정",
+        "동정",
+        "조건",
+        "모욕",
+        "뻣뻣",
+        "숨기"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 683,
+        "lite": 297,
+        "unified": 585
+      },
+      "compression": {
+        "vs_original": 0.1435,
+        "vs_lite": -0.9697
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/미모리_트리거_EN.json",
+      "index": 31,
+      "display_name": "미모리_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\미모리_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\미모리_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\미모리_트리거_EN.json",
+      "source_sha256": "8dd919929d73d69a5e75ef668bfdb30150331bafdba7127e01fc45b1ddfa31dd",
+      "lite_sha256": "b303dd2a71a7469fd038466ea3321c63c18be94034456f151ce66cb9f1fb991a",
+      "unified_sha256": "c706a5ec2b36c7483624b510c5aea4558cbf26f703ebc0646e53f2e68eb4f645",
+      "trigger_delta": "same",
+      "keyword_count": 13,
+      "keyword_sample": [
+        "관종",
+        "진지",
+        "괜찮아?",
+        "선을",
+        "셀카",
+        "라이브",
+        "콘텐츠",
+        "올려"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 704,
+        "lite": 317,
+        "unified": 613
+      },
+      "compression": {
+        "vs_original": 0.1293,
+        "vs_lite": -0.9338
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/밀라_트리거_EN.json",
+      "index": 32,
+      "display_name": "밀라_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\밀라_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\밀라_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\밀라_트리거_EN.json",
+      "source_sha256": "b99aff270fd1c196012ef01d5d786559b668e3cce8bfe593191a4cef02c43a62",
+      "lite_sha256": "4bee3a0fad655d0f512beda7c6887692298d2bbedbc312c4e4ec20fc68a1b05c",
+      "unified_sha256": "1302ea263fdfa18f08e2035f414c8337c38b183c7585a3742e723b8084780d5e",
+      "trigger_delta": "same",
+      "keyword_count": 13,
+      "keyword_sample": [
+        "자유",
+        "왜 음악",
+        "진지하게",
+        "즐기",
+        "흥얼",
+        "폭주",
+        "즉흥",
+        "좋아서"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 603,
+        "lite": 269,
+        "unified": 522
+      },
+      "compression": {
+        "vs_original": 0.1343,
+        "vs_lite": -0.9405
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/사피아_트리거_EN.json",
+      "index": 33,
+      "display_name": "사피아_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\사피아_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\사피아_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\사피아_트리거_EN.json",
+      "source_sha256": "989ceb1685440cb3dc33b0f1a2e08c3b2e3793c9ba383877e791c85ca780bb19",
+      "lite_sha256": "565fd546a39da8a4fd9bee29678843c20c2b729f40f5cb3a9523734fc094e701",
+      "unified_sha256": "7e2e30eaa455c5fc44b117e29f0a8d84b29f3d9b09667e357b0b6fb5cf9a0d0c",
+      "trigger_delta": "same",
+      "keyword_count": 9,
+      "keyword_sample": [
+        "손목을 잡으며",
+        "소매 끝을 쓰다듬으며",
+        "APPAIREL",
+        "사피아]: ❤️2",
+        "사피아]: ❤️5",
+        "사피아]: ❤️8",
+        "사피아: ❤️2",
+        "사피아: ❤️5"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1426,
+        "lite": 602,
+        "unified": 1050
+      },
+      "compression": {
+        "vs_original": 0.2637,
+        "vs_lite": -0.7442
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/서윤_트리거_EN.json",
+      "index": 34,
+      "display_name": "서윤_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\서윤_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\서윤_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\서윤_트리거_EN.json",
+      "source_sha256": "39b00958067cdb059865a7de7e6af7f750bfc77b117ee4760b03e5c7f5956155",
+      "lite_sha256": "3e7cef3d0d81b9563d062be0220f9554beafabc10dde230326af5c51dcdf7dbb",
+      "unified_sha256": "2ecfce14c056335e13245f087a121c6417ea0ec1f2e2e988f230ea83f163527d",
+      "trigger_delta": "same",
+      "keyword_count": 12,
+      "keyword_sample": [
+        "초커",
+        "진짜",
+        "꿈이",
+        "작곡",
+        "영점",
+        "정점",
+        "서윤이",
+        "최정상"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 592,
+        "lite": 244,
+        "unified": 513
+      },
+      "compression": {
+        "vs_original": 0.1334,
+        "vs_lite": -1.1025
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/시아_트리거_EN.json",
+      "index": 35,
+      "display_name": "시아_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\시아_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\시아_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\시아_트리거_EN.json",
+      "source_sha256": "4c164f150549c4440ba47f51470e819c84921f5a5d08ff912ea068e879232ae2",
+      "lite_sha256": "faa791213a50d4eae3b914d34bd37f0e14628d9d4f189e867691d29ae01f853b",
+      "unified_sha256": "f180aa82331ec0b12159ba7eb1db70e2639c21c804326393962b031515f94938",
+      "trigger_delta": "same",
+      "keyword_count": 17,
+      "keyword_sample": [
+        "방송",
+        "라이브",
+        "스트리밍",
+        "팔로워",
+        "인스타",
+        "SNS",
+        "콘텐츠",
+        "헤어클립"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1046,
+        "lite": 493,
+        "unified": 887
+      },
+      "compression": {
+        "vs_original": 0.152,
+        "vs_lite": -0.7992
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/아피리아_트리거_EN.json",
+      "index": 36,
+      "display_name": "아피리아_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\아피리아_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\아피리아_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\아피리아_트리거_EN.json",
+      "source_sha256": "4fced4edd62fe43d65e63bccf4be74689c45c0e74eb87a47dfc8a8df1c1fe84e",
+      "lite_sha256": "8ada83c26c918392ecb172b7dd723ddb9220f2feb7bacceddfe394ad89cb0f34",
+      "unified_sha256": "9e82a56cf67695322f398af56f8a64fdae63dbdcb94b074a249a1baf806a0631",
+      "trigger_delta": "same",
+      "keyword_count": 17,
+      "keyword_sample": [
+        "아피리아",
+        "여유",
+        "소매",
+        "한쪽 눈",
+        "흰눈",
+        "은 초커",
+        "전설",
+        "무소속"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1242,
+        "lite": 401,
+        "unified": 1069
+      },
+      "compression": {
+        "vs_original": 0.1393,
+        "vs_lite": -1.6658
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/에르피_트리거_EN.json",
+      "index": 37,
+      "display_name": "에르피_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\에르피_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\에르피_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\에르피_트리거_EN.json",
+      "source_sha256": "28b66d4acb73aad567f80bdd088b41e25a4a5290c2bcfad308d51e9f0f9756a6",
+      "lite_sha256": "71aef2898999d367adedf05f658391045add21c7aedbe73efb589edfc1b92fe3",
+      "unified_sha256": "adc0391cb32c4e900b3f1a000c92ffd53ccb016e77a78a24be29af88f13e19e7",
+      "trigger_delta": "same",
+      "keyword_count": 15,
+      "keyword_sample": [
+        "욕하",
+        "비하",
+        "무시하",
+        "깔보",
+        "못한다",
+        "별거",
+        "혼자",
+        "도움 안"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 896,
+        "lite": 290,
+        "unified": 689
+      },
+      "compression": {
+        "vs_original": 0.231,
+        "vs_lite": -1.3759
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/에리카_트리거_EN.json",
+      "index": 38,
+      "display_name": "에리카_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\에리카_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\에리카_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\에리카_트리거_EN.json",
+      "source_sha256": "3ae2e48ac06db4b0e92cdd335e9ac482fe6454f713f70c834ac9cd3690a0fc3e",
+      "lite_sha256": "f8cc5110415a7b81224f0506417c827e4d316c8c3c1ebed6ce6d0ad8750b2c0e",
+      "unified_sha256": "44fd283eaf2d55cb4301bc1f65051faaa66bbbd5100b3d66e8b01a4ba5326e20",
+      "trigger_delta": "same",
+      "keyword_count": 12,
+      "keyword_sample": [
+        "위해서",
+        "잘 될",
+        "재능만",
+        "괜찮을",
+        "잘하고 있",
+        "놓치면",
+        "밀어붙",
+        "기회를"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 756,
+        "lite": 322,
+        "unified": 687
+      },
+      "compression": {
+        "vs_original": 0.0913,
+        "vs_lite": -1.1335
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/엘라_트리거_EN.json",
+      "index": 39,
+      "display_name": "엘라_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\엘라_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\엘라_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\엘라_트리거_EN.json",
+      "source_sha256": "e290220dc15720e7880f7fa9aab85f19d6521b76a652da7a6af6c4c444982985",
+      "lite_sha256": "554952bb81cfcda022c211dee42b1f8a088e916fb272f9f0d340db5401553169",
+      "unified_sha256": "f297ca81bc37b0442ac910f99f25810579f315174ce37fb7eaced10ec8e17b9f",
+      "trigger_delta": "same",
+      "keyword_count": 13,
+      "keyword_sample": [
+        "예쁘",
+        "얼굴",
+        "외모",
+        "비주얼",
+        "화제성",
+        "얼굴값",
+        "이용",
+        "전략"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 571,
+        "lite": 249,
+        "unified": 496
+      },
+      "compression": {
+        "vs_original": 0.1313,
+        "vs_lite": -0.992
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/이서하_트리거_EN.json",
+      "index": 40,
+      "display_name": "이서하_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\이서하_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\이서하_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\이서하_트리거_EN.json",
+      "source_sha256": "01488ec07b1bcb23bf52a998f1b4fe07d34bf52704f99021beb43685788deaf8",
+      "lite_sha256": "63bf9d62f1dbde1857b3d319d99bbed4af505bef64fa4d3d5291277f05a858ec",
+      "unified_sha256": "f8535018f855f9c3f74751931b703ee7c8eb7b3ac9e3aa69c929ad47a62310d0",
+      "trigger_delta": "same",
+      "keyword_count": 12,
+      "keyword_sample": [
+        "곡을",
+        "멜로디",
+        "발표",
+        "네 이름으로",
+        "누가 쓴",
+        "가명",
+        "작곡",
+        "미발표"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 652,
+        "lite": 296,
+        "unified": 570
+      },
+      "compression": {
+        "vs_original": 0.1258,
+        "vs_lite": -0.9257
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/장그루_트리거_EN.json",
+      "index": 41,
+      "display_name": "장그루_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\장그루_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\장그루_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\장그루_트리거_EN.json",
+      "source_sha256": "4ad7077d902fecab2437c19d4c21586e9c247ecb883ce54f171469b0a073261e",
+      "lite_sha256": "11c58e03cbdb2fe2870e888b29265b246f9b58b2f38336372ed7bb5bdbccadc0",
+      "unified_sha256": "b1eca844f9518d5962d2a25625d06c186c1592fd69f45dca20e25932a1eaba83",
+      "trigger_delta": "same",
+      "keyword_count": 12,
+      "keyword_sample": [
+        "포기",
+        "마지막",
+        "그만둘",
+        "노트를",
+        "작사",
+        "끝인",
+        "탈락",
+        "들렸"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 662,
+        "lite": 276,
+        "unified": 588
+      },
+      "compression": {
+        "vs_original": 0.1118,
+        "vs_lite": -1.1304
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/진시혁_트리거_EN.json",
+      "index": 42,
+      "display_name": "진시혁_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\진시혁_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\진시혁_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\진시혁_트리거_EN.json",
+      "source_sha256": "61e492398e8d995f40f8fc13b9c2dab762900ff4059dbe2299e07f0e72a2935c",
+      "lite_sha256": "318186094b748fb36a498a3abe7f95ec14a6ed812d3f58a7fd8c369a8d068118",
+      "unified_sha256": "e786a0fb7083d481a76a8ad2a5b8ebd2c50e6875347f7e49ca09a0ec2564fe97",
+      "trigger_delta": "same",
+      "keyword_count": 13,
+      "keyword_sample": [
+        "틀렸",
+        "인정",
+        "증명",
+        "결과가",
+        "선택했",
+        "동정",
+        "감정적",
+        "아마추어"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 777,
+        "lite": 377,
+        "unified": 695
+      },
+      "compression": {
+        "vs_original": 0.1055,
+        "vs_lite": -0.8435
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/하시은_트리거_EN.json",
+      "index": 43,
+      "display_name": "하시은_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\하시은_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\하시은_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\하시은_트리거_EN.json",
+      "source_sha256": "3858e8832ff4bf7fad0bb36f866bd20e2bc9218882de314cc92f011b3baaacd6",
+      "lite_sha256": "82b0ce82b93455789971bc44682e3ff96e8a44554cddcd5cc025f6f94af12b24",
+      "unified_sha256": "fa3d0a02825dc914ab078fba5ba659a6e5873e75513e0a0356fcbea9b11a43ef",
+      "trigger_delta": "same",
+      "keyword_count": 12,
+      "keyword_sample": [
+        "특별",
+        "평범",
+        "메모",
+        "부족한",
+        "안정적",
+        "기본기",
+        "꾸준",
+        "성실"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 584,
+        "lite": 239,
+        "unified": 504
+      },
+      "compression": {
+        "vs_original": 0.137,
+        "vs_lite": -1.1088
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/한소리_트리거_EN.json",
+      "index": 44,
+      "display_name": "한소리_트리거",
+      "category": "캐릭터 트리거",
+      "route_class": "06_dynamic_character_trigger",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\한소리_트리거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\한소리_트리거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\한소리_트리거_EN.json",
+      "source_sha256": "009aef9663cc0176bf3aa7c4a88262d1e565e1615d90347ee9d928a3afec09be",
+      "lite_sha256": "37d24c2d2dae226e7b6c002c9c711c161750527cfe6ec9587c91f2df6faf681a",
+      "unified_sha256": "3d3822bf295d980bb2a3d81f02c4b697414029336aec5dde2b7baff7270064b4",
+      "trigger_delta": "same",
+      "keyword_count": 13,
+      "keyword_sample": [
+        "포기",
+        "무책임",
+        "실망",
+        "후배님",
+        "마지막",
+        "적자",
+        "재정",
+        "접힘"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 629,
+        "lite": 235,
+        "unified": 578
+      },
+      "compression": {
+        "vs_original": 0.0811,
+        "vs_lite": -1.4596
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/서윤_나하린_작품_EN.json",
+      "index": 102,
+      "display_name": "서윤_나하린_작품",
+      "category": "캐릭터 관계",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\서윤_나하린_작품_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\서윤_나하린_작품_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\서윤_나하린_작품_EN.json",
+      "source_sha256": "c929da258ddf018c647db9c816ab32b5e04eb1a8f61678e82e81a79d14c89133",
+      "lite_sha256": "a07ed4bf52cb7be8f33e6a1341f4771a68c229112a1743fde4974cf75796f912",
+      "unified_sha256": "7ecfa4538be8003119b08c4f009e0feca8cd9641340579d78cd8beb735aad3b6",
+      "trigger_delta": "same",
+      "keyword_count": 8,
+      "keyword_sample": [
+        "서윤 나하린",
+        "나하린 서윤",
+        "영점",
+        "서윤의 과거",
+        "서윤을 만든",
+        "작품으로서의",
+        "서윤의 데뷔",
+        "나하린과 서윤"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 2492,
+        "lite": 1104,
+        "unified": 2146
+      },
+      "compression": {
+        "vs_original": 0.1388,
+        "vs_lite": -0.9438
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/시아_노아_자매_EN.json",
+      "index": 103,
+      "display_name": "시아_노아_자매",
+      "category": "캐릭터 관계",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\시아_노아_자매_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\시아_노아_자매_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\시아_노아_자매_EN.json",
+      "source_sha256": "513d90ed75e280e25419a944a47966c0cc0810aeabcd0ce40edcb98caa32a51e",
+      "lite_sha256": "be27d0ed0a7d04fb522242e46e765dab15d2c3c96bfb81a80dc537b9cfee0d1d",
+      "unified_sha256": "2fe870374637ee1433e561f6f5285ee658392bbf7dbc677643a829402e430150",
+      "trigger_delta": "same",
+      "keyword_count": 14,
+      "keyword_sample": [
+        "쌍둥이",
+        "자매",
+        "흑백",
+        "언니",
+        "동생",
+        "시아와 노아",
+        "노아와 시아",
+        "둘 다"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 2501,
+        "lite": 1025,
+        "unified": 2107
+      },
+      "compression": {
+        "vs_original": 0.1575,
+        "vs_lite": -1.0556
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/아피리아_사피아_자매_EN.json",
+      "index": 104,
+      "display_name": "아피리아_사피아_자매",
+      "category": "캐릭터 관계",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\아피리아_사피아_자매_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\아피리아_사피아_자매_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\아피리아_사피아_자매_EN.json",
+      "source_sha256": "d9c6c3d761e3e4f2a1904c0727ff773890099871e115cd5a2e3f70088695190b",
+      "lite_sha256": "8fc08160986167ad887576f742c057f7f221f3e9e7c312956fc78c0ad945f808",
+      "unified_sha256": "01a09e2258f55c4d903401427799054ffc09b53b8a442c9cc854194aef362df4",
+      "trigger_delta": "same",
+      "keyword_count": 8,
+      "keyword_sample": [
+        "아피리아 사피아",
+        "사피아 아피리아",
+        "두 자매",
+        "언니 손끝",
+        "APPAIREL",
+        "자매 이상",
+        "언니께서",
+        "동생 브랜드"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1913,
+        "lite": 690,
+        "unified": 1653
+      },
+      "compression": {
+        "vs_original": 0.1359,
+        "vs_lite": -1.3957
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/에르피_나하린_라이벌_EN.json",
+      "index": 105,
+      "display_name": "에르피_나하린_라이벌",
+      "category": "캐릭터 관계",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\에르피_나하린_라이벌_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\에르피_나하린_라이벌_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\에르피_나하린_라이벌_EN.json",
+      "source_sha256": "d1d29470861a85627cce5aff145ea7e129661bfb4abe82ce2ac022e0df76f62a",
+      "lite_sha256": "f92d5875cadd23e592094ab785d260e0aced896f83001df4dfe049472aae2178",
+      "unified_sha256": "71b139b0657d44a4208a97bae4f890ffc8ba91c2c2420a8f22a6d0a29adb5d00",
+      "trigger_delta": "same",
+      "keyword_count": 10,
+      "keyword_sample": [
+        "에르피 나하린",
+        "나하린 에르피",
+        "두 대표",
+        "공동 설계",
+        "전설",
+        "황금기",
+        "같이 설계",
+        "프라임시티 초기"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1942,
+        "lite": 911,
+        "unified": 1646
+      },
+      "compression": {
+        "vs_original": 0.1524,
+        "vs_lite": -0.8068
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/에리카_이서하_짠꿉공_EN.json",
+      "index": 106,
+      "display_name": "에리카_이서하_짠꿉공",
+      "category": "캐릭터 관계",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\에리카_이서하_짠꿉공_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\에리카_이서하_짠꿉공_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\에리카_이서하_짠꿉공_EN.json",
+      "source_sha256": "b0f1bd63bffb3c17a1bb9161fc92a8709581bdffa34b2f597eb0320ed2f998a6",
+      "lite_sha256": "d8ec79e55baeed5b4ea17883ac6d69be5adee534ea7a315e64c61ba1cc4439ec",
+      "unified_sha256": "1841ffb453a95d86db5ac7d4eb41d5bf4dd56b4e6c304679612697ba74d47f8c",
+      "trigger_delta": "same",
+      "keyword_count": 10,
+      "keyword_sample": [
+        "짠꿉공",
+        "에리카 이서하",
+        "이서하 에리카",
+        "두 사람",
+        "오래된 친구",
+        "대학 시절",
+        "신인 시절",
+        "사이에"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1617,
+        "lite": 650,
+        "unified": 1361
+      },
+      "compression": {
+        "vs_original": 0.1583,
+        "vs_lite": -1.0938
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/강하람_가족_EN.json",
+      "index": 107,
+      "display_name": "강하람_가족",
+      "category": "캐릭터 특수",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\강하람_가족_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\강하람_가족_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\강하람_가족_EN.json",
+      "source_sha256": "4ef2a6aa9e270b65cb7c01363593629c1b5bfb63670d2caa5b0a06f654b500b6",
+      "lite_sha256": "74092b5112c44701447fcc4f16fe3c6802a86de632413baad2af4f3cd16fb009",
+      "unified_sha256": "30aa4a3c5820c88e968015b8d4b57194235d49f7bb17ddf2b9b8df974a414ff3",
+      "trigger_delta": "same",
+      "keyword_count": 17,
+      "keyword_sample": [
+        "강하람]: ❤️5",
+        "강하람]: ❤️6",
+        "강하람]: ❤️7",
+        "강하람]: ❤️8",
+        "강하람]: ❤️9",
+        "강하람: ❤️5",
+        "강하람: ❤️6",
+        "강하람: ❤️7"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 583,
+        "lite": 273,
+        "unified": 520
+      },
+      "compression": {
+        "vs_original": 0.1081,
+        "vs_lite": -0.9048
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/노아_과거_EN.json",
+      "index": 108,
+      "display_name": "노아_과거",
+      "category": "캐릭터 특수",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\노아_과거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\노아_과거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\노아_과거_EN.json",
+      "source_sha256": "75689a48f032d29eae66adbe56c0270a30e87903ce715ddd4f946f34d500cdf9",
+      "lite_sha256": "28bf7447970a5689f4ca58c63f8f9a88c04d7e73d5d98c44c2400cdf64bebf7d",
+      "unified_sha256": "aa71692c6662470727b799bf16d06ebc9caea9baec6f4bd41af1600262bc0ed8",
+      "trigger_delta": "same",
+      "keyword_count": 9,
+      "keyword_sample": [
+        "노아 과거",
+        "노아 어릴 때",
+        "노아 시아 어린",
+        "모델 시작",
+        "첫 화보 촬영",
+        "길거리 캐스팅",
+        "카메라 앞 변신",
+        "노아 표현"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1333,
+        "lite": 537,
+        "unified": 1211
+      },
+      "compression": {
+        "vs_original": 0.0915,
+        "vs_lite": -1.2551
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/라피스_과거_EN.json",
+      "index": 109,
+      "display_name": "라피스_과거",
+      "category": "캐릭터 특수",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\라피스_과거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\라피스_과거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\라피스_과거_EN.json",
+      "source_sha256": "3b4c26cc1fa1fb3e56544b7ec0e89d0bc7e736b17740693ead111c16b1c7aae0",
+      "lite_sha256": "e2cd5084d354c78421469e6632ebc28eb2770ba9e959eba14f6a11e19d8fb384",
+      "unified_sha256": "26dd2ceffdfeec105ea6500ffca40993497d1c76bdf3e65ddf376ab4ea49faed",
+      "trigger_delta": "same",
+      "keyword_count": 8,
+      "keyword_sample": [
+        "라피스 과거",
+        "라피스 어린 시절",
+        "라피스 본체",
+        "V사인 의미",
+        "V사인 기원",
+        "일관된 것",
+        "라피스 정체성",
+        "다재다능 어디서"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1063,
+        "lite": 501,
+        "unified": 973
+      },
+      "compression": {
+        "vs_original": 0.0847,
+        "vs_lite": -0.9421
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/미모리_과거_EN.json",
+      "index": 110,
+      "display_name": "미모리_과거",
+      "category": "캐릭터 특수",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\미모리_과거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\미모리_과거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\미모리_과거_EN.json",
+      "source_sha256": "6c5b86bc071e5f8611f6f6ba79eaecefc1f2f806bf9917b892fb433ef9db4e23",
+      "lite_sha256": "2e8bedcbbefc27c13301418d6991b70f2ec566011df630952fdc93380acadb70",
+      "unified_sha256": "4f746c650a21d249a543594563bcff9a58bdfb194cd3daf53bf80ff98bd2b4c7",
+      "trigger_delta": "same",
+      "keyword_count": 8,
+      "keyword_sample": [
+        "미모리 과거",
+        "미모리 어린 시절",
+        "인플루언서 시작",
+        "헤어클립 기원",
+        "헤어클립 시작",
+        "컨텐츠 시작",
+        "첫 만 팔로워",
+        "관종 시작"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1089,
+        "lite": 554,
+        "unified": 988
+      },
+      "compression": {
+        "vs_original": 0.0927,
+        "vs_lite": -0.7834
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/밀라_과거_EN.json",
+      "index": 111,
+      "display_name": "밀라_과거",
+      "category": "캐릭터 특수",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\밀라_과거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\밀라_과거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\밀라_과거_EN.json",
+      "source_sha256": "195f16052befc9079b408b9d168ed681054fbfbf37b6213b44cd581da65dab47",
+      "lite_sha256": "c846f350744d8b12816e34c7fdee1f5594d3e0a94447fbe30b8894b1a2822752",
+      "unified_sha256": "065bd6157a52b8c8d6f0730d6cebd757982bbf6c003b2c5b6a3062b61f562d55",
+      "trigger_delta": "same",
+      "keyword_count": 8,
+      "keyword_sample": [
+        "밀라 과거",
+        "밀라 어디서 왔",
+        "밀라 외부",
+        "밀라 출신",
+        "밀라 어린 시절",
+        "본능적 음악",
+        "강가 흥얼",
+        "처음 왔을 때"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1079,
+        "lite": 541,
+        "unified": 975
+      },
+      "compression": {
+        "vs_original": 0.0964,
+        "vs_lite": -0.8022
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/서윤_과거_EN.json",
+      "index": 112,
+      "display_name": "서윤_과거",
+      "category": "캐릭터 특수",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\서윤_과거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\서윤_과거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\서윤_과거_EN.json",
+      "source_sha256": "ed498f18124441060c2371ed025fa98408ce3b07233eb04f9ce468cce39d9a95",
+      "lite_sha256": "e931cdca3035fb031ab4e7451ea41e0efcf4d5586b5a325b0357220d957270c7",
+      "unified_sha256": "98dba37dce64d06149d121494711707a3732ace5368f9cc0a5e0262b2de54f81",
+      "trigger_delta": "same",
+      "keyword_count": 15,
+      "keyword_sample": [
+        "서윤]: ❤️6",
+        "서윤]: ❤️7",
+        "서윤]: ❤️8",
+        "서윤]: ❤️9",
+        "서윤: ❤️6",
+        "서윤: ❤️7",
+        "서윤: ❤️8",
+        "서윤: ❤️9"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 634,
+        "lite": 303,
+        "unified": 558
+      },
+      "compression": {
+        "vs_original": 0.1199,
+        "vs_lite": -0.8416
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/시아_과거_EN.json",
+      "index": 113,
+      "display_name": "시아_과거",
+      "category": "캐릭터 특수",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\시아_과거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\시아_과거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\시아_과거_EN.json",
+      "source_sha256": "3efbeb785ff0f61c1cc8ed1b5fdede11c29b43039965c1b5c87d17d5c2c7756a",
+      "lite_sha256": "6cfcf1b41096a3db3c4cd44c6b2da48016b6fcf97c69cb8a98add5541b9b3a5c",
+      "unified_sha256": "4f16ebe0cff4449d7eac36960a697e35fc68f3c5ea883e2c3ae0f40459c65e17",
+      "trigger_delta": "same",
+      "keyword_count": 8,
+      "keyword_sample": [
+        "시아 과거",
+        "시아 어릴 때",
+        "시아 노아 어린",
+        "인플루언서 시작",
+        "첫 라이브 방송",
+        "댓글창 습관",
+        "장난기 기원",
+        "쌍둥이 어린 시절"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1141,
+        "lite": 540,
+        "unified": 1023
+      },
+      "compression": {
+        "vs_original": 0.1034,
+        "vs_lite": -0.8944
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/아피리아_과거_EN.json",
+      "index": 114,
+      "display_name": "아피리아_과거",
+      "category": "캐릭터 특수",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\아피리아_과거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\아피리아_과거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\아피리아_과거_EN.json",
+      "source_sha256": "94f0c2bd3ab6c8664af745f363920a02e629e0343163d24d1dfade531555e935",
+      "lite_sha256": "bfa4ea3295fb53c1e0fd70179ecdc18ed3b3206f11ed1f38b4e006b7abfa6cce",
+      "unified_sha256": "ff05520415887bcfb9b6acd69021f3962304a6e8b61a3de9dbb8d66477797d59",
+      "trigger_delta": "same",
+      "keyword_count": 12,
+      "keyword_sample": [
+        "아피리아 과거",
+        "아피리아 어린 시절",
+        "아피리아 해외",
+        "아피리아 본체",
+        "아피리아 가족",
+        "아피리아 정체성",
+        "무너진 적 없는",
+        "관찰의 기원"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 2037,
+        "lite": 721,
+        "unified": 1436
+      },
+      "compression": {
+        "vs_original": 0.295,
+        "vs_lite": -0.9917
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/에르피_과거_EN.json",
+      "index": 115,
+      "display_name": "에르피_과거",
+      "category": "캐릭터 특수",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\에르피_과거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\에르피_과거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\에르피_과거_EN.json",
+      "source_sha256": "716eb9d4238b0c2ae77e8318c76bccc8e88c1cca48a0e73ea8cf87642529d1c6",
+      "lite_sha256": "4c4cb960b831a264c4b083c225d10f007b1b71b257586d9b5a6b48ed15b841d1",
+      "unified_sha256": "a51e33384f4963eb6160543239c5d4f5af29af56b311c3119c5125165309bfa9",
+      "trigger_delta": "same",
+      "keyword_count": 11,
+      "keyword_sample": [
+        "에르피 과거",
+        "에르피 현역",
+        "에르피 무대",
+        "에르피 데뷔",
+        "에르피 전성기",
+        "에르피 은퇴",
+        "마지막 무대",
+        "떼창"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1585,
+        "lite": 571,
+        "unified": 1436
+      },
+      "compression": {
+        "vs_original": 0.094,
+        "vs_lite": -1.5149
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/에리카_과거_EN.json",
+      "index": 116,
+      "display_name": "에리카_과거",
+      "category": "캐릭터 특수",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\에리카_과거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\에리카_과거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\에리카_과거_EN.json",
+      "source_sha256": "19c286249f30fc19e5c4013de66fa756a63e9cd3b0e74e2bf502957765b63ae3",
+      "lite_sha256": "a4e968143b2a76dd9c93778c254bc6e1794087343639905590806320bf3fe1f2",
+      "unified_sha256": "663d7b5ac5d3fd342ea3ba4b2f96c59c6eb7734441d2ec9b5f18629ca8eb32e6",
+      "trigger_delta": "same",
+      "keyword_count": 15,
+      "keyword_sample": [
+        "에리카]: ❤️5",
+        "에리카]: ❤️6",
+        "에리카]: ❤️7",
+        "에리카]: ❤️8",
+        "에리카]: ❤️9",
+        "에리카: ❤️5",
+        "에리카: ❤️6",
+        "에리카: ❤️7"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 747,
+        "lite": 407,
+        "unified": 662
+      },
+      "compression": {
+        "vs_original": 0.1138,
+        "vs_lite": -0.6265
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/이서하_과거_EN.json",
+      "index": 117,
+      "display_name": "이서하_과거",
+      "category": "캐릭터 특수",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\이서하_과거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\이서하_과거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\이서하_과거_EN.json",
+      "source_sha256": "8f49e4ac86d789414f3633d9a458cf75fd7125e07d8ce8d9ab3da1e962531a35",
+      "lite_sha256": "aebf74159ef6b3788688d8f5e95f5f9a88c8b1d77bbb4ee97e778f75b78d69bf",
+      "unified_sha256": "5b3eb7808d305622d8e4841f521c4d1f76dc0a39af8df19d10f8c34132082290",
+      "trigger_delta": "same",
+      "keyword_count": 16,
+      "keyword_sample": [
+        "이서하]: ❤️5",
+        "이서하]: ❤️6",
+        "이서하]: ❤️7",
+        "이서하]: ❤️8",
+        "이서하]: ❤️9",
+        "이서하: ❤️5",
+        "이서하: ❤️6",
+        "이서하: ❤️7"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 662,
+        "lite": 278,
+        "unified": 606
+      },
+      "compression": {
+        "vs_original": 0.0846,
+        "vs_lite": -1.1799
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/장그루_재회_EN.json",
+      "index": 118,
+      "display_name": "장그루_재회",
+      "category": "캐릭터 특수",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\장그루_재회_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\장그루_재회_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\장그루_재회_EN.json",
+      "source_sha256": "6d48dda9bd4f7e58482d078c1c2e8d121b757672890b9ad249ea22439e0f9602",
+      "lite_sha256": "ae9166295f2eb31b26ccd5798d379e39b6c9fb4eded6033d66df20ab2a81b3c7",
+      "unified_sha256": "058b99eca697afb5e21429268b98fc9f7f1d5ef6f06523b57a9978445a4f61e2",
+      "trigger_delta": "same",
+      "keyword_count": 9,
+      "keyword_sample": [
+        "💫",
+        "재회",
+        "마주",
+        "오디션장",
+        "눈이 마주",
+        "그 사람이",
+        "혼자 갔",
+        "두고 간"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 809,
+        "lite": 253,
+        "unified": 711
+      },
+      "compression": {
+        "vs_original": 0.1211,
+        "vs_lite": -1.8103
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/진시혁_과거_EN.json",
+      "index": 119,
+      "display_name": "진시혁_과거",
+      "category": "캐릭터 특수",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\진시혁_과거_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\진시혁_과거_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\진시혁_과거_EN.json",
+      "source_sha256": "579c2b1aa3de43fbf7c8ac1eaebb58b760938e12b1170d4d7c3f1da23d60be30",
+      "lite_sha256": "f3eab09efb86b4517ff2d1b5503f3e63143bd86db6373877aa6a8ff3ce9a4f67",
+      "unified_sha256": "b0ce8dd44f4aa89639d657ba44860a1db1ca41a66dfddcb90b4d01a6a620e8e9",
+      "trigger_delta": "same",
+      "keyword_count": 11,
+      "keyword_sample": [
+        "진시혁 과거",
+        "진시혁 어릴 때",
+        "진시혁 합리주의 어떻게",
+        "진시혁 왜 차가워",
+        "진시혁 어떻게 강해",
+        "회색 초커 기원",
+        "회색 초커 의미",
+        "볼펜 습관 기원"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1604,
+        "lite": 687,
+        "unified": 1463
+      },
+      "compression": {
+        "vs_original": 0.0879,
+        "vs_lite": -1.1295
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/한소리_오디션_EN.json",
+      "index": 120,
+      "display_name": "한소리_오디션",
+      "category": "캐릭터 특수",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\한소리_오디션_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\한소리_오디션_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\한소리_오디션_EN.json",
+      "source_sha256": "e4179ca28df7a5de9515f6ff36509327fa7cd598295c5790eeb27cb848d43235",
+      "lite_sha256": "3ee3b86ff7547179dd0ef718aeaaccb3ac3ec5b4d6f394dee42a96f4c331ae26",
+      "unified_sha256": "bb3680a050312671f0796f0fa201dbb94ad0b0b41e8ac4a0332d2888bbd8904b",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "!오디션모드"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 630,
+        "lite": 290,
+        "unified": 607
+      },
+      "compression": {
+        "vs_original": 0.0365,
+        "vs_lite": -1.0931
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/한소리_위기_EN.json",
+      "index": 121,
+      "display_name": "한소리_위기",
+      "category": "캐릭터 특수",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\한소리_위기_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\한소리_위기_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\한소리_위기_EN.json",
+      "source_sha256": "a1f921268aa96fccf934d77013196d32b988224e7d4de7c676a478a35d37536d",
+      "lite_sha256": "f52aa28864514b8c12e15b5c9bb8f164516ab56be83c25cf5ee290abf2f54662",
+      "unified_sha256": "904adb9fff443b0ae84174a58a9af08f31d0150e8d3c6f439355708a5fe44926",
+      "trigger_delta": "same",
+      "keyword_count": 14,
+      "keyword_sample": [
+        "한소리]: ❤️7",
+        "한소리]: ❤️8",
+        "한소리]: ❤️9",
+        "한소리: ❤️7",
+        "한소리: ❤️8",
+        "한소리: ❤️9",
+        "적자",
+        "재정"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 474,
+        "lite": 211,
+        "unified": 415
+      },
+      "compression": {
+        "vs_original": 0.1245,
+        "vs_lite": -0.9668
+      },
+      "warnings": []
+    },
+    {
+      "id": "캐릭터/아피리아_영화관소매_EN.json",
+      "index": 122,
+      "display_name": "아피리아_영화관소매",
+      "category": "캐릭터 씬",
+      "route_class": "07_dynamic_deep_context",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\캐릭터\\아피리아_영화관소매_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\캐릭터\\아피리아_영화관소매_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\캐릭터\\아피리아_영화관소매_EN.json",
+      "source_sha256": "1202ff58cf20ef0717f02535c3e5c68978ef1e80811761ab9da5d703182fd405",
+      "lite_sha256": "d2912482e7892541922872db6b4f4ee1fa1119f2cee85e34734dcbeeb9ee9f10",
+      "unified_sha256": "a6fac70871797bdd9998755e6192db34222aff0cb9fc6d6179749aed535fba7e",
+      "trigger_delta": "same",
+      "keyword_count": 8,
+      "keyword_sample": [
+        "영화관",
+        "영화관 데이트",
+        "소매",
+        "소매 서비스",
+        "극장 데이트 아피리아",
+        "영화관 옆자리",
+        "소매 안",
+        "15-1"
+      ],
+      "protected_literals": [
+        {
+          "json_pointer": "/image_code/example",
+          "kind": "url_template",
+          "status": "preserved"
+        }
+      ],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 3135,
+        "lite": 996,
+        "unified": 2138
+      },
+      "compression": {
+        "vs_original": 0.318,
+        "vs_lite": -1.1466
+      },
+      "warnings": []
+    },
+    {
+      "id": "오디션/막간_중반_EN.json",
+      "index": 129,
+      "display_name": "막간_중반",
+      "category": "오디션",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\오디션\\막간_중반_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\오디션\\막간_중반_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\오디션\\막간_중반_EN.json",
+      "source_sha256": "6fa54f4f59e52d01dbe1f4ad6dbf5014fd2ee3782cb8acb9c58b90a6f8f7e096",
+      "lite_sha256": "b7608559977d55c4092b3322ce62f01dbebf94b5ac359fd1130392c42aadf60f",
+      "unified_sha256": "d345d2de825b077161092f5c804e22d2710a2764a1275e29dd91916a86b5f42e",
+      "trigger_delta": "same",
+      "keyword_count": 10,
+      "keyword_sample": [
+        "미션",
+        "연습실",
+        "인터뷰",
+        "라운지",
+        "모니터",
+        "참관",
+        "합숙 생활",
+        "함께"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 625,
+        "lite": 256,
+        "unified": 549
+      },
+      "compression": {
+        "vs_original": 0.1216,
+        "vs_lite": -1.1445
+      },
+      "warnings": []
+    },
+    {
+      "id": "오디션/막간_초반_EN.json",
+      "index": 130,
+      "display_name": "막간_초반",
+      "category": "오디션",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\오디션\\막간_초반_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\오디션\\막간_초반_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\오디션\\막간_초반_EN.json",
+      "source_sha256": "16396ba7314df8b421f045ef4fd6c6ebc3d742dbc823b8778f4796acba43a256",
+      "lite_sha256": "9b6c894a93138b3161d815bfe656b5284426d055f6a62db7f95477ca7782994d",
+      "unified_sha256": "9200d56c9b7a10f86a49dbaf4c9d65e3f6d42523d5d3abd95bceebf86b207cd7",
+      "trigger_delta": "same",
+      "keyword_count": 9,
+      "keyword_sample": [
+        "입소",
+        "방 배정",
+        "짐을",
+        "합숙소에",
+        "도착",
+        "첫날",
+        "룸메이트",
+        "같은 방"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 526,
+        "lite": 210,
+        "unified": 456
+      },
+      "compression": {
+        "vs_original": 0.1331,
+        "vs_lite": -1.1714
+      },
+      "warnings": []
+    },
+    {
+      "id": "오디션/막간_후반_EN.json",
+      "index": 132,
+      "display_name": "막간_후반",
+      "category": "오디션",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\오디션\\막간_후반_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\오디션\\막간_후반_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\오디션\\막간_후반_EN.json",
+      "source_sha256": "501eeb7ec9eb6417ab2b5bb1c9fd334fff88aca4843b50b1fdc4d8490a1e4184",
+      "lite_sha256": "584d6105da33487342b8acf661779050e27a25e672317dd2ded17c2357e7c356",
+      "unified_sha256": "98269cd2ce0fd397a4b1edbfb7896e958b099f52c2a7a60e5f931d1981a83ede",
+      "trigger_delta": "same",
+      "keyword_count": 11,
+      "keyword_sample": [
+        "대항전",
+        "팀 대결",
+        "발표",
+        "전략",
+        "곡 선택",
+        "포지션",
+        "마지막 밤",
+        "전야"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 550,
+        "lite": 219,
+        "unified": 483
+      },
+      "compression": {
+        "vs_original": 0.1218,
+        "vs_lite": -1.2055
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/매니저B_강하람_EN.json",
+      "index": 141,
+      "display_name": "매니저B_강하람",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\매니저B_강하람_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\매니저B_강하람_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\매니저B_강하람_EN.json",
+      "source_sha256": "c79ef040cfee116c4a6e7f9689a0a1c06bdb8775c9a86ae7dfe9e470ea6c91c5",
+      "lite_sha256": "234db24611d7afd27049f031a4d86dfa2bcfbdfedd3f0821b1c6fe72dc864e7b",
+      "unified_sha256": "81e9182459b613a79845fa862548ed14db8ab9c8defdd830b3f69ba921b3d7a6",
+      "trigger_delta": "same",
+      "keyword_count": 2,
+      "keyword_sample": [
+        "강하람 매니저",
+        "B분기 강하람"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1704,
+        "lite": 434,
+        "unified": 1030
+      },
+      "compression": {
+        "vs_original": 0.3955,
+        "vs_lite": -1.3733
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/매니저B_나하린_EN.json",
+      "index": 142,
+      "display_name": "매니저B_나하린",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\매니저B_나하린_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\매니저B_나하린_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\매니저B_나하린_EN.json",
+      "source_sha256": "eab75399932f6fdfe9f59fc1ce3c750130ed5c05655f0e77174c2ff5e3ee2aa0",
+      "lite_sha256": "dbd27e17d5779d1472571bb4c599782f41b884a9c168152a07f58ba3c9c25dc0",
+      "unified_sha256": "fad9c2a945b872eea5e538265d85e1c24b82e78a4a1ec71c88e15618e09ff5dc",
+      "trigger_delta": "same",
+      "keyword_count": 2,
+      "keyword_sample": [
+        "나하린 매니저",
+        "B분기 나하린"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1597,
+        "lite": 395,
+        "unified": 932
+      },
+      "compression": {
+        "vs_original": 0.4164,
+        "vs_lite": -1.3595
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/매니저B_노아_EN.json",
+      "index": 143,
+      "display_name": "매니저B_노아",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\매니저B_노아_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\매니저B_노아_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\매니저B_노아_EN.json",
+      "source_sha256": "800f36271efb6d25ce0adeb57433179ee23be9f780109072c658936208b1e251",
+      "lite_sha256": "dfe5f65e624879498a8ed274a4b0a037a95f9e38da037824f04eaf3c94203bf0",
+      "unified_sha256": "b87bb890d962cba430b6d2223bb2284a65cc9a989c3a841c6aa0da82ed3db4b8",
+      "trigger_delta": "same",
+      "keyword_count": 2,
+      "keyword_sample": [
+        "노아 매니저",
+        "B분기 노아"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1616,
+        "lite": 435,
+        "unified": 1034
+      },
+      "compression": {
+        "vs_original": 0.3601,
+        "vs_lite": -1.377
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/매니저B_시아_EN.json",
+      "index": 144,
+      "display_name": "매니저B_시아",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\매니저B_시아_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\매니저B_시아_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\매니저B_시아_EN.json",
+      "source_sha256": "e349efddd8dd67be214d20422f295d0f7f674b23ebad8216aa27a2b5bdfc4458",
+      "lite_sha256": "514a609acf93e816da6f4551a755bbda42f75f0b91cd7863cd012091bcb79d8b",
+      "unified_sha256": "f611b84ff2594419b51ce2b3415d8ecb87b27c2394ad011220a08e339b48ab13",
+      "trigger_delta": "same",
+      "keyword_count": 2,
+      "keyword_sample": [
+        "시아 매니저",
+        "B분기 시아"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1602,
+        "lite": 387,
+        "unified": 1010
+      },
+      "compression": {
+        "vs_original": 0.3695,
+        "vs_lite": -1.6098
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/매니저B_에르피_EN.json",
+      "index": 145,
+      "display_name": "매니저B_에르피",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\매니저B_에르피_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\매니저B_에르피_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\매니저B_에르피_EN.json",
+      "source_sha256": "740ea015f27165a6936b496b729dd57406c5c6191f3f652e580f0419988219a3",
+      "lite_sha256": "75b562c37a902b8e57951c1faa301bd79ebcc0eacf1bde81d325da139ea16552",
+      "unified_sha256": "ed22689cd066f4b67dbc67076be2239d2d9b506ac358f44fe8957bc8af223cf2",
+      "trigger_delta": "same",
+      "keyword_count": 2,
+      "keyword_sample": [
+        "에르피 매니저",
+        "B분기 에르피"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1550,
+        "lite": 463,
+        "unified": 864
+      },
+      "compression": {
+        "vs_original": 0.4426,
+        "vs_lite": -0.8661
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/매니저B_에리카_EN.json",
+      "index": 146,
+      "display_name": "매니저B_에리카",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\매니저B_에리카_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\매니저B_에리카_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\매니저B_에리카_EN.json",
+      "source_sha256": "9bc4b26f0af595e494f577d3ac826ea07e085366ead020539f48c5a5194237f4",
+      "lite_sha256": "9eb2f185747e6622529e429ee1c72e14f6634779129944c3ca60ee3fcb68da9d",
+      "unified_sha256": "9f204f0a18c24892f27dcbd31b5050f8478619ee6535435ee95c4d4a67d53933",
+      "trigger_delta": "same",
+      "keyword_count": 2,
+      "keyword_sample": [
+        "에리카 매니저",
+        "B분기 에리카"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1487,
+        "lite": 365,
+        "unified": 990
+      },
+      "compression": {
+        "vs_original": 0.3342,
+        "vs_lite": -1.7123
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/매니저B_한소리_EN.json",
+      "index": 147,
+      "display_name": "매니저B_한소리",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\매니저B_한소리_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\매니저B_한소리_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\매니저B_한소리_EN.json",
+      "source_sha256": "1e7061db79c8c2acf00b53015a7fcdfae83b928e8e76022353012d64fc106c3a",
+      "lite_sha256": "5547f5bb42406beef0e8a22d043fad1aa53147c273277e343f1445c0eb8194ce",
+      "unified_sha256": "d46cfdb6b4efc07a1f3f08fba669d24ee653e44c3b077e0b62178955a9bce1dd",
+      "trigger_delta": "same",
+      "keyword_count": 2,
+      "keyword_sample": [
+        "한소리 매니저",
+        "B분기 한소리"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1416,
+        "lite": 416,
+        "unified": 939
+      },
+      "compression": {
+        "vs_original": 0.3369,
+        "vs_lite": -1.2572
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/배우모드_방영_EN.json",
+      "index": 155,
+      "display_name": "배우모드_방영",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\배우모드_방영_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\배우모드_방영_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\배우모드_방영_EN.json",
+      "source_sha256": "1976f51e92c38c8aca0f8a135856d5ebeb2c9b33753b209e3db5ec6edf317490",
+      "lite_sha256": "b1b0f178537719345408424536fea67f2bcbf7ed3a117dd957d985a2d7c02d91",
+      "unified_sha256": "c3594bc4ef198fc4c8e8d9f378087d9d705841904cc185f15e55b89c153812dc",
+      "trigger_delta": "same",
+      "keyword_count": 13,
+      "keyword_sample": [
+        "방영",
+        "시청률",
+        "평점",
+        "리뷰",
+        "평론",
+        "화제성",
+        "호평",
+        "혹평"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1198,
+        "lite": 621,
+        "unified": 893
+      },
+      "compression": {
+        "vs_original": 0.2546,
+        "vs_lite": -0.438
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/배우모드_촬영_EN.json",
+      "index": 159,
+      "display_name": "배우모드_촬영",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\배우모드_촬영_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\배우모드_촬영_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\배우모드_촬영_EN.json",
+      "source_sha256": "b548cb7f47924cb4f6fffcda6d845ca18ae2cd5c454410bbcde2805b18336c6d",
+      "lite_sha256": "e87d8efd39620d2c169dadd646a9f1b995a6c6d117bb94b316806dbc7d93cda2",
+      "unified_sha256": "a86e489634769e2d4b611002c781979e1b711a52efa6a666bbe941c22a3ad221",
+      "trigger_delta": "same",
+      "keyword_count": 12,
+      "keyword_sample": [
+        "촬영",
+        "촬영 현장",
+        "현장",
+        "감독",
+        "컷",
+        "NG",
+        "케미",
+        "즉흥 연기"
+      ],
+      "protected_literals": [
+        {
+          "json_pointer": "/감독_갈등/예시",
+          "kind": "example_format",
+          "status": "preserved"
+        }
+      ],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1631,
+        "lite": 874,
+        "unified": 1260
+      },
+      "compression": {
+        "vs_original": 0.2275,
+        "vs_lite": -0.4416
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/배우모드_홍보_EN.json",
+      "index": 160,
+      "display_name": "배우모드_홍보",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\배우모드_홍보_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\배우모드_홍보_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\배우모드_홍보_EN.json",
+      "source_sha256": "59b5f6f6b326cb49ef99d4e316d827b5800b9c2ab1e8db6b33848b4ea53adc19",
+      "lite_sha256": "2bc50f5aa3aaa61ea24e35fa5babd33d6f4b4daa558b9388cba2adb82e8d0677",
+      "unified_sha256": "3b15a705a463f24386cc054cbe452946b6b202989d0f80fb39b615a567f2095f",
+      "trigger_delta": "same",
+      "keyword_count": 13,
+      "keyword_sample": [
+        "후반작업",
+        "더빙",
+        "편집",
+        "포스터 촬영",
+        "시사회",
+        "VIP 시사회",
+        "인터뷰",
+        "매체 출연"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1444,
+        "lite": 782,
+        "unified": 1081
+      },
+      "compression": {
+        "vs_original": 0.2514,
+        "vs_lite": -0.3824
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/연습생모드_공개평가_EN.json",
+      "index": 171,
+      "display_name": "연습생모드_공개평가",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\연습생모드_공개평가_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\연습생모드_공개평가_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\연습생모드_공개평가_EN.json",
+      "source_sha256": "5d1109651ef25c09835d184d46ecb7103b6de6568c1c4c399f1f52f2067c049e",
+      "lite_sha256": "361dec3203b0021e3613a988d66bf7b8be5c3b2963ef7e64f1abc577c118b1a3",
+      "unified_sha256": "052fff5a272c411a379b988a648d8bf0c3a1911b5eda14d1afb777931854654f",
+      "trigger_delta": "same",
+      "keyword_count": 11,
+      "keyword_sample": [
+        "월말 평가",
+        "월간 평가",
+        "월말 무대",
+        "월간 무대",
+        "공개 평가",
+        "공개평가",
+        "연간 행사",
+        "합동 공연"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [
+        "low_eval:낮은 평가 후 멘토링·보강계획·자존감/라포 반응 연결"
+      ],
+      "chars": {
+        "original": 2130,
+        "lite": 644,
+        "unified": 1653
+      },
+      "compression": {
+        "vs_original": 0.2239,
+        "vs_lite": -1.5668
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/연습생모드_그룹매칭_EN.json",
+      "index": 172,
+      "display_name": "연습생모드_그룹매칭",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\연습생모드_그룹매칭_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\연습생모드_그룹매칭_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\연습생모드_그룹매칭_EN.json",
+      "source_sha256": "11496ba58baa0cc306098c49d5d0887f9b051b6813117804b2250f3f90da0072",
+      "lite_sha256": "0c335bce58c88f30d0df38f04ae3c566f44da7939cca02e07c5c3070a11a98f3",
+      "unified_sha256": "ab58299b12552a74d3a2bd5876dbabc39d80330a02b6e989753f2c7ace12c0d5",
+      "trigger_delta": "same",
+      "keyword_count": 15,
+      "keyword_sample": [
+        "그룹 매칭",
+        "그룹매칭",
+        "솔로 vs 그룹",
+        "솔로냐 그룹이냐",
+        "그룹 결성",
+        "그룹 데뷔",
+        "팀 데뷔",
+        "그룹 멤버"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 2628,
+        "lite": 1156,
+        "unified": 1969
+      },
+      "compression": {
+        "vs_original": 0.2508,
+        "vs_lite": -0.7033
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/연습생모드_데뷔_EN.json",
+      "index": 173,
+      "display_name": "연습생모드_데뷔",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\연습생모드_데뷔_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\연습생모드_데뷔_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\연습생모드_데뷔_EN.json",
+      "source_sha256": "84278993ccaa234176dd2782719a0981aa8aafd8d913dd2fe308bb0ab76ce3a1",
+      "lite_sha256": "ffd2bc9770c8b0afed458324530aa38bcc551c17f462867d516c04b8a6b5d69e",
+      "unified_sha256": "4a5d78e10119b66edf7edfc3965257affab66e7d4a6443ff25776f28398ad8c1",
+      "trigger_delta": "same",
+      "keyword_count": 12,
+      "keyword_sample": [
+        "데뷔",
+        "데뷔 무대",
+        "데뷔무대",
+        "데뷔 쇼케이스",
+        "데뷔쇼케이스",
+        "데뷔 직전",
+        "최종 평가",
+        "데뷔 후보"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 3088,
+        "lite": 1333,
+        "unified": 2429
+      },
+      "compression": {
+        "vs_original": 0.2134,
+        "vs_lite": -0.8222
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/연습생모드_멘토링_EN.json",
+      "index": 174,
+      "display_name": "연습생모드_멘토링",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\연습생모드_멘토링_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\연습생모드_멘토링_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\연습생모드_멘토링_EN.json",
+      "source_sha256": "a5160244341c39979330104ac04bd7f13a06374cc559f2a1a328924bd2a974c6",
+      "lite_sha256": "a5b0eaf354d2b6eb2a7c7ba37386043ab3dcdeba8d6a2a6c2f27b4809bc8a148",
+      "unified_sha256": "24cb80818c0e45dd858c5eb8c63b923950700be39a65bb11863a86fed2f7424f",
+      "trigger_delta": "same",
+      "keyword_count": 12,
+      "keyword_sample": [
+        "멘토링",
+        "1:1 코칭",
+        "1대1 코칭",
+        "일대일 코칭",
+        "개인 지도",
+        "개인지도",
+        "면담",
+        "잠깐 와봐"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [
+        "mentor_pick:동시 단서면 활성 소속/직전 맥락으로 멘토 1명 선택;weak_eval:평가부진 후 보강·라포·감정 여운 연결"
+      ],
+      "chars": {
+        "original": 3955,
+        "lite": 1862,
+        "unified": 3132
+      },
+      "compression": {
+        "vs_original": 0.2081,
+        "vs_lite": -0.6821
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/연습생모드_부상_EN.json",
+      "index": 175,
+      "display_name": "연습생모드_부상",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\연습생모드_부상_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\연습생모드_부상_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\연습생모드_부상_EN.json",
+      "source_sha256": "4d4d09bac6d65a35c66f28c8dc21aa7f8c07f67bad1131b30fdc0e034badbdff",
+      "lite_sha256": "be97a7f1ef67c5a8fae6707ffc157299866a992dbadee5fabd66e3b714b7acad",
+      "unified_sha256": "826f1653298504b8ccc80be3e73a356994ac5406d8a94be79585ffa0396b013c",
+      "trigger_delta": "same",
+      "keyword_count": 14,
+      "keyword_sample": [
+        "부상",
+        "다쳤",
+        "다쳐",
+        "근육통",
+        "성대 결절",
+        "성대결절",
+        "발목",
+        "슬럼프"
+      ],
+      "protected_literals": [
+        {
+          "json_pointer": "/심각도/가벼움 (디폴트)/예시",
+          "kind": "example_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/심각도/중간 (가끔)/예시",
+          "kind": "example_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/심각도/심각 (드물게)/예시",
+          "kind": "example_format",
+          "status": "preserved"
+        }
+      ],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 2009,
+        "lite": 974,
+        "unified": 1567
+      },
+      "compression": {
+        "vs_original": 0.22,
+        "vs_lite": -0.6088
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/연습생모드_퇴소_EN.json",
+      "index": 177,
+      "display_name": "연습생모드_퇴소",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\연습생모드_퇴소_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\연습생모드_퇴소_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\연습생모드_퇴소_EN.json",
+      "source_sha256": "2b8b84ff41ade5b043614ac7d296b542c215a7891f1c4d4261021e4cdd24ea40",
+      "lite_sha256": "c745b2c0973538d6d99fe9751b358614abfc9ba802202c606888e7072df3a34e",
+      "unified_sha256": "702a9a5e4f4680f3417e89040ebdbaa79b49ce04ed773c00d21e28766e696139",
+      "trigger_delta": "same",
+      "keyword_count": 13,
+      "keyword_sample": [
+        "퇴소",
+        "탈락",
+        "계약 종료",
+        "계약종료",
+        "짐 챙겨",
+        "이번이 마지막",
+        "마지막 평가",
+        "도태"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 2392,
+        "lite": 933,
+        "unified": 1926
+      },
+      "compression": {
+        "vs_original": 0.1948,
+        "vs_lite": -1.0643
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/오프닝_EN.json",
+      "index": 178,
+      "display_name": "오프닝",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\오프닝_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\오프닝_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\오프닝_EN.json",
+      "source_sha256": "dab1e0bd409eb8fafa684ec416fe43bea758eb95b8b067548b1033cfedee165b",
+      "lite_sha256": "4d0465e29e79521525f659135a76bb682547a6e060b6263a6af397528c3627b4",
+      "unified_sha256": "70ec6009bbf1d1312552c16c837b7da1a3a1d7d8e4cb2d86686346650dd5a4b9",
+      "trigger_delta": "same",
+      "keyword_count": 3,
+      "keyword_sample": [
+        "시작",
+        "오프닝",
+        "첫 대화"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 2341,
+        "lite": 1174,
+        "unified": 1725
+      },
+      "compression": {
+        "vs_original": 0.2631,
+        "vs_lite": -0.4693
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/작곡가모드_녹음_EN.json",
+      "index": 182,
+      "display_name": "작곡가모드_녹음",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\작곡가모드_녹음_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\작곡가모드_녹음_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\작곡가모드_녹음_EN.json",
+      "source_sha256": "c9def32c245f3650d52962d183dd27822e612d7762eab58c62de83bcdf913de8",
+      "lite_sha256": "24e71d9ea55301f40e45c19a4164a991f5fad19d84b020d4d81f971959981776",
+      "unified_sha256": "e27cd96af869cb2fe6297cb090a8675cb39020593e2f34dfd12b06d7a64df036",
+      "trigger_delta": "same",
+      "keyword_count": 12,
+      "keyword_sample": [
+        "녹음",
+        "스튜디오 협업",
+        "가이드 보컬",
+        "데모",
+        "테이크",
+        "믹싱",
+        "마스터링",
+        "부스"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1983,
+        "lite": 1127,
+        "unified": 1553
+      },
+      "compression": {
+        "vs_original": 0.2168,
+        "vs_lite": -0.378
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/작곡가모드_미발표곡_EN.json",
+      "index": 183,
+      "display_name": "작곡가모드_미발표곡",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\작곡가모드_미발표곡_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\작곡가모드_미발표곡_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\작곡가모드_미발표곡_EN.json",
+      "source_sha256": "fcac5adf9f91a39b8c5be5b40cf54c40cb2f80dee0a8d17c75303212535a2f37",
+      "lite_sha256": "6194e6812141de3f9228912d013a354ef35d5d0b3879937a82dc064cdebf720a",
+      "unified_sha256": "fbcb07cac0b974c7255ae4f8ba2d7209a1097d8a1ed77cfcfd37b99b0c6fd508",
+      "trigger_delta": "same",
+      "keyword_count": 12,
+      "keyword_sample": [
+        "미발표곡",
+        "미발표 곡",
+        "이서하 곡",
+        "이서하의 곡",
+        "이서하 헤드폰",
+        "옆 부스",
+        "하드디스크",
+        "부족해서"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 2977,
+        "lite": 1214,
+        "unified": 2415
+      },
+      "compression": {
+        "vs_original": 0.1888,
+        "vs_lite": -0.9893
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/작곡가모드_의뢰_EN.json",
+      "index": 186,
+      "display_name": "작곡가모드_의뢰",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\작곡가모드_의뢰_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\작곡가모드_의뢰_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\작곡가모드_의뢰_EN.json",
+      "source_sha256": "7727188eaf60c342db4e71967bc9161181eb96b737e9aee7d898194147272746",
+      "lite_sha256": "844b136531ad404e6f95c193b12619f2c97af6af539febe66fa40917b8d87c03",
+      "unified_sha256": "eb5b52ef3197056a6f46744e2fdd53d8053e764f96da1d9bd74ba915dcced590",
+      "trigger_delta": "same",
+      "keyword_count": 12,
+      "keyword_sample": [
+        "의뢰",
+        "외주",
+        "곡 요청",
+        "곡 부탁",
+        "곡 의뢰",
+        "한 곡 만들어",
+        "데드라인",
+        "단가"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 2213,
+        "lite": 1054,
+        "unified": 1735
+      },
+      "compression": {
+        "vs_original": 0.216,
+        "vs_lite": -0.6461
+      },
+      "warnings": []
+    },
+    {
+      "id": "모드/작곡가모드_표절_EN.json",
+      "index": 187,
+      "display_name": "작곡가모드_표절",
+      "category": "모드",
+      "route_class": "09_ambiguous_review",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\모드\\작곡가모드_표절_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\모드\\작곡가모드_표절_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\모드\\작곡가모드_표절_EN.json",
+      "source_sha256": "f72ebee3e6ae56a6418205f3934157dea38942e94a38786237601e13b4c75569",
+      "lite_sha256": "e47f8669747793dba55b0b84b5d456b6e055074ae6c2904f0de1597e4b20f749",
+      "unified_sha256": "74813608632ba1249f6a5454eac7cba1f2049dbd49b86e05656e1bd6d2ad975b",
+      "trigger_delta": "same",
+      "keyword_count": 11,
+      "keyword_sample": [
+        "표절",
+        "표절 의혹",
+        "표절 논란",
+        "크레딧 분쟁",
+        "샘플링 권리",
+        "AI 작곡 의혹",
+        "곡 도용",
+        "비교 영상"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 2150,
+        "lite": 1289,
+        "unified": 1640
+      },
+      "compression": {
+        "vs_original": 0.2372,
+        "vs_lite": -0.2723
+      },
+      "warnings": []
+    },
+    {
+      "id": "구역_더코어_EN.json",
+      "index": 188,
+      "display_name": "구역_더코어",
+      "category": "구역",
+      "route_class": "08_dynamic_world_event",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\구역_더코어_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\구역_더코어_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\구역_더코어_EN.json",
+      "source_sha256": "d1e8965c96ff3eebd4c1f0b9a22c868ade36fa27f016980aed10168b478fb248",
+      "lite_sha256": "83fefb42a7083ead3ed716c9588061724f29cafe7900c10567e9f12fceae4de9",
+      "unified_sha256": "22c724848606200e7b70433ef7b5987ee0f7912c1443265d87f8698d3ac77b3d",
+      "trigger_delta": "same",
+      "keyword_count": 8,
+      "keyword_sample": [
+        "더 코어",
+        "APEX",
+        "프라임 돔",
+        "방송국",
+        "본사",
+        "최상위",
+        "심장부",
+        "VIP"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 429,
+        "lite": 262,
+        "unified": 346
+      },
+      "compression": {
+        "vs_original": 0.1935,
+        "vs_lite": -0.3206
+      },
+      "warnings": []
+    },
+    {
+      "id": "구역_미들링_EN.json",
+      "index": 189,
+      "display_name": "구역_미들링",
+      "category": "구역",
+      "route_class": "08_dynamic_world_event",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\구역_미들링_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\구역_미들링_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\구역_미들링_EN.json",
+      "source_sha256": "cd002dfd6e6e0a094cb594a1b2617e045873ab7085e1b3040a03eac7a6a8512a",
+      "lite_sha256": "3faaac2116e45122cf972be9fcdd172e5c4839b346e07d1dee34938bf9729fb0",
+      "unified_sha256": "9ef5fb040a2449988d2a0c5b0ccf66279578720c8bad5ab78406bfd6012a1d46",
+      "trigger_delta": "same",
+      "keyword_count": 8,
+      "keyword_sample": [
+        "미들 링",
+        "Blue Moon",
+        "스튜디오",
+        "녹음실",
+        "작업실",
+        "블루문",
+        "중견",
+        "장인"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 462,
+        "lite": 294,
+        "unified": 373
+      },
+      "compression": {
+        "vs_original": 0.1926,
+        "vs_lite": -0.2687
+      },
+      "warnings": []
+    },
+    {
+      "id": "구역_테라스_EN.json",
+      "index": 190,
+      "display_name": "구역_테라스",
+      "category": "구역",
+      "route_class": "08_dynamic_world_event",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\구역_테라스_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\구역_테라스_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\구역_테라스_EN.json",
+      "source_sha256": "afb840a51995bce53f0eeb48848ba23851c6a69ca26f4be260b20d758bd407a5",
+      "lite_sha256": "f04ab91474ca026da108ce2bf89fe281fcb99a301b1421de4e8dd1667126a49c",
+      "unified_sha256": "e4b23ac952382c21d7edac07c7d48bb4359fdee5fb3ed0c0f2fe6512afc0a50a",
+      "trigger_delta": "same",
+      "keyword_count": 9,
+      "keyword_sample": [
+        "테라스",
+        "Route 0",
+        "연습실",
+        "오디션장",
+        "외곽",
+        "보급형",
+        "연습생",
+        "신생"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 574,
+        "lite": 283,
+        "unified": 413
+      },
+      "compression": {
+        "vs_original": 0.2805,
+        "vs_lite": -0.4594
+      },
+      "warnings": []
+    },
+    {
+      "id": "구역_하입로드_EN.json",
+      "index": 191,
+      "display_name": "구역_하입로드",
+      "category": "구역",
+      "route_class": "08_dynamic_world_event",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\구역_하입로드_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\구역_하입로드_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\구역_하입로드_EN.json",
+      "source_sha256": "2a7ba18557b1eff022817817f26cb4b2f9352f3332f2f0f975ce0d8dd53985b5",
+      "lite_sha256": "065f0417234e53801e2e9b9950c5d5c3b5c912b7a1d5b6dd37f4e7f36c9325db",
+      "unified_sha256": "f92e470ff0dc5ea932e49dec69ffab7f3acfb686567a300185850c312a4647d6",
+      "trigger_delta": "same",
+      "keyword_count": 9,
+      "keyword_sample": [
+        "하입 로드",
+        "PRISM",
+        "클럽",
+        "스트리트",
+        "라이브",
+        "공유 스튜디오",
+        "독립",
+        "신인"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 420,
+        "lite": 289,
+        "unified": 333
+      },
+      "compression": {
+        "vs_original": 0.2071,
+        "vs_lite": -0.1522
+      },
+      "warnings": []
+    },
+    {
+      "id": "세계관이면_EN.json",
+      "index": 192,
+      "display_name": "세계관이면",
+      "category": "세계관",
+      "route_class": "08_dynamic_world_event",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\세계관이면_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\세계관이면_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\세계관이면_EN.json",
+      "source_sha256": "de2f3f6953e1af37eaebf3d48da53e1700d55dea4a882b0a0c4ace03b10a591e",
+      "lite_sha256": "78a86b33afb4b83b1f188dc065b6253bc52a60256c0177945fb81b184767128a",
+      "unified_sha256": "faea663f5fbdb0083a97fa975ecf1707e3d9a7631ea1225bf2a0b4c38f5740cc",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "🌑세계관"
+      ],
+      "protected_literals": [
+        {
+          "json_pointer": "/foreshadow/channels/0/ex",
+          "kind": "example_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/foreshadow/channels/1/ex",
+          "kind": "example_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/foreshadow/channels/2/ex",
+          "kind": "example_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/foreshadow/channels/3/ex",
+          "kind": "example_format",
+          "status": "preserved"
+        }
+      ],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 2805,
+        "lite": 1613,
+        "unified": 2146
+      },
+      "compression": {
+        "vs_original": 0.2349,
+        "vs_lite": -0.3304
+      },
+      "warnings": []
+    },
+    {
+      "id": "이벤트_무대사고_EN.json",
+      "index": 193,
+      "display_name": "이벤트_무대사고",
+      "category": "이벤트",
+      "route_class": "08_dynamic_world_event",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\이벤트_무대사고_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\이벤트_무대사고_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\이벤트_무대사고_EN.json",
+      "source_sha256": "7f44c660ed0e883d49bf1e87861b232cee243cb1a29e36476196bb6ffb102d81",
+      "lite_sha256": "25fe646552647b755cc664c92a6b408ec8c8f23e92b2ca49ef2a2f44cac6dfdb",
+      "unified_sha256": "e1034e2d0d6ea8c4386320780d3033118559f56d497daaca3928ccc039be3930",
+      "trigger_delta": "same",
+      "keyword_count": 13,
+      "keyword_sample": [
+        "무대 사고",
+        "장비 고장",
+        "생방송 사고",
+        "NG",
+        "음향 사고",
+        "넘어지",
+        "의상 사고",
+        "방송 사고"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1981,
+        "lite": 1287,
+        "unified": 1542
+      },
+      "compression": {
+        "vs_original": 0.2216,
+        "vs_lite": -0.1981
+      },
+      "warnings": []
+    },
+    {
+      "id": "이벤트_스캔들_EN.json",
+      "index": 194,
+      "display_name": "이벤트_스캔들",
+      "category": "이벤트",
+      "route_class": "08_dynamic_world_event",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\이벤트_스캔들_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\이벤트_스캔들_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\이벤트_스캔들_EN.json",
+      "source_sha256": "68fc8e1d5eb7e0d2ff49411418e7e45c082899deb42d6effac931b70b2daf042",
+      "lite_sha256": "45c242b2a088e73509dafc57812f5099815d71d5ed81ee627344137965a4735a",
+      "unified_sha256": "a391a907a6c73fa201f46a8f4361b80b9b7d3e8ce944947dc80cfd515b62c921",
+      "trigger_delta": "same",
+      "keyword_count": 15,
+      "keyword_sample": [
+        "스캔들",
+        "논란",
+        "열애설",
+        "표절",
+        "루머",
+        "제보",
+        "해명",
+        "입장문"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1957,
+        "lite": 1185,
+        "unified": 1589
+      },
+      "compression": {
+        "vs_original": 0.188,
+        "vs_lite": -0.3409
+      },
+      "warnings": []
+    },
+    {
+      "id": "이벤트_시상식_EN.json",
+      "index": 195,
+      "display_name": "이벤트_시상식",
+      "category": "이벤트",
+      "route_class": "08_dynamic_world_event",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\이벤트_시상식_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\이벤트_시상식_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\이벤트_시상식_EN.json",
+      "source_sha256": "e9cfbd2af8204a4cea6d6983a5151a5706367a7bc8c40325d88eeb31fb878559",
+      "lite_sha256": "6215b392ef72078c091028dbc52ca7e4420e79112c692d4616b9517c3b9b7575",
+      "unified_sha256": "1f0bb42c718dae90637a2292f73a7bd6f3f9f543730943de0fccbae2d3e77578",
+      "trigger_delta": "same",
+      "keyword_count": 15,
+      "keyword_sample": [
+        "시상식",
+        "대상",
+        "신인상",
+        "레드카펫",
+        "수상 소감",
+        "트로피",
+        "연말 가요제",
+        "가요대상"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 2098,
+        "lite": 1418,
+        "unified": 1613
+      },
+      "compression": {
+        "vs_original": 0.2312,
+        "vs_lite": -0.1375
+      },
+      "warnings": []
+    },
+    {
+      "id": "이벤트_콜라보_EN.json",
+      "index": 196,
+      "display_name": "이벤트_콜라보",
+      "category": "이벤트",
+      "route_class": "08_dynamic_world_event",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\이벤트_콜라보_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\이벤트_콜라보_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\이벤트_콜라보_EN.json",
+      "source_sha256": "f81c89ffcb593011b21e08334b90729929523876391c1cac80acc4bd3fbe18a5",
+      "lite_sha256": "a7e95d86d4d4144fe85fc3d5939cca4e5d3c6b9879ecd4933a41844781d94695",
+      "unified_sha256": "728b208eaa19c8da6c737c21104db3de7bb7a562d96aee8f21ab3c2d1ea768f1",
+      "trigger_delta": "same",
+      "keyword_count": 11,
+      "keyword_sample": [
+        "콜라보",
+        "피처링",
+        "듀엣",
+        "합동",
+        "공동 출연",
+        "컬래버",
+        "크로스오버",
+        "합작"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1924,
+        "lite": 1223,
+        "unified": 1549
+      },
+      "compression": {
+        "vs_original": 0.1949,
+        "vs_lite": -0.2666
+      },
+      "warnings": []
+    },
+    {
+      "id": "이벤트_팬미팅_EN.json",
+      "index": 197,
+      "display_name": "이벤트_팬미팅",
+      "category": "이벤트",
+      "route_class": "08_dynamic_world_event",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\이벤트_팬미팅_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\이벤트_팬미팅_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\이벤트_팬미팅_EN.json",
+      "source_sha256": "15ba898cde0e1dbc15560f8831e9b4800817480f9b47dd5e49f2d68266cfa943",
+      "lite_sha256": "29561498f19e4097c0c669683293b10723787fc76d7c277050fe9050868bc4b5",
+      "unified_sha256": "5805d51cc0340a9aaf00dd6a21966a67a4d3d9e68cd7411a4f78b8a7297de36e",
+      "trigger_delta": "same",
+      "keyword_count": 11,
+      "keyword_sample": [
+        "팬미팅",
+        "사인회",
+        "팬 이벤트",
+        "팬사인회",
+        "굿즈",
+        "생일 카페",
+        "영상통화 팬미팅",
+        "브이라이브"
+      ],
+      "protected_literals": [],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1874,
+        "lite": 1257,
+        "unified": 1448
+      },
+      "compression": {
+        "vs_original": 0.2273,
+        "vs_lite": -0.1519
+      },
+      "warnings": []
+    },
+    {
+      "id": "SVG_SNS_EN.json",
+      "index": 198,
+      "display_name": "SVG_SNS",
+      "category": "SVG",
+      "route_class": "02_media_format",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\SVG_SNS_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\SVG_SNS_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\SVG_SNS_EN.json",
+      "source_sha256": "5755363304781a159523d5a7802538ad7d64d9c55991d3232220c964ad01a800",
+      "lite_sha256": "58c1d57f5ee0cdbe8eb1f248d01be1fe80d692f254bd47d23b3d50a2832b7dd8",
+      "unified_sha256": "af96d55a07716412dfd97bd56ef459be2c8dcdd061d4c5c1b9557220751134d8",
+      "trigger_delta": "same",
+      "keyword_count": 7,
+      "keyword_sample": [
+        "PRISMGRAM",
+        "프리즘그램",
+        "게시물",
+        "올렸",
+        "SNS",
+        "피드",
+        "인스타"
+      ],
+      "protected_literals": [
+        {
+          "json_pointer": "/url_rules/space",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/comma",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/question",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/forbidden",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/char_codes",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/prompt",
+          "kind": "url_template",
+          "status": "preserved"
+        }
+      ],
+      "manual_lite_additions": [
+        "spa_svg:사피아(SPA)는 main image code 기준; SVG char 자동매핑 미확인 시 avatar/image 직접 지정"
+      ],
+      "chars": {
+        "original": 1231,
+        "lite": 1152,
+        "unified": 1182
+      },
+      "compression": {
+        "vs_original": 0.0398,
+        "vs_lite": -0.026
+      },
+      "warnings": []
+    },
+    {
+      "id": "SVG_게시글_EN.json",
+      "index": 199,
+      "display_name": "SVG_게시글",
+      "category": "SVG",
+      "route_class": "02_media_format",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\SVG_게시글_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\SVG_게시글_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\SVG_게시글_EN.json",
+      "source_sha256": "392714b35088c023b06a52d7a547692c4878adca0b316ee699640f4c02dc00fc",
+      "lite_sha256": "7d037c76a9caa8f61fbf5d0596a2f2d9cbf5ef966bbb7476f037d3b10c45f1d4",
+      "unified_sha256": "a00f37c6a363e811629b53b4092ed99c97fa2b26679dd02767e9ed8daa70a88a",
+      "trigger_delta": "same",
+      "keyword_count": 9,
+      "keyword_sample": [
+        "PRIME POST",
+        "프라임 게시글",
+        "게시글",
+        "본문",
+        "정독",
+        "글 클릭",
+        "댓글창",
+        "댓글 갈갈이"
+      ],
+      "protected_literals": [
+        {
+          "json_pointer": "/url_rules/space",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/comma",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/question",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/newline",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/forbidden",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/char_codes",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/prompt",
+          "kind": "url_template",
+          "status": "preserved"
+        }
+      ],
+      "manual_lite_additions": [
+        "spa_svg:사피아(SPA)는 main image code 기준; SVG char 자동매핑 미확인 시 avatar/image 직접 지정"
+      ],
+      "chars": {
+        "original": 2049,
+        "lite": 1925,
+        "unified": 1985
+      },
+      "compression": {
+        "vs_original": 0.0312,
+        "vs_lite": -0.0312
+      },
+      "warnings": []
+    },
+    {
+      "id": "SVG_뉴스_EN.json",
+      "index": 200,
+      "display_name": "SVG_뉴스",
+      "category": "SVG",
+      "route_class": "02_media_format",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\SVG_뉴스_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\SVG_뉴스_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\SVG_뉴스_EN.json",
+      "source_sha256": "781b4a5a7339006a7981ea34cf4be8b0d2e7e9f92264f620d2f272abf7302452",
+      "lite_sha256": "971fc2f4ac5a093a4b9250561a6495b9e09cc3c8642a21ec7e5a374190d12e8a",
+      "unified_sha256": "ac548cefb8c2ac3a6a01210ad9292cbb8e26cefb68d9522b51a18b276c46f7e2",
+      "trigger_delta": "same",
+      "keyword_count": 6,
+      "keyword_sample": [
+        "PRIME NEWS",
+        "프라임 뉴스",
+        "속보",
+        "뉴스",
+        "기자",
+        "보도"
+      ],
+      "protected_literals": [
+        {
+          "json_pointer": "/url_rules/space",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/comma",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/question",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/forbidden",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/char_codes",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/prompt",
+          "kind": "url_template",
+          "status": "preserved"
+        }
+      ],
+      "manual_lite_additions": [
+        "spa_svg:사피아(SPA)는 main image code 기준; SVG char 자동매핑 미확인 시 avatar/image 직접 지정"
+      ],
+      "chars": {
+        "original": 1185,
+        "lite": 1106,
+        "unified": 1136
+      },
+      "compression": {
+        "vs_original": 0.0414,
+        "vs_lite": -0.0271
+      },
+      "warnings": []
+    },
+    {
+      "id": "SVG_라이브_EN.json",
+      "index": 201,
+      "display_name": "SVG_라이브",
+      "category": "SVG",
+      "route_class": "02_media_format",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\SVG_라이브_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\SVG_라이브_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\SVG_라이브_EN.json",
+      "source_sha256": "cf45468bdf41b335944b96ea5c4597ae16523582eb2b8df465ef8fc55709ce71",
+      "lite_sha256": "756325842aa8fc67f0acafcc8ad7899765a28b7d3f370a14e4c5b022eae6aeea",
+      "unified_sha256": "28fbbe985e18ed1332709a49721903da0f4102bc96f076fe4b9aed5888be4b07",
+      "trigger_delta": "same",
+      "keyword_count": 7,
+      "keyword_sample": [
+        "STAGELIVE",
+        "스테이지라이브",
+        "라이브",
+        "방송",
+        "스트리밍",
+        "생방",
+        "시청"
+      ],
+      "protected_literals": [
+        {
+          "json_pointer": "/url_rules/space",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/comma",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/question",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/forbidden",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/char_codes",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/prompt",
+          "kind": "url_template",
+          "status": "preserved"
+        }
+      ],
+      "manual_lite_additions": [
+        "spa_svg:사피아(SPA)는 main image code 기준; SVG char 자동매핑 미확인 시 avatar/image 직접 지정"
+      ],
+      "chars": {
+        "original": 1142,
+        "lite": 1063,
+        "unified": 1093
+      },
+      "compression": {
+        "vs_original": 0.0429,
+        "vs_lite": -0.0282
+      },
+      "warnings": []
+    },
+    {
+      "id": "SVG_메신저_EN.json",
+      "index": 202,
+      "display_name": "SVG_메신저",
+      "category": "SVG",
+      "route_class": "02_media_format",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\SVG_메신저_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\SVG_메신저_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\SVG_메신저_EN.json",
+      "source_sha256": "9665d17c6de34f3d743a9407c97624cd295771bd300d8beecd9f21441622fab5",
+      "lite_sha256": "80cdab7320bb9c736c41df5678859fd185469ab1b9f038ef31a25218d9f6cd37",
+      "unified_sha256": "95e47aa0636dfb9b68080af77c16ec68c6404cc37b816375910aec2771fd260d",
+      "trigger_delta": "same",
+      "keyword_count": 7,
+      "keyword_sample": [
+        "PRIMATALK",
+        "프리마톡",
+        "메시지",
+        "문자",
+        "연락",
+        "답장",
+        "카톡"
+      ],
+      "protected_literals": [
+        {
+          "json_pointer": "/url_rules/space",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/comma",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/question",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/forbidden",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/char_codes",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/prompt",
+          "kind": "url_template",
+          "status": "preserved"
+        }
+      ],
+      "manual_lite_additions": [
+        "spa_svg:사피아(SPA)는 main image code 기준; SVG char 자동매핑 미확인 시 avatar/image 직접 지정"
+      ],
+      "chars": {
+        "original": 1014,
+        "lite": 935,
+        "unified": 965
+      },
+      "compression": {
+        "vs_original": 0.0483,
+        "vs_lite": -0.0321
+      },
+      "warnings": []
+    },
+    {
+      "id": "SVG_일정표_EN.json",
+      "index": 203,
+      "display_name": "SVG_일정표",
+      "category": "SVG",
+      "route_class": "02_media_format",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\SVG_일정표_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\SVG_일정표_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\SVG_일정표_EN.json",
+      "source_sha256": "2a080a3b1e8c7ac1a4c552d1474942952e0c6f5d04ff6417ed21e8d53c28949e",
+      "lite_sha256": "516ad65a4a896b8881dbd2a297c8a88d8e4c547a00df35835cec3f02f3339b46",
+      "unified_sha256": "a023af2008e7a59e81e9be84a27627b046a950476f3d80b8ae849d5a94cd4d7f",
+      "trigger_delta": "same",
+      "keyword_count": 19,
+      "keyword_sample": [
+        "일정표",
+        "일정",
+        "스케줄",
+        "스케쥴",
+        "스캐줄",
+        "schedule",
+        "오늘 일정",
+        "내일 일정"
+      ],
+      "protected_literals": [
+        {
+          "json_pointer": "/format",
+          "kind": "url_template",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_encoding",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/example",
+          "kind": "url_template",
+          "status": "preserved"
+        }
+      ],
+      "manual_lite_additions": [],
+      "chars": {
+        "original": 1944,
+        "lite": 1560,
+        "unified": 1624
+      },
+      "compression": {
+        "vs_original": 0.1646,
+        "vs_lite": -0.041
+      },
+      "warnings": []
+    },
+    {
+      "id": "SVG_차트_EN.json",
+      "index": 204,
+      "display_name": "SVG_차트",
+      "category": "SVG",
+      "route_class": "02_media_format",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\SVG_차트_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\SVG_차트_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\SVG_차트_EN.json",
+      "source_sha256": "de679993999b373411827bcd0dc86a5368201a529ec4dcf8883f98b4d54c76ed",
+      "lite_sha256": "171c8674c72d4c23cc5760f5fca83a4fa20a7cd7821a4c40461887256c895461",
+      "unified_sha256": "787976fb23ae8aebe2fa31657c2d4a9f8f1a0c18b9ff84b0ad805de4d19b4b8f",
+      "trigger_delta": "same",
+      "keyword_count": 7,
+      "keyword_sample": [
+        "PRIME CHART",
+        "프라임 차트",
+        "차트",
+        "순위",
+        "1위",
+        "음원",
+        "진입"
+      ],
+      "protected_literals": [
+        {
+          "json_pointer": "/url_rules/space",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/comma",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/question",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/forbidden",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/char_codes",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/prompt",
+          "kind": "url_template",
+          "status": "preserved"
+        }
+      ],
+      "manual_lite_additions": [
+        "spa_svg:사피아(SPA)는 main image code 기준; SVG char 자동매핑 미확인 시 avatar/image 직접 지정"
+      ],
+      "chars": {
+        "original": 1194,
+        "lite": 1115,
+        "unified": 1145
+      },
+      "compression": {
+        "vs_original": 0.041,
+        "vs_lite": -0.0269
+      },
+      "warnings": []
+    },
+    {
+      "id": "SVG_커뮤니티_EN.json",
+      "index": 205,
+      "display_name": "SVG_커뮤니티",
+      "category": "SVG",
+      "route_class": "02_media_format",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\SVG_커뮤니티_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\SVG_커뮤니티_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\SVG_커뮤니티_EN.json",
+      "source_sha256": "eea4abdd6e3da403a2962d11a0da4fc9672c93a02ba0929c1f197fd65d27edbe",
+      "lite_sha256": "c551371e27a7ec93272a4a4cfe2a4d8ba5f5444a28f1a57901c663ec1b826b1a",
+      "unified_sha256": "465d5ff3c9680f5045fbac03db375ff0cff94494dfa28b84086ff805de2b7e89",
+      "trigger_delta": "same",
+      "keyword_count": 8,
+      "keyword_sample": [
+        "CITY BOARD",
+        "시티보드",
+        "갤러리",
+        "게시판",
+        "커뮤",
+        "댓글",
+        "반응",
+        "여론"
+      ],
+      "protected_literals": [
+        {
+          "json_pointer": "/url_rules/space",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/comma",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/question",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/forbidden",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/char_codes",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/prompt",
+          "kind": "url_template",
+          "status": "preserved"
+        }
+      ],
+      "manual_lite_additions": [
+        "spa_svg:사피아(SPA)는 main image code 기준; SVG char 자동매핑 미확인 시 avatar/image 직접 지정"
+      ],
+      "chars": {
+        "original": 1248,
+        "lite": 1169,
+        "unified": 1199
+      },
+      "compression": {
+        "vs_original": 0.0393,
+        "vs_lite": -0.0257
+      },
+      "warnings": []
+    },
+    {
+      "id": "SVG_태블릿_EN.json",
+      "index": 206,
+      "display_name": "SVG_태블릿",
+      "category": "SVG",
+      "route_class": "02_media_format",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\SVG_태블릿_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\SVG_태블릿_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\SVG_태블릿_EN.json",
+      "source_sha256": "97689ed417965fdaed423cde50c413fdd91cfe81c7519c64ee561bc23e4a6616",
+      "lite_sha256": "662531bc00b976a7fe8050b0469da0e0c1412caa1f8bd823d6da93fb09812796",
+      "unified_sha256": "abdd646a102c5bf61036c0ec6b2fde4c012f9b6fd4f673f74f166bc8b017e214",
+      "trigger_delta": "same",
+      "keyword_count": 5,
+      "keyword_sample": [
+        "PPP BRIEFING",
+        "초대장",
+        "태블릿",
+        "브리핑",
+        "PPP"
+      ],
+      "protected_literals": [
+        {
+          "json_pointer": "/url_rules/space",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/comma",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/question",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/forbidden",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/char_codes",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/prompt",
+          "kind": "url_template",
+          "status": "preserved"
+        }
+      ],
+      "manual_lite_additions": [
+        "spa_svg:사피아(SPA)는 main image code 기준; SVG char 자동매핑 미확인 시 avatar/image 직접 지정"
+      ],
+      "chars": {
+        "original": 1152,
+        "lite": 1086,
+        "unified": 1103
+      },
+      "compression": {
+        "vs_original": 0.0425,
+        "vs_lite": -0.0157
+      },
+      "warnings": []
+    },
+    {
+      "id": "SVG_트윗_EN.json",
+      "index": 207,
+      "display_name": "SVG_트윗",
+      "category": "SVG",
+      "route_class": "02_media_format",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\SVG_트윗_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\SVG_트윗_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\SVG_트윗_EN.json",
+      "source_sha256": "3f1483785b05e3a4fcb25ac6298e3a92d72677d3df4e605213cb7d34705426a4",
+      "lite_sha256": "93034402cea43c38a27e9d3cd78e16ecc1f0aa4ce3161da9628045dc047b372c",
+      "unified_sha256": "ea6199e87661be26eed858e9f286189eb87ae807a9ed52a1c59243cde89e1601",
+      "trigger_delta": "same",
+      "keyword_count": 7,
+      "keyword_sample": [
+        "SIGNAL",
+        "시그널",
+        "트윗",
+        "리포스트",
+        "화제",
+        "언급",
+        "트위터"
+      ],
+      "protected_literals": [
+        {
+          "json_pointer": "/url_rules/space",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/comma",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/question",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/forbidden",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/url_rules/char_codes",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/prompt",
+          "kind": "url_template",
+          "status": "preserved"
+        }
+      ],
+      "manual_lite_additions": [
+        "spa_svg:사피아(SPA)는 main image code 기준; SVG char 자동매핑 미확인 시 avatar/image 직접 지정"
+      ],
+      "chars": {
+        "original": 1130,
+        "lite": 1064,
+        "unified": 1081
+      },
+      "compression": {
+        "vs_original": 0.0434,
+        "vs_lite": -0.016
+      },
+      "warnings": []
+    },
+    {
+      "id": "이미지_NSFW_EN.json",
+      "index": 208,
+      "display_name": "이미지_NSFW",
+      "category": "이미지",
+      "route_class": "02_media_format",
+      "strategy": "hybrid_flatten_with_original_footer",
+      "source_path": "docs\\prompts\\json\\이미지_NSFW_EN.json",
+      "lite_path": "docs\\prompts\\json_lite\\이미지_NSFW_EN.json",
+      "unified_path": "docs\\prompts\\json_unified\\이미지_NSFW_EN.json",
+      "source_sha256": "f0867231e26b56d1bde782cf3a788315cdc99a3ca92626614dff52746e303364",
+      "lite_sha256": "047b11f77574ef72d8f99f413c11460edfefa41c0eebb70918c6b95c4e095268",
+      "unified_sha256": "6b1a10ed86dd5efb9a43c9e5a43400bce484ab772b33eb702d79a75edaa2f1f5",
+      "trigger_delta": "same",
+      "keyword_count": 1,
+      "keyword_sample": [
+        "🔞"
+      ],
+      "protected_literals": [
+        {
+          "json_pointer": "/img/url",
+          "kind": "url_template",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/img/critical",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/img/db/nsfw_비삽입",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/img/db/nsfw_삽입",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/img/db/nsfw_착의_침실",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/img/db/nsfw_착의_화장실",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/img/db/nsfw_삽입직전",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/img/db/nsfw_사후벌림",
+          "kind": "output_format",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/img/examples/0",
+          "kind": "url_template",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/img/examples/1",
+          "kind": "url_template",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/img/examples/2",
+          "kind": "url_template",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/img/examples/3",
+          "kind": "url_template",
+          "status": "preserved"
+        },
+        {
+          "json_pointer": "/img/examples/4",
+          "kind": "url_template",
+          "status": "preserved"
+        }
+      ],
+      "manual_lite_additions": [
+        "state_exit:NSFW 종료(사후대화/일상복귀) 시 🔞 제거, 메인 감정/일상/로맨스/무대 DB 복귀"
+      ],
+      "chars": {
+        "original": 3353,
+        "lite": 2674,
+        "unified": 2919
+      },
+      "compression": {
+        "vs_original": 0.1294,
+        "vs_lite": -0.0916
+      },
+      "warnings": []
+    }
+  ]
+}

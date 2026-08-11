@@ -1,82 +1,33 @@
 node_modules/
 dist/
-.claude/*
-!.claude/skills/
+.wrangler/
+.ruff_cache/
+**/__pycache__/
+*.py[cod]
+*.log
+*.pid
 
-# wrangler files
-.wrangler
-.dev.vars*
-!.dev.vars.example
 .env*
 !.env.example
-
-# Large binary assets (use CDN instead)
-캐릭터 이미지/
-캐릭터 이미지.zip
-char_img/
-배경/
-
-# Backups & external plugins
-backup_local/
-everything-claude-code/
-
-# Tools sensitive/temp files
+.dev.vars*
+!.dev.vars.example
 tools/.nai_token
-tools/generation_state.json
-tools/generation.log
-tools/parsed_scenes.json
-tools/__pycache__/
-tools/censor.log
-tools/_run_*.sh
-tools/.r2_uploaded.json
-tools/r2_sync.log
-tools/r2_sync.pid
-tools/asset_gen_bg.pid
-tools/asset_gen_bg_*.log
-tools/r2_fullsync*.log
-tools/.r2_fullsync_failed.json
 
-# Models (large binary, download separately)
+char_img/
+char_img_metadata/
+char_img_censor_tests/
 models/
+assets/marketing/masters/*.clip
 
-# Playwright cache
-.playwright-mcp/
+tools/.r2_uploaded.json
+tools/.r2_fullsync_failed.json
+tools/generation_state*.json
+tools/generation_log_*.txt
+tools/asset_config.bak.json
 
-# Research docs (generated, not source)
-research.md
-**/research_sub.md
-
-# Misc temp
-*.bak
-docs/ntd11_feedback_reference.zip
-docs/ntd11_refactoring_feedback.html
-
-# IDE
+.claude/
+.remember/
+.reports/
 .vs/
 .vscode/
-
-# Image backups (large, local only)
-char_img_backup/
-char_img_bak_*/
-
-# Cover art / banner drafts (large binary)
-banner*.png
-banner*.webp
-표지*
-섹스웅.json
-
-# Feedback / test images (local only)
-img-for-feedback/
-tools/test_samples/
-ent/
-
-# Generation logs (runtime, not source)
-tools/generation_log_*.txt
-tools/generation_state.bak*.json
-tools/generation_state_backup.json
-tools/asset_config.bak.json
-tools/run_remaining.sh
-tools/run_sequential.sh
-
-# NAI backup configs
-docs/image-rules/nais2-backup-*.json
+.playwright-mcp/

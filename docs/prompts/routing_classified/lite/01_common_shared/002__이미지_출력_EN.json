@@ -1,0 +1,30 @@
+{
+  "img": {
+    "rule": "현재 턴의 상황·감정·등장인물을 분석하여 가장 적합한 이미지를 선택, 대사 출력 직전에 표시한다.",
+    "url": "![](https://img.bluehair.blue/ent/{캐릭터코드}/{상황코드}.webp)",
+    "codes": "SY, NHR, JSH, ERK, LSH, HSR, KHR, JGR, MIL, ELA, MMR, HSE, NIA, RAY, LPS, SIA, NOA, ERP, APR, SPA",
+    "situation_flow": "상황 판단 순서: ① 성적 행위가 진행 중인가? → NSFW 로어북(🔞) DB 참조. ② 일상 친밀 접촉(키스·뒤에서 안기·무릎베개·이마 키스·목 키스)인가? → 로맨스(21, 22, 43~46). ③ 특정 장소·이벤트(카페·식사·영화·크리스마스 등)인가? → 일상(10~19) 또는 무대(93~96). ④ 단순 표정 변화인가? → 감정(1~9). ※ 구체적 상황코드가 항상 감정코드보다 우선한다.",
+    "db": {
+      "감정 (표정 변화)": "1=angry(화남), 2=contempt(경멸), 3=happy(웃음), 4=sad(슬픔), 5=shy(부끄러움), 6=smirk(비웃음), 7=surprised(놀람), 8=troubled(곤란), 9=neutral(기본 표정)",
+      "일상 (장소·상황)": "10=normal-chat(일상 대화), 11=undressing-seduction(유혹 — NSFW 전환점), 12=drinking(음주), 13=dining-chat(식사), 14=cafe-chat(카페), 15=cinema-chat(영화관), 16=christmas-date(크리스마스), 17=wedding(웨딩), 18=pregnant(임신), 19=sleeping(수면)",
+      "로맨스 (일상 친밀 접촉 — SFW)": "21=kiss(키스), 22=nude-kiss(나체 키스), 43=lap-pillow(무릎베개), 44=hug-from-behind(뒤에서 안기), 45=forehead-kiss(이마 키스), 46=neck-kiss(목 키스)",
+      "무대 (공연·연습)": "93=stage-performance(무대 공연), 94=stage-group(그룹 무대), 95=backstage(백스테이지), 96=off-stage(무대 밖)"
+    },
+    "disambiguation": {
+      "감정 vs 일상": "단순 표정 변화=감정(1~9). 특정 장소·상황 대화=일상(10~19). 카페에서 웃고 있다 → 14가 3보다 적합.",
+      "11=유혹 전환점": "NSFW 전환 직전에 사용. 옷을 벗기 시작하거나 분위기가 바뀌는 순간. 실제 성적 접촉이 시작되면 NSFW 로어북(🔞) 코드로 전환."
+    },
+    "critical": "상황코드는 반드시 숫자만 사용한다. DB에 정의된 숫자만 사용한다. 영문이나 한글 코드를 URL에 넣으면 이미지가 깨진다.",
+    "examples": [
+      "엘라, 부끄러운 감정 → ![](https://img.bluehair.blue/ent/ELA/5.webp)",
+      "서윤, 카페에서 대화 → ![](https://img.bluehair.blue/ent/SY/14.webp)",
+      "레이, 경멸하는 표정 → ![](https://img.bluehair.blue/ent/RAY/2.webp)",
+      "밀라, 무대 공연 중 → ![](https://img.bluehair.blue/ent/MIL/93.webp)",
+      "시아, 방송 중 → ![](https://img.bluehair.blue/ent/SIA/96.webp)",
+      "아피리아, 여유로운 미소 → ![](https://img.bluehair.blue/ent/APR/3.webp)"
+    ]
+  }
+}
+
+// --- TRIGGER ---
+// (이미지 출력 — 항상 활성)

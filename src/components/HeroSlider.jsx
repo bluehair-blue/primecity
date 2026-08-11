@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { Link } from "react-router-dom";
 import C from "../styles/tokens";
-import { EDENCHAT_PLAYER_URL } from "../data/links";
 import { cdnUrl } from "../utils/cdn";
 
 const BG_IMAGES = Array.from({ length: 9 }, (_, i) =>
@@ -328,10 +328,8 @@ export default function HeroSlider({ isMobile }) {
           zIndex: 2,
         }}
       >
-        <a
-          href={EDENCHAT_PLAYER_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/persona-forge"
           style={{
             padding: isMobile ? "13px 0" : "13px 38px",
             width: isMobile ? "100%" : "auto",
@@ -351,8 +349,8 @@ export default function HeroSlider({ isMobile }) {
             display: "inline-block",
           }}
         >
-          플레이 시작
-        </a>
+          페르소나 만들기
+        </Link>
         <a
           href="#world"
           style={{
