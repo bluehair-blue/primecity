@@ -25,7 +25,7 @@ jobs:
         run: npm ci --prefer-offline
 
       - name: Audit dependencies
-        run: npm audit --audit-level=moderate
+        run: npm audit --audit-level=low
 
       - name: Validate Persona Forge scenarios
         run: npm run validate:persona

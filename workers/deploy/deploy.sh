@@ -56,3 +56,7 @@ echo "Routes registered (domain/* pattern, /ent/ is URL path):"
 for NAME in "${!ROUTES[@]}"; do
   echo "  $NAME → ${ROUTES[$NAME]}.${DOMAIN}/*"
 done
+
+if [ "$FAIL" -ne 0 ]; then
+  exit 1
+fi

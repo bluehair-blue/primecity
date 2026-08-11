@@ -22,4 +22,4 @@ bash deploy.sh
 REAL_DEPLOY=1 bash deploy.sh
 ```
 
-이미지 포함 Worker는 외부 URL을 fetch한 뒤 data URI로 인라인해야 한다. 실제 배포 전 10개 JS의 `node --check`와 Wrangler dry-run 번들을 모두 통과시킨다. dry-run 결과의 업로드 크기가 각 SVG Worker 크기와 비슷해야 하며 사이트 전체 번들이 반복되면 config 격리가 실패한 것이다. 새 subdomain은 DNS CNAME과 route를 함께 확인한다.
+이미지 포함 Worker는 외부 URL을 fetch한 뒤 data URI로 인라인해야 한다. 실제 배포 전 10개 JS의 `node --check`와 Wrangler dry-run 번들을 모두 통과시킨다. dry-run 결과의 업로드 크기가 각 SVG Worker 크기와 비슷해야 하며 사이트 전체 번들이 반복되면 config 격리가 실패한 것이다. 실배포 후 10개 공개 route에서 HTTP 200, `image/svg+xml`, 유효한 `<svg>` 루트, CORS `*`를 전수 확인하고 이미지 포함 6종은 모든 `<image href>`가 `data:image/`인지 확인한다.

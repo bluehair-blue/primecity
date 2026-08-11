@@ -6,10 +6,10 @@
 npm ci
 npm run validate:persona
 npm run build
-npm audit --audit-level=moderate
+npm audit --audit-level=low
 ```
 
-Node 기준 버전은 CI와 같은 22.11.0이다. `npm audit fix --force`는 기능 변경과 분리하여 승인 후 실행한다.
+Node 기준 버전은 CI와 같은 22.11.0이다. 낮은 심각도까지 0건을 유지하며, `npm audit fix --force`는 기능 변경과 분리하여 승인 후 실행한다.
 
 ## 배포
 
