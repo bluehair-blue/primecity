@@ -6,9 +6,11 @@ import C from "./styles/tokens";
 const CharDetail = lazy(() => import("./pages/CharDetail"));
 const SvgIntro = lazy(() => import("./pages/SvgIntro"));
 const Gallery = lazy(() => import("./pages/Gallery"));
+const PhotoBooth = lazy(() => import("./pages/PhotoBooth"));
 const Updates = lazy(() => import("./pages/Updates"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Works = lazy(() => import("./pages/Works"));
+const PrismPriorityTest = lazy(() => import("./pages/PrismPriorityTest"));
 const PersonaForgePage = lazy(() => import("./pages/persona-cyoa/PersonaForgePage"));
 const ChatPersonaDraftPage = lazy(() => import("./pages/ChatPersonaDraftPage"));
 const ModeAudition = lazy(() => import("./pages/ModeAudition"));
@@ -58,9 +60,11 @@ export default function App() {
           <Route path="/characters/:name" element={<CharDetail />} />
           <Route path="/svg" element={<SvgIntro />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/photo-booth" element={<PhotoBooth />} />
           <Route path="/updates" element={<Updates />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/works" element={<Works />} />
+          <Route path="/prism-priority-test" element={<PrismPriorityTest />} />
           <Route path="/persona-forge" element={<PersonaForgePage />} />
           <Route path="/persona-cyoa" element={<PersonaForgePage />} />
           <Route path="/chat" element={<ChatPersonaDraftPage />} />

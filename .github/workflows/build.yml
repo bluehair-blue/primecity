@@ -30,5 +30,8 @@ jobs:
       - name: Validate Persona Forge scenarios
         run: npm run validate:persona
 
+      - name: Validate frontend routes
+        run: npm run validate:routes
+
       - name: Build
         run: npm run build

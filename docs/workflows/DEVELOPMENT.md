@@ -5,6 +5,7 @@
 ```powershell
 npm ci
 npm run validate:persona
+npm run validate:routes
 npm run build
 npm audit --audit-level=low
 ```
@@ -18,4 +19,4 @@ Node 기준 버전은 CI와 같은 22.11.0이다. 낮은 심각도까지 0건을
 - 수동 검증은 `npx wrangler deploy --dry-run --config wrangler.jsonc`로 먼저 수행한다.
 - 실제 배포는 빌드·audit 결과와 diff를 확인한 후 `npm run deploy`로 수행한다.
 
-CI 진입점은 `.github/workflows/build.yml` 하나이며 설치, audit, Persona 검증, build 순서로 실행한다.
+CI 진입점은 `.github/workflows/build.yml` 하나이며 설치, audit, Persona 검증, 프론트엔드 라우트 검증, build 순서로 실행한다.

@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "validate:persona": "node tools/validate-persona-cyoa.mjs",
+    "validate:routes": "node tools/validate-routes.mjs",
     "build": "vite build",
     "preview": "npm run build && wrangler dev",
     "deploy": "npm run build && wrangler deploy"
