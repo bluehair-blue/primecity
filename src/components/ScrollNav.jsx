@@ -6,6 +6,7 @@ const sections = [
   { id: "intro", label: "소개", en: "About" },
   { id: "characters", label: "캐릭터", en: "Characters" },
   { id: "world", label: "세계관", en: "World" },
+  { id: "setting-book", label: "설정집", en: "Archive" },
   { id: "modes", label: "게임 모드", en: "Modes" },
   { id: "explore", label: "더 보기", en: "Explore" },
 ];

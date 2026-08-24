@@ -358,6 +358,8 @@ function MobileCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageCha
                 <img
                   src={char.sign}
                   alt={`${char.name} signature`}
+                  width={1408}
+                  height={768}
                   style={{
                     maxWidth: 160,
                     height: "auto",
@@ -805,6 +807,8 @@ function DesktopCarousel({ idx, fade, char, switchTo, prevPage, nextPage, pageCh
               <img
                 src={char.sign}
                 alt={`${char.name} signature`}
+                width={1408}
+                height={768}
                 style={{
                   maxWidth: 220,
                   height: "auto",

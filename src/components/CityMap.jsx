@@ -133,6 +133,8 @@ export default function CityMap({ isMobile }) {
           <img
             src={BASE_SRC}
             alt="프라임시티 탑뷰 맵"
+            width={1380}
+            height={752}
             loading="lazy"
             onLoad={handleImgLoad}
             style={{

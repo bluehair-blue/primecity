@@ -26,6 +26,10 @@
 | 세계관 | `docs/worldbuilding/` | 사람이 수정 |
 | 이미지 규칙 | `docs/image-rules/` | 현행 프리셋만 보존 |
 
+읽기용 통합 문서: [`docs/worldbuilding/캐릭터 설정집.md`](worldbuilding/캐릭터%20설정집.md)
+
+읽기용 통합 문서: [세계관 설정집](worldbuilding/세계관%20설정집.md)
+
 ## 로컬 전용 핵심 자산
 
 - `char_img/`: 정화된 WebP 기준 이미지 2,003개와 보조 파일

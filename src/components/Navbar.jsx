@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import C from "../styles/tokens";
 import { EDENCHAT_PLAYER_URL } from "../data/links";
+import useIsMobile from "../hooks/useIsMobile";
 
-export default function Navbar({ scrolled, isMobile }) {
+export default function Navbar({ scrolled, isMobile: mobileProp }) {
+  const isMobile = useIsMobile(900) || mobileProp;
   const [open, setOpen] = useState(false);
   const [extConfirm, setExtConfirm] = useState(null);
 
@@ -18,6 +20,7 @@ export default function Navbar({ scrolled, isMobile }) {
     { label: "소개", href: "/#intro" },
     { label: "캐릭터", href: "/#characters" },
     { label: "세계관", href: "/#world" },
+    { label: "설정집", href: "/#setting-book" },
     { label: "갤러리", href: "/gallery", route: true },
     { label: "포지", href: "/persona-forge", route: true },
     { label: "더 알아보기", href: "/#explore" },
@@ -235,6 +238,7 @@ export default function Navbar({ scrolled, isMobile }) {
         <div
           role="dialog"
           aria-modal={open ? "true" : undefined}
+          aria-hidden={!open}
           aria-label="모바일 메뉴"
           style={{
             position: "fixed",
@@ -248,8 +252,9 @@ export default function Navbar({ scrolled, isMobile }) {
             justifyContent: "center",
             gap: 28,
             opacity: open ? 1 : 0,
+            visibility: open ? "visible" : "hidden",
             pointerEvents: open ? "auto" : "none",
-            transition: "opacity 0.4s cubic-bezier(0.22,1,0.36,1)",
+            transition: `opacity 0.4s cubic-bezier(0.22,1,0.36,1), visibility 0s linear ${open ? "0s" : "0.4s"}`,
           }}
         >
           {links.map((l, i) =>

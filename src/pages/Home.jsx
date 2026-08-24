@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar";
 import HeroSlider from "../components/HeroSlider";
 import CharCarousel from "../components/CharCarousel";
 import CityMap from "../components/CityMap";
+import LoreSection from "../components/LoreSection";
 import GameModes from "../components/GameModes";
 import TriangleNav from "../components/TriangleNav";
 import Footer from "../components/Footer";
@@ -217,6 +218,25 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (!id) return undefined;
+
+    let active = true;
+    const scrollToHash = () => {
+      if (active) document.getElementById(id)?.scrollIntoView({ block: "start" });
+    };
+    const frame = window.requestAnimationFrame(scrollToHash);
+    window.addEventListener("load", scrollToHash, { once: true });
+    document.fonts?.ready.then(scrollToHash);
+
+    return () => {
+      active = false;
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("load", scrollToHash);
+    };
+  }, []);
+
   return (
     <div
       style={{
@@ -224,7 +244,7 @@ export default function Home() {
         color: C.white,
         minHeight: "100vh",
         position: "relative",
-        overflowX: "hidden",
+        overflowX: "clip",
       }}
     >
       <Seo path="/" />
@@ -237,6 +257,8 @@ export default function Home() {
       <CharCarousel isMobile={isMobile} />
       <SectionDivider isMobile={isMobile} />
       <WorldSection isMobile={isMobile} />
+      <SectionDivider isMobile={isMobile} />
+      <LoreSection />
       <SectionDivider isMobile={isMobile} />
       <GameModes isMobile={isMobile} />
       <SectionDivider isMobile={isMobile} />
