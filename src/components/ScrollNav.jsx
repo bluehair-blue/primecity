@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import C from "../styles/tokens";
+import useIsMobile from "../hooks/useIsMobile";
 
 const sections = [
   { id: "hero", label: "히어로", en: "Hero" },
@@ -14,6 +15,7 @@ const sections = [
 export default function ScrollNav({ isMobile }) {
   const [active, setActive] = useState("hero");
   const [visible, setVisible] = useState(false);
+  const compact = useIsMobile(900) || isMobile;
 
   useEffect(() => {
     function onScroll() {
@@ -50,19 +52,21 @@ export default function ScrollNav({ isMobile }) {
 
   if (!visible) return null;
 
-  if (isMobile) {
+  if (compact) {
+    if (active === "setting-book") return null;
+
     return (
       <nav
         style={{
           position: "fixed",
-          right: 8,
+          right: 0,
           top: "50%",
           transform: "translateY(-50%)",
           zIndex: 90,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 12,
+          gap: 0,
           opacity: visible ? 1 : 0,
           transition: "opacity 0.3s",
         }}
@@ -70,24 +74,37 @@ export default function ScrollNav({ isMobile }) {
         {sections.map((s) => {
           const isActive = active === s.id;
           return (
-            <button
-              key={s.id}
-              onClick={() => scrollTo(s.id)}
-              aria-label={s.label}
-              style={{
-                width: isActive ? 10 : 6,
-                height: isActive ? 10 : 6,
-                borderRadius: "50%",
+          <button
+            key={s.id}
+            onClick={() => scrollTo(s.id)}
+            aria-label={s.label}
+            style={{
+                display: "grid",
+                placeItems: "center",
+                width: 32,
+                height: 44,
                 border: "none",
-                background: isActive ? C.primeBlue : C.text25,
+                background: "none",
                 cursor: "pointer",
                 padding: 0,
-                transition: "width 0.25s ease-out, height 0.25s ease-out, background 0.25s ease-out, box-shadow 0.25s ease-out",
-                boxShadow: isActive
-                  ? `0 0 8px oklch(0.62 0.20 252 / 0.5)`
-                  : "none",
+                outlineOffset: -2,
               }}
-            />
+            >
+              <span
+                aria-hidden="true"
+                style={{
+                  display: "block",
+                  width: isActive ? 10 : 6,
+                  height: isActive ? 10 : 6,
+                  borderRadius: "50%",
+                  background: isActive ? C.primeBlue : C.text25,
+                  transition: "width 0.25s ease-out, height 0.25s ease-out, background 0.25s ease-out, box-shadow 0.25s ease-out",
+                  boxShadow: isActive
+                    ? `0 0 8px oklch(0.62 0.20 252 / 0.5)`
+                    : "none",
+                }}
+              />
+            </button>
           );
         })}
       </nav>

@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import C from "../styles/tokens";
-import useIsMobile from "../hooks/useIsMobile";
 import useReveal from "../hooks/useReveal";
 import { characters } from "../data/characters";
+import "./LoreSection.css";
 
 const chapters = [
   ["archive-intro", "도시 개요"],
@@ -82,113 +82,97 @@ function getCharacter(id) {
   return characters.find((character) => character.id === id);
 }
 
-function RevealRecord({ id, eyebrow, title, children, isMobile }) {
-  const [ref, visible] = useReveal(0.1);
+function RevealRecord({ id, number, eyebrow, title, variant, children }) {
+  const [ref, visible] = useReveal(0.08);
 
   return (
-    <div id={id}>
+    <div id={id} className="lore-anchor">
       <article
         ref={ref}
-        style={{
-          minHeight: isMobile ? "auto" : "72vh",
-          padding: isMobile ? "56px 0" : "96px 0",
-          borderTop: `1px solid ${C.border06}`,
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(24px)",
-          transition: "opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1)",
-        }}
+        className={`lore-record lore-record--${variant}${visible ? " is-visible" : ""}`}
+        aria-labelledby={`${id}-title`}
       >
-        <span
-          style={{
-            display: "block",
-            marginBottom: 14,
-            color: C.gold,
-            fontFamily: "var(--f-display-en)",
-            fontSize: 10,
-            letterSpacing: "0.34em",
-            textTransform: "uppercase",
-          }}
-        >
-          {eyebrow}
-        </span>
-        <h3
-          style={{
-            maxWidth: 760,
-            margin: "0 0 28px",
-            color: C.white,
-            fontFamily: "var(--f-display-kr)",
-            fontSize: isMobile ? "clamp(25px, 8vw, 36px)" : "clamp(34px, 4vw, 56px)",
-            fontWeight: 500,
-            lineHeight: 1.35,
-            wordBreak: "keep-all",
-          }}
-        >
-          {title}
-        </h3>
-        {children}
+        <span className="lore-record__watermark" aria-hidden="true">{number}</span>
+        <header className="lore-record__header">
+          <span className="lore-record__eyebrow">{eyebrow}</span>
+          <h3 id={`${id}-title`} className="lore-record__title">{title}</h3>
+        </header>
+        <div className="lore-record__body">{children}</div>
       </article>
     </div>
   );
 }
 
-function CharacterRecord({ character, isMobile }) {
+function CharacterRecord({ character }) {
   if (!character) return null;
 
   return (
     <Link
       to={character.detailPath}
-      style={{
-        display: "grid",
-        gridTemplateColumns: isMobile ? "76px 1fr" : "112px 1fr auto",
-        alignItems: "center",
-        gap: isMobile ? 16 : 24,
-        padding: isMobile ? "18px 0" : "22px 0",
-        color: C.text90,
-        textDecoration: "none",
-        borderTop: `1px solid ${C.border10}`,
-      }}
+      className="lore-character-record"
       aria-label={`${character.name} 상세 기록 보기`}
     >
-      <img
-        src={character.thumbnail || character.image}
-        alt=""
-        loading="lazy"
-        style={{
-          width: isMobile ? 76 : 112,
-          aspectRatio: "1 / 1",
-          objectFit: "cover",
-          border: `1px solid ${C.goldMuted}`,
-        }}
-      />
-      <span>
-        <strong
-          style={{
-            display: "block",
-            marginBottom: 5,
-            fontFamily: "var(--f-display-kr)",
-            fontSize: isMobile ? 17 : 20,
-            fontWeight: 600,
-          }}
-        >
-          {character.name}
-        </strong>
-        <span style={{ display: "block", color: C.text45, fontFamily: "var(--f-body)", fontSize: 12, lineHeight: 1.7 }}>
-          {character.role} · {character.agency}
-        </span>
+      <span className="lore-character-record__portrait" aria-hidden="true">
+        <img src={character.thumbnail || character.image} alt="" loading="lazy" />
       </span>
-      {!isMobile && (
-        <span aria-hidden="true" style={{ color: C.gold, fontFamily: "var(--f-display-en)", fontSize: 18 }}>
-          →
-        </span>
-      )}
+      <span className="lore-character-record__copy">
+        <strong>{character.name}</strong>
+        <span>{character.role} · {character.agency}</span>
+      </span>
+      <span className="lore-character-record__arrow" aria-hidden="true">→</span>
     </Link>
   );
 }
 
 export default function LoreSection() {
-  const isMobile = useIsMobile(768);
   const [selectedTheme, setSelectedTheme] = useState(themes[0].id);
-  const activeTheme = themes.find((theme) => theme.id === selectedTheme);
+  const [activeChapter, setActiveChapter] = useState(chapters[0][0]);
+  const activeTheme = themes.find((theme) => theme.id === selectedTheme) || themes[0];
+  const activeChapterIndex = Math.max(0, chapters.findIndex(([id]) => id === activeChapter));
+  const activeChapterNumber = String(activeChapterIndex + 1).padStart(2, "0");
+
+  useEffect(() => {
+    const hashId = window.location.hash.slice(1);
+    const hasChapterHash = chapters.some(([id]) => id === hashId);
+    if (hasChapterHash) setActiveChapter(hashId);
+
+    const targets = chapters
+      .map(([id]) => document.getElementById(id))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const current = entries.find((entry) => entry.isIntersecting);
+        if (current) setActiveChapter(current.target.id);
+      },
+      { rootMargin: "-28% 0px -58% 0px", threshold: 0 }
+    );
+
+    targets.forEach((target) => observer.observe(target));
+
+    let hashFrame;
+    if (hasChapterHash) {
+      hashFrame = window.requestAnimationFrame(() => {
+        hashFrame = window.requestAnimationFrame(() => {
+          const target = document.getElementById(hashId);
+          if (!target) return;
+
+          const root = document.documentElement;
+          const previousBehavior = root.style.scrollBehavior;
+          root.style.scrollBehavior = "auto";
+          target.scrollIntoView({ block: "start" });
+          window.requestAnimationFrame(() => {
+            root.style.scrollBehavior = previousBehavior;
+          });
+        });
+      });
+    }
+
+    return () => {
+      observer.disconnect();
+      if (hashFrame) window.cancelAnimationFrame(hashFrame);
+    };
+  }, []);
 
   function selectTheme(index) {
     const theme = themes[index];
@@ -204,171 +188,244 @@ export default function LoreSection() {
     else selectTheme((index + (["ArrowRight", "ArrowDown"].includes(event.key) ? 1 : -1) + themes.length) % themes.length);
   }
 
+  function handleChapterChange(event) {
+    const id = event.target.value;
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    setActiveChapter(id);
+    window.history.replaceState(window.history.state, "", `#${id}`);
+    target.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      block: "start",
+    });
+  }
+
   return (
     <section
       id="setting-book"
+      className="lore-section"
       aria-labelledby="setting-book-title"
       style={{
-        position: "relative",
-        zIndex: 2,
-        padding: isMobile ? "72px 20px 96px" : "120px 48px 160px",
-        background: `linear-gradient(180deg, transparent, ${C.bgCard} 18%, ${C.bgDeep} 82%, transparent)`,
+        "--lore-bg": C.bgDeep,
+        "--lore-bg-card": C.bgCard,
+        "--lore-bg-overlay": C.bgOverlay,
+        "--lore-gold": C.gold,
+        "--lore-gold-muted": C.goldMuted,
+        "--lore-gold-dim": C.goldDim,
+        "--lore-gold-text": C.goldText,
+        "--lore-blue": C.primeBlue,
+        "--lore-blue-muted": C.primeBlueMuted,
+        "--lore-blue-dim": C.primeBlueDim,
+        "--lore-white": C.white,
+        "--lore-text-90": C.text90,
+        "--lore-text-70": C.text70,
+        "--lore-text-55": C.text55,
+        "--lore-text-45": C.text45,
+        "--lore-text-35": C.text35,
+        "--lore-text-25": C.text25,
+        "--lore-text-15": C.text15,
+        "--lore-border-10": C.border10,
+        "--lore-border-06": C.border06,
+        "--lore-industrial": C.distIndustrial,
       }}
     >
-      <div aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `linear-gradient(90deg, ${C.bgDeep}, transparent 22%, transparent 78%, ${C.bgDeep})` }} />
+      <div className="lore-section__atmosphere" aria-hidden="true" />
 
-      <header style={{ position: "relative", maxWidth: 1120, margin: "0 auto", paddingBottom: isMobile ? 48 : 88 }}>
-        <span style={{ display: "block", marginBottom: 16, color: C.gold, fontFamily: "var(--f-display-en)", fontSize: 10, letterSpacing: "0.42em", textTransform: "uppercase" }}>
-          Prime City Archive
-        </span>
-        <h2 id="setting-book-title" style={{ margin: "0 0 22px", color: C.white, fontFamily: "var(--f-display-kr)", fontSize: isMobile ? "clamp(38px, 13vw, 58px)" : "clamp(62px, 8vw, 104px)", fontWeight: 500, lineHeight: 1.06 }}>
-          설정집
-        </h2>
-        <p style={{ maxWidth: 640, margin: 0, color: C.text55, fontFamily: "var(--f-body)", fontSize: isMobile ? 14 : 17, fontWeight: 300, lineHeight: 1.9, wordBreak: "keep-all" }}>
-          프라임시티의 구역과 업계 규칙, PPP, 주요 인물과 관계를 정리한 공개 기록이다.
-        </p>
+      <header className="lore-hero">
+        <div className="lore-hero__registry" aria-hidden="true">
+          <span>PRIME CITY</span>
+          <span>01—07</span>
+        </div>
+        <div className="lore-hero__copy">
+          <span className="lore-kicker">Prime City Archive</span>
+          <h2 id="setting-book-title">설정집</h2>
+          <p>프라임시티의 구역과 업계 규칙, PPP, 주요 인물과 관계를 정리한 공개 기록이다.</p>
+        </div>
+        <a className="lore-hero__enter" href="#archive-intro">
+          <span>Record 01</span>
+          <strong>도시 개요</strong>
+          <span className="lore-hero__enter-arrow" aria-hidden="true">↓</span>
+        </a>
       </header>
 
-      <div style={{ position: "relative", display: isMobile ? "block" : "grid", gridTemplateColumns: "160px minmax(0, 860px)", gap: 72, maxWidth: 1120, margin: "0 auto" }}>
-        {!isMobile && (
-          <nav aria-label="설정집 장" style={{ position: "sticky", top: 112, alignSelf: "start", paddingTop: 96 }}>
-            <span aria-hidden="true" style={{ display: "block", width: 1, height: 52, marginBottom: 22, background: `linear-gradient(${C.gold}, transparent)` }} />
+      <nav className="lore-mobile-index" aria-label="설정집 장 이동">
+        <label htmlFor="lore-chapter-select">
+          <span>현재 기록</span>
+          <strong>{activeChapterNumber} / {String(chapters.length).padStart(2, "0")}</strong>
+        </label>
+        <span className="lore-mobile-index__select">
+          <select id="lore-chapter-select" value={activeChapter} onChange={handleChapterChange}>
             {chapters.map(([id, label], index) => (
-              <a key={id} href={`#${id}`} style={{ display: "block", padding: "9px 0", color: C.text35, fontFamily: "var(--f-body)", fontSize: 11, letterSpacing: "0.05em", textDecoration: "none" }}>
-                <span aria-hidden="true" style={{ display: "inline-block", width: 24, color: C.goldText, fontFamily: "var(--f-display-en)" }}>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                {label}
-              </a>
+              <option key={id} value={id}>{String(index + 1).padStart(2, "0")} · {label}</option>
             ))}
-          </nav>
-        )}
+          </select>
+          <span aria-hidden="true">⌄</span>
+        </span>
+      </nav>
 
-        <div>
-          <RevealRecord id="archive-intro" eyebrow="Record 01" title="도시에 들어온 뒤에도 기회는 고르게 주어지지 않는다." isMobile={isMobile}>
-            <p style={{ maxWidth: 700, margin: 0, color: C.text55, fontFamily: "var(--f-body)", fontSize: isMobile ? 14 : 17, lineHeight: 2, wordBreak: "keep-all" }}>
+      <div className="lore-layout">
+        <aside className="lore-rail">
+          <nav aria-label="설정집 장">
+            <div className="lore-rail__status" aria-hidden="true">
+              <span>Record</span>
+              <strong>{activeChapterNumber}</strong>
+              <small>/ {String(chapters.length).padStart(2, "0")}</small>
+            </div>
+            <div className="lore-rail__navigation">
+              <span className="lore-rail__track" aria-hidden="true">
+                <span
+                  className="lore-rail__fill"
+                  style={{ transform: `scaleY(${(activeChapterIndex + 1) / chapters.length})` }}
+                />
+              </span>
+              <div className="lore-rail__links">
+                {chapters.map(([id, label], index) => {
+                  const active = id === activeChapter;
+                  return (
+                    <a
+                      key={id}
+                      href={`#${id}`}
+                      className={active ? "is-active" : undefined}
+                      aria-current={active ? "location" : undefined}
+                      onClick={() => setActiveChapter(id)}
+                    >
+                      <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                      <strong>{label}</strong>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          </nav>
+        </aside>
+
+        <div className="lore-records">
+          <RevealRecord id="archive-intro" number="01" eyebrow="Record 01" title="도시에 들어온 뒤에도 기회는 고르게 주어지지 않는다." variant="intro">
+            <p className="lore-copy lore-copy--lead">
               프라임시티는 재능과 야망이 교차하는 초거대 엔터테인먼트 특별자치구다. 오디션, 스카우트, 초대처럼 들어오는 길은 여럿이지만 도시 안의 기회와 자원은 같은 속도로 주어지지 않는다.
             </p>
           </RevealRecord>
 
-          <RevealRecord id="archive-rings" eyebrow="Record 02" title="프라임시티의 경력 구역은 네 개의 링으로 나뉜다." isMobile={isMobile}>
-            <div style={{ maxWidth: 760 }}>
+          <RevealRecord id="archive-rings" number="02" eyebrow="Record 02" title="프라임시티의 경력 구역은 네 개의 링으로 나뉜다." variant="rings">
+            <div className="lore-rings">
               {rings.map((ring, index) => (
-                <div key={ring.name} style={{ display: "grid", gridTemplateColumns: isMobile ? "42px 1fr" : "72px 180px 1fr", gap: isMobile ? 12 : 20, alignItems: "baseline", padding: isMobile ? "18px 0" : "22px 0", borderTop: `1px solid ${C.border10}` }}>
-                  <span aria-hidden="true" style={{ color: ring.color, fontFamily: "var(--f-display-en)", fontSize: isMobile ? 18 : 24 }}>
-                    {String(index + 1).padStart(2, "0")}
+                <div key={ring.name} className="lore-ring" style={{ "--ring-color": ring.color }}>
+                  <span className="lore-ring__marker" aria-hidden="true">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
                   </span>
-                  <strong style={{ color: C.white, fontFamily: "var(--f-display-en)", fontSize: isMobile ? 17 : 21, fontWeight: 500 }}>
-                    {ring.name}
-                  </strong>
-                  <span style={{ gridColumn: isMobile ? "2" : "auto", color: C.text45, fontFamily: "var(--f-body)", fontSize: 13, lineHeight: 1.7 }}>
-                    {ring.ko} · {ring.note}
-                  </span>
+                  <strong>{ring.name}</strong>
+                  <span>{ring.ko} · {ring.note}</span>
                 </div>
               ))}
-              <aside style={{ marginTop: 26, padding: isMobile ? "22px 0 0" : "26px 30px", borderTop: `1px solid ${C.distIndustrial}`, borderLeft: isMobile ? "none" : `1px solid ${C.distIndustrial}` }}>
-                <strong style={{ display: "block", marginBottom: 8, color: C.distIndustrial, fontFamily: "var(--f-display-en)", fontSize: 16, letterSpacing: "0.08em" }}>
-                  Industrial · 산업단지
-                </strong>
-                <p style={{ margin: 0, color: C.text45, fontFamily: "var(--f-body)", fontSize: 13, lineHeight: 1.8, wordBreak: "keep-all" }}>
-                  다섯 번째 경력 단계가 아니다. 장비·의상·세트·인력의 이동을 맡아 화려한 무대를 실제로 움직이는 별도의 기반시설이다.
-                </p>
+              <aside className="lore-industrial">
+                <strong>Industrial · 산업단지</strong>
+                <p>다섯 번째 경력 단계가 아니다. 장비·의상·세트·인력의 이동을 맡아 화려한 무대를 실제로 움직이는 별도의 기반시설이다.</p>
               </aside>
             </div>
           </RevealRecord>
 
-          <RevealRecord id="archive-rank" eyebrow="Record 03" title="공식 등급표 없이도 자원 접근 격차가 생긴다." isMobile={isMobile}>
-            <p style={{ maxWidth: 700, margin: "0 0 32px", color: C.text55, fontFamily: "var(--f-body)", fontSize: isMobile ? 14 : 17, lineHeight: 2, wordBreak: "keep-all" }}>
-              소속, 전적, 팬덤, 미디어 노출, 담당자의 네트워크가 접근 가능한 자원을 바꾼다. 이 차이에 따라 정상권·검증권·신인권·소진권이 비공식적으로 갈린다.
-            </p>
-            <blockquote style={{ maxWidth: 680, margin: 0, padding: isMobile ? "20px 0 20px 22px" : "26px 0 26px 34px", borderLeft: `1px solid ${C.gold}`, color: C.text90, fontFamily: "var(--f-display-kr)", fontSize: isMobile ? 18 : 24, lineHeight: 1.7, wordBreak: "keep-all" }}>
-              실패는 발표되지 않는다. 섭외가 끊긴다. 연습실의 시간이 줄고 연락하던 사람은 다른 이름을 부른다.
-            </blockquote>
+          <RevealRecord id="archive-rank" number="03" eyebrow="Record 03" title="공식 등급표 없이도 자원 접근 격차가 생긴다." variant="rank">
+            <div className="lore-rank-layout">
+              <p className="lore-copy">
+                소속, 전적, 팬덤, 미디어 노출, 담당자의 네트워크가 접근 가능한 자원을 바꾼다. 이 차이에 따라 정상권·검증권·신인권·소진권이 비공식적으로 갈린다.
+              </p>
+              <blockquote>실패는 발표되지 않는다. 섭외가 끊긴다. 연습실의 시간이 줄고 연락하던 사람은 다른 이름을 부른다.</blockquote>
+            </div>
           </RevealRecord>
 
-          <RevealRecord id="archive-ppp" eyebrow="Record 04" title="PPP는 프라임시티 최대 규모의 서바이벌 오디션이다." isMobile={isMobile}>
-            <p style={{ maxWidth: 700, margin: "0 0 38px", color: C.text55, fontFamily: "var(--f-body)", fontSize: isMobile ? 14 : 17, lineHeight: 2, wordBreak: "keep-all" }}>
+          <RevealRecord id="archive-ppp" number="04" eyebrow="Record 04" title="PPP는 프라임시티 최대 규모의 서바이벌 오디션이다." variant="ppp">
+            <p className="lore-copy">
               Produce · Prime · Priority. 기본 진행은 8명의 참가자로 시작해 6명, 3명으로 좁혀진다. 마지막 무대 뒤에는 참가자가 함께할 프로듀서를 선택한다.
             </p>
-            <ol aria-label="PPP 진행 흐름" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: isMobile ? 6 : 14, maxWidth: 720, margin: 0, padding: 0, listStyle: "none" }}>
+            <ol className="lore-ppp-flow" aria-label="PPP 진행 흐름">
               {["8", "6", "3", "선택"].map((stage, index) => (
-                <li key={stage} style={{ position: "relative", padding: isMobile ? "18px 4px" : "24px 12px", textAlign: "center", borderTop: `1px solid ${index === 3 ? C.gold : C.border10}` }}>
-                  <span style={{ display: "block", minHeight: isMobile ? 32 : 48, color: index === 3 ? C.gold : C.white, fontFamily: index === 3 ? "var(--f-display-kr)" : "var(--f-display-en)", fontSize: index === 3 ? (isMobile ? 21 : 30) : (isMobile ? 32 : 48), fontWeight: index === 3 ? 600 : 400, lineHeight: 1 }}>
-                    {stage}
-                  </span>
-                  <span style={{ display: "block", marginTop: 9, color: C.text35, fontFamily: "var(--f-body)", fontSize: 10 }}>
-                    {index === 0 ? "시작" : index === 3 ? "최종 선택" : "생존"}
-                  </span>
-                  {index < 3 && <span aria-hidden="true" style={{ position: "absolute", top: "31%", right: isMobile ? -6 : -12, color: C.goldMuted }}>→</span>}
+                <li key={stage} className={index === 3 ? "is-final" : undefined}>
+                  <span>{stage}</span>
+                  <small>{index === 0 ? "시작" : index === 3 ? "최종 선택" : "생존"}</small>
                 </li>
               ))}
             </ol>
           </RevealRecord>
 
-          <RevealRecord id="archive-people" eyebrow="Record 05" title="주요 인물의 현재 위치를 살펴본다." isMobile={isMobile}>
-            <div role="tablist" aria-label="주요 인물을 읽는 다섯 주제" aria-orientation="vertical" style={{ display: "grid", gap: 6, marginBottom: 34 }}>
-              {themes.map((theme, index) => {
-                const selected = theme.id === selectedTheme;
-                return (
-                  <button
-                    key={theme.id}
-                    id={`lore-tab-${theme.id}`}
-                    type="button"
-                    role="tab"
-                    aria-selected={selected}
-                    aria-controls="lore-theme-panel"
-                    tabIndex={selected ? 0 : -1}
-                    onClick={() => setSelectedTheme(theme.id)}
-                    onKeyDown={(event) => handleThemeKeyDown(event, index)}
-                    style={{
-                      padding: isMobile ? "12px 14px" : "13px 18px",
-                      color: selected ? C.gold : C.text55,
-                      background: selected ? C.goldDim : C.bgCard,
-                      border: `1px solid ${selected ? C.gold : C.border10}`,
-                      fontFamily: "var(--f-body)",
-                      fontSize: isMobile ? 11 : 12,
-                      lineHeight: 1.5,
-                      textAlign: "left",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {String(index + 1).padStart(2, "0")} · {theme.question}
-                  </button>
-                );
-              })}
-            </div>
-            <div id="lore-theme-panel" role="tabpanel" aria-labelledby={`lore-tab-${activeTheme.id}`} tabIndex={0}>
-              <h4 style={{ maxWidth: 680, margin: "0 0 14px", color: C.white, fontFamily: "var(--f-display-kr)", fontSize: isMobile ? 21 : 28, fontWeight: 500, lineHeight: 1.55, wordBreak: "keep-all" }}>
-                {activeTheme.question}
-              </h4>
-              <p style={{ maxWidth: 680, margin: "0 0 28px", color: C.text45, fontFamily: "var(--f-body)", fontSize: 13, lineHeight: 1.9, wordBreak: "keep-all" }}>
-                {activeTheme.answer}
-              </p>
-              <div>
-                {activeTheme.characterIds.map((id) => (
-                  <CharacterRecord key={id} character={getCharacter(id)} isMobile={isMobile} />
-                ))}
+          <RevealRecord id="archive-people" number="05" eyebrow="Record 05" title="주요 인물의 현재 위치를 살펴본다." variant="people">
+            <div className="lore-people-layout">
+              <div
+                className="lore-theme-tabs"
+                role="tablist"
+                aria-label="주요 인물을 읽는 다섯 주제"
+                aria-orientation="vertical"
+              >
+                {themes.map((theme, index) => {
+                  const selected = theme.id === selectedTheme;
+                  return (
+                    <button
+                      key={theme.id}
+                      id={`lore-tab-${theme.id}`}
+                      type="button"
+                      role="tab"
+                      aria-selected={selected}
+                      aria-controls="lore-theme-panel"
+                      tabIndex={selected ? 0 : -1}
+                      onClick={() => setSelectedTheme(theme.id)}
+                      onKeyDown={(event) => handleThemeKeyDown(event, index)}
+                    >
+                      <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                      <strong>{theme.question}</strong>
+                    </button>
+                  );
+                })}
+              </div>
+              <div
+                id="lore-theme-panel"
+                className="lore-theme-panel"
+                role="tabpanel"
+                aria-labelledby={`lore-tab-${activeTheme.id}`}
+                tabIndex={0}
+              >
+                <header>
+                  <span>Character Record</span>
+                  <h4>{activeTheme.question}</h4>
+                  <p>{activeTheme.answer}</p>
+                </header>
+                <div className="lore-character-list">
+                  {activeTheme.characterIds.map((id) => (
+                    <CharacterRecord key={id} character={getCharacter(id)} />
+                  ))}
+                </div>
               </div>
             </div>
           </RevealRecord>
 
-          <RevealRecord id="archive-bonds" eyebrow="Record 06" title="네 쌍의 주요 관계를 기록한다." isMobile={isMobile}>
-            <div>
+          <RevealRecord id="archive-bonds" number="06" eyebrow="Record 06" title="네 쌍의 주요 관계를 기록한다." variant="bonds">
+            <div className="lore-relationships">
               {relationships.map((relationship, index) => {
-                const pair = relationship.ids.map(getCharacter);
+                const pair = relationship.ids.map(getCharacter).filter(Boolean);
+                if (pair.length < 2) return null;
+
                 return (
-                  <div key={relationship.ids.join("-")} style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "180px 1fr", gap: isMobile ? 10 : 32, padding: isMobile ? "24px 0" : "30px 0", borderTop: `1px solid ${C.border10}` }}>
-                    <span style={{ color: C.gold, fontFamily: "var(--f-display-en)", fontSize: 11, letterSpacing: "0.18em" }}>
-                      RELATION {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <h4 style={{ margin: "0 0 10px", color: C.white, fontFamily: "var(--f-display-kr)", fontSize: isMobile ? 19 : 23, fontWeight: 500 }}>
-                        <Link to={pair[0].detailPath} style={{ color: C.white, textDecorationColor: C.goldMuted }}>{pair[0].name}</Link>
-                        <span aria-hidden="true" style={{ padding: "0 8px", color: C.goldMuted }}>×</span>
-                        <Link to={pair[1].detailPath} style={{ color: C.white, textDecorationColor: C.goldMuted }}>{pair[1].name}</Link>
+                  <div key={relationship.ids.join("-")} className="lore-relationship">
+                    <div className="lore-relationship__portraits">
+                      {pair.map((character) => (
+                        <Link
+                          key={character.id}
+                          to={character.detailPath}
+                          aria-label={`${character.name} 상세 기록 보기`}
+                        >
+                          <img src={character.thumbnail || character.image} alt="" loading="lazy" />
+                        </Link>
+                      ))}
+                      <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                    </div>
+                    <div className="lore-relationship__copy">
+                      <span>Relation {String(index + 1).padStart(2, "0")}</span>
+                      <h4>
+                        <Link to={pair[0].detailPath}>{pair[0].name}</Link>
+                        <span aria-hidden="true">×</span>
+                        <Link to={pair[1].detailPath}>{pair[1].name}</Link>
                       </h4>
-                      <strong style={{ display: "block", marginBottom: 8, color: C.text70, fontFamily: "var(--f-body)", fontSize: 13, fontWeight: 500 }}>{relationship.title}</strong>
-                      <p style={{ margin: 0, color: C.text45, fontFamily: "var(--f-body)", fontSize: 13, lineHeight: 1.8, wordBreak: "keep-all" }}>{relationship.copy}</p>
+                      <strong>{relationship.title}</strong>
+                      <p>{relationship.copy}</p>
                     </div>
                   </div>
                 );
@@ -376,10 +433,11 @@ export default function LoreSection() {
             </div>
           </RevealRecord>
 
-          <RevealRecord id="archive-clue" eyebrow="Record 07" title="공개 기록은 여기까지다." isMobile={isMobile}>
-            <p style={{ maxWidth: 720, margin: 0, color: C.text90, fontFamily: "var(--f-display-kr)", fontSize: isMobile ? "clamp(22px, 7vw, 30px)" : "clamp(30px, 4vw, 46px)", lineHeight: 1.7, wordBreak: "keep-all" }}>
-              인물과 관계의 자세한 기록은 각 캐릭터 페이지에서 이어진다.
-            </p>
+          <RevealRecord id="archive-clue" number="07" eyebrow="Record 07" title="공개 기록은 여기까지다." variant="clue">
+            <div className="lore-closing">
+              <span aria-hidden="true">07 / 07</span>
+              <p>인물과 관계의 자세한 기록은 각 캐릭터 페이지에서 이어진다.</p>
+            </div>
           </RevealRecord>
         </div>
       </div>
